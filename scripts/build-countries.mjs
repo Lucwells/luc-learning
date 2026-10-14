@@ -1,5 +1,5 @@
 // Generates data/geography/countries.json. Run: node scripts/build-countries.mjs
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 
 // Name|Capital|Continent|name alts,..|capital alts,..
 const RAW = `
@@ -211,9 +211,27 @@ const items = RAW.map((line) => {
   return it;
 });
 
+// Merge facts from scripts/country-facts.txt (area, population, founding, flag, identifying clues).
+const plain = (x) => x.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase();
+const facts = new Map();
+for (const line of (await readFile('scripts/country-facts.txt', 'utf8')).split(/\r?\n/)) {
+  if (!line.trim() || line.startsWith('#')) continue;
+  const [name, iso, area, pop, founded, clues] = line.split('|');
+  facts.set(plain(name), { iso, area: Number(area), population: Number(pop) * 1e6, founded, clues: clues.split('~').map((c) => c.trim()) });
+}
+for (const it of items) {
+  const f = facts.get(plain(it.name));
+  if (!f) { console.warn('no facts for', it.name); continue; }
+  facts.delete(plain(it.name));
+  Object.assign(it, { iso: f.iso, flag: `flags/${f.iso}.svg`, area: f.area, population: f.population, founded: f.founded, clues: f.clues, clueText: f.clues.join(' · ') });
+  const leak = [it.name, ...(it.alts?.name ?? [])].find((n) => n.length > 4 && plain(f.clues.join(' ')).includes(plain(n)));
+  if (leak) console.warn('clue mentions its own name:', it.name);
+}
+for (const left of facts.keys()) console.warn('facts without a country:', left);
+
 const deck = {
   title: 'Countries of the World',
-  description: `${items.length} countries: 193 UN member states plus Vatican City and Palestine. Capitals and continents.`,
+  description: `${items.length} countries: 193 UN member states plus Vatican City and Palestine. Capitals, flags, area, population, founding and identifying clues.`,
   category: ['Geography', 'Countries'],
   idField: 'name',
   view: 'world-map',
@@ -221,6 +239,9 @@ const deck = {
   modes: [
     { id: 'country-capital', label: 'Country → Capital', question: 'What is the capital of {name}?', answer: 'capital' },
     { id: 'capital-country', label: 'Capital → Country', question: '{capital} is the capital of which country?', answer: 'name' },
+    { id: 'flag-country', label: 'Flag → Country', question: 'Which country does this flag belong to?', qImage: 'flag', answer: 'name' },
+    { id: 'country-flag', label: 'Country → Flag', question: 'Which of these is the flag of {name}?', answer: 'flag', aImage: true, mcOnly: true },
+    { id: 'clues-country', label: 'Clues → Country', question: 'Which country matches these clues? {clueText}', answer: 'name' },
     { id: 'country-continent', label: 'Country → Continent', question: 'Which continent is {name} in?', answer: 'continent', mcOnly: true },
   ],
   items,

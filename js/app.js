@@ -98,6 +98,11 @@ function choices(card) {
 
 /* ---------- quiz engine ---------- */
 
+// Cards can show an image in the question (mode.qImage) or use images as the answer choices (mode.aImage).
+const qImg = (c) => (c.mode.qImage ? `<img class="flag" src="${esc(c.item[c.mode.qImage])}" alt="">` : '');
+const ansHtml = (c) => (c.mode.aImage ? `<img class="flag sm" src="${esc(c.a)}" alt="">` : `<b>${esc(c.a)}</b>`);
+const optHtml = (c, o) => (c.mode.aImage ? `<img class="flag" src="${esc(o)}" alt="">` : esc(o));
+
 let stopKeys = () => {};
 
 function runQuiz({ cards, format, onExit }) {
@@ -115,8 +120,8 @@ function runQuiz({ cards, format, onExit }) {
 
     $app.innerHTML = `<div class="quiz">
       <div class="meta">${i + 1} / ${cards.length} · ${esc(c.deck.title)} · ${esc(c.mode.label)}</div>
-      <h2 class="q">${esc(c.q)}</h2>
-      ${opts ? `<div class="opts">${opts.map((o, k) => `<button class="opt" data-v="${esc(o)}"><kbd>${k + 1}</kbd>${esc(o)}</button>`).join('')}</div>` : ''}
+      ${qImg(c)}<h2 class="q">${esc(c.q)}</h2>
+      ${opts ? `<div class="opts">${opts.map((o, k) => `<button class="opt" data-v="${esc(o)}"><kbd>${k + 1}</kbd>${optHtml(c, o)}</button>`).join('')}</div>` : ''}
       ${typed ? `<form id="f"><input id="in" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Type your answer" autofocus><button class="primary">Check</button><button type="button" id="skip">Skip</button></form>` : ''}
       ${self ? '<button class="primary" id="reveal">Show answer</button>' : ''}
       <div id="fb"></div>
@@ -137,7 +142,7 @@ function runQuiz({ cards, format, onExit }) {
       });
       $app.querySelector('#in')?.setAttribute('disabled', '');
       fb.innerHTML = `<p class="${ok ? 'good' : 'bad'}">${ok ? 'Correct!' : 'Not quite.'}</p>
-        ${ok ? '' : `<p>Answer: <b>${esc(c.a)}</b></p>`}
+        ${ok ? '' : `<p>Answer: ${ansHtml(c)}</p>`}
         <button class="primary" id="next">${i + 1 === cards.length ? 'Finish' : 'Next'}</button>`;
       const next = fb.querySelector('#next');
       next.onclick = advance;
@@ -159,7 +164,7 @@ function runQuiz({ cards, format, onExit }) {
     if (self) {
       $app.querySelector('#reveal').onclick = (e) => {
         e.target.remove();
-        fb.innerHTML = `<p>Answer: <b>${esc(c.a)}</b></p>
+        fb.innerHTML = `<p>Answer: ${ansHtml(c)}</p>
           <div class="row"><button class="primary" id="knew">I knew it</button><button id="missed">Missed it</button></div>`;
         const grade = (ok) => { if (ok) score++; else missed.push(c); advance(); };
         fb.querySelector('#knew').onclick = () => grade(true);
@@ -182,7 +187,7 @@ function runQuiz({ cards, format, onExit }) {
     $app.innerHTML = `<div class="quiz">
       <h2>${score} / ${cards.length} <span class="muted">(${pct}%)</span></h2>
       ${missed.length
-        ? `<h3>Review</h3><ul class="review">${missed.map((c) => `<li>${esc(c.q)} <b>${esc(c.a)}</b></li>`).join('')}</ul>`
+        ? `<h3>Review</h3><ul class="review">${missed.map((c) => `<li>${esc(c.q)} ${ansHtml(c)}</li>`).join('')}</ul>`
         : '<p class="good">Perfect run.</p>'}
       <div class="row">
         ${missed.length ? '<button class="primary" id="retry">Retry missed</button>' : ''}
@@ -209,13 +214,13 @@ function runFlashcards({ cards, onExit }) {
     const c = queue[0];
     $app.innerHTML = `<div class="quiz">
       <div class="meta">${done} / ${total} learned · ${esc(c.deck.title)} · ${esc(c.mode.label)}</div>
-      <h2 class="q">${esc(c.q)}</h2>
+      ${qImg(c)}<h2 class="q">${esc(c.q)}</h2>
       <button class="primary" id="reveal">Show answer</button>
       <div id="fb"></div></div>`;
     $app.querySelector('#reveal').onclick = (e) => {
       e.target.remove();
       const fb = $app.querySelector('#fb');
-      fb.innerHTML = `<p>Answer: <b>${esc(c.a)}</b></p>
+      fb.innerHTML = `<p>Answer: ${ansHtml(c)}</p>
         <div class="row"><button class="primary" id="got">Got it</button><button id="again">Again</button></div>`;
       fb.querySelector('#got').onclick = () => { queue.shift(); done++; show(); };
       fb.querySelector('#again').onclick = () => { queue.push(queue.shift()); show(); };
@@ -724,7 +729,7 @@ async function viewWorldMap(d, parts) {
   const shapes = Object.entries(m.shapes).map(([n, p]) => `<path ${attrs(n)} d="${p}"/>`).join('');
   const markers = Object.entries(m.points).map(([n, p]) => {
     const [x, y] = region === 'Oceania' && m.wrap[n] ? m.wrap[n] : p;
-    return `<circle ${attrs(n, ' mk')} cx="${x}" cy="${y}" r="3"/>`;
+    return `<circle ${attrs(n, ' mk')} cx="${x}" cy="${y}" r="3"/><circle ${attrs(n, ' hit')} cx="${x}" cy="${y}" r="8"/>`;
   }).join('');
   const vb0 = m.regions[region];
 
@@ -737,6 +742,12 @@ async function viewWorldMap(d, parts) {
         <button class="primary" id="mq">Find them on the map</button></div>
     </div>
     <div class="tabs">${MAP_REGIONS.map((r) => `<button class="tab${r === region ? ' on' : ''}" data-r="${esc(r)}">${esc(r)}</button>`).join('')}</div>
+    <div class="row finder" id="finder">
+      <input id="find" list="countrylist" placeholder="Jump to a country…" autocomplete="off">
+      <datalist id="countrylist">${items.map((it) => `<option value="${esc(it.name)}">`).join('')}</datalist>
+      <span class="muted">Tiny countries:</span>
+      ${items.filter((it) => it.name in m.points).map((it) => `<button class="chip" data-n="${esc(it.name)}">${esc(it.name)}</button>`).join('')}
+    </div>
     <div class="mapwrap">
       <svg id="wmap" viewBox="${vb0.join(' ')}" role="img" aria-label="World map">
         <rect class="sea" x="-300" y="-200" width="1700" height="900"/>${(m.background ?? []).map((p) => `<path class="bg" d="${p}"/>`).join('')}${shapes}${markers}</svg>
@@ -754,8 +765,10 @@ async function viewWorldMap(d, parts) {
 
   const setView = () => {
     svg.setAttribute('viewBox', vb.map((v) => Math.round(v * 10) / 10).join(' '));
-    const r = 3 * vb[2] / 1000 * (region === 'Global' ? 1 : 1.6);
-    svg.querySelectorAll('.mk').forEach((c) => c.setAttribute('r', r));
+    const box = svg.getBoundingClientRect();
+    const px = Math.max(vb[2] / (box.width || 1000), vb[3] / (box.height || 520)); // user units per screen pixel
+    svg.querySelectorAll('.mk').forEach((c) => c.setAttribute('r', 3.5 * px));
+    svg.querySelectorAll('.hit').forEach((c) => c.setAttribute('r', 8 * px));
   };
   setView();
 
@@ -764,8 +777,19 @@ async function viewWorldMap(d, parts) {
     const it = byName.get(n);
     svg.querySelectorAll('.sel').forEach((e) => e.classList.remove('sel'));
     byN(n).forEach((e) => e.classList.add('sel'));
-    info.innerHTML = `<h2>${esc(it.name)}</h2>
-      <dl class="facts"><dt>Capital</dt><dd>${esc(it.capital)}</dd><dt>Continent</dt><dd>${esc(it.continent)}</dd></dl>`;
+    const num = (v) => v.toLocaleString('en', { maximumFractionDigits: 0 });
+    const pop = it.population >= 1e6 ? `${+(it.population / 1e6).toPrecision(3)} million` : num(it.population);
+    info.innerHTML = `<div class="country">
+      <img class="flag lg" src="${esc(it.flag)}" alt="Flag of ${esc(it.name)}">
+      <div><h2>${esc(it.name)}</h2>
+        <dl class="facts">
+          <dt>Capital</dt><dd>${esc(it.capital)}</dd>
+          <dt>Continent</dt><dd>${esc(it.continent)}</dd>
+          <dt>Area</dt><dd>${num(it.area)} km² <span class="muted">(${num(it.area * 0.386102)} sq mi)</span></dd>
+          <dt>Population</dt><dd>${pop} <span class="muted">(approx.)</span></dd>
+          <dt>Founded</dt><dd>${esc(it.founded)}</dd>
+        </dl></div></div>
+      <h3>How to recognise it</h3><ul class="clues">${it.clues.map((c) => `<li>${esc(c)}</li>`).join('')}</ul>`;
   };
   info.innerHTML = '<span class="muted">Select a country on the map.</span>';
 
@@ -786,6 +810,28 @@ async function viewWorldMap(d, parts) {
   $app.querySelector('#zi').onclick = () => zoomBy(1 / 1.4);
   $app.querySelector('#zo').onclick = () => zoomBy(1.4);
   $app.querySelector('#zr').onclick = () => { vb = [...vb0]; setView(); };
+  svg.addEventListener('dblclick', (e) => {
+    const r = svg.getBoundingClientRect();
+    zoomBy(0.5, (e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height);
+  });
+
+  const focusCountry = (n) => {
+    if (quiz || !byName.has(n)) return;
+    const p = n in m.points ? (region === 'Oceania' && m.wrap[n] ? m.wrap[n] : m.points[n]) : m.centroids[n];
+    const w = Math.min(vb0[2], n in m.points ? 50 : 170);
+    const h = w * vb0[3] / vb0[2];
+    vb = [p[0] - w / 2, p[1] - h / 2, w, h];
+    setView();
+    showInfo(n);
+    flash(n, 'pulse', 1300);
+  };
+  const find = $app.querySelector('#find');
+  find.onchange = () => {
+    const v = norm(find.value);
+    const it = items.find((x) => norm(x.name) === v || (x.alts?.name ?? []).some((a) => norm(a) === v));
+    if (it) { focusCountry(it.name); find.value = ''; }
+  };
+  $app.querySelectorAll('.chip').forEach((b) => { b.onclick = () => focusCountry(b.dataset.n); });
 
   let drag = null;
   let moved = false;
@@ -873,12 +919,14 @@ async function viewWorldMap(d, parts) {
       ${missed.length ? `<h3>Review</h3><ul class="review">${missed.map((n) => `<li>${esc(n)} <span class="muted">· ${esc(byName.get(n).capital)}</span></li>`).join('')}</ul>` : '<p class="good">Perfect.</p>'}
       <div class="row"><button class="primary" id="again">Try again</button><button id="done">Back to the map</button></div>`;
     quiz = null;
+    $app.querySelector('#finder').hidden = false;
     info.querySelector('#again').onclick = () => { pendingFind = items.length ? Math.min(20, items.length) : 0; home(); };
     info.querySelector('#done').onclick = home;
   };
   const start = (n) => {
     const count = Math.min(items.length, Math.max(1, n || 20));
     quiz = { queue: shuffle(items.map((it) => it.name)).slice(0, count), i: 0, score: 0, missed: [] };
+    $app.querySelector('#finder').hidden = true;
     vb = [...vb0];
     setView();
     ask();

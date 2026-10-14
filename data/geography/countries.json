@@ -1,6 +1,6 @@
 {
   "title": "Countries of the World",
-  "description": "195 countries: 193 UN member states plus Vatican City and Palestine. Capitals and continents.",
+  "description": "195 countries: 193 UN member states plus Vatican City and Palestine. Capitals, flags, area, population, founding and identifying clues.",
   "category": [
     "Geography",
     "Countries"
@@ -22,6 +22,27 @@
       "answer": "name"
     },
     {
+      "id": "flag-country",
+      "label": "Flag → Country",
+      "question": "Which country does this flag belong to?",
+      "qImage": "flag",
+      "answer": "name"
+    },
+    {
+      "id": "country-flag",
+      "label": "Country → Flag",
+      "question": "Which of these is the flag of {name}?",
+      "answer": "flag",
+      "aImage": true,
+      "mcOnly": true
+    },
+    {
+      "id": "clues-country",
+      "label": "Clues → Country",
+      "question": "Which country matches these clues? {clueText}",
+      "answer": "name"
+    },
+    {
       "id": "country-continent",
       "label": "Country → Continent",
       "question": "Which continent is {name} in?",
@@ -33,27 +54,82 @@
     {
       "name": "Afghanistan",
       "capital": "Kabul",
-      "continent": "Asia"
+      "continent": "Asia",
+      "iso": "af",
+      "flag": "flags/af.svg",
+      "area": 652230,
+      "population": 42200000,
+      "founded": "1919 (independence from British influence)",
+      "clues": [
+        "Landlocked; the Hindu Kush range and the Khyber Pass lie on its border with Pakistan",
+        "Giant Buddha statues once stood in the cliffs of Bamiyan",
+        "Currency is the afghani; drives on the right"
+      ],
+      "clueText": "Landlocked; the Hindu Kush range and the Khyber Pass lie on its border with Pakistan · Giant Buddha statues once stood in the cliffs of Bamiyan · Currency is the afghani; drives on the right"
     },
     {
       "name": "Albania",
       "capital": "Tirana",
-      "continent": "Europe"
+      "continent": "Europe",
+      "iso": "al",
+      "flag": "flags/al.svg",
+      "area": 28748,
+      "population": 2800000,
+      "founded": "1912 (independence from the Ottoman Empire)",
+      "clues": [
+        "Red flag with a black double-headed eagle",
+        "Tens of thousands of small concrete bunkers dot the landscape from its communist era",
+        "Capital is Tirana, whose buildings were repainted in bright colours"
+      ],
+      "clueText": "Red flag with a black double-headed eagle · Tens of thousands of small concrete bunkers dot the landscape from its communist era · Capital is Tirana, whose buildings were repainted in bright colours"
     },
     {
       "name": "Algeria",
       "capital": "Algiers",
-      "continent": "Africa"
+      "continent": "Africa",
+      "iso": "dz",
+      "flag": "flags/dz.svg",
+      "area": 2381741,
+      "population": 46200000,
+      "founded": "1962 (independence from France)",
+      "clues": [
+        "Largest country in Africa by area; most of it is Sahara desert",
+        "Capital has a hillside old town called the Casbah",
+        "Flag is green and white with a red crescent and star"
+      ],
+      "clueText": "Largest country in Africa by area; most of it is Sahara desert · Capital has a hillside old town called the Casbah · Flag is green and white with a red crescent and star"
     },
     {
       "name": "Andorra",
       "capital": "Andorra la Vella",
-      "continent": "Europe"
+      "continent": "Europe",
+      "iso": "ad",
+      "flag": "flags/ad.svg",
+      "area": 468,
+      "population": 80000,
+      "founded": "1278 (co-principality treaty)",
+      "clues": [
+        "Tiny Pyrenees state between France and Spain",
+        "Ruled by two co-princes, one of whom is the president of France",
+        "Catalan is the only official language; it has no airport"
+      ],
+      "clueText": "Tiny Pyrenees state between France and Spain · Ruled by two co-princes, one of whom is the president of France · Catalan is the only official language; it has no airport"
     },
     {
       "name": "Angola",
       "capital": "Luanda",
-      "continent": "Africa"
+      "continent": "Africa",
+      "iso": "ao",
+      "flag": "flags/ao.svg",
+      "area": 1246700,
+      "population": 36700000,
+      "founded": "1975 (independence from Portugal)",
+      "clues": [
+        "Portuguese-speaking country on Africa's southwest coast",
+        "Has a detached province, Cabinda, north of the Congo River mouth",
+        "Flag is red and black with a machete and half a cogwheel"
+      ],
+      "clueText": "Portuguese-speaking country on Africa's southwest coast · Has a detached province, Cabinda, north of the Congo River mouth · Flag is red and black with a machete and half a cogwheel"
     },
     {
       "name": "Antigua and Barbuda",
@@ -67,22 +143,66 @@
           "St John's",
           "St. John's"
         ]
-      }
+      },
+      "iso": "ag",
+      "flag": "flags/ag.svg",
+      "area": 442,
+      "population": 100000,
+      "founded": "1981 (independence from the UK)",
+      "clues": [
+        "Two-island Caribbean nation said to have a beach for every day of the year",
+        "Flag shows a rising sun inside a V of black, blue and white",
+        "Nelson's Dockyard in English Harbour is a UNESCO site"
+      ],
+      "clueText": "Two-island Caribbean nation said to have a beach for every day of the year · Flag shows a rising sun inside a V of black, blue and white · Nelson's Dockyard in English Harbour is a UNESCO site"
     },
     {
       "name": "Argentina",
       "capital": "Buenos Aires",
-      "continent": "South America"
+      "continent": "South America",
+      "iso": "ar",
+      "flag": "flags/ar.svg",
+      "area": 2780400,
+      "population": 46200000,
+      "founded": "1816 (declaration of independence from Spain)",
+      "clues": [
+        "Tango and asado; its capital is nicknamed the Paris of South America",
+        "Home to Aconcagua, the highest peak outside Asia",
+        "Flag has a golden Sun of May on light blue and white stripes"
+      ],
+      "clueText": "Tango and asado; its capital is nicknamed the Paris of South America · Home to Aconcagua, the highest peak outside Asia · Flag has a golden Sun of May on light blue and white stripes"
     },
     {
       "name": "Armenia",
       "capital": "Yerevan",
-      "continent": "Asia"
+      "continent": "Asia",
+      "iso": "am",
+      "flag": "flags/am.svg",
+      "area": 29743,
+      "population": 3000000,
+      "founded": "1991 (independence from the USSR)",
+      "clues": [
+        "First country to adopt Christianity as its state religion, in 301 AD",
+        "Landlocked; Mount Ararat is visible from its capital but lies across the border",
+        "Has its own alphabet, created by Mesrop Mashtots"
+      ],
+      "clueText": "First country to adopt Christianity as its state religion, in 301 AD · Landlocked; Mount Ararat is visible from its capital but lies across the border · Has its own alphabet, created by Mesrop Mashtots"
     },
     {
       "name": "Australia",
       "capital": "Canberra",
-      "continent": "Oceania"
+      "continent": "Oceania",
+      "iso": "au",
+      "flag": "flags/au.svg",
+      "area": 7692024,
+      "population": 26600000,
+      "founded": "1901 (federation of the colonies)",
+      "clues": [
+        "Sixth-largest country by area, covering a whole continent",
+        "Drives on the left; kangaroos, koalas and the Outback",
+        "Capital is Canberra, chosen as a compromise between Sydney and Melbourne"
+      ],
+      "clueText": "Sixth-largest country by area, covering a whole continent · Drives on the left; kangaroos, koalas and the Outback · Capital is Canberra, chosen as a compromise between Sydney and Melbourne"
     },
     {
       "name": "Austria",
@@ -92,12 +212,34 @@
         "capital": [
           "Wien"
         ]
-      }
+      },
+      "iso": "at",
+      "flag": "flags/at.svg",
+      "area": 83871,
+      "population": 9100000,
+      "founded": "1955 (full sovereignty after Allied occupation)",
+      "clues": [
+        "Alpine landlocked republic; Vienna is its capital",
+        "Flag is red, white, red",
+        "Birthplace of Mozart, schnitzel and the setting of The Sound of Music"
+      ],
+      "clueText": "Alpine landlocked republic; Vienna is its capital · Flag is red, white, red · Birthplace of Mozart, schnitzel and the setting of The Sound of Music"
     },
     {
       "name": "Azerbaijan",
       "capital": "Baku",
-      "continent": "Asia"
+      "continent": "Asia",
+      "iso": "az",
+      "flag": "flags/az.svg",
+      "area": 86600,
+      "population": 10100000,
+      "founded": "1991 (independence from the USSR)",
+      "clues": [
+        "Called the Land of Fire; natural gas flames burn at Yanar Dag",
+        "Flag has a crescent and eight-pointed star on blue, red and green stripes",
+        "Borders the Caspian Sea; capital is Baku"
+      ],
+      "clueText": "Called the Land of Fire; natural gas flames burn at Yanar Dag · Flag has a crescent and eight-pointed star on blue, red and green stripes · Borders the Caspian Sea; capital is Baku"
     },
     {
       "name": "Bahamas",
@@ -107,12 +249,34 @@
         "name": [
           "The Bahamas"
         ]
-      }
+      },
+      "iso": "bs",
+      "flag": "flags/bs.svg",
+      "area": 13943,
+      "population": 400000,
+      "founded": "1973 (independence from the UK)",
+      "clues": [
+        "Archipelago of about 700 islands; swimming pigs at Exuma",
+        "Flag is aquamarine and gold with a black triangle",
+        "Drives on the left; capital is Nassau"
+      ],
+      "clueText": "Archipelago of about 700 islands; swimming pigs at Exuma · Flag is aquamarine and gold with a black triangle · Drives on the left; capital is Nassau"
     },
     {
       "name": "Bahrain",
       "capital": "Manama",
-      "continent": "Asia"
+      "continent": "Asia",
+      "iso": "bh",
+      "flag": "flags/bh.svg",
+      "area": 786,
+      "population": 1500000,
+      "founded": "1971 (independence from the UK)",
+      "clues": [
+        "Island kingdom linked to Saudi Arabia by a causeway",
+        "Hosts a Formula One Grand Prix at Sakhir",
+        "Flag is red with a white serrated edge of five triangles"
+      ],
+      "clueText": "Island kingdom linked to Saudi Arabia by a causeway · Hosts a Formula One Grand Prix at Sakhir · Flag is red with a white serrated edge of five triangles"
     },
     {
       "name": "Bangladesh",
@@ -122,17 +286,50 @@
         "capital": [
           "Dacca"
         ]
-      }
+      },
+      "iso": "bd",
+      "flag": "flags/bd.svg",
+      "area": 147570,
+      "population": 173000000,
+      "founded": "1971 (independence from Pakistan)",
+      "clues": [
+        "Low-lying delta of the Ganges and Brahmaputra, prone to floods and cyclones",
+        "Home of the Sundarbans mangrove forest and Bengal tigers",
+        "Flag is a red disc on green; colourful cycle rickshaws fill Dhaka"
+      ],
+      "clueText": "Low-lying delta of the Ganges and Brahmaputra, prone to floods and cyclones · Home of the Sundarbans mangrove forest and Bengal tigers · Flag is a red disc on green; colourful cycle rickshaws fill Dhaka"
     },
     {
       "name": "Barbados",
       "capital": "Bridgetown",
-      "continent": "North America"
+      "continent": "North America",
+      "iso": "bb",
+      "flag": "flags/bb.svg",
+      "area": 430,
+      "population": 280000,
+      "founded": "1966 (independence from the UK)",
+      "clues": [
+        "Easternmost Caribbean island; birthplace of Rihanna and of rum",
+        "Flag has a black broken trident on blue and gold stripes",
+        "Drives on the left; cricket is hugely popular"
+      ],
+      "clueText": "Easternmost Caribbean island; birthplace of Rihanna and of rum · Flag has a black broken trident on blue and gold stripes · Drives on the left; cricket is hugely popular"
     },
     {
       "name": "Belarus",
       "capital": "Minsk",
-      "continent": "Europe"
+      "continent": "Europe",
+      "iso": "by",
+      "flag": "flags/by.svg",
+      "area": 207600,
+      "population": 9100000,
+      "founded": "1991 (independence from the USSR)",
+      "clues": [
+        "Flag has a red and white ornamental pattern along the hoist",
+        "Flat landlocked state with Europe's last primeval forest, shared with Poland",
+        "Capital is Minsk; uses Cyrillic; Russian and the national Slavic language are official"
+      ],
+      "clueText": "Flag has a red and white ornamental pattern along the hoist · Flat landlocked state with Europe's last primeval forest, shared with Poland · Capital is Minsk; uses Cyrillic; Russian and the national Slavic language are official"
     },
     {
       "name": "Belgium",
@@ -142,12 +339,34 @@
         "capital": [
           "Bruxelles"
         ]
-      }
+      },
+      "iso": "be",
+      "flag": "flags/be.svg",
+      "area": 30528,
+      "population": 11800000,
+      "founded": "1830 (independence from the Netherlands)",
+      "clues": [
+        "Capital hosts the EU institutions and NATO headquarters",
+        "Famous for chocolate, waffles, beer and a small peeing statue",
+        "Flag is vertical black, yellow and red; three official languages"
+      ],
+      "clueText": "Capital hosts the EU institutions and NATO headquarters · Famous for chocolate, waffles, beer and a small peeing statue · Flag is vertical black, yellow and red; three official languages"
     },
     {
       "name": "Belize",
       "capital": "Belmopan",
-      "continent": "North America"
+      "continent": "North America",
+      "iso": "bz",
+      "flag": "flags/bz.svg",
+      "area": 22966,
+      "population": 410000,
+      "founded": "1981 (independence from the UK)",
+      "clues": [
+        "Only Central American country with English as its official language",
+        "Has the Great Blue Hole and a barrier reef",
+        "Flag has a coat of arms flanked by two woodcutters"
+      ],
+      "clueText": "Only Central American country with English as its official language · Has the Great Blue Hole and a barrier reef · Flag has a coat of arms flanked by two woodcutters"
     },
     {
       "name": "Benin",
@@ -157,12 +376,34 @@
         "capital": [
           "Porto Novo"
         ]
-      }
+      },
+      "iso": "bj",
+      "flag": "flags/bj.svg",
+      "area": 114763,
+      "population": 14000000,
+      "founded": "1960 (independence from France)",
+      "clues": [
+        "Birthplace of Vodun (voodoo); Ganvie is a village built on stilts over a lake",
+        "Was the Kingdom of Dahomey, famed for its female warriors",
+        "Official capital is Porto-Novo, but the government sits in Cotonou"
+      ],
+      "clueText": "Birthplace of Vodun (voodoo); Ganvie is a village built on stilts over a lake · Was the Kingdom of Dahomey, famed for its female warriors · Official capital is Porto-Novo, but the government sits in Cotonou"
     },
     {
       "name": "Bhutan",
       "capital": "Thimphu",
-      "continent": "Asia"
+      "continent": "Asia",
+      "iso": "bt",
+      "flag": "flags/bt.svg",
+      "area": 38394,
+      "population": 790000,
+      "founded": "1907 (hereditary monarchy established)",
+      "clues": [
+        "Himalayan kingdom that measures Gross National Happiness",
+        "Flag shows a white dragon on yellow and orange",
+        "Tiger's Nest monastery clings to a cliff above Paro"
+      ],
+      "clueText": "Himalayan kingdom that measures Gross National Happiness · Flag shows a white dragon on yellow and orange · Tiger's Nest monastery clings to a cliff above Paro"
     },
     {
       "name": "Bolivia",
@@ -172,7 +413,18 @@
         "capital": [
           "La Paz"
         ]
-      }
+      },
+      "iso": "bo",
+      "flag": "flags/bo.svg",
+      "area": 1098581,
+      "population": 12400000,
+      "founded": "1825 (independence from Spain)",
+      "clues": [
+        "Landlocked; has two capitals, one of the highest seats of government in the world",
+        "Uyuni is the largest salt flat on Earth",
+        "Part of Lake Titicaca and the Andes lie within it"
+      ],
+      "clueText": "Landlocked; has two capitals, one of the highest seats of government in the world · Uyuni is the largest salt flat on Earth · Part of Lake Titicaca and the Andes lie within it"
     },
     {
       "name": "Bosnia and Herzegovina",
@@ -182,32 +434,98 @@
         "name": [
           "Bosnia"
         ]
-      }
+      },
+      "iso": "ba",
+      "flag": "flags/ba.svg",
+      "area": 51209,
+      "population": 3200000,
+      "founded": "1992 (independence from Yugoslavia)",
+      "clues": [
+        "Flag is blue with a yellow triangle and a diagonal line of white stars",
+        "Stari Most, the old bridge at Mostar, was rebuilt after the 1990s war",
+        "Has only a tiny stretch of coast, around Neum"
+      ],
+      "clueText": "Flag is blue with a yellow triangle and a diagonal line of white stars · Stari Most, the old bridge at Mostar, was rebuilt after the 1990s war · Has only a tiny stretch of coast, around Neum"
     },
     {
       "name": "Botswana",
       "capital": "Gaborone",
-      "continent": "Africa"
+      "continent": "Africa",
+      "iso": "bw",
+      "flag": "flags/bw.svg",
+      "area": 581730,
+      "population": 2600000,
+      "founded": "1966 (independence from the UK)",
+      "clues": [
+        "Okavango Delta, an inland delta that floods in the dry season",
+        "Landlocked, with much of the Kalahari desert; huge elephant population",
+        "Currency, the pula, means rain"
+      ],
+      "clueText": "Okavango Delta, an inland delta that floods in the dry season · Landlocked, with much of the Kalahari desert; huge elephant population · Currency, the pula, means rain"
     },
     {
       "name": "Brazil",
       "capital": "Brasília",
-      "continent": "South America"
+      "continent": "South America",
+      "iso": "br",
+      "flag": "flags/br.svg",
+      "area": 8515767,
+      "population": 212000000,
+      "founded": "1822 (independence from Portugal)",
+      "clues": [
+        "Largest country in South America and the only Portuguese-speaking one",
+        "Amazon rainforest, Carnival and Christ the Redeemer",
+        "Flag has a blue globe with stars and the motto Ordem e Progresso"
+      ],
+      "clueText": "Largest country in South America and the only Portuguese-speaking one · Amazon rainforest, Carnival and Christ the Redeemer · Flag has a blue globe with stars and the motto Ordem e Progresso"
     },
     {
       "name": "Brunei",
       "capital": "Bandar Seri Begawan",
-      "continent": "Asia"
+      "continent": "Asia",
+      "iso": "bn",
+      "flag": "flags/bn.svg",
+      "area": 5765,
+      "population": 450000,
+      "founded": "1984 (independence from the UK)",
+      "clues": [
+        "Small oil-rich sultanate on Borneo, split in two by Malaysia",
+        "Flag is yellow with diagonal black and white stripes and a red crest",
+        "Its sultan's palace is among the largest residences in the world"
+      ],
+      "clueText": "Small oil-rich sultanate on Borneo, split in two by Malaysia · Flag is yellow with diagonal black and white stripes and a red crest · Its sultan's palace is among the largest residences in the world"
     },
     {
       "name": "Bulgaria",
       "capital": "Sofia",
-      "continent": "Europe"
+      "continent": "Europe",
+      "iso": "bg",
+      "flag": "flags/bg.svg",
+      "area": 110994,
+      "population": 6400000,
+      "founded": "1908 (independence from the Ottoman Empire)",
+      "clues": [
+        "Nodding the head means no, shaking it means yes",
+        "Cyrillic script was developed here",
+        "Flag is white, green and red; famous for rose oil and yoghurt"
+      ],
+      "clueText": "Nodding the head means no, shaking it means yes · Cyrillic script was developed here · Flag is white, green and red; famous for rose oil and yoghurt"
     },
     {
       "name": "Burkina Faso",
       "capital": "Ouagadougou",
-      "continent": "Africa"
+      "continent": "Africa",
+      "iso": "bf",
+      "flag": "flags/bf.svg",
+      "area": 272967,
+      "population": 23500000,
+      "founded": "1960 (independence from France)",
+      "clues": [
+        "Name means land of upright people; was called Upper Volta until 1984",
+        "Landlocked in West Africa; capital is Ouagadougou",
+        "Flag is red over green with a yellow star"
+      ],
+      "clueText": "Name means land of upright people; was called Upper Volta until 1984 · Landlocked in West Africa; capital is Ouagadougou · Flag is red over green with a yellow star"
     },
     {
       "name": "Burundi",
@@ -217,7 +535,18 @@
         "capital": [
           "Bujumbura"
         ]
-      }
+      },
+      "iso": "bi",
+      "flag": "flags/bi.svg",
+      "area": 27834,
+      "population": 13200000,
+      "founded": "1962 (independence from Belgium)",
+      "clues": [
+        "Small landlocked country on the shore of Lake Tanganyika",
+        "Famous for its ceremonial royal drummers",
+        "Flag has a white saltire and three red stars in a circle"
+      ],
+      "clueText": "Small landlocked country on the shore of Lake Tanganyika · Famous for its ceremonial royal drummers · Flag has a white saltire and three red stars in a circle"
     },
     {
       "name": "Cabo Verde",
@@ -227,12 +556,34 @@
         "name": [
           "Cape Verde"
         ]
-      }
+      },
+      "iso": "cv",
+      "flag": "flags/cv.svg",
+      "area": 4033,
+      "population": 600000,
+      "founded": "1975 (independence from Portugal)",
+      "clues": [
+        "Atlantic archipelago off the coast of West Africa",
+        "Home of morna music and singer Cesaria Evora",
+        "Flag has a ring of ten yellow stars on blue"
+      ],
+      "clueText": "Atlantic archipelago off the coast of West Africa · Home of morna music and singer Cesaria Evora · Flag has a ring of ten yellow stars on blue"
     },
     {
       "name": "Cambodia",
       "capital": "Phnom Penh",
-      "continent": "Asia"
+      "continent": "Asia",
+      "iso": "kh",
+      "flag": "flags/kh.svg",
+      "area": 181035,
+      "population": 17000000,
+      "founded": "1953 (independence from France)",
+      "clues": [
+        "Its flag shows a temple, Angkor Wat",
+        "Tonle Sap lake changes flow direction with the seasons",
+        "Capital is Phnom Penh; US dollars circulate alongside the riel"
+      ],
+      "clueText": "Its flag shows a temple, Angkor Wat · Tonle Sap lake changes flow direction with the seasons · Capital is Phnom Penh; US dollars circulate alongside the riel"
     },
     {
       "name": "Cameroon",
@@ -242,17 +593,50 @@
         "capital": [
           "Yaounde"
         ]
-      }
+      },
+      "iso": "cm",
+      "flag": "flags/cm.svg",
+      "area": 475442,
+      "population": 28600000,
+      "founded": "1960 (independence from France)",
+      "clues": [
+        "Nicknamed Africa in miniature for its varied landscapes",
+        "Flag has green, red and yellow stripes with a star",
+        "Officially bilingual in French and English; its highest peak is an active volcano"
+      ],
+      "clueText": "Nicknamed Africa in miniature for its varied landscapes · Flag has green, red and yellow stripes with a star · Officially bilingual in French and English; its highest peak is an active volcano"
     },
     {
       "name": "Canada",
       "capital": "Ottawa",
-      "continent": "North America"
+      "continent": "North America",
+      "iso": "ca",
+      "flag": "flags/ca.svg",
+      "area": 9984670,
+      "population": 40100000,
+      "founded": "1867 (confederation)",
+      "clues": [
+        "Second-largest country by area; red maple leaf on its flag",
+        "Longest coastline in the world; officially bilingual",
+        "Capital is Ottawa; drives on the right"
+      ],
+      "clueText": "Second-largest country by area; red maple leaf on its flag · Longest coastline in the world; officially bilingual · Capital is Ottawa; drives on the right"
     },
     {
       "name": "Central African Republic",
       "capital": "Bangui",
-      "continent": "Africa"
+      "continent": "Africa",
+      "iso": "cf",
+      "flag": "flags/cf.svg",
+      "area": 622984,
+      "population": 5500000,
+      "founded": "1960 (independence from France)",
+      "clues": [
+        "Landlocked and has no railways",
+        "Flag has four horizontal bands, a red vertical stripe and a yellow star",
+        "Capital is Bangui on the Ubangi river"
+      ],
+      "clueText": "Landlocked and has no railways · Flag has four horizontal bands, a red vertical stripe and a yellow star · Capital is Bangui on the Ubangi river"
     },
     {
       "name": "Chad",
@@ -262,12 +646,34 @@
         "capital": [
           "Ndjamena"
         ]
-      }
+      },
+      "iso": "td",
+      "flag": "flags/td.svg",
+      "area": 1284000,
+      "population": 18300000,
+      "founded": "1960 (independence from France)",
+      "clues": [
+        "Lake Chad has shrunk dramatically; the Sahara covers the north",
+        "Flag is blue, yellow and red, almost identical to another country's",
+        "Capital is N'Djamena"
+      ],
+      "clueText": "Lake Chad has shrunk dramatically; the Sahara covers the north · Flag is blue, yellow and red, almost identical to another country's · Capital is N'Djamena"
     },
     {
       "name": "Chile",
       "capital": "Santiago",
-      "continent": "South America"
+      "continent": "South America",
+      "iso": "cl",
+      "flag": "flags/cl.svg",
+      "area": 756102,
+      "population": 19700000,
+      "founded": "1818 (independence from Spain)",
+      "clues": [
+        "Extremely long and thin, running along the Andes",
+        "Contains the Atacama, the driest non-polar desert, and governs Easter Island",
+        "Flag is white and red with a white star in a blue square"
+      ],
+      "clueText": "Extremely long and thin, running along the Andes · Contains the Atacama, the driest non-polar desert, and governs Easter Island · Flag is white and red with a white star in a blue square"
     },
     {
       "name": "China",
@@ -277,7 +683,18 @@
         "capital": [
           "Peking"
         ]
-      }
+      },
+      "iso": "cn",
+      "flag": "flags/cn.svg",
+      "area": 9596961,
+      "population": 1409000000,
+      "founded": "1949 (People's Republic proclaimed)",
+      "clues": [
+        "Great Wall and giant pandas; capital is Beijing",
+        "Flag is red with one large and four small yellow stars",
+        "Uses a single time zone across the whole country"
+      ],
+      "clueText": "Great Wall and giant pandas; capital is Beijing · Flag is red with one large and four small yellow stars · Uses a single time zone across the whole country"
     },
     {
       "name": "Colombia",
@@ -287,12 +704,34 @@
         "capital": [
           "Bogota"
         ]
-      }
+      },
+      "iso": "co",
+      "flag": "flags/co.svg",
+      "area": 1141748,
+      "population": 52100000,
+      "founded": "1810 (independence from Spain)",
+      "clues": [
+        "Only South American country with coasts on both the Pacific and the Caribbean",
+        "A leading producer of coffee and emeralds",
+        "Flag has a wide yellow band over blue and red"
+      ],
+      "clueText": "Only South American country with coasts on both the Pacific and the Caribbean · A leading producer of coffee and emeralds · Flag has a wide yellow band over blue and red"
     },
     {
       "name": "Comoros",
       "capital": "Moroni",
-      "continent": "Africa"
+      "continent": "Africa",
+      "iso": "km",
+      "flag": "flags/km.svg",
+      "area": 1861,
+      "population": 850000,
+      "founded": "1975 (independence from France)",
+      "clues": [
+        "Volcanic archipelago in the Mozambique Channel",
+        "Flag has four stripes and a green triangle with a crescent and four stars",
+        "Mount Karthala is an active volcano"
+      ],
+      "clueText": "Volcanic archipelago in the Mozambique Channel · Flag has four stripes and a green triangle with a crescent and four stars · Mount Karthala is an active volcano"
     },
     {
       "name": "Democratic Republic of the Congo",
@@ -304,7 +743,18 @@
           "DRC",
           "Congo-Kinshasa"
         ]
-      }
+      },
+      "iso": "cd",
+      "flag": "flags/cd.svg",
+      "area": 2344858,
+      "population": 102000000,
+      "founded": "1960 (independence from Belgium)",
+      "clues": [
+        "Largest country in sub-Saharan Africa; the Congo River flows through it",
+        "Rainforest home to okapi and mountain gorillas",
+        "Flag is sky blue with a diagonal red stripe and a yellow star"
+      ],
+      "clueText": "Largest country in sub-Saharan Africa; the Congo River flows through it · Rainforest home to okapi and mountain gorillas · Flag is sky blue with a diagonal red stripe and a yellow star"
     },
     {
       "name": "Republic of the Congo",
@@ -315,7 +765,18 @@
           "Congo",
           "Congo-Brazzaville"
         ]
-      }
+      },
+      "iso": "cg",
+      "flag": "flags/cg.svg",
+      "area": 342000,
+      "population": 6100000,
+      "founded": "1960 (independence from France)",
+      "clues": [
+        "Its capital faces another capital across a river, the closest pair of capitals in the world",
+        "Flag has a diagonal band of green, yellow and red",
+        "Northern forests hold many lowland gorillas"
+      ],
+      "clueText": "Its capital faces another capital across a river, the closest pair of capitals in the world · Flag has a diagonal band of green, yellow and red · Northern forests hold many lowland gorillas"
     },
     {
       "name": "Costa Rica",
@@ -325,7 +786,18 @@
         "capital": [
           "San Jose"
         ]
-      }
+      },
+      "iso": "cr",
+      "flag": "flags/cr.svg",
+      "area": 51100,
+      "population": 5200000,
+      "founded": "1821 (independence from Spain)",
+      "clues": [
+        "Abolished its army in 1948",
+        "Pura vida is the national phrase; rainforests and volcanoes",
+        "Flag has a wide red band between blue and white stripes"
+      ],
+      "clueText": "Abolished its army in 1948 · Pura vida is the national phrase; rainforests and volcanoes · Flag has a wide red band between blue and white stripes"
     },
     {
       "name": "Côte d'Ivoire",
@@ -339,12 +811,34 @@
         "capital": [
           "Abidjan"
         ]
-      }
+      },
+      "iso": "ci",
+      "flag": "flags/ci.svg",
+      "area": 322463,
+      "population": 29400000,
+      "founded": "1960 (independence from France)",
+      "clues": [
+        "Largest producer of cocoa beans in the world",
+        "Yamoussoukro has one of the largest churches ever built",
+        "Flag is orange, white and green"
+      ],
+      "clueText": "Largest producer of cocoa beans in the world · Yamoussoukro has one of the largest churches ever built · Flag is orange, white and green"
     },
     {
       "name": "Croatia",
       "capital": "Zagreb",
-      "continent": "Europe"
+      "continent": "Europe",
+      "iso": "hr",
+      "flag": "flags/hr.svg",
+      "area": 56594,
+      "population": 3900000,
+      "founded": "1991 (independence from Yugoslavia)",
+      "clues": [
+        "Long Adriatic coast with Dubrovnik's walled old town",
+        "The necktie is said to have originated here",
+        "Flag has a red and white chequered shield under a crown"
+      ],
+      "clueText": "Long Adriatic coast with Dubrovnik's walled old town · The necktie is said to have originated here · Flag has a red and white chequered shield under a crown"
     },
     {
       "name": "Cuba",
@@ -354,12 +848,34 @@
         "capital": [
           "La Habana"
         ]
-      }
+      },
+      "iso": "cu",
+      "flag": "flags/cu.svg",
+      "area": 109884,
+      "population": 11200000,
+      "founded": "1902 (independence from US occupation)",
+      "clues": [
+        "Streets full of 1950s American cars",
+        "Largest island in the Caribbean; cigars and salsa",
+        "Flag has a red triangle with a white star and blue and white stripes"
+      ],
+      "clueText": "Streets full of 1950s American cars · Largest island in the Caribbean; cigars and salsa · Flag has a red triangle with a white star and blue and white stripes"
     },
     {
       "name": "Cyprus",
       "capital": "Nicosia",
-      "continent": "Europe"
+      "continent": "Europe",
+      "iso": "cy",
+      "flag": "flags/cy.svg",
+      "area": 9251,
+      "population": 1300000,
+      "founded": "1960 (independence from the UK)",
+      "clues": [
+        "Island divided by a UN buffer zone through its capital",
+        "Legendary birthplace of Aphrodite",
+        "Flag shows a copper-coloured map of the island; drives on the left"
+      ],
+      "clueText": "Island divided by a UN buffer zone through its capital · Legendary birthplace of Aphrodite · Flag shows a copper-coloured map of the island; drives on the left"
     },
     {
       "name": "Czechia",
@@ -372,7 +888,18 @@
         "capital": [
           "Praha"
         ]
-      }
+      },
+      "iso": "cz",
+      "flag": "flags/cz.svg",
+      "area": 78871,
+      "population": 10900000,
+      "founded": "1993 (dissolution of Czechoslovakia)",
+      "clues": [
+        "Landlocked; highest beer consumption per person in the world",
+        "Capital Prague has an astronomical clock in its old town",
+        "Flag has a blue triangle at the hoist"
+      ],
+      "clueText": "Landlocked; highest beer consumption per person in the world · Capital Prague has an astronomical clock in its old town · Flag has a blue triangle at the hoist"
     },
     {
       "name": "Denmark",
@@ -382,7 +909,18 @@
         "capital": [
           "København"
         ]
-      }
+      },
+      "iso": "dk",
+      "flag": "flags/dk.svg",
+      "area": 42924,
+      "population": 5900000,
+      "founded": "10th century (unified kingdom)",
+      "clues": [
+        "Flag called Dannebrog is among the oldest continuously used",
+        "Home of Lego and the Little Mermaid statue",
+        "Realm includes Greenland and the Faroe Islands"
+      ],
+      "clueText": "Flag called Dannebrog is among the oldest continuously used · Home of Lego and the Little Mermaid statue · Realm includes Greenland and the Faroe Islands"
     },
     {
       "name": "Djibouti",
@@ -392,32 +930,98 @@
         "capital": [
           "Djibouti City"
         ]
-      }
+      },
+      "iso": "dj",
+      "flag": "flags/dj.svg",
+      "area": 23200,
+      "population": 1100000,
+      "founded": "1977 (independence from France)",
+      "clues": [
+        "Lake Assal is the lowest point in Africa",
+        "Sits on the Bab-el-Mandeb strait and hosts many foreign military bases",
+        "Flag is light blue and green with a white triangle and red star"
+      ],
+      "clueText": "Lake Assal is the lowest point in Africa · Sits on the Bab-el-Mandeb strait and hosts many foreign military bases · Flag is light blue and green with a white triangle and red star"
     },
     {
       "name": "Dominica",
       "capital": "Roseau",
-      "continent": "North America"
+      "continent": "North America",
+      "iso": "dm",
+      "flag": "flags/dm.svg",
+      "area": 751,
+      "population": 70000,
+      "founded": "1978 (independence from the UK)",
+      "clues": [
+        "Nature Island with a Boiling Lake",
+        "Its flag is one of the very few to include purple, on a parrot",
+        "Not to be confused with the larger republic on Hispaniola"
+      ],
+      "clueText": "Nature Island with a Boiling Lake · Its flag is one of the very few to include purple, on a parrot · Not to be confused with the larger republic on Hispaniola"
     },
     {
       "name": "Dominican Republic",
       "capital": "Santo Domingo",
-      "continent": "North America"
+      "continent": "North America",
+      "iso": "do",
+      "flag": "flags/do.svg",
+      "area": 48671,
+      "population": 11300000,
+      "founded": "1844 (independence from Haiti)",
+      "clues": [
+        "Shares an island with Haiti",
+        "Santo Domingo is the oldest European settlement in the Americas",
+        "Flag has a white cross and a coat of arms with an open Bible"
+      ],
+      "clueText": "Shares an island with Haiti · Santo Domingo is the oldest European settlement in the Americas · Flag has a white cross and a coat of arms with an open Bible"
     },
     {
       "name": "Ecuador",
       "capital": "Quito",
-      "continent": "South America"
+      "continent": "South America",
+      "iso": "ec",
+      "flag": "flags/ec.svg",
+      "area": 283561,
+      "population": 18100000,
+      "founded": "1822 (independence from Spain)",
+      "clues": [
+        "Named after the equator that crosses it",
+        "Galapagos Islands belong to it; uses the US dollar",
+        "Flag shows a condor above a mountain on its coat of arms"
+      ],
+      "clueText": "Named after the equator that crosses it · Galapagos Islands belong to it; uses the US dollar · Flag shows a condor above a mountain on its coat of arms"
     },
     {
       "name": "Egypt",
       "capital": "Cairo",
-      "continent": "Africa"
+      "continent": "Africa",
+      "iso": "eg",
+      "flag": "flags/eg.svg",
+      "area": 1002450,
+      "population": 114000000,
+      "founded": "1922 (independence from the UK)",
+      "clues": [
+        "Pyramids of Giza and the Nile",
+        "Controls the Suez Canal",
+        "Flag is red, white and black with a golden eagle"
+      ],
+      "clueText": "Pyramids of Giza and the Nile · Controls the Suez Canal · Flag is red, white and black with a golden eagle"
     },
     {
       "name": "El Salvador",
       "capital": "San Salvador",
-      "continent": "North America"
+      "continent": "North America",
+      "iso": "sv",
+      "flag": "flags/sv.svg",
+      "area": 21041,
+      "population": 6300000,
+      "founded": "1821 (independence from Spain)",
+      "clues": [
+        "Smallest country in Central America; called the Land of Volcanoes",
+        "Only Central American country with no Caribbean coast",
+        "Flag is blue, white, blue with a coat of arms"
+      ],
+      "clueText": "Smallest country in Central America; called the Land of Volcanoes · Only Central American country with no Caribbean coast · Flag is blue, white, blue with a coat of arms"
     },
     {
       "name": "Equatorial Guinea",
@@ -427,17 +1031,50 @@
         "capital": [
           "Ciudad de la Paz"
         ]
-      }
+      },
+      "iso": "gq",
+      "flag": "flags/gq.svg",
+      "area": 28051,
+      "population": 1700000,
+      "founded": "1968 (independence from Spain)",
+      "clues": [
+        "Only country in Africa where Spanish is official",
+        "Mainland part plus islands including Bioko",
+        "Flag is green, white and red with a blue triangle and a tree emblem"
+      ],
+      "clueText": "Only country in Africa where Spanish is official · Mainland part plus islands including Bioko · Flag is green, white and red with a blue triangle and a tree emblem"
     },
     {
       "name": "Eritrea",
       "capital": "Asmara",
-      "continent": "Africa"
+      "continent": "Africa",
+      "iso": "er",
+      "flag": "flags/er.svg",
+      "area": 117600,
+      "population": 3700000,
+      "founded": "1993 (independence from Ethiopia)",
+      "clues": [
+        "Capital Asmara is known for its Art Deco and modernist architecture",
+        "Long Red Sea coast and Dahlak islands",
+        "Flag has a green and a blue triangle on red with an olive wreath"
+      ],
+      "clueText": "Capital Asmara is known for its Art Deco and modernist architecture · Long Red Sea coast and Dahlak islands · Flag has a green and a blue triangle on red with an olive wreath"
     },
     {
       "name": "Estonia",
       "capital": "Tallinn",
-      "continent": "Europe"
+      "continent": "Europe",
+      "iso": "ee",
+      "flag": "flags/ee.svg",
+      "area": 45228,
+      "population": 1400000,
+      "founded": "1991 (independence from the USSR)",
+      "clues": [
+        "Pioneer of digital government with e-Residency; Skype began here",
+        "Medieval walled capital Tallinn",
+        "Flag is blue, black and white horizontal stripes"
+      ],
+      "clueText": "Pioneer of digital government with e-Residency; Skype began here · Medieval walled capital Tallinn · Flag is blue, black and white horizontal stripes"
     },
     {
       "name": "Eswatini",
@@ -450,32 +1087,98 @@
         "capital": [
           "Lobamba"
         ]
-      }
+      },
+      "iso": "sz",
+      "flag": "flags/sz.svg",
+      "area": 17364,
+      "population": 1200000,
+      "founded": "1968 (independence from the UK)",
+      "clues": [
+        "One of the last absolute monarchies in the world",
+        "Changed its name in 2018; surrounded by South Africa and Mozambique",
+        "Flag has a shield with spears over blue, yellow and red"
+      ],
+      "clueText": "One of the last absolute monarchies in the world · Changed its name in 2018; surrounded by South Africa and Mozambique · Flag has a shield with spears over blue, yellow and red"
     },
     {
       "name": "Ethiopia",
       "capital": "Addis Ababa",
-      "continent": "Africa"
+      "continent": "Africa",
+      "iso": "et",
+      "flag": "flags/et.svg",
+      "area": 1104300,
+      "population": 126000000,
+      "founded": "c. 980 BC (traditional founding of the empire)",
+      "clues": [
+        "Uses its own calendar with 13 months",
+        "Never fully colonised; birthplace of coffee",
+        "Lalibela has churches cut into rock"
+      ],
+      "clueText": "Uses its own calendar with 13 months · Never fully colonised; birthplace of coffee · Lalibela has churches cut into rock"
     },
     {
       "name": "Fiji",
       "capital": "Suva",
-      "continent": "Oceania"
+      "continent": "Oceania",
+      "iso": "fj",
+      "flag": "flags/fj.svg",
+      "area": 18274,
+      "population": 930000,
+      "founded": "1970 (independence from the UK)",
+      "clues": [
+        "Archipelago of more than 300 islands; rugby sevens champions",
+        "Flag has a Union Jack and a shield on light blue",
+        "Kava is its traditional drink; drives on the left"
+      ],
+      "clueText": "Archipelago of more than 300 islands; rugby sevens champions · Flag has a Union Jack and a shield on light blue · Kava is its traditional drink; drives on the left"
     },
     {
       "name": "Finland",
       "capital": "Helsinki",
-      "continent": "Europe"
+      "continent": "Europe",
+      "iso": "fi",
+      "flag": "flags/fi.svg",
+      "area": 338424,
+      "population": 5600000,
+      "founded": "1917 (independence from Russia)",
+      "clues": [
+        "Thousands of lakes and more saunas than cars",
+        "Nokia and Santa's Lapland",
+        "Flag is a blue cross on white"
+      ],
+      "clueText": "Thousands of lakes and more saunas than cars · Nokia and Santa's Lapland · Flag is a blue cross on white"
     },
     {
       "name": "France",
       "capital": "Paris",
-      "continent": "Europe"
+      "continent": "Europe",
+      "iso": "fr",
+      "flag": "flags/fr.svg",
+      "area": 643801,
+      "population": 68400000,
+      "founded": "843 (Treaty of Verdun, West Francia)",
+      "clues": [
+        "Iron lattice tower in its capital",
+        "Flag is vertical blue, white and red",
+        "Largest country in the European Union by area"
+      ],
+      "clueText": "Iron lattice tower in its capital · Flag is vertical blue, white and red · Largest country in the European Union by area"
     },
     {
       "name": "Gabon",
       "capital": "Libreville",
-      "continent": "Africa"
+      "continent": "Africa",
+      "iso": "ga",
+      "flag": "flags/ga.svg",
+      "area": 267668,
+      "population": 2400000,
+      "founded": "1960 (independence from France)",
+      "clues": [
+        "Equator crosses it; more than 80 percent covered in rainforest",
+        "Has 13 national parks created in 2002",
+        "Flag is green, yellow and blue horizontal stripes"
+      ],
+      "clueText": "Equator crosses it; more than 80 percent covered in rainforest · Has 13 national parks created in 2002 · Flag is green, yellow and blue horizontal stripes"
     },
     {
       "name": "Gambia",
@@ -485,27 +1188,82 @@
         "name": [
           "The Gambia"
         ]
-      }
+      },
+      "iso": "gm",
+      "flag": "flags/gm.svg",
+      "area": 11295,
+      "population": 2800000,
+      "founded": "1965 (independence from the UK)",
+      "clues": [
+        "Smallest country on mainland Africa; a narrow strip around a river",
+        "Almost entirely surrounded by Senegal",
+        "Flag has red, blue and green stripes separated by white"
+      ],
+      "clueText": "Smallest country on mainland Africa; a narrow strip around a river · Almost entirely surrounded by Senegal · Flag has red, blue and green stripes separated by white"
     },
     {
       "name": "Georgia",
       "capital": "Tbilisi",
-      "continent": "Asia"
+      "continent": "Asia",
+      "iso": "ge",
+      "flag": "flags/ge.svg",
+      "area": 69700,
+      "population": 3700000,
+      "founded": "1991 (independence from the USSR)",
+      "clues": [
+        "Often cited as the birthplace of wine, about 8,000 years ago",
+        "Flag has five red crosses on white",
+        "Caucasus mountains in the north; not the US state"
+      ],
+      "clueText": "Often cited as the birthplace of wine, about 8,000 years ago · Flag has five red crosses on white · Caucasus mountains in the north; not the US state"
     },
     {
       "name": "Germany",
       "capital": "Berlin",
-      "continent": "Europe"
+      "continent": "Europe",
+      "iso": "de",
+      "flag": "flags/de.svg",
+      "area": 357114,
+      "population": 84500000,
+      "founded": "1871 (unification of the German Empire)",
+      "clues": [
+        "Autobahn has stretches without speed limits",
+        "Berlin Wall fell in 1989",
+        "Flag is black, red and gold horizontal stripes"
+      ],
+      "clueText": "Autobahn has stretches without speed limits · Berlin Wall fell in 1989 · Flag is black, red and gold horizontal stripes"
     },
     {
       "name": "Ghana",
       "capital": "Accra",
-      "continent": "Africa"
+      "continent": "Africa",
+      "iso": "gh",
+      "flag": "flags/gh.svg",
+      "area": 238533,
+      "population": 34100000,
+      "founded": "1957 (independence from the UK)",
+      "clues": [
+        "First sub-Saharan African country to gain independence",
+        "Lake Volta is one of the largest man-made lakes",
+        "Flag has a black star in a gold-centred band"
+      ],
+      "clueText": "First sub-Saharan African country to gain independence · Lake Volta is one of the largest man-made lakes · Flag has a black star in a gold-centred band"
     },
     {
       "name": "Greece",
       "capital": "Athens",
-      "continent": "Europe"
+      "continent": "Europe",
+      "iso": "gr",
+      "flag": "flags/gr.svg",
+      "area": 131957,
+      "population": 10400000,
+      "founded": "1830 (independence from the Ottoman Empire)",
+      "clues": [
+        "Birthplace of democracy and the ancient Olympic Games",
+        "Thousands of islands and the Parthenon",
+        "Flag has nine blue and white stripes and a white cross"
+      ],
+      "clueText": "Birthplace of democracy and the ancient Olympic Games · Thousands of islands and the Parthenon · Flag has nine blue and white stripes and a white cross"
     },
     {
       "name": "Grenada",
@@ -517,7 +1275,18 @@
           "St George's",
           "St Georges"
         ]
-      }
+      },
+      "iso": "gd",
+      "flag": "flags/gd.svg",
+      "area": 344,
+      "population": 130000,
+      "founded": "1974 (independence from the UK)",
+      "clues": [
+        "Called the Isle of Spice",
+        "Nutmeg appears on its flag",
+        "Underwater sculpture park off its coast"
+      ],
+      "clueText": "Called the Isle of Spice · Nutmeg appears on its flag · Underwater sculpture park off its coast"
     },
     {
       "name": "Guatemala",
@@ -527,12 +1296,34 @@
         "capital": [
           "Ciudad de Guatemala"
         ]
-      }
+      },
+      "iso": "gt",
+      "flag": "flags/gt.svg",
+      "area": 108889,
+      "population": 17800000,
+      "founded": "1821 (independence from Spain)",
+      "clues": [
+        "Tikal, an ancient Maya city in the rainforest",
+        "Quetzal bird appears on its flag and gives its currency its name",
+        "Lake Atitlan sits in a volcanic caldera"
+      ],
+      "clueText": "Tikal, an ancient Maya city in the rainforest · Quetzal bird appears on its flag and gives its currency its name · Lake Atitlan sits in a volcanic caldera"
     },
     {
       "name": "Guinea",
       "capital": "Conakry",
-      "continent": "Africa"
+      "continent": "Africa",
+      "iso": "gn",
+      "flag": "flags/gn.svg",
+      "area": 245857,
+      "population": 14200000,
+      "founded": "1958 (independence from France)",
+      "clues": [
+        "Source of the Niger River in the Fouta Djallon highlands",
+        "One of the world's largest bauxite producers",
+        "Flag is red, yellow and green vertical stripes"
+      ],
+      "clueText": "Source of the Niger River in the Fouta Djallon highlands · One of the world's largest bauxite producers · Flag is red, yellow and green vertical stripes"
     },
     {
       "name": "Guinea-Bissau",
@@ -542,12 +1333,34 @@
         "name": [
           "Guinea Bissau"
         ]
-      }
+      },
+      "iso": "gw",
+      "flag": "flags/gw.svg",
+      "area": 36125,
+      "population": 2200000,
+      "founded": "1973 (declared independence from Portugal)",
+      "clues": [
+        "Bijagos archipelago of islands off its coast",
+        "Portuguese-speaking; cashews are the main export",
+        "Flag has a black star on a red band beside yellow and green"
+      ],
+      "clueText": "Bijagos archipelago of islands off its coast · Portuguese-speaking; cashews are the main export · Flag has a black star on a red band beside yellow and green"
     },
     {
       "name": "Guyana",
       "capital": "Georgetown",
-      "continent": "South America"
+      "continent": "South America",
+      "iso": "gy",
+      "flag": "flags/gy.svg",
+      "area": 214969,
+      "population": 820000,
+      "founded": "1966 (independence from the UK)",
+      "clues": [
+        "Only English-speaking country in South America",
+        "Kaieteur Falls is a huge single-drop waterfall",
+        "Flag is a golden arrowhead on green; drives on the left"
+      ],
+      "clueText": "Only English-speaking country in South America · Kaieteur Falls is a huge single-drop waterfall · Flag is a golden arrowhead on green; drives on the left"
     },
     {
       "name": "Haiti",
@@ -557,17 +1370,50 @@
         "capital": [
           "Port au Prince"
         ]
-      }
+      },
+      "iso": "ht",
+      "flag": "flags/ht.svg",
+      "area": 27750,
+      "population": 11700000,
+      "founded": "1804 (independence from France)",
+      "clues": [
+        "First independent Black republic and the first Latin American state to gain independence",
+        "Citadelle Laferriere is a huge mountaintop fortress",
+        "Shares an island with the Dominican Republic"
+      ],
+      "clueText": "First independent Black republic and the first Latin American state to gain independence · Citadelle Laferriere is a huge mountaintop fortress · Shares an island with the Dominican Republic"
     },
     {
       "name": "Honduras",
       "capital": "Tegucigalpa",
-      "continent": "North America"
+      "continent": "North America",
+      "iso": "hn",
+      "flag": "flags/hn.svg",
+      "area": 112492,
+      "population": 10600000,
+      "founded": "1821 (independence from Spain)",
+      "clues": [
+        "Copan holds Maya ruins",
+        "Bay Islands offer Caribbean reefs",
+        "Flag has blue, white, blue stripes with five stars"
+      ],
+      "clueText": "Copan holds Maya ruins · Bay Islands offer Caribbean reefs · Flag has blue, white, blue stripes with five stars"
     },
     {
       "name": "Hungary",
       "capital": "Budapest",
-      "continent": "Europe"
+      "continent": "Europe",
+      "iso": "hu",
+      "flag": "flags/hu.svg",
+      "area": 93028,
+      "population": 9600000,
+      "founded": "1000 (Kingdom of Hungary founded)",
+      "clues": [
+        "Capital is split by the Danube into two historic halves",
+        "Rubik's Cube was invented here",
+        "Language is Magyar, unrelated to its neighbours; flag is red, white and green"
+      ],
+      "clueText": "Capital is split by the Danube into two historic halves · Rubik's Cube was invented here · Language is Magyar, unrelated to its neighbours; flag is red, white and green"
     },
     {
       "name": "Iceland",
@@ -577,7 +1423,18 @@
         "capital": [
           "Reykjavik"
         ]
-      }
+      },
+      "iso": "is",
+      "flag": "flags/is.svg",
+      "area": 103000,
+      "population": 380000,
+      "founded": "1944 (republic declared)",
+      "clues": [
+        "Land of geysers and volcanoes; has no standing army",
+        "Capital is the northernmost capital of a sovereign state",
+        "Flag is a red cross edged white on blue"
+      ],
+      "clueText": "Land of geysers and volcanoes; has no standing army · Capital is the northernmost capital of a sovereign state · Flag is a red cross edged white on blue"
     },
     {
       "name": "India",
@@ -587,7 +1444,18 @@
         "capital": [
           "Delhi"
         ]
-      }
+      },
+      "iso": "in",
+      "flag": "flags/in.svg",
+      "area": 3287263,
+      "population": 1450000000,
+      "founded": "1947 (independence from the UK)",
+      "clues": [
+        "Taj Mahal; most populous country in the world",
+        "Flag has a navy blue wheel at the centre of its white band",
+        "Drives on the left; cricket is hugely popular"
+      ],
+      "clueText": "Taj Mahal; most populous country in the world · Flag has a navy blue wheel at the centre of its white band · Drives on the left; cricket is hugely popular"
     },
     {
       "name": "Indonesia",
@@ -597,7 +1465,18 @@
         "capital": [
           "Nusantara"
         ]
-      }
+      },
+      "iso": "id",
+      "flag": "flags/id.svg",
+      "area": 1904569,
+      "population": 278000000,
+      "founded": "1945 (declared independence from the Netherlands)",
+      "clues": [
+        "Archipelago of more than 17,000 islands",
+        "Home of the Komodo dragon",
+        "Flag is red over white; largest Muslim-majority population"
+      ],
+      "clueText": "Archipelago of more than 17,000 islands · Home of the Komodo dragon · Flag is red over white; largest Muslim-majority population"
     },
     {
       "name": "Iran",
@@ -607,22 +1486,66 @@
         "capital": [
           "Teheran"
         ]
-      }
+      },
+      "iso": "ir",
+      "flag": "flags/ir.svg",
+      "area": 1648195,
+      "population": 89200000,
+      "founded": "1979 (Islamic Republic established)",
+      "clues": [
+        "Ancient Persia; Persepolis is among its ruins",
+        "Capital is Tehran; carpets and saffron",
+        "Flag is green, white and red with an emblem and script along the borders"
+      ],
+      "clueText": "Ancient Persia; Persepolis is among its ruins · Capital is Tehran; carpets and saffron · Flag is green, white and red with an emblem and script along the borders"
     },
     {
       "name": "Iraq",
       "capital": "Baghdad",
-      "continent": "Asia"
+      "continent": "Asia",
+      "iso": "iq",
+      "flag": "flags/iq.svg",
+      "area": 438317,
+      "population": 45500000,
+      "founded": "1932 (independence from the UK)",
+      "clues": [
+        "Land between the Tigris and Euphrates, cradle of civilisation",
+        "Ancient Babylon and Ur lie within it",
+        "Flag is red, white and black with green script"
+      ],
+      "clueText": "Land between the Tigris and Euphrates, cradle of civilisation · Ancient Babylon and Ur lie within it · Flag is red, white and black with green script"
     },
     {
       "name": "Ireland",
       "capital": "Dublin",
-      "continent": "Europe"
+      "continent": "Europe",
+      "iso": "ie",
+      "flag": "flags/ie.svg",
+      "area": 70273,
+      "population": 5300000,
+      "founded": "1922 (Irish Free State)",
+      "clues": [
+        "Emerald Isle; the harp is its national symbol",
+        "Guinness stout and St Patrick's Day",
+        "Flag is green, white and orange; drives on the left"
+      ],
+      "clueText": "Emerald Isle; the harp is its national symbol · Guinness stout and St Patrick's Day · Flag is green, white and orange; drives on the left"
     },
     {
       "name": "Israel",
       "capital": "Jerusalem",
-      "continent": "Asia"
+      "continent": "Asia",
+      "iso": "il",
+      "flag": "flags/il.svg",
+      "area": 22072,
+      "population": 9800000,
+      "founded": "1948 (state declared)",
+      "clues": [
+        "Includes the shore of the Dead Sea, the lowest land point on Earth",
+        "Flag has a blue six-pointed star between blue stripes",
+        "Kibbutzim are collective farming communities"
+      ],
+      "clueText": "Includes the shore of the Dead Sea, the lowest land point on Earth · Flag has a blue six-pointed star between blue stripes · Kibbutzim are collective farming communities"
     },
     {
       "name": "Italy",
@@ -632,22 +1555,66 @@
         "capital": [
           "Roma"
         ]
-      }
+      },
+      "iso": "it",
+      "flag": "flags/it.svg",
+      "area": 301340,
+      "population": 58900000,
+      "founded": "1861 (unification)",
+      "clues": [
+        "Boot-shaped peninsula that surrounds two independent states",
+        "Colosseum, pizza and pasta",
+        "Flag is green, white and red"
+      ],
+      "clueText": "Boot-shaped peninsula that surrounds two independent states · Colosseum, pizza and pasta · Flag is green, white and red"
     },
     {
       "name": "Jamaica",
       "capital": "Kingston",
-      "continent": "North America"
+      "continent": "North America",
+      "iso": "jm",
+      "flag": "flags/jm.svg",
+      "area": 10991,
+      "population": 2800000,
+      "founded": "1962 (independence from the UK)",
+      "clues": [
+        "Birthplace of reggae and Bob Marley",
+        "Sprinter Usain Bolt comes from here",
+        "Flag is a yellow saltire dividing green and black triangles"
+      ],
+      "clueText": "Birthplace of reggae and Bob Marley · Sprinter Usain Bolt comes from here · Flag is a yellow saltire dividing green and black triangles"
     },
     {
       "name": "Japan",
       "capital": "Tokyo",
-      "continent": "Asia"
+      "continent": "Asia",
+      "iso": "jp",
+      "flag": "flags/jp.svg",
+      "area": 377975,
+      "population": 123000000,
+      "founded": "660 BC (traditional date); modern state 1868",
+      "clues": [
+        "Archipelago with Mount Fuji; land of the rising sun",
+        "Flag is a red disc on white",
+        "Drives on the left; bullet trains"
+      ],
+      "clueText": "Archipelago with Mount Fuji; land of the rising sun · Flag is a red disc on white · Drives on the left; bullet trains"
     },
     {
       "name": "Jordan",
       "capital": "Amman",
-      "continent": "Asia"
+      "continent": "Asia",
+      "iso": "jo",
+      "flag": "flags/jo.svg",
+      "area": 89342,
+      "population": 11400000,
+      "founded": "1946 (independence from the UK)",
+      "clues": [
+        "Rose-red city of Petra carved into cliffs",
+        "Lowest part of the Dead Sea shore is shared with it",
+        "Wadi Rum desert; flag has a white seven-pointed star in a red triangle"
+      ],
+      "clueText": "Rose-red city of Petra carved into cliffs · Lowest part of the Dead Sea shore is shared with it · Wadi Rum desert; flag has a white seven-pointed star in a red triangle"
     },
     {
       "name": "Kazakhstan",
@@ -658,12 +1625,34 @@
           "Nur-Sultan",
           "Nursultan"
         ]
-      }
+      },
+      "iso": "kz",
+      "flag": "flags/kz.svg",
+      "area": 2724900,
+      "population": 20000000,
+      "founded": "1991 (independence from the USSR)",
+      "clues": [
+        "Largest landlocked country in the world",
+        "Baikonur, the first and largest spaceport, is on its territory",
+        "Flag is sky blue with a golden sun and eagle"
+      ],
+      "clueText": "Largest landlocked country in the world · Baikonur, the first and largest spaceport, is on its territory · Flag is sky blue with a golden sun and eagle"
     },
     {
       "name": "Kenya",
       "capital": "Nairobi",
-      "continent": "Africa"
+      "continent": "Africa",
+      "iso": "ke",
+      "flag": "flags/ke.svg",
+      "area": 580367,
+      "population": 55100000,
+      "founded": "1963 (independence from the UK)",
+      "clues": [
+        "Great wildebeest migration in the Maasai Mara",
+        "Home of famous long-distance runners",
+        "Flag has a Maasai shield and two spears"
+      ],
+      "clueText": "Great wildebeest migration in the Maasai Mara · Home of famous long-distance runners · Flag has a Maasai shield and two spears"
     },
     {
       "name": "Kiribati",
@@ -673,57 +1662,178 @@
         "capital": [
           "South Tarawa"
         ]
-      }
+      },
+      "iso": "ki",
+      "flag": "flags/ki.svg",
+      "area": 811,
+      "population": 130000,
+      "founded": "1979 (independence from the UK)",
+      "clues": [
+        "Only country in all four hemispheres",
+        "Crosses the equator and the 180th meridian",
+        "Flag has a frigatebird flying above a rising sun"
+      ],
+      "clueText": "Only country in all four hemispheres · Crosses the equator and the 180th meridian · Flag has a frigatebird flying above a rising sun"
     },
     {
       "name": "Kuwait",
       "capital": "Kuwait City",
-      "continent": "Asia"
+      "continent": "Asia",
+      "iso": "kw",
+      "flag": "flags/kw.svg",
+      "area": 17818,
+      "population": 4900000,
+      "founded": "1961 (independence from the UK)",
+      "clues": [
+        "Its dinar is among the highest-valued currencies in the world",
+        "Its landmark Towers have blue spheres",
+        "Flag is green, white and red with a black trapezoid"
+      ],
+      "clueText": "Its dinar is among the highest-valued currencies in the world · Its landmark Towers have blue spheres · Flag is green, white and red with a black trapezoid"
     },
     {
       "name": "Kyrgyzstan",
       "capital": "Bishkek",
-      "continent": "Asia"
+      "continent": "Asia",
+      "iso": "kg",
+      "flag": "flags/kg.svg",
+      "area": 199951,
+      "population": 7200000,
+      "founded": "1991 (independence from the USSR)",
+      "clues": [
+        "Over 90 percent mountainous; Issyk-Kul is a huge alpine lake",
+        "Flag shows the roof of a nomad's yurt",
+        "Nomadic traditions like horseback games persist"
+      ],
+      "clueText": "Over 90 percent mountainous; Issyk-Kul is a huge alpine lake · Flag shows the roof of a nomad's yurt · Nomadic traditions like horseback games persist"
     },
     {
       "name": "Laos",
       "capital": "Vientiane",
-      "continent": "Asia"
+      "continent": "Asia",
+      "iso": "la",
+      "flag": "flags/la.svg",
+      "area": 236800,
+      "population": 7700000,
+      "founded": "1953 (independence from France)",
+      "clues": [
+        "Only landlocked country in Southeast Asia",
+        "Plain of Jars with ancient stone jars",
+        "Flag has a white disc between red bands over blue"
+      ],
+      "clueText": "Only landlocked country in Southeast Asia · Plain of Jars with ancient stone jars · Flag has a white disc between red bands over blue"
     },
     {
       "name": "Latvia",
       "capital": "Riga",
-      "continent": "Europe"
+      "continent": "Europe",
+      "iso": "lv",
+      "flag": "flags/lv.svg",
+      "area": 64589,
+      "population": 1900000,
+      "founded": "1991 (independence from the USSR)",
+      "clues": [
+        "Capital Riga has many Art Nouveau buildings",
+        "Flag is dark red with a thin white band",
+        "Baltic state between Estonia and Lithuania"
+      ],
+      "clueText": "Capital Riga has many Art Nouveau buildings · Flag is dark red with a thin white band · Baltic state between Estonia and Lithuania"
     },
     {
       "name": "Lebanon",
       "capital": "Beirut",
-      "continent": "Asia"
+      "continent": "Asia",
+      "iso": "lb",
+      "flag": "flags/lb.svg",
+      "area": 10452,
+      "population": 5800000,
+      "founded": "1943 (independence from France)",
+      "clues": [
+        "Cedar tree on its flag",
+        "Capital Beirut was once called the Paris of the Middle East",
+        "Roman temples at Baalbek"
+      ],
+      "clueText": "Cedar tree on its flag · Capital Beirut was once called the Paris of the Middle East · Roman temples at Baalbek"
     },
     {
       "name": "Lesotho",
       "capital": "Maseru",
-      "continent": "Africa"
+      "continent": "Africa",
+      "iso": "ls",
+      "flag": "flags/ls.svg",
+      "area": 30355,
+      "population": 2300000,
+      "founded": "1966 (independence from the UK)",
+      "clues": [
+        "Surrounded entirely by South Africa",
+        "Its lowest point is higher than in any other country",
+        "Flag shows a Basotho hat"
+      ],
+      "clueText": "Surrounded entirely by South Africa · Its lowest point is higher than in any other country · Flag shows a Basotho hat"
     },
     {
       "name": "Liberia",
       "capital": "Monrovia",
-      "continent": "Africa"
+      "continent": "Africa",
+      "iso": "lr",
+      "flag": "flags/lr.svg",
+      "area": 111369,
+      "population": 5500000,
+      "founded": "1847 (declaration of independence)",
+      "clues": [
+        "Founded by freed African Americans",
+        "Capital Monrovia is named after a US president",
+        "Flag has 11 stripes and a white star in a blue square"
+      ],
+      "clueText": "Founded by freed African Americans · Capital Monrovia is named after a US president · Flag has 11 stripes and a white star in a blue square"
     },
     {
       "name": "Libya",
       "capital": "Tripoli",
-      "continent": "Africa"
+      "continent": "Africa",
+      "iso": "ly",
+      "flag": "flags/ly.svg",
+      "area": 1759540,
+      "population": 7400000,
+      "founded": "1951 (independence from Italy and Allied administration)",
+      "clues": [
+        "Most of the country is Sahara desert",
+        "Roman ruins of Leptis Magna on the Mediterranean",
+        "Flag is red, black and green with a white crescent and star"
+      ],
+      "clueText": "Most of the country is Sahara desert · Roman ruins of Leptis Magna on the Mediterranean · Flag is red, black and green with a white crescent and star"
     },
     {
       "name": "Liechtenstein",
       "capital": "Vaduz",
-      "continent": "Europe"
+      "continent": "Europe",
+      "iso": "li",
+      "flag": "flags/li.svg",
+      "area": 160,
+      "population": 40000,
+      "founded": "1806 (Principality sovereign)",
+      "clues": [
+        "Doubly landlocked alpine principality",
+        "Uses the Swiss franc and has a hilltop castle in its capital",
+        "Flag is blue over red with a golden crown"
+      ],
+      "clueText": "Doubly landlocked alpine principality · Uses the Swiss franc and has a hilltop castle in its capital · Flag is blue over red with a golden crown"
     },
     {
       "name": "Lithuania",
       "capital": "Vilnius",
-      "continent": "Europe"
+      "continent": "Europe",
+      "iso": "lt",
+      "flag": "flags/lt.svg",
+      "area": 65300,
+      "population": 2900000,
+      "founded": "1990 (restored independence from the USSR)",
+      "clues": [
+        "Hill of Crosses is a pilgrimage site",
+        "Basketball is the national obsession",
+        "Flag is yellow, green and red"
+      ],
+      "clueText": "Hill of Crosses is a pilgrimage site · Basketball is the national obsession · Flag is yellow, green and red"
     },
     {
       "name": "Luxembourg",
@@ -733,22 +1843,66 @@
         "capital": [
           "Luxembourg City"
         ]
-      }
+      },
+      "iso": "lu",
+      "flag": "flags/lu.svg",
+      "area": 2586,
+      "population": 670000,
+      "founded": "1839 (independence recognised)",
+      "clues": [
+        "Grand duchy and one of the wealthiest countries per person",
+        "Three official languages",
+        "Flag is red, white and light blue"
+      ],
+      "clueText": "Grand duchy and one of the wealthiest countries per person · Three official languages · Flag is red, white and light blue"
     },
     {
       "name": "Madagascar",
       "capital": "Antananarivo",
-      "continent": "Africa"
+      "continent": "Africa",
+      "iso": "mg",
+      "flag": "flags/mg.svg",
+      "area": 587041,
+      "population": 31200000,
+      "founded": "1960 (independence from France)",
+      "clues": [
+        "Fourth-largest island in the world; lemurs live nowhere else",
+        "Avenue of the Baobabs",
+        "Flag has a white band with red and green bands"
+      ],
+      "clueText": "Fourth-largest island in the world; lemurs live nowhere else · Avenue of the Baobabs · Flag has a white band with red and green bands"
     },
     {
       "name": "Malawi",
       "capital": "Lilongwe",
-      "continent": "Africa"
+      "continent": "Africa",
+      "iso": "mw",
+      "flag": "flags/mw.svg",
+      "area": 118484,
+      "population": 21000000,
+      "founded": "1964 (independence from the UK)",
+      "clues": [
+        "A huge lake covers a large part of the country",
+        "Called the warm heart of Africa",
+        "Flag has a rising sun on a black band above red and green"
+      ],
+      "clueText": "A huge lake covers a large part of the country · Called the warm heart of Africa · Flag has a rising sun on a black band above red and green"
     },
     {
       "name": "Malaysia",
       "capital": "Kuala Lumpur",
-      "continent": "Asia"
+      "continent": "Asia",
+      "iso": "my",
+      "flag": "flags/my.svg",
+      "area": 330803,
+      "population": 34300000,
+      "founded": "1957 (independence of Malaya); Malaysia formed 1963",
+      "clues": [
+        "Petronas Towers in Kuala Lumpur",
+        "South China Sea splits it into two parts",
+        "Flag is red and white stripes with a crescent and star"
+      ],
+      "clueText": "Petronas Towers in Kuala Lumpur · South China Sea splits it into two parts · Flag is red and white stripes with a crescent and star"
     },
     {
       "name": "Maldives",
@@ -758,32 +1912,98 @@
         "capital": [
           "Male"
         ]
-      }
+      },
+      "iso": "mv",
+      "flag": "flags/mv.svg",
+      "area": 298,
+      "population": 520000,
+      "founded": "1965 (independence from the UK)",
+      "clues": [
+        "Lowest-lying country on Earth, made up of coral atolls",
+        "Resorts with overwater bungalows",
+        "Flag has a white crescent in a green rectangle on red"
+      ],
+      "clueText": "Lowest-lying country on Earth, made up of coral atolls · Resorts with overwater bungalows · Flag has a white crescent in a green rectangle on red"
     },
     {
       "name": "Mali",
       "capital": "Bamako",
-      "continent": "Africa"
+      "continent": "Africa",
+      "iso": "ml",
+      "flag": "flags/ml.svg",
+      "area": 1240192,
+      "population": 23300000,
+      "founded": "1960 (independence from France)",
+      "clues": [
+        "Timbuktu was a centre of trade and learning",
+        "Great Mosque of Djenne is the largest mud-brick building",
+        "Flag is green, yellow and red vertical stripes"
+      ],
+      "clueText": "Timbuktu was a centre of trade and learning · Great Mosque of Djenne is the largest mud-brick building · Flag is green, yellow and red vertical stripes"
     },
     {
       "name": "Malta",
       "capital": "Valletta",
-      "continent": "Europe"
+      "continent": "Europe",
+      "iso": "mt",
+      "flag": "flags/mt.svg",
+      "area": 316,
+      "population": 540000,
+      "founded": "1964 (independence from the UK)",
+      "clues": [
+        "Island nation once held by the Knights of St John",
+        "Capital Valletta is a UNESCO city",
+        "Flag has a George Cross in the corner"
+      ],
+      "clueText": "Island nation once held by the Knights of St John · Capital Valletta is a UNESCO city · Flag has a George Cross in the corner"
     },
     {
       "name": "Marshall Islands",
       "capital": "Majuro",
-      "continent": "Oceania"
+      "continent": "Oceania",
+      "iso": "mh",
+      "flag": "flags/mh.svg",
+      "area": 181,
+      "population": 40000,
+      "founded": "1986 (Compact of Free Association with the US)",
+      "clues": [
+        "Bikini Atoll was used for nuclear tests",
+        "Flag has diagonal orange and white rays and a star",
+        "Pacific atoll nation"
+      ],
+      "clueText": "Bikini Atoll was used for nuclear tests · Flag has diagonal orange and white rays and a star · Pacific atoll nation"
     },
     {
       "name": "Mauritania",
       "capital": "Nouakchott",
-      "continent": "Africa"
+      "continent": "Africa",
+      "iso": "mr",
+      "flag": "flags/mr.svg",
+      "area": 1030700,
+      "population": 4900000,
+      "founded": "1960 (independence from France)",
+      "clues": [
+        "Most of it is Sahara; the Eye of the Sahara is a huge circular feature",
+        "One of the longest trains in the world carries iron ore",
+        "Flag is green with a crescent and star between two red stripes"
+      ],
+      "clueText": "Most of it is Sahara; the Eye of the Sahara is a huge circular feature · One of the longest trains in the world carries iron ore · Flag is green with a crescent and star between two red stripes"
     },
     {
       "name": "Mauritius",
       "capital": "Port Louis",
-      "continent": "Africa"
+      "continent": "Africa",
+      "iso": "mu",
+      "flag": "flags/mu.svg",
+      "area": 2040,
+      "population": 1300000,
+      "founded": "1968 (independence from the UK)",
+      "clues": [
+        "Home of the extinct dodo",
+        "Le Morne Brabant mountain and underwater waterfall illusion",
+        "Flag has four stripes: red, blue, yellow and green"
+      ],
+      "clueText": "Home of the extinct dodo · Le Morne Brabant mountain and underwater waterfall illusion · Flag has four stripes: red, blue, yellow and green"
     },
     {
       "name": "Mexico",
@@ -793,7 +2013,18 @@
         "capital": [
           "Ciudad de México"
         ]
-      }
+      },
+      "iso": "mx",
+      "flag": "flags/mx.svg",
+      "area": 1964375,
+      "population": 129000000,
+      "founded": "1821 (independence from Spain)",
+      "clues": [
+        "Eagle perched on a cactus eating a snake is on its flag",
+        "Chichen Itza and Day of the Dead",
+        "Capital is one of the largest cities in the Americas"
+      ],
+      "clueText": "Eagle perched on a cactus eating a snake is on its flag · Chichen Itza and Day of the Dead · Capital is one of the largest cities in the Americas"
     },
     {
       "name": "Micronesia",
@@ -803,7 +2034,18 @@
         "name": [
           "Federated States of Micronesia"
         ]
-      }
+      },
+      "iso": "fm",
+      "flag": "flags/fm.svg",
+      "area": 702,
+      "population": 110000,
+      "founded": "1986 (Compact of Free Association with the US)",
+      "clues": [
+        "Spans more than 600 islands in the Pacific",
+        "Nan Madol is a ruined stone city on artificial islets",
+        "Flag is light blue with four white stars"
+      ],
+      "clueText": "Spans more than 600 islands in the Pacific · Nan Madol is a ruined stone city on artificial islets · Flag is light blue with four white stars"
     },
     {
       "name": "Moldova",
@@ -813,12 +2055,34 @@
         "capital": [
           "Chisinau"
         ]
-      }
+      },
+      "iso": "md",
+      "flag": "flags/md.svg",
+      "area": 33846,
+      "population": 2500000,
+      "founded": "1991 (independence from the USSR)",
+      "clues": [
+        "Huge underground wine cellars",
+        "Flag is similar to Romania's but with a coat of arms",
+        "Breakaway region of Transnistria"
+      ],
+      "clueText": "Huge underground wine cellars · Flag is similar to Romania's but with a coat of arms · Breakaway region of Transnistria"
     },
     {
       "name": "Monaco",
       "capital": "Monaco",
-      "continent": "Europe"
+      "continent": "Europe",
+      "iso": "mc",
+      "flag": "flags/mc.svg",
+      "area": 2,
+      "population": 40000,
+      "founded": "1297 (House of Grimaldi)",
+      "clues": [
+        "Second-smallest country in the world",
+        "Famous for its casino and Grand Prix",
+        "Flag is red over white"
+      ],
+      "clueText": "Second-smallest country in the world · Famous for its casino and Grand Prix · Flag is red over white"
     },
     {
       "name": "Mongolia",
@@ -828,22 +2092,66 @@
         "capital": [
           "Ulan Bator"
         ]
-      }
+      },
+      "iso": "mn",
+      "flag": "flags/mn.svg",
+      "area": 1564116,
+      "population": 3500000,
+      "founded": "1911 (independence from the Qing dynasty)",
+      "clues": [
+        "Genghis Khan; nomads living in gers",
+        "Least densely populated sovereign country",
+        "Flag has a golden soyombo symbol on red and blue"
+      ],
+      "clueText": "Genghis Khan; nomads living in gers · Least densely populated sovereign country · Flag has a golden soyombo symbol on red and blue"
     },
     {
       "name": "Montenegro",
       "capital": "Podgorica",
-      "continent": "Europe"
+      "continent": "Europe",
+      "iso": "me",
+      "flag": "flags/me.svg",
+      "area": 13812,
+      "population": 620000,
+      "founded": "2006 (independence from Serbia and Montenegro)",
+      "clues": [
+        "Name means black mountain",
+        "Bay of Kotor is one of the most beautiful fjord-like bays",
+        "Uses the euro; flag is red with a golden eagle"
+      ],
+      "clueText": "Name means black mountain · Bay of Kotor is one of the most beautiful fjord-like bays · Uses the euro; flag is red with a golden eagle"
     },
     {
       "name": "Morocco",
       "capital": "Rabat",
-      "continent": "Africa"
+      "continent": "Africa",
+      "iso": "ma",
+      "flag": "flags/ma.svg",
+      "area": 446550,
+      "population": 37800000,
+      "founded": "1956 (independence from France)",
+      "clues": [
+        "Marrakesh souks and the Sahara",
+        "Fes holds one of the oldest universities",
+        "Flag is red with a green pentagram"
+      ],
+      "clueText": "Marrakesh souks and the Sahara · Fes holds one of the oldest universities · Flag is red with a green pentagram"
     },
     {
       "name": "Mozambique",
       "capital": "Maputo",
-      "continent": "Africa"
+      "continent": "Africa",
+      "iso": "mz",
+      "flag": "flags/mz.svg",
+      "area": 801590,
+      "population": 34600000,
+      "founded": "1975 (independence from Portugal)",
+      "clues": [
+        "Flag shows an AK-47 and a book",
+        "Long Indian Ocean coastline",
+        "Portuguese is the official language"
+      ],
+      "clueText": "Flag shows an AK-47 and a book · Long Indian Ocean coastline · Portuguese is the official language"
     },
     {
       "name": "Myanmar",
@@ -858,22 +2166,66 @@
           "Yangon",
           "Rangoon"
         ]
-      }
+      },
+      "iso": "mm",
+      "flag": "flags/mm.svg",
+      "area": 676578,
+      "population": 54600000,
+      "founded": "1948 (independence from the UK)",
+      "clues": [
+        "Name was changed in 1989 from an older one; Shwedagon Pagoda is a gilded landmark",
+        "Thousands of temples at Bagan",
+        "Flag has yellow, green and red stripes with a white star"
+      ],
+      "clueText": "Name was changed in 1989 from an older one; Shwedagon Pagoda is a gilded landmark · Thousands of temples at Bagan · Flag has yellow, green and red stripes with a white star"
     },
     {
       "name": "Namibia",
       "capital": "Windhoek",
-      "continent": "Africa"
+      "continent": "Africa",
+      "iso": "na",
+      "flag": "flags/na.svg",
+      "area": 825615,
+      "population": 3000000,
+      "founded": "1990 (independence from South Africa)",
+      "clues": [
+        "Namib Desert meets the Atlantic at the Skeleton Coast",
+        "Sossusvlei has red sand dunes",
+        "Flag has a diagonal red band and a golden sun"
+      ],
+      "clueText": "Namib Desert meets the Atlantic at the Skeleton Coast · Sossusvlei has red sand dunes · Flag has a diagonal red band and a golden sun"
     },
     {
       "name": "Nauru",
       "capital": "Yaren",
-      "continent": "Oceania"
+      "continent": "Oceania",
+      "iso": "nr",
+      "flag": "flags/nr.svg",
+      "area": 21,
+      "population": 10000,
+      "founded": "1968 (independence from Australia, NZ and UK)",
+      "clues": [
+        "Smallest island nation; phosphate mining shaped its land",
+        "No official capital",
+        "Flag has a white star under a gold stripe"
+      ],
+      "clueText": "Smallest island nation; phosphate mining shaped its land · No official capital · Flag has a white star under a gold stripe"
     },
     {
       "name": "Nepal",
       "capital": "Kathmandu",
-      "continent": "Asia"
+      "continent": "Asia",
+      "iso": "np",
+      "flag": "flags/np.svg",
+      "area": 147181,
+      "population": 30900000,
+      "founded": "1768 (unification under the Shah dynasty)",
+      "clues": [
+        "Home to Mount Everest",
+        "Only national flag that is not a rectangle",
+        "Kathmandu is the capital"
+      ],
+      "clueText": "Home to Mount Everest · Only national flag that is not a rectangle · Kathmandu is the capital"
     },
     {
       "name": "Netherlands",
@@ -883,32 +2235,98 @@
         "name": [
           "Holland"
         ]
-      }
+      },
+      "iso": "nl",
+      "flag": "flags/nl.svg",
+      "area": 41543,
+      "population": 17900000,
+      "founded": "1581 (Dutch Republic declared)",
+      "clues": [
+        "Windmills, tulips and canals; much of the land is below sea level",
+        "Cycling is a way of life",
+        "Flag is red, white and blue horizontal stripes"
+      ],
+      "clueText": "Windmills, tulips and canals; much of the land is below sea level · Cycling is a way of life · Flag is red, white and blue horizontal stripes"
     },
     {
       "name": "New Zealand",
       "capital": "Wellington",
-      "continent": "Oceania"
+      "continent": "Oceania",
+      "iso": "nz",
+      "flag": "flags/nz.svg",
+      "area": 268838,
+      "population": 5200000,
+      "founded": "1907 (dominion status)",
+      "clues": [
+        "Kiwis and Maori culture; Lord of the Rings was filmed here",
+        "Flag has the Southern Cross and a Union Jack",
+        "Drives on the left; capital is Wellington"
+      ],
+      "clueText": "Kiwis and Maori culture; Lord of the Rings was filmed here · Flag has the Southern Cross and a Union Jack · Drives on the left; capital is Wellington"
     },
     {
       "name": "Nicaragua",
       "capital": "Managua",
-      "continent": "North America"
+      "continent": "North America",
+      "iso": "ni",
+      "flag": "flags/ni.svg",
+      "area": 130373,
+      "population": 7000000,
+      "founded": "1821 (independence from Spain)",
+      "clues": [
+        "Largest country in Central America",
+        "Its largest lake holds freshwater sharks",
+        "Flag has a rainbow within a triangle on its coat of arms"
+      ],
+      "clueText": "Largest country in Central America · Its largest lake holds freshwater sharks · Flag has a rainbow within a triangle on its coat of arms"
     },
     {
       "name": "Niger",
       "capital": "Niamey",
-      "continent": "Africa"
+      "continent": "Africa",
+      "iso": "ne",
+      "flag": "flags/ne.svg",
+      "area": 1267000,
+      "population": 27200000,
+      "founded": "1960 (independence from France)",
+      "clues": [
+        "Landlocked; most of it is Sahara",
+        "Capital Niamey lies on the river that gives the country its name",
+        "Flag is orange, white and green with an orange disc"
+      ],
+      "clueText": "Landlocked; most of it is Sahara · Capital Niamey lies on the river that gives the country its name · Flag is orange, white and green with an orange disc"
     },
     {
       "name": "Nigeria",
       "capital": "Abuja",
-      "continent": "Africa"
+      "continent": "Africa",
+      "iso": "ng",
+      "flag": "flags/ng.svg",
+      "area": 923768,
+      "population": 229000000,
+      "founded": "1960 (independence from the UK)",
+      "clues": [
+        "Most populous country in Africa",
+        "Nollywood is a huge film industry",
+        "Flag is green, white, green; capital is Abuja"
+      ],
+      "clueText": "Most populous country in Africa · Nollywood is a huge film industry · Flag is green, white, green; capital is Abuja"
     },
     {
       "name": "North Korea",
       "capital": "Pyongyang",
-      "continent": "Asia"
+      "continent": "Asia",
+      "iso": "kp",
+      "flag": "flags/kp.svg",
+      "area": 120538,
+      "population": 26200000,
+      "founded": "1948 (founded)",
+      "clues": [
+        "Capital is Pyongyang; closed to most visitors",
+        "Flag has a red star in a white disc on a red band",
+        "Shares the world's most heavily militarised border"
+      ],
+      "clueText": "Capital is Pyongyang; closed to most visitors · Flag has a red star in a white disc on a red band · Shares the world's most heavily militarised border"
     },
     {
       "name": "North Macedonia",
@@ -918,22 +2336,66 @@
         "name": [
           "Macedonia"
         ]
-      }
+      },
+      "iso": "mk",
+      "flag": "flags/mk.svg",
+      "area": 25713,
+      "population": 1800000,
+      "founded": "1991 (independence from Yugoslavia)",
+      "clues": [
+        "Lake Ohrid is one of the oldest lakes in Europe",
+        "Capital Skopje has many statues",
+        "Flag is a yellow sun with rays on red"
+      ],
+      "clueText": "Lake Ohrid is one of the oldest lakes in Europe · Capital Skopje has many statues · Flag is a yellow sun with rays on red"
     },
     {
       "name": "Norway",
       "capital": "Oslo",
-      "continent": "Europe"
+      "continent": "Europe",
+      "iso": "no",
+      "flag": "flags/no.svg",
+      "area": 385207,
+      "population": 5600000,
+      "founded": "1905 (dissolution of union with Sweden)",
+      "clues": [
+        "Famous for deep fjords and the midnight sun",
+        "Oslo hosts the Nobel Peace Prize ceremony",
+        "Flag is a red field with a blue cross edged in white"
+      ],
+      "clueText": "Famous for deep fjords and the midnight sun · Oslo hosts the Nobel Peace Prize ceremony · Flag is a red field with a blue cross edged in white"
     },
     {
       "name": "Oman",
       "capital": "Muscat",
-      "continent": "Asia"
+      "continent": "Asia",
+      "iso": "om",
+      "flag": "flags/om.svg",
+      "area": 309500,
+      "population": 5300000,
+      "founded": "1650 (expulsion of the Portuguese)",
+      "clues": [
+        "Frankincense trade; capital is Muscat",
+        "Flag shows a curved dagger and crossed swords",
+        "Wahiba Sands and fjord-like Musandam"
+      ],
+      "clueText": "Frankincense trade; capital is Muscat · Flag shows a curved dagger and crossed swords · Wahiba Sands and fjord-like Musandam"
     },
     {
       "name": "Pakistan",
       "capital": "Islamabad",
-      "continent": "Asia"
+      "continent": "Asia",
+      "iso": "pk",
+      "flag": "flags/pk.svg",
+      "area": 881913,
+      "population": 245000000,
+      "founded": "1947 (independence from the UK)",
+      "clues": [
+        "K2, the second-highest mountain in the world",
+        "Indus River; capital is Islamabad",
+        "Flag is green with a white stripe and crescent and star"
+      ],
+      "clueText": "K2, the second-highest mountain in the world · Indus River; capital is Islamabad · Flag is green with a white stripe and crescent and star"
     },
     {
       "name": "Palau",
@@ -943,7 +2405,18 @@
         "capital": [
           "Melekeok"
         ]
-      }
+      },
+      "iso": "pw",
+      "flag": "flags/pw.svg",
+      "area": 459,
+      "population": 18000,
+      "founded": "1994 (independence from the US)",
+      "clues": [
+        "Rock Islands and Jellyfish Lake",
+        "Flag is a yellow disc slightly off-centre on blue",
+        "One of the smallest countries in the world"
+      ],
+      "clueText": "Rock Islands and Jellyfish Lake · Flag is a yellow disc slightly off-centre on blue · One of the smallest countries in the world"
     },
     {
       "name": "Palestine",
@@ -957,7 +2430,18 @@
           "East Jerusalem",
           "Jerusalem"
         ]
-      }
+      },
+      "iso": "ps",
+      "flag": "flags/ps.svg",
+      "area": 6020,
+      "population": 5500000,
+      "founded": "1988 (declaration of independence)",
+      "clues": [
+        "West Bank and Gaza Strip",
+        "Flag has black, white and green stripes with a red triangle",
+        "Many sacred sites including Bethlehem"
+      ],
+      "clueText": "West Bank and Gaza Strip · Flag has black, white and green stripes with a red triangle · Many sacred sites including Bethlehem"
     },
     {
       "name": "Panama",
@@ -967,12 +2451,34 @@
         "capital": [
           "Ciudad de Panamá"
         ]
-      }
+      },
+      "iso": "pa",
+      "flag": "flags/pa.svg",
+      "area": 75417,
+      "population": 4500000,
+      "founded": "1903 (independence from Colombia)",
+      "clues": [
+        "Canal links two oceans",
+        "Isthmus connecting Central and South America",
+        "Flag has four quarters with a red star and a blue star"
+      ],
+      "clueText": "Canal links two oceans · Isthmus connecting Central and South America · Flag has four quarters with a red star and a blue star"
     },
     {
       "name": "Papua New Guinea",
       "capital": "Port Moresby",
-      "continent": "Oceania"
+      "continent": "Oceania",
+      "iso": "pg",
+      "flag": "flags/pg.svg",
+      "area": 462840,
+      "population": 10300000,
+      "founded": "1975 (independence from Australia)",
+      "clues": [
+        "More than 800 languages are spoken",
+        "Bird of paradise appears on its flag",
+        "Flag is diagonally divided black and red"
+      ],
+      "clueText": "More than 800 languages are spoken · Bird of paradise appears on its flag · Flag is diagonally divided black and red"
     },
     {
       "name": "Paraguay",
@@ -982,17 +2488,50 @@
         "capital": [
           "Asuncion"
         ]
-      }
+      },
+      "iso": "py",
+      "flag": "flags/py.svg",
+      "area": 406752,
+      "population": 6900000,
+      "founded": "1811 (independence from Spain)",
+      "clues": [
+        "Landlocked; Guarani is an official language",
+        "Its flag has a different design on each side",
+        "Capital is Asuncion"
+      ],
+      "clueText": "Landlocked; Guarani is an official language · Its flag has a different design on each side · Capital is Asuncion"
     },
     {
       "name": "Peru",
       "capital": "Lima",
-      "continent": "South America"
+      "continent": "South America",
+      "iso": "pe",
+      "flag": "flags/pe.svg",
+      "area": 1285216,
+      "population": 34400000,
+      "founded": "1821 (independence from Spain)",
+      "clues": [
+        "Machu Picchu and the Nazca Lines",
+        "Llamas, alpacas and ceviche",
+        "Flag is red, white and red vertical stripes"
+      ],
+      "clueText": "Machu Picchu and the Nazca Lines · Llamas, alpacas and ceviche · Flag is red, white and red vertical stripes"
     },
     {
       "name": "Philippines",
       "capital": "Manila",
-      "continent": "Asia"
+      "continent": "Asia",
+      "iso": "ph",
+      "flag": "flags/ph.svg",
+      "area": 300000,
+      "population": 115000000,
+      "founded": "1946 (independence from the US)",
+      "clues": [
+        "Archipelago of more than 7,000 islands",
+        "Flag has a sun and three stars with blue and red fields",
+        "Capital is Manila"
+      ],
+      "clueText": "Archipelago of more than 7,000 islands · Flag has a sun and three stars with blue and red fields · Capital is Manila"
     },
     {
       "name": "Poland",
@@ -1002,7 +2541,18 @@
         "capital": [
           "Warszawa"
         ]
-      }
+      },
+      "iso": "pl",
+      "flag": "flags/pl.svg",
+      "area": 312696,
+      "population": 36600000,
+      "founded": "1918 (regained independence)",
+      "clues": [
+        "Home of Chopin and the European bison",
+        "Warsaw was rebuilt after World War II",
+        "Flag is white over red"
+      ],
+      "clueText": "Home of Chopin and the European bison · Warsaw was rebuilt after World War II · Flag is white over red"
     },
     {
       "name": "Portugal",
@@ -1012,12 +2562,34 @@
         "capital": [
           "Lisboa"
         ]
-      }
+      },
+      "iso": "pt",
+      "flag": "flags/pt.svg",
+      "area": 92212,
+      "population": 10400000,
+      "founded": "1143 (Treaty of Zamora)",
+      "clues": [
+        "Westernmost country in mainland Europe",
+        "Fado music and custard tarts",
+        "Flag is green and red with a golden armillary sphere"
+      ],
+      "clueText": "Westernmost country in mainland Europe · Fado music and custard tarts · Flag is green and red with a golden armillary sphere"
     },
     {
       "name": "Qatar",
       "capital": "Doha",
-      "continent": "Asia"
+      "continent": "Asia",
+      "iso": "qa",
+      "flag": "flags/qa.svg",
+      "area": 11586,
+      "population": 2700000,
+      "founded": "1971 (independence from the UK)",
+      "clues": [
+        "Hosted the 2022 FIFA World Cup",
+        "Peninsula in the Persian Gulf",
+        "Flag is maroon with a white serrated edge"
+      ],
+      "clueText": "Hosted the 2022 FIFA World Cup · Peninsula in the Persian Gulf · Flag is maroon with a white serrated edge"
     },
     {
       "name": "Romania",
@@ -1027,7 +2599,18 @@
         "capital": [
           "București"
         ]
-      }
+      },
+      "iso": "ro",
+      "flag": "flags/ro.svg",
+      "area": 238397,
+      "population": 19000000,
+      "founded": "1877 (independence from the Ottoman Empire)",
+      "clues": [
+        "Bran Castle is linked to Dracula",
+        "Carpathian Mountains and Transylvania",
+        "Flag is blue, yellow and red vertical stripes"
+      ],
+      "clueText": "Bran Castle is linked to Dracula · Carpathian Mountains and Transylvania · Flag is blue, yellow and red vertical stripes"
     },
     {
       "name": "Russia",
@@ -1040,12 +2623,34 @@
         "capital": [
           "Moskva"
         ]
-      }
+      },
+      "iso": "ru",
+      "flag": "flags/ru.svg",
+      "area": 17098246,
+      "population": 144000000,
+      "founded": "1991 (Russian Federation)",
+      "clues": [
+        "Largest country in the world; 11 time zones",
+        "Moscow has the Kremlin and Red Square",
+        "Flag is white, blue and red horizontal stripes"
+      ],
+      "clueText": "Largest country in the world; 11 time zones · Moscow has the Kremlin and Red Square · Flag is white, blue and red horizontal stripes"
     },
     {
       "name": "Rwanda",
       "capital": "Kigali",
-      "continent": "Africa"
+      "continent": "Africa",
+      "iso": "rw",
+      "flag": "flags/rw.svg",
+      "area": 26338,
+      "population": 14300000,
+      "founded": "1962 (independence from Belgium)",
+      "clues": [
+        "Land of a thousand hills",
+        "Mountain gorillas live in Volcanoes National Park",
+        "Flag has a golden sun and light blue, yellow and green bands"
+      ],
+      "clueText": "Land of a thousand hills · Mountain gorillas live in Volcanoes National Park · Flag has a golden sun and light blue, yellow and green bands"
     },
     {
       "name": "Saint Kitts and Nevis",
@@ -1056,7 +2661,18 @@
           "St Kitts and Nevis",
           "Saint Kitts"
         ]
-      }
+      },
+      "iso": "kn",
+      "flag": "flags/kn.svg",
+      "area": 261,
+      "population": 50000,
+      "founded": "1983 (independence from the UK)",
+      "clues": [
+        "Smallest country in the Americas by area and population",
+        "Two-island federation",
+        "Flag has a diagonal black band with two white stars"
+      ],
+      "clueText": "Smallest country in the Americas by area and population · Two-island federation · Flag has a diagonal black band with two white stars"
     },
     {
       "name": "Saint Lucia",
@@ -1066,7 +2682,18 @@
         "name": [
           "St Lucia"
         ]
-      }
+      },
+      "iso": "lc",
+      "flag": "flags/lc.svg",
+      "area": 616,
+      "population": 180000,
+      "founded": "1979 (independence from the UK)",
+      "clues": [
+        "Pitons are twin volcanic peaks",
+        "Flag has a black, white and gold triangle on blue",
+        "Often said to be the only country named after a woman"
+      ],
+      "clueText": "Pitons are twin volcanic peaks · Flag has a black, white and gold triangle on blue · Often said to be the only country named after a woman"
     },
     {
       "name": "Saint Vincent and the Grenadines",
@@ -1077,12 +2704,34 @@
           "St Vincent and the Grenadines",
           "St Vincent"
         ]
-      }
+      },
+      "iso": "vc",
+      "flag": "flags/vc.svg",
+      "area": 389,
+      "population": 100000,
+      "founded": "1979 (independence from the UK)",
+      "clues": [
+        "Archipelago in the Caribbean with an active volcano La Soufriere",
+        "Flag has three green diamonds forming a V",
+        "Used as a filming location for Pirates of the Caribbean"
+      ],
+      "clueText": "Archipelago in the Caribbean with an active volcano La Soufriere · Flag has three green diamonds forming a V · Used as a filming location for Pirates of the Caribbean"
     },
     {
       "name": "Samoa",
       "capital": "Apia",
-      "continent": "Oceania"
+      "continent": "Oceania",
+      "iso": "ws",
+      "flag": "flags/ws.svg",
+      "area": 2842,
+      "population": 220000,
+      "founded": "1962 (independence from New Zealand)",
+      "clues": [
+        "First Pacific island nation to gain independence",
+        "Switched sides of the road it drives on in 2009",
+        "Flag has the Southern Cross on a blue canton"
+      ],
+      "clueText": "First Pacific island nation to gain independence · Switched sides of the road it drives on in 2009 · Flag has the Southern Cross on a blue canton"
     },
     {
       "name": "San Marino",
@@ -1092,7 +2741,18 @@
         "capital": [
           "City of San Marino"
         ]
-      }
+      },
+      "iso": "sm",
+      "flag": "flags/sm.svg",
+      "area": 61,
+      "population": 34000,
+      "founded": "301 (traditional founding)",
+      "clues": [
+        "Oldest surviving republic in the world",
+        "Entirely surrounded by Italy",
+        "Flag has a coat of arms with three towers"
+      ],
+      "clueText": "Oldest surviving republic in the world · Entirely surrounded by Italy · Flag has a coat of arms with three towers"
     },
     {
       "name": "São Tomé and Príncipe",
@@ -1105,17 +2765,50 @@
         "capital": [
           "Sao Tome"
         ]
-      }
+      },
+      "iso": "st",
+      "flag": "flags/st.svg",
+      "area": 964,
+      "population": 230000,
+      "founded": "1975 (independence from Portugal)",
+      "clues": [
+        "Second-smallest African country; chocolate and cocoa",
+        "Equator crosses its islands",
+        "Flag has two black stars and a red triangle"
+      ],
+      "clueText": "Second-smallest African country; chocolate and cocoa · Equator crosses its islands · Flag has two black stars and a red triangle"
     },
     {
       "name": "Saudi Arabia",
       "capital": "Riyadh",
-      "continent": "Asia"
+      "continent": "Asia",
+      "iso": "sa",
+      "flag": "flags/sa.svg",
+      "area": 2149690,
+      "population": 36900000,
+      "founded": "1932 (kingdom unified)",
+      "clues": [
+        "Home of Mecca and Medina",
+        "Flag is green with white script and a sword",
+        "Largest country in the Middle East"
+      ],
+      "clueText": "Home of Mecca and Medina · Flag is green with white script and a sword · Largest country in the Middle East"
     },
     {
       "name": "Senegal",
       "capital": "Dakar",
-      "continent": "Africa"
+      "continent": "Africa",
+      "iso": "sn",
+      "flag": "flags/sn.svg",
+      "area": 196722,
+      "population": 18100000,
+      "founded": "1960 (independence from France)",
+      "clues": [
+        "Dakar was the endpoint of the Paris-Dakar rally",
+        "Pink Lake Retba",
+        "Flag has a green star on a yellow band"
+      ],
+      "clueText": "Dakar was the endpoint of the Paris-Dakar rally · Pink Lake Retba · Flag has a green star on a yellow band"
     },
     {
       "name": "Serbia",
@@ -1125,42 +2818,130 @@
         "capital": [
           "Beograd"
         ]
-      }
+      },
+      "iso": "rs",
+      "flag": "flags/rs.svg",
+      "area": 88361,
+      "population": 6700000,
+      "founded": "2006 (independence after dissolution of union with Montenegro)",
+      "clues": [
+        "Capital Belgrade sits where the Sava meets the Danube",
+        "Birthplace of Nikola Tesla",
+        "Flag is red, blue and white with a double-headed eagle"
+      ],
+      "clueText": "Capital Belgrade sits where the Sava meets the Danube · Birthplace of Nikola Tesla · Flag is red, blue and white with a double-headed eagle"
     },
     {
       "name": "Seychelles",
       "capital": "Victoria",
-      "continent": "Africa"
+      "continent": "Africa",
+      "iso": "sc",
+      "flag": "flags/sc.svg",
+      "area": 459,
+      "population": 120000,
+      "founded": "1976 (independence from the UK)",
+      "clues": [
+        "Granite boulders on white sand beaches",
+        "Coco de mer, the largest seed in the world",
+        "Flag has five diagonal bands"
+      ],
+      "clueText": "Granite boulders on white sand beaches · Coco de mer, the largest seed in the world · Flag has five diagonal bands"
     },
     {
       "name": "Sierra Leone",
       "capital": "Freetown",
-      "continent": "Africa"
+      "continent": "Africa",
+      "iso": "sl",
+      "flag": "flags/sl.svg",
+      "area": 71740,
+      "population": 8600000,
+      "founded": "1961 (independence from the UK)",
+      "clues": [
+        "Freetown was founded for freed slaves",
+        "Diamonds have shaped its history",
+        "Flag is green, white and blue"
+      ],
+      "clueText": "Freetown was founded for freed slaves · Diamonds have shaped its history · Flag is green, white and blue"
     },
     {
       "name": "Singapore",
       "capital": "Singapore",
-      "continent": "Asia"
+      "continent": "Asia",
+      "iso": "sg",
+      "flag": "flags/sg.svg",
+      "area": 734,
+      "population": 6000000,
+      "founded": "1965 (independence from Malaysia)",
+      "clues": [
+        "City-state with Marina Bay Sands",
+        "Chewing gum sales are restricted",
+        "Flag has a crescent and five stars on red and white"
+      ],
+      "clueText": "City-state with Marina Bay Sands · Chewing gum sales are restricted · Flag has a crescent and five stars on red and white"
     },
     {
       "name": "Slovakia",
       "capital": "Bratislava",
-      "continent": "Europe"
+      "continent": "Europe",
+      "iso": "sk",
+      "flag": "flags/sk.svg",
+      "area": 49035,
+      "population": 5400000,
+      "founded": "1993 (peaceful split of Czechoslovakia)",
+      "clues": [
+        "Landlocked; the High Tatras are its tallest mountains",
+        "Bratislava sits on the Danube",
+        "Flag has a shield with a double cross"
+      ],
+      "clueText": "Landlocked; the High Tatras are its tallest mountains · Bratislava sits on the Danube · Flag has a shield with a double cross"
     },
     {
       "name": "Slovenia",
       "capital": "Ljubljana",
-      "continent": "Europe"
+      "continent": "Europe",
+      "iso": "si",
+      "flag": "flags/si.svg",
+      "area": 20273,
+      "population": 2100000,
+      "founded": "1991 (independence from Yugoslavia)",
+      "clues": [
+        "Lake Bled and its island church",
+        "Mount Triglav appears on its flag",
+        "Small Adriatic coast and Alps"
+      ],
+      "clueText": "Lake Bled and its island church · Mount Triglav appears on its flag · Small Adriatic coast and Alps"
     },
     {
       "name": "Solomon Islands",
       "capital": "Honiara",
-      "continent": "Oceania"
+      "continent": "Oceania",
+      "iso": "sb",
+      "flag": "flags/sb.svg",
+      "area": 28896,
+      "population": 740000,
+      "founded": "1978 (independence from the UK)",
+      "clues": [
+        "Guadalcanal was a major World War II battle site",
+        "Flag has five stars on blue and green with a yellow diagonal",
+        "Archipelago in the Pacific"
+      ],
+      "clueText": "Guadalcanal was a major World War II battle site · Flag has five stars on blue and green with a yellow diagonal · Archipelago in the Pacific"
     },
     {
       "name": "Somalia",
       "capital": "Mogadishu",
-      "continent": "Africa"
+      "continent": "Africa",
+      "iso": "so",
+      "flag": "flags/so.svg",
+      "area": 637657,
+      "population": 18100000,
+      "founded": "1960 (independence and unification)",
+      "clues": [
+        "Longest coastline on the African mainland",
+        "Horn of Africa",
+        "Flag is light blue with a white five-pointed star"
+      ],
+      "clueText": "Longest coastline on the African mainland · Horn of Africa · Flag is light blue with a white five-pointed star"
     },
     {
       "name": "South Africa",
@@ -1171,7 +2952,18 @@
           "Cape Town",
           "Bloemfontein"
         ]
-      }
+      },
+      "iso": "za",
+      "flag": "flags/za.svg",
+      "area": 1221037,
+      "population": 63200000,
+      "founded": "1910 (Union of South Africa); democracy 1994",
+      "clues": [
+        "Has three capital cities",
+        "Rainbow Nation; Table Mountain",
+        "Flag is a six-coloured Y shape"
+      ],
+      "clueText": "Has three capital cities · Rainbow Nation; Table Mountain · Flag is a six-coloured Y shape"
     },
     {
       "name": "South Korea",
@@ -1181,17 +2973,50 @@
         "name": [
           "Korea"
         ]
-      }
+      },
+      "iso": "kr",
+      "flag": "flags/kr.svg",
+      "area": 100210,
+      "population": 51700000,
+      "founded": "1948 (republic established)",
+      "clues": [
+        "K-pop and kimchi; Seoul",
+        "Flag has a red and blue taegeuk with black trigrams",
+        "Divided from the north by the DMZ"
+      ],
+      "clueText": "K-pop and kimchi; Seoul · Flag has a red and blue taegeuk with black trigrams · Divided from the north by the DMZ"
     },
     {
       "name": "South Sudan",
       "capital": "Juba",
-      "continent": "Africa"
+      "continent": "Africa",
+      "iso": "ss",
+      "flag": "flags/ss.svg",
+      "area": 619745,
+      "population": 11900000,
+      "founded": "2011 (independence from Sudan)",
+      "clues": [
+        "Youngest recognised country in the world",
+        "Capital is Juba",
+        "Flag has a blue triangle with a gold star"
+      ],
+      "clueText": "Youngest recognised country in the world · Capital is Juba · Flag has a blue triangle with a gold star"
     },
     {
       "name": "Spain",
       "capital": "Madrid",
-      "continent": "Europe"
+      "continent": "Europe",
+      "iso": "es",
+      "flag": "flags/es.svg",
+      "area": 505990,
+      "population": 48600000,
+      "founded": "1479 (union of Castile and Aragon)",
+      "clues": [
+        "Flamenco, paella and bullfighting",
+        "La Sagrada Familia in Barcelona",
+        "Flag is red, yellow, red with a coat of arms"
+      ],
+      "clueText": "Flamenco, paella and bullfighting · La Sagrada Familia in Barcelona · Flag is red, yellow, red with a coat of arms"
     },
     {
       "name": "Sri Lanka",
@@ -1202,22 +3027,66 @@
           "Kotte",
           "Colombo"
         ]
-      }
+      },
+      "iso": "lk",
+      "flag": "flags/lk.svg",
+      "area": 65610,
+      "population": 22000000,
+      "founded": "1948 (independence from the UK)",
+      "clues": [
+        "Teardrop-shaped island with ancient Sigiriya rock fortress",
+        "Famous for tea and elephants",
+        "Flag has a lion holding a sword"
+      ],
+      "clueText": "Teardrop-shaped island with ancient Sigiriya rock fortress · Famous for tea and elephants · Flag has a lion holding a sword"
     },
     {
       "name": "Sudan",
       "capital": "Khartoum",
-      "continent": "Africa"
+      "continent": "Africa",
+      "iso": "sd",
+      "flag": "flags/sd.svg",
+      "area": 1861484,
+      "population": 48100000,
+      "founded": "1956 (independence from Egypt and the UK)",
+      "clues": [
+        "More ancient pyramids than Egypt",
+        "Blue and White Niles meet at its capital",
+        "Flag is red, white, black with a green triangle"
+      ],
+      "clueText": "More ancient pyramids than Egypt · Blue and White Niles meet at its capital · Flag is red, white, black with a green triangle"
     },
     {
       "name": "Suriname",
       "capital": "Paramaribo",
-      "continent": "South America"
+      "continent": "South America",
+      "iso": "sr",
+      "flag": "flags/sr.svg",
+      "area": 163820,
+      "population": 620000,
+      "founded": "1975 (independence from the Netherlands)",
+      "clues": [
+        "Only Dutch-speaking country in South America",
+        "Over 90 percent rainforest",
+        "Flag has a yellow star in a red band"
+      ],
+      "clueText": "Only Dutch-speaking country in South America · Over 90 percent rainforest · Flag has a yellow star in a red band"
     },
     {
       "name": "Sweden",
       "capital": "Stockholm",
-      "continent": "Europe"
+      "continent": "Europe",
+      "iso": "se",
+      "flag": "flags/se.svg",
+      "area": 450295,
+      "population": 10600000,
+      "founded": "1523 (Gustav Vasa becomes king)",
+      "clues": [
+        "Nobel Prizes, IKEA and ABBA",
+        "Capital is Stockholm across 14 islands",
+        "Flag is a yellow cross on blue"
+      ],
+      "clueText": "Nobel Prizes, IKEA and ABBA · Capital is Stockholm across 14 islands · Flag is a yellow cross on blue"
     },
     {
       "name": "Switzerland",
@@ -1227,17 +3096,50 @@
         "capital": [
           "Berne"
         ]
-      }
+      },
+      "iso": "ch",
+      "flag": "flags/ch.svg",
+      "area": 41285,
+      "population": 8900000,
+      "founded": "1291 (traditional founding)",
+      "clues": [
+        "Neutral since 1815; Alps and fondue",
+        "One of two square national flags in the world",
+        "Famed for watches and chocolate"
+      ],
+      "clueText": "Neutral since 1815; Alps and fondue · One of two square national flags in the world · Famed for watches and chocolate"
     },
     {
       "name": "Syria",
       "capital": "Damascus",
-      "continent": "Asia"
+      "continent": "Asia",
+      "iso": "sy",
+      "flag": "flags/sy.svg",
+      "area": 185180,
+      "population": 23200000,
+      "founded": "1946 (independence from France)",
+      "clues": [
+        "Damascus is one of the oldest continuously inhabited cities",
+        "Ancient ruins of Palmyra",
+        "Flag is red, white and black with two green stars"
+      ],
+      "clueText": "Damascus is one of the oldest continuously inhabited cities · Ancient ruins of Palmyra · Flag is red, white and black with two green stars"
     },
     {
       "name": "Tajikistan",
       "capital": "Dushanbe",
-      "continent": "Asia"
+      "continent": "Asia",
+      "iso": "tj",
+      "flag": "flags/tj.svg",
+      "area": 143100,
+      "population": 10100000,
+      "founded": "1991 (independence from the USSR)",
+      "clues": [
+        "Over 90 percent mountainous; Pamir Highway",
+        "Persian-speaking Central Asian state",
+        "Flag has a crown and seven stars over a white band"
+      ],
+      "clueText": "Over 90 percent mountainous; Pamir Highway · Persian-speaking Central Asian state · Flag has a crown and seven stars over a white band"
     },
     {
       "name": "Tanzania",
@@ -1247,12 +3149,34 @@
         "capital": [
           "Dar es Salaam"
         ]
-      }
+      },
+      "iso": "tz",
+      "flag": "flags/tz.svg",
+      "area": 945087,
+      "population": 67400000,
+      "founded": "1961 (Tanganyika), union with Zanzibar 1964",
+      "clues": [
+        "Kilimanjaro, Serengeti and Zanzibar",
+        "Highest mountain in Africa is here",
+        "Flag has a diagonal black band with yellow edges"
+      ],
+      "clueText": "Kilimanjaro, Serengeti and Zanzibar · Highest mountain in Africa is here · Flag has a diagonal black band with yellow edges"
     },
     {
       "name": "Thailand",
       "capital": "Bangkok",
-      "continent": "Asia"
+      "continent": "Asia",
+      "iso": "th",
+      "flag": "flags/th.svg",
+      "area": 513120,
+      "population": 71800000,
+      "founded": "1238 (Sukhothai Kingdom)",
+      "clues": [
+        "Never colonised by a European power",
+        "Land of smiles; elephants are national symbols",
+        "Flag has five horizontal stripes with a wide blue central band"
+      ],
+      "clueText": "Never colonised by a European power · Land of smiles; elephants are national symbols · Flag has five horizontal stripes with a wide blue central band"
     },
     {
       "name": "Timor-Leste",
@@ -1263,7 +3187,18 @@
           "East Timor",
           "Timor Leste"
         ]
-      }
+      },
+      "iso": "tl",
+      "flag": "flags/tl.svg",
+      "area": 14874,
+      "population": 1400000,
+      "founded": "2002 (restored independence)",
+      "clues": [
+        "Occupies half of an island and an enclave",
+        "Portuguese and Tetum are official",
+        "Flag is red with a black triangle and white star"
+      ],
+      "clueText": "Occupies half of an island and an enclave · Portuguese and Tetum are official · Flag is red with a black triangle and white star"
     },
     {
       "name": "Togo",
@@ -1273,7 +3208,18 @@
         "capital": [
           "Lome"
         ]
-      }
+      },
+      "iso": "tg",
+      "flag": "flags/tg.svg",
+      "area": 56785,
+      "population": 9100000,
+      "founded": "1960 (independence from France)",
+      "clues": [
+        "Narrow country in West Africa",
+        "Capital Lome is on the coast",
+        "Flag has five stripes and a white star on a red square"
+      ],
+      "clueText": "Narrow country in West Africa · Capital Lome is on the coast · Flag has five stripes and a white star on a red square"
     },
     {
       "name": "Tonga",
@@ -1284,17 +3230,50 @@
           "Nuku'alofa",
           "Nukualofa"
         ]
-      }
+      },
+      "iso": "to",
+      "flag": "flags/to.svg",
+      "area": 747,
+      "population": 110000,
+      "founded": "1970 (independence from the UK)",
+      "clues": [
+        "Only remaining Polynesian monarchy",
+        "Never colonised",
+        "Flag is red with a red cross in a white canton"
+      ],
+      "clueText": "Only remaining Polynesian monarchy · Never colonised · Flag is red with a red cross in a white canton"
     },
     {
       "name": "Trinidad and Tobago",
       "capital": "Port of Spain",
-      "continent": "North America"
+      "continent": "North America",
+      "iso": "tt",
+      "flag": "flags/tt.svg",
+      "area": 5130,
+      "population": 1500000,
+      "founded": "1962 (independence from the UK)",
+      "clues": [
+        "Birthplace of steelpan music and calypso",
+        "Annual Carnival",
+        "Flag has a black diagonal band edged white on red"
+      ],
+      "clueText": "Birthplace of steelpan music and calypso · Annual Carnival · Flag has a black diagonal band edged white on red"
     },
     {
       "name": "Tunisia",
       "capital": "Tunis",
-      "continent": "Africa"
+      "continent": "Africa",
+      "iso": "tn",
+      "flag": "flags/tn.svg",
+      "area": 163610,
+      "population": 12000000,
+      "founded": "1956 (independence from France)",
+      "clues": [
+        "Ruins of ancient Carthage",
+        "Star Wars scenes filmed in its desert",
+        "Flag is red with a white disc, crescent and star"
+      ],
+      "clueText": "Ruins of ancient Carthage · Star Wars scenes filmed in its desert · Flag is red with a white disc, crescent and star"
     },
     {
       "name": "Turkey",
@@ -1305,22 +3284,66 @@
           "Türkiye",
           "Turkiye"
         ]
-      }
+      },
+      "iso": "tr",
+      "flag": "flags/tr.svg",
+      "area": 783562,
+      "population": 85800000,
+      "founded": "1923 (Republic proclaimed)",
+      "clues": [
+        "Istanbul spans Europe and Asia",
+        "Cappadocia has hot air balloons and fairy chimneys",
+        "Flag is red with a white crescent and star"
+      ],
+      "clueText": "Istanbul spans Europe and Asia · Cappadocia has hot air balloons and fairy chimneys · Flag is red with a white crescent and star"
     },
     {
       "name": "Turkmenistan",
       "capital": "Ashgabat",
-      "continent": "Asia"
+      "continent": "Asia",
+      "iso": "tm",
+      "flag": "flags/tm.svg",
+      "area": 488100,
+      "population": 7500000,
+      "founded": "1991 (independence from the USSR)",
+      "clues": [
+        "Darvaza gas crater burns, called the Door to Hell",
+        "Carpet guls appear on its flag",
+        "Permanent neutrality"
+      ],
+      "clueText": "Darvaza gas crater burns, called the Door to Hell · Carpet guls appear on its flag · Permanent neutrality"
     },
     {
       "name": "Tuvalu",
       "capital": "Funafuti",
-      "continent": "Oceania"
+      "continent": "Oceania",
+      "iso": "tv",
+      "flag": "flags/tv.svg",
+      "area": 26,
+      "population": 11000,
+      "founded": "1978 (independence from the UK)",
+      "clues": [
+        "One of the smallest and lowest-lying countries",
+        "Its internet domain is lucrative",
+        "Flag has a Union Jack and nine stars"
+      ],
+      "clueText": "One of the smallest and lowest-lying countries · Its internet domain is lucrative · Flag has a Union Jack and nine stars"
     },
     {
       "name": "Uganda",
       "capital": "Kampala",
-      "continent": "Africa"
+      "continent": "Africa",
+      "iso": "ug",
+      "flag": "flags/ug.svg",
+      "area": 241550,
+      "population": 49300000,
+      "founded": "1962 (independence from the UK)",
+      "clues": [
+        "Source of the Nile at Jinja",
+        "Mountain gorillas in Bwindi",
+        "Flag has a crested crane in a white disc"
+      ],
+      "clueText": "Source of the Nile at Jinja · Mountain gorillas in Bwindi · Flag has a crested crane in a white disc"
     },
     {
       "name": "Ukraine",
@@ -1330,7 +3353,18 @@
         "capital": [
           "Kiev"
         ]
-      }
+      },
+      "iso": "ua",
+      "flag": "flags/ua.svg",
+      "area": 603550,
+      "population": 37000000,
+      "founded": "1991 (independence from the USSR)",
+      "clues": [
+        "Known as the breadbasket of Europe",
+        "Capital Kyiv has golden-domed churches",
+        "Flag is blue over yellow"
+      ],
+      "clueText": "Known as the breadbasket of Europe · Capital Kyiv has golden-domed churches · Flag is blue over yellow"
     },
     {
       "name": "United Arab Emirates",
@@ -1340,7 +3374,18 @@
         "name": [
           "UAE"
         ]
-      }
+      },
+      "iso": "ae",
+      "flag": "flags/ae.svg",
+      "area": 83600,
+      "population": 10000000,
+      "founded": "1971 (federation formed)",
+      "clues": [
+        "Federation of seven emirates",
+        "Burj Khalifa is the tallest building",
+        "Flag has a red vertical band and green, white and black stripes"
+      ],
+      "clueText": "Federation of seven emirates · Burj Khalifa is the tallest building · Flag has a red vertical band and green, white and black stripes"
     },
     {
       "name": "United Kingdom",
@@ -1352,7 +3397,18 @@
           "Britain",
           "Great Britain"
         ]
-      }
+      },
+      "iso": "gb",
+      "flag": "flags/gb.svg",
+      "area": 242495,
+      "population": 68300000,
+      "founded": "1707 (Acts of Union)",
+      "clues": [
+        "Four nations: England, Scotland, Wales and Northern Ireland",
+        "Big Ben and Buckingham Palace",
+        "Flag is the Union Jack; drives on the left"
+      ],
+      "clueText": "Four nations: England, Scotland, Wales and Northern Ireland · Big Ben and Buckingham Palace · Flag is the Union Jack; drives on the left"
     },
     {
       "name": "United States",
@@ -1369,22 +3425,66 @@
           "Washington",
           "Washington DC"
         ]
-      }
+      },
+      "iso": "us",
+      "flag": "flags/us.svg",
+      "area": 9833517,
+      "population": 335000000,
+      "founded": "1776 (Declaration of Independence)",
+      "clues": [
+        "50 states and a federal district",
+        "Statue of Liberty",
+        "Flag has 13 stripes and 50 stars"
+      ],
+      "clueText": "50 states and a federal district · Statue of Liberty · Flag has 13 stripes and 50 stars"
     },
     {
       "name": "Uruguay",
       "capital": "Montevideo",
-      "continent": "South America"
+      "continent": "South America",
+      "iso": "uy",
+      "flag": "flags/uy.svg",
+      "area": 176215,
+      "population": 3400000,
+      "founded": "1828 (independence from Brazil)",
+      "clues": [
+        "Second-smallest country in South America",
+        "Famed for gauchos and beef",
+        "Flag has a Sun of May and nine stripes"
+      ],
+      "clueText": "Second-smallest country in South America · Famed for gauchos and beef · Flag has a Sun of May and nine stripes"
     },
     {
       "name": "Uzbekistan",
       "capital": "Tashkent",
-      "continent": "Asia"
+      "continent": "Asia",
+      "iso": "uz",
+      "flag": "flags/uz.svg",
+      "area": 448978,
+      "population": 36000000,
+      "founded": "1991 (independence from the USSR)",
+      "clues": [
+        "Doubly landlocked; Silk Road city of Samarkand",
+        "Registan with its tiled madrasas",
+        "Flag has a crescent and 12 stars"
+      ],
+      "clueText": "Doubly landlocked; Silk Road city of Samarkand · Registan with its tiled madrasas · Flag has a crescent and 12 stars"
     },
     {
       "name": "Vanuatu",
       "capital": "Port Vila",
-      "continent": "Oceania"
+      "continent": "Oceania",
+      "iso": "vu",
+      "flag": "flags/vu.svg",
+      "area": 12189,
+      "population": 330000,
+      "founded": "1980 (independence from France and the UK)",
+      "clues": [
+        "Land diving is the origin of bungee jumping",
+        "Mount Yasur is an easily visited active volcano",
+        "Flag has a black triangle, green and red bands and a boar's tusk"
+      ],
+      "clueText": "Land diving is the origin of bungee jumping · Mount Yasur is an easily visited active volcano · Flag has a black triangle, green and red bands and a boar's tusk"
     },
     {
       "name": "Vatican City",
@@ -1395,12 +3495,34 @@
           "Holy See",
           "Vatican"
         ]
-      }
+      },
+      "iso": "va",
+      "flag": "flags/va.svg",
+      "area": 0.49,
+      "population": 800,
+      "founded": "1929 (Lateran Treaty)",
+      "clues": [
+        "Smallest country in the world",
+        "Home of the Pope and the Sistine Chapel",
+        "Guarded by Swiss Guards"
+      ],
+      "clueText": "Smallest country in the world · Home of the Pope and the Sistine Chapel · Guarded by Swiss Guards"
     },
     {
       "name": "Venezuela",
       "capital": "Caracas",
-      "continent": "South America"
+      "continent": "South America",
+      "iso": "ve",
+      "flag": "flags/ve.svg",
+      "area": 912050,
+      "population": 28400000,
+      "founded": "1811 (independence from Spain)",
+      "clues": [
+        "Angel Falls is the highest uninterrupted waterfall",
+        "Holds some of the largest oil reserves",
+        "Flag has an arc of eight stars"
+      ],
+      "clueText": "Angel Falls is the highest uninterrupted waterfall · Holds some of the largest oil reserves · Flag has an arc of eight stars"
     },
     {
       "name": "Vietnam",
@@ -1410,7 +3532,18 @@
         "name": [
           "Viet Nam"
         ]
-      }
+      },
+      "iso": "vn",
+      "flag": "flags/vn.svg",
+      "area": 331212,
+      "population": 100000000,
+      "founded": "1945 (declaration of independence)",
+      "clues": [
+        "Ha Long Bay and countless motorbikes",
+        "Capital is Hanoi; coffee and pho",
+        "Flag is red with a yellow star"
+      ],
+      "clueText": "Ha Long Bay and countless motorbikes · Capital is Hanoi; coffee and pho · Flag is red with a yellow star"
     },
     {
       "name": "Yemen",
@@ -1421,17 +3554,50 @@
           "Sanaa",
           "Sana"
         ]
-      }
+      },
+      "iso": "ye",
+      "flag": "flags/ye.svg",
+      "area": 527968,
+      "population": 34400000,
+      "founded": "1990 (unification)",
+      "clues": [
+        "Socotra island has dragon blood trees",
+        "Old city of Sana'a has multi-storey mud houses",
+        "Flag is red, white and black horizontal stripes"
+      ],
+      "clueText": "Socotra island has dragon blood trees · Old city of Sana'a has multi-storey mud houses · Flag is red, white and black horizontal stripes"
     },
     {
       "name": "Zambia",
       "capital": "Lusaka",
-      "continent": "Africa"
+      "continent": "Africa",
+      "iso": "zm",
+      "flag": "flags/zm.svg",
+      "area": 752618,
+      "population": 20600000,
+      "founded": "1964 (independence from the UK)",
+      "clues": [
+        "Shares Victoria Falls with Zimbabwe",
+        "Copper mining",
+        "Flag has an eagle over green with red, black and orange stripes"
+      ],
+      "clueText": "Shares Victoria Falls with Zimbabwe · Copper mining · Flag has an eagle over green with red, black and orange stripes"
     },
     {
       "name": "Zimbabwe",
       "capital": "Harare",
-      "continent": "Africa"
+      "continent": "Africa",
+      "iso": "zw",
+      "flag": "flags/zw.svg",
+      "area": 390757,
+      "population": 16300000,
+      "founded": "1980 (independence from the UK)",
+      "clues": [
+        "Medieval stone ruins gave the country its name",
+        "Shares Victoria Falls with Zambia",
+        "Flag shows a stylised bird on a red star"
+      ],
+      "clueText": "Medieval stone ruins gave the country its name · Shares Victoria Falls with Zambia · Flag shows a stylised bird on a red star"
     }
   ]
 }
