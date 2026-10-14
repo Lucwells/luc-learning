@@ -299,16 +299,16 @@ function viewCategory(parts) {
 
 function quizOptionsHtml(defaultCount) {
   return `<label>Format
-      <select id="fmt"><option value="mc">Multiple choice</option><option value="type">Type the answer</option></select></label>
+      <select id="fmt"><option value="type">Type the answer</option><option value="mc">Multiple choice</option></select></label>
     <label>Questions <input type="number" id="cnt" min="1" max="200" value="${defaultCount}"></label>`;
 }
 
-const practiceHtml = (d) => `<details class="panel">
-  <summary>Practice this deck</summary>
+const practiceHtml = (d) => `<section class="panel">
+  <h3 class="panel-title">Quiz</h3>
   <div class="checks">${d.modes.map((m) => `<label><input type="checkbox" name="mode" value="${esc(m.id)}" checked> ${esc(m.label)}</label>`).join('')}</div>
   <p>${quizOptionsHtml(Math.min(20, d.cards.length))}</p>
   <div class="row"><button class="primary" id="quiz">Start quiz</button><button id="flash">Flashcards</button></div>
-</details>`;
+</section>`;
 
 function wirePractice(d, exit) {
   const selected = () => {
@@ -738,16 +738,23 @@ async function viewWorldMap(d, parts) {
     <div class="hero">
       <div><h1>${esc(parts[parts.length - 1])}</h1>
         <p class="muted">${items.length} countries · ${region === 'Global' ? 'whole world' : esc(region)}. Click a country for details; scroll to zoom, drag to pan.</p></div>
-      <div class="row"><label>Questions <input type="number" id="mcnt" min="1" max="${items.length}" value="${Math.min(20, items.length)}"></label>
-        <button class="primary" id="mq">Find them on the map</button></div>
+    </div>
+    <div class="panel quizbar">
+      <b>Quiz</b>
+      <button class="primary" data-mode="country-capital">Country → Capital</button>
+      <button class="primary" data-mode="flag-country">Flag → Country</button>
+      <button class="primary" data-mode="clues-country">Clues → Country</button>
+      <button class="primary" id="mq">Find on the map</button>
+      <label>Format <select id="fmt"><option value="type">Type the answer</option><option value="mc">Multiple choice</option></select></label>
+      <label>Questions <input type="number" id="mcnt" min="1" max="${items.length}" value="${Math.min(20, items.length)}"></label>
     </div>
     <div class="tabs">${MAP_REGIONS.map((r) => `<button class="tab${r === region ? ' on' : ''}" data-r="${esc(r)}">${esc(r)}</button>`).join('')}</div>
     <div class="row finder" id="finder">
       <input id="find" list="countrylist" placeholder="Jump to a country…" autocomplete="off">
       <datalist id="countrylist">${items.map((it) => `<option value="${esc(it.name)}">`).join('')}</datalist>
-      <span class="muted">Tiny countries:</span>
-      ${items.filter((it) => it.name in m.points).map((it) => `<button class="chip" data-n="${esc(it.name)}">${esc(it.name)}</button>`).join('')}
     </div>
+    <details class="tiny" id="tiny"><summary>Tiny countries (${items.filter((it) => it.name in m.points).length})</summary>
+      <div class="row">${items.filter((it) => it.name in m.points).map((it) => `<button class="chip" data-n="${esc(it.name)}">${esc(it.name)}</button>`).join('')}</div></details>
     <div class="mapwrap">
       <svg id="wmap" viewBox="${vb0.join(' ')}" role="img" aria-label="World map">
         <rect class="sea" x="-300" y="-200" width="1700" height="900"/>${(m.background ?? []).map((p) => `<path class="bg" d="${p}"/>`).join('')}${shapes}${markers}</svg>
@@ -755,7 +762,7 @@ async function viewWorldMap(d, parts) {
       <div class="tip" id="tip" hidden></div>
     </div>
     <div class="panel" id="minfo"></div>
-    ${rd.cards.length ? practiceHtml(rd) : ''}`;
+`;
 
   const svg = $app.querySelector('#wmap');
   const info = $app.querySelector('#minfo');
@@ -920,6 +927,7 @@ async function viewWorldMap(d, parts) {
       <div class="row"><button class="primary" id="again">Try again</button><button id="done">Back to the map</button></div>`;
     quiz = null;
     $app.querySelector('#finder').hidden = false;
+    $app.querySelector('#tiny').hidden = false;
     info.querySelector('#again').onclick = () => { pendingFind = items.length ? Math.min(20, items.length) : 0; home(); };
     info.querySelector('#done').onclick = home;
   };
@@ -927,6 +935,7 @@ async function viewWorldMap(d, parts) {
     const count = Math.min(items.length, Math.max(1, n || 20));
     quiz = { queue: shuffle(items.map((it) => it.name)).slice(0, count), i: 0, score: 0, missed: [] };
     $app.querySelector('#finder').hidden = true;
+    $app.querySelector('#tiny').hidden = true;
     vb = [...vb0];
     setView();
     ask();
@@ -937,7 +946,13 @@ async function viewWorldMap(d, parts) {
   };
   if (pendingFind) { const n = pendingFind; pendingFind = 0; start(n); }
 
-  if (rd.cards.length) wirePractice(rd, home);
+  $app.querySelectorAll('[data-mode]').forEach((b) => {
+    b.onclick = () => {
+      const n = Math.max(1, Number($app.querySelector('#mcnt').value) || 20);
+      const cards = pickCards(rd.cards.filter((c) => c.mode.id === b.dataset.mode), n);
+      if (cards.length) runQuiz({ cards, format: $app.querySelector('#fmt').value, onExit: home });
+    };
+  });
 }
 
 const VIEWS = { 'world-map': viewWorldMap, 'periodic-table': viewPeriodicTable, 'reaction-types': viewReactionTypes, articles: viewArticles };

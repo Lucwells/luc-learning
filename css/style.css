@@ -268,3 +268,9 @@ img.flag.lg { height: 5.5rem; align-self: flex-start; }
 #wmap .hit.sel { stroke: var(--text); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
 #wmap .hit.ok, #wmap .hit.miss, #wmap .hit.wrong { fill: transparent; }
 #wmap .hit.dim { pointer-events: none; }
+.panel-title { margin: 0 0 .6rem; font-size: 1rem; }
+.quizbar { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; }
+.quizbar label { margin: 0; }
+details.tiny { margin: .2rem 0 .6rem; }
+details.tiny summary { cursor: pointer; color: var(--muted); font-size: .9rem; }
+details.tiny[hidden] { display: none; }
