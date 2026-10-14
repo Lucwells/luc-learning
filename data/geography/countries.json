@@ -6,6 +6,8 @@
     "Countries"
   ],
   "idField": "name",
+  "view": "world-map",
+  "mapFile": "geography/world-map.json",
   "modes": [
     {
       "id": "country-capital",

@@ -110,3 +110,7 @@ A deck with `"view": "articles"` is a set of topics (concepts, processes, people
 ```
 
 Every `name` and every word in `terms` becomes a link wherever it appears in any other page's text (element attributes, reaction types, other articles). The first mention in each card is linked, and Esc returns you to the page you came from. Section parts are all optional.
+
+## World map
+
+`data/geography/countries.json` uses `"view": "world-map"` and `"mapFile"`. The map is regenerated from Natural Earth data (world-atlas `countries-50m.json`) with `node scripts/build-map.mjs <file>`; it has region tabs, zoom/pan, click-for-details and a "find them on the map" quiz.

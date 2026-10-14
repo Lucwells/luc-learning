@@ -698,7 +698,201 @@ function openReactionQuiz(d, parts) {
   modal.querySelector('#start').focus();
 }
 
-const VIEWS = { 'periodic-table': viewPeriodicTable, 'reaction-types': viewReactionTypes, articles: viewArticles };
+/* ---------- world map ---------- */
+
+const MAP_REGIONS = ['Global', 'North America', 'South America', 'Europe', 'Africa', 'Asia', 'Oceania'];
+let mapData = null;
+let mapRegion = 'Global';
+let pendingFind = 0; // question count to start a map quiz with after a clean re-render
+
+async function viewWorldMap(d, parts) {
+  const hash = location.hash;
+  mapData ??= await (await fetch(`data/${d.mapFile}`)).json();
+  if (location.hash !== hash) return; // navigated away while loading
+  const m = mapData;
+  const region = mapRegion;
+  const inRegion = (it) => region === 'Global' || it.continent === region;
+  const items = d.items.filter(inRegion);
+  const byName = new Map(d.items.map((it) => [it.name, it]));
+  const rd = { ...d, items, cards: d.cards.filter((c) => inRegion(c.item)) };
+  const home = () => viewWorldMap(d, parts);
+
+  const attrs = (n, extra = '') => {
+    const it = byName.get(n);
+    return `data-n="${esc(n)}" class="ctry${extra} c-${slug(it.continent)}${inRegion(it) ? '' : ' dim'}"`;
+  };
+  const shapes = Object.entries(m.shapes).map(([n, p]) => `<path ${attrs(n)} d="${p}"/>`).join('');
+  const markers = Object.entries(m.points).map(([n, p]) => {
+    const [x, y] = region === 'Oceania' && m.wrap[n] ? m.wrap[n] : p;
+    return `<circle ${attrs(n, ' mk')} cx="${x}" cy="${y}" r="3"/>`;
+  }).join('');
+  const vb0 = m.regions[region];
+
+  $app.innerHTML = `
+    ${crumbs(parts)}
+    <div class="hero">
+      <div><h1>${esc(parts[parts.length - 1])}</h1>
+        <p class="muted">${items.length} countries · ${region === 'Global' ? 'whole world' : esc(region)}. Click a country for details; scroll to zoom, drag to pan.</p></div>
+      <div class="row"><label>Questions <input type="number" id="mcnt" min="1" max="${items.length}" value="${Math.min(20, items.length)}"></label>
+        <button class="primary" id="mq">Find them on the map</button></div>
+    </div>
+    <div class="tabs">${MAP_REGIONS.map((r) => `<button class="tab${r === region ? ' on' : ''}" data-r="${esc(r)}">${esc(r)}</button>`).join('')}</div>
+    <div class="mapwrap">
+      <svg id="wmap" viewBox="${vb0.join(' ')}" role="img" aria-label="World map">
+        <rect class="sea" x="-300" y="-200" width="1700" height="900"/>${(m.background ?? []).map((p) => `<path class="bg" d="${p}"/>`).join('')}${shapes}${markers}</svg>
+      <div class="zoom"><button id="zi" aria-label="Zoom in">+</button><button id="zo" aria-label="Zoom out">−</button><button id="zr" aria-label="Reset view">⟲</button></div>
+      <div class="tip" id="tip" hidden></div>
+    </div>
+    <div class="panel" id="minfo"></div>
+    ${rd.cards.length ? practiceHtml(rd) : ''}`;
+
+  const svg = $app.querySelector('#wmap');
+  const info = $app.querySelector('#minfo');
+  const tip = $app.querySelector('#tip');
+  let quiz = null;
+  let vb = [...vb0];
+
+  const setView = () => {
+    svg.setAttribute('viewBox', vb.map((v) => Math.round(v * 10) / 10).join(' '));
+    const r = 3 * vb[2] / 1000 * (region === 'Global' ? 1 : 1.6);
+    svg.querySelectorAll('.mk').forEach((c) => c.setAttribute('r', r));
+  };
+  setView();
+
+  const byN = (n) => svg.querySelectorAll(`[data-n="${CSS.escape(n)}"]`);
+  const showInfo = (n) => {
+    const it = byName.get(n);
+    svg.querySelectorAll('.sel').forEach((e) => e.classList.remove('sel'));
+    byN(n).forEach((e) => e.classList.add('sel'));
+    info.innerHTML = `<h2>${esc(it.name)}</h2>
+      <dl class="facts"><dt>Capital</dt><dd>${esc(it.capital)}</dd><dt>Continent</dt><dd>${esc(it.continent)}</dd></dl>`;
+  };
+  info.innerHTML = '<span class="muted">Select a country on the map.</span>';
+
+  $app.querySelectorAll('.tab').forEach((b) => { b.onclick = () => { mapRegion = b.dataset.r; home(); }; });
+
+  // Zoom and pan
+  const zoomBy = (f, cx = 0.5, cy = 0.5) => {
+    const w = Math.min(vb0[2] * 1.5, Math.max(30, vb[2] * f));
+    const k = w / vb[2];
+    vb = [vb[0] + vb[2] * cx * (1 - k), vb[1] + vb[3] * cy * (1 - k), vb[2] * k, vb[3] * k];
+    setView();
+  };
+  svg.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    const r = svg.getBoundingClientRect();
+    zoomBy(e.deltaY > 0 ? 1.2 : 1 / 1.2, (e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height);
+  }, { passive: false });
+  $app.querySelector('#zi').onclick = () => zoomBy(1 / 1.4);
+  $app.querySelector('#zo').onclick = () => zoomBy(1.4);
+  $app.querySelector('#zr').onclick = () => { vb = [...vb0]; setView(); };
+
+  let drag = null;
+  let moved = false;
+  svg.addEventListener('pointerdown', (e) => { drag = { x: e.clientX, y: e.clientY, vb: [...vb] }; moved = false; });
+  const onMove = (e) => {
+    if (!drag) return;
+    const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+    if (Math.hypot(dx, dy) > 4) moved = true;
+    if (!moved) return;
+    const r = svg.getBoundingClientRect();
+    const s = Math.max(drag.vb[2] / r.width, drag.vb[3] / r.height);
+    vb = [drag.vb[0] - dx * s, drag.vb[1] - dy * s, drag.vb[2], drag.vb[3]];
+    setView();
+  };
+  const onUp = () => { drag = null; };
+  window.addEventListener('pointermove', onMove);
+  window.addEventListener('pointerup', onUp);
+  const prevStop = stopKeys;
+  stopKeys = () => { window.removeEventListener('pointermove', onMove); window.removeEventListener('pointerup', onUp); stopKeys = () => {}; prevStop(); };
+
+  // Hover name (hidden during the quiz so it doesn't give answers away)
+  svg.addEventListener('pointermove', (e) => {
+    const t = e.target.closest('[data-n]');
+    if (!t || quiz || t.classList.contains('dim')) { tip.hidden = true; return; }
+    const r = svg.parentElement.getBoundingClientRect();
+    tip.textContent = t.dataset.n;
+    tip.style.left = `${e.clientX - r.left + 12}px`;
+    tip.style.top = `${e.clientY - r.top + 12}px`;
+    tip.hidden = false;
+  });
+  svg.addEventListener('pointerleave', () => { tip.hidden = true; });
+
+  svg.addEventListener('click', (e) => {
+    if (moved) return;
+    const t = e.target.closest('[data-n]');
+    if (!t || t.classList.contains('dim')) return;
+    if (quiz) answer(t); else showInfo(t.dataset.n);
+  });
+
+  // "Find them on the map" quiz
+  const flash = (n, cls, ms) => {
+    const els = byN(n);
+    els.forEach((x) => x.classList.add(cls));
+    setTimeout(() => els.forEach((x) => x.classList.remove(cls)), ms);
+  };
+  const mark = (n, cls) => byN(n).forEach((x) => x.classList.add(cls));
+
+  const ask = () => {
+    if (quiz.i >= quiz.queue.length) return finish();
+    quiz.tries = 0;
+    quiz.busy = false;
+    info.innerHTML = `<div class="meta">${quiz.i + 1} / ${quiz.queue.length} · ${quiz.score} correct first try</div>
+      <h2 class="q">Click on: ${esc(quiz.queue[quiz.i])}</h2>
+      <div class="row"><button id="skip">Skip</button><button id="quit">Stop quiz</button></div>`;
+    info.querySelector('#skip').onclick = giveUp;
+    info.querySelector('#quit').onclick = home;
+  };
+  const next = () => { quiz.i++; ask(); };
+  const giveUp = () => {
+    if (quiz.busy) return;
+    quiz.busy = true;
+    const n = quiz.queue[quiz.i];
+    quiz.missed.push(n);
+    mark(n, 'miss');
+    flash(n, 'pulse', 1200);
+    setTimeout(next, 1300);
+  };
+  const answer = (t) => {
+    if (quiz.busy) return;
+    const target = quiz.queue[quiz.i];
+    const n = t.dataset.n;
+    if (n === target) {
+      quiz.busy = true;
+      if (quiz.tries === 0) { quiz.score++; mark(n, 'ok'); } else { quiz.missed.push(n); mark(n, 'miss'); }
+      setTimeout(next, 400);
+    } else {
+      quiz.tries++;
+      flash(n, 'wrong', 600);
+      if (quiz.tries >= 2) giveUp();
+    }
+  };
+  const finish = () => {
+    const missed = quiz.missed;
+    info.innerHTML = `<h2>${quiz.score} / ${quiz.queue.length} first try</h2>
+      ${missed.length ? `<h3>Review</h3><ul class="review">${missed.map((n) => `<li>${esc(n)} <span class="muted">· ${esc(byName.get(n).capital)}</span></li>`).join('')}</ul>` : '<p class="good">Perfect.</p>'}
+      <div class="row"><button class="primary" id="again">Try again</button><button id="done">Back to the map</button></div>`;
+    quiz = null;
+    info.querySelector('#again').onclick = () => { pendingFind = items.length ? Math.min(20, items.length) : 0; home(); };
+    info.querySelector('#done').onclick = home;
+  };
+  const start = (n) => {
+    const count = Math.min(items.length, Math.max(1, n || 20));
+    quiz = { queue: shuffle(items.map((it) => it.name)).slice(0, count), i: 0, score: 0, missed: [] };
+    vb = [...vb0];
+    setView();
+    ask();
+  };
+  $app.querySelector('#mq').onclick = () => {
+    const n = Number($app.querySelector('#mcnt').value);
+    if (svg.querySelector('.ok, .miss, .sel')) { pendingFind = n || 20; home(); } else start(n);
+  };
+  if (pendingFind) { const n = pendingFind; pendingFind = 0; start(n); }
+
+  if (rd.cards.length) wirePractice(rd, home);
+}
+
+const VIEWS = { 'world-map': viewWorldMap, 'periodic-table': viewPeriodicTable, 'reaction-types': viewReactionTypes, articles: viewArticles };
 
 /* ---------- periodic table quizzes ---------- */
 

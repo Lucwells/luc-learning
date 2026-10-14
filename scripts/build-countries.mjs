@@ -216,6 +216,8 @@ const deck = {
   description: `${items.length} countries: 193 UN member states plus Vatican City and Palestine. Capitals and continents.`,
   category: ['Geography', 'Countries'],
   idField: 'name',
+  view: 'world-map',
+  mapFile: 'geography/world-map.json',
   modes: [
     { id: 'country-capital', label: 'Country → Capital', question: 'What is the capital of {name}?', answer: 'capital' },
     { id: 'capital-country', label: 'Capital → Country', question: '{capital} is the capital of which country?', answer: 'name' },

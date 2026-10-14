@@ -216,3 +216,35 @@ a.term:hover { color: var(--accent); }
 .modal .card.wide { width: min(680px, 100%); }
 .modal .card dl.terms { margin: .4rem 0 .6rem; }
 .modal .card .big-eq { font-size: 1.15rem; padding: .45rem .8rem; margin: .4rem 0; }
+
+/* ---------- world map ---------- */
+.tabs { display: flex; gap: .4rem; flex-wrap: wrap; margin: 1rem 0 .6rem; }
+.tab.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+.mapwrap { position: relative; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--panel); }
+#wmap { display: block; width: 100%; height: auto; max-height: 70vh; aspect-ratio: 1000 / 520; cursor: grab; touch-action: none; user-select: none; }
+#wmap:active { cursor: grabbing; }
+#wmap .sea { fill: var(--panel); }
+#wmap .ctry { stroke: var(--bg); stroke-width: .6; vector-effect: non-scaling-stroke; cursor: pointer; }
+#wmap .ctry:hover { filter: brightness(1.25); }
+#wmap .mk { stroke: var(--text); stroke-width: .8; }
+#wmap .c-africa { fill: hsl(35 55% 48%); }
+#wmap .c-asia { fill: hsl(350 45% 52%); }
+#wmap .c-europe { fill: hsl(215 50% 52%); }
+#wmap .c-north-america { fill: hsl(150 40% 42%); }
+#wmap .c-south-america { fill: hsl(90 40% 45%); }
+#wmap .c-oceania { fill: hsl(280 38% 55%); }
+#wmap .dim { opacity: .18; pointer-events: none; filter: grayscale(1); }
+#wmap .sel { stroke: var(--text); stroke-width: 2; }
+#wmap .ok { fill: var(--good); }
+#wmap .miss, #wmap .wrong { fill: var(--bad); }
+#wmap .pulse { animation: pulse .4s ease-in-out 3; }
+@keyframes pulse { 50% { filter: brightness(1.8); } }
+.mapwrap .zoom { position: absolute; top: .5rem; right: .5rem; display: flex; flex-direction: column; gap: .25rem; }
+.mapwrap .zoom button { width: 2rem; height: 2rem; padding: 0; }
+.mapwrap .tip { position: absolute; pointer-events: none; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: .15rem .5rem; font-size: .85rem; white-space: nowrap; z-index: 2; }
+#minfo h2 { margin: 0 0 .4rem; }
+#minfo .q { margin: .2rem 0 .6rem; }
+#minfo .facts { display: grid; grid-template-columns: max-content 1fr; gap: .2rem 1rem; margin: 0; }
+#minfo .facts dt { color: var(--muted); }
+#minfo .facts dd { margin: 0; }
+#wmap .bg { fill: var(--line); stroke: var(--bg); stroke-width: .6; vector-effect: non-scaling-stroke; pointer-events: none; }
