@@ -1,0 +1,135 @@
+{
+  "title": "Solutions, Liquids and Solids",
+  "description": "What happens when substances dissolve, how solutions differ from pure liquids, and how matter changes phase.",
+  "category": ["Chemistry", "General Chemistry", "Solutions and Phases"],
+  "view": "articles",
+  "entries": [
+    {
+      "id": "dissolving", "name": "How substances dissolve", "group": "Solutions",
+      "terms": ["like dissolves like", "solvent", "solute", "solvation", "hydration", "miscible", "saturated solution", "supersaturated"],
+      "tagline": "Why salt dissolves in water and oil does not.",
+      "sections": [
+        { "text": "A solution is a uniform mixture of a solute dissolved in a solvent. A substance dissolves when the attractions between solute and solvent are about as strong as the attractions it must break in the pure solute and the pure solvent." },
+        { "h": "Like dissolves like", "points": [
+          "Polar and ionic substances dissolve in polar solvents such as water. Water molecules surround each ion, which is called hydration.",
+          "Nonpolar substances dissolve in nonpolar solvents. Oil and hexane mix. Oil and water do not, and are said to be immiscible.",
+          "Ethanol mixes with water because its –OH group forms hydrogen bonds with water."
+        ] },
+        { "h": "Saturation", "points": [
+          "A saturated solution holds as much solute as it can at that temperature, and is in equilibrium with undissolved solute.",
+          "A supersaturated solution holds more than it should, and crystallizes quickly if disturbed. Hand warmers made from sodium acetate use this.",
+          "The solubility of most solids rises with temperature. The solubility of gases falls as temperature rises."
+        ] }
+      ],
+      "quiz": [
+        { "q": "Which of these will dissolve best in water?", "a": "Table salt", "wrong": ["Cooking oil", "Hexane", "Candle wax"] }
+      ]
+    },
+    {
+      "id": "henry", "name": "Henry's law", "group": "Solutions",
+      "terms": ["Henry's law"],
+      "tagline": "More pressure pushes more gas into a liquid.",
+      "sections": [
+        { "equations": ["S = kH × P"], "text": "The solubility S of a gas in a liquid is proportional to the partial pressure P of that gas above the liquid, at a fixed temperature." },
+        { "h": "Examples", "points": [
+          "A fizzy drink is bottled under pressure with a lot of dissolved carbon dioxide. When you open it, the pressure falls and gas bubbles out.",
+          "Divers who rise too quickly can get decompression sickness, because nitrogen that dissolved in the blood at high pressure comes out as bubbles."
+        ] }
+      ],
+      "quiz": [
+        { "q": "What happens to the solubility of a gas in water when its pressure above the water is doubled?", "a": "It doubles", "wrong": ["It halves", "It stays the same", "It quadruples"] }
+      ]
+    },
+    {
+      "id": "raoult", "name": "Vapor pressure and Raoult's law", "group": "Solutions",
+      "terms": ["vapor pressure", "vapour pressure", "Raoult's law", "volatile"],
+      "tagline": "A dissolved solute lowers how easily a solvent evaporates.",
+      "sections": [
+        { "text": "Molecules at the surface of a liquid escape into the gas phase. In a closed container, equilibrium is reached, and the pressure of the vapor is the vapor pressure. It rises with temperature, and a liquid boils when its vapor pressure equals the surrounding pressure." },
+        { "equations": ["P(solution) = X(solvent) × P°(solvent)"], "text": "This is Raoult's law. X is the mole fraction of solvent and P° is the vapor pressure of the pure solvent." },
+        { "h": "Meaning", "text": "A nonvolatile solute takes up space at the surface, so fewer solvent molecules can escape and the vapor pressure drops. This lowering of vapor pressure is the cause of the other colligative properties." },
+        { "h": "Example", "text": "Water at 25 °C has P° = 23.8 mmHg. In a solution with solvent mole fraction 0.90, the vapor pressure is 0.90 × 23.8 ≈ 21.4 mmHg." }
+      ],
+      "quiz": [
+        { "q": "How does a dissolved nonvolatile solute change the vapor pressure of a solvent?", "a": "It lowers it", "wrong": ["It raises it", "It does not change it", "It makes it zero"] }
+      ]
+    },
+    {
+      "id": "colligative", "name": "Colligative properties", "group": "Solutions",
+      "terms": ["colligative properties", "colligative property", "boiling point elevation", "freezing point depression", "osmotic pressure", "osmosis", "van 't Hoff factor"],
+      "tagline": "Properties that depend on how many particles are dissolved, not what they are.",
+      "sections": [
+        { "text": "Dissolving a solute changes four properties of the solvent in a way that depends only on the number of dissolved particles: vapor pressure, boiling point, freezing point and osmotic pressure." },
+        { "h": "Equations", "equations": ["ΔTb = i Kb m", "ΔTf = i Kf m", "Π = i M R T"], "points": [
+          "m is the molality, M is the molarity, and i is the van 't Hoff factor, the number of particles each formula unit gives. For glucose i = 1, for NaCl i is about 2, for CaCl₂ about 3.",
+          "For water, Kb = 0.512 °C·kg/mol and Kf = 1.86 °C·kg/mol.",
+          "Osmotic pressure Π is the pressure needed to stop solvent flowing through a semipermeable membrane toward the more concentrated solution. That flow is osmosis."
+        ] },
+        { "h": "Worked example", "text": "A solution of 1.00 mol NaCl in 1.00 kg of water (i ≈ 2) freezes at ΔTf = 2 × 1.86 × 1.00 = 3.7 °C below 0 °C. This is why salt melts ice on roads, and why antifreeze keeps a car radiator from freezing." }
+      ],
+      "quiz": [
+        { "q": "Which solution has the lowest freezing point? (equal molality)", "a": "CaCl₂", "wrong": ["NaCl", "Glucose", "Pure water"] }
+      ]
+    },
+    {
+      "id": "phase-diagrams", "name": "Phase diagrams", "group": "Phases of matter",
+      "terms": ["phase diagram", "phase diagrams", "triple point", "critical point", "supercritical fluid"],
+      "tagline": "A map of which phase a substance is in at each temperature and pressure.",
+      "sections": [
+        { "text": "A phase diagram plots pressure against temperature. Regions are solid, liquid and gas, and the lines between them show where two phases exist together." },
+        { "h": "Key features", "points": [
+          "Triple point: the one temperature and pressure at which solid, liquid and gas all exist together. For water it is 0.01 °C and 0.006 atm.",
+          "Critical point: above this temperature and pressure the liquid and gas become one, a supercritical fluid. For water it is 374 °C and 218 atm.",
+          "The normal melting and boiling points are where the 1 atm line crosses the boundaries."
+        ] },
+        { "h": "Water and carbon dioxide", "points": [
+          "For most substances the solid–liquid line slopes to the right. For water it slopes slightly to the left, so ice melts under pressure and ice is less dense than water.",
+          "Carbon dioxide's triple point is above 1 atm (5.1 atm), so at 1 atm solid CO₂ cannot melt and instead sublimes. That is why it is called dry ice."
+        ] }
+      ],
+      "quiz": [
+        { "q": "What is the triple point?", "a": "The one condition where solid, liquid and gas coexist", "wrong": ["The temperature at which a liquid boils at 1 atm", "The point above which a liquid and gas are the same", "The point where three liquids mix"] }
+      ]
+    },
+    {
+      "id": "heating-curves", "name": "Heating curves and phase-change enthalpy", "group": "Phases of matter",
+      "terms": ["heating curve", "heating curves", "enthalpy of fusion", "enthalpy of vaporization", "latent heat", "heat of fusion", "heat of vaporization"],
+      "tagline": "How much heat it takes to melt, boil and warm a substance.",
+      "sections": [
+        { "text": "A heating curve plots temperature against heat added. It has sloping sections where the temperature rises, and flat sections where a phase change happens and all the heat goes into breaking attractions between molecules." },
+        { "h": "For water", "points": [
+          "Warming ice or water or steam: q = m c ΔT, with c about 2.1 for ice, 4.18 for water and 2.0 for steam, in J/(g·°C).",
+          "Melting at 0 °C: ΔH(fusion) = 6.01 kJ/mol (334 J/g).",
+          "Boiling at 100 °C: ΔH(vaporization) = 40.7 kJ/mol (2260 J/g)."
+        ] },
+        { "h": "Worked example", "text": "Heat needed to turn 10.0 g of ice at 0 °C into water at 20 °C: melting 10.0 × 334 = 3340 J, then warming 10.0 × 4.18 × 20 = 836 J, total about 4.2 kJ." },
+        { "h": "Why steam burns", "text": "Condensing steam releases 2260 J per gram on top of the heat from cooling, which is why steam scalds more than boiling water." }
+      ],
+      "quiz": [
+        { "q": "What happens to the temperature during a phase change at constant pressure?", "a": "It stays constant", "wrong": ["It rises steadily", "It falls steadily", "It doubles"] }
+      ]
+    },
+    {
+      "id": "crystalline-solids", "name": "Types of solids and unit cells", "group": "Phases of matter",
+      "terms": ["unit cell", "unit cells", "crystalline solid", "amorphous solid", "network solid", "covalent network", "close packing", "face-centered cubic", "body-centered cubic"],
+      "tagline": "The ways particles pack together in a solid.",
+      "sections": [
+        { "h": "Four kinds of crystalline solid", "facts": [
+          ["Ionic", "Ions held by electrostatic attraction. Hard, brittle, high melting. NaCl."],
+          ["Molecular", "Molecules held by intermolecular forces. Soft, low melting. Ice, sugar."],
+          ["Covalent network", "Atoms joined by covalent bonds throughout. Very hard, very high melting. Diamond, quartz."],
+          ["Metallic", "A lattice of metal ions in an electron sea. Conductive, malleable. Copper, iron."]
+        ] },
+        { "h": "Crystalline vs amorphous", "text": "A crystalline solid has a regular repeating arrangement and a sharp melting point. An amorphous solid, such as glass or most plastics, has no long-range order and softens over a range of temperatures." },
+        { "h": "Unit cells", "text": "The unit cell is the smallest repeating unit of a crystal.", "points": [
+          "Simple cubic: atoms at the 8 corners. 1 atom per cell, 52% of the space filled.",
+          "Body-centered cubic: corners plus one atom in the center. 2 atoms per cell, 68% filled.",
+          "Face-centered cubic: corners plus the center of each face. 4 atoms per cell, 74% filled, the most efficient packing along with hexagonal close packing."
+        ] }
+      ],
+      "quiz": [
+        { "q": "How many atoms are in a face-centered cubic unit cell?", "a": "4", "wrong": ["1", "2", "6"] }
+      ]
+    }
+  ]
+}

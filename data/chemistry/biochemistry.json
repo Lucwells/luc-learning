@@ -1,0 +1,238 @@
+{
+  "title": "Biochemistry",
+  "description": "The chemistry of living things: the molecules cells are built from, and the reactions that keep them running.",
+  "category": ["Chemistry", "Biochemistry"],
+  "view": "articles",
+  "entries": [
+    {
+      "id": "amino-acids", "name": "Amino acids and peptides", "group": "Proteins",
+      "terms": ["amino acid", "amino acids", "peptide", "peptides", "polypeptide", "zwitterion", "isoelectric point"],
+      "tagline": "The 20 building blocks of proteins, and how they join.",
+      "sections": [
+        { "text": "An amino acid has a central carbon bonded to an amino group (–NH₂), a carboxyl group (–COOH), a hydrogen and a side chain R. The side chain is what makes each of the 20 standard amino acids different. In proteins they are in the L form." },
+        { "h": "Things to remember", "points": [
+          "At neutral pH the amino acid is a zwitterion: the amino group carries a positive charge (–NH₃⁺) and the carboxyl group a negative charge (–COO⁻). The pH at which the net charge is zero is the isoelectric point.",
+          "The side chains can be nonpolar (such as in alanine and valine), polar, acidic (negatively charged) or basic (positively charged). That decides where each ends up in a folded protein.",
+          "Two amino acids join by a peptide bond, an amide link formed by a condensation reaction that releases water. A chain is a peptide, and a long one is a polypeptide.",
+          "A chain has two ends: the N-terminus with a free amino group and the C-terminus with a free carboxyl group. Sequences are read from N to C.",
+          "Humans cannot make nine of the amino acids, the essential amino acids, so they have to come from food."
+        ] }
+      ],
+      "quiz": [
+        { "q": "What type of bond joins amino acids in a protein?", "a": "A peptide bond", "wrong": ["A glycosidic bond", "A phosphodiester bond", "A hydrogen bond"] }
+      ]
+    },
+    {
+      "id": "protein-structure", "name": "Protein structure", "group": "Proteins",
+      "terms": ["protein structure", "primary structure", "secondary structure", "tertiary structure", "quaternary structure", "alpha helix", "α-helix", "beta sheet", "β-sheet", "denaturation", "denatured", "disulfide bond", "disulfide bonds", "protein", "proteins"],
+      "tagline": "Four levels of folding turn a chain of amino acids into a working molecule.",
+      "sections": [
+        { "facts": [
+          ["Primary", "The sequence of amino acids. It is set by the gene and decides all the higher levels."],
+          ["Secondary", "Local folding held by hydrogen bonds between backbone atoms: the α-helix (a coil) and the β-sheet (side-by-side strands)."],
+          ["Tertiary", "The full 3D shape of one chain, held by interactions between side chains: the hydrophobic effect (nonpolar side chains hide in the core), hydrogen bonds, ionic attractions and disulfide bonds (S–S links between cysteines)."],
+          ["Quaternary", "Several chains packed together. Hemoglobin has four."]
+        ] },
+        { "h": "Shape equals function", "points": [
+          "Even one changed amino acid can matter. In sickle cell disease, a single glutamate in a chain of hemoglobin is replaced by valine, which makes the molecules stick together.",
+          "Denaturation is the loss of the folded shape, without breaking peptide bonds. Heat, strong acid or base, and some solvents do it. Cooking an egg denatures its proteins, and it cannot be reversed."
+        ] }
+      ],
+      "quiz": [
+        { "q": "Which level of protein structure is the amino acid sequence?", "a": "Primary", "wrong": ["Secondary", "Tertiary", "Quaternary"] }
+      ]
+    },
+    {
+      "id": "enzymes", "name": "Enzymes", "group": "Proteins",
+      "terms": ["enzyme", "enzymes", "active site", "substrate", "substrates", "lock and key", "induced fit", "cofactor", "cofactors", "inhibitor", "inhibitors", "competitive inhibition"],
+      "tagline": "Protein catalysts that make the reactions of life fast enough.",
+      "sections": [
+        { "text": "Enzymes are biological catalysts, mostly proteins. They bind the reactant, called the substrate, at a pocket called the active site, and lower the activation energy. They are very specific, and they speed reactions up by factors of millions or more." },
+        { "h": "How they work", "points": [
+          "The active site fits its substrate. The lock-and-key picture is simple, and the induced-fit model adds that the enzyme changes shape a little as the substrate binds.",
+          "The enzyme is not used up and is released unchanged.",
+          "Activity depends on temperature and pH, each with an optimum. Pepsin works best at about pH 2, in the stomach, and trypsin at about pH 8, in the intestine. Too much heat denatures the enzyme."
+        ] },
+        { "h": "Helpers", "text": "Many enzymes need a cofactor, a metal ion or a small organic molecule called a coenzyme. Many vitamins are the source of coenzymes." },
+        { "h": "Inhibitors", "facts": [
+          ["Competitive", "Resembles the substrate and blocks the active site. More substrate can win it back."],
+          ["Noncompetitive", "Binds elsewhere and changes the enzyme's shape, so the enzyme works more slowly however much substrate there is."]
+        ] },
+        { "h": "Examples", "text": "Many medicines work as inhibitors. Penicillin blocks an enzyme that bacteria use to build their cell walls, and statins block an enzyme that makes cholesterol." }
+      ],
+      "quiz": [
+        { "q": "What is the substrate of an enzyme?", "a": "The molecule the enzyme acts on", "wrong": ["The product of the reaction", "A coenzyme", "The active site"] }
+      ]
+    },
+    {
+      "id": "michaelis-menten", "name": "Michaelis–Menten kinetics", "group": "Proteins",
+      "terms": ["Michaelis–Menten", "Michaelis-Menten", "Km", "Vmax", "Lineweaver–Burk", "Lineweaver-Burk"],
+      "tagline": "How the speed of an enzyme depends on the amount of substrate.",
+      "sections": [
+        { "equations": ["v = Vmax[S] ÷ (Km + [S])"], "text": "v is the reaction rate and [S] is the substrate concentration. Vmax is the maximum rate, reached when every enzyme molecule is busy. Km is the substrate concentration at which the rate is half of Vmax." },
+        { "h": "What it means", "points": [
+          "At low [S] the rate rises almost in proportion to [S]. At high [S] the enzyme is saturated and the rate levels off at Vmax.",
+          "A low Km means the enzyme binds the substrate tightly and reaches half speed with little substrate.",
+          "Example: Vmax = 100 µM/s and Km = 2 mM. At [S] = 2 mM, v = 100 × 2 ÷ (2 + 2) = 50 µM/s."
+        ] },
+        { "h": "Lineweaver–Burk plot", "text": "Plotting 1/v against 1/[S] gives a straight line. The y-intercept is 1/Vmax and the x-intercept is −1/Km. A competitive inhibitor raises Km but leaves Vmax unchanged. A noncompetitive inhibitor lowers Vmax." }
+      ],
+      "quiz": [
+        { "q": "What is Km?", "a": "The substrate concentration at half of Vmax", "wrong": ["The maximum rate", "The enzyme concentration", "The inhibitor concentration"] }
+      ]
+    },
+    {
+      "id": "carbohydrates", "name": "Carbohydrates", "group": "Biomolecules",
+      "terms": ["carbohydrate", "carbohydrates", "glucose", "fructose", "monosaccharide", "monosaccharides", "disaccharide", "disaccharides", "polysaccharide", "polysaccharides", "starch", "cellulose", "glycogen", "glycosidic bond", "sucrose", "lactose"],
+      "tagline": "Sugars and their polymers, the main fuel and structural material of plants.",
+      "sections": [
+        { "facts": [
+          ["Monosaccharides", "Single sugars, such as glucose, fructose and galactose, all C₆H₁₂O₆. In water they exist mostly as rings."],
+          ["Disaccharides", "Two sugars joined by a glycosidic bond, formed by condensation. Sucrose = glucose + fructose. Lactose = glucose + galactose. Maltose = glucose + glucose."],
+          ["Polysaccharides", "Long chains. Starch stores energy in plants. Glycogen stores energy in animals and is more branched. Cellulose is the structural material of plants."]
+        ] },
+        { "h": "Why starch and cellulose differ", "text": "Both are chains of glucose. In starch the links are α, which makes a coiled chain that enzymes can break down. In cellulose they are β, which makes straight chains that pack into strong fibers. Humans have no enzyme for the β links, so cellulose passes through as fiber." },
+        { "h": "Sugar tests", "text": "Reducing sugars, such as glucose, reduce Benedict's reagent from blue to a brick-red precipitate on heating. Sucrose is not a reducing sugar." }
+      ],
+      "quiz": [
+        { "q": "What is sucrose made of?", "a": "Glucose and fructose", "wrong": ["Two glucose units", "Glucose and galactose", "Fructose and galactose"] }
+      ]
+    },
+    {
+      "id": "lipids", "name": "Lipids", "group": "Biomolecules",
+      "terms": ["lipid", "lipids", "fatty acid", "fatty acids", "triglyceride", "triglycerides", "phospholipid", "phospholipids", "cholesterol", "saturated fat", "unsaturated fat", "steroid", "steroids", "trans fat"],
+      "tagline": "Fats, oils and membranes: molecules that do not mix with water.",
+      "sections": [
+        { "text": "Lipids are a varied group defined by being mostly nonpolar and insoluble in water." },
+        { "h": "Main kinds", "facts": [
+          ["Triglycerides", "Glycerol joined to three fatty acids by ester bonds. Fats and oils."],
+          ["Phospholipids", "Glycerol with two fatty acids and a polar phosphate head. They have a water-loving head and water-hating tails, so in water they form a bilayer, the basis of cell membranes."],
+          ["Steroids", "Four fused rings. Cholesterol, and hormones such as testosterone and estrogen."]
+        ] },
+        { "h": "Saturated and unsaturated", "points": [
+          "Saturated fatty acids have no C=C bonds. The chains are straight and pack tightly, so the fat is solid at room temperature (butter).",
+          "Unsaturated ones have cis C=C bonds that put kinks in the chains, so they pack loosely and are liquid (olive oil).",
+          "Partial hydrogenation of oils can produce trans fats, which are straight and behave like saturated fats and are linked to heart disease."
+        ] },
+        { "h": "Energy", "text": "Fat stores about 37 kJ per gram (9 kcal), more than twice the 17 kJ per gram (4 kcal) of carbohydrate or protein, because it is more reduced." }
+      ],
+      "quiz": [
+        { "q": "Why are unsaturated fats usually liquid at room temperature?", "a": "Cis double bonds kink the chains so they pack loosely", "wrong": ["They have more hydrogen atoms", "They contain no carbon", "They are more polar"] }
+      ]
+    },
+    {
+      "id": "nucleic-acids", "name": "DNA and RNA", "group": "Genetic information",
+      "terms": ["DNA", "RNA", "nucleotide", "nucleotides", "nucleic acid", "nucleic acids", "base pair", "base pairs", "base pairing", "double helix", "adenine", "thymine", "guanine", "cytosine", "uracil", "phosphodiester"],
+      "tagline": "The molecules that store and pass on genetic information.",
+      "sections": [
+        { "text": "A nucleotide has three parts: a sugar (deoxyribose in DNA, ribose in RNA), a phosphate group and a nitrogen base. Nucleotides are joined by phosphodiester bonds into a chain with a sugar–phosphate backbone." },
+        { "h": "The bases", "facts": [
+          ["Purines (two rings)", "Adenine (A) and guanine (G)."],
+          ["Pyrimidines (one ring)", "Cytosine (C), thymine (T, in DNA only) and uracil (U, in RNA only)."]
+        ] },
+        { "h": "The double helix", "points": [
+          "DNA is two strands wound into a helix, running in opposite directions (antiparallel).",
+          "The bases pair across the middle: A with T (2 hydrogen bonds) and G with C (3 hydrogen bonds). So one strand's sequence determines the other's.",
+          "Watson and Crick proposed the structure in 1953, using X-ray data from Rosalind Franklin and Maurice Wilkins."
+        ] },
+        { "h": "DNA and RNA compared", "text": "RNA is usually a single strand, has ribose and uracil, and comes in several kinds: messenger RNA (mRNA), transfer RNA (tRNA) and ribosomal RNA (rRNA)." }
+      ],
+      "quiz": [
+        { "q": "In DNA, adenine pairs with…", "a": "Thymine", "wrong": ["Guanine", "Cytosine", "Uracil"] },
+        { "q": "How many hydrogen bonds join a G–C base pair?", "a": "3", "wrong": ["1", "2", "4"] }
+      ]
+    },
+    {
+      "id": "central-dogma", "name": "Replication, transcription and translation", "group": "Genetic information",
+      "terms": ["central dogma", "replication", "transcription", "translation", "codon", "codons", "genetic code", "mRNA", "tRNA", "ribosome", "ribosomes", "DNA polymerase", "RNA polymerase", "mutation", "mutations"],
+      "tagline": "How genetic information is copied and turned into proteins.",
+      "sections": [
+        { "text": "The central dogma is the flow of information from DNA to RNA to protein." },
+        { "h": "The three processes", "facts": [
+          ["Replication", "DNA is copied before a cell divides. The two strands separate and DNA polymerase builds a new partner for each, so each new molecule has one old and one new strand (semi-conservative)."],
+          ["Transcription", "RNA polymerase reads one DNA strand and makes a messenger RNA copy."],
+          ["Translation", "A ribosome reads the mRNA three bases at a time. Each triplet, a codon, specifies an amino acid, which is carried in by a transfer RNA, and the amino acids are joined into a protein."]
+        ] },
+        { "h": "The genetic code", "points": [
+          "There are 64 codons. 61 code for amino acids and 3 are stop signals. AUG codes for methionine and also signals the start.",
+          "The code is redundant: most amino acids have several codons. It is nearly universal across life.",
+          "A mutation is a change in the DNA sequence. A substitution may be silent, change one amino acid, or create a stop codon. An insertion or deletion that is not a multiple of three shifts the reading frame and usually ruins the protein."
+        ] }
+      ],
+      "quiz": [
+        { "q": "What is a codon?", "a": "Three bases that specify an amino acid or a stop", "wrong": ["A single base", "A section of protein", "The enzyme that copies DNA"] },
+        { "q": "How many codons are there?", "a": "64", "wrong": ["20", "16", "61"] }
+      ]
+    },
+    {
+      "id": "atp", "name": "ATP and metabolism", "group": "Energy and metabolism",
+      "terms": ["ATP", "adenosine triphosphate", "metabolism", "catabolism", "anabolism", "coupled reactions", "NADH", "NAD⁺", "FADH₂"],
+      "tagline": "The energy currency of the cell, and the networks of reactions that use it.",
+      "sections": [
+        { "text": "Metabolism is all the chemical reactions in a cell. Catabolic reactions break molecules down and release energy. Anabolic reactions build molecules up and need energy." },
+        { "h": "ATP", "equations": ["ATP + H₂O → ADP + Pᵢ    ΔG°′ ≈ −30.5 kJ/mol"], "points": [
+          "Adenosine triphosphate has three phosphate groups. Removing the last one releases energy, partly because the three negative charges close together repel each other.",
+          "Cells couple this to reactions that would not otherwise go, by making ATP's hydrolysis and the unfavorable step happen together, so the total ΔG is negative.",
+          "ATP is not stored in large amounts. It is made and used constantly, so the body turns over roughly its own mass in ATP each day."
+        ] },
+        { "h": "Electron carriers", "text": "Catabolism removes electrons from fuel molecules and gives them to carriers: NAD⁺ becomes NADH, and FAD becomes FADH₂. These carry the electrons to the electron transport chain, where the energy is used to make ATP." }
+      ],
+      "quiz": [
+        { "q": "What is the main energy currency of cells?", "a": "ATP", "wrong": ["DNA", "Glucose", "NAD⁺"] }
+      ]
+    },
+    {
+      "id": "respiration", "name": "Glycolysis and cellular respiration", "group": "Energy and metabolism",
+      "terms": ["glycolysis", "cellular respiration", "Krebs cycle", "citric acid cycle", "oxidative phosphorylation", "electron transport chain", "pyruvate", "mitochondria", "mitochondrion", "fermentation", "ATP synthase"],
+      "tagline": "How cells get energy from glucose.",
+      "sections": [
+        { "equations": ["C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O + energy"], "text": "Overall, glucose is oxidized to carbon dioxide and oxygen is reduced to water. This is a combustion reaction carried out in many small steps, so the energy can be captured as ATP." },
+        { "h": "The stages", "facts": [
+          ["Glycolysis", "In the cytoplasm. One glucose (6 carbons) is split into two pyruvate (3 carbons). Net gain: 2 ATP and 2 NADH. It needs no oxygen."],
+          ["Pyruvate oxidation", "In the mitochondrion. Each pyruvate loses a CO₂ and becomes acetyl-CoA, making NADH."],
+          ["Citric acid cycle", "In the mitochondrial matrix. Acetyl-CoA is oxidized completely to CO₂. Per glucose, the cycle gives 6 NADH, 2 FADH₂ and 2 ATP."],
+          ["Electron transport chain", "On the inner mitochondrial membrane. NADH and FADH₂ pass electrons along a chain of proteins, pumping protons across the membrane. Oxygen is the final electron acceptor and forms water. The protons flow back through ATP synthase, which makes most of the ATP."]
+        ] },
+        { "h": "Yield", "text": "About 30 to 32 ATP per glucose is a modern estimate for the whole process. Without oxygen, cells use fermentation instead, making lactate (in muscle) or ethanol (in yeast), which recycles NAD⁺ so glycolysis can continue, but with only 2 ATP." }
+      ],
+      "quiz": [
+        { "q": "Where does glycolysis take place?", "a": "The cytoplasm", "wrong": ["The mitochondrial matrix", "The nucleus", "The inner mitochondrial membrane"] },
+        { "q": "What is the final electron acceptor in the electron transport chain?", "a": "Oxygen", "wrong": ["Glucose", "NAD⁺", "Carbon dioxide"] }
+      ]
+    },
+    {
+      "id": "photosynthesis", "name": "Photosynthesis", "group": "Energy and metabolism",
+      "terms": ["photosynthesis", "chlorophyll", "chloroplast", "chloroplasts", "Calvin cycle", "light reactions", "Rubisco", "thylakoid"],
+      "tagline": "How plants turn light, water and carbon dioxide into sugar and oxygen.",
+      "sections": [
+        { "equations": ["6CO₂ + 6H₂O + light → C₆H₁₂O₆ + 6O₂"], "text": "In effect it is the reverse of cellular respiration. It stores energy from light in sugar." },
+        { "h": "Two stages", "facts": [
+          ["Light reactions", "In the thylakoid membranes of the chloroplast. Chlorophyll absorbs light, water is split to release oxygen, and the energy is stored in ATP and NADPH."],
+          ["Calvin cycle", "In the stroma of the chloroplast. The ATP and NADPH are used to fix carbon dioxide into sugar. The enzyme Rubisco attaches CO₂ to a five-carbon sugar and is probably the most abundant enzyme on Earth."]
+        ] },
+        { "h": "Why plants look green", "text": "Chlorophyll absorbs mostly red and blue light and reflects green. Autumn colors appear when chlorophyll breaks down and other pigments show." },
+        { "h": "Importance", "text": "Almost all the oxygen in the air, and the base of almost every food chain, comes from photosynthesis." }
+      ],
+      "quiz": [
+        { "q": "Which gas is released in the light reactions of photosynthesis?", "a": "Oxygen", "wrong": ["Carbon dioxide", "Nitrogen", "Hydrogen"] }
+      ]
+    },
+    {
+      "id": "membranes", "name": "Cell membranes and transport", "group": "Energy and metabolism",
+      "terms": ["cell membrane", "cell membranes", "lipid bilayer", "active transport", "passive transport", "facilitated diffusion", "sodium–potassium pump", "membrane"],
+      "tagline": "How molecules cross the barrier around cells.",
+      "sections": [
+        { "text": "The cell membrane is a bilayer of phospholipids, with their water-loving heads outward and their water-hating tails inward, studded with proteins. It lets small nonpolar molecules through easily but blocks ions and large polar molecules." },
+        { "h": "Ways across", "facts": [
+          ["Simple diffusion", "Small nonpolar molecules, such as O₂ and CO₂, move straight through, from high concentration to low."],
+          ["Facilitated diffusion", "Ions and polar molecules move through channel or carrier proteins, still from high to low concentration, with no energy needed."],
+          ["Osmosis", "The diffusion of water through the membrane toward the side with more solute."],
+          ["Active transport", "Pumps move substances against their concentration gradient and use ATP. The sodium–potassium pump moves 3 Na⁺ out and 2 K⁺ in for each ATP."]
+        ] }
+      ],
+      "quiz": [
+        { "q": "What does active transport need that passive transport does not?", "a": "Energy, usually from ATP", "wrong": ["A concentration gradient", "A membrane", "Water"] }
+      ]
+    }
+  ]
+}

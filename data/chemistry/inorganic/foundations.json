@@ -1,0 +1,147 @@
+{
+  "title": "Inorganic Chemistry: Foundations",
+  "description": "Metal complexes, transition metals, trends in the main groups, and materials such as semiconductors.",
+  "category": ["Chemistry", "Inorganic Chemistry", "Foundations"],
+  "view": "articles",
+  "entries": [
+    {
+      "id": "coordination", "name": "Coordination compounds", "group": "Metal complexes",
+      "terms": ["coordination compound", "coordination compounds", "complex ion", "complex ions", "ligand", "ligands", "coordination number", "chelate", "chelating", "EDTA"],
+      "tagline": "A metal ion surrounded by molecules or ions that donate electron pairs to it.",
+      "sections": [
+        { "text": "In a coordination compound, a central metal ion is bound to a number of ligands. A ligand is a Lewis base that donates a lone pair to the metal. The number of donor bonds to the metal is the coordination number, most often 4 or 6." },
+        { "h": "Shapes", "points": [
+          "Coordination number 6: octahedral, such as [Fe(CN)₆]⁴⁻ and [Co(NH₃)₆]³⁺.",
+          "Coordination number 4: usually tetrahedral, such as [CuCl₄]²⁻, or square planar, such as [Pt(NH₃)₂Cl₂].",
+          "The charge on the complex is the metal's charge plus the charges of its ligands. [Cu(NH₃)₄]²⁺ has Cu²⁺ and four neutral ammonia ligands, so it is 2+."
+        ] },
+        { "h": "Chelates", "text": "A ligand that binds through more than one atom is a chelating ligand and forms a particularly stable ring. EDTA binds through six atoms and is used to remove metal ions in water analysis and in medicine, for example in treating lead poisoning. Heme in hemoglobin holds an iron ion in a ring-shaped ligand." },
+        { "h": "Medicine", "text": "Cisplatin, the square planar complex [Pt(NH₃)₂Cl₂], is a widely used anticancer drug. It binds to DNA and stops cancer cells from dividing." },
+        { "h": "Everyday color", "text": "Copper sulfate solution is pale blue because of [Cu(H₂O)₆]²⁺. Adding ammonia replaces the water with ammonia and turns it deep blue." }
+      ],
+      "quiz": [
+        { "q": "What is a ligand?", "a": "A molecule or ion that donates an electron pair to a metal", "wrong": ["A metal ion at the center of a complex", "A type of crystal lattice", "An electron-pair acceptor"] }
+      ]
+    },
+    {
+      "id": "crystal-field", "name": "Crystal field theory and the color of complexes", "group": "Metal complexes",
+      "terms": ["crystal field theory", "crystal field splitting", "d-orbital splitting", "high-spin", "low-spin", "spectrochemical series"],
+      "tagline": "Why transition metal compounds are colorful.",
+      "sections": [
+        { "text": "In an octahedral complex, the ligands approach along the axes and repel the d electrons. The five d orbitals split into a lower group of three (t₂g) and a higher group of two (e_g). The energy gap is Δ." },
+        { "h": "Color", "points": [
+          "A d electron can absorb a photon whose energy equals Δ and jump to the higher group. For many complexes Δ matches visible light.",
+          "The color seen is the complement of the color absorbed. [Ti(H₂O)₆]³⁺ absorbs green-yellow light at about 500 nm and looks purple.",
+          "Ions with no d electrons (d⁰, such as Sc³⁺) or a full set (d¹⁰, such as Zn²⁺) have no d–d transitions and are colorless."
+        ] },
+        { "h": "Strong and weak ligands", "text": "The spectrochemical series ranks ligands by the size of the splitting they cause: I⁻ < Br⁻ < Cl⁻ < F⁻ < OH⁻ < H₂O < NH₃ < en < CN⁻ < CO. With weak-field ligands, Δ is small, electrons spread out across all the orbitals first, and the complex is high-spin. With strong-field ligands, Δ is large, electrons pair up in the lower group first, and the complex is low-spin. This changes the number of unpaired electrons and so the magnetism." }
+      ],
+      "quiz": [
+        { "q": "Why are Zn²⁺ compounds colorless?", "a": "The d orbitals are full, so there are no d–d transitions", "wrong": ["Zinc has no electrons", "Zinc absorbs all visible light", "Zinc ions are too small"] }
+      ]
+    },
+    {
+      "id": "transition-metals", "name": "Transition metals", "group": "Elements and materials",
+      "terms": ["transition metal", "transition metals", "variable oxidation states", "d-block"],
+      "tagline": "The d-block elements: multiple oxidation states, color and catalysis.",
+      "sections": [
+        { "text": "Transition metals fill their d orbitals. The 4s and 3d (or the equivalent in later rows) are close in energy, so they can lose different numbers of electrons." },
+        { "h": "Typical properties", "points": [
+          "Several oxidation states. Manganese has +2 to +7, iron +2 and +3, copper +1 and +2.",
+          "Colored compounds and solutions, because of d–d transitions.",
+          "Useful catalysts: iron in the Haber process, vanadium(V) oxide in the Contact process, platinum and rhodium in catalytic converters. They can change oxidation state and bind reactants on their surface.",
+          "Hard, dense, high-melting metals that conduct well, and many are paramagnetic."
+        ] },
+        { "h": "Colors of some common ions", "facts": [
+          ["Cr³⁺", "Green. CrO₄²⁻ is yellow and Cr₂O₇²⁻ is orange."],
+          ["Mn²⁺", "Pale pink. MnO₄⁻ is deep purple."],
+          ["Fe²⁺ and Fe³⁺", "Pale green and yellow-brown in water."],
+          ["Co²⁺", "Pink in water, blue in a chloride solution."],
+          ["Cu²⁺", "Blue in water."]
+        ] }
+      ],
+      "quiz": [
+        { "q": "Which of these is a typical property of transition metals?", "a": "Several oxidation states", "wrong": ["Colorless compounds", "Always a +1 charge", "Very low melting points"] }
+      ]
+    },
+    {
+      "id": "main-group", "name": "Main-group trends", "group": "Elements and materials",
+      "terms": ["main-group elements", "main group elements", "inert pair effect", "allotrope", "allotropes", "flame test", "flame tests", "halogens", "alkali metals"],
+      "tagline": "Patterns down and across the s and p blocks.",
+      "sections": [
+        { "facts": [
+          ["Group 1 (alkali metals)", "Soft, very reactive, getting more reactive down the group. They react with water to give hydrogen and the hydroxide."],
+          ["Group 2", "Harder and less reactive. Magnesium burns with a bright white flame."],
+          ["Group 13", "Boron is a metalloid. Aluminium is a reactive metal protected by a thin oxide layer, and its oxide is amphoteric."],
+          ["Group 14", "Carbon (diamond, graphite, graphene, fullerenes), silicon (semiconductor), tin and lead (metals)."],
+          ["Group 15", "Nitrogen is an inert diatomic gas with a very strong triple bond. Phosphorus has several allotropes."],
+          ["Group 16", "Oxygen (O₂ and ozone, O₃) and sulfur (S₈ rings) are allotropes."],
+          ["Group 17 (halogens)", "Reactivity decreases down the group. A halogen displaces a less reactive one from its salt."],
+          ["Group 18", "Noble gases. Xenon does form compounds, such as XeF₄."]
+        ] },
+        { "h": "Allotropes", "text": "Different forms of the same element in the same state. Diamond and graphite are both carbon, with very different properties because of how the atoms are bonded." },
+        { "h": "Inert pair effect", "text": "For heavier p-block elements the s electrons are held tightly and hardly take part in bonding, so a lower oxidation state is preferred. Lead is more stable as Pb²⁺ than as Pb⁴⁺." },
+        { "h": "Flame test colors", "text": "Lithium crimson, sodium yellow, potassium lilac, calcium brick red, strontium red, barium green, copper blue-green." }
+      ],
+      "quiz": [
+        { "q": "What color does sodium give in a flame test?", "a": "Yellow", "wrong": ["Lilac", "Crimson", "Green"] }
+      ]
+    },
+    {
+      "id": "oxides", "name": "Acidic, basic and amphoteric oxides", "group": "Elements and materials",
+      "terms": ["acidic oxide", "acidic oxides", "basic oxide", "basic oxides", "amphoteric oxide", "amphoteric oxides"],
+      "tagline": "Metal oxides are basic and nonmetal oxides are acidic, with a gradual change in between.",
+      "sections": [
+        { "facts": [
+          ["Basic oxides", "Metal oxides. They react with acids, and some with water to give hydroxides. Na₂O + H₂O → 2NaOH."],
+          ["Acidic oxides", "Nonmetal oxides. They react with bases, and many with water to give acids. CO₂ + H₂O ⇌ H₂CO₃. SO₃ + H₂O → H₂SO₄."],
+          ["Amphoteric oxides", "React with both acids and bases. Al₂O₃ and ZnO."]
+        ] },
+        { "h": "Across period 3", "text": "Na₂O (strongly basic), MgO (basic), Al₂O₃ (amphoteric), SiO₂ (weakly acidic), P₄O₁₀ (acidic), SO₃ (strongly acidic). The change reflects the change from metal to nonmetal." },
+        { "h": "Importance", "text": "Sulfur and nitrogen oxides from burning fuel make acid rain. The amphoteric behavior of alumina is used in the Bayer process." }
+      ],
+      "quiz": [
+        { "q": "Which type of oxide do nonmetals usually form?", "a": "Acidic", "wrong": ["Basic", "Amphoteric only", "None"] }
+      ]
+    },
+    {
+      "id": "band-theory", "name": "Band theory and semiconductors", "group": "Elements and materials",
+      "terms": ["band theory", "semiconductor", "semiconductors", "band gap", "doping", "n-type", "p-type", "insulator", "insulators", "p–n junction"],
+      "tagline": "Why some solids conduct, some insulate, and some can be switched.",
+      "sections": [
+        { "text": "In a solid, the atomic orbitals of all the atoms combine into huge numbers of closely spaced molecular orbitals that form bands. The valence band is the highest filled band and the conduction band is the one above it." },
+        { "h": "Three kinds of material", "facts": [
+          ["Metals", "The bands overlap or the top band is only partly filled, so electrons can move freely. Conductivity falls as temperature rises."],
+          ["Insulators", "A large gap between the filled and empty bands, such as 5.5 eV in diamond. Electrons cannot jump across."],
+          ["Semiconductors", "A small gap, such as 1.1 eV in silicon. A few electrons can cross when warmed, so conductivity rises with temperature."]
+        ] },
+        { "h": "Doping", "points": [
+          "n-type: add a small amount of an element with more valence electrons, such as phosphorus in silicon. The extra electrons carry current.",
+          "p-type: add one with fewer, such as boron. The missing electrons, called holes, carry current.",
+          "A p–n junction, a p-type next to an n-type, lets current pass in one direction only. It is the basis of diodes, LEDs, solar cells and transistors."
+        ] }
+      ],
+      "quiz": [
+        { "q": "How does the conductivity of a semiconductor change as it warms?", "a": "It increases", "wrong": ["It decreases", "It stays the same", "It becomes zero"] }
+      ]
+    },
+    {
+      "id": "organometallic", "name": "Organometallic chemistry", "group": "Elements and materials",
+      "terms": ["organometallic", "organometallic compounds", "organometallic chemistry", "ferrocene", "Ziegler–Natta", "Wilkinson's catalyst", "cross-coupling"],
+      "tagline": "Compounds with a bond between a metal and carbon.",
+      "sections": [
+        { "text": "Organometallic compounds have at least one metal–carbon bond. They connect organic and inorganic chemistry, and they are among the most important catalysts." },
+        { "h": "Examples", "facts": [
+          ["Grignard reagents and organolithiums", "RMgX and RLi. The carbon acts as a carbanion, a strong nucleophile and base. Used to build carbon chains."],
+          ["Ferrocene", "An iron atom sandwiched between two five-membered carbon rings. Discovered in 1951, and a starting point for modern organometallic chemistry."],
+          ["Wilkinson's catalyst", "A rhodium complex that adds hydrogen to alkenes under mild conditions."],
+          ["Ziegler–Natta catalysts", "Titanium-based catalysts that make polyethylene and polypropylene with controlled structure. Nobel Prize 1963."]
+        ] },
+        { "h": "Modern uses", "text": "Palladium-catalyzed cross-coupling reactions, such as the Suzuki and Heck reactions (Nobel Prize 2010), are used to make drugs, plastics and electronic materials. Many organometallic compounds react with air and water, and are handled with a Schlenk line or in a glovebox." }
+      ],
+      "quiz": [
+        { "q": "What defines an organometallic compound?", "a": "A bond between a metal and carbon", "wrong": ["A bond between a metal and oxygen", "Any compound containing a metal", "A bond between two metals"] }
+      ]
+    }
+  ]
+}

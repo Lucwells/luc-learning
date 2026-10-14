@@ -1,0 +1,175 @@
+{
+  "title": "Thermochemistry and Thermodynamics",
+  "description": "Heat, energy, disorder and the question of which reactions can happen.",
+  "category": ["Chemistry", "General Chemistry", "Thermochemistry"],
+  "view": "articles",
+  "entries": [
+    {
+      "id": "first-law", "name": "Internal energy and the first law", "group": "Energy and heat",
+      "terms": ["first law of thermodynamics", "internal energy", "system and surroundings", "surroundings"],
+      "tagline": "Energy is never created or destroyed. It only moves around or changes form.",
+      "sections": [
+        { "text": "Thermodynamics splits the world into the system, which is the part you are studying, and the surroundings, which is everything else. The internal energy U of the system is the total of the kinetic and potential energy of its particles." },
+        { "equations": ["ΔU = q + w"], "text": "The change in internal energy equals the heat q added to the system plus the work w done on it." },
+        { "h": "Sign convention", "points": [
+          "q is positive when heat flows into the system and negative when it flows out.",
+          "w is positive when the surroundings do work on the system (compression) and negative when the system does work (expansion).",
+          "For a gas expanding against constant pressure, w = −PΔV."
+        ] },
+        { "h": "Example", "text": "A system absorbs 100 J of heat and does 40 J of work on its surroundings. ΔU = +100 + (−40) = +60 J." }
+      ],
+      "quiz": [
+        { "q": "A system absorbs 100 J of heat and does 40 J of work on its surroundings. What is ΔU?", "a": "+60 J", "wrong": ["+140 J", "−60 J", "+40 J"] }
+      ]
+    },
+    {
+      "id": "enthalpy", "name": "Enthalpy", "group": "Energy and heat",
+      "terms": ["enthalpy", "enthalpy change", "thermochemical equation", "standard state"],
+      "tagline": "The heat of a reaction at constant pressure.",
+      "sections": [
+        { "text": "Enthalpy, H, is defined as H = U + PV. Most lab reactions happen at constant pressure in an open container, and the heat exchanged then equals the enthalpy change ΔH." },
+        { "h": "Things to remember", "points": [
+          "ΔH is negative for an exothermic reaction and positive for an endothermic one. It is usually given in kJ per mole of reaction as written.",
+          "A thermochemical equation includes ΔH: 2H₂(g) + O₂(g) → 2H₂O(l), ΔH = −572 kJ.",
+          "Reversing the equation changes the sign of ΔH.",
+          "Multiplying the equation by a number multiplies ΔH by the same number.",
+          "ΔH depends on the physical states, so they must be written."
+        ] },
+        { "h": "Standard conditions", "text": "ΔH° with a degree sign means the reactants and products are in their standard states, usually the most stable form at 1 bar, and often quoted at 298 K." }
+      ],
+      "quiz": [
+        { "q": "If a reaction has ΔH = −200 kJ, the reverse reaction has ΔH equal to…", "a": "+200 kJ", "wrong": ["−200 kJ", "0 kJ", "−100 kJ"] }
+      ]
+    },
+    {
+      "id": "hess", "name": "Hess's law", "group": "Energy and heat",
+      "terms": ["Hess's law", "Hess' law"],
+      "tagline": "The enthalpy change of a reaction is the same however you get there.",
+      "sections": [
+        { "text": "Enthalpy is a state function, so the total change depends only on the starting and finishing substances, not on the route. That means you can add up the ΔH values of steps to get the ΔH of an overall reaction you cannot measure directly." },
+        { "h": "Worked example: burning carbon to carbon monoxide", "points": [
+          "C + O₂ → CO₂, ΔH = −393.5 kJ",
+          "CO + ½O₂ → CO₂, ΔH = −283.0 kJ",
+          "Reverse the second reaction so CO is on the right: CO₂ → CO + ½O₂, ΔH = +283.0 kJ.",
+          "Add them: C + ½O₂ → CO, ΔH = −393.5 + 283.0 = −110.5 kJ."
+        ] },
+        { "h": "Method", "text": "Reverse equations to put substances on the correct side, multiply them to match the coefficients, add them up so the unwanted substances cancel, and apply the same changes to ΔH." }
+      ],
+      "quiz": [
+        { "q": "Hess's law works because enthalpy is…", "a": "A state function", "wrong": ["Always negative", "Equal to heat and work", "Independent of temperature"] }
+      ]
+    },
+    {
+      "id": "formation", "name": "Enthalpy of formation", "group": "Energy and heat",
+      "terms": ["enthalpy of formation", "standard enthalpy of formation", "heat of formation"],
+      "tagline": "A reference table that lets you calculate the ΔH of almost any reaction.",
+      "sections": [
+        { "text": "The standard enthalpy of formation, ΔH°f, is the enthalpy change when one mole of a compound forms from its elements in their standard states. By definition it is zero for an element in its standard state, such as O₂(g) or C(graphite)." },
+        { "equations": ["ΔH°(reaction) = Σ n ΔH°f(products) − Σ m ΔH°f(reactants)"] },
+        { "h": "Worked example: burning methane", "equations": ["CH₄(g) + 2O₂(g) → CO₂(g) + 2H₂O(l)"], "points": [
+          "ΔH°f values in kJ/mol: CH₄ = −74.8, CO₂ = −393.5, H₂O(l) = −285.8, O₂ = 0.",
+          "Products: −393.5 + 2(−285.8) = −965.1 kJ.",
+          "Reactants: −74.8 + 0 = −74.8 kJ.",
+          "ΔH° = −965.1 − (−74.8) = −890.3 kJ."
+        ] }
+      ],
+      "quiz": [
+        { "q": "What is ΔH°f of O₂(g)?", "a": "0", "wrong": ["−393.5 kJ/mol", "+249 kJ/mol", "It cannot be defined"] }
+      ]
+    },
+    {
+      "id": "bond-enthalpy", "name": "Bond enthalpies", "group": "Energy and heat",
+      "terms": ["bond enthalpy", "bond enthalpies", "bond energy", "bond energies"],
+      "tagline": "Estimating ΔH from the energy needed to break bonds and released when new ones form.",
+      "sections": [
+        { "text": "The bond enthalpy is the energy needed to break one mole of a particular bond in the gas phase. Breaking bonds takes energy, and making bonds releases it." },
+        { "equations": ["ΔH ≈ Σ(bonds broken) − Σ(bonds formed)"] },
+        { "h": "Worked example", "equations": ["H₂ + Cl₂ → 2HCl"], "text": "Bond enthalpies in kJ/mol: H–H = 436, Cl–Cl = 243, H–Cl = 431. Broken: 436 + 243 = 679. Formed: 2 × 431 = 862. ΔH ≈ 679 − 862 = −183 kJ." },
+        { "h": "Limits", "text": "The values are averages over many molecules, so the answer is only an estimate. Hess's law with enthalpies of formation is more accurate." }
+      ],
+      "quiz": [
+        { "q": "In the bond enthalpy method, ΔH is…", "a": "Energy to break bonds minus energy released forming bonds", "wrong": ["Energy released forming bonds minus energy to break bonds", "The sum of all bond enthalpies", "The enthalpy of the strongest bond"] }
+      ]
+    },
+    {
+      "id": "heat-capacity", "name": "Heat capacity", "group": "Energy and heat",
+      "terms": ["heat capacity", "molar heat capacity"],
+      "tagline": "How much heat it takes to warm something up.",
+      "sections": [
+        { "text": "The heat capacity of an object is the heat needed to raise its temperature by one degree. Specific heat capacity is that per gram, and molar heat capacity is that per mole." },
+        { "equations": ["q = m × c × ΔT"] },
+        { "h": "Some values, in J/(g·°C)", "facts": [
+          ["Water", "4.18"],
+          ["Aluminium", "0.90"],
+          ["Iron", "0.45"],
+          ["Copper", "0.385"]
+        ] },
+        { "h": "Why it matters", "text": "Water has an unusually high specific heat, so it takes a lot of heat to warm it and it releases a lot when it cools. This is why oceans keep coastal climates mild and why water is a good coolant." }
+      ],
+      "quiz": [
+        { "q": "Which of these has the highest specific heat capacity?", "a": "Water", "wrong": ["Iron", "Copper", "Aluminium"] }
+      ]
+    },
+    {
+      "id": "entropy", "name": "Entropy and the second law", "group": "Spontaneity",
+      "terms": ["entropy", "second law of thermodynamics", "third law of thermodynamics", "microstates"],
+      "tagline": "A measure of how spread out energy and matter are, and why things happen in one direction.",
+      "sections": [
+        { "text": "Entropy, S, measures how many ways the energy and particles of a system can be arranged. More possible arrangements mean higher entropy. It is often described as disorder." },
+        { "equations": ["S = k ln W"], "text": "k is Boltzmann's constant and W is the number of microstates, the ways of arranging the particles." },
+        { "h": "Entropy goes up when", "points": [
+          "A solid melts or a liquid boils.",
+          "A substance dissolves, or gases mix.",
+          "A reaction produces more moles of gas.",
+          "The temperature rises."
+        ] },
+        { "h": "The laws", "points": [
+          "Second law: the total entropy of the universe increases in any spontaneous process.",
+          "Third law: a perfect crystal at absolute zero has zero entropy.",
+          "Entropy is given in J/(mol·K)."
+        ] }
+      ],
+      "quiz": [
+        { "q": "Which process has the biggest increase in entropy?", "a": "Water boiling to steam", "wrong": ["Water freezing to ice", "Steam condensing to water", "Ice cooling from −10 °C to −20 °C"] }
+      ]
+    },
+    {
+      "id": "gibbs", "name": "Gibbs free energy and spontaneity", "group": "Spontaneity",
+      "terms": ["Gibbs free energy", "free energy", "spontaneous", "spontaneity", "nonspontaneous"],
+      "tagline": "One quantity that says whether a process can happen by itself.",
+      "sections": [
+        { "equations": ["ΔG = ΔH − TΔS"], "text": "A process is spontaneous at constant temperature and pressure if ΔG is negative. It is at equilibrium if ΔG is zero." },
+        { "h": "Four cases", "facts": [
+          ["ΔH negative, ΔS positive", "Spontaneous at all temperatures."],
+          ["ΔH positive, ΔS negative", "Never spontaneous."],
+          ["ΔH negative, ΔS negative", "Spontaneous at low temperature."],
+          ["ΔH positive, ΔS positive", "Spontaneous at high temperature."]
+        ] },
+        { "h": "Things to remember", "points": [
+          "Spontaneous does not mean fast. Diamond turning into graphite is spontaneous, but it takes geological time.",
+          "ΔG° and the equilibrium constant are linked: ΔG° = −RT ln K.",
+          "Example: ice melting has ΔH = +6.01 kJ/mol and ΔS = +22.0 J/(mol·K). ΔG = 0 when T = 6010 ÷ 22.0 ≈ 273 K, the melting point."
+        ] }
+      ],
+      "quiz": [
+        { "q": "What does a negative ΔG tell you?", "a": "The process is spontaneous", "wrong": ["The process is fast", "The process is endothermic", "The process cannot happen"] }
+      ]
+    },
+    {
+      "id": "state-functions", "name": "State functions", "group": "Spontaneity",
+      "terms": ["state function", "state functions", "path function"],
+      "tagline": "Quantities that depend only on where a system is, not how it got there.",
+      "sections": [
+        { "text": "A state function depends only on the current state of the system: its composition, temperature, pressure and so on. The change in a state function between two states is the same whatever path is taken." },
+        { "facts": [
+          ["State functions", "Internal energy U, enthalpy H, entropy S, Gibbs energy G, pressure, volume and temperature."],
+          ["Not state functions", "Heat q and work w. Their values depend on the path."]
+        ] },
+        { "h": "Analogy", "text": "Climbing a mountain: the change in height depends only on the start and finish. The distance you walked depends on the path." }
+      ],
+      "quiz": [
+        { "q": "Which of these is NOT a state function?", "a": "Heat", "wrong": ["Enthalpy", "Entropy", "Internal energy"] }
+      ]
+    }
+  ]
+}

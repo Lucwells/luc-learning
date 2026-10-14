@@ -1,0 +1,365 @@
+{
+  "title": "The Elements",
+  "description": "All 118 elements: names, symbols, atomic numbers and families.",
+  "category": [
+    "Chemistry",
+    "Periodic Table"
+  ],
+  "idField": "symbol",
+  "modes": [
+    {
+      "id": "name-symbol",
+      "label": "Name → Symbol",
+      "question": "What is the symbol for {name}?",
+      "answer": "symbol"
+    },
+    {
+      "id": "symbol-name",
+      "label": "Symbol → Name",
+      "question": "Which element has the symbol {symbol}?",
+      "answer": "name"
+    },
+    {
+      "id": "number-name",
+      "label": "Atomic number → Name",
+      "question": "Which element has atomic number {number}?",
+      "answer": "name"
+    },
+    {
+      "id": "name-number",
+      "label": "Name → Atomic number",
+      "question": "What is the atomic number of {name}?",
+      "answer": "number"
+    },
+    {
+      "id": "name-category",
+      "label": "Name → Family",
+      "question": "Which family does {name} belong to?",
+      "answer": "category",
+      "mcOnly": true
+    },
+    {
+      "id": "name-block",
+      "label": "Name → Block",
+      "question": "Which block of the periodic table is {name} in?",
+      "answer": "block",
+      "mcOnly": true
+    },
+    {
+      "id": "name-period",
+      "label": "Name → Period",
+      "question": "Which period is {name} in?",
+      "answer": "period",
+      "mcOnly": true
+    },
+    {
+      "id": "name-state",
+      "label": "Name → State at room temperature",
+      "question": "What is the state of {name} at room temperature?",
+      "answer": "state",
+      "mcOnly": true
+    }
+  ],
+  "view": "periodic-table",
+  "attributes": [
+    {
+      "key": "symbol",
+      "label": "Symbol",
+      "summary": "A one- or two-letter abbreviation for the element. The first letter is capitalized and the second, if any, is lowercase.",
+      "points": [
+        "Many symbols come from old Latin names: Fe (ferrum, iron), Au (aurum, gold), Na (natrium, sodium), K (kalium, potassium), Ag (argentum, silver), Pb (plumbum, lead), Hg (hydrargyrum, mercury)."
+      ]
+    },
+    {
+      "key": "number",
+      "label": "Atomic number",
+      "summary": "The number of protons in the nucleus of an atom. It is written Z, and it is what makes an element that element.",
+      "points": [
+        "Change the number of protons and you change the element: every carbon atom has 6 protons, every oxygen atom has 8.",
+        "A neutral atom has the same number of electrons as protons.",
+        "The periodic table is ordered by atomic number, not by mass."
+      ]
+    },
+    {
+      "key": "mass",
+      "label": "Atomic mass",
+      "summary": "The average mass of an atom of the element, measured in unified atomic mass units (u). One u is one twelfth of the mass of a carbon-12 atom.",
+      "points": [
+        "It is a weighted average over the isotopes found in nature, so it is rarely a whole number. Chlorine is 35.45 because about 76% of chlorine atoms are chlorine-35 and about 24% are chlorine-37.",
+        "Roughly, it equals protons plus neutrons, because electrons weigh almost nothing.",
+        "A whole number in brackets, such as (98) for technetium, means the element has no stable isotope. The number shown is the mass number of its longest-lived known isotope."
+      ]
+    },
+    {
+      "key": "category",
+      "label": "Family",
+      "summary": "A family is a set of elements that behave in similar ways. Which family an element belongs to depends on its position and on how it reacts. Sources draw the borders slightly differently; these are the ones used here.",
+      "items": [
+        {
+          "term": "Alkali metals",
+          "text": "Group 1 except hydrogen. Soft, shiny and very reactive, with one outer electron. They react vigorously with water."
+        },
+        {
+          "term": "Alkaline earth metals",
+          "text": "Group 2. Harder and less reactive than the alkali metals, with two outer electrons."
+        },
+        {
+          "term": "Transition metals",
+          "text": "Groups 3 to 12, the d-block. Hard, dense, good conductors, often with several oxidation states and colored compounds."
+        },
+        {
+          "term": "Post-transition metals",
+          "text": "Metals to the right of the transition metals, such as aluminium, tin and lead. Softer and with lower melting points."
+        },
+        {
+          "term": "Metalloids",
+          "text": "Boron, silicon, germanium, arsenic, antimony and tellurium. They sit between metals and nonmetals, and many are semiconductors."
+        },
+        {
+          "term": "Reactive nonmetals",
+          "text": "Hydrogen, carbon, nitrogen, oxygen, phosphorus, sulfur and selenium. They gain or share electrons when they bond, and they are central to biology."
+        },
+        {
+          "term": "Halogens",
+          "text": "Group 17. Seven outer electrons and very reactive. They form salts with metals."
+        },
+        {
+          "term": "Noble gases",
+          "text": "Group 18. A full outer shell makes them almost completely unreactive."
+        },
+        {
+          "term": "Lanthanides",
+          "text": "Elements 57 to 71. Silvery f-block metals with very similar chemistry. With scandium and yttrium they are called the rare earths."
+        },
+        {
+          "term": "Actinides",
+          "text": "Elements 89 to 103. All are radioactive. Uranium and plutonium are the best known."
+        }
+      ]
+    },
+    {
+      "key": "group",
+      "label": "Group",
+      "summary": "A group is a column of the table, numbered 1 to 18 from left to right.",
+      "points": [
+        "Elements in the same main group have the same number of outer (valence) electrons, so they react in similar ways.",
+        "The lanthanides and actinides are drawn as two separate rows underneath and have no group number of their own. Lutetium and lawrencium are listed as group 3."
+      ]
+    },
+    {
+      "key": "period",
+      "label": "Period",
+      "summary": "A period is a row of the table, numbered 1 to 7 from top to bottom.",
+      "points": [
+        "The period number is the number of electron shells that hold electrons in the atom. Sodium is in period 3, so its electrons occupy three shells.",
+        "Properties change steadily across a period, and the pattern repeats in the next one.",
+        "The periods have 2, 8, 8, 18, 18, 32 and 32 elements."
+      ]
+    },
+    {
+      "key": "block",
+      "label": "Block",
+      "summary": "The block (s, p, d or f) names the type of subshell that the last electron added to the atom goes into.",
+      "points": [
+        "s-block: groups 1 and 2, plus helium.",
+        "p-block: groups 13 to 18, except helium.",
+        "d-block: groups 3 to 12, the transition metals.",
+        "f-block: the lanthanides and actinides.",
+        "Helium is in the s-block because its two electrons fill the 1s orbital, even though it is placed with the noble gases."
+      ]
+    },
+    {
+      "key": "config",
+      "label": "Electron configuration",
+      "summary": "The configuration lists which orbitals hold the electrons of a neutral atom. Each entry is a shell number, a subshell letter and a small number for how many electrons it holds.",
+      "points": [
+        "2p4 means four electrons in the 2p subshell.",
+        "A subshell holds at most 2 (s), 6 (p), 10 (d) or 14 (f) electrons.",
+        "Orbitals fill from low energy to high: 1s, 2s, 2p, 3s, 3p, 4s, 3d, 4p and so on.",
+        "[Ne] or [Ar] is shorthand for the electrons of that noble gas, so only the outer electrons need to be written.",
+        "Some elements break the pattern. Chromium is [Ar] 3d5 4s1 and copper is [Ar] 3d10 4s1, because half-filled and full d subshells are especially stable."
+      ]
+    },
+    {
+      "key": "state",
+      "label": "State at room temperature",
+      "summary": "Whether the element is a solid, liquid or gas at about 20 to 25 °C and normal air pressure.",
+      "points": [
+        "Most elements are solids.",
+        "Two are liquids: bromine and mercury. Gallium melts at about 30 °C, so it is just solid.",
+        "Eleven are gases: hydrogen, helium, nitrogen, oxygen, fluorine, neon, chlorine, argon, krypton, xenon and radon.",
+        "\"Unknown\" means it has not been measured, which is the case for the heaviest elements."
+      ]
+    },
+    {
+      "key": "melt",
+      "label": "Melting point",
+      "summary": "The temperature at which the solid turns into a liquid at normal pressure. It is shown in kelvin (K) and in degrees Celsius.",
+      "points": [
+        "°C = K − 273.15. Zero kelvin is absolute zero.",
+        "Tungsten has the highest melting point of the metals, 3695 K.",
+        "Carbon does not melt at normal pressure. It sublimes, going straight from solid to gas.",
+        "Helium does not freeze at normal pressure at all, so no value is given."
+      ]
+    },
+    {
+      "key": "boil",
+      "label": "Boiling point",
+      "summary": "The temperature at which the liquid turns into a gas at normal pressure (1 atmosphere). It is shown in kelvin and in degrees Celsius.",
+      "points": [
+        "It reflects how strongly the atoms or molecules attract each other. Strong attraction means a high boiling point.",
+        "Helium has the lowest, 4.2 K. Rhenium and tungsten are among the highest.",
+        "Arsenic sublimes instead of boiling at normal pressure, so the value shown is its sublimation temperature."
+      ]
+    },
+    {
+      "key": "density",
+      "label": "Density",
+      "summary": "Mass per unit of volume. Solids and liquids are given in grams per cubic centimetre (g/cm³). Gases are given in grams per litre (g/L) at 0 °C and 1 atmosphere.",
+      "points": [
+        "Water is 1 g/cm³ for comparison.",
+        "Osmium is the densest element, about 22.6 g/cm³. Hydrogen is the lightest."
+      ]
+    },
+    {
+      "key": "eneg",
+      "label": "Electronegativity",
+      "summary": "How strongly an atom pulls on the electrons it shares in a bond. The Pauling scale runs from about 0.7 to 3.98.",
+      "points": [
+        "Fluorine is the highest at 3.98. Caesium and francium are among the lowest.",
+        "It generally rises from left to right across a period and from bottom to top down a group.",
+        "A big difference between two atoms gives an ionic bond. A small difference gives a covalent bond.",
+        "Most noble gases have no value because they hardly bond."
+      ]
+    },
+    {
+      "key": "discovered",
+      "label": "Discovered",
+      "summary": "The year the element was first identified or isolated.",
+      "points": [
+        "\"Ancient\" means it has been known since antiquity with no single discoverer, for example gold, iron, copper, silver, tin and lead.",
+        "Some dates are disputed, and the heaviest elements are credited to the labs that first made them."
+      ]
+    }
+  ],
+  "items": [
+    { "number": 1, "name": "Hydrogen", "symbol": "H", "category": "Reactive nonmetal", "mass": 1.008, "group": 1, "period": 1, "block": "s", "config": "1s1", "state": "Gas", "melt": 13.99, "boil": 20.271, "density": 0.00008988, "eneg": 2.2, "discovered": "1766" },
+    { "number": 2, "name": "Helium", "symbol": "He", "category": "Noble gas", "mass": 4.0026, "group": 18, "period": 1, "block": "s", "config": "1s2", "state": "Gas", "boil": 4.222, "density": 0.0001785, "discovered": "1895" },
+    { "number": 3, "name": "Lithium", "symbol": "Li", "category": "Alkali metal", "mass": 6.94, "group": 1, "period": 2, "block": "s", "config": "[He] 2s1", "state": "Solid", "melt": 453.65, "boil": 1603, "density": 0.534, "eneg": 0.98, "discovered": "1817" },
+    { "number": 4, "name": "Beryllium", "symbol": "Be", "category": "Alkaline earth metal", "mass": 9.0122, "group": 2, "period": 2, "block": "s", "config": "[He] 2s2", "state": "Solid", "melt": 1560, "boil": 2742, "density": 1.85, "eneg": 1.57, "discovered": "1798" },
+    { "number": 5, "name": "Boron", "symbol": "B", "category": "Metalloid", "mass": 10.81, "group": 13, "period": 2, "block": "p", "config": "[He] 2s2 2p1", "state": "Solid", "melt": 2349, "boil": 4200, "density": 2.34, "eneg": 2.04, "discovered": "1808" },
+    { "number": 6, "name": "Carbon", "symbol": "C", "category": "Reactive nonmetal", "mass": 12.011, "group": 14, "period": 2, "block": "p", "config": "[He] 2s2 2p2", "state": "Solid", "melt": "Sublimes", "boil": 3915, "density": 2.267, "eneg": 2.55, "discovered": "Ancient" },
+    { "number": 7, "name": "Nitrogen", "symbol": "N", "category": "Reactive nonmetal", "mass": 14.007, "group": 15, "period": 2, "block": "p", "config": "[He] 2s2 2p3", "state": "Gas", "melt": 63.15, "boil": 77.36, "density": 0.0012506, "eneg": 3.04, "discovered": "1772" },
+    { "number": 8, "name": "Oxygen", "symbol": "O", "category": "Reactive nonmetal", "mass": 15.999, "group": 16, "period": 2, "block": "p", "config": "[He] 2s2 2p4", "state": "Gas", "melt": 54.36, "boil": 90.2, "density": 0.001429, "eneg": 3.44, "discovered": "1774" },
+    { "number": 9, "name": "Fluorine", "symbol": "F", "category": "Halogen", "mass": 18.998, "group": 17, "period": 2, "block": "p", "config": "[He] 2s2 2p5", "state": "Gas", "melt": 53.53, "boil": 85.03, "density": 0.001696, "eneg": 3.98, "discovered": "1886" },
+    { "number": 10, "name": "Neon", "symbol": "Ne", "category": "Noble gas", "mass": 20.18, "group": 18, "period": 2, "block": "p", "config": "[He] 2s2 2p6", "state": "Gas", "melt": 24.56, "boil": 27.07, "density": 0.0008999, "discovered": "1898" },
+    { "number": 11, "name": "Sodium", "symbol": "Na", "category": "Alkali metal", "mass": 22.99, "group": 1, "period": 3, "block": "s", "config": "[Ne] 3s1", "state": "Solid", "melt": 370.87, "boil": 1156, "density": 0.968, "eneg": 0.93, "discovered": "1807" },
+    { "number": 12, "name": "Magnesium", "symbol": "Mg", "category": "Alkaline earth metal", "mass": 24.305, "group": 2, "period": 3, "block": "s", "config": "[Ne] 3s2", "state": "Solid", "melt": 923, "boil": 1363, "density": 1.738, "eneg": 1.31, "discovered": "1755" },
+    { "number": 13, "name": "Aluminium", "symbol": "Al", "category": "Post-transition metal", "mass": 26.982, "group": 13, "period": 3, "block": "p", "config": "[Ne] 3s2 3p1", "state": "Solid", "melt": 933.47, "boil": 2792, "density": 2.7, "eneg": 1.61, "discovered": "1825", "alts": {"name": ["Aluminum"]} },
+    { "number": 14, "name": "Silicon", "symbol": "Si", "category": "Metalloid", "mass": 28.085, "group": 14, "period": 3, "block": "p", "config": "[Ne] 3s2 3p2", "state": "Solid", "melt": 1687, "boil": 3538, "density": 2.329, "eneg": 1.9, "discovered": "1824" },
+    { "number": 15, "name": "Phosphorus", "symbol": "P", "category": "Reactive nonmetal", "mass": 30.974, "group": 15, "period": 3, "block": "p", "config": "[Ne] 3s2 3p3", "state": "Solid", "melt": 317.3, "boil": 553.65, "density": 1.82, "eneg": 2.19, "discovered": "1669" },
+    { "number": 16, "name": "Sulfur", "symbol": "S", "category": "Reactive nonmetal", "mass": 32.06, "group": 16, "period": 3, "block": "p", "config": "[Ne] 3s2 3p4", "state": "Solid", "melt": 388.36, "boil": 717.8, "density": 2.07, "eneg": 2.58, "discovered": "Ancient", "alts": {"name": ["Sulphur"]} },
+    { "number": 17, "name": "Chlorine", "symbol": "Cl", "category": "Halogen", "mass": 35.45, "group": 17, "period": 3, "block": "p", "config": "[Ne] 3s2 3p5", "state": "Gas", "melt": 171.6, "boil": 239.11, "density": 0.003214, "eneg": 3.16, "discovered": "1774" },
+    { "number": 18, "name": "Argon", "symbol": "Ar", "category": "Noble gas", "mass": 39.948, "group": 18, "period": 3, "block": "p", "config": "[Ne] 3s2 3p6", "state": "Gas", "melt": 83.8, "boil": 87.3, "density": 0.0017837, "discovered": "1894" },
+    { "number": 19, "name": "Potassium", "symbol": "K", "category": "Alkali metal", "mass": 39.098, "group": 1, "period": 4, "block": "s", "config": "[Ar] 4s1", "state": "Solid", "melt": 336.53, "boil": 1032, "density": 0.862, "eneg": 0.82, "discovered": "1807" },
+    { "number": 20, "name": "Calcium", "symbol": "Ca", "category": "Alkaline earth metal", "mass": 40.078, "group": 2, "period": 4, "block": "s", "config": "[Ar] 4s2", "state": "Solid", "melt": 1115, "boil": 1757, "density": 1.55, "eneg": 1, "discovered": "1808" },
+    { "number": 21, "name": "Scandium", "symbol": "Sc", "category": "Transition metal", "mass": 44.956, "group": 3, "period": 4, "block": "d", "config": "[Ar] 3d1 4s2", "state": "Solid", "melt": 1814, "boil": 3109, "density": 2.985, "eneg": 1.36, "discovered": "1879" },
+    { "number": 22, "name": "Titanium", "symbol": "Ti", "category": "Transition metal", "mass": 47.867, "group": 4, "period": 4, "block": "d", "config": "[Ar] 3d2 4s2", "state": "Solid", "melt": 1941, "boil": 3560, "density": 4.506, "eneg": 1.54, "discovered": "1791" },
+    { "number": 23, "name": "Vanadium", "symbol": "V", "category": "Transition metal", "mass": 50.942, "group": 5, "period": 4, "block": "d", "config": "[Ar] 3d3 4s2", "state": "Solid", "melt": 2183, "boil": 3680, "density": 6, "eneg": 1.63, "discovered": "1801" },
+    { "number": 24, "name": "Chromium", "symbol": "Cr", "category": "Transition metal", "mass": 51.996, "group": 6, "period": 4, "block": "d", "config": "[Ar] 3d5 4s1", "state": "Solid", "melt": 2180, "boil": 2944, "density": 7.15, "eneg": 1.66, "discovered": "1797" },
+    { "number": 25, "name": "Manganese", "symbol": "Mn", "category": "Transition metal", "mass": 54.938, "group": 7, "period": 4, "block": "d", "config": "[Ar] 3d5 4s2", "state": "Solid", "melt": 1519, "boil": 2334, "density": 7.21, "eneg": 1.55, "discovered": "1774" },
+    { "number": 26, "name": "Iron", "symbol": "Fe", "category": "Transition metal", "mass": 55.845, "group": 8, "period": 4, "block": "d", "config": "[Ar] 3d6 4s2", "state": "Solid", "melt": 1811, "boil": 3134, "density": 7.874, "eneg": 1.83, "discovered": "Ancient" },
+    { "number": 27, "name": "Cobalt", "symbol": "Co", "category": "Transition metal", "mass": 58.933, "group": 9, "period": 4, "block": "d", "config": "[Ar] 3d7 4s2", "state": "Solid", "melt": 1768, "boil": 3200, "density": 8.9, "eneg": 1.88, "discovered": "1735" },
+    { "number": 28, "name": "Nickel", "symbol": "Ni", "category": "Transition metal", "mass": 58.693, "group": 10, "period": 4, "block": "d", "config": "[Ar] 3d8 4s2", "state": "Solid", "melt": 1728, "boil": 3186, "density": 8.908, "eneg": 1.91, "discovered": "1751" },
+    { "number": 29, "name": "Copper", "symbol": "Cu", "category": "Transition metal", "mass": 63.546, "group": 11, "period": 4, "block": "d", "config": "[Ar] 3d10 4s1", "state": "Solid", "melt": 1357.77, "boil": 2835, "density": 8.96, "eneg": 1.9, "discovered": "Ancient" },
+    { "number": 30, "name": "Zinc", "symbol": "Zn", "category": "Transition metal", "mass": 65.38, "group": 12, "period": 4, "block": "d", "config": "[Ar] 3d10 4s2", "state": "Solid", "melt": 692.68, "boil": 1180, "density": 7.14, "eneg": 1.65, "discovered": "Ancient" },
+    { "number": 31, "name": "Gallium", "symbol": "Ga", "category": "Post-transition metal", "mass": 69.723, "group": 13, "period": 4, "block": "p", "config": "[Ar] 3d10 4s2 4p1", "state": "Solid", "melt": 302.91, "boil": 2477, "density": 5.91, "eneg": 1.81, "discovered": "1875" },
+    { "number": 32, "name": "Germanium", "symbol": "Ge", "category": "Metalloid", "mass": 72.63, "group": 14, "period": 4, "block": "p", "config": "[Ar] 3d10 4s2 4p2", "state": "Solid", "melt": 1211.4, "boil": 3106, "density": 5.323, "eneg": 2.01, "discovered": "1886" },
+    { "number": 33, "name": "Arsenic", "symbol": "As", "category": "Metalloid", "mass": 74.922, "group": 15, "period": 4, "block": "p", "config": "[Ar] 3d10 4s2 4p3", "state": "Solid", "melt": "Sublimes", "boil": 887, "density": 5.727, "eneg": 2.18, "discovered": "Ancient" },
+    { "number": 34, "name": "Selenium", "symbol": "Se", "category": "Reactive nonmetal", "mass": 78.971, "group": 16, "period": 4, "block": "p", "config": "[Ar] 3d10 4s2 4p4", "state": "Solid", "melt": 494, "boil": 958, "density": 4.81, "eneg": 2.55, "discovered": "1817" },
+    { "number": 35, "name": "Bromine", "symbol": "Br", "category": "Halogen", "mass": 79.904, "group": 17, "period": 4, "block": "p", "config": "[Ar] 3d10 4s2 4p5", "state": "Liquid", "melt": 265.8, "boil": 332, "density": 3.122, "eneg": 2.96, "discovered": "1826" },
+    { "number": 36, "name": "Krypton", "symbol": "Kr", "category": "Noble gas", "mass": 83.798, "group": 18, "period": 4, "block": "p", "config": "[Ar] 3d10 4s2 4p6", "state": "Gas", "melt": 115.79, "boil": 119.93, "density": 0.003733, "eneg": 3, "discovered": "1898" },
+    { "number": 37, "name": "Rubidium", "symbol": "Rb", "category": "Alkali metal", "mass": 85.468, "group": 1, "period": 5, "block": "s", "config": "[Kr] 5s1", "state": "Solid", "melt": 312.46, "boil": 961, "density": 1.532, "eneg": 0.82, "discovered": "1861" },
+    { "number": 38, "name": "Strontium", "symbol": "Sr", "category": "Alkaline earth metal", "mass": 87.62, "group": 2, "period": 5, "block": "s", "config": "[Kr] 5s2", "state": "Solid", "melt": 1050, "boil": 1655, "density": 2.64, "eneg": 0.95, "discovered": "1790" },
+    { "number": 39, "name": "Yttrium", "symbol": "Y", "category": "Transition metal", "mass": 88.906, "group": 3, "period": 5, "block": "d", "config": "[Kr] 4d1 5s2", "state": "Solid", "melt": 1799, "boil": 3609, "density": 4.472, "eneg": 1.22, "discovered": "1794" },
+    { "number": 40, "name": "Zirconium", "symbol": "Zr", "category": "Transition metal", "mass": 91.224, "group": 4, "period": 5, "block": "d", "config": "[Kr] 4d2 5s2", "state": "Solid", "melt": 2128, "boil": 4682, "density": 6.52, "eneg": 1.33, "discovered": "1789" },
+    { "number": 41, "name": "Niobium", "symbol": "Nb", "category": "Transition metal", "mass": 92.906, "group": 5, "period": 5, "block": "d", "config": "[Kr] 4d4 5s1", "state": "Solid", "melt": 2750, "boil": 5017, "density": 8.57, "eneg": 1.6, "discovered": "1801" },
+    { "number": 42, "name": "Molybdenum", "symbol": "Mo", "category": "Transition metal", "mass": 95.95, "group": 6, "period": 5, "block": "d", "config": "[Kr] 4d5 5s1", "state": "Solid", "melt": 2896, "boil": 4912, "density": 10.28, "eneg": 2.16, "discovered": "1778" },
+    { "number": 43, "name": "Technetium", "symbol": "Tc", "category": "Transition metal", "mass": 98, "group": 7, "period": 5, "block": "d", "config": "[Kr] 4d5 5s2", "state": "Solid", "melt": 2430, "boil": 4538, "density": 11.5, "eneg": 1.9, "discovered": "1937" },
+    { "number": 44, "name": "Ruthenium", "symbol": "Ru", "category": "Transition metal", "mass": 101.07, "group": 8, "period": 5, "block": "d", "config": "[Kr] 4d7 5s1", "state": "Solid", "melt": 2607, "boil": 4423, "density": 12.37, "eneg": 2.2, "discovered": "1844" },
+    { "number": 45, "name": "Rhodium", "symbol": "Rh", "category": "Transition metal", "mass": 102.91, "group": 9, "period": 5, "block": "d", "config": "[Kr] 4d8 5s1", "state": "Solid", "melt": 2237, "boil": 3968, "density": 12.41, "eneg": 2.28, "discovered": "1803" },
+    { "number": 46, "name": "Palladium", "symbol": "Pd", "category": "Transition metal", "mass": 106.42, "group": 10, "period": 5, "block": "d", "config": "[Kr] 4d10", "state": "Solid", "melt": 1828.05, "boil": 3236, "density": 12.02, "eneg": 2.2, "discovered": "1803" },
+    { "number": 47, "name": "Silver", "symbol": "Ag", "category": "Transition metal", "mass": 107.87, "group": 11, "period": 5, "block": "d", "config": "[Kr] 4d10 5s1", "state": "Solid", "melt": 1234.93, "boil": 2435, "density": 10.49, "eneg": 1.93, "discovered": "Ancient" },
+    { "number": 48, "name": "Cadmium", "symbol": "Cd", "category": "Transition metal", "mass": 112.41, "group": 12, "period": 5, "block": "d", "config": "[Kr] 4d10 5s2", "state": "Solid", "melt": 594.22, "boil": 1040, "density": 8.65, "eneg": 1.69, "discovered": "1817" },
+    { "number": 49, "name": "Indium", "symbol": "In", "category": "Post-transition metal", "mass": 114.82, "group": 13, "period": 5, "block": "p", "config": "[Kr] 4d10 5s2 5p1", "state": "Solid", "melt": 429.75, "boil": 2345, "density": 7.31, "eneg": 1.78, "discovered": "1863" },
+    { "number": 50, "name": "Tin", "symbol": "Sn", "category": "Post-transition metal", "mass": 118.71, "group": 14, "period": 5, "block": "p", "config": "[Kr] 4d10 5s2 5p2", "state": "Solid", "melt": 505.08, "boil": 2875, "density": 7.287, "eneg": 1.96, "discovered": "Ancient" },
+    { "number": 51, "name": "Antimony", "symbol": "Sb", "category": "Metalloid", "mass": 121.76, "group": 15, "period": 5, "block": "p", "config": "[Kr] 4d10 5s2 5p3", "state": "Solid", "melt": 903.78, "boil": 1860, "density": 6.685, "eneg": 2.05, "discovered": "Ancient" },
+    { "number": 52, "name": "Tellurium", "symbol": "Te", "category": "Metalloid", "mass": 127.6, "group": 16, "period": 5, "block": "p", "config": "[Kr] 4d10 5s2 5p4", "state": "Solid", "melt": 722.66, "boil": 1261, "density": 6.232, "eneg": 2.1, "discovered": "1782" },
+    { "number": 53, "name": "Iodine", "symbol": "I", "category": "Halogen", "mass": 126.9, "group": 17, "period": 5, "block": "p", "config": "[Kr] 4d10 5s2 5p5", "state": "Solid", "melt": 386.85, "boil": 457.4, "density": 4.93, "eneg": 2.66, "discovered": "1811" },
+    { "number": 54, "name": "Xenon", "symbol": "Xe", "category": "Noble gas", "mass": 131.29, "group": 18, "period": 5, "block": "p", "config": "[Kr] 4d10 5s2 5p6", "state": "Gas", "melt": 161.4, "boil": 165.05, "density": 0.005887, "eneg": 2.6, "discovered": "1898" },
+    { "number": 55, "name": "Caesium", "symbol": "Cs", "category": "Alkali metal", "mass": 132.91, "group": 1, "period": 6, "block": "s", "config": "[Xe] 6s1", "state": "Solid", "melt": 301.59, "boil": 944, "density": 1.93, "eneg": 0.79, "discovered": "1860", "alts": {"name": ["Cesium"]} },
+    { "number": 56, "name": "Barium", "symbol": "Ba", "category": "Alkaline earth metal", "mass": 137.33, "group": 2, "period": 6, "block": "s", "config": "[Xe] 6s2", "state": "Solid", "melt": 1000, "boil": 2118, "density": 3.51, "eneg": 0.89, "discovered": "1808" },
+    { "number": 57, "name": "Lanthanum", "symbol": "La", "category": "Lanthanide", "mass": 138.91, "period": 6, "block": "f", "config": "[Xe] 5d1 6s2", "state": "Solid", "melt": 1193, "boil": 3737, "density": 6.162, "eneg": 1.1, "discovered": "1839" },
+    { "number": 58, "name": "Cerium", "symbol": "Ce", "category": "Lanthanide", "mass": 140.12, "period": 6, "block": "f", "config": "[Xe] 4f1 5d1 6s2", "state": "Solid", "melt": 1068, "boil": 3716, "density": 6.77, "eneg": 1.12, "discovered": "1803" },
+    { "number": 59, "name": "Praseodymium", "symbol": "Pr", "category": "Lanthanide", "mass": 140.91, "period": 6, "block": "f", "config": "[Xe] 4f3 6s2", "state": "Solid", "melt": 1208, "boil": 3793, "density": 6.77, "eneg": 1.13, "discovered": "1885" },
+    { "number": 60, "name": "Neodymium", "symbol": "Nd", "category": "Lanthanide", "mass": 144.24, "period": 6, "block": "f", "config": "[Xe] 4f4 6s2", "state": "Solid", "melt": 1297, "boil": 3347, "density": 7.01, "eneg": 1.14, "discovered": "1885" },
+    { "number": 61, "name": "Promethium", "symbol": "Pm", "category": "Lanthanide", "mass": 145, "period": 6, "block": "f", "config": "[Xe] 4f5 6s2", "state": "Solid", "melt": 1315, "boil": 3273, "density": 7.26, "eneg": 1.13, "discovered": "1945" },
+    { "number": 62, "name": "Samarium", "symbol": "Sm", "category": "Lanthanide", "mass": 150.36, "period": 6, "block": "f", "config": "[Xe] 4f6 6s2", "state": "Solid", "melt": 1345, "boil": 2067, "density": 7.52, "eneg": 1.17, "discovered": "1879" },
+    { "number": 63, "name": "Europium", "symbol": "Eu", "category": "Lanthanide", "mass": 151.96, "period": 6, "block": "f", "config": "[Xe] 4f7 6s2", "state": "Solid", "melt": 1099, "boil": 1802, "density": 5.244, "eneg": 1.2, "discovered": "1901" },
+    { "number": 64, "name": "Gadolinium", "symbol": "Gd", "category": "Lanthanide", "mass": 157.25, "period": 6, "block": "f", "config": "[Xe] 4f7 5d1 6s2", "state": "Solid", "melt": 1585, "boil": 3546, "density": 7.9, "eneg": 1.2, "discovered": "1880" },
+    { "number": 65, "name": "Terbium", "symbol": "Tb", "category": "Lanthanide", "mass": 158.93, "period": 6, "block": "f", "config": "[Xe] 4f9 6s2", "state": "Solid", "melt": 1629, "boil": 3503, "density": 8.23, "eneg": 1.1, "discovered": "1843" },
+    { "number": 66, "name": "Dysprosium", "symbol": "Dy", "category": "Lanthanide", "mass": 162.5, "period": 6, "block": "f", "config": "[Xe] 4f10 6s2", "state": "Solid", "melt": 1680, "boil": 2840, "density": 8.54, "eneg": 1.22, "discovered": "1886" },
+    { "number": 67, "name": "Holmium", "symbol": "Ho", "category": "Lanthanide", "mass": 164.93, "period": 6, "block": "f", "config": "[Xe] 4f11 6s2", "state": "Solid", "melt": 1734, "boil": 2993, "density": 8.79, "eneg": 1.23, "discovered": "1878" },
+    { "number": 68, "name": "Erbium", "symbol": "Er", "category": "Lanthanide", "mass": 167.26, "period": 6, "block": "f", "config": "[Xe] 4f12 6s2", "state": "Solid", "melt": 1802, "boil": 3141, "density": 9.066, "eneg": 1.24, "discovered": "1843" },
+    { "number": 69, "name": "Thulium", "symbol": "Tm", "category": "Lanthanide", "mass": 168.93, "period": 6, "block": "f", "config": "[Xe] 4f13 6s2", "state": "Solid", "melt": 1818, "boil": 2223, "density": 9.32, "eneg": 1.25, "discovered": "1879" },
+    { "number": 70, "name": "Ytterbium", "symbol": "Yb", "category": "Lanthanide", "mass": 173.05, "period": 6, "block": "f", "config": "[Xe] 4f14 6s2", "state": "Solid", "melt": 1097, "boil": 1469, "density": 6.9, "eneg": 1.1, "discovered": "1878" },
+    { "number": 71, "name": "Lutetium", "symbol": "Lu", "category": "Lanthanide", "mass": 174.97, "group": 3, "period": 6, "block": "d", "config": "[Xe] 4f14 5d1 6s2", "state": "Solid", "melt": 1925, "boil": 3675, "density": 9.841, "eneg": 1.27, "discovered": "1907" },
+    { "number": 72, "name": "Hafnium", "symbol": "Hf", "category": "Transition metal", "mass": 178.49, "group": 4, "period": 6, "block": "d", "config": "[Xe] 4f14 5d2 6s2", "state": "Solid", "melt": 2506, "boil": 4876, "density": 13.31, "eneg": 1.3, "discovered": "1923" },
+    { "number": 73, "name": "Tantalum", "symbol": "Ta", "category": "Transition metal", "mass": 180.95, "group": 5, "period": 6, "block": "d", "config": "[Xe] 4f14 5d3 6s2", "state": "Solid", "melt": 3290, "boil": 5731, "density": 16.69, "eneg": 1.5, "discovered": "1802" },
+    { "number": 74, "name": "Tungsten", "symbol": "W", "category": "Transition metal", "mass": 183.84, "group": 6, "period": 6, "block": "d", "config": "[Xe] 4f14 5d4 6s2", "state": "Solid", "melt": 3695, "boil": 5828, "density": 19.25, "eneg": 2.36, "discovered": "1783" },
+    { "number": 75, "name": "Rhenium", "symbol": "Re", "category": "Transition metal", "mass": 186.21, "group": 7, "period": 6, "block": "d", "config": "[Xe] 4f14 5d5 6s2", "state": "Solid", "melt": 3459, "boil": 5869, "density": 21.02, "eneg": 1.9, "discovered": "1925" },
+    { "number": 76, "name": "Osmium", "symbol": "Os", "category": "Transition metal", "mass": 190.23, "group": 8, "period": 6, "block": "d", "config": "[Xe] 4f14 5d6 6s2", "state": "Solid", "melt": 3306, "boil": 5285, "density": 22.59, "eneg": 2.2, "discovered": "1803" },
+    { "number": 77, "name": "Iridium", "symbol": "Ir", "category": "Transition metal", "mass": 192.22, "group": 9, "period": 6, "block": "d", "config": "[Xe] 4f14 5d7 6s2", "state": "Solid", "melt": 2719, "boil": 4701, "density": 22.56, "eneg": 2.2, "discovered": "1803" },
+    { "number": 78, "name": "Platinum", "symbol": "Pt", "category": "Transition metal", "mass": 195.08, "group": 10, "period": 6, "block": "d", "config": "[Xe] 4f14 5d9 6s1", "state": "Solid", "melt": 2041.4, "boil": 4098, "density": 21.45, "eneg": 2.28, "discovered": "1735" },
+    { "number": 79, "name": "Gold", "symbol": "Au", "category": "Transition metal", "mass": 196.97, "group": 11, "period": 6, "block": "d", "config": "[Xe] 4f14 5d10 6s1", "state": "Solid", "melt": 1337.33, "boil": 3129, "density": 19.3, "eneg": 2.54, "discovered": "Ancient" },
+    { "number": 80, "name": "Mercury", "symbol": "Hg", "category": "Transition metal", "mass": 200.59, "group": 12, "period": 6, "block": "d", "config": "[Xe] 4f14 5d10 6s2", "state": "Liquid", "melt": 234.32, "boil": 629.88, "density": 13.534, "eneg": 2, "discovered": "Ancient" },
+    { "number": 81, "name": "Thallium", "symbol": "Tl", "category": "Post-transition metal", "mass": 204.38, "group": 13, "period": 6, "block": "p", "config": "[Xe] 4f14 5d10 6s2 6p1", "state": "Solid", "melt": 577, "boil": 1746, "density": 11.85, "eneg": 1.62, "discovered": "1861" },
+    { "number": 82, "name": "Lead", "symbol": "Pb", "category": "Post-transition metal", "mass": 207.2, "group": 14, "period": 6, "block": "p", "config": "[Xe] 4f14 5d10 6s2 6p2", "state": "Solid", "melt": 600.61, "boil": 2022, "density": 11.34, "eneg": 2.33, "discovered": "Ancient" },
+    { "number": 83, "name": "Bismuth", "symbol": "Bi", "category": "Post-transition metal", "mass": 208.98, "group": 15, "period": 6, "block": "p", "config": "[Xe] 4f14 5d10 6s2 6p3", "state": "Solid", "melt": 544.7, "boil": 1837, "density": 9.78, "eneg": 2.02, "discovered": "Ancient" },
+    { "number": 84, "name": "Polonium", "symbol": "Po", "category": "Post-transition metal", "mass": 209, "group": 16, "period": 6, "block": "p", "config": "[Xe] 4f14 5d10 6s2 6p4", "state": "Solid", "melt": 527, "boil": 1235, "density": 9.196, "eneg": 2, "discovered": "1898" },
+    { "number": 85, "name": "Astatine", "symbol": "At", "category": "Halogen", "mass": 210, "group": 17, "period": 6, "block": "p", "config": "[Xe] 4f14 5d10 6s2 6p5", "state": "Solid", "melt": 575, "eneg": 2.2, "discovered": "1940" },
+    { "number": 86, "name": "Radon", "symbol": "Rn", "category": "Noble gas", "mass": 222, "group": 18, "period": 6, "block": "p", "config": "[Xe] 4f14 5d10 6s2 6p6", "state": "Gas", "melt": 202, "boil": 211.3, "density": 0.00973, "eneg": 2.2, "discovered": "1900" },
+    { "number": 87, "name": "Francium", "symbol": "Fr", "category": "Alkali metal", "mass": 223, "group": 1, "period": 7, "block": "s", "config": "[Rn] 7s1", "state": "Solid", "melt": 300, "eneg": 0.7, "discovered": "1939" },
+    { "number": 88, "name": "Radium", "symbol": "Ra", "category": "Alkaline earth metal", "mass": 226, "group": 2, "period": 7, "block": "s", "config": "[Rn] 7s2", "state": "Solid", "melt": 973, "boil": 2010, "density": 5.5, "eneg": 0.9, "discovered": "1898" },
+    { "number": 89, "name": "Actinium", "symbol": "Ac", "category": "Actinide", "mass": 227, "period": 7, "block": "f", "config": "[Rn] 6d1 7s2", "state": "Solid", "melt": 1323, "boil": 3471, "density": 10.07, "eneg": 1.1, "discovered": "1899" },
+    { "number": 90, "name": "Thorium", "symbol": "Th", "category": "Actinide", "mass": 232.04, "period": 7, "block": "f", "config": "[Rn] 6d2 7s2", "state": "Solid", "melt": 2115, "boil": 5061, "density": 11.72, "eneg": 1.3, "discovered": "1829" },
+    { "number": 91, "name": "Protactinium", "symbol": "Pa", "category": "Actinide", "mass": 231.04, "period": 7, "block": "f", "config": "[Rn] 5f2 6d1 7s2", "state": "Solid", "melt": 1841, "boil": 4300, "density": 15.37, "eneg": 1.5, "discovered": "1913" },
+    { "number": 92, "name": "Uranium", "symbol": "U", "category": "Actinide", "mass": 238.03, "period": 7, "block": "f", "config": "[Rn] 5f3 6d1 7s2", "state": "Solid", "melt": 1405.3, "boil": 4404, "density": 19.1, "eneg": 1.38, "discovered": "1789" },
+    { "number": 93, "name": "Neptunium", "symbol": "Np", "category": "Actinide", "mass": 237, "period": 7, "block": "f", "config": "[Rn] 5f4 6d1 7s2", "state": "Solid", "melt": 917, "boil": 4273, "density": 20.45, "eneg": 1.36, "discovered": "1940" },
+    { "number": 94, "name": "Plutonium", "symbol": "Pu", "category": "Actinide", "mass": 244, "period": 7, "block": "f", "config": "[Rn] 5f6 7s2", "state": "Solid", "melt": 912.5, "boil": 3501, "density": 19.816, "eneg": 1.28, "discovered": "1940" },
+    { "number": 95, "name": "Americium", "symbol": "Am", "category": "Actinide", "mass": 243, "period": 7, "block": "f", "config": "[Rn] 5f7 7s2", "state": "Solid", "melt": 1449, "boil": 2880, "density": 12, "eneg": 1.13, "discovered": "1944" },
+    { "number": 96, "name": "Curium", "symbol": "Cm", "category": "Actinide", "mass": 247, "period": 7, "block": "f", "config": "[Rn] 5f7 6d1 7s2", "state": "Solid", "melt": 1613, "boil": 3383, "density": 13.51, "eneg": 1.28, "discovered": "1944" },
+    { "number": 97, "name": "Berkelium", "symbol": "Bk", "category": "Actinide", "mass": 247, "period": 7, "block": "f", "config": "[Rn] 5f9 7s2", "state": "Solid", "melt": 1259, "boil": 2900, "density": 14.78, "eneg": 1.3, "discovered": "1949" },
+    { "number": 98, "name": "Californium", "symbol": "Cf", "category": "Actinide", "mass": 251, "period": 7, "block": "f", "config": "[Rn] 5f10 7s2", "state": "Solid", "melt": 1173, "boil": 1743, "density": 15.1, "eneg": 1.3, "discovered": "1950" },
+    { "number": 99, "name": "Einsteinium", "symbol": "Es", "category": "Actinide", "mass": 252, "period": 7, "block": "f", "config": "[Rn] 5f11 7s2", "state": "Solid", "melt": 1133, "density": 8.84, "eneg": 1.3, "discovered": "1952" },
+    { "number": 100, "name": "Fermium", "symbol": "Fm", "category": "Actinide", "mass": 257, "period": 7, "block": "f", "config": "[Rn] 5f12 7s2", "state": "Solid", "melt": 1800, "eneg": 1.3, "discovered": "1952" },
+    { "number": 101, "name": "Mendelevium", "symbol": "Md", "category": "Actinide", "mass": 258, "period": 7, "block": "f", "config": "[Rn] 5f13 7s2", "state": "Solid", "melt": 1100, "eneg": 1.3, "discovered": "1955" },
+    { "number": 102, "name": "Nobelium", "symbol": "No", "category": "Actinide", "mass": 259, "period": 7, "block": "f", "config": "[Rn] 5f14 7s2", "state": "Solid", "melt": 1100, "eneg": 1.3, "discovered": "1957" },
+    { "number": 103, "name": "Lawrencium", "symbol": "Lr", "category": "Actinide", "mass": 266, "group": 3, "period": 7, "block": "d", "config": "[Rn] 5f14 7s2 7p1", "state": "Solid", "melt": 1900, "discovered": "1961" },
+    { "number": 104, "name": "Rutherfordium", "symbol": "Rf", "category": "Transition metal", "mass": 267, "group": 4, "period": 7, "block": "d", "config": "[Rn] 5f14 6d2 7s2", "state": "Unknown", "discovered": "1964" },
+    { "number": 105, "name": "Dubnium", "symbol": "Db", "category": "Transition metal", "mass": 268, "group": 5, "period": 7, "block": "d", "config": "[Rn] 5f14 6d3 7s2", "state": "Unknown", "discovered": "1968" },
+    { "number": 106, "name": "Seaborgium", "symbol": "Sg", "category": "Transition metal", "mass": 269, "group": 6, "period": 7, "block": "d", "config": "[Rn] 5f14 6d4 7s2", "state": "Unknown", "discovered": "1974" },
+    { "number": 107, "name": "Bohrium", "symbol": "Bh", "category": "Transition metal", "mass": 270, "group": 7, "period": 7, "block": "d", "config": "[Rn] 5f14 6d5 7s2", "state": "Unknown", "discovered": "1981" },
+    { "number": 108, "name": "Hassium", "symbol": "Hs", "category": "Transition metal", "mass": 269, "group": 8, "period": 7, "block": "d", "config": "[Rn] 5f14 6d6 7s2", "state": "Unknown", "discovered": "1984" },
+    { "number": 109, "name": "Meitnerium", "symbol": "Mt", "category": "Transition metal", "mass": 278, "group": 9, "period": 7, "block": "d", "config": "[Rn] 5f14 6d7 7s2", "state": "Unknown", "discovered": "1982" },
+    { "number": 110, "name": "Darmstadtium", "symbol": "Ds", "category": "Transition metal", "mass": 281, "group": 10, "period": 7, "block": "d", "config": "[Rn] 5f14 6d8 7s2", "state": "Unknown", "discovered": "1994" },
+    { "number": 111, "name": "Roentgenium", "symbol": "Rg", "category": "Transition metal", "mass": 282, "group": 11, "period": 7, "block": "d", "config": "[Rn] 5f14 6d9 7s2", "state": "Unknown", "discovered": "1994" },
+    { "number": 112, "name": "Copernicium", "symbol": "Cn", "category": "Transition metal", "mass": 285, "group": 12, "period": 7, "block": "d", "config": "[Rn] 5f14 6d10 7s2", "state": "Unknown", "discovered": "1996" },
+    { "number": 113, "name": "Nihonium", "symbol": "Nh", "category": "Post-transition metal", "mass": 286, "group": 13, "period": 7, "block": "p", "config": "[Rn] 5f14 6d10 7s2 7p1", "state": "Unknown", "discovered": "2003" },
+    { "number": 114, "name": "Flerovium", "symbol": "Fl", "category": "Post-transition metal", "mass": 289, "group": 14, "period": 7, "block": "p", "config": "[Rn] 5f14 6d10 7s2 7p2", "state": "Unknown", "discovered": "1998" },
+    { "number": 115, "name": "Moscovium", "symbol": "Mc", "category": "Post-transition metal", "mass": 290, "group": 15, "period": 7, "block": "p", "config": "[Rn] 5f14 6d10 7s2 7p3", "state": "Unknown", "discovered": "2003" },
+    { "number": 116, "name": "Livermorium", "symbol": "Lv", "category": "Post-transition metal", "mass": 293, "group": 16, "period": 7, "block": "p", "config": "[Rn] 5f14 6d10 7s2 7p4", "state": "Unknown", "discovered": "2000" },
+    { "number": 117, "name": "Tennessine", "symbol": "Ts", "category": "Halogen", "mass": 294, "group": 17, "period": 7, "block": "p", "config": "[Rn] 5f14 6d10 7s2 7p5", "state": "Unknown", "discovered": "2010" },
+    { "number": 118, "name": "Oganesson", "symbol": "Og", "category": "Noble gas", "mass": 294, "group": 18, "period": 7, "block": "p", "config": "[Rn] 5f14 6d10 7s2 7p6", "state": "Unknown", "discovered": "2002" }
+  ]
+}

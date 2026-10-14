@@ -1,0 +1,124 @@
+{
+  "title": "Electrochemistry",
+  "description": "Chemical reactions that make electricity, and electricity that drives reactions.",
+  "category": ["Chemistry", "General Chemistry", "Electrochemistry"],
+  "view": "articles",
+  "entries": [
+    {
+      "id": "galvanic", "name": "Galvanic cells", "group": "Cells and potentials",
+      "terms": ["galvanic cell", "galvanic cells", "voltaic cell", "salt bridge", "half-cell", "half-cells"],
+      "tagline": "A cell that turns the energy of a redox reaction into electric current.",
+      "sections": [
+        { "text": "A galvanic (or voltaic) cell has two half-cells. In one, a species is oxidized. In the other, a species is reduced. A wire carries the electrons between them, and that flow is the current." },
+        { "h": "The parts", "points": [
+          "Anode: the electrode where oxidation happens. It is the negative electrode in a galvanic cell.",
+          "Cathode: the electrode where reduction happens. It is the positive electrode.",
+          "Salt bridge: a tube of salt solution that lets ions move between the half-cells, to keep each side electrically neutral. Without it the current would stop at once.",
+          "Electrons flow through the wire from the anode to the cathode."
+        ] },
+        { "h": "Example: the zinc–copper (Daniell) cell", "equations": ["Zn → Zn²⁺ + 2e⁻    (anode, oxidation)", "Cu²⁺ + 2e⁻ → Cu    (cathode, reduction)", "Zn + Cu²⁺ → Zn²⁺ + Cu"], "text": "The zinc electrode dissolves and copper plates onto the other electrode. The cell gives about 1.10 V under standard conditions." },
+        { "h": "Cell notation", "text": "Zn(s) | Zn²⁺(aq) ‖ Cu²⁺(aq) | Cu(s). The anode is written on the left, the cathode on the right, and ‖ stands for the salt bridge." }
+      ],
+      "quiz": [
+        { "q": "In a galvanic cell, oxidation takes place at the…", "a": "Anode", "wrong": ["Cathode", "Salt bridge", "Electrolyte only"] },
+        { "q": "What is the job of the salt bridge?", "a": "To let ions move so each half-cell stays neutral", "wrong": ["To carry electrons", "To produce the current", "To heat the cell"] }
+      ]
+    },
+    {
+      "id": "reduction-potentials", "name": "Standard reduction potentials", "group": "Cells and potentials",
+      "terms": ["standard reduction potential", "standard reduction potentials", "standard electrode potential", "cell potential", "standard hydrogen electrode"],
+      "tagline": "A scale that ranks how strongly species pull on electrons.",
+      "sections": [
+        { "text": "The standard reduction potential, E°, in volts, measures how much a species wants to be reduced. Values are measured against the standard hydrogen electrode, which is defined as 0 V." },
+        { "equations": ["E°(cell) = E°(cathode) − E°(anode)"], "text": "Both potentials are the reduction values from the table. The half-reaction with the higher E° is the cathode." },
+        { "h": "Worked example", "points": [
+          "Cu²⁺ + 2e⁻ → Cu has E° = +0.34 V. Zn²⁺ + 2e⁻ → Zn has E° = −0.76 V.",
+          "Copper is the cathode and zinc is the anode: E°(cell) = 0.34 − (−0.76) = +1.10 V.",
+          "A positive E°(cell) means the reaction is spontaneous."
+        ] },
+        { "h": "Things to remember", "points": [
+          "Do not multiply E° by the number of electrons when balancing. It is a potential, not an amount.",
+          "Strong oxidizing agents (such as F₂ and MnO₄⁻) have high positive E°. Strong reducing agents (such as Li and Na) have very negative E°."
+        ] }
+      ],
+      "quiz": [
+        { "q": "A galvanic cell has E°(cell) = +1.10 V. The reaction is…", "a": "Spontaneous", "wrong": ["Non-spontaneous", "At equilibrium", "Impossible"] }
+      ]
+    },
+    {
+      "id": "nernst", "name": "The Nernst equation", "group": "Cells and potentials",
+      "terms": ["Nernst equation", "Nernst"],
+      "tagline": "How cell voltage changes when concentrations are not standard.",
+      "sections": [
+        { "equations": ["E = E° − (RT ÷ nF) ln Q", "E = E° − (0.0592 ÷ n) log Q    (at 25 °C)"], "text": "n is the number of electrons transferred, F is the Faraday constant, and Q is the reaction quotient." },
+        { "h": "Link to free energy and K", "equations": ["ΔG = −nFE", "ΔG° = −nFE° = −RT ln K"], "text": "A positive cell potential means a negative ΔG, which means a spontaneous reaction." },
+        { "h": "Things to remember", "points": [
+          "As a galvanic cell runs, Q grows, E falls, and when Q reaches K, E becomes zero. A flat battery is a cell at equilibrium.",
+          "A concentration cell has the same species on both sides at different concentrations, and gives a voltage from the Nernst equation alone.",
+          "The pH meter relies on the same effect, with a voltage that depends on the hydrogen ion concentration."
+        ] }
+      ],
+      "quiz": [
+        { "q": "When a battery is completely flat, its cell potential E equals…", "a": "Zero", "wrong": ["E°", "One volt", "Infinity"] }
+      ]
+    },
+    {
+      "id": "faraday", "name": "Quantitative electrolysis", "group": "Electrolysis and batteries",
+      "terms": ["Faraday constant", "Faraday's law", "Faraday's laws", "Faraday's law of electrolysis"],
+      "tagline": "Calculating how much substance an electric current produces.",
+      "sections": [
+        { "text": "One mole of electrons carries a charge of 96 485 coulombs. This is the Faraday constant, F." },
+        { "equations": ["charge Q = current I × time t", "moles of electrons = I × t ÷ F"] },
+        { "h": "Worked example", "text": "How much copper is deposited by 2.00 A running for 30.0 minutes through a Cu²⁺ solution?", "points": [
+          "Charge = 2.00 A × 1800 s = 3600 C.",
+          "Moles of electrons = 3600 ÷ 96 485 = 0.0373 mol.",
+          "Cu²⁺ + 2e⁻ → Cu needs 2 mol of electrons per mole of copper, so 0.0187 mol of Cu forms.",
+          "Mass = 0.0187 × 63.55 ≈ 1.19 g."
+        ] }
+      ],
+      "quiz": [
+        { "q": "What is the charge of one mole of electrons?", "a": "96 485 C", "wrong": ["1.602 × 10⁻¹⁹ C", "6.022 × 10²³ C", "8.314 C"] }
+      ]
+    },
+    {
+      "id": "batteries", "name": "Batteries", "group": "Electrolysis and batteries",
+      "terms": ["battery", "batteries", "lead–acid battery", "lithium-ion battery", "lithium-ion", "alkaline battery", "rechargeable"],
+      "tagline": "Galvanic cells packaged to power things.",
+      "sections": [
+        { "text": "A battery is one or more galvanic cells. Primary batteries are used once. Secondary (rechargeable) batteries have reactions that can be reversed by passing a current backwards." },
+        { "h": "Common types", "facts": [
+          ["Alkaline (primary)", "Zinc is the anode and manganese dioxide the cathode, in a basic electrolyte. About 1.5 V per cell."],
+          ["Lead–acid (rechargeable)", "Lead anode, lead(IV) oxide cathode, sulfuric acid electrolyte. About 2 V per cell, and six cells make a 12 V car battery."],
+          ["Lithium-ion (rechargeable)", "Lithium ions move between a graphite anode and a metal oxide cathode. High energy for its weight, so it powers phones and electric cars. About 3.6–3.7 V per cell."]
+        ] },
+        { "h": "Fuel cells", "text": "A fuel cell is like a battery that is fed continuously with fuel. In a hydrogen fuel cell, hydrogen is oxidized at the anode and oxygen is reduced at the cathode, and the only product is water." }
+      ],
+      "quiz": [
+        { "q": "Which type of battery is used in most phones and electric cars?", "a": "Lithium-ion", "wrong": ["Lead–acid", "Alkaline", "Zinc–carbon"] }
+      ]
+    },
+    {
+      "id": "corrosion", "name": "Corrosion and rusting", "group": "Electrolysis and batteries",
+      "terms": ["corrosion", "rust", "rusting", "sacrificial anode", "galvanizing", "galvanized"],
+      "tagline": "Metals slowly returning to their ores, and how to stop it.",
+      "sections": [
+        { "text": "Corrosion is the oxidation of a metal by its surroundings. Rusting of iron needs both oxygen and water, and is an electrochemical process." },
+        { "h": "How iron rusts", "points": [
+          "At one spot on the surface iron is oxidized: Fe → Fe²⁺ + 2e⁻ (an anode).",
+          "At another spot oxygen is reduced: O₂ + 2H₂O + 4e⁻ → 4OH⁻ (a cathode).",
+          "The Fe²⁺ is oxidized further and forms hydrated iron(III) oxide, the flaky red-brown rust.",
+          "Salt water speeds it up because the dissolved ions let the current flow more easily."
+        ] },
+        { "h": "Prevention", "points": [
+          "Paint or oil keeps out water and oxygen.",
+          "Galvanizing coats steel with zinc. Zinc is more reactive than iron, so even where the coating is scratched, the zinc corrodes first.",
+          "A sacrificial anode, a block of magnesium or zinc bolted to the steel, corrodes instead of the steel. Ship hulls and pipelines use them.",
+          "Stainless steel contains chromium, which forms a thin protective oxide layer."
+        ] }
+      ],
+      "quiz": [
+        { "q": "How does a sacrificial anode protect steel?", "a": "It is more reactive and corrodes instead", "wrong": ["It coats the steel in paint", "It removes the oxygen from the air", "It makes the steel less dense"] }
+      ]
+    }
+  ]
+}

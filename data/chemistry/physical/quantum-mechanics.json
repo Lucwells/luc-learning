@@ -1,0 +1,431 @@
+{
+  "title": "Quantum Mechanics",
+  "description": "The quantum mechanics of physical chemistry: the postulates, the exactly solvable systems, atoms and molecules, approximation methods, and the theory behind spectroscopy.",
+  "category": ["Chemistry", "Physical Chemistry", "Quantum Mechanics"],
+  "view": "articles",
+  "entries": [
+    {
+      "id": "postulates", "name": "Postulates of quantum mechanics", "group": "Foundations",
+      "terms": ["postulates of quantum mechanics", "wavefunction", "wavefunctions", "eigenvalue", "eigenvalues", "eigenfunction", "eigenfunctions", "expectation value", "Born interpretation", "normalization condition", "Hermitian operator", "commutator", "commutation relation"],
+      "tagline": "The rules of the game: states, observables, measurement and time evolution.",
+      "sections": [
+        { "h": "The postulates", "points": [
+          "The state of a system is completely described by a wavefunction ψ(x, t).",
+          "The Born interpretation: |ψ|² is the probability density. The probability of finding the particle in dx is |ψ|²dx, so the wavefunction must be normalized: ∫|ψ|²dτ = 1.",
+          "Every observable corresponds to a linear Hermitian operator. Examples: position x̂ = x, momentum p̂ = −iħ d/dx, and the Hamiltonian Ĥ = −(ħ²/2m) d²/dx² + V(x).",
+          "A single measurement of an observable gives one of the eigenvalues of its operator: Âψ = aψ. After the measurement, the system is in the corresponding eigenfunction.",
+          "The average (expectation value) over many identically prepared systems is ⟨A⟩ = ∫ψ*Âψ dτ.",
+          "The wavefunction evolves according to the time-dependent Schrödinger equation, iħ ∂ψ/∂t = Ĥψ."
+        ] },
+        { "h": "Commutators and uncertainty", "equations": ["[x̂, p̂] = x̂p̂ − p̂x̂ = iħ", "Δx · Δp ≥ ħ ÷ 2"], "text": "Two observables can be known simultaneously with certainty only if their operators commute. Position and momentum do not commute, which leads to the uncertainty principle. The components of angular momentum do not commute with each other, but L² commutes with each component." },
+        { "h": "Superposition", "text": "If ψ₁ and ψ₂ are valid states, so is c₁ψ₁ + c₂ψ₂. Measuring the energy of such a state gives E₁ with probability |c₁|² and E₂ with probability |c₂|²." }
+      ],
+      "quiz": [
+        { "q": "What does |ψ|² represent?", "a": "The probability density of finding the particle", "wrong": ["The energy of the particle", "The momentum of the particle", "The amplitude of the wave"] },
+        { "q": "What is a single measurement of an observable guaranteed to give?", "a": "An eigenvalue of its operator", "wrong": ["The expectation value", "Zero", "A value between the eigenvalues"] }
+      ]
+    },
+    {
+      "id": "schrodinger", "name": "The Schrödinger equation and stationary states", "group": "Foundations",
+      "terms": ["time-independent Schrödinger equation", "time-dependent Schrödinger equation", "stationary states", "stationary state", "Hamiltonian operator", "boundary conditions", "separation of variables"],
+      "tagline": "The equation that determines the allowed energies and wavefunctions of a system.",
+      "sections": [
+        { "equations": ["Ĥψ = Eψ", "[−(ħ² ÷ 2m) ∇² + V] ψ = Eψ"], "text": "The time-independent Schrödinger equation is an eigenvalue equation. The allowed energies E are the eigenvalues of the Hamiltonian, and the wavefunctions are its eigenfunctions." },
+        { "h": "Stationary states", "text": "If the potential does not depend on time, separating variables gives Ψ(x, t) = ψ(x) e^(−iEt/ħ). The probability density |Ψ|² does not change in time, so these are called stationary states." },
+        { "h": "Where quantization comes from", "points": [
+          "A physically acceptable wavefunction must be single-valued, continuous, have a continuous first derivative (where V is finite), and be finite everywhere and normalizable.",
+          "A bound particle must satisfy these boundary conditions, and only certain energies allow solutions. That is quantization.",
+          "A free particle (no boundaries) can have any energy.",
+          "The n-th state of a one-dimensional bound system has n − 1 nodes, and higher energy goes with more nodes, meaning more curvature."
+        ] },
+        { "h": "Method", "text": "For a chemical problem: write the potential V, write Ĥ, solve the differential equation with the boundary conditions, then normalize the wavefunction. Only a few cases are exactly solvable, which are the box, oscillator, rotor and hydrogen atom, and everything else uses approximations." }
+      ],
+      "quiz": [
+        { "q": "Why are the energies of a bound particle quantized?", "a": "The boundary conditions allow only certain solutions", "wrong": ["The particle is too small", "The potential is always zero", "The wavefunction is not normalized"] }
+      ]
+    },
+    {
+      "id": "particle-in-box", "name": "Particle in a box", "group": "Exactly solvable systems",
+      "terms": ["particle in a box", "particle in a one-dimensional box", "infinite square well", "particle in a three-dimensional box"],
+      "tagline": "The simplest bound system, and a surprisingly good model for conjugated molecules.",
+      "sections": [
+        { "text": "A particle of mass m moves freely between walls at x = 0 and x = L, where the potential is infinite. The wavefunction must be zero at the walls." },
+        { "equations": ["ψₙ(x) = √(2 ÷ L) × sin(nπx ÷ L)", "Eₙ = n²h² ÷ (8mL²)    n = 1, 2, 3, …"] },
+        { "h": "Features", "points": [
+          "The lowest energy is not zero but E₁ = h²/8mL², the zero-point energy. A confined particle cannot be at rest (uncertainty principle).",
+          "The energy rises as n², so the level spacing grows with n.",
+          "Making the box smaller raises the energies. This is why small particles are more strongly quantized.",
+          "The n-th wavefunction has n − 1 nodes."
+        ] },
+        { "h": "Worked example", "text": "An electron in a box of L = 1.0 nm: E₁ = (6.626 × 10⁻³⁴)² ÷ (8 × 9.109 × 10⁻³¹ × (10⁻⁹)²) ≈ 6.0 × 10⁻²⁰ J, about 0.38 eV." },
+        { "h": "Three dimensions", "equations": ["E = (h² ÷ 8mL²)(nₓ² + n_y² + n_z²)"], "text": "In a cube, different combinations of quantum numbers can have the same energy (degeneracy). For example (2,1,1), (1,2,1) and (1,1,2) share an energy." },
+        { "h": "Chemical use", "text": "The π electrons of a conjugated polyene such as β-carotene are modeled as particles in a one-dimensional box along the chain. The wavelength of the lowest-energy absorption is found from ΔE = E(HOMO→LUMO) = hc/λ, and it rises with chain length, which explains why long conjugated dyes absorb visible light." }
+      ],
+      "quiz": [
+        { "q": "How does the energy of the n-th level of a particle in a box depend on n?", "a": "It is proportional to n²", "wrong": ["It is proportional to n", "It is proportional to 1/n", "It does not depend on n"] },
+        { "q": "What happens to the energy levels if the box is made smaller?", "a": "They increase", "wrong": ["They decrease", "They stay the same", "They become continuous"] }
+      ]
+    },
+    {
+      "id": "tunneling", "name": "Quantum tunneling", "group": "Exactly solvable systems",
+      "terms": ["quantum tunneling", "quantum tunnelling", "tunnelling", "barrier penetration", "transmission probability", "ammonia inversion"],
+      "tagline": "Particles can pass through barriers that they do not have enough energy to climb.",
+      "sections": [
+        { "text": "In classical physics a particle with energy E cannot enter a region where the potential V is greater than E. In quantum mechanics the wavefunction does not stop abruptly at the barrier. It decays exponentially inside it, and if the barrier is thin enough, some of it comes out the other side." },
+        { "equations": ["T ≈ e^(−2κL)", "κ = √(2m(V − E)) ÷ ħ"], "text": "T is the transmission probability and L the width of the barrier. It falls very fast as the barrier gets wider or higher, and as the mass of the particle increases." },
+        { "h": "Where it matters", "points": [
+          "Electrons tunnel readily over distances of about a nanometre. A scanning tunneling microscope depends on this.",
+          "Alpha decay: the alpha particle tunnels out of the nucleus.",
+          "Proton and hydrogen-atom transfer in chemistry and enzymes. Because tunneling depends strongly on mass, replacing hydrogen with deuterium can slow a reaction much more than expected from zero-point energy alone, which is an unusually large kinetic isotope effect and a sign of tunneling.",
+          "Ammonia inversion: the NH₃ molecule flips through the planar geometry by tunneling, which splits the ground state by about 0.8 cm⁻¹. The 23.8 GHz transition was used in the first maser and in early atomic clocks.",
+          "Tunnel diodes and flash memory."
+        ] }
+      ],
+      "quiz": [
+        { "q": "Which particle tunnels most readily through a given barrier?", "a": "The lightest, an electron", "wrong": ["A proton", "A deuteron", "A heavy atom"] }
+      ]
+    },
+    {
+      "id": "harmonic-oscillator", "name": "The quantum harmonic oscillator", "group": "Exactly solvable systems",
+      "terms": ["harmonic oscillator", "quantum harmonic oscillator", "zero-point energy", "Hermite polynomials", "force constant", "anharmonic", "anharmonicity", "Morse potential", "reduced mass"],
+      "tagline": "The model for molecular vibrations.",
+      "sections": [
+        { "text": "A mass on a spring has potential energy V = ½kx², where k is the force constant. For a diatomic molecule, the mass is the reduced mass μ = m₁m₂ ÷ (m₁ + m₂)." },
+        { "equations": ["Eᵥ = (v + ½) ħω    v = 0, 1, 2, …", "ω = √(k ÷ μ)", "ν̃ = (1 ÷ 2πc) √(k ÷ μ)"] },
+        { "h": "Features", "points": [
+          "The levels are equally spaced by ħω.",
+          "The zero-point energy is ½ħω. Even at 0 K the molecule vibrates.",
+          "The wavefunctions are Hermite polynomials times a Gaussian. The ground state is a Gaussian centered on the equilibrium bond length, and the particle has a probability of being in the classically forbidden region.",
+          "The selection rule for infrared absorption is Δv = ±1."
+        ] },
+        { "h": "Worked example", "text": "For HCl, k ≈ 516 N/m and μ = 0.980 u = 1.63 × 10⁻²⁷ kg. Then ω = √(516 ÷ 1.63 × 10⁻²⁷) = 5.63 × 10¹⁴ rad/s, and the wavenumber is ω ÷ 2πc ≈ 2990 cm⁻¹, near the observed value." },
+        { "h": "Anharmonicity", "text": "Real bonds break when stretched, so the potential is not a parabola. The Morse potential is a better model. Levels get closer together as v increases, Eᵥ = (v + ½)ν̃ − (v + ½)²ν̃xₑ, and overtones (Δv = ±2) become weakly allowed. The molecule dissociates at high enough energy." },
+        { "h": "Isotope effect", "text": "Because ω depends on 1/√μ, replacing H with D lowers the frequency by about a factor of 1/√2 (more exactly 0.717 for HCl and DCl)." }
+      ],
+      "quiz": [
+        { "q": "What is the zero-point energy of a harmonic oscillator?", "a": "½ħω", "wrong": ["0", "ħω", "3ħω/2"] },
+        { "q": "If a bond has a larger force constant, its vibrational frequency is…", "a": "Higher", "wrong": ["Lower", "Unchanged", "Zero"] }
+      ]
+    },
+    {
+      "id": "rigid-rotor", "name": "Angular momentum and the rigid rotor", "group": "Exactly solvable systems",
+      "terms": ["rigid rotor", "angular momentum", "spherical harmonics", "rotational constant", "moment of inertia", "rotational energy levels", "space quantization"],
+      "tagline": "The model for molecular rotation, and the source of the angular momentum quantum numbers.",
+      "sections": [
+        { "text": "A diatomic molecule rotating with a fixed bond length r is a rigid rotor with moment of inertia I = μr²." },
+        { "equations": ["E_J = ħ² ÷ 2I × J(J + 1) = B J(J + 1)    J = 0, 1, 2, …", "B̃ = h ÷ (8π²cI)    (in cm⁻¹)"] },
+        { "h": "Angular momentum", "points": [
+          "The eigenfunctions are the spherical harmonics Y_J^m(θ, φ).",
+          "The magnitude of the angular momentum is ħ√(J(J + 1)). Its component along one axis (z) is m_J ħ, with m_J = −J, …, +J, so 2J + 1 values. Each rotational level is (2J + 1)-fold degenerate.",
+          "The x, y and z components cannot be known at the same time, because their operators do not commute. Only the magnitude and one component are sharp.",
+          "The same mathematics describes the angular part of atomic orbitals: l and mₗ in the hydrogen atom play the roles of J and m_J."
+        ] },
+        { "h": "Worked example", "text": "For HCl, the bond length is 127.5 pm and μ = 1.63 × 10⁻²⁷ kg. I = 1.63 × 10⁻²⁷ × (1.275 × 10⁻¹⁰)² = 2.65 × 10⁻⁴⁷ kg m², so B̃ = 6.626 × 10⁻³⁴ ÷ (8π² × 3.00 × 10¹⁰ × 2.65 × 10⁻⁴⁷) ≈ 10.6 cm⁻¹. The rotational spacing in the spectrum is 2B̃, about 21 cm⁻¹." },
+        { "h": "Heavier molecules", "text": "A larger moment of inertia means a smaller B and more closely spaced levels. Heavy molecules need only a little energy to rotate, and their rotational levels are close together." }
+      ],
+      "quiz": [
+        { "q": "How many degenerate states does the rotational level J have?", "a": "2J + 1", "wrong": ["J", "J²", "2J"] }
+      ]
+    },
+    {
+      "id": "hydrogen-atom", "name": "The hydrogen atom", "group": "Atoms",
+      "terms": ["hydrogen atom", "radial wavefunction", "radial distribution function", "Bohr radius", "hydrogen-like atoms", "hydrogenic"],
+      "tagline": "The one atom that can be solved exactly, and the pattern for all the others.",
+      "sections": [
+        { "text": "An electron in the Coulomb potential of a nucleus of charge Z. Because the potential depends only on r, the wavefunction separates into a radial part and an angular part: ψ = R_nl(r) Y_lm(θ, φ)." },
+        { "equations": ["Eₙ = −13.6 eV × Z² ÷ n²    (= −R_H hc Z² ÷ n²)"], "text": "The energy depends only on n, so all the orbitals of the same n are degenerate in the hydrogen atom. The degeneracy is n². In many-electron atoms, shielding removes the l degeneracy." },
+        { "h": "Quantum numbers", "facts": [
+          ["n = 1, 2, 3, …", "Sets the energy and the size."],
+          ["l = 0, 1, …, n − 1", "Angular momentum, which gives the shape: s, p, d, f."],
+          ["mₗ = −l, …, +l", "The orientation."]
+        ] },
+        { "h": "Orbital shapes and nodes", "points": [
+          "There are l angular nodes and n − l − 1 radial nodes. A 2s orbital has 1 radial node, and a 2p has none.",
+          "The 1s orbital is ψ ∝ e^(−r/a₀), where a₀ = 52.9 pm is the Bohr radius.",
+          "The radial distribution function 4πr²|ψ|² gives the probability of finding the electron at a distance r. For 1s it peaks at r = a₀, even though the wavefunction itself is largest at the nucleus. The average distance ⟨r⟩ is 1.5a₀.",
+          "s orbitals have a nonzero probability at the nucleus, but p, d and f orbitals do not. That is why s electrons penetrate and are shielded less."
+        ] },
+        { "h": "Spectra", "text": "Transitions between levels give the spectral lines. The selection rule for the emission or absorption of light is Δl = ±1." }
+      ],
+      "quiz": [
+        { "q": "How many radial nodes does a 3p orbital have?", "a": "1", "wrong": ["0", "2", "3"] },
+        { "q": "In the hydrogen atom, what does the energy depend on?", "a": "Only n", "wrong": ["n and l", "n, l and m", "Only l"] }
+      ]
+    },
+    {
+      "id": "spin-pauli", "name": "Electron spin and the Pauli principle", "group": "Atoms",
+      "terms": ["electron spin", "Stern–Gerlach experiment", "spin quantum number", "antisymmetry principle", "Slater determinant", "fermions", "bosons", "spin–orbit coupling"],
+      "tagline": "Why every electron carries a spin, and why identical electrons cannot share a state.",
+      "sections": [
+        { "text": "Electrons have an intrinsic angular momentum called spin, with quantum number s = ½ and two possible projections, m_s = +½ (α) and −½ (β). In the 1922 Stern–Gerlach experiment, a beam of silver atoms split into two in a nonuniform magnetic field, giving the first direct evidence." },
+        { "h": "Identical particles", "points": [
+          "Electrons are fermions, particles of half-integer spin. The total wavefunction must change sign when two electrons are exchanged. This is the antisymmetry principle, and the Pauli exclusion principle is its consequence: two electrons cannot have all quantum numbers equal.",
+          "Bosons, particles of integer spin such as photons, have wavefunctions that are symmetric under exchange.",
+          "A Slater determinant is a way of writing an antisymmetric many-electron wavefunction as a determinant of spin orbitals. Swapping two electrons swaps two columns, which changes the sign."
+        ] },
+        { "h": "Consequences", "points": [
+          "Two electrons in the same spatial orbital must have opposite spins, with a total spin of zero (a singlet).",
+          "Electrons with parallel spins avoid each other spatially. This exchange effect lowers their repulsion, which is the physical basis of Hund's rule.",
+          "Spin–orbit coupling couples the electron spin to its orbital motion, splitting the levels. The two yellow sodium D lines at 589.0 and 589.6 nm come from the ²P₃/₂ and ²P₁/₂ states of the 3p level."
+        ] }
+      ],
+      "quiz": [
+        { "q": "What kind of exchange symmetry must the wavefunction of electrons have?", "a": "Antisymmetric", "wrong": ["Symmetric", "No symmetry", "It depends on the spin only"] }
+      ]
+    },
+    {
+      "id": "approximation-methods", "name": "Helium and approximation methods", "group": "Atoms",
+      "terms": ["variational principle", "variational method", "perturbation theory", "helium atom", "electron repulsion", "trial wavefunction", "first-order perturbation"],
+      "tagline": "When the equation cannot be solved exactly, you need a way to get close.",
+      "sections": [
+        { "text": "The helium atom has two electrons, so the Hamiltonian includes the repulsion between them, 1/r₁₂. That makes the Schrödinger equation impossible to solve exactly, and the same is true for all other atoms and molecules." },
+        { "h": "Perturbation theory", "equations": ["Ĥ = Ĥ⁽⁰⁾ + λĤ′", "E ≈ E⁽⁰⁾ + ⟨ψ⁽⁰⁾|Ĥ′|ψ⁽⁰⁾⟩ + …"], "text": "Split the Hamiltonian into a part that can be solved and a small perturbation. The first-order correction is the average of the perturbation in the unperturbed state. For helium, treating the electron repulsion as the perturbation of two independent electrons gives −74.8 eV, compared with the experimental −79.0 eV." },
+        { "h": "Variational principle", "equations": ["E[φ] = ⟨φ|Ĥ|φ⟩ ÷ ⟨φ|φ⟩ ≥ E₀"], "text": "For any trial wavefunction φ, the calculated energy is never below the true ground-state energy. So you can write a flexible trial function with adjustable parameters and minimize the energy with respect to them. The lower the energy, the better the wavefunction." },
+        { "h": "Helium example", "points": [
+          "A trial function with each electron in a 1s orbital with an adjustable effective nuclear charge Z_eff. Minimizing gives Z_eff = 1.69 rather than 2, which shows that each electron partly shields the other from the nucleus.",
+          "The energy is −77.5 eV, much better than first-order perturbation theory. The exact value is −79.0 eV, and it is reached with more complicated trial functions that include the distance between the electrons."
+        ] }
+      ],
+      "quiz": [
+        { "q": "What does the variational principle guarantee?", "a": "A trial wavefunction's energy is never below the true ground-state energy", "wrong": ["The energy is exact", "The energy is always below the true value", "The wavefunction is normalized"] }
+      ]
+    },
+    {
+      "id": "hartree-fock", "name": "Many-electron atoms: Hartree–Fock and term symbols", "group": "Atoms",
+      "terms": ["Hartree–Fock", "self-consistent field", "SCF method", "term symbol", "term symbols", "Russell–Saunders coupling", "LS coupling", "electron correlation", "basis set", "basis sets", "configuration interaction", "coupled cluster"],
+      "tagline": "Each electron in the average field of the others, and a code for the states of an atom.",
+      "sections": [
+        { "h": "Hartree–Fock", "text": "Each electron is assumed to move in the average electrostatic field of the nucleus and all the other electrons. The orbitals are found by iteration, the self-consistent field (SCF) procedure: guess the orbitals, calculate the field, solve for new orbitals, and repeat until nothing changes. The wavefunction is a single Slater determinant, so exchange is included correctly." },
+        { "h": "Correlation", "text": "The correlation energy is the part missing because electrons actually avoid each other instantly, which the average field cannot show. It is only about 1% of the total energy but is the same size as the energies of chemical bonds, so it matters a great deal. Methods that include it, called post-Hartree–Fock methods, are configuration interaction, Møller–Plesset perturbation theory (MP2) and coupled cluster, with CCSD(T) as the 'gold standard'." },
+        { "h": "Basis sets", "text": "The orbitals are written as sums of simpler functions, the basis set. Larger sets give better results but cost more. Common ones are STO-3G (minimal), 6-31G* (split valence with polarization) and the correlation-consistent sets cc-pVDZ, cc-pVTZ." },
+        { "h": "Term symbols", "text": "Russell–Saunders (LS) coupling combines the orbital angular momenta of the electrons into L and the spins into S, and the term symbol is ²ˢ⁺¹L_J, with L = S, P, D, F for 0, 1, 2, 3.", "points": [
+          "Hund's rules for the ground term: the largest S, then the largest L for that S, then J = |L − S| if the subshell is less than half full and J = L + S if it is more than half full.",
+          "Hydrogen is ²S₁/₂ and helium is ¹S₀. A filled subshell always gives ¹S₀. Carbon (2p²) is ³P₀ and oxygen (2p⁴) is ³P₂.",
+          "For two p electrons, the allowed terms are ¹S, ³P, ¹D."
+        ] }
+      ],
+      "quiz": [
+        { "q": "What does the Hartree–Fock method leave out?", "a": "Electron correlation", "wrong": ["Electron exchange", "Electron spin", "The nuclear charge"] },
+        { "q": "What is the ground state term symbol of a closed-shell atom?", "a": "¹S₀", "wrong": ["³P₀", "²S₁/₂", "¹D₂"] }
+      ]
+    },
+    {
+      "id": "born-oppenheimer", "name": "Born–Oppenheimer approximation and H₂⁺", "group": "Molecules",
+      "terms": ["Born–Oppenheimer approximation", "Born-Oppenheimer approximation", "potential energy surface", "potential energy curve", "LCAO", "hydrogen molecule ion", "H₂⁺", "overlap integral", "dissociation energy"],
+      "tagline": "Treat the nuclei as fixed while the electrons adjust, and bonds emerge from combining atomic orbitals.",
+      "sections": [
+        { "h": "The approximation", "text": "Nuclei are at least 1836 times heavier than electrons, so they move much more slowly. The electrons adjust almost instantly to any nuclear arrangement. So solve the electronic Schrödinger equation with the nuclei held fixed, repeat for many positions, and the electronic energy plus nuclear repulsion as a function of position is the potential energy curve (or surface) on which the nuclei move. It underlies nearly all of chemistry: the idea of a molecular structure, reaction paths and spectroscopy." },
+        { "h": "The hydrogen molecule ion H₂⁺", "text": "One electron and two protons is the simplest molecule. Writing the molecular orbital as a linear combination of atomic orbitals (LCAO), ψ = c_A φ_A + c_B φ_B, gives two solutions.", "equations": ["ψ± = (φ_A ± φ_B) ÷ √(2(1 ± S))", "E± = (α ± β) ÷ (1 ± S)"], "points": [
+          "S is the overlap integral, α is the Coulomb integral (the energy of the electron on one atom) and β is the resonance integral, which is negative.",
+          "The in-phase combination (+) is the bonding orbital, with electron density concentrated between the nuclei, and a lower energy than the atom. The out-of-phase (−) is antibonding, with a node between the nuclei, and is repulsive.",
+          "The calculated equilibrium bond length is about 106 pm and the dissociation energy about 2.8 eV, close to the real values."
+        ] },
+        { "h": "H₂", "text": "Putting two electrons into the bonding orbital gives a stronger bond (equilibrium bond length 74.1 pm, dissociation energy 4.75 eV, which is 4.48 eV from the zero-point level). The simple LCAO result needs corrections for electron repulsion." }
+      ],
+      "quiz": [
+        { "q": "Why does the Born–Oppenheimer approximation work?", "a": "Nuclei are much heavier than electrons, so they move more slowly", "wrong": ["Electrons are stationary", "Nuclei have no charge", "Electrons do not interact"] }
+      ]
+    },
+    {
+      "id": "mo-diatomics", "name": "Molecular orbitals of diatomic molecules", "group": "Molecules",
+      "terms": ["MO diagram", "MO diagrams", "sigma–pi crossover", "s–p mixing", "homonuclear diatomic", "heteronuclear diatomic", "homonuclear diatomics", "gerade", "ungerade"],
+      "tagline": "Filling orbitals to predict the bond order, magnetism and properties of N₂, O₂, CO and others.",
+      "sections": [
+        { "text": "For the second-row homonuclear diatomics the valence molecular orbitals are formed from the 2s and 2p orbitals: σ₂ₛ, σ₂ₛ*, σ₂ₚ, π₂ₚ (two degenerate), π₂ₚ*, and σ₂ₚ*." },
+        { "h": "Two orderings", "points": [
+          "O₂, F₂ (and Ne₂): the order is σ₂ₛ < σ₂ₛ* < σ₂ₚ < π₂ₚ < π₂ₚ* < σ₂ₚ*.",
+          "Li₂ to N₂: s–p mixing pushes the σ₂ₚ above π₂ₚ, so the order is σ₂ₛ < σ₂ₛ* < π₂ₚ < σ₂ₚ < π₂ₚ* < σ₂ₚ*. The evidence is that B₂ is paramagnetic with two unpaired electrons in degenerate π orbitals, which only fits this order."
+        ] },
+        { "h": "Results", "facts": [
+          ["N₂", "Bond order 3. A very strong, short bond (945 kJ/mol), diamagnetic."],
+          ["O₂", "Bond order 2. The last two electrons occupy the two degenerate π₂ₚ* orbitals singly, with parallel spins, so O₂ is paramagnetic, which a Lewis structure fails to predict."],
+          ["O₂⁺, O₂⁻, O₂²⁻", "Bond orders 2.5, 1.5 and 1, with longer bonds as the order falls."],
+          ["F₂", "Bond order 1. Ne₂ has bond order 0, so it does not form."]
+        ] },
+        { "h": "Heteronuclear diatomics", "text": "In a molecule such as CO, the more electronegative atom (O) has lower-energy atomic orbitals, and so contributes more to the bonding orbitals. The bonding orbitals are more oxygen-like and the antibonding more carbon-like. CO is isoelectronic with N₂ and has bond order 3. Its highest occupied orbital is a σ orbital that is largely a lone pair on carbon, which is why it binds to metals through carbon, and its lowest empty orbitals are π* orbitals that accept electrons from a metal (back-donation)." }
+      ],
+      "quiz": [
+        { "q": "Why is O₂ paramagnetic?", "a": "It has two unpaired electrons in degenerate π* orbitals", "wrong": ["It has an odd number of electrons", "It has a triple bond", "It has no π orbitals"] },
+        { "q": "What is the bond order of N₂?", "a": "3", "wrong": ["1", "2", "2.5"] }
+      ]
+    },
+    {
+      "id": "huckel", "name": "Hückel molecular orbital theory", "group": "Molecules",
+      "terms": ["Hückel theory", "Hückel method", "secular determinant", "π electron energy", "delocalization energy", "resonance energy of benzene", "Coulomb integral", "resonance integral"],
+      "tagline": "A simple model that explains conjugation and aromaticity from a small determinant.",
+      "sections": [
+        { "text": "Hückel theory treats only the π electrons of a conjugated molecule, with each carbon contributing one p orbital. The σ framework is ignored." },
+        { "h": "The rules", "points": [
+          "The Coulomb integral α is the energy of an electron in an isolated carbon p orbital.",
+          "The resonance integral β (negative) is the interaction between bonded neighbors, and it is zero between non-neighbors.",
+          "The overlap between different orbitals is neglected.",
+          "The energies are the roots of a secular determinant, with x = (α − E) ÷ β on the diagonal and 1 where atoms are bonded. Energies are written E = α + xβ."
+        ] },
+        { "h": "Results", "facts": [
+          ["Ethene", "E = α ± β. Two π electrons in the α + β orbital."],
+          ["Allyl", "E = α + √2 β, α, α − √2 β. The middle orbital is nonbonding."],
+          ["Butadiene", "E = α ± 1.618β and α ± 0.618β. Four electrons fill the two bonding orbitals, for a total of 4α + 4.472β."],
+          ["Benzene", "E = α + 2β, α + β (twice), α − β (twice), α − 2β. Six electrons fill the three bonding orbitals, for 6α + 8β."]
+        ] },
+        { "h": "Delocalization energy", "text": "Three isolated double bonds would have 6α + 6β, so benzene is more stable by 2|β|. That is the delocalization (resonance) energy, the energetic meaning of aromaticity. Fitting to experiment gives |β| of about 75 kJ/mol." },
+        { "h": "The 4n + 2 rule", "text": "Rings with 4n + 2 π electrons fill all their bonding orbitals and are stable (aromatic). Cyclobutadiene, with 4 electrons, has two degenerate nonbonding orbitals each holding one electron and is antiaromatic and unstable. This is the quantum origin of Hückel's rule." }
+      ],
+      "quiz": [
+        { "q": "What is the Hückel π energy of benzene?", "a": "6α + 8β", "wrong": ["6α + 6β", "6α + 4β", "6α + 10β"] },
+        { "q": "Why is cyclobutadiene antiaromatic in Hückel theory?", "a": "It has two electrons in degenerate nonbonding orbitals", "wrong": ["It has six π electrons", "It has no π electrons", "All its orbitals are bonding"] }
+      ]
+    },
+    {
+      "id": "dft-computation", "name": "Computational chemistry and DFT", "group": "Molecules",
+      "terms": ["density functional theory", "DFT", "Kohn–Sham", "exchange–correlation functional", "B3LYP", "geometry optimization", "computational chemistry", "ab initio", "semiempirical", "molecular dynamics", "force field", "force fields", "imaginary frequency"],
+      "tagline": "How computers solve (approximately) the equations of quantum mechanics for real molecules.",
+      "sections": [
+        { "h": "Density functional theory", "points": [
+          "The Hohenberg–Kohn theorems show that the ground-state energy is a functional of the electron density ρ(r) alone, instead of the many-electron wavefunction.",
+          "Kohn–Sham DFT uses a fictitious system of non-interacting electrons with the same density. All the unknown many-body physics is packed into the exchange–correlation functional, which has to be approximated.",
+          "Types of functional: LDA (local density), GGA (such as PBE, which adds the density gradient), and hybrids (such as B3LYP, which mix in some exact Hartree–Fock exchange).",
+          "DFT costs about as much as Hartree–Fock but includes correlation, so it is the most used method for molecules. Walter Kohn shared the 1998 Nobel Prize in Chemistry for it, with John Pople for computational methods."
+        ] },
+        { "h": "Levels of theory", "facts": [
+          ["Semiempirical", "Fast, with parameters fitted to data. Large molecules, lower reliability."],
+          ["Hartree–Fock", "Cost grows as about N⁴. Lacks correlation."],
+          ["DFT", "About N³ to N⁴. Good balance."],
+          ["MP2 and coupled cluster", "N⁵ to N⁷. Most accurate. CCSD(T) is the benchmark, with the aim of 'chemical accuracy' of about 1 kcal/mol."]
+        ] },
+        { "h": "What you compute", "points": [
+          "Geometry optimization: move the atoms downhill on the potential energy surface until the forces are zero.",
+          "Vibrational frequencies: a minimum has all real frequencies, and a transition state has exactly one imaginary frequency. The frequencies also give zero-point energies and thermodynamic corrections.",
+          "Energies of reactions and barriers, orbitals, charges, and spectra."
+        ] },
+        { "h": "Classical methods", "text": "Molecular dynamics with a force field treats atoms as balls and bonds as springs, with F = −∇U. It is far cheaper, so it can follow proteins with hundreds of thousands of atoms for microseconds, but it cannot describe bond breaking or electrons. QM/MM treats the reactive part with quantum mechanics and the rest classically." }
+      ],
+      "quiz": [
+        { "q": "What does a transition state calculation show in the vibrational frequencies?", "a": "Exactly one imaginary frequency", "wrong": ["No imaginary frequencies", "Two imaginary frequencies", "All frequencies zero"] }
+      ]
+    },
+    {
+      "id": "rotational-spectroscopy", "name": "Rotational (microwave) spectroscopy", "group": "Spectroscopy theory",
+      "terms": ["rotational spectroscopy", "microwave spectroscopy", "pure rotational spectrum", "rotational selection rule", "gross selection rule", "symmetric top", "spherical top", "asymmetric top"],
+      "tagline": "Reading the bond lengths of molecules from the microwaves they absorb.",
+      "sections": [
+        { "h": "Selection rules", "points": [
+          "Gross selection rule: the molecule must have a permanent electric dipole moment. HCl and CO absorb, but N₂, O₂, H₂ and CO₂ do not.",
+          "Specific rule: ΔJ = ±1."
+        ] },
+        { "h": "The spectrum", "equations": ["ν̃(J → J+1) = 2B̃(J + 1)    (cm⁻¹)"], "text": "The lines are equally spaced by 2B̃, starting at 2B̃. For HCl the spacing is about 21 cm⁻¹. B̃ gives the moment of inertia, and for a diatomic molecule the bond length." },
+        { "h": "Intensities", "text": "The intensity depends on the population of the lower level, proportional to (2J + 1)e^(−E_J/kT). The degeneracy rises with J while the Boltzmann factor falls, so there is a maximum, at J(max) ≈ √(kT ÷ 2hcB̃) − ½." },
+        { "h": "Isotopes", "text": "A heavier isotope has a larger reduced mass, so a smaller B̃ and closer lines. For CO the lines of ¹³CO are shifted relative to ¹²CO, which allows a bond length to be determined very precisely, because the bond length is the same for both isotopes." },
+        { "h": "Molecular tops", "text": "Nonlinear molecules are classified by their three moments of inertia: spherical tops (all equal, such as CH₄, no pure rotational spectrum), symmetric tops (two equal, such as NH₃ and CH₃Cl) and asymmetric tops (all different, such as H₂O)." },
+        { "h": "Applications", "text": "Precise molecular structures in the gas phase, and radio astronomy, which identifies molecules in interstellar clouds by their rotational lines, such as CO at 115 GHz. In rotational Raman spectroscopy, homonuclear molecules are also visible and the rule is ΔJ = ±2." }
+      ],
+      "quiz": [
+        { "q": "Which molecule has no pure rotational (microwave) spectrum?", "a": "N₂", "wrong": ["HCl", "CO", "H₂O"] },
+        { "q": "What is the spacing between lines in a rigid rotor microwave spectrum?", "a": "2B̃", "wrong": ["B̃", "B̃/2", "4B̃"] }
+      ]
+    },
+    {
+      "id": "vibrational-spectroscopy", "name": "Vibrational spectroscopy: IR and Raman", "group": "Spectroscopy theory",
+      "terms": ["vibrational spectroscopy", "IR selection rule", "Raman selection rule", "normal modes", "normal mode", "overtone", "overtones", "combination band", "mutual exclusion rule", "vibrational degrees of freedom", "polarizability"],
+      "tagline": "How many vibrations a molecule has, and which ones show up in IR and Raman.",
+      "sections": [
+        { "h": "Normal modes", "text": "A molecule of N atoms has 3N − 6 vibrational modes (3N − 5 if linear). Each normal mode is a motion in which all atoms oscillate at the same frequency.", "facts": [
+          ["H₂O (3 modes)", "Symmetric stretch 3657 cm⁻¹, bend 1595 cm⁻¹, asymmetric stretch 3756 cm⁻¹."],
+          ["CO₂ (4 modes)", "Symmetric stretch 1388 cm⁻¹, bend 667 cm⁻¹ (doubly degenerate), asymmetric stretch 2349 cm⁻¹."]
+        ] },
+        { "h": "Selection rules", "points": [
+          "Infrared: the dipole moment must change during the vibration.",
+          "Raman: the polarizability, meaning how easily the electron cloud is distorted, must change.",
+          "Harmonic oscillator: Δv = ±1. Anharmonicity lets overtones (Δv = ±2, ±3) and combination bands appear weakly.",
+          "For molecules with a center of symmetry, the mutual exclusion rule holds: a mode that is IR active is Raman inactive, and the reverse. In CO₂ the symmetric stretch is only Raman active, and the bend and asymmetric stretch are only IR active."
+        ] },
+        { "h": "Isotope effect", "text": "Frequency depends on 1/√μ. The harmonic frequencies of HCl and DCl are 2991 and 2145 cm⁻¹, a ratio of 0.717, as predicted from the reduced masses. The observed band origins are lower (2886 and 2091 cm⁻¹) because of anharmonicity. Deuterium substitution is used to assign bands." },
+        { "h": "Group frequencies", "text": "Characteristic bond stretches appear in similar places in different molecules, which is what makes IR useful for identifying functional groups. For example the O–H stretch is near 3300 cm⁻¹, C–H near 2900, C≡N near 2250 and C=O near 1700." }
+      ],
+      "quiz": [
+        { "q": "How many vibrational modes does a nonlinear molecule of N atoms have?", "a": "3N − 6", "wrong": ["3N − 5", "3N", "3N − 3"] },
+        { "q": "What is required for a vibration to be IR active?", "a": "A change in dipole moment", "wrong": ["A change in polarizability", "A center of symmetry", "A permanent charge"] }
+      ]
+    },
+    {
+      "id": "rovibrational", "name": "Rovibrational spectra", "group": "Spectroscopy theory",
+      "terms": ["rovibrational spectrum", "rovibrational spectra", "vibration–rotation spectrum", "P branch", "R branch", "Q branch", "band origin", "vibration–rotation coupling", "centrifugal distortion"],
+      "tagline": "The comb of lines seen when a gas absorbs infrared light, because vibration and rotation change together.",
+      "sections": [
+        { "text": "In the gas phase, a vibrational transition is accompanied by a change in rotational state. The selection rules for a diatomic molecule are Δv = +1 and ΔJ = ±1." },
+        { "h": "Branches", "points": [
+          "R branch (ΔJ = +1): lines at ν̃₀ + 2B̃(J + 1), above the band origin.",
+          "P branch (ΔJ = −1): lines at ν̃₀ − 2B̃J, below the band origin.",
+          "Q branch (ΔJ = 0) is forbidden for a closed-shell diatomic, so there is a gap of about 4B̃ at the band origin ν̃₀, which locates it. NO, with an unpaired electron, does show a Q branch.",
+          "Neighboring lines are about 2B̃ apart, about 21 cm⁻¹ for HCl."
+        ] },
+        { "h": "Finer details", "points": [
+          "The rotational constant of the excited vibrational state is slightly smaller (B₁ < B₀), because the bond is longer, so the R-branch lines crowd together as J increases and the P-branch lines spread apart.",
+          "Centrifugal distortion stretches the bond in fast-rotating molecules.",
+          "HCl shows each line as a doublet, because chlorine has two isotopes, ³⁵Cl and ³⁷Cl, in a ratio of about 3:1. The heavier isotope has a lower frequency.",
+          "The line intensities follow the Boltzmann population of the rotational levels."
+        ] },
+        { "h": "What you get from it", "text": "The band origin gives the force constant. The line spacing gives B̃ and so the bond length. Combined analysis of the two branches gives B₀ and B₁ separately." }
+      ],
+      "quiz": [
+        { "q": "Why is there a gap at the center of the rovibrational spectrum of HCl?", "a": "The Q branch (ΔJ = 0) is forbidden", "wrong": ["The molecule does not vibrate at the origin", "The isotopes cancel", "The P and R branches overlap"] }
+      ]
+    },
+    {
+      "id": "electronic-spectroscopy", "name": "Electronic spectroscopy and the Franck–Condon principle", "group": "Spectroscopy theory",
+      "terms": ["Franck–Condon principle", "Franck-Condon principle", "vibronic transition", "vibronic", "electronic spectroscopy", "internal conversion", "intersystem crossing", "Kasha's rule", "Laporte rule", "spin selection rule", "charge-transfer transition", "vibrational relaxation"],
+      "tagline": "What happens when a molecule absorbs light and how it gets rid of the energy.",
+      "sections": [
+        { "h": "Franck–Condon principle", "text": "Electronic transitions take about 10⁻¹⁵ s, much faster than nuclei can move. So the transition is vertical on a potential energy diagram: the nuclei keep their positions and momenta. The probability of ending up in each vibrational level of the excited state is proportional to the square of the overlap of the vibrational wavefunctions (the Franck–Condon factor). The result is a vibronic progression in the spectrum, with the strongest line where the overlap is greatest. When the excited state has a longer bond, the strongest line is a higher vibrational level." },
+        { "h": "Absorption and emission", "points": [
+          "Absorption starts from the lowest vibrational level of the ground state, and emission from the lowest vibrational level of the excited state (Kasha's rule), after fast vibrational relaxation in picoseconds.",
+          "So the emission spectrum is roughly the mirror image of the absorption spectrum, shifted to longer wavelength (the Stokes shift)."
+        ] },
+        { "h": "Fate of excited states", "facts": [
+          ["Fluorescence", "Emission from the excited singlet to the ground singlet. Allowed, nanoseconds."],
+          ["Internal conversion", "A radiationless crossing to a lower state of the same spin, as heat."],
+          ["Intersystem crossing", "A radiationless change of spin to a triplet state, which is helped by heavy atoms (spin–orbit coupling)."],
+          ["Phosphorescence", "Emission from the triplet to the singlet ground state. Spin-forbidden, so slow: microseconds to seconds."]
+        ] },
+        { "h": "Selection rules", "points": [
+          "Spin: ΔS = 0, so singlet-to-triplet absorption is very weak.",
+          "Laporte rule: in a centrosymmetric molecule, transitions must change parity (g ↔ u). So d–d transitions in octahedral complexes are weak (ε about 1–100 M⁻¹cm⁻¹), while charge-transfer transitions (a metal–ligand electron jump) and π → π* transitions are intense (ε up to 10⁴–10⁵)."
+        ] }
+      ],
+      "quiz": [
+        { "q": "What does the Franck–Condon principle say about electronic transitions?", "a": "They are vertical, because nuclei do not move during the transition", "wrong": ["They are slower than nuclear motion", "They always change the spin", "They only occur from excited states"] },
+        { "q": "Why is phosphorescence much slower than fluorescence?", "a": "The transition is spin-forbidden", "wrong": ["It involves heavier atoms only", "It happens in the ground state", "It is not an emission process"] }
+      ]
+    },
+    {
+      "id": "nmr-theory", "name": "NMR theory", "group": "Spectroscopy theory",
+      "terms": ["Larmor frequency", "nuclear spin", "Zeeman splitting", "shielding constant", "spin–spin coupling", "T1 relaxation", "T2 relaxation", "pulse NMR", "free induction decay", "Fourier transform NMR", "nuclear Overhauser effect", "NOE", "magnetogyric ratio"],
+      "tagline": "Nuclei in a magnetic field, radio waves, and why NMR is so informative but so insensitive.",
+      "sections": [
+        { "h": "The basic physics", "points": [
+          "Nuclei with spin I ≠ 0 behave like tiny magnets. Hydrogen-1 and carbon-13 have I = ½. Carbon-12 and oxygen-16 have I = 0 and are invisible.",
+          "In a magnetic field B₀ a spin-½ nucleus has two energy levels, separated by ΔE = γħB₀ (Zeeman splitting), where γ is the magnetogyric ratio.",
+          "The resonance (Larmor) frequency is ν = γB₀ ÷ 2π. For ¹H it is 42.58 MHz per tesla, so 400 MHz at 9.4 T."
+        ] },
+        { "h": "Low sensitivity", "text": "The energy gap is tiny compared with kT, so the two levels are almost equally populated. At 400 MHz and 298 K, the excess in the lower level is about 3 in 100 000. In addition ¹³C is only 1.1% abundant and has a smaller γ, which makes it about 6000 times less sensitive than ¹H. Higher fields and signal averaging help." },
+        { "h": "Chemical shift and coupling", "points": [
+          "Electrons around a nucleus shield it from B₀, so each nucleus in a different environment resonates at a slightly different frequency. The chemical shift δ = (ν − ν_ref) ÷ ν_ref × 10⁶ ppm is independent of the field strength.",
+          "Spin–spin (J) coupling is an interaction between nuclear spins transmitted through the bonds. It splits signals into multiplets and its size, in Hz, does not depend on the field. In a first-order spectrum, a signal is split into n + 1 lines by n equivalent spin-½ neighbors, with intensities from Pascal's triangle."
+        ] },
+        { "h": "Pulsed Fourier transform NMR", "points": [
+          "A short radio-frequency pulse (for example a 90° pulse) tips the net magnetization into the plane perpendicular to B₀, where it precesses at all the Larmor frequencies at once.",
+          "The detector records a free induction decay (FID), a decaying sum of oscillations. A Fourier transform converts it to a frequency spectrum.",
+          "Many scans are added to improve S/N, which grows as √n."
+        ] },
+        { "h": "Relaxation", "facts": [
+          ["T₁ (spin–lattice)", "How fast the magnetization returns to equilibrium along B₀. Sets how long to wait between scans."],
+          ["T₂ (spin–spin)", "How fast the signal in the plane loses phase coherence. Sets the linewidth, since short T₂ gives broad lines."]
+        ] },
+        { "h": "Nuclear Overhauser effect", "text": "Through-space dipolar interaction between nuclei closer than about 5 Å changes the intensity of signals when one is irradiated. NOE measurements give distances and are used to determine stereochemistry and the 3D structures of proteins." }
+      ],
+      "quiz": [
+        { "q": "Why is NMR relatively insensitive?", "a": "The energy gap is tiny, so the populations of the two spin levels are nearly equal", "wrong": ["Nuclei have no magnetic moment", "Radio waves are too weak to detect", "Electrons absorb the signal"] },
+        { "q": "A signal is split into a quartet. How many equivalent neighboring protons does it have?", "a": "3", "wrong": ["2", "4", "5"] }
+      ]
+    }
+  ]
+}

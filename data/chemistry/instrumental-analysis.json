@@ -1,0 +1,614 @@
+{
+  "title": "Instrumental Analysis",
+  "description": "Instrumental methods of analytical chemistry in depth: atomic spectroscopy, mass spectrometry, chromatography and more, with the theory, the hardware, the settings and the pitfalls.",
+  "category": ["Chemistry", "Instrumental Analysis"],
+  "view": "articles",
+  "entries": [
+    {
+      "id": "calibration", "name": "Calibration and quantitation", "group": "Quantitation basics",
+      "terms": ["calibration", "calibration curves", "external calibration", "standard addition", "method of standard additions", "internal standard", "internal standards", "matrix effect", "matrix effects", "limit of detection", "limit of quantitation", "LOD", "LOQ", "linear dynamic range"],
+      "tagline": "Turning an instrument's signal into a concentration you can trust.",
+      "sections": [
+        { "h": "External calibration", "text": "Measure standards of known concentration, plot signal against concentration and fit a line. The signal from the sample is then read off the line. It works when the standards and the sample respond the same way, which is not always true." },
+        { "h": "Matrix effects and standard addition", "points": [
+          "The matrix is everything in the sample apart from the analyte. It can raise or lower the signal, so the same concentration gives a different response in a standard and in a sample.",
+          "Standard addition handles this. Equal portions of the sample are spiked with increasing known amounts of analyte and measured. The line signal against added concentration is extended back to zero signal, and the negative x-intercept equals the original concentration in the sample.",
+          "The price is more measurements for each sample. It assumes the response is linear."
+        ] },
+        { "h": "Internal standard", "text": "A compound added at the same amount to every standard and sample. The analyte signal is divided by the internal standard signal. This cancels errors in injection volume, drift in the instrument and some matrix effects. The best internal standard is the analyte itself labeled with a heavy isotope (for example deuterium or ¹³C), used in mass spectrometry, because it behaves almost identically." },
+        { "h": "Detection limits", "equations": ["LOD = 3 × s(blank) ÷ slope", "LOQ = 10 × s(blank) ÷ slope"], "text": "s(blank) is the standard deviation of repeated blank measurements. The LOD is the smallest amount that can be told apart from nothing, and the LOQ is the smallest amount that can be measured with acceptable precision. Equivalent definitions use a signal-to-noise ratio of 3 and 10." },
+        { "h": "Worked example", "text": "A calibration slope is 0.050 absorbance units per mg/L and the blank standard deviation is 0.002. LOD = 3 × 0.002 ÷ 0.050 = 0.12 mg/L and LOQ = 10 × 0.002 ÷ 0.050 = 0.40 mg/L." },
+        { "h": "Things to remember", "points": [
+          "The linear dynamic range is the span of concentrations over which the response is proportional. Above it the curve bends, so dilute the sample.",
+          "A high R² alone does not prove a good calibration. Look at the residuals, and use standards that cover the range of the samples.",
+          "Calibration standards should be matched to the sample in acid content and matrix as far as possible."
+        ] }
+      ],
+      "quiz": [
+        { "q": "In the method of standard additions, how is the original concentration found?", "a": "From the negative x-intercept of signal against added concentration", "wrong": ["From the slope of the line", "From the y-intercept", "By averaging the spiked signals"] },
+        { "q": "How is the limit of detection usually defined?", "a": "3 × the standard deviation of the blank ÷ the slope", "wrong": ["10 × the standard deviation of the blank ÷ the slope", "The lowest standard that was measured", "The slope ÷ the blank signal"] }
+      ]
+    },
+    {
+      "id": "noise", "name": "Signal, noise and signal-to-noise ratio", "group": "Quantitation basics",
+      "terms": ["signal-to-noise ratio", "signal averaging", "flicker noise", "shot noise", "thermal noise", "Johnson noise", "ensemble averaging"],
+      "tagline": "Every measurement has a random component, and it sets how little you can detect.",
+      "sections": [
+        { "text": "The signal-to-noise ratio (S/N) compares the size of the analyte signal with the random fluctuations of the baseline. Detection limits are reached when S/N is about 3." },
+        { "h": "Kinds of noise", "facts": [
+          ["Thermal (Johnson) noise", "Random motion of electrons in resistors. Falls if the detector or electronics are cooled."],
+          ["Shot noise", "From the discrete nature of charge and photons. Grows as the square root of the signal."],
+          ["Flicker (1/f) noise", "Larger at low frequencies, from drifts and instabilities."],
+          ["Environmental noise", "Pickup from mains power, lamps, vibration and temperature changes."]
+        ] },
+        { "h": "Improving S/N", "points": [
+          "Signal averaging: adding up n repeated scans makes S/N improve by √n. Going from 1 to 100 scans gives 10 times better S/N. FTIR and NMR rely on this.",
+          "Modulation and lock-in detection move the measurement to a frequency where flicker noise is small. Chopped light beams are an example.",
+          "Filtering or smoothing the data, at some cost to peak shape.",
+          "Cooling detectors, and using a brighter source or collecting more light."
+        ] }
+      ],
+      "quiz": [
+        { "q": "By what factor does S/N improve if you average 25 repeated scans?", "a": "5", "wrong": ["25", "2.5", "12.5"] }
+      ]
+    },
+    {
+      "id": "sample-prep", "name": "Sample preparation", "group": "Quantitation basics",
+      "terms": ["sample preparation", "acid digestion", "microwave digestion", "dry ashing", "solid-phase extraction", "SPE", "solid-phase microextraction", "SPME", "QuEChERS", "derivatization"],
+      "tagline": "Getting the analyte out of a real sample and into a form the instrument can handle. Often the biggest source of error.",
+      "sections": [
+        { "h": "For trace metals", "points": [
+          "Acid digestion dissolves the solid sample and destroys the organic matter, with nitric acid, often with hydrogen peroxide, hydrochloric acid or hydrofluoric acid (for silicates).",
+          "Microwave digestion in closed vessels reaches about 180–200 °C under pressure, which is fast and gives no loss of volatile elements.",
+          "Dry ashing burns off the organic matter in a furnace at about 450–550 °C. It is simple but can lose volatile elements such as mercury, arsenic and selenium.",
+          "Contamination is a big risk at trace levels. Use acid-cleaned plastic, high-purity acids and water, and run blanks through the whole procedure."
+        ] },
+        { "h": "For organic compounds", "points": [
+          "Liquid–liquid extraction moves the analyte into an organic solvent.",
+          "Solid-phase extraction (SPE): the sample passes through a small cartridge of sorbent that holds the analyte. Interferences are washed away, and the analyte is eluted in a small volume of solvent, which also concentrates it.",
+          "Solid-phase microextraction (SPME): a fiber coated with sorbent is dipped in the sample or its headspace and then desorbed in the injector of a gas chromatograph. It needs no solvent.",
+          "QuEChERS (quick, easy, cheap, effective, rugged, safe): extraction with acetonitrile and salts, followed by a cleanup with sorbent. It is widely used for pesticide residues in fruit and vegetables."
+        ] },
+        { "h": "Derivatization", "text": "A chemical reaction to make an analyte easier to analyze. For gas chromatography, polar groups such as –OH and –COOH are converted to silyl derivatives with reagents such as BSTFA to make the compound volatile and stable. For HPLC, a fluorescent tag can be added to give a much stronger signal." }
+      ],
+      "quiz": [
+        { "q": "Why is dry ashing unsuitable for measuring mercury?", "a": "Volatile mercury can be lost during heating", "wrong": ["Mercury is not present in organic matter", "Mercury forms a stable ash", "The furnace is too cool"] }
+      ]
+    },
+    {
+      "id": "flame-aas", "name": "Flame atomic absorption (FAAS)", "group": "Atomic spectroscopy",
+      "terms": ["flame atomic absorption", "FAAS", "flame AAS", "nebulizer", "burner", "air–acetylene flame", "nitrous oxide–acetylene", "releasing agent", "ionization suppressor", "ionization interference"],
+      "tagline": "The workhorse for metals at the mg/L level: aspirate a solution into a flame and measure how much light the atoms absorb.",
+      "sections": [
+        { "h": "The instrument", "points": [
+          "Light source: a hollow-cathode lamp (HCL) made of the element to be measured, which emits that element's sharp lines. Each element needs its own lamp. Some lamps are multi-element.",
+          "Nebulizer and spray chamber: a stream of gas draws the sample solution up at about 3–6 mL/min and breaks it into a fine mist. Only 5–10% of the sample reaches the flame as small droplets.",
+          "Burner: a long, narrow slot burner gives a long path through the flame, typically 10 cm, to raise the absorbance.",
+          "Monochromator selects the line, and a photomultiplier detects the light."
+        ] },
+        { "h": "Flames", "facts": [
+          ["Air–acetylene", "About 2300 °C. Suits most elements: Na, K, Ca, Mg, Cu, Zn, Pb, Cd, Fe and others."],
+          ["Nitrous oxide–acetylene", "About 2700–2900 °C. Needed for elements that form refractory oxides, such as Al, Si, V, Ti and Mo."]
+        ] },
+        { "h": "Measurement", "text": "Absorbance follows the Beer–Lambert law, A = εbc. Light from the lamp is chopped (or modulated) so that the detector can tell it apart from the light the flame itself emits. Typical detection limits are 0.01 to 1 mg/L." },
+        { "h": "Interferences", "points": [
+          "Chemical: phosphate forms a stable compound with calcium that does not atomize well in the flame, so the Ca signal is low. A releasing agent such as lanthanum or strontium, or a chelating agent such as EDTA, prevents this.",
+          "Ionization: in a hot flame some atoms of easily ionized elements (K, Na, Cs) lose an electron, which reduces the atomic absorption. An excess of another easily ionized element, such as CsCl or KCl, suppresses it.",
+          "Spectral overlap is rare because the lines are so narrow.",
+          "Background absorption and scattering from the matrix: corrected with a deuterium lamp, or with Smith–Hieftje or Zeeman correction."
+        ] },
+        { "h": "Pros and cons", "text": "Fast (seconds per sample), cheap and robust, but less sensitive than a graphite furnace, one element at a time, and it needs a lot of solution, 1–2 mL." }
+      ],
+      "quiz": [
+        { "q": "Which flame is needed to atomize aluminium and silicon, elements that form refractory oxides?", "a": "Nitrous oxide–acetylene", "wrong": ["Air–acetylene", "Air–propane", "Hydrogen–air"] },
+        { "q": "Why is lanthanum added when measuring calcium in the presence of phosphate?", "a": "It acts as a releasing agent", "wrong": ["It suppresses ionization", "It acts as an internal standard", "It corrects the background"] }
+      ]
+    },
+    {
+      "id": "gf-aas", "name": "Graphite furnace AAS (GF-AAS, ETAAS)", "group": "Atomic spectroscopy",
+      "terms": ["graphite furnace", "graphite furnace atomic absorption", "GF-AAS", "GFAAS", "ETAAS", "electrothermal atomization", "electrothermal atomic absorption", "pyrolytic graphite", "matrix modifier", "matrix modifiers", "Zeeman background correction", "Zeeman effect", "L'vov platform", "pyrolysis step", "atomization step", "STPF"],
+      "tagline": "Replaces the flame with a small electrically heated graphite tube, for detection limits hundreds of times lower and tiny sample volumes.",
+      "sections": [
+        { "h": "How it works", "points": [
+          "A graphite tube a few centimeters long sits in the light path of the hollow-cathode lamp. It is heated by passing a large electric current through it (resistive heating) and is coated with pyrolytic graphite to make it less porous and more durable.",
+          "An autosampler injects a small volume, typically 5–50 µL, through a hole in the tube.",
+          "An inert gas, usually argon, flows around and through the tube to protect the graphite from burning away and to sweep out the vapors from drying and pyrolysis. During atomization the internal gas flow is often stopped, so the atoms stay in the light path longer.",
+          "The absorbance is measured as a brief peak, and the peak height or, better, the peak area is used for quantitation."
+        ] },
+        { "h": "The temperature program", "facts": [
+          ["Drying", "About 100–130 °C, held for tens of seconds, to evaporate the solvent gently without spattering."],
+          ["Pyrolysis (ashing)", "About 400–1400 °C. Burns off or volatilizes the matrix, such as organic matter and salts, while keeping the analyte in the tube. The right temperature is found by experiment."],
+          ["Atomization", "About 1800–2800 °C, reached with a very fast ramp. The analyte becomes a cloud of free atoms and gives the absorbance peak."],
+          ["Clean-out", "A short burst at a higher temperature to remove residue, then cool-down before the next sample."]
+        ] },
+        { "h": "Why it is so much more sensitive than the flame", "points": [
+          "All the injected sample is atomized, instead of 5–10% reaching a flame, and the atoms stay in the light path for about a second instead of a few milliseconds.",
+          "Detection limits are in the µg/L (ppb) range or lower, which is 100–1000 times better than flame AAS. In absolute terms, picograms of analyte.",
+          "It needs only microliters of sample, which is vital for blood or other precious samples."
+        ] },
+        { "h": "Matrix modifiers", "text": "A volatile analyte, such as Pb, Cd, As or Se, can boil off during pyrolysis, so the pyrolysis temperature would have to be kept low and the matrix would not be removed. A matrix modifier is a chemical added to the sample to stabilize the analyte, so that a higher pyrolysis temperature can be used. A mixture of palladium nitrate and magnesium nitrate is the most common modifier. Ammonium dihydrogen phosphate is often used for Cd and Pb." },
+        { "h": "Background correction", "text": "At the start of atomization the vapor from the matrix produces molecular absorption and scattering that can be larger than the analyte signal. Correction is essential.", "points": [
+          "Deuterium lamp correction measures broadband background with a lamp that is absorbed only by the background. Fine for small, smooth backgrounds.",
+          "Smith–Hieftje correction briefly pulses the HCL at a high current, which broadens and self-reverses its line so that it measures mainly the background.",
+          "Zeeman correction puts the graphite furnace in a magnetic field. The analyte absorption line splits into components that do not absorb in the same way, so measurements with the field on and off give the background and the total. It is best for complex, structured backgrounds and is the preferred method."
+        ] },
+        { "h": "The STPF concept", "text": "The stabilized temperature platform furnace concept (Slavin) combines the conditions that gave the most reliable results: a L'vov platform inside the tube (so that the sample is atomized only after the gas in the tube has reached a steady high temperature), matrix modifiers, rapid heating, peak area measurement, Zeeman background correction, and stopped gas flow." },
+        { "h": "Limits", "points": [
+          "Slower than flame AAS, about 2–3 minutes per measurement.",
+          "One element at a time, with a narrower working range, and precision of about 2–5% relative standard deviation.",
+          "Carbide-forming elements such as Mo, V, Ti and W atomize poorly and leave memory effects. Tubes wear out after several hundred to a thousand firings.",
+          "Calibration with aqueous standards may be affected by the matrix, so the method of standard additions is often used."
+        ] },
+        { "h": "Used for", "text": "Lead in blood, cadmium in food and kidney tissue, aluminium in dialysis solutions, selenium and arsenic in water, and other trace metals in small or clean samples." }
+      ],
+      "quiz": [
+        { "q": "In GF-AAS, what is the purpose of the pyrolysis (ashing) step?", "a": "To remove the matrix while keeping the analyte in the tube", "wrong": ["To atomize the analyte", "To dry the solvent", "To clean the tube"] },
+        { "q": "Why is GF-AAS more sensitive than flame AAS?", "a": "All the sample is atomized and the atoms stay in the light path much longer", "wrong": ["It uses a brighter lamp", "It uses a hotter flame", "It measures several elements at once"] },
+        { "q": "What is the role of a matrix modifier such as Pd/Mg(NO₃)₂?", "a": "It stabilizes the analyte so a higher pyrolysis temperature can be used", "wrong": ["It lowers the atomization temperature", "It acts as an internal standard", "It increases the lamp intensity"] }
+      ]
+    },
+    {
+      "id": "hydride-cv", "name": "Hydride generation and cold-vapor methods", "group": "Atomic spectroscopy",
+      "terms": ["hydride generation", "hydride generation AAS", "cold-vapor", "cold vapor", "CVAAS", "HGAAS", "atomic fluorescence", "AFS"],
+      "tagline": "Chemically converting an element into a gas to separate it from the sample matrix before atomizing it.",
+      "sections": [
+        { "h": "Hydride generation", "text": "Arsenic, selenium, antimony, bismuth, tellurium, tin and germanium form volatile hydrides when sodium borohydride is added to an acidified solution.", "equations": ["As(III) + NaBH₄ + HCl → AsH₃(g) + …"], "points": [
+          "The gaseous hydride is swept by argon or nitrogen out of the solution, away from the matrix, to a heated quartz tube, where it breaks down into atoms. The tube is heated electrically or by a small flame, to about 900 °C.",
+          "The analyte is also concentrated, because a large volume of solution gives a small volume of gas. Detection limits are well below ppb.",
+          "The oxidation state matters. As(V) reacts more slowly than As(III), so it is first reduced with potassium iodide and ascorbic acid."
+        ] },
+        { "h": "Cold-vapor mercury", "text": "Mercury is unusual because the free atoms are a vapor at room temperature. The Hg²⁺ in a sample is reduced to Hg⁰ with tin(II) chloride (or borohydride), and the mercury vapor is swept into a quartz cell at room temperature, where it is measured by atomic absorption at 253.7 nm. No heating is needed. Detection limits are about 0.01–0.1 µg/L." },
+        { "h": "Atomic fluorescence", "text": "In atomic fluorescence spectrometry (AFS), the atoms are excited by a lamp and the light they re-emit is measured at right angles. It has very low background and is very sensitive for Hg, As, Se and similar elements, with simple, low-cost instruments." }
+      ],
+      "quiz": [
+        { "q": "Why does mercury need no heated atomizer in cold-vapor AAS?", "a": "Mercury atoms are already a vapor at room temperature", "wrong": ["Mercury absorbs infrared light", "The vapor is too cold to measure", "Mercury forms a hydride"] }
+      ]
+    },
+    {
+      "id": "icp-depth", "name": "ICP-OES and ICP-MS in depth", "group": "Atomic spectroscopy",
+      "terms": ["ICP torch", "inductively coupled plasma mass spectrometry", "collision cell", "collision/reaction cell", "kinetic energy discrimination", "isobaric interference", "polyatomic interference", "polyatomic interferences", "axial view", "radial view", "laser ablation", "cones"],
+      "tagline": "How the plasma works, how ions get into the mass spectrometer, and what goes wrong.",
+      "sections": [
+        { "h": "The plasma", "points": [
+          "The torch is three concentric quartz tubes. Argon flows through all of them: a coolant flow of about 12–18 L/min on the outside, an auxiliary flow of about 1 L/min and the nebulizer flow of about 1 L/min carrying the sample.",
+          "A radio-frequency coil (27 or 40 MHz, 1–1.5 kW) around the top of the torch induces a current in the argon, once it is started with a spark, which keeps the plasma going.",
+          "The plasma core is about 10 000 K and the zone where analytes are measured about 6000–8000 K. At those temperatures nearly all elements are atomized and a large fraction ionized."
+        ] },
+        { "h": "Sample introduction", "text": "A nebulizer makes an aerosol of the liquid sample and a spray chamber removes the larger droplets. Solids can also be sampled directly with laser ablation, in which a laser vaporizes a tiny spot, and the particles are carried into the plasma, which gives spatial maps of elements in minerals or tissue." },
+        { "h": "ICP-OES", "points": [
+          "The excited atoms and ions emit light at characteristic wavelengths. An echelle spectrometer with a CCD detector measures many lines at the same time.",
+          "Axial viewing looks down the plasma and gives lower detection limits. Radial viewing looks from the side and handles complex matrices better.",
+          "Spectral overlap is the main problem, because the spectra are rich in lines. Solve it by choosing another line or by correction software.",
+          "Internal standards (such as yttrium or scandium) correct for drift and for physical effects of the matrix."
+        ] },
+        { "h": "ICP-MS", "points": [
+          "Ions are pulled through two small holes in metal cones (sampler and skimmer) that connect the plasma at atmospheric pressure to the vacuum, then focused by ion lenses into a quadrupole mass filter and counted by an electron multiplier.",
+          "Detection limits are in the ng/L (ppt) range, and isotopes can be measured, so it also gives isotope ratios.",
+          "Polyatomic interferences are ions formed from argon and the sample that overlap with the analyte mass: ⁴⁰Ar¹⁶O⁺ on ⁵⁶Fe⁺, ⁴⁰Ar³⁵Cl⁺ on ⁷⁵As⁺ and ⁴⁰Ar₂⁺ on ⁸⁰Se⁺. Isobaric interferences are isotopes of different elements with the same mass, for example ¹¹⁴Sn and ¹¹⁴Cd.",
+          "A collision/reaction cell before the quadrupole fixes most of them. In collision mode with helium, the larger polyatomic ions lose more energy than the analyte ions and are filtered out (kinetic energy discrimination). In reaction mode, a gas such as hydrogen, oxygen or ammonia reacts with either the interference or the analyte to shift it. Sector-field instruments avoid interferences with high mass resolution, and ICP-MS/MS adds a second quadrupole for more control.",
+          "Samples should contain less than about 0.2% total dissolved solids, or the cones clog and the signal drifts. High-matrix samples are diluted or measured with an aerosol dilution system."
+        ] }
+      ],
+      "quiz": [
+        { "q": "Which interference affects arsenic (⁷⁵As⁺) in ICP-MS when the sample contains chloride?", "a": "⁴⁰Ar³⁵Cl⁺", "wrong": ["⁴⁰Ar¹⁶O⁺", "⁴⁰Ar₂⁺", "¹¹⁴Cd⁺"] },
+        { "q": "How does helium collision mode reduce polyatomic interferences?", "a": "Larger polyatomic ions lose more energy and are filtered out", "wrong": ["Helium reacts with the analyte", "It increases the plasma temperature", "It removes the argon"] }
+      ]
+    },
+    {
+      "id": "atomic-compare", "name": "Choosing an atomic spectroscopy method", "group": "Atomic spectroscopy",
+      "terms": ["atomic spectroscopy", "atomic spectrometry", "detection limits comparison"],
+      "tagline": "How flame AAS, GF-AAS, ICP-OES and ICP-MS compare.",
+      "sections": [
+        { "h": "Comparison", "facts": [
+          ["Flame AAS", "Detection limit about 0.01–1 mg/L (ppm). One element at a time. Fast, cheap and robust. Needs 1–2 mL."],
+          ["GF-AAS", "About 0.01–1 µg/L (ppb). One element at a time. Slow. Needs 5–50 µL. Very sensitive but prone to matrix effects."],
+          ["ICP-OES", "About 1–100 µg/L (ppb) with a wide linear range. Dozens of elements at the same time. Handles high-matrix samples. Moderate cost."],
+          ["ICP-MS", "About 0.001–1 µg/L (ppt to ppb). Nearly the whole table at the same time, and isotope ratios. Most expensive and sensitive to dissolved solids and polyatomic interferences."]
+        ] },
+        { "h": "How to choose", "points": [
+          "A few elements at mg/L levels in many samples: flame AAS.",
+          "One or two elements at µg/L levels, a small sample: GF-AAS.",
+          "Many elements at µg/L to mg/L levels: ICP-OES.",
+          "Ultra-trace levels, many elements, or isotopic information: ICP-MS.",
+          "Check also for mercury or hydride-forming elements: cold vapor or hydride generation."
+        ] },
+        { "h": "Common to all", "text": "The sample usually has to be a solution, which means digestion for solids, so sample preparation and contamination control matter as much as the instrument." }
+      ],
+      "quiz": [
+        { "q": "Which technique is best for measuring dozens of elements at ppt levels?", "a": "ICP-MS", "wrong": ["Flame AAS", "GF-AAS", "ICP-OES"] }
+      ]
+    },
+    {
+      "id": "ionization", "name": "Ionization methods in mass spectrometry", "group": "Mass spectrometry",
+      "terms": ["electron ionization", "EI", "chemical ionization", "electrospray ionization", "ESI", "APCI", "atmospheric pressure chemical ionization", "MALDI", "soft ionization", "hard ionization", "fragmentation"],
+      "tagline": "How neutral molecules are turned into gas-phase ions, and why the method decides what you see.",
+      "sections": [
+        { "facts": [
+          ["Electron ionization (EI)", "A beam of 70 eV electrons hits gaseous molecules, knocking off an electron to give M⁺·. The excess energy breaks the ion into fragments. It is a hard method that gives reproducible, information-rich spectra that can be compared with libraries. Used with GC."],
+          ["Chemical ionization (CI)", "A reagent gas such as methane, isobutane or ammonia is ionized first, and it transfers a proton to the analyte to give [M+H]⁺. It is softer, so the molecular ion is stronger and fragmentation less. Used with GC."],
+          ["Electrospray ionization (ESI)", "The sample solution is sprayed from a needle at high voltage. Charged droplets shrink as the solvent evaporates until gas-phase ions are released. It is very soft and works for polar and large molecules. Proteins pick up many charges, so a mass of tens of thousands falls in a normal m/z range. Used with LC."],
+          ["APCI", "The solution is vaporized and ionized by a corona discharge. Suits less polar, smaller molecules than ESI. Used with LC."],
+          ["MALDI", "The sample is mixed with a matrix that absorbs the laser pulse. The matrix is vaporized and carries the analyte into the gas phase as mostly singly charged ions. Used with time-of-flight analyzers for proteins, polymers and tissue imaging."]
+        ] },
+        { "h": "Ions in ESI", "text": "In positive mode the common ions are [M+H]⁺, [M+Na]⁺ and [M+NH₄]⁺. In negative mode they are [M−H]⁻. A large molecule with z charges has m/z = (M + z × 1.007) ÷ z." },
+        { "h": "History", "text": "John Fenn (electrospray) and Koichi Tanaka (soft laser desorption, the forerunner of MALDI) shared the 2002 Nobel Prize in Chemistry for methods that let mass spectrometry work on proteins." }
+      ],
+      "quiz": [
+        { "q": "Which ionization method gives extensive fragmentation and library-searchable spectra?", "a": "Electron ionization", "wrong": ["Electrospray", "MALDI", "Chemical ionization"] },
+        { "q": "Which ionization method is normally used to couple LC to MS for polar compounds?", "a": "Electrospray ionization", "wrong": ["Electron ionization", "Flame ionization", "Thermal ionization"] }
+      ]
+    },
+    {
+      "id": "analyzers", "name": "Mass analyzers and tandem MS", "group": "Mass spectrometry",
+      "terms": ["mass analyzer", "mass analyzers", "quadrupole", "quadrupole mass filter", "time-of-flight", "TOF", "ion trap", "Orbitrap", "FT-ICR", "mass resolution", "resolving power", "mass accuracy", "tandem mass spectrometry", "MS/MS", "triple quadrupole", "collision-induced dissociation", "precursor ion", "product ion"],
+      "tagline": "The part of the instrument that sorts ions by m/z, and how that sets resolution and capability.",
+      "sections": [
+        { "facts": [
+          ["Quadrupole", "Four parallel rods with RF and DC voltages let only ions of one m/z pass at a time. Scanning the voltages gives a spectrum. Unit resolution (about 1 u), robust and cheap. The standard for GC–MS."],
+          ["Time-of-flight (TOF)", "Ions are accelerated by the same voltage and fly down a tube. Lighter ions arrive first, because flight time depends on √(m/z). Fast, with unlimited mass range and resolving power of 10 000 to 60 000. Used with MALDI and in high-resolution LC–MS."],
+          ["Ion trap", "Stores ions in an electric field and ejects them by m/z. Can isolate and fragment ions repeatedly (MSⁿ)."],
+          ["Orbitrap", "Ions orbit a central spindle, and the image current they induce is converted to m/z by a Fourier transform. Resolving power of 60 000 to over 500 000 and mass accuracy of a few ppm."],
+          ["FT-ICR", "Ions circle in a strong superconducting magnet. The highest resolving power (above 1 000 000), and the highest cost."]
+        ] },
+        { "h": "Resolution and accuracy", "equations": ["R = m ÷ Δm", "mass error (ppm) = (measured − theoretical) ÷ theoretical × 10⁶"], "text": "A high resolving power separates ions with very similar masses. Together with a mass accuracy of a few ppm, it allows the elemental formula of an unknown to be worked out." },
+        { "h": "Tandem mass spectrometry (MS/MS)", "points": [
+          "The first stage selects a precursor ion. It is fragmented, usually by collision-induced dissociation (CID) with argon or nitrogen in a collision cell. The second stage analyzes the product ions.",
+          "In a triple quadrupole, Q1 selects the precursor, Q2 is the collision cell and Q3 selects a product ion. Monitoring a chosen precursor → product pair is called selected (or multiple) reaction monitoring, SRM or MRM. It is very selective and sensitive, and the standard for quantitation in complex samples.",
+          "Product ion spectra also help identify unknowns, since the fragments depend on the structure."
+        ] }
+      ],
+      "quiz": [
+        { "q": "In a time-of-flight analyzer, which ions reach the detector first?", "a": "The lightest (lowest m/z)", "wrong": ["The heaviest", "The ions with the highest charge", "All arrive together"] },
+        { "q": "What does a triple quadrupole do in MRM mode?", "a": "Selects a precursor ion, fragments it, and selects one product ion", "wrong": ["Scans all masses at the same time", "Ionizes the sample", "Separates the sample by retention time"] }
+      ]
+    },
+    {
+      "id": "gcms", "name": "GC–MS in depth", "group": "Mass spectrometry",
+      "terms": ["gas chromatography–mass spectrometry", "selected ion monitoring", "SIM mode", "total ion chromatogram", "TIC", "NIST library", "spectral library", "molecular ion", "base peak", "McLafferty rearrangement", "nitrogen rule", "PFTBA", "tropylium"],
+      "tagline": "Gas chromatography separates the compounds and the mass spectrometer identifies each one.",
+      "sections": [
+        { "h": "The coupling", "points": [
+          "The end of the capillary column leads straight into the ion source. A column with a 0.25 mm inner diameter carries about 1 mL/min of helium, which the vacuum pumps can handle, so no special interface is needed.",
+          "The source is usually electron ionization at 70 eV, followed by a quadrupole mass filter. The mass spectrometer is held at about 10⁻⁵–10⁻⁶ torr.",
+          "The instrument is tuned with a calibrant, often perfluorotributylamine (PFTBA), which gives ions at m/z 69, 219 and 502."
+        ] },
+        { "h": "Two ways to acquire data", "facts": [
+          ["Full scan", "The quadrupole scans a range, such as m/z 40–500, many times per second. This gives a total ion chromatogram (TIC) and a complete mass spectrum at each point, which is compared against a library such as NIST for identification. Needed for unknowns."],
+          ["Selected ion monitoring (SIM)", "Only a few chosen ions are monitored, so more time is spent on each. It is 10 to 100 times more sensitive and more selective. Used for quantitation of known targets."]
+        ] },
+        { "h": "Reading an EI spectrum", "points": [
+          "The molecular ion M⁺· (if present) gives the molecular mass. The most intense peak is the base peak and is set to 100%.",
+          "Nitrogen rule: a molecule with an odd number of nitrogen atoms has an odd molecular mass.",
+          "Isotope patterns: one chlorine gives M and M+2 peaks in a 3:1 ratio, and one bromine gives a 1:1 ratio.",
+          "Common losses from the molecular ion: M−15 (CH₃), M−18 (H₂O), M−28 (CO or ethene), M−29 (CHO or ethyl), M−43 (acetyl or propyl).",
+          "Typical fragment ions: m/z 91 (tropylium, from benzyl compounds), 77 (phenyl), 43 (acetyl), 29 (ethyl or CHO).",
+          "The McLafferty rearrangement of carbonyl compounds with a hydrogen on the gamma carbon gives characteristic ions, for example m/z 44 for aldehydes and m/z 58 for methyl ketones."
+        ] },
+        { "h": "Practical points", "points": [
+          "Compounds must be volatile and thermally stable. Polar compounds are derivatized first.",
+          "Column bleed from the stationary phase gives siloxane ions such as m/z 207 and 281 that rise at high temperature.",
+          "Quantitation uses calibration with internal standards, ideally deuterated analogues.",
+          "Typical uses: volatile organics in water and air, drugs in forensic and doping tests, flavors and fragrances, pesticides, petroleum biomarkers and, after derivatization, metabolomics."
+        ] }
+      ],
+      "quiz": [
+        { "q": "Why is SIM more sensitive than full scan?", "a": "It spends the whole time monitoring only a few ions", "wrong": ["It uses a stronger ionization method", "It uses a larger sample", "It removes the column"] },
+        { "q": "A compound shows peaks at M and M+2 in a 3:1 ratio. Which element is present?", "a": "Chlorine", "wrong": ["Bromine", "Sulfur", "Nitrogen"] }
+      ]
+    },
+    {
+      "id": "lcms", "name": "LC–MS and LC–MS/MS", "group": "Mass spectrometry",
+      "terms": ["LC-MS", "LC–MS", "LC-MS/MS", "LC–MS/MS", "liquid chromatography–mass spectrometry", "multiple reaction monitoring", "MRM", "SRM", "ion suppression", "electrospray"],
+      "tagline": "Liquid chromatography coupled to a mass spectrometer, for the compounds that gas chromatography cannot handle.",
+      "sections": [
+        { "h": "The coupling", "points": [
+          "The HPLC effluent goes to an electrospray (or APCI) source that removes the solvent and makes ions, which pass into the vacuum of the mass spectrometer in stages.",
+          "The mobile phase must be volatile: water, methanol or acetonitrile with formic or acetic acid, or ammonium formate or acetate as the buffer. Phosphate buffers must be avoided because they are not volatile and clog the source.",
+          "Typical flow rates are 0.2–0.5 mL/min on a narrow-bore column, or nanoliters per minute for proteomics."
+        ] },
+        { "h": "Triple quadrupole quantitation", "text": "For a target compound, the instrument is set to monitor precursor → product transitions (MRM). A method has at least two transitions for each compound, one to quantify and one to confirm, and the ratio between them must agree with that of a standard. This gives detection at pg to ng/mL in very complex samples such as blood, urine, food and soil." },
+        { "h": "Matrix effects: ion suppression", "points": [
+          "Compounds that coelute with the analyte can compete for charge in the electrospray droplet, which reduces (or sometimes raises) the signal. This is ion suppression, and it varies from sample to sample.",
+          "The best remedy is an isotopically labeled internal standard (¹³C or deuterium), which coelutes and is suppressed in the same way, so the ratio stays right.",
+          "Other measures: better sample cleanup, better chromatographic separation, dilution, and matrix-matched calibration."
+        ] },
+        { "h": "High-resolution LC–MS", "text": "With a Q-TOF or Orbitrap, the accurate mass gives the elemental formula of unknown compounds, and MS/MS fragments help to identify them. This is the basis of metabolomics, non-targeted screening, and proteomics, in which peptides from a digested protein are fragmented and the spectra are matched against a protein database." },
+        { "h": "Used for", "text": "Drugs and metabolites in plasma, pesticide residues, PFAS in water (EPA methods 533 and 537.1), hormones, veterinary drug residues and proteomics." }
+      ],
+      "quiz": [
+        { "q": "What is ion suppression?", "a": "Coeluting compounds reduce the analyte's ionization efficiency", "wrong": ["The loss of ions in the vacuum pump", "The analyte breaks down in the column", "The detector reaching its limit"] },
+        { "q": "Why must LC–MS mobile phases use volatile buffers?", "a": "Non-volatile salts clog the ion source", "wrong": ["They make the column last longer", "Volatile buffers give a lower pH", "The detector cannot see salts"] }
+      ]
+    },
+    {
+      "id": "chrom-theory", "name": "Chromatography theory", "group": "Chromatography",
+      "terms": ["retention factor", "selectivity factor", "plate height", "theoretical plates", "plate number", "chromatographic resolution", "van Deemter equation", "van Deemter", "peak tailing", "capacity factor", "dead time", "Golay equation", "retention time"],
+      "tagline": "The numbers that describe a separation, and how to improve it.",
+      "sections": [
+        { "h": "Key quantities", "points": [
+          "Retention time tR is the time for the peak to elute. The dead time tM is the time for an unretained compound to pass through the column.",
+          "Retention factor: k = (tR − tM) ÷ tM. It says how long the compound spends in the stationary phase compared with the mobile phase. A good range is about 1–10. Example: tR = 6.0 min and tM = 1.0 min give k = 5.0.",
+          "Selectivity factor: α = k₂ ÷ k₁, the ratio of the retention factors of two peaks. A value above 1 is needed for a separation.",
+          "Plate number: N = 16 (tR ÷ w)², where w is the base peak width, or N = 5.54 (tR ÷ w½)² using the width at half height. Example: tR = 5.0 min and w = 0.20 min give N = 16 × 625 = 10 000. Plate height H = L ÷ N."
+        ] },
+        { "h": "Resolution", "equations": ["Rs = 2 (tR2 − tR1) ÷ (w1 + w2)", "Rs = (√N ÷ 4) × ((α − 1) ÷ α) × (k ÷ (1 + k))"], "text": "Rs of 1.5 gives baseline separation. The second form shows the three levers: efficiency N, selectivity α and retention k. Since √N is in the equation, doubling the resolution through efficiency alone needs four times the plates, whereas a small gain in α is cheap, so it is the most effective lever. This is why changing the stationary phase or the mobile phase composition has such an effect." },
+        { "h": "The van Deemter equation", "equations": ["H = A + B ÷ u + C × u"], "text": "H is the plate height and u is the linear velocity of the mobile phase. Lower H means narrower peaks.", "points": [
+          "A: eddy diffusion, the different paths through a packed bed. It does not exist in an open capillary column.",
+          "B ÷ u: longitudinal diffusion along the column. It matters at low flow and is much larger in gases.",
+          "C × u: resistance to mass transfer, because the analyte takes time to move between the phases. It matters at high flow.",
+          "The curve has a minimum at the optimum velocity, u(opt) = √(B ÷ C). Smaller particles (sub-2 µm in UHPLC) give a lower and flatter curve, so separations can be run faster. In open capillary columns the Golay equation applies, without the A term."
+        ] },
+        { "h": "Peak shape", "text": "A tailing peak (a long back edge) often means the analyte interacts too strongly with active sites on the column or the system, or that the column is overloaded or there is dead volume in the connections." }
+      ],
+      "quiz": [
+        { "q": "Peak with tR = 5.0 min and base width 0.20 min. What is N?", "a": "10 000", "wrong": ["400", "2500", "5000"] },
+        { "q": "What does Rs ≥ 1.5 mean?", "a": "Two peaks are baseline separated", "wrong": ["The column is overloaded", "The peaks overlap completely", "The separation took 1.5 minutes"] },
+        { "q": "In the van Deemter equation, which term dominates at very low flow rates?", "a": "B ÷ u, longitudinal diffusion", "wrong": ["A, eddy diffusion", "C × u, mass transfer", "None of them"] }
+      ]
+    },
+    {
+      "id": "gc-depth", "name": "Gas chromatography in depth", "group": "Chromatography",
+      "terms": ["capillary column", "capillary columns", "temperature programming", "split injection", "splitless injection", "flame ionization detector", "FID", "electron capture detector", "ECD", "thermal conductivity detector", "TCD", "nitrogen–phosphorus detector", "flame photometric detector", "Kovats retention index", "retention index", "column bleed", "stationary phase", "carrier gas"],
+      "tagline": "The inlet, the column, the oven and the detector, and what to choose for each.",
+      "sections": [
+        { "h": "Injection", "points": [
+          "The inlet is hot, typically 250 °C, so the sample vaporizes at once.",
+          "Split injection sends only a small fraction of the vapor onto the column (a split ratio such as 50:1), which suits concentrated samples.",
+          "Splitless injection puts nearly everything on the column, for trace analysis. The analytes are refocused at the start of the column by starting the oven at a low temperature.",
+          "On-column injection puts the liquid directly in the column, which is good for heat-sensitive compounds."
+        ] },
+        { "h": "The column", "points": [
+          "A fused-silica capillary typically 15–60 m long, 0.25 mm in inner diameter, with a film of stationary phase 0.25 µm thick on the inside wall.",
+          "A nonpolar phase, such as 5% phenyl / 95% dimethylpolysiloxane (DB-5 type), separates mainly by boiling point. A polar phase such as polyethylene glycol (wax) also separates by polarity. Like retains like.",
+          "Thicker films retain more and suit volatile compounds. Longer columns give more plates, but the analysis time goes up.",
+          "The carrier gas is helium, hydrogen or nitrogen, at a linear velocity of about 30 cm/s for helium. Hydrogen is faster and cheaper but flammable."
+        ] },
+        { "h": "Oven temperature program", "text": "Samples with a wide range of boiling points are separated by raising the oven temperature during the run, for example from 40 °C at 10 °C/min to 300 °C. Without it the early peaks overlap and the late peaks are broad and low. The retention of a compound relative to a series of n-alkanes can be expressed as a Kovats retention index, which is more reproducible between instruments than the retention time." },
+        { "h": "Detectors", "facts": [
+          ["Flame ionization (FID)", "Burns the effluent in a hydrogen–air flame and measures the current of ions. Responds to nearly all organic compounds, roughly in proportion to the number of carbon atoms. Sensitive (pg), wide linear range, destructive. Does not respond to water or permanent gases."],
+          ["Thermal conductivity (TCD)", "Detects a change in the thermal conductivity of the gas. Universal, nondestructive, and good for permanent gases such as H₂, N₂ and CO₂, but much less sensitive."],
+          ["Electron capture (ECD)", "A radioactive ⁶³Ni source ionizes the gas, and compounds with electronegative groups capture the electrons, reducing the current. Extremely sensitive for halogenated compounds, such as PCBs and organochlorine pesticides."],
+          ["Nitrogen–phosphorus (NPD) and flame photometric (FPD)", "Selective for N and P compounds, and for S and P compounds."],
+          ["Mass spectrometer", "Gives structural information, as described under GC–MS."]
+        ] },
+        { "h": "Limits", "text": "Only compounds that can be vaporized without decomposing can be analyzed, which excludes large, polar and ionic compounds unless derivatized. Active sites in the inlet and column can adsorb polar compounds and cause tailing." }
+      ],
+      "quiz": [
+        { "q": "Which GC detector is the most sensitive to chlorinated pesticides?", "a": "Electron capture detector", "wrong": ["Flame ionization detector", "Thermal conductivity detector", "Flame photometric detector"] },
+        { "q": "Why is a temperature program used in GC?", "a": "To separate compounds with a wide range of boiling points in a reasonable time", "wrong": ["To protect the detector", "To prevent the carrier gas leaking", "To make all peaks the same height"] }
+      ]
+    },
+    {
+      "id": "hplc-depth", "name": "HPLC in depth", "group": "Chromatography",
+      "terms": ["reversed-phase", "reversed-phase HPLC", "C18", "gradient elution", "isocratic", "mobile phase", "UHPLC", "diode array detector", "evaporative light scattering detector", "guard column", "normal-phase", "size-exclusion chromatography", "ion-exchange chromatography", "HILIC", "refractive index detector"],
+      "tagline": "Pumps, columns, solvents and detectors, and how to choose them.",
+      "sections": [
+        { "h": "The system", "points": [
+          "Solvent reservoirs and a degasser, then a high-pressure pump (typically 100–400 bar, and up to 1000–1300 bar in UHPLC).",
+          "An autosampler injecting 1–100 µL from a loop, and an optional guard column that protects the main column.",
+          "The column: typically 150 × 4.6 mm packed with 3–5 µm particles. UHPLC columns are shorter and narrower (50–100 × 2.1 mm) with particles below 2 µm, giving faster and sharper separations.",
+          "A detector, then data processing."
+        ] },
+        { "h": "Modes", "facts": [
+          ["Reversed phase", "By far the most common. A nonpolar stationary phase, such as C18 (octadecyl chains bonded to silica), and a polar mobile phase of water with acetonitrile or methanol. The more nonpolar a compound, the longer it is retained, so polar compounds come out first. Increasing the organic percentage shortens retention."],
+          ["Normal phase", "A polar stationary phase (silica) and a nonpolar mobile phase. The reverse elution order."],
+          ["HILIC", "A polar stationary phase with a mobile phase high in acetonitrile. Retains very polar compounds that run straight through a C18 column."],
+          ["Ion exchange", "Separates charged analytes by their charge, using a charged stationary phase and a buffer."],
+          ["Size exclusion", "Separates by size. The largest molecules cannot enter the pores and come out first. Used for polymers and proteins."]
+        ] },
+        { "h": "Elution and pH", "points": [
+          "Isocratic elution keeps the solvent composition constant. Gradient elution increases the organic percentage during the run, which sharpens late peaks and separates mixtures with a wide range of polarity. A rough rule is that each 10% increase in organic solvent reduces the retention factor by a factor of 2 to 3.",
+          "For acids and bases, the pH of the mobile phase decides the charge. Neutral forms are retained longest in reversed phase. A buffer is used, with a pH at least 2 units away from the pKa for stable retention. Silica columns usually work between pH 2 and 8."
+        ] },
+        { "h": "Detectors", "facts": [
+          ["UV–Vis / diode array (DAD)", "The most common. A DAD records the whole spectrum for each peak, which helps check peak purity and identity."],
+          ["Fluorescence", "Very sensitive and selective, but only for fluorescent compounds or derivatives."],
+          ["Refractive index", "Universal but not very sensitive, and cannot be used with gradients."],
+          ["Evaporative light scattering / charged aerosol", "For compounds without a chromophore, such as sugars and lipids. Needs a volatile mobile phase."],
+          ["Mass spectrometer", "As described under LC–MS."]
+        ] }
+      ],
+      "quiz": [
+        { "q": "In reversed-phase HPLC with a C18 column, which compounds elute first?", "a": "The most polar", "wrong": ["The most nonpolar", "The largest", "The ones with the lowest charge"] },
+        { "q": "What is gradient elution?", "a": "Changing the solvent composition during the run", "wrong": ["Increasing the column temperature", "Using a longer column", "Injecting more sample"] }
+      ]
+    },
+    {
+      "id": "ic-ce", "name": "Ion chromatography and capillary electrophoresis", "group": "Chromatography",
+      "terms": ["ion chromatography", "capillary electrophoresis", "electroosmotic flow", "suppressor", "conductivity detector", "micellar electrokinetic chromatography", "MEKC"],
+      "tagline": "Two ways to separate ions: by exchange on a resin and by their movement in an electric field.",
+      "sections": [
+        { "h": "Ion chromatography (IC)", "points": [
+          "Anions such as fluoride, chloride, nitrate, phosphate and sulfate are separated on an anion-exchange column. The eluent is typically carbonate–bicarbonate or potassium hydroxide. Cations such as Na⁺, K⁺, NH₄⁺, Ca²⁺ and Mg²⁺ use a cation-exchange column with an acid eluent, such as methanesulfonic acid.",
+          "Detection is usually by conductivity. The eluent is itself ionic and would give a huge background, so a suppressor between the column and the detector converts the eluent to a weakly conducting form (carbonic acid or water) while the analyte ions are converted to their more conductive acid or base form. This gives a low background and a high signal.",
+          "Used for ions in drinking water, rain, food and pharmaceuticals, and an EPA standard for anions."
+        ] },
+        { "h": "Capillary electrophoresis (CE)", "points": [
+          "A fused-silica capillary, about 50 µm in inner diameter and 30–100 cm long, is filled with buffer. A tiny sample plug is injected at one end and a voltage of 10–30 kV is applied.",
+          "Ions move in the field at a rate set by their electrophoretic mobility, which depends on charge and size.",
+          "Electroosmotic flow (EOF): above about pH 3, the silanol groups on the wall are negative, and the buffer cations next to the wall drag the whole liquid toward the cathode. Even anions are usually swept to the detector, in the order of their mobility.",
+          "The flow has a flat profile, unlike pressure-driven flow, so peaks are very narrow and plate numbers reach 10⁵ to 10⁶.",
+          "Detection is often by UV absorbance through the capillary wall, or by fluorescence or MS."
+        ] },
+        { "h": "Related modes", "text": "In micellar electrokinetic chromatography (MEKC), micelles of SDS are added to the buffer so that neutral molecules can be separated by how much they partition into them. Cyclodextrins are added to separate enantiomers. Capillary arrays were used to sequence DNA in the Human Genome Project." }
+      ],
+      "quiz": [
+        { "q": "What is the purpose of the suppressor in ion chromatography?", "a": "To lower the background conductivity of the eluent", "wrong": ["To remove the analyte ions", "To heat the column", "To increase the flow rate"] },
+        { "q": "What causes electroosmotic flow in a fused-silica capillary?", "a": "Negative silanol groups on the wall drag the buffer toward the cathode", "wrong": ["A pump pushes the buffer", "Gravity", "The sample is heated"] }
+      ]
+    },
+    {
+      "id": "fluorescence", "name": "Fluorescence spectroscopy", "group": "Molecular spectroscopy",
+      "terms": ["fluorescence", "fluorescence spectroscopy", "fluorophore", "fluorophores", "quantum yield", "Stokes shift", "quenching", "phosphorescence", "excitation spectrum", "emission spectrum", "Stern–Volmer", "inner filter effect", "Jablonski diagram"],
+      "tagline": "Measuring the light a molecule gives off after it absorbs light, far more sensitive than absorbance.",
+      "sections": [
+        { "h": "What happens", "points": [
+          "A molecule absorbs a photon and moves to an excited singlet state. It quickly loses some energy as heat, by vibrational relaxation, and then emits a photon on returning to the ground state, within nanoseconds.",
+          "The emitted light has a longer wavelength than the absorbed light. The difference is the Stokes shift, and it lets the emission be separated from the excitation light.",
+          "The quantum yield is the number of photons emitted divided by the number absorbed. Strongly fluorescent molecules have values near 1.",
+          "Phosphorescence is a much slower emission (microseconds to seconds) from a triplet state."
+        ] },
+        { "h": "Measuring", "text": "The sample is excited at one wavelength and the emission measured at 90° to the excitation beam, so that very little of the exciting light reaches the detector.", "points": [
+          "An excitation spectrum (scanning the excitation wavelength) looks like the absorption spectrum. An emission spectrum (scanning the emission wavelength) shows the fluorescence.",
+          "At low absorbance (A < about 0.05) the intensity is proportional to concentration. At higher concentrations the inner filter effect (the sample absorbing its own excitation or emission light) bends the curve.",
+          "Detection limits are typically 10 to 1000 times lower than for absorbance, because a small signal is measured against a nearly dark background."
+        ] },
+        { "h": "Quenching", "equations": ["F₀ ÷ F = 1 + K(SV) × [Q]"], "text": "Other species can reduce fluorescence, by colliding with the excited molecule (dynamic quenching) or forming a complex with it. Oxygen, halide ions and heavy atoms are common quenchers. The Stern–Volmer equation describes collisional quenching, and the slope gives the quenching constant." },
+        { "h": "Used for", "text": "Quinine in tonic water, polycyclic aromatic hydrocarbons, vitamins, DNA stains, fluorescent labels in biochemistry, and HPLC detection, often with a fluorescent tag added to the analyte." }
+      ],
+      "quiz": [
+        { "q": "Why is fluorescence detection usually more sensitive than absorbance?", "a": "A small signal is measured against a nearly dark background", "wrong": ["It uses a stronger lamp only", "It measures at lower temperatures", "It works on all compounds"] },
+        { "q": "Fluorescence is emitted at a wavelength that is…", "a": "Longer than the excitation wavelength", "wrong": ["Shorter than the excitation wavelength", "The same as the excitation wavelength", "Always in the infrared"] }
+      ]
+    },
+    {
+      "id": "ftir-atr", "name": "FTIR and ATR in depth", "group": "Molecular spectroscopy",
+      "terms": ["Fourier transform", "interferometer", "Michelson interferometer", "interferogram", "attenuated total reflectance", "ATR", "KBr pellet", "Fellgett advantage", "multiplex advantage", "fingerprint region", "evanescent wave"],
+      "tagline": "How a Fourier transform infrared spectrometer works, and the simplest way to measure a sample.",
+      "sections": [
+        { "h": "The instrument", "points": [
+          "A Michelson interferometer splits the infrared beam in two. One half reflects from a fixed mirror and the other from a moving mirror, and they recombine. As the mirror moves, the intensity at the detector varies, giving an interferogram.",
+          "The interferogram contains all the frequencies at once. A Fourier transform on a computer converts it to a spectrum.",
+          "The sample spectrum is divided by a background spectrum taken without the sample to give transmittance or absorbance."
+        ] },
+        { "h": "Advantages over dispersive instruments", "points": [
+          "Multiplex (Fellgett) advantage: all wavelengths are measured at the same time, so a full spectrum takes seconds and many scans can be averaged for better S/N.",
+          "Throughput (Jacquinot) advantage: no narrow slits, so much more light reaches the detector.",
+          "Precision (Connes) advantage: a helium–neon laser measures the mirror position, so the wavenumber scale is very accurate."
+        ] },
+        { "h": "Sampling", "points": [
+          "KBr pellet: the solid is ground with potassium bromide, which is transparent to infrared, and pressed into a disc. Nujol mulls and thin films are alternatives.",
+          "Attenuated total reflectance (ATR): the sample is pressed onto a crystal of diamond, ZnSe or germanium. The infrared beam reflects inside the crystal, and an evanescent wave reaches about 0.5–2 µm into the sample and is absorbed. It needs almost no preparation and works for solids, liquids and pastes.",
+          "Gas cells have a long path length to give gases enough absorbance."
+        ] },
+        { "h": "Interpretation", "text": "Peaks above about 1500 cm⁻¹ identify functional groups. The region below 1500 cm⁻¹ is the fingerprint region, which is unique to each compound and is used for matching against libraries. In ATR the peak intensities depend on wavelength, and so a correction is needed to compare them with transmission spectra." },
+        { "h": "Used for", "text": "Identifying polymers, checking the purity of raw materials, forensic analysis of fibers and paints, and detecting microplastics." }
+      ],
+      "quiz": [
+        { "q": "What does the Fourier transform do in FTIR?", "a": "Converts the interferogram into a spectrum", "wrong": ["Filters out the noise from the source", "Cools the detector", "Splits the beam"] },
+        { "q": "What is a major advantage of ATR sampling?", "a": "Very little sample preparation", "wrong": ["It gives higher resolution", "It works only for gases", "It does not need a background"] }
+      ]
+    },
+    {
+      "id": "xrf-xps", "name": "X-ray fluorescence and surface analysis", "group": "Surface and X-ray methods",
+      "terms": ["X-ray fluorescence", "XRF", "XPS", "X-ray photoelectron spectroscopy", "Auger electron spectroscopy", "SIMS", "secondary ion mass spectrometry", "energy-dispersive X-ray spectroscopy", "EDS", "EDX", "binding energy of electrons", "sputtering"],
+      "tagline": "Using X-rays and ions to find out which elements are present, and in the case of XPS, in what chemical state.",
+      "sections": [
+        { "h": "X-ray fluorescence (XRF)", "points": [
+          "Primary X-rays eject an inner-shell electron from an atom. An electron from a higher shell drops into the hole and emits an X-ray with an energy that is characteristic of the element (Moseley's law).",
+          "The energy identifies the element and the intensity gives the amount. Energy-dispersive XRF measures all energies at once with a solid-state detector. Wavelength-dispersive XRF uses a crystal and is more precise.",
+          "Nondestructive, with little sample preparation. Handheld units identify alloys, check for lead and heavy metals in toys and soil, and analyze art and archaeological objects.",
+          "Detection limits are about 1–100 ppm. Light elements (below magnesium) are hard to measure because their X-rays are weak and easily absorbed. Matrix effects must be corrected."
+        ] },
+        { "h": "X-ray photoelectron spectroscopy (XPS)", "equations": ["binding energy = hν − kinetic energy − work function"], "points": [
+          "X-rays eject core electrons, and their kinetic energy is measured.",
+          "The binding energy identifies the element, and small shifts show its chemical state. For example, the carbon 1s peak shifts for C–C, C–O and C=O, and the oxidation state of a metal can be seen.",
+          "Only electrons from the top 1–10 nm escape without losing energy, so it is a surface technique. It needs ultrahigh vacuum, and argon-ion sputtering can be used to profile through layers.",
+          "Kai Siegbahn received the 1981 Nobel Prize in Physics for developing it."
+        ] },
+        { "h": "Other surface methods", "points": [
+          "Energy-dispersive X-ray spectroscopy (EDS or EDX) in an electron microscope: the electron beam causes X-ray emission, so elemental maps can be made of the area imaged.",
+          "Auger electron spectroscopy: detects electrons emitted after the electron-hole process, with high spatial resolution at the surface.",
+          "Secondary ion mass spectrometry (SIMS): an ion beam sputters atoms from the surface and a mass spectrometer measures the secondary ions. Very sensitive (ppb) and used for depth profiles of dopants in semiconductors."
+        ] }
+      ],
+      "quiz": [
+        { "q": "How deep does XPS probe?", "a": "About 1–10 nm", "wrong": ["About 1 mm", "About 1 µm", "Through the whole sample"] },
+        { "q": "In XRF, what identifies an element?", "a": "The energy of the X-rays it emits", "wrong": ["The color of the sample", "The mass of the ions", "The melting point"] }
+      ]
+    },
+    {
+      "id": "stripping", "name": "Voltammetry and stripping analysis", "group": "Electroanalytical methods",
+      "terms": ["anodic stripping voltammetry", "ASV", "stripping voltammetry", "stripping analysis", "polarography", "differential pulse voltammetry", "square wave voltammetry", "hanging mercury drop electrode", "preconcentration", "linear sweep voltammetry"],
+      "tagline": "Electrochemical trace analysis: collect the metal on an electrode first, then measure it.",
+      "sections": [
+        { "h": "Anodic stripping voltammetry (ASV)", "points": [
+          "Deposition (preconcentration): the electrode is held at a negative potential, for example −1.0 V, in the stirred sample for 1–10 minutes. Metal ions such as Pb²⁺, Cd²⁺, Zn²⁺ and Cu²⁺ are reduced and collect on the electrode, as a film or an amalgam in mercury.",
+          "Rest: stirring stops for a short time.",
+          "Stripping: the potential is scanned in a positive direction. Each metal is oxidized back into solution at its own potential, giving a current peak. The peak position identifies the metal and the height or area is proportional to its concentration.",
+          "Because the metal from the whole solution is collected into a tiny volume on the electrode, detection limits are about 10⁻¹⁰ to 10⁻⁹ M (ppt to ppb)."
+        ] },
+        { "h": "Pulse techniques", "text": "In differential pulse and square wave voltammetry, short voltage pulses are added to the scan and the current is sampled so that the charging (capacitive) current has decayed. This removes most of the background and gives sharper peaks and lower detection limits than a plain linear sweep." },
+        { "h": "Advantages and limits", "points": [
+          "Several metals can be measured in one scan. The equipment is cheap and portable, and is used for field measurements of trace metals in seawater, drinking water, blood and soil extracts.",
+          "Mercury electrodes are being replaced by bismuth-film and solid electrodes for safety.",
+          "Problems include overlapping peaks, intermetallic compounds on the electrode (for example Cu and Zn) and surface-active organic matter that coats it.",
+          "Polarography uses a dropping mercury electrode with a continually renewed surface. Jaroslav Heyrovský received the 1959 Nobel Prize in Chemistry for inventing it."
+        ] }
+      ],
+      "quiz": [
+        { "q": "In anodic stripping voltammetry, what happens during the stripping step?", "a": "The deposited metal is oxidized back into solution", "wrong": ["Metal ions are reduced onto the electrode", "The solution is stirred", "The electrode is cleaned with acid"] }
+      ]
+    },
+    {
+      "id": "ise", "name": "Ion-selective electrodes", "group": "Electroanalytical methods",
+      "terms": ["ion-selective electrode", "ion-selective electrodes", "ISE", "selectivity coefficient", "Nernstian response", "fluoride electrode", "TISAB", "valinomycin"],
+      "tagline": "Sensors that respond to one ion, from the pH glass electrode to the fluoride electrode.",
+      "sections": [
+        { "text": "An ion-selective electrode has a membrane that develops a potential depending on the activity of one ion in the solution. Measured against a reference electrode, the cell voltage follows the Nernst equation." },
+        { "equations": ["E = constant ± (59.2 ÷ z) × log a   (mV, at 25 °C)"], "text": "A tenfold change in the activity of a singly charged ion changes the potential by about 59 mV. A doubly charged ion gives about 29.6 mV. A plot of E against log concentration of standards is a calibration line, and an electrode that gives a slope near this value has a Nernstian response." },
+        { "h": "Types", "facts": [
+          ["Glass membrane", "The pH electrode, which responds to H⁺. Some glasses respond to Na⁺."],
+          ["Crystalline membrane", "Fluoride: a lanthanum fluoride crystal. Others use silver sulfide for S²⁻ and Ag⁺."],
+          ["Liquid membrane", "Potassium: the carrier molecule valinomycin in a polymer membrane."],
+          ["Gas-sensing", "Ammonia and CO₂ electrodes with a gas-permeable membrane."]
+        ] },
+        { "h": "Practical points", "points": [
+          "A selectivity coefficient describes how much another ion interferes with the electrode.",
+          "Total ionic strength adjustment buffer (TISAB) is added to fluoride measurements. It fixes the ionic strength so that activity is proportional to concentration, holds the pH near 5–5.5, and contains a complexing agent to free fluoride from aluminium and iron.",
+          "Because the potential depends on a logarithm, a 1 mV error is about a 4% error in concentration for a singly charged ion. Calibrate often and control the temperature."
+        ] }
+      ],
+      "quiz": [
+        { "q": "What is the ideal change in potential for a 10-fold change in concentration of a singly charged ion at 25 °C?", "a": "About 59 mV", "wrong": ["About 5.9 mV", "About 590 mV", "About 29.6 mV"] }
+      ]
+    },
+    {
+      "id": "quality", "name": "Method validation and quality assurance", "group": "Quantitation basics",
+      "terms": ["method validation", "certified reference material", "certified reference materials", "spike recovery", "relative standard deviation", "quality assurance", "quality control", "control chart", "detection limit"],
+      "tagline": "How to show that a method gives numbers you can believe.",
+      "sections": [
+        { "h": "Figures of merit", "points": [
+          "Accuracy: how close the result is to the true value, judged by the bias. Tested by measuring a certified reference material (CRM) whose true value is known, for example from NIST, and by spike recovery.",
+          "Precision: the scatter of repeat results, given as the relative standard deviation, RSD = s ÷ mean × 100%. Repeatability is within one run, intermediate precision is between days or analysts, and reproducibility is between laboratories.",
+          "Linearity and range, the limit of detection and the limit of quantitation.",
+          "Selectivity: the ability to measure the analyte without interference from other things.",
+          "Robustness: how little small changes in conditions affect the result."
+        ] },
+        { "h": "Routine quality control", "points": [
+          "Method blank: a sample with no analyte that goes through the entire procedure, to catch contamination.",
+          "Calibration check standard run regularly, to catch drift.",
+          "Duplicates, for precision.",
+          "Matrix spikes: a known amount of analyte added to a real sample before preparation. Recovery is (measured − unspiked) ÷ added × 100%, and typically should be within 80–120%.",
+          "Control charts plot a QC result against time with limits (often ±2 or ±3 standard deviations) to reveal trends and shifts."
+        ] },
+        { "h": "Comparing methods", "text": "A t-test can show whether the mean from a new method differs significantly from the certified value or from another method. An F-test compares precision." }
+      ],
+      "quiz": [
+        { "q": "What is spike recovery used to check?", "a": "Whether the method gets all of the analyte out of the sample matrix", "wrong": ["The linearity of the detector", "The purity of the solvent", "The age of the column"] }
+      ]
+    },
+    {
+      "id": "speciation", "name": "Speciation and hyphenated methods", "group": "Combining methods",
+      "terms": ["speciation", "speciation analysis", "hyphenated technique", "hyphenated techniques", "arsenic speciation", "LC-ICP-MS", "HPLC-ICP-MS", "methylmercury"],
+      "tagline": "The form of an element often matters more than its total amount. Coupling a separation to a detector tells you which form.",
+      "sections": [
+        { "text": "Speciation analysis measures the different chemical forms of an element, because they can differ hugely in toxicity and behavior. A hyphenated technique couples a separation method to a selective detector, such as GC–MS, LC–MS, LC–ICP-MS or GC–FTIR." },
+        { "h": "Example: arsenic", "points": [
+          "Inorganic arsenite, As(III), and arsenate, As(V), are toxic and carcinogenic. Methylated forms (MMA and DMA) are intermediate. Arsenobetaine, abundant in fish and seafood, is essentially harmless.",
+          "A total arsenic measurement cannot tell these apart, but regulations can depend on the inorganic fraction (for example in rice).",
+          "In HPLC–ICP-MS, an anion-exchange or reversed-phase column separates the species and the ICP-MS detects arsenic at m/z 75, with a collision cell to remove ⁴⁰Ar³⁵Cl⁺."
+        ] },
+        { "h": "More examples", "points": [
+          "Chromium: Cr(VI) is toxic and Cr(III) is a nutrient. Ion chromatography with post-column reaction with diphenylcarbazide gives a colored product measured at 540 nm for Cr(VI).",
+          "Mercury: methylmercury, which builds up in fish, is determined by GC or HPLC coupled to ICP-MS or atomic fluorescence.",
+          "Selenium, tin (tributyltin in ship paint) and bromine or iodine species."
+        ] },
+        { "h": "Practical concerns", "text": "The sample preparation must not change the species. Harsh digestion destroys the forms you want to measure, so gentle extraction is used, and spiking with each species checks whether they survive." }
+      ],
+      "quiz": [
+        { "q": "Why is speciation analysis needed for arsenic?", "a": "Different forms of arsenic differ greatly in toxicity", "wrong": ["Arsenic is not measurable by ICP-MS", "All arsenic forms are equally toxic", "Arsenic has no isotopes"] }
+      ]
+    }
+  ]
+}

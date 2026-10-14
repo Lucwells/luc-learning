@@ -1,0 +1,184 @@
+{
+  "title": "Kinetics, Dynamics and Surfaces",
+  "description": "The advanced side of rates: complex mechanisms, the theories of rate constants, isotope effects, chain reactions, photochemistry, transport and surface chemistry.",
+  "category": ["Chemistry", "Physical Chemistry", "Kinetics and Dynamics"],
+  "view": "articles",
+  "entries": [
+    {
+      "id": "complex-mechanisms", "name": "Steady-state and pre-equilibrium approximations", "group": "Complex mechanisms",
+      "terms": ["steady-state approximation", "pre-equilibrium approximation", "pre-equilibrium", "consecutive reactions", "parallel reactions", "opposing reactions", "relaxation time"],
+      "tagline": "Turning a multi-step mechanism into a usable rate law.",
+      "sections": [
+        { "h": "Basic combinations", "points": [
+          "Parallel reactions A → B (k₁) and A → C (k₂): [A] decays with k₁ + k₂, and the products appear in the ratio k₁ : k₂ (the branching ratio).",
+          "Consecutive reactions A → B → C: [B] rises and then falls, with the maximum at t = ln(k₁/k₂) ÷ (k₁ − k₂). The slower step controls the overall rate.",
+          "Opposing reactions A ⇌ B: after a disturbance, the system relaxes to equilibrium with relaxation time τ = 1 ÷ (k_f + k_r), and K = k_f/k_r."
+        ] },
+        { "h": "The steady-state approximation", "text": "For a reactive intermediate I that is consumed almost as fast as it is formed, its concentration stays small and nearly constant, so d[I]/dt ≈ 0. Set that to zero, solve for [I], and substitute into the rate of product formation." },
+        { "h": "Worked example", "equations": ["A + B ⇌ I (k₁, k₋₁)", "I → P (k₂)"], "text": "Steady state for I: k₁[A][B] = (k₋₁ + k₂)[I], so [I] = k₁[A][B] ÷ (k₋₁ + k₂), and the rate is k₂[I] = k₁k₂[A][B] ÷ (k₋₁ + k₂).", "points": [
+          "If k₂ ≫ k₋₁ (the intermediate goes on quickly): rate = k₁[A][B]. The first step is rate-determining.",
+          "If k₂ ≪ k₋₁: rate = (k₁k₂ ÷ k₋₁)[A][B] = K k₂[A][B]. This is the pre-equilibrium case: the first step is a fast equilibrium and the second is slow and rate-determining."
+        ] },
+        { "h": "Testing mechanisms", "text": "A proposed mechanism must give a rate law that matches experiment. It cannot be proved, only disproved, and it must also add up to the overall equation. Intermediates can sometimes be detected by spectroscopy." }
+      ],
+      "quiz": [
+        { "q": "What does the steady-state approximation assume for a reactive intermediate?", "a": "Its concentration stays nearly constant, so d[I]/dt ≈ 0", "wrong": ["Its concentration is zero", "It builds up steadily", "It is consumed more slowly than it forms"] }
+      ]
+    },
+    {
+      "id": "lindemann", "name": "Unimolecular reactions: Lindemann–Hinshelwood", "group": "Complex mechanisms",
+      "terms": ["Lindemann–Hinshelwood mechanism", "Lindemann mechanism", "unimolecular reaction", "unimolecular reactions", "falloff region", "RRKM theory", "collisional activation"],
+      "tagline": "How a molecule that falls apart by itself still depends on collisions.",
+      "sections": [
+        { "text": "A molecule has to gain enough energy to react, but it receives that energy by collisions. Lindemann proposed that a collision (with another molecule or bath gas M) excites the molecule to A*, which can be de-excited again or can react:", "equations": ["A + M → A* + M    (k₁)", "A* + M → A + M    (k₋₁)", "A* → P    (k₂)"] },
+        { "h": "Rate law", "text": "Applying the steady-state approximation to A*: rate = k₁k₂[A][M] ÷ (k₋₁[M] + k₂).", "points": [
+          "High pressure (k₋₁[M] ≫ k₂): rate = (k₁k₂/k₋₁)[A], first order. Collisions are frequent, and A* is in equilibrium with A.",
+          "Low pressure (k₋₁[M] ≪ k₂): rate = k₁[A][M], second order, because forming A* is the slow step.",
+          "In between, the apparent first-order rate constant falls off as pressure is lowered (the falloff region). This is observed experimentally."
+        ] },
+        { "h": "Refinements", "text": "The simple model underestimates the rate at intermediate pressure, since it assumes that A* reacts at a constant rate regardless of how much energy it has. RRKM theory (Rice–Ramsperger–Kassel–Marcus) lets the rate depend on the energy and the number of vibrational modes over which it can be shared. Larger molecules, with more modes, are slower to react at a given energy and show falloff at lower pressure." },
+        { "h": "Examples", "text": "The isomerization of cyclopropane to propene, and the decomposition of N₂O₅ and of azomethane." }
+      ],
+      "quiz": [
+        { "q": "In the Lindemann mechanism, what is the order of the reaction at very low pressure?", "a": "Second order", "wrong": ["First order", "Zero order", "Third order"] }
+      ]
+    },
+    {
+      "id": "collision-detail", "name": "Collision theory in detail", "group": "Theories of the rate constant",
+      "terms": ["collision frequency", "steric factor", "collision cross-section", "reactive cross section", "effective collisions", "diffusion-controlled limit"],
+      "tagline": "Counting the collisions, then counting the ones that react.",
+      "sections": [
+        { "text": "For a bimolecular gas reaction A + B, the rate constant is the collision rate multiplied by the fraction of collisions with enough energy and the right orientation:", "equations": ["k = P σ √(8kT ÷ πμ) × N_A × e^(−Eₐ/RT)"], "points": [
+          "σ is the collision cross-section, π(r_A + r_B)².",
+          "√(8kT/πμ) is the mean relative speed, with μ the reduced mass of the pair.",
+          "e^(−Eₐ/RT) is the fraction of collisions with relative kinetic energy along the line of centers of at least Eₐ.",
+          "P is the steric factor, between 0 and 1. It accounts for the orientation requirement, and for simple atoms it is close to 1 and for large molecules it can be 10⁻⁶ or smaller."
+        ] },
+        { "h": "Orders of magnitude", "text": "The collision frequency in a gas at normal pressure is about 10¹⁰ per second per molecule, and the maximum bimolecular rate constant is of the order of 10¹⁰ L mol⁻¹ s⁻¹. In solution, reactions in which every encounter reacts are limited by diffusion, with k about 10⁹–10¹⁰ L mol⁻¹ s⁻¹." },
+        { "h": "Limits", "text": "The model has no way to calculate P or Eₐ from first principles and treats molecules as hard spheres. Transition state theory improves on this." }
+      ],
+      "quiz": [
+        { "q": "What does the steric factor P account for?", "a": "The requirement for a suitable orientation in the collision", "wrong": ["The activation energy", "The temperature", "The mass of the molecules"] }
+      ]
+    },
+    {
+      "id": "tst", "name": "Transition state theory and the Eyring equation", "group": "Theories of the rate constant",
+      "terms": ["transition state theory", "Eyring equation", "activated complex theory", "activation entropy", "activation enthalpy", "Gibbs energy of activation", "Eyring plot", "reaction coordinate"],
+      "tagline": "The rate constant from the thermodynamics of the barrier-top species.",
+      "sections": [
+        { "text": "Transition state theory (TST) assumes that the reactants are in quasi-equilibrium with an activated complex at the top of the barrier, and that every complex that crosses the barrier goes on to products. The rate is then the concentration of the complex times the frequency at which it crosses." },
+        { "equations": ["k = (k_B T ÷ h) e^(−ΔG‡/RT)", "k = (k_B T ÷ h) e^(ΔS‡/R) e^(−ΔH‡/RT)"], "text": "ΔG‡, ΔH‡ and ΔS‡ are the Gibbs energy, enthalpy and entropy of activation. The factor k_BT/h is a universal frequency, 6.2 × 10¹² s⁻¹ at 298 K." },
+        { "h": "Eyring plot", "text": "A plot of ln(k/T) against 1/T is a straight line with slope −ΔH‡/R and intercept ln(k_B/h) + ΔS‡/R. It is the TST equivalent of an Arrhenius plot, and it gives ΔH‡ and ΔS‡." },
+        { "h": "Interpretation", "points": [
+          "For reactions in solution, Eₐ = ΔH‡ + RT. For gas-phase bimolecular reactions, Eₐ = ΔH‡ + 2RT.",
+          "ΔS‡ is negative for associative reactions, where two molecules come together in an ordered transition state, and positive for dissociative reactions.",
+          "A large negative ΔS‡ explains the small Arrhenius prefactors found for reactions requiring a specific orientation, so it is TST's version of the steric factor."
+        ] },
+        { "h": "The potential energy surface", "text": "The reaction coordinate is the lowest-energy path from reactants to products over the potential energy surface. The transition state is the saddle point: a maximum along the reaction coordinate and a minimum in every other direction. It has one imaginary vibrational frequency." }
+      ],
+      "quiz": [
+        { "q": "What is the slope of an Eyring plot of ln(k/T) against 1/T?", "a": "−ΔH‡/R", "wrong": ["−Eₐ/R", "ΔS‡/R", "−ΔG‡/R"] }
+      ]
+    },
+    {
+      "id": "kie", "name": "Kinetic isotope effects", "group": "Theories of the rate constant",
+      "terms": ["kinetic isotope effect", "kinetic isotope effects", "primary kinetic isotope effect", "secondary kinetic isotope effect", "deuterium isotope effect", "KIE"],
+      "tagline": "Swapping H for D to find out which bond breaks in the slow step.",
+      "sections": [
+        { "text": "Replacing an atom by a heavier isotope changes the rate, because the zero-point vibrational energy depends on the reduced mass. A C–D bond has a lower zero-point energy than C–H, so it sits lower in its potential well and needs more energy to reach the transition state, where the bond is mostly broken and the zero-point difference is gone." },
+        { "h": "Primary effect", "points": [
+          "A primary KIE is measured when the bond to the isotope is broken in the rate-determining step. For C–H and C–D, k_H/k_D is typically 6–8 at room temperature, and the maximum from zero-point effects is about 7.",
+          "Values much larger than 7 suggest quantum tunneling of the hydrogen.",
+          "A value near 1 shows the C–H bond is not broken in the rate-determining step."
+        ] },
+        { "h": "Secondary effect", "text": "If the isotope is on an atom that is not involved in bond breaking, the effect is much smaller (k_H/k_D about 0.8–1.4). It can show a change in hybridization at that carbon, for example from sp³ to sp² (normal, > 1) or sp² to sp³ (inverse, < 1)." },
+        { "h": "Use in mechanism problems", "text": "In elimination, an E2 reaction breaks the C–H bond in the rate-determining step, so it has a large KIE (about 3–8), while E1 does not (about 1). In enzyme catalysis, KIEs identify the slow step." }
+      ],
+      "quiz": [
+        { "q": "A reaction has k_H/k_D = 1.0. What can you conclude?", "a": "The C–H bond is not broken in the rate-determining step", "wrong": ["The C–H bond is broken in the rate-determining step", "The reaction is zero order", "The reaction is very fast"] }
+      ]
+    },
+    {
+      "id": "chain-photochem", "name": "Chain reactions and photochemistry", "group": "Photochemistry and chain reactions",
+      "terms": ["chain reaction mechanism", "chain carriers", "branching chain reaction", "explosion limits", "photochemical reaction", "photochemical reactions", "photolysis", "flash photolysis", "Stark–Einstein law", "photon flux", "quantum yield of a reaction"],
+      "tagline": "Reactions that propagate themselves, and reactions started by light.",
+      "sections": [
+        { "h": "Chain reactions", "text": "A chain mechanism has initiation (forms chain carriers, often radicals), propagation (carrier + reactant → product + new carrier), inhibition and termination.", "points": [
+          "H₂ + Br₂ → 2HBr: initiation Br₂ → 2Br·; propagation Br· + H₂ → HBr + H· and H· + Br₂ → HBr + Br·; inhibition H· + HBr → H₂ + Br·; termination 2Br· → Br₂.",
+          "The steady-state treatment gives a complicated rate law: rate = k[H₂][Br₂]^(1/2) ÷ (1 + k′[HBr]/[Br₂]). The half-order in Br₂ comes from the square root of the initiation and termination steps, and HBr inhibits the reaction.",
+          "In a branching chain, one carrier produces more than one (as in H₂ + O₂: H· + O₂ → OH· + O:). Above the first explosion limit (pressure), the number of carriers grows exponentially, and the mixture explodes. At higher pressure termination in the gas phase again prevents explosion (second limit) and above a third limit it is thermal."
+        ] },
+        { "h": "Photochemistry", "points": [
+          "The Stark–Einstein law: one photon is absorbed by each molecule that reacts, in the primary step.",
+          "The quantum yield Φ = number of molecules reacted ÷ number of photons absorbed. For simple reactions it is at most 1, and it can be much larger when chain reactions follow (Φ about 10⁵ for H₂ + Cl₂).",
+          "Flash photolysis: a short, intense pulse of light creates a high concentration of reactive species such as radicals, whose decay is followed by spectroscopy. Norrish and Porter (with Eigen) shared the 1967 Nobel Prize in Chemistry for it.",
+          "Ozone photochemistry in the stratosphere is the key example of photochemical reaction in the atmosphere."
+        ] }
+      ],
+      "quiz": [
+        { "q": "A photochemical reaction has a quantum yield of 10⁵. What does this suggest?", "a": "A chain reaction", "wrong": ["A very weak lamp", "Absorption by the solvent", "A measuring error only"] }
+      ]
+    },
+    {
+      "id": "exp-kinetics", "name": "Experimental methods in kinetics", "group": "Photochemistry and chain reactions",
+      "terms": ["stopped-flow", "temperature-jump", "pseudo-first-order conditions", "isolation method", "half-life method", "femtochemistry", "pump–probe"],
+      "tagline": "How rate laws are measured, from minutes to femtoseconds.",
+      "sections": [
+        { "h": "Finding the rate law", "points": [
+          "Isolation method: make all reactants except one present in a large excess, so their concentrations stay constant, and the reaction looks like a simple (pseudo-first-order) one in the one that is varied. Repeat for each reactant.",
+          "Method of initial rates: measure the rate at the very start for different initial concentrations.",
+          "Integrated rate laws: plot [A], ln[A], 1/[A] against time and see which is straight.",
+          "Half-life method: how t½ changes with the initial concentration shows the order."
+        ] },
+        { "h": "Monitoring the reaction", "text": "Any property that changes in a known way: absorbance (spectrophotometry), conductivity, pressure, volume, optical rotation, NMR signals, or by taking samples and quenching them." },
+        { "h": "Fast reactions", "facts": [
+          ["Stopped-flow", "Two solutions are driven together into a mixing chamber and the flow is stopped, then the reaction is followed. Millisecond resolution."],
+          ["Temperature jump", "A sudden heating of an equilibrium mixture by a pulse of current or laser, and the system relaxes to the new equilibrium. Microseconds. Manfred Eigen shared the 1967 Nobel Prize for relaxation methods."],
+          ["Flash photolysis", "A light pulse starts the reaction. Nanoseconds to femtoseconds."],
+          ["Pump–probe (femtochemistry)", "An ultrashort laser pulse starts the reaction and a second delayed pulse probes it. Ahmed Zewail won the 1999 Nobel Prize in Chemistry for watching bonds break in real time."]
+        ] }
+      ],
+      "quiz": [
+        { "q": "What is the isolation method used for?", "a": "Making one reactant limiting so the order in each reactant can be found", "wrong": ["Removing the product", "Measuring the temperature", "Stopping the reaction"] }
+      ]
+    },
+    {
+      "id": "diffusion", "name": "Diffusion and transport", "group": "Transport and surfaces",
+      "terms": ["Fick's law", "Fick's first law", "Fick's second law", "diffusion coefficient", "Einstein–Smoluchowski equation", "random walk", "Stokes–Einstein equation", "mean free path", "diffusion-controlled reaction"],
+      "tagline": "How molecules spread, and how that limits the fastest reactions.",
+      "sections": [
+        { "equations": ["J = −D (∂c/∂x)    (Fick's first law)", "∂c/∂t = D (∂²c/∂x²)    (Fick's second law)"], "text": "J is the flux of particles, D the diffusion coefficient. Matter flows from high to low concentration at a rate proportional to the gradient. The second law says how the concentration profile changes in time." },
+        { "h": "Random walk", "equations": ["⟨x²⟩ = 2Dt    (one dimension)"], "text": "A diffusing molecule moves randomly, and the distance covered grows only as the square root of time. Diffusion is quick over a micrometre (a cell) and very slow over centimetres. Typical D: about 10⁻⁵ m²/s in a gas and about 10⁻⁹ m²/s in a liquid." },
+        { "h": "Stokes–Einstein equation", "equations": ["D = kT ÷ 6πηr"], "text": "A sphere of radius r diffusing in a liquid of viscosity η. Larger molecules and more viscous solvents diffuse more slowly. It is used to estimate the size of molecules, and proteins, from D." },
+        { "h": "Diffusion-controlled reactions", "text": "When every encounter leads to a reaction, the rate constant is limited by how fast the molecules meet: k_d ≈ 8RT ÷ 3η. For water at 25 °C (η = 0.89 mPa·s) this is about 7 × 10⁹ L mol⁻¹ s⁻¹. Proton transfer and radical recombination in solution approach this limit." },
+        { "h": "Gases", "text": "From kinetic theory, the mean free path (the distance between collisions) is λ = kT ÷ (√2 σ p). In air at atmospheric pressure it is about 70 nm. Viscosity, thermal conductivity and diffusion in gases are all given by the same kinetic picture." }
+      ],
+      "quiz": [
+        { "q": "How does the distance a molecule diffuses grow with time?", "a": "As the square root of time", "wrong": ["Linearly with time", "As the square of time", "It does not depend on time"] }
+      ]
+    },
+    {
+      "id": "adsorption", "name": "Adsorption and heterogeneous catalysis", "group": "Transport and surfaces",
+      "terms": ["Langmuir isotherm", "BET isotherm", "adsorption isotherm", "physisorption", "chemisorption", "surface coverage", "heterogeneous catalysis", "Langmuir–Hinshelwood mechanism", "Eley–Rideal mechanism", "Freundlich isotherm", "adsorption"],
+      "tagline": "How gases stick to surfaces, and how solid catalysts use that to speed up reactions.",
+      "sections": [
+        { "h": "Physisorption and chemisorption", "facts": [
+          ["Physisorption", "Weak van der Waals attraction, about 20 kJ/mol. Reversible, can form several layers, and is favored at low temperature."],
+          ["Chemisorption", "A chemical bond to the surface, about 100–400 kJ/mol. Forms a monolayer, is often activated and specific, and can break molecules apart, such as H₂ into atoms on a metal."]
+        ] },
+        { "h": "Langmuir isotherm", "equations": ["θ = KP ÷ (1 + KP)", "P ÷ V = P ÷ V_m + 1 ÷ (K V_m)"], "text": "θ is the fraction of surface sites covered. Assumptions: a fixed number of equivalent sites, one molecule per site, no interactions between adsorbed molecules. At low pressure θ rises in proportion to P, and at high pressure it saturates at a monolayer. Plotting P/V against P gives V_m (monolayer volume) from the slope and K from the intercept." },
+        { "h": "BET isotherm", "text": "The Brunauer–Emmett–Teller model extends the Langmuir picture to multilayers. It is the standard way to measure the surface area of a solid: nitrogen is adsorbed at 77 K, and the monolayer capacity is found from the linear region at relative pressures of about 0.05–0.35." },
+        { "h": "Surface reaction mechanisms", "points": [
+          "Langmuir–Hinshelwood: both reactants adsorb on the surface and react there. The rate is proportional to the product of the coverages and shows a maximum with pressure of one reactant, because it can crowd out the other.",
+          "Eley–Rideal: one reactant is adsorbed and the other hits it from the gas phase.",
+          "A unimolecular surface reaction is rate = kθ, which becomes zero order at high pressure when the surface is saturated."
+        ] },
+        { "h": "Examples", "text": "Iron for the Haber–Bosch process, platinum and rhodium in catalytic converters, and nickel in hydrogenation. Gerhard Ertl won the 2007 Nobel Prize in Chemistry for working out the steps of ammonia synthesis on iron surfaces." }
+      ],
+      "quiz": [
+        { "q": "In the Langmuir model, what happens to the coverage θ at very high pressure?", "a": "It approaches 1 (a full monolayer)", "wrong": ["It approaches 0", "It grows without limit", "It oscillates"] },
+        { "q": "Which type of adsorption can form multilayers?", "a": "Physisorption", "wrong": ["Chemisorption", "Neither", "Both equally"] }
+      ]
+    }
+  ]
+}

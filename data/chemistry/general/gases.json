@@ -1,0 +1,171 @@
+{
+  "title": "Gases",
+  "description": "How gases behave, from pressure and the gas laws to kinetic theory and real gases.",
+  "category": ["Chemistry", "General Chemistry", "Gases"],
+  "view": "articles",
+  "entries": [
+    {
+      "id": "pressure", "name": "Gas pressure and units", "group": "Basics",
+      "terms": ["atmosphere", "pascal", "torr", "mmHg", "STP", "standard temperature and pressure", "barometer"],
+      "tagline": "Pressure comes from gas molecules hitting the walls of their container.",
+      "sections": [
+        { "text": "Pressure is force per unit area. In a gas it comes from the constant collisions of molecules with the walls. More collisions, or harder collisions, mean more pressure." },
+        { "h": "Units", "facts": [
+          ["1 atmosphere (atm)", "= 101 325 pascals (Pa) = 101.325 kPa."],
+          ["1 atm", "= 760 mmHg = 760 torr."],
+          ["1 bar", "= 100 000 Pa, a little less than 1 atm."]
+        ] },
+        { "h": "Standard conditions", "points": [
+          "STP (standard temperature and pressure) is 0 °C and 100 kPa by the current IUPAC definition. Many textbooks still use 0 °C and 1 atm.",
+          "At 0 °C and 1 atm, one mole of an ideal gas occupies 22.41 L. At 0 °C and 1 bar it is 22.71 L.",
+          "A barometer measures atmospheric pressure, and the height of the mercury column in mmHg is a direct reading."
+        ] }
+      ],
+      "quiz": [
+        { "q": "How many mmHg are in 1 atm?", "a": "760", "wrong": ["100", "1013", "273"] }
+      ]
+    },
+    {
+      "id": "boyle", "name": "Boyle's law", "group": "The gas laws",
+      "terms": ["Boyle's law"],
+      "tagline": "At constant temperature, squeezing a gas into half the volume doubles its pressure.",
+      "sections": [
+        { "equations": ["P₁V₁ = P₂V₂"], "text": "For a fixed amount of gas at constant temperature, pressure and volume are inversely proportional." },
+        { "h": "Worked example", "text": "2.0 L of gas at 1.0 atm is compressed to 0.50 L. The new pressure is 1.0 × 2.0 ÷ 0.50 = 4.0 atm." },
+        { "h": "In everyday life", "points": [
+          "A syringe: pulling the plunger out increases the volume and lowers the pressure, so liquid is drawn in.",
+          "Breathing: the diaphragm moves down, the chest volume rises, the pressure inside falls below the outside pressure and air flows in."
+        ] }
+      ],
+      "quiz": [
+        { "q": "A gas at constant temperature is compressed to half its volume. What happens to its pressure?", "a": "It doubles", "wrong": ["It halves", "It stays the same", "It quadruples"] }
+      ]
+    },
+    {
+      "id": "charles", "name": "Charles's law", "group": "The gas laws",
+      "terms": ["Charles's law"],
+      "tagline": "At constant pressure, a gas expands as it is heated.",
+      "sections": [
+        { "equations": ["V₁ ÷ T₁ = V₂ ÷ T₂"], "text": "For a fixed amount of gas at constant pressure, volume is proportional to the absolute temperature." },
+        { "h": "Always use kelvin", "text": "The proportion only works on the kelvin scale, where zero means no thermal motion. In degrees Celsius, doubling the temperature would not double the volume." },
+        { "h": "Worked example", "text": "3.0 L of gas at 300 K is heated to 450 K at constant pressure. The new volume is 3.0 × 450 ÷ 300 = 4.5 L." }
+      ],
+      "quiz": [
+        { "q": "In gas law calculations, temperature must be in…", "a": "Kelvin", "wrong": ["Celsius", "Fahrenheit", "Any unit, as long as it is consistent"] }
+      ]
+    },
+    {
+      "id": "combined", "name": "Gay-Lussac's law and the combined gas law", "group": "The gas laws",
+      "terms": ["Gay-Lussac's law", "combined gas law"],
+      "tagline": "At constant volume, pressure rises with temperature. Put all the laws together for one equation.",
+      "sections": [
+        { "equations": ["P₁ ÷ T₁ = P₂ ÷ T₂"], "text": "For a fixed amount of gas at constant volume, pressure is proportional to the absolute temperature. This is Gay-Lussac's law." },
+        { "h": "Combined gas law", "equations": ["P₁V₁ ÷ T₁ = P₂V₂ ÷ T₂"], "text": "Boyle's, Charles's and Gay-Lussac's laws combine into one equation for a fixed amount of gas. It lets you change several variables at once." },
+        { "h": "Worked example", "text": "A tire holds air at 2.0 atm at 280 K. After driving it is 300 K, and the volume has not changed. The pressure is 2.0 × 300 ÷ 280 ≈ 2.1 atm." }
+      ],
+      "quiz": [
+        { "q": "A sealed rigid container of gas is heated. What happens to the pressure?", "a": "It increases", "wrong": ["It decreases", "It stays the same", "It becomes zero"] }
+      ]
+    },
+    {
+      "id": "avogadro-law", "name": "Avogadro's law and molar volume", "group": "The gas laws",
+      "terms": ["Avogadro's law", "molar volume"],
+      "tagline": "Equal volumes of gases at the same conditions contain the same number of molecules.",
+      "sections": [
+        { "equations": ["V₁ ÷ n₁ = V₂ ÷ n₂"], "text": "At constant temperature and pressure, the volume of a gas is proportional to the number of moles." },
+        { "h": "Molar volume", "text": "Because of this, one mole of any ideal gas takes up the same volume under the same conditions: 22.41 L at 0 °C and 1 atm. It does not matter whether the gas is hydrogen or chlorine." },
+        { "h": "In reactions", "text": "For gases at the same temperature and pressure, the coefficients of an equation are also volume ratios. In N₂ + 3H₂ → 2NH₃, 1 L of nitrogen reacts with 3 L of hydrogen to make 2 L of ammonia." }
+      ],
+      "quiz": [
+        { "q": "What is the volume of 1 mol of an ideal gas at 0 °C and 1 atm?", "a": "22.41 L", "wrong": ["1.00 L", "24.8 L", "11.2 L"] }
+      ]
+    },
+    {
+      "id": "ideal-gas", "name": "The ideal gas law", "group": "The gas laws",
+      "terms": ["ideal gas law", "ideal gas", "ideal gases", "gas constant"],
+      "tagline": "One equation linking pressure, volume, amount and temperature.",
+      "sections": [
+        { "equations": ["PV = nRT"], "text": "P is pressure, V is volume, n is moles, T is temperature in kelvin and R is the gas constant." },
+        { "h": "Values of R", "facts": [
+          ["0.08206", "L·atm/(mol·K), when pressure is in atm and volume in litres."],
+          ["8.314", "J/(mol·K), or L·kPa/(mol·K), when pressure is in kPa."]
+        ] },
+        { "h": "Worked example", "text": "2.00 mol of gas at 300 K in a 10.0 L container. P = nRT ÷ V = 2.00 × 0.08206 × 300 ÷ 10.0 ≈ 4.92 atm." },
+        { "h": "Useful forms", "points": [
+          "Molar mass from density: M = dRT ÷ P.",
+          "An ideal gas is one whose particles have no volume and do not attract each other. Real gases at moderate pressure and temperature are close to this."
+        ] }
+      ],
+      "quiz": [
+        { "q": "In PV = nRT, what unit must temperature be in?", "a": "Kelvin", "wrong": ["Celsius", "Fahrenheit", "Joules"] }
+      ]
+    },
+    {
+      "id": "dalton", "name": "Dalton's law of partial pressures", "group": "Mixtures and behavior",
+      "terms": ["Dalton's law", "partial pressure", "partial pressures"],
+      "tagline": "In a gas mixture, each gas contributes its own pressure, and the contributions add up.",
+      "sections": [
+        { "equations": ["P(total) = P₁ + P₂ + P₃ + …", "Pᵢ = Xᵢ × P(total)"], "text": "The partial pressure of a gas is the pressure it would have if it were alone in the container. Xᵢ is its mole fraction." },
+        { "h": "Examples", "points": [
+          "Air is about 78% nitrogen by moles. At 1 atm total, the partial pressure of nitrogen is about 0.78 atm.",
+          "When a gas is collected over water, the gas is mixed with water vapor, so the vapor pressure of water at that temperature must be subtracted to get the pressure of the dry gas."
+        ] }
+      ],
+      "quiz": [
+        { "q": "Air is 21% oxygen by moles. What is the partial pressure of oxygen at 1.00 atm?", "a": "0.21 atm", "wrong": ["0.79 atm", "21 atm", "1.00 atm"] }
+      ]
+    },
+    {
+      "id": "kmt", "name": "Kinetic molecular theory", "group": "Mixtures and behavior",
+      "terms": ["kinetic molecular theory", "kinetic theory", "root-mean-square speed", "rms speed"],
+      "tagline": "The model that explains gas behavior in terms of moving particles.",
+      "sections": [
+        { "h": "The assumptions", "points": [
+          "A gas is made of tiny particles, so small that their own volume can be ignored.",
+          "They move constantly in straight lines in random directions.",
+          "They do not attract or repel each other except in collisions.",
+          "Collisions are elastic, meaning no kinetic energy is lost.",
+          "The average kinetic energy of the particles is proportional to the absolute temperature."
+        ] },
+        { "h": "What follows", "points": [
+          "Temperature is a measure of the average kinetic energy of the particles.",
+          "At the same temperature, all gases have the same average kinetic energy, so lighter molecules move faster than heavier ones.",
+          "The root-mean-square speed is √(3RT ÷ M), with M in kg/mol. Hydrogen at room temperature moves at roughly 1900 m/s and oxygen at about 480 m/s."
+        ] }
+      ],
+      "quiz": [
+        { "q": "At the same temperature, which gas molecules move fastest on average?", "a": "The lightest", "wrong": ["The heaviest", "They all move at the same speed", "The most polar"] }
+      ]
+    },
+    {
+      "id": "graham", "name": "Graham's law of effusion", "group": "Mixtures and behavior",
+      "terms": ["Graham's law", "effusion", "diffusion"],
+      "tagline": "Lighter gases escape through a tiny hole faster than heavier ones.",
+      "sections": [
+        { "text": "Effusion is the escape of a gas through a very small hole. Diffusion is the spreading of one gas through another. Both are faster for lighter molecules." },
+        { "equations": ["rate₁ ÷ rate₂ = √(M₂ ÷ M₁)"] },
+        { "h": "Worked example", "text": "Hydrogen (2 g/mol) effuses √(32 ÷ 2) = 4 times faster than oxygen (32 g/mol)." },
+        { "h": "Application", "text": "Uranium enrichment: uranium hexafluoride containing the lighter uranium-235 effuses very slightly faster than the one with uranium-238. Repeating the process thousands of times separates them." }
+      ],
+      "quiz": [
+        { "q": "How much faster does hydrogen (2 g/mol) effuse than oxygen (32 g/mol)?", "a": "4 times", "wrong": ["16 times", "2 times", "8 times"] }
+      ]
+    },
+    {
+      "id": "real-gases", "name": "Real gases", "group": "Mixtures and behavior",
+      "terms": ["real gas", "real gases", "van der Waals", "compressibility factor"],
+      "tagline": "Why real gases stray from the ideal gas law, and how to correct for it.",
+      "sections": [
+        { "text": "The ideal gas law assumes particles have no volume and no attractions. Real molecules take up space and attract each other, so real gases deviate, mostly at high pressure and low temperature." },
+        { "h": "The van der Waals equation", "equations": ["(P + an²/V²)(V − nb) = nRT"], "points": [
+          "a corrects for the attractions between molecules. Strongly attracting gases have a larger a.",
+          "b corrects for the volume of the molecules themselves."
+        ] },
+        { "h": "When is a gas most ideal?", "text": "At high temperature and low pressure, and for small nonpolar molecules such as helium and hydrogen, because there the molecules are far apart and attract each other weakly." }
+      ],
+      "quiz": [
+        { "q": "Under which conditions does a real gas behave most like an ideal gas?", "a": "High temperature and low pressure", "wrong": ["Low temperature and high pressure", "Low temperature and low pressure", "High temperature and high pressure"] }
+      ]
+    }
+  ]
+}

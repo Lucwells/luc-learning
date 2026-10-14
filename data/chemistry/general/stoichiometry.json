@@ -1,0 +1,168 @@
+{
+  "title": "Stoichiometry",
+  "description": "Counting atoms and molecules, and calculating how much of each substance a reaction uses and makes.",
+  "category": ["Chemistry", "General Chemistry", "Stoichiometry"],
+  "view": "articles",
+  "entries": [
+    {
+      "id": "formulas", "name": "Molecules and chemical formulas", "group": "Counting atoms",
+      "terms": ["molecule", "molecules", "molecular formula", "chemical formula", "chemical formulas", "formula unit", "subscript", "subscripts"],
+      "tagline": "How a formula tells you what a substance is made of.",
+      "sections": [
+        { "text": "A chemical formula uses element symbols and small numbers called subscripts to show how many atoms of each element are in one unit of a substance. A molecule is a group of atoms joined by covalent bonds." },
+        { "h": "Reading formulas", "facts": [
+          ["H₂O", "2 hydrogen atoms and 1 oxygen atom. No subscript means 1."],
+          ["CO₂", "1 carbon atom and 2 oxygen atoms."],
+          ["Ca(OH)₂", "1 calcium, 2 oxygen and 2 hydrogen. The 2 outside the brackets multiplies everything inside them."]
+        ] },
+        { "h": "Things to remember", "points": [
+          "Ionic compounds such as NaCl do not form separate molecules. Their formula shows the simplest ratio of ions, and the smallest repeating unit is called a formula unit.",
+          "The formula mass is the sum of the atomic masses of all the atoms in the formula.",
+          "In an equation, the number in front of a formula multiplies the whole formula: 3H₂O means 3 molecules, with 6 hydrogen and 3 oxygen atoms."
+        ] }
+      ],
+      "quiz": [
+        { "q": "How many atoms are there in one unit of Ca(OH)₂?", "a": "5", "wrong": ["3", "4", "6"] }
+      ]
+    },
+    {
+      "id": "mole", "name": "The mole and Avogadro's number", "group": "Counting atoms",
+      "terms": ["mole", "moles", "Avogadro's number", "Avogadro constant"],
+      "tagline": "A counting unit for the enormous numbers of particles in everyday amounts of matter.",
+      "sections": [
+        { "text": "Atoms are far too small to count one by one, so chemists count them in moles. One mole is 6.022 × 10²³ particles. That number is called Avogadro's number. It works like a dozen, but much bigger." },
+        { "h": "Things to remember", "points": [
+          "One mole of any substance contains the same number of particles, but the masses differ. A mole of carbon atoms is about 12 g and a mole of water molecules is about 18 g.",
+          "12 g of carbon-12 contains one mole of atoms. Since 2019 the mole is defined by fixing the value of Avogadro's number exactly.",
+          "Moles connect the atomic scale to the lab scale, so almost every chemistry calculation goes through them."
+        ] },
+        { "h": "Example", "text": "2 mol of water molecules is 2 × 6.022 × 10²³ = 1.204 × 10²⁴ molecules." }
+      ],
+      "quiz": [
+        { "q": "How many particles are in one mole?", "a": "6.022 × 10²³", "wrong": ["6.022 × 10²⁰", "3.011 × 10²³", "1.602 × 10⁻¹⁹"] }
+      ]
+    },
+    {
+      "id": "molar-mass", "name": "Molar mass", "group": "Counting atoms",
+      "terms": ["molar mass", "molecular weight", "formula mass", "molar masses"],
+      "tagline": "The mass of one mole of a substance, used to convert between grams and moles.",
+      "sections": [
+        { "text": "The molar mass is the mass of one mole of a substance, in grams per mole (g/mol). Its number is the same as the formula mass in atomic mass units." },
+        { "h": "Converting", "equations": ["moles = mass ÷ molar mass"] },
+        { "h": "Worked example", "points": [
+          "Molar mass of H₂O = 2 × 1.008 + 16.00 = 18.02 g/mol.",
+          "36.0 g of water is 36.0 ÷ 18.02 = 2.00 mol."
+        ] }
+      ],
+      "quiz": [
+        { "q": "What is the molar mass of CO₂? (C = 12.01, O = 16.00)", "a": "44.01 g/mol", "wrong": ["28.01 g/mol", "32.00 g/mol", "60.01 g/mol"] }
+      ]
+    },
+    {
+      "id": "empirical", "name": "Empirical and molecular formulas", "group": "Counting atoms",
+      "terms": ["empirical formula", "empirical formulas", "percent composition"],
+      "tagline": "The simplest ratio of atoms versus the actual numbers in a molecule.",
+      "sections": [
+        { "text": "The empirical formula gives the simplest whole-number ratio of atoms in a compound. The molecular formula gives the actual number of atoms in one molecule. Glucose is C₆H₁₂O₆, and its empirical formula is CH₂O. Hydrogen peroxide is H₂O₂, and its empirical formula is HO." },
+        { "h": "Finding the empirical formula from percentages", "points": [
+          "Assume 100 g of the compound, so each percentage becomes a mass in grams.",
+          "Convert each mass to moles using the molar mass.",
+          "Divide every amount by the smallest one.",
+          "If the results are not whole numbers, multiply them all by a small integer, for example 2 for x.5."
+        ] },
+        { "h": "Worked example", "text": "A compound is 40.0% C, 6.7% H and 53.3% O. That gives 3.33 mol C, 6.65 mol H and 3.33 mol O. Dividing by 3.33 gives 1 : 2 : 1, so the empirical formula is CH₂O." },
+        { "h": "Molecular formula", "text": "Divide the molar mass of the compound by the molar mass of the empirical formula. The whole number you get is the factor to multiply the subscripts by." }
+      ],
+      "quiz": [
+        { "q": "What is the empirical formula of glucose, C₆H₁₂O₆?", "a": "CH₂O", "wrong": ["CHO", "C₂H₄O₂", "C₃H₆O₃"] }
+      ]
+    },
+    {
+      "id": "stoichiometry", "name": "Stoichiometry and mole ratios", "group": "Reactions and amounts",
+      "terms": ["stoichiometry", "mole ratio", "mole ratios", "stoichiometric"],
+      "tagline": "Using the numbers in a balanced equation to predict amounts.",
+      "sections": [
+        { "text": "The coefficients in a balanced equation give the ratio in which substances react and form, in moles. That ratio is the bridge between the amount of one substance and the amount of another." },
+        { "h": "The route", "equations": ["grams of A → moles of A → moles of B → grams of B"], "text": "Use the molar mass for the first and last steps, and the mole ratio from the equation for the middle step." },
+        { "h": "Worked example", "equations": ["2H₂ + O₂ → 2H₂O"], "text": "How much water forms from 4.0 g of hydrogen?", "points": [
+          "Moles of H₂ = 4.0 ÷ 2.016 ≈ 1.98 mol.",
+          "The ratio H₂ to H₂O is 2 : 2, so 1.98 mol of water forms.",
+          "Mass of water = 1.98 × 18.02 ≈ 36 g."
+        ] }
+      ],
+      "quiz": [
+        { "q": "In 2H₂ + O₂ → 2H₂O, how many moles of water form from 3 mol of H₂ (with plenty of O₂)?", "a": "3", "wrong": ["1.5", "2", "6"] }
+      ]
+    },
+    {
+      "id": "limiting", "name": "Limiting reagent", "group": "Reactions and amounts",
+      "terms": ["limiting reagent", "limiting reactant", "excess reagent", "excess reactant"],
+      "tagline": "The reactant that runs out first and so decides how much product forms.",
+      "sections": [
+        { "text": "Reactants are rarely mixed in exactly the ratio in the equation. The one that is used up first is the limiting reagent, and it sets the maximum amount of product. The others are in excess, and some is left over." },
+        { "h": "How to find it", "points": [
+          "Calculate how much product each reactant could make on its own.",
+          "The reactant that gives the smaller amount is the limiting reagent.",
+          "To find what is left over, work out how much of the excess reactant was used and subtract it."
+        ] },
+        { "h": "Worked example", "equations": ["2H₂ + O₂ → 2H₂O"], "text": "Start with 10 mol H₂ and 3 mol O₂. The hydrogen could make 10 mol of water, and the oxygen could make only 6 mol. So oxygen is the limiting reagent and 6 mol of water forms. The hydrogen used is 6 mol, so 4 mol of hydrogen is left." }
+      ],
+      "quiz": [
+        { "q": "What is the limiting reagent?", "a": "The reactant that is used up first", "wrong": ["The reactant present in the largest amount", "The reactant with the largest molar mass", "The product that forms first"] }
+      ]
+    },
+    {
+      "id": "percent-yield", "name": "Theoretical and percent yield", "group": "Reactions and amounts",
+      "terms": ["percent yield", "theoretical yield", "actual yield"],
+      "tagline": "How much product you could make compared with how much you really got.",
+      "sections": [
+        { "text": "The theoretical yield is the most product the equation allows, found from the limiting reagent. The actual yield is the amount you really collect." },
+        { "equations": ["percent yield = actual yield ÷ theoretical yield × 100%"] },
+        { "h": "Why it is below 100%", "points": [
+          "The reaction may not go to completion, especially if it is reversible.",
+          "Side reactions make other products.",
+          "Some product is lost when it is transferred, filtered or purified."
+        ] },
+        { "h": "Example", "text": "A reaction should give 12.0 g but gives 9.6 g. The percent yield is 9.6 ÷ 12.0 × 100 = 80%." }
+      ],
+      "quiz": [
+        { "q": "A reaction should give 20.0 g of product but gives 15.0 g. What is the percent yield?", "a": "75%", "wrong": ["25%", "133%", "5%"] }
+      ]
+    },
+    {
+      "id": "molarity", "name": "Molarity and dilution", "group": "Solutions",
+      "terms": ["molarity", "molar concentration", "dilution", "stock solution"],
+      "tagline": "The most common way to state how concentrated a solution is.",
+      "sections": [
+        { "text": "Molarity (M) is the number of moles of solute per litre of solution. A 1 M solution has 1 mol dissolved in each litre." },
+        { "equations": ["M = moles of solute ÷ litres of solution"] },
+        { "h": "Dilution", "equations": ["M₁V₁ = M₂V₂"], "text": "Adding solvent does not change the number of moles of solute, so moles before equal moles after." },
+        { "h": "Worked example", "text": "To make 250 mL of 0.50 M solution from a 2.0 M stock, V₁ = 0.50 × 250 ÷ 2.0 = 62.5 mL of stock, topped up with water to 250 mL. When diluting a strong acid, always add the acid to the water, never the other way round, because the mixing releases heat." }
+      ],
+      "quiz": [
+        { "q": "How many moles of NaCl are in 0.500 L of 0.200 M solution?", "a": "0.100 mol", "wrong": ["0.400 mol", "2.50 mol", "0.0100 mol"] }
+      ]
+    },
+    {
+      "id": "concentration-units", "name": "Other concentration units", "group": "Solutions",
+      "terms": ["mass percent", "parts per million", "ppm", "molality", "mole fraction", "ppb"],
+      "tagline": "Ways to state concentration when molarity is not the best choice.",
+      "sections": [
+        { "facts": [
+          ["Mass percent", "Mass of solute ÷ mass of solution × 100%."],
+          ["Parts per million (ppm)", "Milligrams of solute per kilogram of solution. In dilute water solutions that is about mg per litre. Parts per billion (ppb) is a thousand times smaller."],
+          ["Molality (m)", "Moles of solute per kilogram of solvent."],
+          ["Mole fraction (X)", "Moles of one component ÷ total moles of all components. Mole fractions add up to 1."]
+        ] },
+        { "h": "Why more than one unit?", "points": [
+          "Molarity depends on volume, and volume changes with temperature, so molarity changes a little as a solution warms or cools.",
+          "Molality and mole fraction use masses and moles only, so they do not change with temperature. They are used for colligative properties.",
+          "ppm and ppb are used for traces, such as pollutants in water."
+        ] }
+      ],
+      "quiz": [
+        { "q": "Which concentration unit does not change with temperature?", "a": "Molality", "wrong": ["Molarity", "Volume percent", "Grams per litre"] }
+      ]
+    }
+  ]
+}

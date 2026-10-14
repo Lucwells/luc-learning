@@ -1,0 +1,145 @@
+{
+  "title": "Types of Reactions",
+  "description": "The main ways chemical reactions are classified, with the general form, how to recognize each, and worked examples.",
+  "category": ["Chemistry", "Types of Reactions"],
+  "view": "reaction-types",
+  "idField": "equation",
+  "modes": [
+    { "id": "equation-type", "label": "Equation → Reaction type", "question": "What type of reaction is this? {equation}", "answer": "type", "mcOnly": true },
+    { "id": "form-type", "label": "General form → Reaction type", "question": "Which type of reaction follows the pattern {form}?", "answer": "type", "mcOnly": true }
+  ],
+  "types": [
+    {
+      "id": "synthesis", "name": "Synthesis", "aka": "Combination", "form": "A + B → AB",
+      "summary": "Two or more simple substances combine to form one more complex product.",
+      "recognize": [
+        "Several reactants, one product.",
+        "Often two elements forming a compound, or a compound adding to another to make a bigger one.",
+        "Usually releases energy."
+      ],
+      "realWorld": [
+        "The Haber process joins nitrogen and hydrogen to make ammonia for fertilizer.",
+        "Quicklime (CaO) reacts with water to form slaked lime, Ca(OH)₂, used in mortar.",
+        "Iron rusting: 4Fe + 3O₂ → 2Fe₂O₃."
+      ]
+    },
+    {
+      "id": "decomposition", "name": "Decomposition", "form": "AB → A + B",
+      "summary": "One compound breaks down into two or more simpler substances.",
+      "recognize": [
+        "One reactant, several products.",
+        "Needs an input of energy: heat, light or electricity.",
+        "It is the opposite of synthesis."
+      ],
+      "realWorld": [
+        "Electrolysis splits water into hydrogen and oxygen.",
+        "Heating limestone (CaCO₃) gives lime and carbon dioxide, a step in making cement.",
+        "Sodium azide in a car airbag decomposes to nitrogen gas in milliseconds."
+      ]
+    },
+    {
+      "id": "single", "name": "Single replacement", "aka": "Single displacement", "form": "A + BC → AC + B",
+      "summary": "One element takes the place of another element in a compound.",
+      "recognize": [
+        "An element and a compound on the left, a different element and a different compound on the right.",
+        "A metal replaces another metal (or hydrogen) only if it is more reactive. A halogen replaces a less reactive halogen.",
+        "The activity series predicts whether the reaction will happen."
+      ],
+      "realWorld": [
+        "An iron nail dropped in copper sulfate solution becomes coated with copper.",
+        "Zinc dissolving in acid gives off hydrogen gas.",
+        "A zinc coating protects steel because zinc is more reactive than iron."
+      ]
+    },
+    {
+      "id": "double", "name": "Double replacement", "aka": "Double displacement, metathesis", "form": "AB + CD → AD + CB",
+      "summary": "Two compounds swap partners to form two new compounds.",
+      "recognize": [
+        "Two compounds on each side, usually ionic compounds dissolved in water.",
+        "It goes forward when a product leaves the solution: an insoluble solid (a precipitate), a gas, or water.",
+        "No electrons are transferred, so it is not a redox reaction."
+      ],
+      "realWorld": [
+        "Adding silver nitrate to a solution that contains chloride makes a white precipitate of AgCl, a classic test.",
+        "Hard water forms scale (CaCO₃) when calcium and carbonate ions meet.",
+        "Water treatment can remove dissolved metals by precipitating them."
+      ]
+    },
+    {
+      "id": "combustion", "name": "Combustion", "form": "fuel + O₂ → CO₂ + H₂O",
+      "summary": "A substance reacts quickly with oxygen and releases heat and light. For a hydrocarbon fuel the products are carbon dioxide and water.",
+      "recognize": [
+        "Oxygen is a reactant.",
+        "A hydrocarbon or alcohol on the left, CO₂ and H₂O on the right.",
+        "Strongly exothermic.",
+        "With too little oxygen, combustion is incomplete and gives carbon monoxide or soot instead."
+      ],
+      "realWorld": [
+        "Gas stoves, furnaces and car engines.",
+        "A burning candle.",
+        "Cellular respiration is a slow, controlled form of the same reaction with glucose."
+      ]
+    },
+    {
+      "id": "acid-base", "name": "Acid–base", "aka": "Neutralization", "form": "HA + BOH → BA + H₂O",
+      "summary": "An acid reacts with a base to form a salt and water.",
+      "recognize": [
+        "An acid (a source of H⁺) and a base (a source of OH⁻) are the reactants.",
+        "The products are an ionic salt and water.",
+        "It is a special case of double replacement.",
+        "The net ionic equation is H⁺ + OH⁻ → H₂O."
+      ],
+      "realWorld": [
+        "Antacids neutralize excess stomach acid.",
+        "Farmers add lime to acidic soil.",
+        "Baking soda is used to neutralize an acid spill."
+      ]
+    },
+    {
+      "id": "redox", "name": "Redox", "aka": "Oxidation–reduction", "form": "electrons transferred between species", "quiz": false,
+      "summary": "A reaction in which electrons move from one species to another. The species that loses electrons is oxidized, and the one that gains them is reduced.",
+      "recognize": [
+        "Oxidation numbers change.",
+        "OIL RIG: Oxidation Is Loss, Reduction Is Gain, of electrons.",
+        "It overlaps the other types. Many synthesis, decomposition, single replacement and combustion reactions are redox. Double replacement and acid–base reactions are not.",
+        "The oxidizing agent is the species that gets reduced, and the reducing agent is the species that gets oxidized."
+      ],
+      "realWorld": [
+        "Batteries turn a redox reaction into electric current.",
+        "Rusting of iron.",
+        "Bleach works by oxidizing stains."
+      ]
+    }
+  ],
+  "items": [
+    { "equation": "2Na + Cl₂ → 2NaCl", "type": "Synthesis", "form": "A + B → AB" },
+    { "equation": "N₂ + 3H₂ → 2NH₃", "type": "Synthesis", "form": "A + B → AB", "note": "The Haber process." },
+    { "equation": "CaO + H₂O → Ca(OH)₂", "type": "Synthesis", "form": "A + B → AB" },
+    { "equation": "SO₃ + H₂O → H₂SO₄", "type": "Synthesis", "form": "A + B → AB" },
+
+    { "equation": "2H₂O₂ → 2H₂O + O₂", "type": "Decomposition", "form": "AB → A + B" },
+    { "equation": "CaCO₃ → CaO + CO₂", "type": "Decomposition", "form": "AB → A + B", "note": "Heating limestone." },
+    { "equation": "2KClO₃ → 2KCl + 3O₂", "type": "Decomposition", "form": "AB → A + B" },
+    { "equation": "2HgO → 2Hg + O₂", "type": "Decomposition", "form": "AB → A + B" },
+
+    { "equation": "Zn + CuSO₄ → ZnSO₄ + Cu", "type": "Single replacement", "form": "A + BC → AC + B" },
+    { "equation": "Mg + 2HCl → MgCl₂ + H₂", "type": "Single replacement", "form": "A + BC → AC + B" },
+    { "equation": "Cl₂ + 2NaBr → 2NaCl + Br₂", "type": "Single replacement", "form": "A + BC → AC + B", "note": "A halogen replaces a less reactive halogen." },
+    { "equation": "Fe + CuCl₂ → FeCl₂ + Cu", "type": "Single replacement", "form": "A + BC → AC + B" },
+
+    { "equation": "AgNO₃ + NaCl → AgCl + NaNO₃", "type": "Double replacement", "form": "AB + CD → AD + CB", "note": "AgCl is the precipitate." },
+    { "equation": "BaCl₂ + Na₂SO₄ → BaSO₄ + 2NaCl", "type": "Double replacement", "form": "AB + CD → AD + CB", "note": "BaSO₄ is the precipitate." },
+    { "equation": "Pb(NO₃)₂ + 2KI → PbI₂ + 2KNO₃", "type": "Double replacement", "form": "AB + CD → AD + CB", "note": "PbI₂ is a yellow precipitate." },
+    { "equation": "CuSO₄ + 2NaOH → Cu(OH)₂ + Na₂SO₄", "type": "Double replacement", "form": "AB + CD → AD + CB" },
+
+    { "equation": "CH₄ + 2O₂ → CO₂ + 2H₂O", "type": "Combustion", "form": "fuel + O₂ → CO₂ + H₂O", "note": "Burning natural gas." },
+    { "equation": "C₃H₈ + 5O₂ → 3CO₂ + 4H₂O", "type": "Combustion", "form": "fuel + O₂ → CO₂ + H₂O", "note": "Burning propane." },
+    { "equation": "C₂H₅OH + 3O₂ → 2CO₂ + 3H₂O", "type": "Combustion", "form": "fuel + O₂ → CO₂ + H₂O", "note": "Burning ethanol." },
+    { "equation": "2C₄H₁₀ + 13O₂ → 8CO₂ + 10H₂O", "type": "Combustion", "form": "fuel + O₂ → CO₂ + H₂O", "note": "Burning butane." },
+
+    { "equation": "HCl + NaOH → NaCl + H₂O", "type": "Acid–base", "form": "HA + BOH → BA + H₂O" },
+    { "equation": "H₂SO₄ + 2KOH → K₂SO₄ + 2H₂O", "type": "Acid–base", "form": "HA + BOH → BA + H₂O" },
+    { "equation": "HNO₃ + KOH → KNO₃ + H₂O", "type": "Acid–base", "form": "HA + BOH → BA + H₂O" },
+    { "equation": "2HCl + Ca(OH)₂ → CaCl₂ + 2H₂O", "type": "Acid–base", "form": "HA + BOH → BA + H₂O" }
+  ]
+}

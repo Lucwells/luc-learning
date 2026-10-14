@@ -1,0 +1,963 @@
+{
+  "title": "Experimental Techniques",
+  "description": "How chemists separate, measure and identify things in the laboratory, from filtering a mixture to imaging single atoms.",
+  "category": ["Chemistry", "Experimental Techniques"],
+  "view": "articles",
+  "entries": [
+    {
+      "id": "filtration", "name": "Filtration", "group": "Separating mixtures",
+      "terms": ["filtration", "filter paper", "filtrate", "Büchner funnel"],
+      "tagline": "Separates an insoluble solid from a liquid with a porous barrier.",
+      "sections": [
+        { "h": "What it is", "text": "The mixture is poured through filter paper. The liquid passes through and is called the filtrate. The solid that stays on the paper is called the residue." },
+        { "h": "How it is done", "points": [
+          "Gravity filtration: the mixture runs through a funnel lined with folded filter paper. It is simple but slow.",
+          "Vacuum filtration: a Büchner funnel sits on a flask connected to a vacuum pump or water aspirator, which pulls the liquid through quickly and dries the solid. It is used to collect crystals.",
+          "The solid is washed with a little clean solvent to remove any filtrate still on it."
+        ] },
+        { "h": "Used for", "points": [
+          "Collecting a precipitate or recrystallized crystals.",
+          "Removing a solid catalyst or drying agent from a solution."
+        ] },
+        { "h": "Limits", "text": "It only separates particles bigger than the pores of the paper. Dissolved substances pass straight through." }
+      ],
+      "quiz": [
+        { "q": "In filtration, what is the liquid that passes through the filter paper called?", "a": "The filtrate", "wrong": ["The residue", "The precipitate", "The distillate"] }
+      ]
+    },
+    {
+      "id": "distillation", "name": "Distillation", "group": "Separating mixtures",
+      "terms": ["distillation", "distil", "distillate", "condenser"],
+      "tagline": "Separates liquids by boiling one off and condensing the vapor.",
+      "sections": [
+        { "h": "What it is", "text": "A liquid mixture is heated until the component with the lowest boiling point boils off. The vapor is cooled in a condenser, turns back into a liquid and is collected as the distillate." },
+        { "h": "Apparatus", "points": [
+          "A round-bottom flask holding the mixture, with boiling chips to stop violent bumping.",
+          "A heat source such as a heating mantle.",
+          "A still head with a thermometer placed level with the side arm, so it reads the temperature of the vapor.",
+          "A condenser with cold water running in at the bottom and out at the top.",
+          "A receiving flask."
+        ] },
+        { "h": "Used for", "points": [
+          "Getting pure water from salt water. The salt stays behind because it does not evaporate.",
+          "Separating two liquids whose boiling points differ by more than about 25 °C."
+        ] },
+        { "h": "Limits", "points": [
+          "Liquids with similar boiling points need fractional distillation instead.",
+          "Some mixtures form an azeotrope, which boils as if it were one substance. Ethanol and water form one at about 95.6% ethanol, so ethanol cannot be purified beyond that by distillation alone."
+        ] }
+      ],
+      "quiz": [
+        { "q": "In simple distillation, which component boils off first?", "a": "The one with the lowest boiling point", "wrong": ["The one with the highest boiling point", "The one with the highest density", "The one that is most soluble"] }
+      ]
+    },
+    {
+      "id": "fractional-distillation", "name": "Fractional distillation", "group": "Separating mixtures",
+      "terms": ["fractional distillation", "fractionating column"],
+      "tagline": "Distillation with a column that separates liquids with close boiling points.",
+      "sections": [
+        { "h": "What it is", "text": "A fractionating column is placed between the flask and the condenser. It has a large surface, such as glass beads or indents, on which the rising vapor condenses and re-evaporates many times. Each cycle enriches the vapor in the more volatile component." },
+        { "h": "How it works", "points": [
+          "The column is hottest at the bottom and coolest at the top.",
+          "The component with the lowest boiling point reaches the top first and is collected first.",
+          "Each condensation and re-evaporation is called a theoretical plate. More plates give a better separation."
+        ] },
+        { "h": "Used for", "points": [
+          "Refining crude oil. Gases, petrol, kerosene, diesel, fuel oil and bitumen come off at different heights in the tower.",
+          "Separating liquid air into nitrogen (boils at −196 °C), argon (−186 °C) and oxygen (−183 °C).",
+          "Purifying mixtures of organic liquids in the lab."
+        ] },
+        { "h": "Limits", "text": "It is slower and uses more energy than simple distillation, and it cannot get past an azeotrope." }
+      ],
+      "quiz": [
+        { "q": "What does a fractionating column provide?", "a": "A large surface for repeated condensation and evaporation", "wrong": ["A way to cool the vapor with ice", "A filter for solid impurities", "A vacuum to lower the boiling point"] }
+      ]
+    },
+    {
+      "id": "recrystallization", "name": "Recrystallization", "group": "Separating mixtures",
+      "terms": ["recrystallization", "recrystallisation", "recrystallized", "recrystallised"],
+      "tagline": "Purifies a solid by dissolving it hot and letting it crystallize as it cools.",
+      "sections": [
+        { "h": "What it is", "text": "The impure solid is dissolved in the smallest possible amount of hot solvent. As the solution cools, the compound becomes less soluble and forms crystals. The impurities stay dissolved because there is too little of each to crystallize." },
+        { "h": "Steps", "points": [
+          "Choose a solvent in which the compound dissolves well when hot but poorly when cold.",
+          "Dissolve the solid in the minimum amount of boiling solvent.",
+          "If there are insoluble impurities, filter the hot solution.",
+          "Cool slowly, then in an ice bath. Slow cooling gives larger, purer crystals.",
+          "Collect the crystals by vacuum filtration, wash them with a little cold solvent and dry them."
+        ] },
+        { "h": "Checking purity", "text": "The melting point of the product should be sharp and match the literature value." },
+        { "h": "Limits", "text": "Some product always stays dissolved, so the yield is never 100%. Using too much solvent lowers it further." }
+      ],
+      "quiz": [
+        { "q": "What is the ideal solvent for recrystallization?", "a": "One that dissolves the compound when hot but not when cold", "wrong": ["One that dissolves the compound equally well hot and cold", "One that does not dissolve the compound at any temperature", "One that boils below room temperature"] }
+      ]
+    },
+    {
+      "id": "extraction", "name": "Liquid–liquid extraction", "group": "Separating mixtures",
+      "terms": ["liquid–liquid extraction", "liquid-liquid extraction", "solvent extraction", "separatory funnel", "separating funnel", "immiscible"],
+      "tagline": "Moves a dissolved compound from one liquid into another that does not mix with it.",
+      "sections": [
+        { "h": "What it is", "text": "Two liquids that do not mix, usually water and an organic solvent, are shaken together in a separatory funnel. A dissolved compound spreads between the two layers according to where it dissolves better. The layers are then drained apart." },
+        { "h": "How it is done", "points": [
+          "Shake the funnel, and release the pressure through the tap often, because solvent vapor builds up.",
+          "Let the layers settle. The denser liquid is on the bottom. Dichloromethane is denser than water and sinks. Diethyl ether is less dense and floats.",
+          "Drain the bottom layer through the tap and pour the top layer out of the top.",
+          "Repeating with several small portions of solvent removes more than one large portion."
+        ] },
+        { "h": "Used for", "points": [
+          "Pulling caffeine out of tea into dichloromethane.",
+          "Acid–base extraction: converting an acid into its water-soluble salt with base, so it moves into the water layer, then recovering it by adding acid."
+        ] }
+      ],
+      "quiz": [
+        { "q": "Which layer is on the bottom in a separatory funnel?", "a": "The denser liquid", "wrong": ["The organic layer", "The water layer", "The layer added first"] }
+      ]
+    },
+    {
+      "id": "tlc", "name": "Paper and thin-layer chromatography", "group": "Separating mixtures",
+      "terms": ["chromatography", "chromatogram", "thin-layer chromatography", "TLC", "paper chromatography", "retention factor", "Rf value"],
+      "tagline": "Separates the parts of a mixture as a solvent creeps up a sheet.",
+      "sections": [
+        { "h": "What it is", "text": "A small spot of the mixture is placed near the bottom of a strip of paper or a plate coated with silica gel. The bottom edge is stood in a shallow pool of solvent. As the solvent rises, it carries the components up at different speeds." },
+        { "h": "Two phases", "facts": [
+          ["Stationary phase", "The paper or silica. It holds substances back."],
+          ["Mobile phase", "The solvent that moves up. It carries substances along."]
+        ] },
+        { "h": "Reading the result", "equations": ["Rf = distance moved by the spot ÷ distance moved by the solvent"], "points": [
+          "Rf is always between 0 and 1 and is characteristic of a compound in a given solvent.",
+          "On silica, polar compounds stick more strongly, so they move less and have a lower Rf.",
+          "Spots that are not colored can be seen under UV light or with a chemical stain."
+        ] },
+        { "h": "Used for", "points": [
+          "Separating the dyes in ink or the pigments in leaves.",
+          "Checking whether a reaction has finished, and whether a product is pure."
+        ] }
+      ],
+      "quiz": [
+        { "q": "How is the Rf value calculated?", "a": "Distance moved by the spot ÷ distance moved by the solvent", "wrong": ["Distance moved by the solvent ÷ distance moved by the spot", "Time taken ÷ distance moved", "Mass of spot ÷ mass of solvent"] }
+      ]
+    },
+    {
+      "id": "column-chromatography", "name": "Column chromatography", "group": "Separating mixtures",
+      "terms": ["column chromatography", "flash chromatography", "eluent"],
+      "tagline": "A larger version of chromatography that separates a mixture so each part can be collected.",
+      "sections": [
+        { "h": "What it is", "text": "A glass tube is packed with silica gel or alumina. The mixture is placed on top, and a solvent called the eluent is run through. Components move down at different speeds and come out of the bottom at different times, where they are collected in separate tubes." },
+        { "h": "How it works", "points": [
+          "Compounds that stick strongly to the packing travel slowly. Those that stick weakly travel quickly.",
+          "A more polar eluent washes polar compounds down faster.",
+          "Flash chromatography pushes the eluent through with air pressure to make it faster.",
+          "The collected fractions are checked by thin-layer chromatography."
+        ] },
+        { "h": "Used for", "text": "Purifying the products of organic reactions, in amounts from milligrams to many grams." },
+        { "h": "Limits", "text": "It uses a lot of solvent and takes time compared with recrystallization." }
+      ],
+      "quiz": [
+        { "q": "In column chromatography, what is the eluent?", "a": "The solvent that is run through the column", "wrong": ["The solid packing in the column", "The mixture being separated", "The detector at the bottom"] }
+      ]
+    },
+    {
+      "id": "centrifugation", "name": "Centrifugation", "group": "Separating mixtures",
+      "terms": ["centrifugation", "centrifuge", "centrifuged", "supernatant"],
+      "tagline": "Spins a sample so denser particles are thrown to the bottom.",
+      "sections": [
+        { "h": "What it is", "text": "Tubes of sample are spun at high speed. The spinning acts like a much stronger gravity, so denser particles sink to the bottom of the tube as a pellet, leaving a clear liquid above called the supernatant." },
+        { "h": "Details", "points": [
+          "The strength is given as relative centrifugal force, in multiples of g. Lab centrifuges reach thousands of g and ultracentrifuges reach hundreds of thousands.",
+          "Tubes must be placed opposite each other with equal masses, so the rotor stays balanced."
+        ] },
+        { "h": "Used for", "points": [
+          "Separating a very fine precipitate that clogs filter paper.",
+          "Collecting cells, bacteria and proteins in biochemistry.",
+          "Separating the parts of blood."
+        ] }
+      ],
+      "quiz": [
+        { "q": "After centrifugation, what is the clear liquid above the pellet called?", "a": "The supernatant", "wrong": ["The filtrate", "The eluent", "The distillate"] }
+      ]
+    },
+
+    {
+      "id": "electrophoresis",
+      "name": "Gel electrophoresis",
+      "group": "Separating mixtures",
+      "terms": [
+        "gel electrophoresis",
+        "electrophoresis",
+        "SDS-PAGE",
+        "agarose gel"
+      ],
+      "tagline": "Separates charged molecules, such as DNA and proteins, by pulling them through a gel with an electric field.",
+      "sections": [
+        {
+          "h": "How it works",
+          "points": [
+            "The sample is placed in small wells at one end of a slab of gel, which is soaked in a conducting buffer.",
+            "An electric field is applied across the gel. Charged molecules move toward the electrode of opposite charge.",
+            "The gel is like a mesh. Small molecules slip through easily and travel far, and large molecules are slowed and travel less far.",
+            "A ladder of fragments of known sizes is run alongside to read off the sizes of the unknowns.",
+            "The molecules are then made visible with a stain or a fluorescent dye, often seen under ultraviolet light."
+          ]
+        },
+        {
+          "h": "Common types",
+          "facts": [
+            [
+              "Agarose gel",
+              "A gel made from seaweed. Used for DNA and RNA. DNA carries a negative charge, so it moves toward the positive electrode."
+            ],
+            [
+              "Polyacrylamide gel (PAGE)",
+              "A tighter mesh. Used for proteins and for very small DNA fragments."
+            ],
+            [
+              "SDS-PAGE",
+              "The detergent SDS coats every protein in negative charge, so proteins separate by size alone."
+            ]
+          ]
+        },
+        {
+          "h": "Used for",
+          "points": [
+            "Checking the result of a DNA copying reaction (PCR).",
+            "DNA fingerprinting in forensic science and paternity testing.",
+            "Checking how pure a protein sample is."
+          ]
+        }
+      ],
+      "quiz": [
+        {
+          "q": "Which way does DNA move in gel electrophoresis?",
+          "a": "Toward the positive electrode",
+          "wrong": [
+            "Toward the negative electrode",
+            "It does not move",
+            "It moves toward the nearest edge of the gel"
+          ]
+        },
+        {
+          "q": "In a gel, which fragments travel farthest?",
+          "a": "The smallest",
+          "wrong": [
+            "The largest",
+            "The most positively charged",
+            "The ones loaded first"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "reflux",
+      "name": "Heating under reflux",
+      "group": "Setting up reactions",
+      "terms": [
+        "reflux",
+        "refluxing",
+        "heating under reflux"
+      ],
+      "tagline": "Boils a reaction mixture for a long time without losing any liquid.",
+      "sections": [
+        {
+          "h": "What it is",
+          "text": "The reaction flask is heated with a vertical condenser fitted on top. Vapor rises into the condenser, turns back into liquid and runs back into the flask. The mixture can boil for hours without the solvent or any volatile reagent escaping."
+        },
+        {
+          "h": "Apparatus",
+          "points": [
+            "A round-bottom flask with a stirrer bar or boiling chips.",
+            "A heating mantle or an oil bath.",
+            "A vertical condenser with cold water entering at the bottom and leaving at the top, so the jacket stays full.",
+            "The top is left open to the air, or connected to a drying tube or an inert gas line, never sealed. A sealed, heated system can build up pressure and explode."
+          ]
+        },
+        {
+          "h": "Why use it",
+          "points": [
+            "Many reactions are slow at room temperature and need heat to go at a useful speed.",
+            "The temperature stays steady at the boiling point of the solvent, which makes it easy to control.",
+            "It keeps all of the solvent in the flask, which keeps the concentrations constant."
+          ]
+        },
+        {
+          "h": "Examples",
+          "points": [
+            "Making an ester: ethanol and ethanoic acid are refluxed with a little sulfuric acid to make ethyl ethanoate.",
+            "Oxidizing an alcohol to a carboxylic acid with acidified dichromate.",
+            "After refluxing, the product is usually separated by distillation."
+          ]
+        }
+      ],
+      "quiz": [
+        {
+          "q": "What is the purpose of the vertical condenser in reflux?",
+          "a": "To return the vapor to the flask as liquid",
+          "wrong": [
+            "To collect the product in a separate flask",
+            "To heat the vapor further",
+            "To remove water from the mixture"
+          ]
+        },
+        {
+          "q": "Why must a reflux apparatus never be completely sealed?",
+          "a": "Pressure could build up and cause an explosion",
+          "wrong": [
+            "The condenser would stop working",
+            "The reaction would stop",
+            "The solvent would freeze"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "schlenk-line",
+      "name": "Schlenk line and glovebox",
+      "group": "Setting up reactions",
+      "terms": [
+        "Schlenk line",
+        "glovebox",
+        "inert atmosphere",
+        "air-sensitive",
+        "air-free"
+      ],
+      "tagline": "Lets chemists handle compounds that react with air or moisture.",
+      "sections": [
+        {
+          "h": "What it is",
+          "text": "Some compounds react with oxygen or water vapor in the air, and a few catch fire on contact with it. A Schlenk line is a glass manifold with two channels, one connected to a vacuum pump and the other to a supply of inert gas, usually nitrogen or argon. Each flask connects to it through a two-way tap."
+        },
+        {
+          "h": "How it is used",
+          "points": [
+            "A flask is attached to the line and the air is removed with the vacuum, then the flask is refilled with inert gas. This evacuate and refill cycle is repeated, usually three times.",
+            "A bubbler on the gas side lets excess gas escape and shows that gas is flowing, without letting air back in.",
+            "A cold trap cooled with liquid nitrogen sits between the line and the pump to catch solvent vapor and protect the pump.",
+            "Liquids are moved with a gas-tight syringe or through a thin flexible tube called a cannula."
+          ]
+        },
+        {
+          "h": "Glovebox",
+          "text": "A glovebox is a sealed chamber filled with inert gas, with built-in gloves to reach into it. It is used for weighing and handling air-sensitive solids, which is hard to do on a Schlenk line."
+        },
+        {
+          "h": "Used for",
+          "points": [
+            "Organometallic compounds, such as Grignard reagents and butyllithium.",
+            "Many catalysts, and materials used in batteries."
+          ]
+        },
+        {
+          "h": "Safety",
+          "points": [
+            "If air leaks into a liquid nitrogen trap, oxygen can condense as a pale blue liquid. It can react violently with organic material.",
+            "Some reagents are pyrophoric, meaning they ignite spontaneously in air, so they must be handled with training and care.",
+            "The technique is named after the German chemist Wilhelm Schlenk, who developed it in the early 1900s."
+          ]
+        }
+      ],
+      "quiz": [
+        {
+          "q": "What is the purpose of a Schlenk line?",
+          "a": "To handle compounds that react with air or moisture",
+          "wrong": [
+            "To heat a mixture under reflux",
+            "To measure absorbance of light",
+            "To separate liquids by boiling point"
+          ]
+        },
+        {
+          "q": "What inert gases are usually used on a Schlenk line?",
+          "a": "Nitrogen or argon",
+          "wrong": [
+            "Oxygen or hydrogen",
+            "Chlorine or fluorine",
+            "Carbon dioxide or ammonia"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "titration", "name": "Titration", "group": "Measuring amounts and energy",
+      "terms": ["titration", "titrations", "titrant", "burette", "equivalence point", "endpoint"],
+      "tagline": "Finds an unknown concentration by adding a solution of known concentration until the reaction is just complete.",
+      "sections": [
+        { "h": "What it is", "text": "A measured volume of the unknown solution is placed in a flask. A solution of known concentration, the titrant, is added from a burette a little at a time until the reaction is exactly complete. That moment is the equivalence point." },
+        { "h": "How it is done", "points": [
+          "Use a pipette to put an exact volume of the unknown solution in a conical flask, and add a few drops of indicator.",
+          "Run the titrant from the burette, swirling the flask, slowing to single drops near the end.",
+          "The indicator changes color at the endpoint, which is a close signal that the equivalence point has been reached. Phenolphthalein is colorless in acid and pink in base.",
+          "Repeat until two results agree within about 0.1 cm³. These are called concordant titres."
+        ] },
+        { "h": "Worked example", "text": "25.0 mL of sodium hydroxide solution needs 20.0 mL of 0.100 M hydrochloric acid. The reaction is HCl + NaOH → NaCl + H₂O, one to one.", "points": [
+          "Moles of HCl = 0.100 mol/L × 0.0200 L = 0.00200 mol.",
+          "Moles of NaOH = 0.00200 mol.",
+          "Concentration of NaOH = 0.00200 mol ÷ 0.0250 L = 0.0800 M."
+        ] },
+        { "h": "Other kinds", "points": [
+          "Redox titration: potassium permanganate is purple and acts as its own indicator, because it turns colorless as it is used up.",
+          "Precipitation and complexation titrations, and titrations followed with a pH meter instead of an indicator."
+        ] }
+      ],
+      "quiz": [
+        { "q": "What is the point in a titration where the reaction is exactly complete called?", "a": "The equivalence point", "wrong": ["The meniscus", "The standard point", "The reflux point"] },
+        { "q": "What do you call the solution of known concentration added from the burette?", "a": "The titrant", "wrong": ["The analyte", "The eluent", "The filtrate"] }
+      ]
+    },
+    {
+      "id": "gravimetric", "name": "Gravimetric analysis", "group": "Measuring amounts and energy",
+      "terms": ["gravimetric analysis", "gravimetric"],
+      "tagline": "Finds how much of something there is by weighing a pure product made from it.",
+      "sections": [
+        { "h": "What it is", "text": "The substance being measured is turned into a solid of known composition. The solid is filtered, dried and weighed, and the original amount is worked out from its mass." },
+        { "h": "Worked example: chloride in a solution", "text": "Adding silver nitrate precipitates all the chloride as silver chloride. If the dried precipitate weighs 1.435 g:", "equations": ["Ag⁺ + Cl⁻ → AgCl"], "points": [
+          "Moles of AgCl = 1.435 g ÷ 143.32 g/mol = 0.01001 mol.",
+          "Each AgCl contains one Cl⁻, so the sample had 0.01001 mol of chloride."
+        ] },
+        { "h": "What makes a good precipitate", "points": [
+          "It is almost completely insoluble.",
+          "It is pure and has an exactly known formula.",
+          "It can be filtered and dried without changing."
+        ] },
+        { "h": "Limits", "text": "It is slow, but when done carefully it is very accurate, because the balance is a precise instrument." }
+      ],
+      "quiz": [
+        { "q": "In gravimetric analysis, what is measured?", "a": "The mass of a pure solid", "wrong": ["The volume of a titrant", "The absorbance of light", "The temperature change"] }
+      ]
+    },
+    {
+      "id": "calorimetry", "name": "Calorimetry", "group": "Measuring amounts and energy",
+      "terms": ["calorimetry", "calorimeter", "coffee-cup calorimeter", "specific heat capacity"],
+      "tagline": "Measures the heat of a reaction from the temperature change of water.",
+      "sections": [
+        { "h": "What it is", "text": "A reaction is run in an insulated container, often a polystyrene cup with a lid, and the temperature change of the water in it is recorded. The heat absorbed by the water equals the heat released by the reaction." },
+        { "h": "The calculation", "equations": ["q = m × c × ΔT"], "points": [
+          "q is the heat in joules, m is the mass of the water in grams, and ΔT is the temperature change.",
+          "c is the specific heat capacity. For water it is 4.18 J/(g·°C).",
+          "Example: 50.0 g of water warming by 5.0 °C absorbs 50.0 × 4.18 × 5.0 ≈ 1045 J, or about 1.0 kJ.",
+          "Dividing by the moles that reacted gives the enthalpy change per mole."
+        ] },
+        { "h": "Used for", "text": "Measuring the heat of neutralization, of dissolving a salt, and of simple reactions in solution." },
+        { "h": "Limits", "text": "Some heat escapes to the surroundings or warms the cup, so the result is usually a little low. It works at constant pressure, because the cup is open to the air." }
+      ],
+      "quiz": [
+        { "q": "In q = m × c × ΔT, what does c stand for?", "a": "Specific heat capacity", "wrong": ["Concentration", "Calorie count", "Charge"] }
+      ]
+    },
+    {
+      "id": "bomb-calorimetry", "name": "Bomb calorimetry", "group": "Measuring amounts and energy",
+      "terms": ["bomb calorimetry", "bomb calorimeter"],
+      "tagline": "Measures the energy released when a substance is burned in a sealed steel container.",
+      "sections": [
+        { "h": "What it is", "text": "A weighed sample is placed in a strong steel container called the bomb. The bomb is filled with oxygen at high pressure, about 20–30 atm, and sealed. The bomb sits in a known mass of water inside an insulated jacket. The sample is ignited with an electrical spark, and the rise in water temperature is measured." },
+        { "h": "The calculation", "equations": ["q = C × ΔT"], "points": [
+          "C is the heat capacity of the whole calorimeter, the bomb, the water and the fittings. It is found beforehand by burning a standard that releases a known amount of energy, usually benzoic acid.",
+          "q divided by the moles or the mass of the sample gives the energy released per mole or per gram."
+        ] },
+        { "h": "Constant volume", "text": "The bomb is rigid, so it measures the change in internal energy, ΔU, not the enthalpy change ΔH. They are related by ΔH = ΔU + Δn(gas)RT, where Δn(gas) is the change in the moles of gas in the reaction." },
+        { "h": "Used for", "points": [
+          "The energy content of fuels, in kJ per gram.",
+          "The energy content of food. The Calories on food labels were originally found this way.",
+          "The enthalpy of formation of compounds that burn cleanly."
+        ] }
+      ],
+      "quiz": [
+        { "q": "Why is a bomb calorimeter filled with high-pressure oxygen?", "a": "So the sample burns completely and quickly", "wrong": ["To cool the sample", "To stop the sample reacting", "To measure the pressure of the sample"] },
+        { "q": "A bomb calorimeter works at constant…", "a": "Volume", "wrong": ["Pressure", "Temperature", "Mass"] }
+      ]
+    },
+    {
+      "id": "melting-point", "name": "Melting point determination", "group": "Measuring amounts and energy",
+      "terms": ["melting point determination", "melting point apparatus", "melting point depression", "capillary tube"],
+      "tagline": "Checks how pure a solid is, and helps identify it, from the temperature at which it melts.",
+      "sections": [
+        { "h": "What it is", "text": "A few crystals are packed into a thin glass capillary tube, which is heated slowly in a melting point apparatus. The temperature at which the solid starts to melt and the temperature at which it has completely melted are both recorded as a range." },
+        { "h": "Reading the result", "points": [
+          "A pure compound melts sharply, over a range of about 1 °C or less.",
+          "Impurities lower the melting point and make the range wider. This is called melting point depression.",
+          "The result is compared with the literature value to identify the compound.",
+          "In a mixed melting point test, an unknown is mixed with a known sample. If the melting point does not drop, they are probably the same compound."
+        ] },
+        { "h": "Tips", "text": "Heat quickly to find the approximate point, then repeat with a fresh sample heated slowly, about 1–2 °C per minute near the melting point." }
+      ],
+      "quiz": [
+        { "q": "What effect do impurities have on a melting point?", "a": "They lower it and widen the range", "wrong": ["They raise it and narrow the range", "They raise it and widen the range", "They have no effect"] }
+      ]
+    },
+
+    {
+      "id": "gc", "name": "Gas chromatography", "group": "Chromatography with instruments",
+      "terms": ["gas chromatography", "GC", "retention time", "GC–MS", "GC-MS"],
+      "tagline": "Separates compounds that can be vaporized by sending them through a heated column with a gas.",
+      "sections": [
+        { "h": "How it works", "points": [
+          "A tiny sample is injected into a hot port, where it vaporizes.",
+          "An inert carrier gas, usually helium or nitrogen, sweeps it into a long, thin column coated with a stationary phase, held in an oven.",
+          "Compounds that boil at lower temperatures, or stick less to the coating, come out first.",
+          "A detector at the end, such as a flame ionization detector, records a peak for each compound as it emerges."
+        ] },
+        { "h": "Reading the chromatogram", "points": [
+          "The time at which a peak appears, its retention time, helps identify the compound.",
+          "The area under the peak is proportional to the amount present.",
+          "Connecting the column to a mass spectrometer (GC–MS) also identifies each compound."
+        ] },
+        { "h": "Used for", "points": [
+          "Analyzing fuels, solvents, flavors and fragrances, and alcohol in blood.",
+          "Environmental testing and forensic science."
+        ] },
+        { "h": "Limits", "text": "The sample must vaporize without breaking down, so it does not suit large or heat-sensitive molecules." }
+      ],
+      "quiz": [
+        { "q": "In gas chromatography, what is the carrier gas?", "a": "An inert gas such as helium", "wrong": ["Oxygen", "The vapor of the sample", "Hydrogen chloride"] }
+      ]
+    },
+    {
+      "id": "hplc", "name": "High-performance liquid chromatography", "group": "Chromatography with instruments",
+      "terms": ["HPLC", "high-performance liquid chromatography", "high performance liquid chromatography", "liquid chromatography"],
+      "tagline": "Forces a liquid through a tightly packed column to separate compounds that cannot be vaporized.",
+      "sections": [
+        { "h": "How it works", "points": [
+          "A high-pressure pump pushes a liquid solvent, the mobile phase, through a column packed with very small particles, typically a few micrometres across.",
+          "The sample is injected into the flow and its components are held back to different degrees by the packing.",
+          "A detector, often one that measures ultraviolet light absorbed, records a peak for each component.",
+          "In reversed-phase HPLC the packing is non-polar and the solvent is polar, such as a water and acetonitrile mixture. Polar compounds come out first."
+        ] },
+        { "h": "Used for", "points": [
+          "Drugs and vitamins, proteins, food additives and environmental pollutants.",
+          "Any compound that is too large, too polar or too fragile to be vaporized for gas chromatography."
+        ] },
+        { "h": "Limits", "text": "The high pressure needs expensive pumps and fittings, and a lot of solvent is used." }
+      ],
+      "quiz": [
+        { "q": "Why is HPLC used instead of gas chromatography for some samples?", "a": "The sample cannot be vaporized without breaking down", "wrong": ["The sample is too small", "The sample is a gas", "HPLC does not need a column"] }
+      ]
+    },
+
+    {
+      "id": "uv-vis", "name": "UV–Visible spectroscopy", "group": "Spectroscopy and structure",
+      "terms": ["UV–Vis spectroscopy", "UV-Vis spectroscopy", "UV–Vis", "UV-Vis", "UV–visible spectroscopy", "spectrophotometer", "absorbance", "Beer–Lambert law", "Beer-Lambert law", "calibration curve"],
+      "tagline": "Measures how much ultraviolet or visible light a solution absorbs, to find its concentration.",
+      "sections": [
+        { "h": "How it works", "points": [
+          "Light of a chosen wavelength, from about 200 to 800 nm, is passed through a sample in a cuvette.",
+          "Molecules absorb light that raises their electrons to higher energy levels. That is why colored solutions are colored.",
+          "The absorbance A is the logarithm of the incoming light divided by the light that gets through."
+        ] },
+        { "h": "The Beer–Lambert law", "equations": ["A = ε × b × c"], "points": [
+          "ε is the molar absorptivity of the substance at that wavelength, b is the path length of the cuvette, usually 1 cm, and c is the concentration.",
+          "Absorbance is proportional to concentration, so a calibration curve made from solutions of known concentration gives the concentration of an unknown.",
+          "The law works best when A is below about 1."
+        ] },
+        { "h": "Used for", "points": [
+          "Concentrations of colored compounds, metal complexes and proteins.",
+          "Following how fast a reaction goes, if a reactant or product is colored.",
+          "DNA concentration, measured at 260 nm."
+        ] }
+      ],
+      "quiz": [
+        { "q": "According to the Beer–Lambert law, absorbance is proportional to…", "a": "Concentration", "wrong": ["Temperature", "Volume of the cuvette", "Boiling point"] }
+      ]
+    },
+    {
+      "id": "ir", "name": "Infrared spectroscopy", "group": "Spectroscopy and structure",
+      "terms": ["infrared spectroscopy", "IR spectroscopy", "FTIR", "infrared spectrum", "wavenumber"],
+      "tagline": "Identifies the bonds and functional groups in a molecule from the infrared light it absorbs.",
+      "sections": [
+        { "h": "How it works", "points": [
+          "Infrared light makes the bonds in a molecule stretch and bend. Each type of bond absorbs at its own frequency.",
+          "The spectrum plots how much light passes through against wavenumber, in cm⁻¹, from about 4000 to 400. Absorptions appear as downward peaks.",
+          "Modern instruments are Fourier transform infrared (FTIR) spectrometers, which are fast and sensitive."
+        ] },
+        { "h": "Peaks worth knowing", "facts": [
+          ["O–H (alcohol)", "Broad, about 3200–3600 cm⁻¹."],
+          ["C–H", "About 2850–3000 cm⁻¹."],
+          ["C=O (carbonyl)", "Strong and sharp, about 1650–1750 cm⁻¹."],
+          ["C≡N and C≡C", "About 2100–2260 cm⁻¹."]
+        ] },
+        { "h": "Used for", "points": [
+          "Telling which functional groups a compound has, for example whether it contains a C=O.",
+          "Matching an unknown against a library, because the region below about 1500 cm⁻¹ is a unique fingerprint for each compound."
+        ] },
+        { "h": "Limits", "text": "It shows which groups are present, but not how they are connected, so it is used with NMR and mass spectrometry." }
+      ],
+      "quiz": [
+        { "q": "A strong, sharp peak at about 1700 cm⁻¹ in an IR spectrum usually shows…", "a": "A C=O (carbonyl) bond", "wrong": ["An O–H bond", "A C–H bond", "A C≡N bond"] }
+      ]
+    },
+    {
+      "id": "raman",
+      "name": "Raman spectroscopy",
+      "group": "Spectroscopy and structure",
+      "terms": [
+        "Raman spectroscopy",
+        "Raman scattering",
+        "Raman"
+      ],
+      "tagline": "Identifies molecules from the tiny change in color of laser light that bounces off them.",
+      "sections": [
+        {
+          "h": "How it works",
+          "points": [
+            "A laser of a single wavelength is shone on the sample. Almost all of the light scatters with the same wavelength.",
+            "About one photon in ten million loses or gains a little energy to the molecule, which sets one of its bonds vibrating. This is Raman scattering.",
+            "The spectrum plots the change in energy, called the Raman shift, in cm⁻¹. Each bond vibration gives a peak, so the pattern is a fingerprint of the molecule."
+          ]
+        },
+        {
+          "h": "Compared with infrared",
+          "points": [
+            "Both techniques measure molecular vibrations, but they follow different rules. Infrared needs the vibration to change the dipole of the molecule, and Raman needs it to change how easily the electron cloud is distorted.",
+            "As a result, bonds between identical atoms, such as C=C, S–S and N≡N, are strong in Raman and weak in infrared.",
+            "Water scatters Raman light only weakly, so water solutions are easy to study. Water absorbs infrared strongly."
+          ]
+        },
+        {
+          "h": "Strengths",
+          "points": [
+            "It needs little or no sample preparation, and can measure through glass or plastic.",
+            "It can be used with a microscope to map the chemistry of a small area."
+          ]
+        },
+        {
+          "h": "Limits",
+          "points": [
+            "The signal is weak, and fluorescence from the sample can swamp it.",
+            "The laser can heat or burn delicate samples."
+          ]
+        },
+        {
+          "h": "History",
+          "text": "The effect was discovered by C. V. Raman in 1928, and he won the Nobel Prize in Physics for it in 1930."
+        }
+      ],
+      "quiz": [
+        {
+          "q": "What does Raman spectroscopy measure?",
+          "a": "The energy change of scattered laser light",
+          "wrong": [
+            "The mass of ions",
+            "The heat released by burning",
+            "The voltage between electrodes"
+          ]
+        },
+        {
+          "q": "Why is Raman good for studying water solutions?",
+          "a": "Water scatters Raman light only weakly",
+          "wrong": [
+            "Water absorbs all the laser light",
+            "Water emits strong Raman signals",
+            "Water is not a molecule"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nmr", "name": "Nuclear magnetic resonance spectroscopy", "group": "Spectroscopy and structure",
+      "terms": ["nuclear magnetic resonance", "NMR", "NMR spectroscopy", "chemical shift", "MRI"],
+      "tagline": "Maps the carbon–hydrogen framework of a molecule using nuclei in a magnetic field.",
+      "sections": [
+        { "h": "How it works", "points": [
+          "Some nuclei, such as hydrogen-1 and carbon-13, act like tiny magnets. In a strong magnetic field they can absorb radio waves of a particular frequency.",
+          "The exact frequency depends on the surroundings of the nucleus, which tells you about the chemical environment of each atom.",
+          "The sample is dissolved in a solvent that has no hydrogen-1, such as deuterated chloroform, CDCl₃.",
+          "Results are plotted in parts per million (ppm) relative to a reference, tetramethylsilane, at 0 ppm."
+        ] },
+        { "h": "What a proton NMR spectrum tells you", "facts": [
+          ["Number of signals", "How many different kinds of hydrogen there are."],
+          ["Chemical shift", "Position of the signal in ppm, which shows what the hydrogen is attached to."],
+          ["Integration", "The area of a signal is proportional to the number of hydrogens it represents."],
+          ["Splitting", "A signal splits into n + 1 peaks when there are n hydrogens on neighboring atoms."]
+        ] },
+        { "h": "Used for", "points": [
+          "Working out the structure of organic compounds and checking their purity.",
+          "The same physics is used in MRI scanners in hospitals."
+        ] }
+      ],
+      "quiz": [
+        { "q": "A proton NMR signal that appears as a triplet (3 peaks) has how many hydrogens on the neighboring atoms?", "a": "2", "wrong": ["1", "3", "4"] },
+        { "q": "What is the reference compound set at 0 ppm in NMR?", "a": "Tetramethylsilane", "wrong": ["Deuterated chloroform", "Benzene", "Water"] }
+      ]
+    },
+    {
+      "id": "mass-spec", "name": "Mass spectrometry", "group": "Spectroscopy and structure",
+      "terms": ["mass spectrometry", "mass spectrometer", "mass spectrum", "mass-to-charge ratio", "molecular ion"],
+      "tagline": "Weighs molecules by turning them into ions and sorting the ions by mass.",
+      "sections": [
+        { "h": "How it works", "points": [
+          "The sample is ionized, for example by hitting it with electrons, which knocks one electron off to give a positive ion.",
+          "The ions are accelerated and sorted by their mass-to-charge ratio (m/z) using electric or magnetic fields.",
+          "A detector counts the ions at each m/z and a mass spectrum is plotted."
+        ] },
+        { "h": "Reading the spectrum", "points": [
+          "The peak at the highest m/z is usually the molecular ion, which gives the mass of the whole molecule.",
+          "Other peaks come from fragments, and the pattern of fragments helps work out the structure.",
+          "Isotopes show up as extra peaks. Chlorine gives two peaks two units apart in a ratio of about 3 to 1, and bromine gives two in a ratio of about 1 to 1."
+        ] },
+        { "h": "Used for", "points": [
+          "Identifying unknown compounds and measuring their molecular mass.",
+          "Detecting drugs, pollutants and traces of explosives.",
+          "Measuring isotope ratios, for example in radiocarbon dating.",
+          "Sequencing proteins, using gentle ionization methods such as electrospray."
+        ] }
+      ],
+      "quiz": [
+        { "q": "What does a mass spectrometer separate ions by?", "a": "Mass-to-charge ratio", "wrong": ["Boiling point", "Color", "Solubility"] }
+      ]
+    },
+    {
+      "id": "aas", "name": "Atomic absorption spectroscopy", "group": "Spectroscopy and structure",
+      "terms": ["atomic absorption spectroscopy", "atomic absorption", "AAS", "hollow-cathode lamp"],
+      "tagline": "Measures the amount of a metal in a sample from the light its atoms absorb.",
+      "sections": [
+        { "h": "How it works", "points": [
+          "The sample is turned into free atoms by spraying it into a flame, or by heating it in a small graphite tube.",
+          "A hollow-cathode lamp made of the metal being measured shines light of exactly the wavelength that metal absorbs.",
+          "The atoms in the flame absorb some of that light, and the amount absorbed is proportional to how many atoms there are.",
+          "A calibration curve from standards of known concentration converts the absorbance to a concentration."
+        ] },
+        { "h": "Used for", "points": [
+          "Trace metals in water, soil, food and blood, such as lead, mercury, copper and zinc.",
+          "Quality control in metal alloys."
+        ] },
+        { "h": "Limits", "text": "It measures one element at a time and needs a different lamp for each. Methods such as ICP-OES can measure many elements at once." }
+      ],
+      "quiz": [
+        { "q": "What does the lamp in atomic absorption spectroscopy contain?", "a": "The metal being measured", "wrong": ["Hydrogen gas", "A mixture of all metals", "The sample"] }
+      ]
+    },
+    {
+      "id": "icp-oes",
+      "name": "ICP-OES and ICP-MS",
+      "group": "Spectroscopy and structure",
+      "terms": [
+        "ICP-OES",
+        "ICP-MS",
+        "inductively coupled plasma",
+        "ICP",
+        "optical emission spectroscopy"
+      ],
+      "tagline": "Measures many elements at once by exciting them in a plasma hotter than the surface of the Sun.",
+      "sections": [
+        {
+          "h": "How it works",
+          "points": [
+            "The liquid sample is turned into a fine mist and carried by argon gas into a plasma, which is a gas heated by radio-frequency energy to roughly 6000–10000 K.",
+            "In the plasma, every element is broken into atoms and excited. As the atoms relax they give off light at wavelengths that are unique to each element.",
+            "Optical emission spectroscopy (OES) measures that light. The brightness of each wavelength is proportional to the amount of that element.",
+            "In ICP-MS the plasma is used to make ions, which are then counted by a mass spectrometer. It reaches even lower detection limits, down to parts per trillion."
+          ]
+        },
+        {
+          "h": "Compared with atomic absorption",
+          "text": "Atomic absorption measures one element at a time using a lamp for that metal. An ICP instrument measures dozens of elements in a single run and works over a wide range of concentrations."
+        },
+        {
+          "h": "Used for",
+          "points": [
+            "Trace metals in drinking water, soil, food and blood.",
+            "Checking the composition of alloys and the purity of materials.",
+            "Geology, and tracking pollution."
+          ]
+        },
+        {
+          "h": "Limits",
+          "text": "Samples usually have to be dissolved first, often in acid. The instruments are expensive and use a lot of argon."
+        }
+      ],
+      "quiz": [
+        {
+          "q": "What is the main advantage of ICP-OES over atomic absorption?",
+          "a": "It measures many elements at the same time",
+          "wrong": [
+            "It needs no sample preparation",
+            "It works on solid samples without dissolving them",
+            "It uses no gas"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "xrd", "name": "X-ray crystallography", "group": "Spectroscopy and structure",
+      "terms": ["X-ray crystallography", "X-ray diffraction", "XRD", "Bragg's law", "diffraction"],
+      "tagline": "Finds the positions of atoms in a crystal from the pattern it makes with X-rays.",
+      "sections": [
+        { "h": "How it works", "points": [
+          "A crystal has its atoms in a regular repeating array. When an X-ray beam hits it, the atoms scatter the X-rays, and the waves reinforce each other only in certain directions.",
+          "Bragg's law gives the condition: nλ = 2d sinθ, where λ is the wavelength, d the spacing between planes of atoms and θ the angle.",
+          "The crystal is rotated while a detector records the pattern of spots.",
+          "Computers turn the pattern into a map of electron density, from which the positions of the atoms are worked out."
+        ] },
+        { "h": "Used for", "points": [
+          "Exact bond lengths and angles in molecules.",
+          "The structures of proteins and DNA. The structure of DNA was worked out using X-ray patterns, including Rosalind Franklin's Photo 51.",
+          "Identifying minerals and other crystalline solids by powder X-ray diffraction."
+        ] },
+        { "h": "Limits", "text": "It needs a good-quality single crystal, which can be very hard to grow. It shows hydrogen atoms poorly, because they scatter X-rays weakly." }
+      ],
+      "quiz": [
+        { "q": "What does Bragg's law relate?", "a": "The X-ray wavelength, the spacing of the atomic planes and the angle of diffraction", "wrong": ["The mass and charge of an ion", "The absorbance and the concentration", "The pressure and volume of a gas"] }
+      ]
+    },
+
+    {
+      "id": "afm", "name": "Atomic force microscopy", "group": "Microscopy and surfaces",
+      "terms": ["atomic force microscopy", "atomic force microscope", "AFM", "cantilever"],
+      "tagline": "Feels a surface with an extremely sharp tip to build a three-dimensional map of it.",
+      "sections": [
+        { "h": "How it works", "points": [
+          "A very sharp tip, with a point only a few nanometres across, is mounted on a flexible arm called a cantilever.",
+          "The tip is brought extremely close to the surface and scanned across it. Forces between the tip and the surface bend the cantilever.",
+          "A laser is reflected from the back of the cantilever onto a photodiode, so even tiny bends are detected.",
+          "A feedback loop moves the sample up and down to keep the bending constant, and these movements are recorded as the height of the surface."
+        ] },
+        { "h": "Modes", "facts": [
+          ["Contact mode", "The tip drags across the surface. It is simple, but it can damage soft samples."],
+          ["Tapping mode", "The cantilever oscillates and only touches the surface briefly, which is gentler."]
+        ] },
+        { "h": "Strengths", "points": [
+          "It works on almost any surface, including insulators and biological samples, unlike scanning tunneling microscopy.",
+          "It can run in air, in liquid or in vacuum.",
+          "It resolves features down to the nanometre scale, and heights to a fraction of a nanometre."
+        ] },
+        { "h": "Limits", "text": "It scans slowly, covers only a small area, and the shape of the tip can distort the image. It was invented in 1986 by Gerd Binnig, Calvin Quate and Christoph Gerber." }
+      ],
+      "quiz": [
+        { "q": "How does an AFM detect the bending of its cantilever?", "a": "By reflecting a laser off it onto a photodiode", "wrong": ["By measuring a tunneling current", "By using an electron beam", "By measuring its temperature"] },
+        { "q": "What is one advantage of AFM over scanning tunneling microscopy?", "a": "It works on non-conducting samples", "wrong": ["It works only in vacuum", "It needs no tip", "It uses X-rays"] }
+      ]
+    },
+    {
+      "id": "stm", "name": "Scanning tunneling microscopy", "group": "Microscopy and surfaces",
+      "terms": ["scanning tunneling microscopy", "scanning tunneling microscope", "STM", "quantum tunneling", "tunneling current"],
+      "tagline": "Images individual atoms by measuring the tiny current that jumps between a tip and a surface.",
+      "sections": [
+        { "h": "How it works", "points": [
+          "An atomically sharp metal tip is brought less than a nanometre from a conducting surface, without touching it.",
+          "A small voltage is applied. Electrons can cross the gap by quantum tunneling, giving a tiny current.",
+          "The current changes extremely quickly with the size of the gap, so it is very sensitive to the height of the surface.",
+          "The tip is scanned across the surface with piezoelectric controls, and the height is recorded to build an image of the atoms."
+        ] },
+        { "h": "Used for", "points": [
+          "Imaging atoms on metal and semiconductor surfaces.",
+          "Moving single atoms. In 1989 IBM researchers spelled out the company's name with 35 xenon atoms."
+        ] },
+        { "h": "Limits", "text": "The sample must conduct electricity, and it usually needs to be in vacuum and very clean. It was invented in 1981 by Gerd Binnig and Heinrich Rohrer, who won the 1986 Nobel Prize in Physics." }
+      ],
+      "quiz": [
+        { "q": "What does a scanning tunneling microscope measure?", "a": "A tunneling current between a tip and a surface", "wrong": ["The force on a cantilever", "Scattered X-rays", "Absorbed ultraviolet light"] }
+      ]
+    },
+    {
+      "id": "sem", "name": "Scanning electron microscopy", "group": "Microscopy and surfaces",
+      "terms": ["scanning electron microscopy", "scanning electron microscope", "SEM", "secondary electrons"],
+      "tagline": "Scans a beam of electrons over a surface to make a detailed three-dimensional-looking image.",
+      "sections": [
+        { "h": "How it works", "points": [
+          "A narrow beam of electrons is scanned across the sample in a vacuum.",
+          "The beam knocks secondary electrons out of the surface, and a detector counts them at each point. More electrons escape from edges and tips, so these look bright.",
+          "The count at each point builds up an image with a great depth of field, which gives it a three-dimensional look."
+        ] },
+        { "h": "Details", "points": [
+          "It magnifies from about 10 times to several hundred thousand times, far beyond a light microscope.",
+          "Samples that do not conduct are coated with a very thin layer of gold or carbon so charge does not build up.",
+          "Many instruments also measure the X-rays given off, which reveals which elements are present (energy-dispersive X-ray spectroscopy)."
+        ] },
+        { "h": "Used for", "text": "Looking at the surface of materials, fractures, catalysts, nanoparticles, insects and pollen." }
+      ],
+      "quiz": [
+        { "q": "What does a scanning electron microscope detect to form an image?", "a": "Secondary electrons knocked from the surface", "wrong": ["Visible light reflected from the sample", "Electrons passing through the sample", "The force on a tip"] }
+      ]
+    },
+    {
+      "id": "tem", "name": "Transmission electron microscopy", "group": "Microscopy and surfaces",
+      "terms": ["transmission electron microscopy", "transmission electron microscope", "TEM"],
+      "tagline": "Sends electrons through an extremely thin sample to see its inside at near-atomic detail.",
+      "sections": [
+        { "h": "How it works", "points": [
+          "A high-energy electron beam passes through a sample that is thinner than about 100 nm.",
+          "Denser or thicker regions scatter more electrons and look darker in the image.",
+          "Magnetic lenses focus the electrons, and a screen or camera records the image."
+        ] },
+        { "h": "Details", "points": [
+          "It can resolve details smaller than 0.1 nm, which is enough to see rows of atoms.",
+          "Preparing a sample thin enough takes a lot of work, for example slicing it with a diamond knife.",
+          "The sample must survive a vacuum and the electron beam."
+        ] },
+        { "h": "Compared with SEM", "text": "A scanning electron microscope shows the surface. A transmission electron microscope shows the inside, and gives higher resolution, but the samples are much harder to prepare." }
+      ],
+      "quiz": [
+        { "q": "What is the main difference between TEM and SEM?", "a": "TEM sends electrons through the sample, SEM scans a surface", "wrong": ["TEM uses light and SEM uses electrons", "TEM works only on liquids", "SEM gives higher resolution than TEM"] }
+      ]
+    },
+
+    {
+      "id": "thermal-analysis", "name": "Thermal analysis (TGA and DSC)", "group": "Thermal and electrochemical methods",
+      "terms": ["thermal analysis", "thermogravimetric analysis", "TGA", "differential scanning calorimetry", "DSC", "glass transition"],
+      "tagline": "Tracks how a sample's mass or heat flow changes as it is heated.",
+      "sections": [
+        { "h": "Thermogravimetric analysis (TGA)", "text": "A sample sits on a very sensitive balance in a furnace that heats at a steady rate. The mass is recorded against temperature.", "points": [
+          "A drop in mass shows that something is lost, such as water at about 100 °C, or a decomposition reaction.",
+          "It tells you how much moisture a material holds and at what temperature it breaks down."
+        ] },
+        { "h": "Differential scanning calorimetry (DSC)", "text": "A sample and an empty reference pan are heated together, and the instrument measures how much extra heat the sample needs or releases.", "points": [
+          "Melting is an endothermic peak, and crystallization is an exothermic peak.",
+          "A step in the baseline shows the glass transition of a polymer, where it changes from a hard glass to a rubbery state.",
+          "The area of a peak gives the enthalpy change."
+        ] },
+        { "h": "Used for", "text": "Polymers, medicines, food and building materials, to check purity, stability and how they behave when heated." }
+      ],
+      "quiz": [
+        { "q": "What does thermogravimetric analysis (TGA) measure?", "a": "Mass as the temperature changes", "wrong": ["Heat flow compared with a reference", "Light absorbed by a solution", "The mass-to-charge ratio of ions"] },
+        { "q": "In DSC, melting appears as what kind of peak?", "a": "An endothermic peak", "wrong": ["An exothermic peak", "A sharp mass loss", "A baseline that does not change"] }
+      ]
+    },
+    {
+      "id": "cyclic-voltammetry", "name": "Cyclic voltammetry", "group": "Thermal and electrochemical methods",
+      "terms": ["cyclic voltammetry", "voltammogram", "working electrode", "reference electrode"],
+      "tagline": "Sweeps the voltage up and back down to see when a substance gains or loses electrons.",
+      "sections": [
+        { "h": "How it works", "points": [
+          "A three-electrode cell is used: a working electrode where the reaction is studied, a reference electrode that sets a stable potential, and a counter electrode that completes the circuit.",
+          "The voltage of the working electrode is swept steadily up to a limit and then back down, while the current is recorded.",
+          "When the voltage reaches the value at which the substance can be oxidized, the current rises to a peak and then falls as it is used up near the electrode. On the way back, the reverse reduction gives a peak in the opposite direction."
+        ] },
+        { "h": "Reading the voltammogram", "points": [
+          "The position of the peaks gives the potential of the redox reaction.",
+          "For a fast, reversible one-electron process the two peaks are about 59 mV apart at 25 °C.",
+          "The height of the peaks is proportional to the concentration and increases with the scan speed."
+        ] },
+        { "h": "Used for", "points": [
+          "Measuring redox potentials of new compounds.",
+          "Studying reaction mechanisms and testing catalysts, batteries and fuel cell materials."
+        ] }
+      ],
+      "quiz": [
+        { "q": "In cyclic voltammetry, what is recorded as the voltage is swept?", "a": "Current", "wrong": ["Mass", "Absorbance", "Temperature"] }
+      ]
+    },
+    {
+      "id": "ph-meter", "name": "pH meter and potentiometry", "group": "Thermal and electrochemical methods",
+      "terms": ["pH meter", "potentiometry", "glass electrode"],
+      "tagline": "Measures pH electronically using the voltage between two electrodes.",
+      "sections": [
+        { "h": "How it works", "points": [
+          "A thin glass bulb on the pH electrode develops a voltage that depends on the hydrogen ion concentration of the solution. A reference electrode completes the circuit.",
+          "At 25 °C the voltage changes by about 59 mV for each unit of pH.",
+          "The meter converts the voltage to a pH reading."
+        ] },
+        { "h": "Using it properly", "points": [
+          "Calibrate with buffer solutions of known pH, such as pH 4, 7 and 10. A buffer is a solution that resists changes in pH.",
+          "Rinse the electrode between samples and never let the glass bulb dry out.",
+          "Calibrate again often, because the response drifts."
+        ] },
+        { "h": "Used for", "points": [
+          "Measuring the pH of water, soil, food and blood.",
+          "Following a titration by plotting pH against the volume added, which gives a smooth curve with the equivalence point at the steepest part. This works even when there is no color change."
+        ] },
+        { "h": "Potentiometry in general", "text": "The same approach, measuring the voltage between electrodes, is used with other ion-selective electrodes to measure ions such as fluoride, sodium and calcium." }
+      ],
+      "quiz": [
+        { "q": "How is a pH meter calibrated?", "a": "With buffer solutions of known pH", "wrong": ["With pure water only", "With a strong acid only", "It does not need calibration"] }
+      ]
+    }
+  ]
+}

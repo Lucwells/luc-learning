@@ -1,0 +1,32 @@
+{
+  "decks": [
+    "chemistry/periodic-table.json",
+    "chemistry/reaction-types.json",
+    "chemistry/key-concepts.json",
+    "chemistry/general/stoichiometry.json",
+    "chemistry/general/gases.json",
+    "chemistry/general/thermochemistry.json",
+    "chemistry/general/kinetics.json",
+    "chemistry/general/equilibrium-acids.json",
+    "chemistry/general/electrochemistry.json",
+    "chemistry/general/atomic-structure.json",
+    "chemistry/general/bonding.json",
+    "chemistry/general/solutions-phases.json",
+    "chemistry/organic/foundations.json",
+    "chemistry/organic/advanced-reactions.json",
+    "chemistry/biochemistry.json",
+    "chemistry/inorganic/foundations.json",
+    "chemistry/inorganic/advanced.json",
+    "chemistry/physical/quantum-mechanics.json",
+    "chemistry/physical/thermodynamics.json",
+    "chemistry/physical/kinetics-dynamics.json",
+    "chemistry/nuclear-chemistry.json",
+    "chemistry/environmental-chemistry.json",
+    "chemistry/industrial-processes.json",
+    "chemistry/experimental-techniques.json",
+    "chemistry/instrumental-analysis.json",
+    "chemistry/labs/physical-chemistry-lab.json",
+    "chemistry/labs/organic-chemistry-lab.json",
+    "geography/countries.json"
+  ]
+}

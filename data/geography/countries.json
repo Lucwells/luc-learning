@@ -1,0 +1,1435 @@
+{
+  "title": "Countries of the World",
+  "description": "195 countries: 193 UN member states plus Vatican City and Palestine. Capitals and continents.",
+  "category": [
+    "Geography",
+    "Countries"
+  ],
+  "idField": "name",
+  "modes": [
+    {
+      "id": "country-capital",
+      "label": "Country → Capital",
+      "question": "What is the capital of {name}?",
+      "answer": "capital"
+    },
+    {
+      "id": "capital-country",
+      "label": "Capital → Country",
+      "question": "{capital} is the capital of which country?",
+      "answer": "name"
+    },
+    {
+      "id": "country-continent",
+      "label": "Country → Continent",
+      "question": "Which continent is {name} in?",
+      "answer": "continent",
+      "mcOnly": true
+    }
+  ],
+  "items": [
+    {
+      "name": "Afghanistan",
+      "capital": "Kabul",
+      "continent": "Asia"
+    },
+    {
+      "name": "Albania",
+      "capital": "Tirana",
+      "continent": "Europe"
+    },
+    {
+      "name": "Algeria",
+      "capital": "Algiers",
+      "continent": "Africa"
+    },
+    {
+      "name": "Andorra",
+      "capital": "Andorra la Vella",
+      "continent": "Europe"
+    },
+    {
+      "name": "Angola",
+      "capital": "Luanda",
+      "continent": "Africa"
+    },
+    {
+      "name": "Antigua and Barbuda",
+      "capital": "Saint John's",
+      "continent": "North America",
+      "alts": {
+        "name": [
+          "Antigua"
+        ],
+        "capital": [
+          "St John's",
+          "St. John's"
+        ]
+      }
+    },
+    {
+      "name": "Argentina",
+      "capital": "Buenos Aires",
+      "continent": "South America"
+    },
+    {
+      "name": "Armenia",
+      "capital": "Yerevan",
+      "continent": "Asia"
+    },
+    {
+      "name": "Australia",
+      "capital": "Canberra",
+      "continent": "Oceania"
+    },
+    {
+      "name": "Austria",
+      "capital": "Vienna",
+      "continent": "Europe",
+      "alts": {
+        "capital": [
+          "Wien"
+        ]
+      }
+    },
+    {
+      "name": "Azerbaijan",
+      "capital": "Baku",
+      "continent": "Asia"
+    },
+    {
+      "name": "Bahamas",
+      "capital": "Nassau",
+      "continent": "North America",
+      "alts": {
+        "name": [
+          "The Bahamas"
+        ]
+      }
+    },
+    {
+      "name": "Bahrain",
+      "capital": "Manama",
+      "continent": "Asia"
+    },
+    {
+      "name": "Bangladesh",
+      "capital": "Dhaka",
+      "continent": "Asia",
+      "alts": {
+        "capital": [
+          "Dacca"
+        ]
+      }
+    },
+    {
+      "name": "Barbados",
+      "capital": "Bridgetown",
+      "continent": "North America"
+    },
+    {
+      "name": "Belarus",
+      "capital": "Minsk",
+      "continent": "Europe"
+    },
+    {
+      "name": "Belgium",
+      "capital": "Brussels",
+      "continent": "Europe",
+      "alts": {
+        "capital": [
+          "Bruxelles"
+        ]
+      }
+    },
+    {
+      "name": "Belize",
+      "capital": "Belmopan",
+      "continent": "North America"
+    },
+    {
+      "name": "Benin",
+      "capital": "Porto-Novo",
+      "continent": "Africa",
+      "alts": {
+        "capital": [
+          "Porto Novo"
+        ]
+      }
+    },
+    {
+      "name": "Bhutan",
+      "capital": "Thimphu",
+      "continent": "Asia"
+    },
+    {
+      "name": "Bolivia",
+      "capital": "Sucre",
+      "continent": "South America",
+      "alts": {
+        "capital": [
+          "La Paz"
+        ]
+      }
+    },
+    {
+      "name": "Bosnia and Herzegovina",
+      "capital": "Sarajevo",
+      "continent": "Europe",
+      "alts": {
+        "name": [
+          "Bosnia"
+        ]
+      }
+    },
+    {
+      "name": "Botswana",
+      "capital": "Gaborone",
+      "continent": "Africa"
+    },
+    {
+      "name": "Brazil",
+      "capital": "Brasília",
+      "continent": "South America"
+    },
+    {
+      "name": "Brunei",
+      "capital": "Bandar Seri Begawan",
+      "continent": "Asia"
+    },
+    {
+      "name": "Bulgaria",
+      "capital": "Sofia",
+      "continent": "Europe"
+    },
+    {
+      "name": "Burkina Faso",
+      "capital": "Ouagadougou",
+      "continent": "Africa"
+    },
+    {
+      "name": "Burundi",
+      "capital": "Gitega",
+      "continent": "Africa",
+      "alts": {
+        "capital": [
+          "Bujumbura"
+        ]
+      }
+    },
+    {
+      "name": "Cabo Verde",
+      "capital": "Praia",
+      "continent": "Africa",
+      "alts": {
+        "name": [
+          "Cape Verde"
+        ]
+      }
+    },
+    {
+      "name": "Cambodia",
+      "capital": "Phnom Penh",
+      "continent": "Asia"
+    },
+    {
+      "name": "Cameroon",
+      "capital": "Yaoundé",
+      "continent": "Africa",
+      "alts": {
+        "capital": [
+          "Yaounde"
+        ]
+      }
+    },
+    {
+      "name": "Canada",
+      "capital": "Ottawa",
+      "continent": "North America"
+    },
+    {
+      "name": "Central African Republic",
+      "capital": "Bangui",
+      "continent": "Africa"
+    },
+    {
+      "name": "Chad",
+      "capital": "N'Djamena",
+      "continent": "Africa",
+      "alts": {
+        "capital": [
+          "Ndjamena"
+        ]
+      }
+    },
+    {
+      "name": "Chile",
+      "capital": "Santiago",
+      "continent": "South America"
+    },
+    {
+      "name": "China",
+      "capital": "Beijing",
+      "continent": "Asia",
+      "alts": {
+        "capital": [
+          "Peking"
+        ]
+      }
+    },
+    {
+      "name": "Colombia",
+      "capital": "Bogotá",
+      "continent": "South America",
+      "alts": {
+        "capital": [
+          "Bogota"
+        ]
+      }
+    },
+    {
+      "name": "Comoros",
+      "capital": "Moroni",
+      "continent": "Africa"
+    },
+    {
+      "name": "Democratic Republic of the Congo",
+      "capital": "Kinshasa",
+      "continent": "Africa",
+      "alts": {
+        "name": [
+          "DR Congo",
+          "DRC",
+          "Congo-Kinshasa"
+        ]
+      }
+    },
+    {
+      "name": "Republic of the Congo",
+      "capital": "Brazzaville",
+      "continent": "Africa",
+      "alts": {
+        "name": [
+          "Congo",
+          "Congo-Brazzaville"
+        ]
+      }
+    },
+    {
+      "name": "Costa Rica",
+      "capital": "San José",
+      "continent": "North America",
+      "alts": {
+        "capital": [
+          "San Jose"
+        ]
+      }
+    },
+    {
+      "name": "Côte d'Ivoire",
+      "capital": "Yamoussoukro",
+      "continent": "Africa",
+      "alts": {
+        "name": [
+          "Ivory Coast",
+          "Cote d'Ivoire"
+        ],
+        "capital": [
+          "Abidjan"
+        ]
+      }
+    },
+    {
+      "name": "Croatia",
+      "capital": "Zagreb",
+      "continent": "Europe"
+    },
+    {
+      "name": "Cuba",
+      "capital": "Havana",
+      "continent": "North America",
+      "alts": {
+        "capital": [
+          "La Habana"
+        ]
+      }
+    },
+    {
+      "name": "Cyprus",
+      "capital": "Nicosia",
+      "continent": "Europe"
+    },
+    {
+      "name": "Czechia",
+      "capital": "Prague",
+      "continent": "Europe",
+      "alts": {
+        "name": [
+          "Czech Republic"
+        ],
+        "capital": [
+          "Praha"
+        ]
+      }
+    },
+    {
+      "name": "Denmark",
+      "capital": "Copenhagen",
+      "continent": "Europe",
+      "alts": {
+        "capital": [
+          "København"
+        ]
+      }
+    },
+    {
+      "name": "Djibouti",
+      "capital": "Djibouti",
+      "continent": "Africa",
+      "alts": {
+        "capital": [
+          "Djibouti City"
+        ]
+      }
+    },
+    {
+      "name": "Dominica",
+      "capital": "Roseau",
+      "continent": "North America"
+    },
+    {
+      "name": "Dominican Republic",
+      "capital": "Santo Domingo",
+      "continent": "North America"
+    },
+    {
+      "name": "Ecuador",
+      "capital": "Quito",
+      "continent": "South America"
+    },
+    {
+      "name": "Egypt",
+      "capital": "Cairo",
+      "continent": "Africa"
+    },
+    {
+      "name": "El Salvador",
+      "capital": "San Salvador",
+      "continent": "North America"
+    },
+    {
+      "name": "Equatorial Guinea",
+      "capital": "Malabo",
+      "continent": "Africa",
+      "alts": {
+        "capital": [
+          "Ciudad de la Paz"
+        ]
+      }
+    },
+    {
+      "name": "Eritrea",
+      "capital": "Asmara",
+      "continent": "Africa"
+    },
+    {
+      "name": "Estonia",
+      "capital": "Tallinn",
+      "continent": "Europe"
+    },
+    {
+      "name": "Eswatini",
+      "capital": "Mbabane",
+      "continent": "Africa",
+      "alts": {
+        "name": [
+          "Swaziland"
+        ],
+        "capital": [
+          "Lobamba"
+        ]
+      }
+    },
+    {
+      "name": "Ethiopia",
+      "capital": "Addis Ababa",
+      "continent": "Africa"
+    },
+    {
+      "name": "Fiji",
+      "capital": "Suva",
+      "continent": "Oceania"
+    },
+    {
+      "name": "Finland",
+      "capital": "Helsinki",
+      "continent": "Europe"
+    },
+    {
+      "name": "France",
+      "capital": "Paris",
+      "continent": "Europe"
+    },
+    {
+      "name": "Gabon",
+      "capital": "Libreville",
+      "continent": "Africa"
+    },
+    {
+      "name": "Gambia",
+      "capital": "Banjul",
+      "continent": "Africa",
+      "alts": {
+        "name": [
+          "The Gambia"
+        ]
+      }
+    },
+    {
+      "name": "Georgia",
+      "capital": "Tbilisi",
+      "continent": "Asia"
+    },
+    {
+      "name": "Germany",
+      "capital": "Berlin",
+      "continent": "Europe"
+    },
+    {
+      "name": "Ghana",
+      "capital": "Accra",
+      "continent": "Africa"
+    },
+    {
+      "name": "Greece",
+      "capital": "Athens",
+      "continent": "Europe"
+    },
+    {
+      "name": "Grenada",
+      "capital": "St. George's",
+      "continent": "North America",
+      "alts": {
+        "capital": [
+          "Saint George's",
+          "St George's",
+          "St Georges"
+        ]
+      }
+    },
+    {
+      "name": "Guatemala",
+      "capital": "Guatemala City",
+      "continent": "North America",
+      "alts": {
+        "capital": [
+          "Ciudad de Guatemala"
+        ]
+      }
+    },
+    {
+      "name": "Guinea",
+      "capital": "Conakry",
+      "continent": "Africa"
+    },
+    {
+      "name": "Guinea-Bissau",
+      "capital": "Bissau",
+      "continent": "Africa",
+      "alts": {
+        "name": [
+          "Guinea Bissau"
+        ]
+      }
+    },
+    {
+      "name": "Guyana",
+      "capital": "Georgetown",
+      "continent": "South America"
+    },
+    {
+      "name": "Haiti",
+      "capital": "Port-au-Prince",
+      "continent": "North America",
+      "alts": {
+        "capital": [
+          "Port au Prince"
+        ]
+      }
+    },
+    {
+      "name": "Honduras",
+      "capital": "Tegucigalpa",
+      "continent": "North America"
+    },
+    {
+      "name": "Hungary",
+      "capital": "Budapest",
+      "continent": "Europe"
+    },
+    {
+      "name": "Iceland",
+      "capital": "Reykjavík",
+      "continent": "Europe",
+      "alts": {
+        "capital": [
+          "Reykjavik"
+        ]
+      }
+    },
+    {
+      "name": "India",
+      "capital": "New Delhi",
+      "continent": "Asia",
+      "alts": {
+        "capital": [
+          "Delhi"
+        ]
+      }
+    },
+    {
+      "name": "Indonesia",
+      "capital": "Jakarta",
+      "continent": "Asia",
+      "alts": {
+        "capital": [
+          "Nusantara"
+        ]
+      }
+    },
+    {
+      "name": "Iran",
+      "capital": "Tehran",
+      "continent": "Asia",
+      "alts": {
+        "capital": [
+          "Teheran"
+        ]
+      }
+    },
+    {
+      "name": "Iraq",
+      "capital": "Baghdad",
+      "continent": "Asia"
+    },
+    {
+      "name": "Ireland",
+      "capital": "Dublin",
+      "continent": "Europe"
+    },
+    {
+      "name": "Israel",
+      "capital": "Jerusalem",
+      "continent": "Asia"
+    },
+    {
+      "name": "Italy",
+      "capital": "Rome",
+      "continent": "Europe",
+      "alts": {
+        "capital": [
+          "Roma"
+        ]
+      }
+    },
+    {
+      "name": "Jamaica",
+      "capital": "Kingston",
+      "continent": "North America"
+    },
+    {
+      "name": "Japan",
+      "capital": "Tokyo",
+      "continent": "Asia"
+    },
+    {
+      "name": "Jordan",
+      "capital": "Amman",
+      "continent": "Asia"
+    },
+    {
+      "name": "Kazakhstan",
+      "capital": "Astana",
+      "continent": "Asia",
+      "alts": {
+        "capital": [
+          "Nur-Sultan",
+          "Nursultan"
+        ]
+      }
+    },
+    {
+      "name": "Kenya",
+      "capital": "Nairobi",
+      "continent": "Africa"
+    },
+    {
+      "name": "Kiribati",
+      "capital": "Tarawa",
+      "continent": "Oceania",
+      "alts": {
+        "capital": [
+          "South Tarawa"
+        ]
+      }
+    },
+    {
+      "name": "Kuwait",
+      "capital": "Kuwait City",
+      "continent": "Asia"
+    },
+    {
+      "name": "Kyrgyzstan",
+      "capital": "Bishkek",
+      "continent": "Asia"
+    },
+    {
+      "name": "Laos",
+      "capital": "Vientiane",
+      "continent": "Asia"
+    },
+    {
+      "name": "Latvia",
+      "capital": "Riga",
+      "continent": "Europe"
+    },
+    {
+      "name": "Lebanon",
+      "capital": "Beirut",
+      "continent": "Asia"
+    },
+    {
+      "name": "Lesotho",
+      "capital": "Maseru",
+      "continent": "Africa"
+    },
+    {
+      "name": "Liberia",
+      "capital": "Monrovia",
+      "continent": "Africa"
+    },
+    {
+      "name": "Libya",
+      "capital": "Tripoli",
+      "continent": "Africa"
+    },
+    {
+      "name": "Liechtenstein",
+      "capital": "Vaduz",
+      "continent": "Europe"
+    },
+    {
+      "name": "Lithuania",
+      "capital": "Vilnius",
+      "continent": "Europe"
+    },
+    {
+      "name": "Luxembourg",
+      "capital": "Luxembourg",
+      "continent": "Europe",
+      "alts": {
+        "capital": [
+          "Luxembourg City"
+        ]
+      }
+    },
+    {
+      "name": "Madagascar",
+      "capital": "Antananarivo",
+      "continent": "Africa"
+    },
+    {
+      "name": "Malawi",
+      "capital": "Lilongwe",
+      "continent": "Africa"
+    },
+    {
+      "name": "Malaysia",
+      "capital": "Kuala Lumpur",
+      "continent": "Asia"
+    },
+    {
+      "name": "Maldives",
+      "capital": "Malé",
+      "continent": "Asia",
+      "alts": {
+        "capital": [
+          "Male"
+        ]
+      }
+    },
+    {
+      "name": "Mali",
+      "capital": "Bamako",
+      "continent": "Africa"
+    },
+    {
+      "name": "Malta",
+      "capital": "Valletta",
+      "continent": "Europe"
+    },
+    {
+      "name": "Marshall Islands",
+      "capital": "Majuro",
+      "continent": "Oceania"
+    },
+    {
+      "name": "Mauritania",
+      "capital": "Nouakchott",
+      "continent": "Africa"
+    },
+    {
+      "name": "Mauritius",
+      "capital": "Port Louis",
+      "continent": "Africa"
+    },
+    {
+      "name": "Mexico",
+      "capital": "Mexico City",
+      "continent": "North America",
+      "alts": {
+        "capital": [
+          "Ciudad de México"
+        ]
+      }
+    },
+    {
+      "name": "Micronesia",
+      "capital": "Palikir",
+      "continent": "Oceania",
+      "alts": {
+        "name": [
+          "Federated States of Micronesia"
+        ]
+      }
+    },
+    {
+      "name": "Moldova",
+      "capital": "Chișinău",
+      "continent": "Europe",
+      "alts": {
+        "capital": [
+          "Chisinau"
+        ]
+      }
+    },
+    {
+      "name": "Monaco",
+      "capital": "Monaco",
+      "continent": "Europe"
+    },
+    {
+      "name": "Mongolia",
+      "capital": "Ulaanbaatar",
+      "continent": "Asia",
+      "alts": {
+        "capital": [
+          "Ulan Bator"
+        ]
+      }
+    },
+    {
+      "name": "Montenegro",
+      "capital": "Podgorica",
+      "continent": "Europe"
+    },
+    {
+      "name": "Morocco",
+      "capital": "Rabat",
+      "continent": "Africa"
+    },
+    {
+      "name": "Mozambique",
+      "capital": "Maputo",
+      "continent": "Africa"
+    },
+    {
+      "name": "Myanmar",
+      "capital": "Naypyidaw",
+      "continent": "Asia",
+      "alts": {
+        "name": [
+          "Burma"
+        ],
+        "capital": [
+          "Nay Pyi Taw",
+          "Yangon",
+          "Rangoon"
+        ]
+      }
+    },
+    {
+      "name": "Namibia",
+      "capital": "Windhoek",
+      "continent": "Africa"
+    },
+    {
+      "name": "Nauru",
+      "capital": "Yaren",
+      "continent": "Oceania"
+    },
+    {
+      "name": "Nepal",
+      "capital": "Kathmandu",
+      "continent": "Asia"
+    },
+    {
+      "name": "Netherlands",
+      "capital": "Amsterdam",
+      "continent": "Europe",
+      "alts": {
+        "name": [
+          "Holland"
+        ]
+      }
+    },
+    {
+      "name": "New Zealand",
+      "capital": "Wellington",
+      "continent": "Oceania"
+    },
+    {
+      "name": "Nicaragua",
+      "capital": "Managua",
+      "continent": "North America"
+    },
+    {
+      "name": "Niger",
+      "capital": "Niamey",
+      "continent": "Africa"
+    },
+    {
+      "name": "Nigeria",
+      "capital": "Abuja",
+      "continent": "Africa"
+    },
+    {
+      "name": "North Korea",
+      "capital": "Pyongyang",
+      "continent": "Asia"
+    },
+    {
+      "name": "North Macedonia",
+      "capital": "Skopje",
+      "continent": "Europe",
+      "alts": {
+        "name": [
+          "Macedonia"
+        ]
+      }
+    },
+    {
+      "name": "Norway",
+      "capital": "Oslo",
+      "continent": "Europe"
+    },
+    {
+      "name": "Oman",
+      "capital": "Muscat",
+      "continent": "Asia"
+    },
+    {
+      "name": "Pakistan",
+      "capital": "Islamabad",
+      "continent": "Asia"
+    },
+    {
+      "name": "Palau",
+      "capital": "Ngerulmud",
+      "continent": "Oceania",
+      "alts": {
+        "capital": [
+          "Melekeok"
+        ]
+      }
+    },
+    {
+      "name": "Palestine",
+      "capital": "Ramallah",
+      "continent": "Asia",
+      "alts": {
+        "name": [
+          "State of Palestine"
+        ],
+        "capital": [
+          "East Jerusalem",
+          "Jerusalem"
+        ]
+      }
+    },
+    {
+      "name": "Panama",
+      "capital": "Panama City",
+      "continent": "North America",
+      "alts": {
+        "capital": [
+          "Ciudad de Panamá"
+        ]
+      }
+    },
+    {
+      "name": "Papua New Guinea",
+      "capital": "Port Moresby",
+      "continent": "Oceania"
+    },
+    {
+      "name": "Paraguay",
+      "capital": "Asunción",
+      "continent": "South America",
+      "alts": {
+        "capital": [
+          "Asuncion"
+        ]
+      }
+    },
+    {
+      "name": "Peru",
+      "capital": "Lima",
+      "continent": "South America"
+    },
+    {
+      "name": "Philippines",
+      "capital": "Manila",
+      "continent": "Asia"
+    },
+    {
+      "name": "Poland",
+      "capital": "Warsaw",
+      "continent": "Europe",
+      "alts": {
+        "capital": [
+          "Warszawa"
+        ]
+      }
+    },
+    {
+      "name": "Portugal",
+      "capital": "Lisbon",
+      "continent": "Europe",
+      "alts": {
+        "capital": [
+          "Lisboa"
+        ]
+      }
+    },
+    {
+      "name": "Qatar",
+      "capital": "Doha",
+      "continent": "Asia"
+    },
+    {
+      "name": "Romania",
+      "capital": "Bucharest",
+      "continent": "Europe",
+      "alts": {
+        "capital": [
+          "București"
+        ]
+      }
+    },
+    {
+      "name": "Russia",
+      "capital": "Moscow",
+      "continent": "Europe",
+      "alts": {
+        "name": [
+          "Russian Federation"
+        ],
+        "capital": [
+          "Moskva"
+        ]
+      }
+    },
+    {
+      "name": "Rwanda",
+      "capital": "Kigali",
+      "continent": "Africa"
+    },
+    {
+      "name": "Saint Kitts and Nevis",
+      "capital": "Basseterre",
+      "continent": "North America",
+      "alts": {
+        "name": [
+          "St Kitts and Nevis",
+          "Saint Kitts"
+        ]
+      }
+    },
+    {
+      "name": "Saint Lucia",
+      "capital": "Castries",
+      "continent": "North America",
+      "alts": {
+        "name": [
+          "St Lucia"
+        ]
+      }
+    },
+    {
+      "name": "Saint Vincent and the Grenadines",
+      "capital": "Kingstown",
+      "continent": "North America",
+      "alts": {
+        "name": [
+          "St Vincent and the Grenadines",
+          "St Vincent"
+        ]
+      }
+    },
+    {
+      "name": "Samoa",
+      "capital": "Apia",
+      "continent": "Oceania"
+    },
+    {
+      "name": "San Marino",
+      "capital": "San Marino",
+      "continent": "Europe",
+      "alts": {
+        "capital": [
+          "City of San Marino"
+        ]
+      }
+    },
+    {
+      "name": "São Tomé and Príncipe",
+      "capital": "São Tomé",
+      "continent": "Africa",
+      "alts": {
+        "name": [
+          "Sao Tome and Principe"
+        ],
+        "capital": [
+          "Sao Tome"
+        ]
+      }
+    },
+    {
+      "name": "Saudi Arabia",
+      "capital": "Riyadh",
+      "continent": "Asia"
+    },
+    {
+      "name": "Senegal",
+      "capital": "Dakar",
+      "continent": "Africa"
+    },
+    {
+      "name": "Serbia",
+      "capital": "Belgrade",
+      "continent": "Europe",
+      "alts": {
+        "capital": [
+          "Beograd"
+        ]
+      }
+    },
+    {
+      "name": "Seychelles",
+      "capital": "Victoria",
+      "continent": "Africa"
+    },
+    {
+      "name": "Sierra Leone",
+      "capital": "Freetown",
+      "continent": "Africa"
+    },
+    {
+      "name": "Singapore",
+      "capital": "Singapore",
+      "continent": "Asia"
+    },
+    {
+      "name": "Slovakia",
+      "capital": "Bratislava",
+      "continent": "Europe"
+    },
+    {
+      "name": "Slovenia",
+      "capital": "Ljubljana",
+      "continent": "Europe"
+    },
+    {
+      "name": "Solomon Islands",
+      "capital": "Honiara",
+      "continent": "Oceania"
+    },
+    {
+      "name": "Somalia",
+      "capital": "Mogadishu",
+      "continent": "Africa"
+    },
+    {
+      "name": "South Africa",
+      "capital": "Pretoria",
+      "continent": "Africa",
+      "alts": {
+        "capital": [
+          "Cape Town",
+          "Bloemfontein"
+        ]
+      }
+    },
+    {
+      "name": "South Korea",
+      "capital": "Seoul",
+      "continent": "Asia",
+      "alts": {
+        "name": [
+          "Korea"
+        ]
+      }
+    },
+    {
+      "name": "South Sudan",
+      "capital": "Juba",
+      "continent": "Africa"
+    },
+    {
+      "name": "Spain",
+      "capital": "Madrid",
+      "continent": "Europe"
+    },
+    {
+      "name": "Sri Lanka",
+      "capital": "Sri Jayawardenepura Kotte",
+      "continent": "Asia",
+      "alts": {
+        "capital": [
+          "Kotte",
+          "Colombo"
+        ]
+      }
+    },
+    {
+      "name": "Sudan",
+      "capital": "Khartoum",
+      "continent": "Africa"
+    },
+    {
+      "name": "Suriname",
+      "capital": "Paramaribo",
+      "continent": "South America"
+    },
+    {
+      "name": "Sweden",
+      "capital": "Stockholm",
+      "continent": "Europe"
+    },
+    {
+      "name": "Switzerland",
+      "capital": "Bern",
+      "continent": "Europe",
+      "alts": {
+        "capital": [
+          "Berne"
+        ]
+      }
+    },
+    {
+      "name": "Syria",
+      "capital": "Damascus",
+      "continent": "Asia"
+    },
+    {
+      "name": "Tajikistan",
+      "capital": "Dushanbe",
+      "continent": "Asia"
+    },
+    {
+      "name": "Tanzania",
+      "capital": "Dodoma",
+      "continent": "Africa",
+      "alts": {
+        "capital": [
+          "Dar es Salaam"
+        ]
+      }
+    },
+    {
+      "name": "Thailand",
+      "capital": "Bangkok",
+      "continent": "Asia"
+    },
+    {
+      "name": "Timor-Leste",
+      "capital": "Dili",
+      "continent": "Asia",
+      "alts": {
+        "name": [
+          "East Timor",
+          "Timor Leste"
+        ]
+      }
+    },
+    {
+      "name": "Togo",
+      "capital": "Lomé",
+      "continent": "Africa",
+      "alts": {
+        "capital": [
+          "Lome"
+        ]
+      }
+    },
+    {
+      "name": "Tonga",
+      "capital": "Nukuʻalofa",
+      "continent": "Oceania",
+      "alts": {
+        "capital": [
+          "Nuku'alofa",
+          "Nukualofa"
+        ]
+      }
+    },
+    {
+      "name": "Trinidad and Tobago",
+      "capital": "Port of Spain",
+      "continent": "North America"
+    },
+    {
+      "name": "Tunisia",
+      "capital": "Tunis",
+      "continent": "Africa"
+    },
+    {
+      "name": "Turkey",
+      "capital": "Ankara",
+      "continent": "Asia",
+      "alts": {
+        "name": [
+          "Türkiye",
+          "Turkiye"
+        ]
+      }
+    },
+    {
+      "name": "Turkmenistan",
+      "capital": "Ashgabat",
+      "continent": "Asia"
+    },
+    {
+      "name": "Tuvalu",
+      "capital": "Funafuti",
+      "continent": "Oceania"
+    },
+    {
+      "name": "Uganda",
+      "capital": "Kampala",
+      "continent": "Africa"
+    },
+    {
+      "name": "Ukraine",
+      "capital": "Kyiv",
+      "continent": "Europe",
+      "alts": {
+        "capital": [
+          "Kiev"
+        ]
+      }
+    },
+    {
+      "name": "United Arab Emirates",
+      "capital": "Abu Dhabi",
+      "continent": "Asia",
+      "alts": {
+        "name": [
+          "UAE"
+        ]
+      }
+    },
+    {
+      "name": "United Kingdom",
+      "capital": "London",
+      "continent": "Europe",
+      "alts": {
+        "name": [
+          "UK",
+          "Britain",
+          "Great Britain"
+        ]
+      }
+    },
+    {
+      "name": "United States",
+      "capital": "Washington, D.C.",
+      "continent": "North America",
+      "alts": {
+        "name": [
+          "USA",
+          "US",
+          "United States of America",
+          "America"
+        ],
+        "capital": [
+          "Washington",
+          "Washington DC"
+        ]
+      }
+    },
+    {
+      "name": "Uruguay",
+      "capital": "Montevideo",
+      "continent": "South America"
+    },
+    {
+      "name": "Uzbekistan",
+      "capital": "Tashkent",
+      "continent": "Asia"
+    },
+    {
+      "name": "Vanuatu",
+      "capital": "Port Vila",
+      "continent": "Oceania"
+    },
+    {
+      "name": "Vatican City",
+      "capital": "Vatican City",
+      "continent": "Europe",
+      "alts": {
+        "name": [
+          "Holy See",
+          "Vatican"
+        ]
+      }
+    },
+    {
+      "name": "Venezuela",
+      "capital": "Caracas",
+      "continent": "South America"
+    },
+    {
+      "name": "Vietnam",
+      "capital": "Hanoi",
+      "continent": "Asia",
+      "alts": {
+        "name": [
+          "Viet Nam"
+        ]
+      }
+    },
+    {
+      "name": "Yemen",
+      "capital": "Sana'a",
+      "continent": "Asia",
+      "alts": {
+        "capital": [
+          "Sanaa",
+          "Sana"
+        ]
+      }
+    },
+    {
+      "name": "Zambia",
+      "capital": "Lusaka",
+      "continent": "Africa"
+    },
+    {
+      "name": "Zimbabwe",
+      "capital": "Harare",
+      "continent": "Africa"
+    }
+  ]
+}

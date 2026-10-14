@@ -1,0 +1,184 @@
+{
+  "title": "Bonding and Molecular Structure",
+  "description": "How atoms join, what shapes molecules take, and the forces between molecules.",
+  "category": ["Chemistry", "General Chemistry", "Bonding and Structure"],
+  "view": "articles",
+  "entries": [
+    {
+      "id": "lewis", "name": "Lewis structures", "group": "Drawing molecules",
+      "terms": ["Lewis structure", "Lewis structures", "lone pair", "lone pairs", "octet rule", "octet"],
+      "tagline": "Dot-and-line pictures that show how valence electrons are shared.",
+      "sections": [
+        { "text": "A Lewis structure shows the atoms of a molecule, the bonds as lines (each line is a shared pair of electrons) and the lone pairs as dots. Atoms tend to end up with eight outer electrons, the octet rule. Hydrogen needs only two." },
+        { "h": "Steps", "points": [
+          "Add up the valence electrons of all atoms. Adjust for charge: add one for each negative charge, remove one for each positive charge.",
+          "Put the least electronegative atom (not hydrogen) in the center, and join the others to it with single bonds.",
+          "Place the remaining electrons as lone pairs on the outer atoms first, to give each an octet.",
+          "If the central atom has fewer than eight, turn lone pairs into double or triple bonds."
+        ] },
+        { "h": "Example: CO₂", "text": "4 + 6 + 6 = 16 valence electrons. Carbon in the center, O=C=O, with two lone pairs on each oxygen. Each atom has an octet." },
+        { "h": "Bond order", "text": "Single bonds share 1 pair, double bonds 2 pairs and triple bonds 3 pairs. More shared pairs means a shorter, stronger bond." }
+      ],
+      "quiz": [
+        { "q": "How many valence electrons are used in the Lewis structure of CO₂?", "a": "16", "wrong": ["12", "14", "18"] }
+      ]
+    },
+    {
+      "id": "formal-charge", "name": "Formal charge, resonance and octet exceptions", "group": "Drawing molecules",
+      "terms": ["formal charge", "resonance", "resonance structure", "resonance structures", "expanded octet", "odd-electron"],
+      "tagline": "Choosing between structures, and when the octet rule fails.",
+      "sections": [
+        { "equations": ["formal charge = valence electrons − nonbonding electrons − ½ × bonding electrons"], "text": "Formal charge is the charge an atom would have if the bonding electrons were shared equally. The best structure has formal charges as close to zero as possible, and a negative charge on the more electronegative atom." },
+        { "h": "Resonance", "text": "Sometimes more than one valid Lewis structure can be drawn that differ only in where the electrons are. Ozone, O₃, and the nitrate ion are examples. The real molecule is a hybrid of all of them, not a flipping between them. In ozone both O–O bonds are identical, in between a single and a double bond." },
+        { "h": "When the octet rule fails", "facts": [
+          ["Incomplete octet", "Boron and beryllium compounds, such as BF₃ (6 electrons around boron)."],
+          ["Odd number of electrons", "Free radicals such as NO (11 valence electrons)."],
+          ["Expanded octet", "Atoms in period 3 or lower can hold more than eight, such as sulfur in SF₆ (12) and phosphorus in PCl₅ (10)."]
+        ] }
+      ],
+      "quiz": [
+        { "q": "Which molecule has an expanded octet?", "a": "SF₆", "wrong": ["CO₂", "H₂O", "NH₃"] }
+      ]
+    },
+    {
+      "id": "vsepr", "name": "VSEPR and molecular shape", "group": "Shapes and polarity",
+      "terms": ["VSEPR", "molecular geometry", "molecular shape", "bond angle", "bond angles", "electron domains"],
+      "tagline": "Predicting a molecule's shape from the repulsion between electron pairs.",
+      "sections": [
+        { "text": "Valence-shell electron-pair repulsion (VSEPR) says the electron domains around a central atom (bonds, counted once whether single, double or triple, and lone pairs) arrange themselves as far apart as possible." },
+        { "h": "Shapes", "facts": [
+          ["2 domains", "Linear, 180°. CO₂."],
+          ["3 domains", "Trigonal planar, 120°. BF₃. With one lone pair: bent, slightly less than 120°, as in SO₂."],
+          ["4 domains", "Tetrahedral, 109.5°. CH₄. With one lone pair: trigonal pyramidal, about 107°, as in NH₃. With two lone pairs: bent, about 104.5°, as in H₂O."],
+          ["5 domains", "Trigonal bipyramidal, 90° and 120°. PCl₅."],
+          ["6 domains", "Octahedral, 90°. SF₆."]
+        ] },
+        { "h": "Things to remember", "points": [
+          "Lone pairs take up more room than bonding pairs, so they squeeze the bond angles. That is why water is 104.5° and not 109.5°.",
+          "The electron geometry counts lone pairs. The molecular shape only describes the atoms."
+        ] }
+      ],
+      "quiz": [
+        { "q": "What is the shape of the water molecule?", "a": "Bent", "wrong": ["Linear", "Tetrahedral", "Trigonal planar"] },
+        { "q": "What is the bond angle in a tetrahedral molecule such as methane?", "a": "109.5°", "wrong": ["90°", "120°", "180°"] }
+      ]
+    },
+    {
+      "id": "polarity", "name": "Bond and molecular polarity", "group": "Shapes and polarity",
+      "terms": ["polar bond", "polar bonds", "nonpolar", "polar molecule", "dipole moment", "dipole", "polar covalent"],
+      "tagline": "Uneven sharing of electrons, and when the unevenness cancels out.",
+      "sections": [
+        { "text": "In a polar bond, the electrons are pulled toward the more electronegative atom, giving it a partial negative charge (δ−) and the other a partial positive charge (δ+). The size of the effect is the dipole moment." },
+        { "h": "Is the molecule polar?", "points": [
+          "A molecule is polar only if the bond dipoles do not cancel. That depends on the shape.",
+          "CO₂ has two polar C=O bonds, but they point in opposite directions and cancel. CO₂ is nonpolar.",
+          "H₂O is bent, so the two polar O–H bonds do not cancel. Water is strongly polar.",
+          "CCl₄ is tetrahedral and symmetric, so it is nonpolar. CH₃Cl is not symmetric, so it is polar."
+        ] },
+        { "h": "Why it matters", "text": "Polarity decides solubility (like dissolves like), boiling points and how molecules interact. Polar substances dissolve in polar solvents such as water, and nonpolar substances in nonpolar solvents such as hexane." }
+      ],
+      "quiz": [
+        { "q": "Why is CO₂ a nonpolar molecule even though its C=O bonds are polar?", "a": "The bond dipoles cancel because the molecule is linear", "wrong": ["Carbon is more electronegative than oxygen", "The bonds are not polar", "The molecule has a lone pair"] }
+      ]
+    },
+    {
+      "id": "hybridization", "name": "Valence bond theory and hybridization", "group": "Orbitals and bonds",
+      "terms": ["hybridization", "hybrid orbitals", "valence bond theory", "sp3", "sp2", "sigma bond", "sigma bonds", "pi bond", "pi bonds"],
+      "tagline": "How atomic orbitals mix to make the bonds we see.",
+      "sections": [
+        { "text": "In valence bond theory, a bond forms when orbitals on two atoms overlap and share a pair of electrons. To explain real shapes, the atom's s and p orbitals mix into new hybrid orbitals." },
+        { "h": "Hybrids", "facts": [
+          ["sp³", "4 domains, tetrahedral. Methane CH₄, and the carbons in alkanes."],
+          ["sp²", "3 domains, trigonal planar. Ethene C₂H₄, and benzene."],
+          ["sp", "2 domains, linear. Ethyne C₂H₂, and CO₂."]
+        ] },
+        { "h": "Sigma and pi bonds", "points": [
+          "A sigma (σ) bond is formed by head-on overlap along the line between the nuclei. Every single bond is a sigma bond.",
+          "A pi (π) bond is formed by sideways overlap of p orbitals, above and below the axis. A double bond is one σ and one π. A triple bond is one σ and two π.",
+          "Pi bonds are weaker than sigma bonds and prevent rotation about the bond."
+        ] },
+        { "h": "Shortcut", "text": "Count the electron domains on the atom: 4 means sp³, 3 means sp², 2 means sp." }
+      ],
+      "quiz": [
+        { "q": "What is the hybridization of carbon in ethene (C₂H₄)?", "a": "sp²", "wrong": ["sp", "sp³", "sp³d"] }
+      ]
+    },
+    {
+      "id": "mo-theory", "name": "Molecular orbital theory", "group": "Orbitals and bonds",
+      "terms": ["molecular orbital theory", "molecular orbital", "molecular orbitals", "bonding orbital", "antibonding orbital", "bond order"],
+      "tagline": "Treating electrons as spread over the whole molecule.",
+      "sections": [
+        { "text": "When atomic orbitals combine, they make the same number of molecular orbitals. Adding the waves gives a lower-energy bonding orbital. Subtracting them gives a higher-energy antibonding orbital, marked with a star." },
+        { "equations": ["bond order = ½ (bonding electrons − antibonding electrons)"] },
+        { "h": "Examples", "points": [
+          "H₂: two electrons in the bonding orbital, bond order 1, stable.",
+          "He₂: two bonding and two antibonding electrons, bond order 0, so it does not form.",
+          "O₂: the last two electrons go into separate orbitals with parallel spins, so oxygen has two unpaired electrons and is paramagnetic. Liquid oxygen is attracted to a magnet. Lewis structures cannot explain this.",
+          "N₂: bond order 3, a very strong triple bond."
+        ] },
+        { "h": "Why use it", "text": "It explains magnetism, color and electrical conductivity, and it extends naturally to metals and solids, where bonding orbitals merge into bands." }
+      ],
+      "quiz": [
+        { "q": "What is the bond order of N₂?", "a": "3", "wrong": ["1", "2", "0"] }
+      ]
+    },
+    {
+      "id": "imf", "name": "Intermolecular forces", "group": "Between molecules",
+      "terms": ["intermolecular forces", "intermolecular force", "London dispersion forces", "dispersion forces", "dipole–dipole", "hydrogen bonding", "hydrogen bond", "van der Waals forces"],
+      "tagline": "The attractions between molecules that control boiling points and much else.",
+      "sections": [
+        { "text": "Intermolecular forces act between molecules and are much weaker than the bonds inside them. They decide whether a substance is a gas, liquid or solid at a given temperature." },
+        { "h": "The three types, weakest to strongest in general", "facts": [
+          ["London dispersion", "Present in all molecules. A momentary uneven spread of electrons creates a temporary dipole that induces another. Gets stronger with more electrons, so larger molecules have higher boiling points."],
+          ["Dipole–dipole", "Between polar molecules, the partial positive end of one attracting the partial negative end of another."],
+          ["Hydrogen bonding", "A strong dipole–dipole attraction when H is bonded to N, O or F and is attracted to a lone pair on another N, O or F."]
+        ] },
+        { "h": "Consequences", "points": [
+          "Water boils at 100 °C, while H₂S, with a larger mass, boils at −60 °C. Hydrogen bonding is why.",
+          "Hydrogen bonds hold the two strands of DNA together and give proteins their shape.",
+          "Ice is less dense than liquid water because hydrogen bonds hold the molecules in an open lattice.",
+          "Noble gases and nonpolar molecules rely only on dispersion forces, so they have low boiling points."
+        ] }
+      ],
+      "quiz": [
+        { "q": "Which of these molecules can form hydrogen bonds with its own kind?", "a": "H₂O", "wrong": ["CH₄", "CO₂", "H₂S"] }
+      ]
+    },
+    {
+      "id": "metallic", "name": "Metallic bonding and alloys", "group": "Between molecules",
+      "terms": ["metallic bonding", "metallic bond", "alloy", "alloys", "sea of electrons", "delocalized electrons"],
+      "tagline": "Why metals conduct, shine and bend.",
+      "sections": [
+        { "text": "In a metal, the valence electrons are not tied to any one atom. They form a sea of delocalized electrons moving among a lattice of positive metal ions, and the attraction between them holds the metal together." },
+        { "h": "Properties explained", "points": [
+          "Conduct electricity and heat: the free electrons carry charge and energy.",
+          "Malleable and ductile: layers of ions can slide over one another and the electron sea keeps holding them together.",
+          "Shiny: the free electrons reflect light.",
+          "Melting points vary widely. Mercury is liquid, and tungsten melts at 3695 K, where more electrons per atom give stronger bonding."
+        ] },
+        { "h": "Alloys", "text": "An alloy is a mixture of a metal with other elements. Atoms of a different size disturb the layers, so alloys are usually harder than the pure metal. Steel is iron with a little carbon. Brass is copper and zinc. Bronze is copper and tin." }
+      ],
+      "quiz": [
+        { "q": "Why are metals malleable?", "a": "Layers of ions can slide while the electron sea holds them together", "wrong": ["Their bonds are very weak", "They have no electrons", "Their atoms are very small"] }
+      ]
+    },
+    {
+      "id": "lattice", "name": "Ionic lattices and lattice energy", "group": "Between molecules",
+      "terms": ["lattice energy", "ionic lattice", "crystal lattice", "Coulomb's law"],
+      "tagline": "Why ionic solids are hard and have high melting points.",
+      "sections": [
+        { "text": "An ionic solid is a regular three-dimensional lattice of alternating positive and negative ions. Each ion is surrounded by ions of the opposite charge. In sodium chloride each Na⁺ has six Cl⁻ neighbors." },
+        { "h": "Lattice energy", "text": "The lattice energy is the energy released when gaseous ions come together to form one mole of the solid. It is large and negative, and is why the solid is stable." },
+        { "h": "What decides it", "points": [
+          "Coulomb's law: the attraction grows with the product of the charges and falls with the distance between the ions.",
+          "Higher charges give much larger lattice energy. MgO (2+ and 2−) is much stronger than NaCl (1+ and 1−), and melts at 2852 °C against 801 °C.",
+          "Smaller ions sit closer together, so LiF has a greater lattice energy than CsI."
+        ] },
+        { "h": "Properties", "text": "Hard but brittle (a shift of layers brings like charges together and the crystal splits). They conduct electricity only when molten or dissolved, because then the ions can move." }
+      ],
+      "quiz": [
+        { "q": "Which has the greater lattice energy, NaCl or MgO?", "a": "MgO", "wrong": ["NaCl", "They are equal", "Neither is an ionic compound"] }
+      ]
+    }
+  ]
+}

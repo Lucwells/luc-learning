@@ -1,0 +1,201 @@
+{
+  "title": "Atomic Structure and Periodicity",
+  "description": "How the atom was figured out, how electrons behave, and how that explains the trends of the periodic table.",
+  "category": ["Chemistry", "General Chemistry", "Atomic Structure"],
+  "view": "articles",
+  "entries": [
+    {
+      "id": "models", "name": "Atomic models through history", "group": "Discovering the atom",
+      "terms": ["Rutherford", "plum pudding model", "gold foil experiment", "Dalton's atomic theory", "Thomson"],
+      "tagline": "From solid spheres to a nucleus surrounded by electron clouds.",
+      "sections": [
+        { "facts": [
+          ["Dalton (1803)", "Atoms are tiny, indivisible spheres. All atoms of an element are identical, and they combine in whole-number ratios."],
+          ["Thomson (1897)", "Discovered the electron using cathode rays. Proposed the plum pudding model: negative electrons embedded in a positive sphere."],
+          ["Rutherford (1909–1911)", "Fired alpha particles at thin gold foil. Most passed straight through, a few bounced back. So the positive charge and nearly all the mass are in a tiny nucleus, with empty space around it."],
+          ["Bohr (1913)", "Electrons orbit the nucleus in fixed energy levels. It explained the hydrogen spectrum."],
+          ["Quantum mechanical model (1920s)", "Electrons are described by wave functions and found in orbitals, regions of probability."]
+        ] },
+        { "h": "Why it matters", "text": "Each model fixed a problem with the one before. Today's quantum model is the one that explains the periodic table and chemical bonding." }
+      ],
+      "quiz": [
+        { "q": "What did Rutherford's gold foil experiment show?", "a": "Atoms have a tiny, dense, positive nucleus", "wrong": ["Atoms are solid spheres", "Electrons are embedded in a positive sphere", "Atoms have no empty space"] }
+      ]
+    },
+    {
+      "id": "light", "name": "Light and the electromagnetic spectrum", "group": "Light and quanta",
+      "terms": ["electromagnetic spectrum", "electromagnetic radiation", "wavelength", "frequency", "photon", "photons", "Planck's constant"],
+      "tagline": "Light behaves as a wave, and its energy comes in packets called photons.",
+      "sections": [
+        { "equations": ["c = λν", "E = hν"], "text": "c is the speed of light, 3.00 × 10⁸ m/s. λ is the wavelength, ν is the frequency, and h is Planck's constant, 6.626 × 10⁻³⁴ J·s. Shorter wavelength means higher frequency and higher energy." },
+        { "h": "The spectrum, from long to short wavelength", "text": "Radio waves, microwaves, infrared, visible light (about 400–700 nm, red to violet), ultraviolet, X-rays, gamma rays." },
+        { "h": "Worked example", "text": "Light of wavelength 500 nm has ν = 3.00 × 10⁸ ÷ 5.00 × 10⁻⁷ = 6.00 × 10¹⁴ Hz, and each photon carries E = 6.626 × 10⁻³⁴ × 6.00 × 10¹⁴ ≈ 3.98 × 10⁻¹⁹ J." }
+      ],
+      "quiz": [
+        { "q": "Which type of light has the highest energy per photon?", "a": "Gamma rays", "wrong": ["Radio waves", "Visible light", "Infrared"] }
+      ]
+    },
+    {
+      "id": "photoelectric", "name": "The photoelectric effect and wave–particle duality", "group": "Light and quanta",
+      "terms": ["photoelectric effect", "wave–particle duality", "wave-particle duality", "de Broglie"],
+      "tagline": "Light acts like particles, and particles act like waves.",
+      "sections": [
+        { "h": "The photoelectric effect", "points": [
+          "When light shines on a metal, electrons are knocked out, but only if the frequency is above a threshold. Brighter light of too low a frequency ejects none.",
+          "Einstein (1905) explained this: light comes as photons of energy hν. One photon gives its energy to one electron. If hν is less than the energy holding the electron in the metal, nothing happens.",
+          "The extra energy becomes the kinetic energy of the ejected electron."
+        ] },
+        { "h": "Matter waves", "equations": ["λ = h ÷ mv"], "text": "de Broglie (1924) proposed that moving particles have a wavelength. For electrons it is similar to atomic sizes, and electron diffraction later confirmed it. For everyday objects the wavelength is far too small to notice." }
+      ],
+      "quiz": [
+        { "q": "In the photoelectric effect, what decides whether electrons are ejected?", "a": "The frequency of the light", "wrong": ["The brightness of the light", "The time the light shines", "The color of the metal"] }
+      ]
+    },
+    {
+      "id": "bohr", "name": "The Bohr model and atomic spectra", "group": "Light and quanta",
+      "terms": ["Bohr model", "line spectrum", "emission spectrum", "emission spectra", "Balmer series", "Rydberg"],
+      "tagline": "Why hot hydrogen gives off only a few colors of light.",
+      "sections": [
+        { "text": "Heated gases give off light at only certain wavelengths, a line spectrum, not a continuous rainbow. Bohr explained this for hydrogen by allowing electrons only certain energy levels." },
+        { "equations": ["Eₙ = −2.18 × 10⁻¹⁸ J ÷ n²", "ΔE = hν"], "text": "When an electron falls from a higher level to a lower one, it releases a photon whose energy equals the difference between the levels." },
+        { "h": "Hydrogen series", "facts": [
+          ["Lyman", "Falls to n = 1. Ultraviolet."],
+          ["Balmer", "Falls to n = 2. Visible light."],
+          ["Paschen", "Falls to n = 3. Infrared."]
+        ] },
+        { "h": "Limits", "text": "The Bohr model works only for hydrogen-like atoms with one electron. The quantum mechanical model replaced it, but the idea of quantized energy levels stayed." }
+      ],
+      "quiz": [
+        { "q": "In the hydrogen spectrum, which series is visible light?", "a": "Balmer", "wrong": ["Lyman", "Paschen", "Rydberg"] }
+      ]
+    },
+    {
+      "id": "quantum-numbers", "name": "Quantum numbers", "group": "Electrons in atoms",
+      "terms": ["quantum number", "quantum numbers", "principal quantum number"],
+      "tagline": "Four numbers that describe every electron in an atom.",
+      "sections": [
+        { "facts": [
+          ["n (principal)", "1, 2, 3, … The shell. Larger n means higher energy and a larger orbital."],
+          ["l (angular momentum)", "0 to n − 1. The subshell shape: 0 = s, 1 = p, 2 = d, 3 = f."],
+          ["mₗ (magnetic)", "−l to +l. Which orbital in the subshell, so it gives its orientation."],
+          ["mₛ (spin)", "+½ or −½. The spin of the electron."]
+        ] },
+        { "h": "Things to remember", "points": [
+          "A subshell with quantum number l has 2l + 1 orbitals: 1 for s, 3 for p, 5 for d, 7 for f.",
+          "Shell n contains n² orbitals, and so 2n² electrons.",
+          "An s orbital is a sphere. A p orbital is a dumbbell, and there are three at right angles to each other.",
+          "No two electrons in an atom have the same four quantum numbers (the Pauli exclusion principle)."
+        ] }
+      ],
+      "quiz": [
+        { "q": "How many orbitals are in a d subshell?", "a": "5", "wrong": ["3", "7", "10"] }
+      ]
+    },
+    {
+      "id": "uncertainty", "name": "Heisenberg uncertainty and orbitals", "group": "Electrons in atoms",
+      "terms": ["Heisenberg uncertainty principle", "uncertainty principle", "Schrödinger equation", "wave function", "probability density"],
+      "tagline": "Why we describe electrons by probabilities and not by paths.",
+      "sections": [
+        { "equations": ["Δx · Δp ≥ h ÷ 4π"], "text": "The more exactly you know the position of a particle, the less exactly you can know its momentum, and the reverse. This is not a flaw in measuring. It is a property of nature, and it is noticeable only for tiny particles such as electrons." },
+        { "h": "What follows", "points": [
+          "An electron cannot follow a definite orbit like a planet. Bohr's neat circles are not real.",
+          "Schrödinger's equation (1926) gives a wave function for the electron. The square of the wave function gives the probability of finding the electron at each point.",
+          "An orbital is a region where the electron is likely to be found, often drawn to contain about 90% of the probability."
+        ] }
+      ],
+      "quiz": [
+        { "q": "What does the Heisenberg uncertainty principle say?", "a": "Position and momentum cannot both be known exactly", "wrong": ["Electrons orbit in fixed circles", "Energy is always conserved", "Light is only a wave"] }
+      ]
+    },
+    {
+      "id": "filling", "name": "Filling orbitals: Aufbau, Pauli and Hund", "group": "Electrons in atoms",
+      "terms": ["Aufbau principle", "Pauli exclusion principle", "Hund's rule", "unpaired electrons", "paramagnetic", "diamagnetic"],
+      "tagline": "Three rules that tell you how to write an electron configuration.",
+      "sections": [
+        { "facts": [
+          ["Aufbau principle", "Fill the lowest-energy orbitals first: 1s, 2s, 2p, 3s, 3p, 4s, 3d, 4p, 5s, 4d, 5p, 6s, 4f, 5d, 6p, 7s, 5f, 6d, 7p."],
+          ["Pauli exclusion principle", "An orbital holds at most two electrons, and they must have opposite spins."],
+          ["Hund's rule", "Electrons spread out over orbitals of equal energy, with parallel spins, before they start pairing up."]
+        ] },
+        { "h": "Example: nitrogen (7 electrons)", "text": "1s² 2s² 2p³. The three 2p electrons sit in three different orbitals, each with its own unpaired electron. An atom with unpaired electrons is paramagnetic and is pulled into a magnetic field. One with all electrons paired is diamagnetic." },
+        { "h": "Things to remember", "points": [
+          "Chromium is [Ar] 3d⁵ 4s¹ and copper is [Ar] 3d¹⁰ 4s¹, because half-filled and filled d subshells are extra stable.",
+          "When a transition metal becomes a cation, it loses its 4s electrons before its 3d electrons. Fe²⁺ is [Ar] 3d⁶."
+        ] }
+      ],
+      "quiz": [
+        { "q": "How many unpaired electrons does a nitrogen atom have?", "a": "3", "wrong": ["0", "1", "2"] }
+      ]
+    },
+    {
+      "id": "radius", "name": "Atomic and ionic radius", "group": "Periodic trends",
+      "terms": ["atomic radius", "ionic radius", "effective nuclear charge", "shielding"],
+      "tagline": "Atoms get smaller across a period and bigger down a group.",
+      "sections": [
+        { "facts": [
+          ["Across a period", "The radius decreases. Each step adds a proton, but the added electron goes in the same shell, so the effective nuclear charge pulls the electrons in tighter."],
+          ["Down a group", "The radius increases. Each step adds a whole new shell, and inner electrons shield the outer ones from the nucleus."]
+        ] },
+        { "h": "Effective nuclear charge", "text": "The pull an outer electron actually feels is the nuclear charge minus the shielding by the electrons inside it. It rises across a period and stays about the same down a group." },
+        { "h": "Ions", "points": [
+          "A cation is smaller than its atom, because it loses electrons, often a whole shell, and the remaining ones are pulled in more tightly.",
+          "An anion is larger than its atom, because added electrons repel each other.",
+          "Isoelectronic ions (same number of electrons) get smaller as the nuclear charge rises: O²⁻ > F⁻ > Na⁺ > Mg²⁺."
+        ] }
+      ],
+      "quiz": [
+        { "q": "Which is the largest of these atoms?", "a": "Sodium", "wrong": ["Magnesium", "Chlorine", "Fluorine"] }
+      ]
+    },
+    {
+      "id": "ionization", "name": "Ionization energy", "group": "Periodic trends",
+      "terms": ["ionization energy", "ionisation energy", "first ionization energy", "successive ionization energies"],
+      "tagline": "The energy needed to remove an electron from an atom.",
+      "sections": [
+        { "text": "The first ionization energy is the energy needed to remove the outermost electron from one mole of gaseous atoms. It is always positive." },
+        { "h": "Trends", "points": [
+          "It increases across a period, as the radius shrinks and the electrons are held more tightly.",
+          "It decreases down a group, because the outer electron is farther away and shielded.",
+          "Helium (2372 kJ/mol) has the highest and caesium among the lowest. Sodium is 496 kJ/mol.",
+          "Small dips occur at Be to B (the p electron is higher in energy than the s) and at N to O (pairing up in an orbital adds repulsion)."
+        ] },
+        { "h": "Successive ionization energies", "text": "Each further electron is harder to remove. A huge jump shows that an inner shell has been reached. For magnesium the jump comes after the second electron, which tells you it has two valence electrons." }
+      ],
+      "quiz": [
+        { "q": "A large jump after the second ionization energy suggests how many valence electrons?", "a": "2", "wrong": ["1", "3", "8"] }
+      ]
+    },
+    {
+      "id": "affinity", "name": "Electron affinity and electronegativity trends", "group": "Periodic trends",
+      "terms": ["electron affinity", "electronegativity trend", "electronegativity trends"],
+      "tagline": "How strongly atoms attract extra electrons and bonding electrons.",
+      "sections": [
+        { "h": "Electron affinity", "text": "The energy change when a gaseous atom gains an electron. A large negative value means the atom takes up the electron readily. Chlorine (−349 kJ/mol) has the most negative value of all, slightly more than fluorine, because fluorine's small size makes electrons repel each other in its compact outer shell. Noble gases, with full shells, have no attraction for an extra electron." },
+        { "h": "Electronegativity", "points": [
+          "It rises across a period and falls down a group, so it is highest at the top right, with fluorine (3.98) the highest.",
+          "Metals have low values and nonmetals have high values, which is why they form ionic bonds with each other.",
+          "The difference between two atoms predicts the bond type: more than about 1.7 is mostly ionic, 0.4 to 1.7 is polar covalent, and below 0.4 is nonpolar covalent."
+        ] }
+      ],
+      "quiz": [
+        { "q": "Which element has the highest electronegativity?", "a": "Fluorine", "wrong": ["Oxygen", "Chlorine", "Helium"] }
+      ]
+    },
+    {
+      "id": "periodic-law", "name": "The periodic law", "group": "Periodic trends",
+      "terms": ["periodic law", "Mendeleev", "Moseley"],
+      "tagline": "How the table was found, and why it works.",
+      "sections": [
+        { "points": [
+          "Dmitri Mendeleev (1869) arranged the known elements by atomic mass and saw that properties repeated at regular intervals. He left gaps for undiscovered elements and predicted their properties. Gallium and germanium, found later, matched his predictions closely.",
+          "Henry Moseley (1913) showed that the elements should be ordered by atomic number, not mass. That fixed the few places where the order by mass did not fit, such as argon and potassium.",
+          "The modern periodic law says that properties of elements repeat periodically when ordered by atomic number."
+        ] },
+        { "h": "Why it repeats", "text": "Elements in the same group have the same number of valence electrons. The periods end each time a shell fills up, and then a new shell begins." }
+      ],
+      "quiz": [
+        { "q": "Who showed that elements should be ordered by atomic number?", "a": "Moseley", "wrong": ["Mendeleev", "Dalton", "Bohr"] }
+      ]
+    }
+  ]
+}
