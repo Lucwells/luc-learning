@@ -1,6 +1,6 @@
 # Luc Learning
 
-A personal study guide and quiz game. Knowledge lives in JSON files in this repo; the website turns it into flashcards, quizzes and "name them all" challenges. Add a file, get a new deck.
+A personal library of textbooks. Each main category is a **book**, each subcategory is a **chapter**, and every chapter reads like a textbook chapter: numbered sections, worked examples, figures, a summary and problems. Quizzes are optional and are drawn from what is written.
 
 ## Run it
 
@@ -8,109 +8,119 @@ A personal study guide and quiz game. Knowledge lives in JSON files in this repo
 npm start
 ```
 
-Open http://localhost:8080. Node 18+ is the only requirement; there are no dependencies and no build step.
+Open http://localhost:8080. Node 18+ is the only requirement. There are no dependencies and no build step. The site is plain static files, so it also works on GitHub Pages.
 
-The site is plain static files, so it also works on GitHub Pages (Settings → Pages → deploy from the main branch root).
+## How the site is organized
 
-## What you get
+- **Library**: the shelf of books.
+- **Book**: a cover, preface and table of contents. Chapters are grouped into parts.
+- **Chapter**: a long, readable page with a sticky contents sidebar. Each section ends with "Check your understanding" questions. "Quiz this chapter" and "Quiz this book" are optional.
+- **Cross-references**: a term explained elsewhere is linked where it appears, and a Back button returns you to where you were.
+- **Search**: press `/` to search section titles, terms and text.
 
-- **Library first**: the home page is an index of categories. Each category page lists its subtopics and decks. Each category can have its own view, like the periodic table. Nothing quizzes you unless you ask.
-- **Optional quizzes** at every level: "Quiz this category" on any category page, and "Practice this deck" (collapsed by default) on a deck page.
-- **Quiz**: multiple choice or typed answers. Typed answers ignore case, accents and punctuation, accept listed alternates, and forgive one typo on longer answers.
-- **Flashcards**: reveal, then "Got it" or "Again" (missed cards come back).
+Some chapters are interactive: the periodic table and the world map.
 
-## Add knowledge
+## Add to a book
 
-1. Create `data/<topic>/<name>.json`.
-2. Add its path to `data/manifest.json`.
+1. Create `data/<book>/<chapter>.json` (see below).
+2. Add its path, without `.json`, to the book's `data/<book>/book.json`.
 3. Run `npm run validate`.
 
-### Deck format
+To start a new book, create `data/<name>/book.json` and add it to `data/manifest.json`.
+
+### book.json
 
 ```json
 {
-  "title": "Periodic Table",
-  "description": "Shown on the deck page.",
-  "category": ["Chemistry"],
-  "idField": "symbol",
-  "modes": [
-    { "id": "name-symbol", "label": "Name → Symbol", "question": "What is the symbol for {name}?", "answer": "symbol" }
+  "id": "chemistry",
+  "title": "Chemistry",
+  "kicker": "Textbook",
+  "color": "#003262",
+  "subtitle": "One line under the title.",
+  "preface": ["Paragraph.", "Paragraph."],
+  "front": ["chemistry/periodic-table"],
+  "parts": [
+    { "title": "General Chemistry", "blurb": "One line.", "chapters": ["chemistry/general/kinetics"] }
+  ]
+}
+```
+
+Chapters in `parts` are numbered in order across the whole book. Chapters in `front` are unnumbered reference pages.
+
+### Chapter format
+
+```json
+{
+  "id": "kinetics",
+  "view": "chapter",
+  "title": "Chemical Kinetics",
+  "description": "Shown in the table of contents.",
+  "overview": ["Opening paragraph.", "Roadmap paragraph."],
+  "objectives": ["After this chapter you can…"],
+  "sections": [
+    {
+      "id": "rates",
+      "title": "Reaction rates",
+      "terms": ["reaction rate", "initial rate"],
+      "body": [ "A paragraph.", { "eq": "rate = k[A]" } ],
+      "subs": [ { "id": "…", "title": "…", "terms": [], "body": [] } ],
+      "check": [ { "q": "Question?", "a": "Right", "wrong": ["A", "B", "C"], "why": "Optional explanation." } ]
+    }
   ],
-  "items": [
-    { "number": 13, "name": "Aluminium", "symbol": "Al", "alts": { "name": ["Aluminum"] } }
-  ]
+  "summary": ["Key point."],
+  "problems": [ { "q": "Problem.", "solution": "Worked solution.", "a": "Final answer." } ]
 }
 ```
 
-| Key | Meaning |
+A section has a `body`, `subs` (subsections), or both. Sections are numbered automatically (9.1, 9.1.1). The `title` and every entry in `terms` become links wherever those words appear in other sections.
+
+**Body blocks.** A string is a paragraph. Anything else is an object with one of these keys:
+
+| Key | Result |
 | --- | --- |
-| `category` | Path in the topic tree. `["Chemistry", "Organic"]` nests a subcategory. |
-| `idField` | Item field that is unique. Defaults to `id`, then list position. |
-| `modes` | Each mode turns every item into a question. `{field}` in `question` is replaced by the item's value; `answer` names the field that is the answer. |
-| `mode.mcOnly` | Always multiple choice (good for category-style answers). |
-| `mode.grade: "self"` | Reveal the answer and grade yourself. Use for free-text answers. |
-| `alts` | Extra accepted answers per field. |
-| `attributes` | Optional explanations of each item field: `{ key, label, summary, points[], items[{term,text}] }`. Shown in the periodic table guide and on each element card. |
-| `view` | Custom page for a deck. `"periodic-table"` draws the clickable table. `"reaction-types"` lists reaction types from a `types` array (name, form, summary, recognize, realWorld) with examples taken from `items`. |
+| `eq` | Display equation. A string, or an array of lines. |
+| `h` | Small run-in heading. |
+| `list` | Bullet list (`"ordered": true` for numbers). |
+| `table` | `{ head, rows, caption }`. Captions are numbered automatically. |
+| `example` | Worked example: `{ title, problem, solution }`. Problem and solution can be a string or an array of blocks. |
+| `key`, `warn`, `tip`, `note` | Callout boxes. |
+| `def` | `["Term", "Definition"]`. |
+| `facts` | Label and value pairs: `[["Label", "Value"]]`. |
+| `eqs` | Equations with notes: `[["equation", "note"]]`. |
+| `svg` | Inline diagram (use `currentColor` and `var(--accent)` so it follows the theme), with optional `caption`. |
 
-### Plain question/answer decks
+**Text markup** works in every string: `**bold**` for a term being defined, `//italic//`, `x^{2}` for superscripts and `x_{i}` for subscripts. Unicode (H₂O, Δ, →) is fine too.
 
-Leave out `modes` and give items `q` and `a`. They are self-graded.
+**Questions** with three or more `wrong` answers are multiple choice. Without `wrong`, they are self-graded.
 
-```json
-{
-  "title": "Thermodynamics",
-  "category": ["Physics", "Thermodynamics"],
-  "items": [
-    { "q": "State the first law.", "a": "Energy is conserved: ΔU = Q − W." }
-  ]
-}
-```
+### Interactive chapters
+
+- `"view": "periodic-table"`: the clickable table, built from `items`, with `attributes` explaining each field. See `data/chemistry/periodic-table.json`.
+- `"view": "world-map"`: the map, country facts, flags and quizzes. See `data/geography/countries.json`. Regenerate the map from Natural Earth data with `node scripts/build-map.mjs <file>`.
+- `"view": "reaction-types"` and `"view": "articles"` are older formats. They are converted to chapters when loaded, so they still work.
+
+Interactive and older decks can define quiz `modes`: `{ "id", "label", "question": "What is the symbol for {name}?", "answer": "symbol" }`. See the existing files.
 
 ## Layout
 
 ```
-index.html        page shell
-css/style.css     styles
-js/app.js         routing, quiz engine, views
-data/manifest.json  list of decks
-data/**/*.json    the knowledge
-scripts/validate.mjs  deck checker
-serve.mjs         local static server
+index.html           page shell
+css/style.css        base styles and quiz screens
+css/reader.css       textbook layout
+js/app.js            router
+js/data.js           loads books and chapters
+js/reader.js         shelf, book, chapter and quiz-scope pages
+js/terms.js          text markup and automatic links
+js/search.js         search box
+js/quiz.js           quiz and flashcard engine
+js/periodic.js       periodic table view
+js/worldmap.js       world map view
+data/manifest.json   list of books
+data/<book>/         book.json and its chapters
+scripts/validate.mjs checker
+serve.mjs            local static server
 ```
 
 ## Notes
 
-- Always double-check facts you add. Some entries (for example the family of superheavy elements) are predictions, not measurements.
-
-## Article decks and linked terms
-
-A deck with `"view": "articles"` is a set of topics (concepts, processes, people, anything) instead of quiz items. See `data/chemistry/key-concepts.json` and `data/chemistry/industrial-processes.json`.
-
-```json
-{
-  "title": "Key Concepts",
-  "category": ["Chemistry", "Key Concepts"],
-  "view": "articles",
-  "entries": [
-    {
-      "id": "catalyst",
-      "name": "Catalysts",
-      "group": "Reactions & energy",
-      "terms": ["catalyst", "catalysts"],
-      "tagline": "One line shown on the card.",
-      "sections": [
-        { "h": "Heading", "text": "A paragraph.", "equations": ["N₂ + 3H₂ ⇌ 2NH₃"],
-          "facts": [["Label", "Value"]], "points": ["A bullet."] }
-      ],
-      "quiz": [ { "q": "Question?", "a": "Right answer", "wrong": ["Wrong 1", "Wrong 2", "Wrong 3"] } ]
-    }
-  ]
-}
-```
-
-Every `name` and every word in `terms` becomes a link wherever it appears in any other page's text (element attributes, reaction types, other articles). The first mention in each card is linked, and Esc returns you to the page you came from. Section parts are all optional.
-
-## World map
-
-`data/geography/countries.json` uses `"view": "world-map"` and `"mapFile"`. The map is regenerated from Natural Earth data (world-atlas `countries-50m.json`) with `node scripts/build-map.mjs <file>`; it has region tabs, zoom/pan, click-for-details and a "find them on the map" quiz.
+- Always double-check facts you add. Some entries (for example the superheavy elements) are predictions, not measurements.

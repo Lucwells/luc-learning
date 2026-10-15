@@ -1,7 +1,7 @@
 {
+  "id": "pchem-lab",
   "title": "Physical Chemistry Laboratory",
   "description": "The standard physical chemistry lab experiments: the theory behind each, how it is run, how the data is analyzed, the typical results and the main sources of error. Starts with the data analysis used in every report.",
-  "category": ["Chemistry", "Laboratory Courses", "Physical Chemistry Lab"],
   "view": "articles",
   "entries": [
     {

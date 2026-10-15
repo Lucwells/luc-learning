@@ -1,0 +1,593 @@
+{
+  "id": "chromatography",
+  "view": "chapter",
+  "title": "Instrumental Chromatography and Electrophoresis",
+  "description": "Retention and resolution theory, gas chromatography, HPLC, ion chromatography and capillary electrophoresis.",
+  "overview": [
+    "Chromatography separates the components of a mixture because they distribute differently between a stationary phase and a mobile phase that moves past it. Components that favor the stationary phase move slowly, and those that favor the mobile phase move quickly, so a narrow band of mixture injected at one end of the column emerges as a series of separate peaks. A detector on the outlet records them, and the peak position identifies each compound while the peak area measures its amount.",
+    "This chapter builds the theory that applies to every column (retention factor, selectivity, plate number, resolution, band broadening) and then applies it to gas chromatography, liquid chromatography (HPLC and UHPLC), ion chromatography and capillary electrophoresis. The bench-scale separations (column and thin-layer chromatography) are in the chapter on laboratory techniques, and the mass spectrometric detectors are in the chapter on mass spectrometry."
+  ],
+  "objectives": [
+    "Calculate retention factor, selectivity, plate number, plate height and resolution from a chromatogram.",
+    "Use the resolution equation to decide whether to change N, α or k, and calculate the plate number needed.",
+    "Explain the van Deemter and Golay equations and the optimum linear velocity.",
+    "Choose a GC column, inlet mode, temperature program and detector for a given sample.",
+    "Describe reversed-phase HPLC, gradient elution, UHPLC, and the major detectors and other HPLC modes.",
+    "Explain ion chromatography with suppressed conductivity, and the principles of capillary electrophoresis and MEKC."
+  ],
+  "sections": [
+    {
+      "id": "theory",
+      "title": "Retention and resolution",
+      "terms": [
+        "retention factor",
+        "capacity factor",
+        "selectivity factor",
+        "plate height",
+        "theoretical plates",
+        "plate number",
+        "chromatographic resolution",
+        "dead time",
+        "retention time",
+        "adjusted retention time",
+        "chromatogram",
+        "chromatography",
+        "elution",
+        "peak width",
+        "asymmetry factor",
+        "peak tailing",
+        "Purnell equation",
+        "resolution equation",
+        "general elution problem",
+        "partition coefficient in chromatography",
+        "distribution constant",
+        "van Deemter equation",
+        "van Deemter",
+        "Golay equation"
+      ],
+      "body": [
+        "Each solute spends a fraction of its time in the mobile phase, moving at the velocity of the mobile phase, and the remainder in the stationary phase, not moving. The **retention time** tR is the time from the injection to the peak maximum, and the **dead time** (or hold-up time) tM is the time for an unretained solute to pass through the column. The **retention factor** (formerly called capacity factor) measures how much longer the solute takes than an unretained one:",
+        {
+          "eq": "k = (t_R − t_M)/t_M = K·V_S/V_M"
+        },
+        "where K = c_S/c_M is the distribution constant and VS/VM the phase ratio. The retention factor gives the ratio of the amounts of solute in the stationary and the mobile phases. In practice k is kept between 1 and 10: below 1 the peaks are too close to the dead time and are not separated from unretained interferences, and above 10 the analysis is long and the peaks are broad. The **selectivity factor** α = k₂/k₁ (≥ 1) is the ratio of the retention factors of two adjacent peaks, and measures how well the chemistry of the system distinguishes between them (α = 1 is no separation, whatever the column).",
+        {
+          "h": "Efficiency"
+        },
+        "A band spreads as it travels, so a column is characterized by its **plate number** N, by analogy with a distillation column. For a Gaussian peak:",
+        {
+          "eq": "N = 16(t_R/W)² = 5.54(t_R/W_{1/2})²,   H = L/N"
+        },
+        "where W is the baseline width (4σ) and W½ the width at half height, L the column length and H the **plate height** (height equivalent to one theoretical plate): the lower the H, the more efficient the column. Typical values: packed GC column 1000–5000 plates per meter; capillary GC columns 3000–5000 plates per meter, with total N = 10⁵ for a 30 m column; HPLC columns of 3–5 µm particles about 100,000 plates per meter; of 1.7 µm about 250,000 plates per meter.",
+        {
+          "h": "Resolution"
+        },
+        "The **resolution** of two peaks is their separation relative to their average width:",
+        {
+          "eq": "R_s = 2(t_{R2} − t_{R1})/(W₁ + W₂)"
+        },
+        "R_s = 1.0 gives peaks that overlap by about 2% of the area; R_s = 1.5 is **baseline resolution** (0.1% overlap) and is the usual goal. Resolution depends on three independent factors (the **resolution equation**, or Purnell equation):",
+        {
+          "eq": "R_s = (√N / 4) · ((α − 1)/α) · (k/(1 + k))"
+        },
+        {
+          "table": {
+            "head": [
+              "Factor",
+              "How to change it",
+              "Effect"
+            ],
+            "rows": [
+              [
+                "**Efficiency** N",
+                "Longer column, smaller particles, optimum flow, narrow-bore capillary",
+                "R_s ∝ √N: doubling the resolution costs four times the plates and the analysis time"
+              ],
+              [
+                "**Selectivity** α",
+                "Change the stationary phase, the mobile-phase composition or the pH, or the temperature",
+                "The most powerful factor: a small increase in α (1.02 → 1.10) gives a large gain"
+              ],
+              [
+                "**Retention** k",
+                "Weaker eluent (HPLC), lower temperature (GC)",
+                "The gain levels off beyond k ≈ 5; k/(1+k) → 1"
+              ]
+            ],
+            "caption": "The three levers of resolution."
+          }
+        },
+        {
+          "example": {
+            "title": "Resolution and required plate number",
+            "problem": "Peaks at 8.40 and 8.80 min have baseline widths of 0.40 and 0.44 min. (a) Compute R_s and N for the second peak. (b) How many plates are needed for R_s = 1.5 if α = 1.05 and k = 5 for the second peak?",
+            "solution": "(a) R_s = 2(8.80 − 8.40)/(0.40 + 0.44) = 0.80/0.84 = 0.95. N = 16(8.80/0.44)² = 16 × 400 = 6400. (b) Solve the resolution equation for N: N = 16R_s²[α/(α−1)]²[(1+k)/k]² = 16 × 2.25 × (1.05/0.05)² × (6/5)² = 36 × 441 × 1.44 ≈ 22,900 plates. With H = 10 µm (0.001 cm), a column of 23 cm is needed."
+          }
+        },
+        "**The general elution problem**: for a mixture with a wide range of retention, conditions that give good k for the first peaks (2–5) give an hour for the last ones (k = 100). The solution is to change the strength of the mobile phase during the run: temperature programming in GC and gradient elution in HPLC. Peak shape matters as well: tailing (asymmetry factor As = b/a at 10% of the height > 1.2) comes from strong adsorption at active sites, from column overload or from dead volume.",
+        {
+          "h": "Band broadening: the van Deemter equation"
+        },
+        {
+          "eq": "H = A + B/u + C·u"
+        },
+        {
+          "list": [
+            "**A (multipath, eddy diffusion)**: different paths between the packing particles make molecules arrive at different times. It is proportional to the particle diameter (A ≈ 2λd_p), and it is zero in open tubular columns.",
+            "**B/u (longitudinal diffusion)**: the band diffuses along the column axis, in proportion to the diffusion coefficient in the mobile phase. It matters at low flow, and is large in gases (10⁴–10⁵ times larger than in liquids).",
+            "**C·u (resistance to mass transfer)**: molecules need time to move into and out of the stationary phase and through the mobile phase between the particles, so at higher flow the band cannot equilibrate and broadens. It scales with d_p² (or with the film thickness squared in capillary GC)."
+          ]
+        },
+        "The plot of H against u has a minimum at u_opt = √(B/C), where H_min = A + 2√(BC). For the same efficiency, a smaller particle shifts the minimum to a higher u and flattens the C-term branch, which is why UHPLC with 1.7 µm particles can run at high speed. For open tubular columns, the **Golay equation** has no A term: H = B/u + (C_S + C_M)u, with C_M ∝ r² (radius of the column) and C_S ∝ d_f² (film thickness).",
+        {
+          "example": {
+            "title": "Optimum velocity",
+            "problem": "A packed GC column has A = 0.50 mm, B = 7.5 mm² s⁻¹, C = 0.030 s. Find u_opt and H_min, and the plate number of a 2.0 m column at the optimum.",
+            "solution": "u_opt = √(B/C) = √(7.5/0.030) = √250 = 15.8 mm s⁻¹. H_min = A + 2√(BC) = 0.50 + 2√(0.225) = 0.50 + 0.95 = 1.45 mm. N = 2000 mm/1.45 mm = 1380 plates."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Peak at 6.0 min, unretained peak at 1.0 min. What is k?",
+          "a": "5.0",
+          "wrong": [
+            "6.0",
+            "0.2",
+            "1.2"
+          ]
+        },
+        {
+          "q": "Which factor in the resolution equation is the most effective at improving a difficult separation?",
+          "a": "Selectivity α",
+          "wrong": [
+            "Plate number, since R grows linearly with N",
+            "Retention factor k above 10",
+            "Detector sensitivity"
+          ]
+        },
+        {
+          "q": "What does the B term of the van Deemter equation represent?",
+          "a": "Longitudinal diffusion of the band along the column",
+          "wrong": [
+            "Packing irregularities",
+            "Slow mass transfer",
+            "Detector dead volume"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gc",
+      "title": "Gas chromatography",
+      "terms": [
+        "gas chromatography",
+        "GC",
+        "capillary column",
+        "capillary columns",
+        "temperature programming",
+        "split injection",
+        "splitless injection",
+        "flame ionization detector",
+        "FID",
+        "electron capture detector",
+        "ECD",
+        "thermal conductivity detector",
+        "TCD",
+        "nitrogen–phosphorus detector",
+        "nitrogen-phosphorus detector",
+        "NPD",
+        "flame photometric detector",
+        "Kovats retention index",
+        "retention index",
+        "column bleed",
+        "stationary phase",
+        "carrier gas",
+        "wall-coated open tubular",
+        "PLOT column",
+        "headspace sampling",
+        "inlet liner",
+        "backflush"
+      ],
+      "body": [
+        "In **gas chromatography (GC)** the mobile phase is an inert carrier gas (helium, hydrogen or nitrogen) and the sample is vaporized. It is used for compounds that can be volatilized without decomposing, with a boiling point below about 400 °C and a molar mass below ~500 u. Polar compounds (acids, amines, sugars) are first converted to volatile derivatives (silyl ethers, esters).",
+        {
+          "h": "Columns"
+        },
+        "Modern GC uses **wall-coated open tubular (WCOT) capillary columns**: fused-silica tubes of 15–60 m length and 0.10–0.53 mm internal diameter, with a polyimide outer coating for strength, and a thin film (0.1–1 µm) of a liquid **stationary phase** chemically bonded to the inner wall. There is no packing, so no A term and a low pressure drop, which allows long columns and N ≈ 100,000–300,000. The separation follows the rule “like dissolves like”:",
+        {
+          "table": {
+            "head": [
+              "Phase",
+              "Composition",
+              "Polarity",
+              "Separates"
+            ],
+            "rows": [
+              [
+                "DB-1 / HP-1",
+                "100% polydimethylsiloxane (PDMS)",
+                "Nonpolar",
+                "By boiling point: hydrocarbons, solvents, petroleum"
+              ],
+              [
+                "DB-5 / HP-5",
+                "5% diphenyl–95% dimethyl PDMS",
+                "Slightly polar",
+                "The general-purpose column: drugs, pesticides, PAHs, flavors"
+              ],
+              [
+                "DB-17",
+                "50% phenyl PDMS",
+                "Intermediate",
+                "Pesticides, aromatics"
+              ],
+              [
+                "DB-WAX",
+                "Polyethylene glycol",
+                "Polar",
+                "Alcohols, fatty-acid methyl esters, flavors"
+              ],
+              [
+                "PLOT (Al₂O₃, molecular sieve)",
+                "Solid adsorbent layer",
+                "—",
+                "Light gases and hydrocarbons (C₁–C₅, permanent gases)"
+              ]
+            ],
+            "caption": "Common GC stationary phases."
+          }
+        },
+        "At high temperature the stationary phase slowly decomposes and a rising baseline appears, the **column bleed**, which sets the upper temperature limit and increases the noise of the detector (and the background of an MS). Chiral phases based on cyclodextrins separate enantiomers.",
+        {
+          "h": "Injection"
+        },
+        {
+          "list": [
+            "**Split injection**: the sample is vaporized in a hot **liner** and only a fraction (1:10 to 1:500) is passed to the column, the rest is vented. For concentrated samples. The sharp, narrow band gives excellent peak shape.",
+            "**Splitless injection**: the split vent is closed for 30–90 s, so almost all of the sample goes to the column. It is used for trace analysis (pollutants, pesticides). The initial oven temperature is set 10–20 °C below the solvent’s boiling point to refocus the band at the start of the column (solvent trapping).",
+            "**Headspace** sampling injects the vapor above a heated sealed vial, so volatiles (residual solvents, blood alcohol) are measured without the matrix. **SPME** (see sample preparation) can be desorbed directly in the inlet."
+          ]
+        },
+        {
+          "h": "Temperature programming"
+        },
+        "At constant temperature, a mixture with a wide boiling range gives sharp early peaks and very late broad ones. **Temperature programming** raises the oven, for example from 50 °C to 300 °C at 10 °C min⁻¹. It speeds up the late peaks, makes them narrower and taller (better detection), and solves the general elution problem. Retention times are then reproducible only if the program, flow and column are identical, so identification uses the retention index.",
+        "The **Kovats retention index** places the retention of a compound between the adjacent n-alkanes (carbon number n and N = n + 1, each of index 100 × carbon number), using adjusted retention times t′ = tR − tM, for isothermal operation:",
+        {
+          "eq": "I = 100 [ n + (log t′_x − log t′_n) / (log t′_N − log t′_n) ]"
+        },
+        "(for a temperature program, the retention times themselves are used). The index depends mainly on the stationary phase and little on the instrument, so published values can be compared.",
+        {
+          "example": {
+            "title": "Retention index",
+            "problem": "On a nonpolar column the adjusted retention times are 5.00 min for n-octane, 8.00 min for n-nonane and 6.00 min for an unknown. Calculate I.",
+            "solution": "I = 100[8 + (log 6.00 − log 5.00)/(log 8.00 − log 5.00)] = 100[8 + 0.0792/0.2041] = 100[8 + 0.388] = 839."
+          }
+        },
+        {
+          "h": "Detectors"
+        },
+        {
+          "table": {
+            "head": [
+              "Detector",
+              "Principle",
+              "Responds to",
+              "LOD (approximate)"
+            ],
+            "rows": [
+              [
+                "**FID** (flame ionization)",
+                "Organic compounds burned in an H₂/air flame make ions, which give a current",
+                "Almost all organic compounds (carbon-proportional); not H₂O, CO₂, CO",
+                "pg C s⁻¹ (10⁻¹²); linear range 10⁷"
+              ],
+              [
+                "**TCD** (thermal conductivity)",
+                "Change in the heat loss from a hot filament when the thermal conductivity of the gas changes",
+                "All compounds (universal, non-destructive); He carrier",
+                "ng"
+              ],
+              [
+                "**ECD** (electron capture)",
+                "A ⁶³Ni β source makes a standing current of electrons, which compounds capture, lowering the current",
+                "Electronegative groups: halogens, nitro, conjugated carbonyl (pesticides, PCBs)",
+                "fg; narrow linear range"
+              ],
+              [
+                "**NPD** (thermionic)",
+                "A heated rubidium or cesium bead enhances ionization of N and P compounds",
+                "N and P compounds (drugs, organophosphorus pesticides)",
+                "pg"
+              ],
+              [
+                "**FPD**",
+                "Emission of S₂* (394 nm) and HPO* (526 nm) in a hydrogen-rich flame",
+                "S and P compounds",
+                "pg"
+              ],
+              [
+                "**MS**",
+                "See the chapter on mass spectrometry",
+                "All; gives identification",
+                "pg (full scan) – fg (SIM)"
+              ]
+            ],
+            "caption": "GC detectors."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Which detector is the most sensitive to chlorinated pesticides?",
+          "a": "Electron capture detector (ECD)",
+          "wrong": [
+            "FID",
+            "TCD",
+            "NPD"
+          ]
+        },
+        {
+          "q": "Why is temperature programming used?",
+          "a": "To elute compounds of a wide boiling range in a reasonable time with narrow peaks",
+          "wrong": [
+            "To increase the plate number by cooling",
+            "To avoid using a carrier gas",
+            "To raise the column bleed"
+          ]
+        },
+        {
+          "q": "When is splitless injection preferred over split?",
+          "a": "For trace-level analytes, since the whole sample goes on the column",
+          "wrong": [
+            "For concentrated samples",
+            "For gases only",
+            "When high flow is needed"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hplc",
+      "title": "High-performance liquid chromatography",
+      "terms": [
+        "HPLC",
+        "high-performance liquid chromatography",
+        "reversed-phase",
+        "reversed-phase HPLC",
+        "C18",
+        "gradient elution",
+        "isocratic",
+        "mobile phase",
+        "UHPLC",
+        "diode array detector",
+        "evaporative light scattering detector",
+        "guard column",
+        "normal-phase",
+        "normal phase chromatography",
+        "size-exclusion chromatography",
+        "ion-exchange chromatography",
+        "HILIC",
+        "refractive index detector",
+        "octadecylsilane",
+        "end-capping",
+        "silanol",
+        "eluent strength",
+        "ion-pair chromatography",
+        "chiral chromatography",
+        "sub-2 µm particles",
+        "high performance liquid chromatography",
+        "liquid chromatography"
+      ],
+      "body": [
+        "In **high-performance liquid chromatography (HPLC)** a high-pressure pump (up to 400 bar, or 1000+ bar for UHPLC) forces a liquid through a column packed with small particles (3–5 µm for HPLC, <2 µm for **UHPLC**). Small particles give the high efficiency (small A and C terms of the van Deemter equation) but a high back pressure, ΔP ∝ ηLu/d_p². HPLC is the most widely used separation technique, since it works at room temperature for non-volatile, polar, ionic and thermally labile compounds (drugs, proteins, dyes, vitamins), which cannot be done by GC.",
+        "The instrument has solvent reservoirs, a degasser, a pump (isocratic, or binary or quaternary for gradients), an autosampler with a loop (typically 1–100 µL), a column in a thermostat, and a detector. A short **guard column** with the same packing in front protects the analytical column from particles and strongly retained compounds.",
+        {
+          "h": "Reversed-phase HPLC"
+        },
+        "In **reversed-phase** chromatography (more than 70% of HPLC), the stationary phase is nonpolar and the mobile phase is polar. The usual packing is silica with covalently bonded **C18** (octadecylsilane) chains, and the eluent is water mixed with methanol or acetonitrile. Retention is by hydrophobic interaction: the more hydrophobic the solute, the more it is retained, so polar compounds elute first. Increasing the fraction of organic solvent increases the **eluent strength** and decreases k: approximately log k = log k_w − Sφ, with S ≈ 3–4 for small molecules, so each 10% of extra organic modifier lowers k by a factor of about 2–3. Residual silanol groups on silica interact with bases and cause tailing, so the columns are end-capped, and the mobile phase is buffered or acidified (0.1% formic acid or trifluoroacetic acid). For ionizable compounds the pH is chosen at least two units from the pKa so that the analyte is entirely in one form (the neutral form is retained more in reversed phase). **Ion-pair chromatography** adds a hydrophobic counterion (alkylsulfonate) to retain ions on C18.",
+        {
+          "h": "Isocratic and gradient elution"
+        },
+        "With a constant eluent composition (**isocratic**), the problem of general elution appears as in GC. In **gradient elution** the proportion of the strong solvent is increased during the run (e.g. 5% to 95% acetonitrile in 20 minutes), and the late peaks are focused, sharper and elute faster. After each gradient the column is re-equilibrated with the starting solvent for 5–10 column volumes.",
+        {
+          "example": {
+            "title": "Effect of eluent strength",
+            "problem": "A solute has k = 10 in 40% methanol. Estimate k in 50% methanol with S = 4.",
+            "solution": "log k changes by −S Δφ = −4 × 0.10 = −0.40, so k = 10 × 10^{−0.40} = 4.0. The retention time falls by about 2.5 times."
+          }
+        },
+        {
+          "h": "Other modes"
+        },
+        {
+          "table": {
+            "head": [
+              "Mode",
+              "Stationary / mobile phase",
+              "Separates by",
+              "Uses"
+            ],
+            "rows": [
+              [
+                "**Normal phase**",
+                "Polar (silica, cyano, amino) / nonpolar (hexane–ethyl acetate)",
+                "Polarity: polar compounds are retained more",
+                "Isomers, lipids, water-sensitive compounds"
+              ],
+              [
+                "**HILIC**",
+                "Polar phase / high acetonitrile with a little water",
+                "Partitioning into a water layer on the phase: polar compounds retained",
+                "Very polar compounds (sugars, amino acids, metabolites) that elute with the void in C18; MS-friendly"
+              ],
+              [
+                "**Ion-exchange**",
+                "Charged resin / aqueous buffer with a salt or pH gradient",
+                "Charge",
+                "Proteins, nucleotides, amino acids"
+              ],
+              [
+                "**Size-exclusion (SEC)**",
+                "Porous beads / any solvent",
+                "Hydrodynamic size: large molecules elute first, small ones enter the pores",
+                "Polymer molar mass distribution, protein aggregates"
+              ],
+              [
+                "**Chiral**",
+                "Chiral selector (cyclodextrin, polysaccharide carbamate)",
+                "Diastereomeric interactions",
+                "Enantiomers of drugs"
+              ]
+            ],
+            "caption": "HPLC modes."
+          }
+        },
+        {
+          "h": "Detectors"
+        },
+        {
+          "list": [
+            "**UV–Vis absorbance** (fixed or variable wavelength) is the workhorse. A **diode array detector (DAD)** records the whole spectrum (190–800 nm) at every time point, which allows compound identification by its spectrum and a test of peak purity. Mobile-phase solvents must be transparent at the wavelength (acetonitrile to 190 nm; methanol to 205 nm).",
+            "**Fluorescence** is 10–1000 times more sensitive and selective, for native fluorophores or derivatives (amino acids with OPA, PAHs).",
+            "**Refractive index (RI)** is universal but insensitive and incompatible with gradients (sugars, polymers). The **evaporative light scattering detector (ELSD)** nebulizes the effluent, evaporates the solvent and measures the light scattered by the remaining solid particles: it responds to any non-volatile analyte, including lipids and sugars without a chromophore, and is compatible with gradients. Charged aerosol detection is similar.",
+            "**Mass spectrometry** (LC–MS) gives selectivity and identification (see the previous chapter). Electrochemical detection serves catecholamines and other redox-active compounds."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "In reversed-phase HPLC with C18, which elutes first?",
+          "a": "The most polar compound",
+          "wrong": [
+            "The most hydrophobic compound",
+            "The largest compound",
+            "The charged compound with the highest mass"
+          ]
+        },
+        {
+          "q": "Why does UHPLC use higher pressures than HPLC?",
+          "a": "Particles under 2 µm give higher efficiency but a larger pressure drop",
+          "wrong": [
+            "Larger particles are used",
+            "The column is empty",
+            "The mobile phase is a gas"
+          ]
+        },
+        {
+          "q": "Which detector is useful for a sugar with no UV chromophore in a gradient?",
+          "a": "ELSD (or charged aerosol / MS)",
+          "wrong": [
+            "UV at 254 nm",
+            "Refractive index",
+            "Fluorescence"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ic-ce",
+      "title": "Ion chromatography and capillary electrophoresis",
+      "terms": [
+        "ion chromatography",
+        "capillary electrophoresis",
+        "electroosmotic flow",
+        "suppressor",
+        "conductivity detector",
+        "micellar electrokinetic chromatography",
+        "MEKC",
+        "electrophoretic mobility",
+        "zone electrophoresis",
+        "capillary zone electrophoresis",
+        "CZE",
+        "suppressed conductivity",
+        "Joule heating",
+        "hydrodynamic injection",
+        "electrokinetic injection",
+        "isoelectric focusing"
+      ],
+      "body": [
+        "**Ion chromatography (IC)** separates inorganic and small organic ions (F⁻, Cl⁻, NO₂⁻, NO₃⁻, SO₄²⁻, PO₄³⁻; Na⁺, NH₄⁺, K⁺, Ca²⁺, Mg²⁺) on an ion-exchange column, and detects them by conductivity. For anions, the column is a polymer with quaternary ammonium sites, and the eluent is carbonate–bicarbonate or hydroxide. The ions with a larger charge and a stronger affinity are retained longer (F⁻ < Cl⁻ < NO₂⁻ < Br⁻ < NO₃⁻ < PO₄³⁻ < SO₄²⁻).",
+        "The difficulty is detection: the eluent is itself a conducting electrolyte at 1–10 mM, which gives a high background compared with the ng-level conductivity of the analyte. The **suppressor** solves this: it is a membrane device (or a column) after the separator, which exchanges the eluent cations for H⁺ (for anions) so that carbonate becomes weakly conducting H₂CO₃ and NaOH becomes H₂O, while the analyte anions arrive as strongly conducting acids (Na⁺Cl⁻ → H⁺Cl⁻, with an increase in the signal because H⁺ has a mobility of 350 S cm² mol⁻¹, against 50 for Na⁺). The result is a low background and a high signal in the **suppressed conductivity** detection, with detection limits of 1–10 µg L⁻¹.",
+        {
+          "h": "Capillary electrophoresis"
+        },
+        "In **capillary electrophoresis (CE)** the separation is carried out in a fused-silica capillary (25–75 µm internal diameter, 30–100 cm), filled with a buffer, with 10–30 kV applied between the two ends. Ions migrate in the field at a velocity v = μ_ep E, where the **electrophoretic mobility** μ_ep = q/(6πηr) increases with the charge and decreases with the size of the ion. Only a few nL are injected (**hydrodynamically** by pressure or **electrokinetically** by voltage), and the detection (usually UV) is made through a window in the capillary.",
+        "The silica wall carries silanol groups that are ionized above pH 3 (SiO⁻), so a cationic layer forms next to the wall. In the field it moves toward the cathode and drags the whole buffer with it, a plug-flow called **electroosmotic flow (EOF)**. The flow has a flat profile (not parabolic as the pressure-driven flow in HPLC), which is the reason for the very high efficiency of CE. All species are carried to the cathode: the apparent mobility is μ_app = μ_ep + μ_eo, so cations arrive first (their electrophoretic and electroosmotic movements add), then neutrals (all together, with the EOF), and finally anions (the EOF carries them forward more quickly than they move back). This is the **capillary zone electrophoresis (CZE)** mode.",
+        "Band broadening is mainly by longitudinal diffusion, so the plate number is N = μ_app V/(2D), independent of the capillary length, and values of 10⁵–10⁶ are typical. The heat produced by the current (Joule heating) limits the field, which is why capillaries are narrow and thermostatted.",
+        {
+          "example": {
+            "title": "Plate number in CE",
+            "problem": "An ion has μ_app = 3.0 × 10⁻⁴ cm² V⁻¹ s⁻¹ and D = 1.0 × 10⁻⁵ cm² s⁻¹. What N is expected at 25 kV?",
+            "solution": "N = μ_app V/(2D) = (3.0 × 10⁻⁴ × 25,000)/(2 × 1.0 × 10⁻⁵) = 7.5/2.0 × 10⁻⁵ = 3.75 × 10⁵ plates, ten times more than a typical HPLC column."
+          }
+        },
+        "Neutral molecules do not separate in CZE. **Micellar electrokinetic chromatography (MEKC)** adds a surfactant, usually sodium dodecyl sulfate (SDS), above its critical micelle concentration. The anionic micelles migrate toward the anode against the EOF (slowly), and act as a pseudo-stationary phase into which the neutral analytes partition according to their hydrophobicity, so that neutrals elute between the EOF marker and the micelle marker. MEKC combines electrophoresis with chromatography, and separates neutral and charged compounds in a single run. Other CE modes are capillary gel electrophoresis (DNA sequencing, protein size, in a sieving polymer) and isoelectric focusing (proteins by pI)."
+      ],
+      "check": [
+        {
+          "q": "What is the role of the suppressor in IC?",
+          "a": "It converts the eluent to a weakly conducting form, and the analyte to a more conducting form, lowering the background",
+          "wrong": [
+            "It separates the ions",
+            "It removes the analyte from the eluent",
+            "It increases the column pressure"
+          ]
+        },
+        {
+          "q": "In CZE with a normal EOF toward the cathode, what is the elution order?",
+          "a": "Cations, neutrals, anions",
+          "wrong": [
+            "Anions, neutrals, cations",
+            "Neutrals, cations, anions",
+            "All at once"
+          ]
+        },
+        {
+          "q": "How does MEKC separate neutral compounds?",
+          "a": "They partition between the aqueous buffer and the migrating micelles",
+          "wrong": [
+            "Neutrals have an electrophoretic mobility",
+            "Neutrals bind the capillary wall",
+            "The EOF separates them by size"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "k = (tR − tM)/tM, α = k₂/k₁, N = 16(tR/W)², H = L/N. Resolution Rs = 2Δt/(W₁+W₂) = (√N/4)((α−1)/α)(k/(1+k)); Rs ≥ 1.5 is baseline. Selectivity is the most powerful lever.",
+    "van Deemter: H = A + B/u + Cu, with u_opt = √(B/C). Golay for open tubes has no A term. Temperature (GC) and gradient (HPLC) programs solve the general elution problem.",
+    "GC: capillary WCOT columns, PDMS phases, split/splitless injection, retention index; FID (universal organic), ECD (halogens), NPD (N, P), TCD (universal), MS.",
+    "HPLC: reversed-phase C18 with water–acetonitrile/methanol is the standard; gradient elution; UV/DAD, fluorescence, ELSD and MS detectors; HILIC, ion-exchange, SEC and chiral modes. UHPLC uses sub-2 µm particles.",
+    "IC uses ion-exchange with suppressed conductivity detection. CE separates by charge/size with a flat electroosmotic flow and efficiencies of 10⁵–10⁶ plates; MEKC adds micelles to separate neutrals."
+  ],
+  "problems": [
+    {
+      "q": "A compound elutes at 12.4 min from a column where an unretained compound elutes at 1.2 min. The peak width at half height is 0.18 min. Find k, N, and H for a 15.0 cm column.",
+      "solution": "k = (12.4 − 1.2)/1.2 = 9.33. N = 5.54(12.4/0.18)² = 5.54 × 4746 = 26,300. H = 150 mm/26,300 = 5.7 µm.",
+      "a": "k = 9.3, N ≈ 26,000, H ≈ 5.7 µm"
+    },
+    {
+      "q": "Two peaks have R_s = 1.0 with N = 5000. By what factor must N increase to reach R_s = 1.5 (same α and k)? How can this be done in practice?",
+      "solution": "R_s ∝ √N, so N must increase by (1.5/1.0)² = 2.25, to 11,250. Use a column 2.25 times longer (but the analysis time also rises by 2.25), or the same length with smaller particles, or optimize α with a different phase, which gives the result without a longer analysis time.",
+      "a": "2.25 times (N ≈ 11,000)"
+    },
+    {
+      "q": "A GC analysis of a mixture of C₈–C₂₀ alkanes at 100 °C shows sharp peaks for octane and nonane, but decane to eicosane never elutes properly. Explain what is happening and what to change.",
+      "solution": "Retention time grows roughly exponentially with carbon number at constant temperature (each CH₂ increases k by a constant factor of about 2.5–3), so the heavier alkanes have enormous k, and are very broad because of diffusion in the column. Use temperature programming (e.g. 60 → 300 °C at 15 °C min⁻¹), which keeps k low for the late peaks.",
+      "a": "Isothermal operation gives exponentially rising retention; use temperature programming."
+    },
+    {
+      "q": "In reversed-phase HPLC a drug (a weak acid, pKa 4.5) elutes in the void volume at pH 7.0 but k = 6 at pH 2.5. Explain.",
+      "solution": "At pH 7.0 the acid (2.5 pH units above its pKa) is >99% ionized, so it is very polar, interacts only weakly with C18 and elutes with the unretained compounds. At pH 2.5 (2 units below the pKa) it is >99% neutral and hydrophobic, so it partitions into the C18 phase. For reproducible retention the pH should be controlled with a buffer at least two units from the pKa.",
+      "a": "At low pH it is neutral and retained; at pH 7 it is ionized and unretained."
+    },
+    {
+      "q": "In a CE separation the EOF marker (a neutral) appears at 4.0 min and a cation at 3.2 min on a capillary of 50 cm total length (40 cm to the detector) with 20 kV applied. Calculate μ_eo and μ_ep of the cation.",
+      "solution": "E = 20,000 V/50 cm = 400 V cm⁻¹. μ_eo = L_d/(t E) = 40/(240 s × 400) = 4.17 × 10⁻⁴ cm² V⁻¹ s⁻¹. For the cation μ_app = 40/(192 × 400) = 5.21 × 10⁻⁴; μ_ep = μ_app − μ_eo = 1.04 × 10⁻⁴ cm² V⁻¹ s⁻¹.",
+      "a": "μ_eo = 4.2 × 10⁻⁴ and μ_ep = 1.0 × 10⁻⁴ cm² V⁻¹ s⁻¹"
+    }
+  ]
+}

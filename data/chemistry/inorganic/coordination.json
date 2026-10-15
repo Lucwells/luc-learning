@@ -1,0 +1,207 @@
+{
+  "id": "coordination",
+  "view": "chapter",
+  "title": "Coordination Compounds: Structure, Isomerism and Stability",
+  "description": "Metal complexes: ligands and geometries, nomenclature, isomers, the chelate effect, stability constants and hard–soft acid–base behavior.",
+  "overview": [
+    "Transition metal ions in solution and in solids rarely exist alone. They are surrounded by molecules or ions called ligands, each donating an electron pair to the metal. These coordination compounds give color to gemstones and pigments, carry oxygen in blood (heme), capture light in photosynthesis (chlorophyll), catalyze industrial reactions and, in the case of cisplatin, treat cancer. Their study began with a puzzle that Alfred Werner solved in 1893.",
+    "This chapter describes how complexes are built and named, what shapes they take, the kinds of isomerism they show, and the factors that determine how strongly a metal binds a given ligand: the chelate effect, the Irving–Williams order and hard–soft acid–base behavior. Bonding in complexes (color, magnetism) is the subject of the next chapter."
+  ],
+  "objectives": [
+    "Describe Werner’s evidence for the structure of coordination compounds.",
+    "Identify ligands by denticity and donor atom, and common coordination numbers and geometries.",
+    "Name complexes by IUPAC rules and write formulas from names.",
+    "Draw the structural and stereoisomers of a complex, including fac/mer and optical isomers.",
+    "Explain the chelate effect in terms of entropy.",
+    "Use stability constants, the Irving–Williams series and the HSAB principle to predict binding."
+  ],
+  "sections": [
+    {
+      "id": "werner",
+      "title": "Werner’s coordination theory",
+      "terms": ["coordination compound", "coordination compounds", "complex ion", "complex ions", "metal complex", "metal complexes", "Werner", "Werner's coordination theory", "coordination sphere", "primary valence", "secondary valence", "counterion", "central metal ion", "donor atom", "coordination complex"],
+      "body": [
+        "Around 1890, chemists knew compounds of cobalt(III) chloride and ammonia, CoCl₃·6NH₃ (yellow), CoCl₃·5NH₃ (purple), CoCl₃·4NH₃ (green) and CoCl₃·4NH₃ (violet), which they could not explain with the valence rules of the time. **Alfred Werner** proposed in 1893 that a metal ion has two kinds of valence: a **primary valence** (the oxidation state, here +3, satisfied by ions such as Cl⁻) and a **secondary valence** (the **coordination number**, here 6, satisfied by molecules or ions bound directly to the metal). The groups attached directly to the metal make up its **coordination sphere**, written in square brackets, and the remaining ions (**counterions**) are outside.",
+        "Werner’s proof used simple experiments. Adding excess AgNO₃ to each compound precipitates only some of the chlorides: CoCl₃·6NH₃ gives 3 AgCl per formula unit, CoCl₃·5NH₃ gives 2, and CoCl₃·4NH₃ gives 1. Conductivities agree (4, 3 and 2 ions per formula unit). The compounds are therefore [Co(NH₃)₆]Cl₃, [Co(NH₃)₅Cl]Cl₂ and [Co(NH₃)₄Cl₂]Cl, with the chlorides inside the sphere bonded too strongly to precipitate. The two forms of the tetraammine compound are the cis and trans isomers of an octahedral complex, and Werner’s later resolution of an optically active cobalt complex without any carbon confirmed the octahedral geometry. He received the Nobel Prize in Chemistry in 1913.",
+        "In a complex the metal ion (Lewis acid) accepts electron pairs from the **donor atoms** of the ligands (Lewis bases), forming coordinate covalent bonds. The coordination number is the number of donor atoms attached to the metal, which is not the same as the oxidation state or the number of ligands."
+      ],
+      "check": [
+        { "q": "In [Co(NH₃)₅Cl]Cl₂, how many chloride ions precipitate with AgNO₃ at once?", "a": "2", "wrong": ["1", "3", "0"] },
+        { "q": "What is the oxidation state and coordination number of cobalt in [Co(NH₃)₆]Cl₃?", "a": "+3 and 6", "wrong": ["+6 and 3", "+3 and 3", "+6 and 6"] }
+      ]
+    },
+    {
+      "id": "ligands-geometry",
+      "title": "Ligands and geometries",
+      "terms": ["ligand", "ligands", "coordination number", "denticity", "monodentate", "bidentate", "polydentate", "ambidentate ligand", "ambidentate", "chelate", "chelating", "chelating ligand", "ethylenediamine", "EDTA", "oxalate", "acetylacetonate", "bipyridine", "phenanthroline", "porphyrin", "octahedral complex", "tetrahedral complex", "square planar complex"],
+      "body": [
+        "A ligand is classified by its **denticity**, the number of donor atoms that bind the same metal.",
+        { "table": {
+          "head": ["Type", "Examples (donor atom in bold)"],
+          "rows": [
+            ["**Monodentate**", "H₂**O**, **N**H₃, **Cl**⁻, **C**N⁻, **C**O, **O**H⁻, PR₃ (P donor)"],
+            ["**Ambidentate** (can bind through either of two atoms)", "SC**N**⁻ / **S**CN⁻ (thiocyanate), **N**O₂⁻ / **O**NO⁻ (nitro / nitrito)"],
+            ["**Bidentate** (chelating)", "Ethylenediamine (en, H₂NCH₂CH₂NH₂), oxalate (ox²⁻), acetylacetonate (acac⁻), 2,2′-bipyridine (bipy), 1,10-phenanthroline (phen)"],
+            ["**Polydentate**", "Diethylenetriamine (tridentate), **EDTA⁴⁻** (hexadentate: 2 N and 4 carboxylate O), porphyrins (tetradentate macrocycles)"]
+          ],
+          "caption": "Ligand types."
+        } },
+        "A polydentate ligand that binds through two or more donor atoms forms a ring including the metal, a **chelate** (from Greek chele, claw). EDTA wraps around a metal ion like a hand and binds it in an octahedral cage; it is used to titrate Ca²⁺ and Mg²⁺ (water hardness), to treat lead poisoning, and as a preservative that removes the trace metal ions that catalyze food spoilage.",
+        { "h": "Coordination numbers and geometry" },
+        { "table": {
+          "head": ["CN", "Geometry", "Typical metals and examples"],
+          "rows": [
+            ["2", "Linear", "Ag⁺, Au⁺, Cu⁺: [Ag(NH₃)₂]⁺, [Au(CN)₂]⁻"],
+            ["4", "**Tetrahedral**", "d⁰, d⁵ (high spin) and d¹⁰ ions, large ligands: [ZnCl₄]²⁻, [FeCl₄]⁻, [CoCl₄]²⁻, [Ni(CO)₄]"],
+            ["4", "**Square planar**", "d⁸ ions, especially Pd(II), Pt(II), Au(III), Rh(I), Ir(I), Ni(II) with strong ligands: [PtCl₄]²⁻, [Ni(CN)₄]²⁻"],
+            ["5", "Trigonal bipyramidal or square pyramidal", "[Fe(CO)₅], [CuCl₅]³⁻, [VO(acac)₂]"],
+            ["6", "**Octahedral**", "The most common, for nearly all transition metals: [Fe(H₂O)₆]³⁺, [Co(NH₃)₆]³⁺, [Cr(en)₃]³⁺"],
+            ["7, 8, 9", "Pentagonal bipyramid, square antiprism, tricapped trigonal prism", "Larger ions, such as Mo(IV), Zr(IV), and lanthanides: [Mo(CN)₈]⁴⁻"]
+          ],
+          "caption": "Common coordination numbers."
+        } },
+        "The geometry depends on the metal’s size, charge, d-electron count and on ligand size. Large ligands (Cl⁻, Br⁻, PPh₃) favor lower coordination numbers because of crowding, and small ligands (F⁻, H₂O) favor higher ones. The preference between tetrahedral and square planar for four-coordination is set by the d-electron count, as the next chapter shows."
+      ],
+      "check": [
+        { "q": "EDTA is…", "a": "A hexadentate ligand", "wrong": ["A monodentate ligand", "A bidentate ligand", "An ambidentate ligand"] },
+        { "q": "Which geometry do d⁸ metal ions such as Pt(II) usually adopt with four ligands?", "a": "Square planar", "wrong": ["Tetrahedral", "Octahedral", "Linear"] }
+      ]
+    },
+    {
+      "id": "nomenclature",
+      "title": "Naming complexes",
+      "terms": ["IUPAC naming of complexes", "naming coordination compounds", "naming complexes", "coordination nomenclature", "ammine", "aqua", "cyano", "hexacyanoferrate", "tetrachloroplatinate"],
+      "body": [
+        "The IUPAC rules give each complex a unique name:",
+        { "list": [
+          "Name the **cation first, then the anion**, as for any salt. If the complex is the cation or neutral, the metal keeps its name. If the complex is an anion, the metal name takes the ending **-ate** (often from the Latin: ferrate for iron, cuprate for copper, argentate for silver, aurate for gold, stannate for tin, plumbate for lead).",
+          "Within the complex, list the **ligands first, in alphabetical order** (ignoring numerical prefixes), then the metal, with its oxidation state in Roman numerals in parentheses.",
+          "Anionic ligands end in **-o** (chloro, bromo, cyano, hydroxo, oxalato, sulfato; the current IUPAC recommendation uses -ido: chlorido, cyanido). Neutral ligands keep their names, with exceptions: **aqua** (H₂O), **ammine** (NH₃, with two m’s), **carbonyl** (CO) and **nitrosyl** (NO).",
+          "Use **di-, tri-, tetra-, penta-, hexa-** for the number of simple ligands, and **bis-, tris-, tetrakis-** for complicated ligand names or ligands that already include a numerical prefix (ethylenediamine becomes tris(ethylenediamine))."
+        ], "ordered": true },
+        { "example": {
+          "title": "Names and formulas",
+          "problem": "Name [Co(NH₃)₅Cl]Cl₂, K₃[Fe(CN)₆] and [Pt(NH₃)₂Cl₂]. Write the formula of sodium tetrahydroxozincate(II) and of tris(ethylenediamine)chromium(III) chloride.",
+          "solution": [
+            "[Co(NH₃)₅Cl]Cl₂: pentaamminechlorocobalt(III) chloride (the chloro and ammine ligands alphabetize as ammine, chloro). K₃[Fe(CN)₆]: potassium hexacyanoferrate(III), because the complex is an anion with iron(III) (3 K⁺ balance the 3− charge, and 6 CN⁻ with Fe³⁺ give 3−). [Pt(NH₃)₂Cl₂]: diamminedichloroplatinum(II) (cisplatin if cis).",
+            "Sodium tetrahydroxozincate(II): Na₂[Zn(OH)₄]. Tris(ethylenediamine)chromium(III) chloride: [Cr(en)₃]Cl₃."
+          ]
+        } }
+      ],
+      "check": [
+        { "q": "What is the name of K₄[Fe(CN)₆]?", "a": "Potassium hexacyanoferrate(II)", "wrong": ["Potassium hexacyanoiron(II)", "Tetrapotassium hexacyanoferrate(III)", "Potassium ferrocyanide(III)"] },
+        { "q": "What is the formula of diamminedichloroplatinum(II)?", "a": "[Pt(NH₃)₂Cl₂]", "wrong": ["[Pt(NH₂)₂Cl₂]", "Pt(NH₃)₂Cl₂²⁻", "[Pt(NH₃)₂Cl₄]"] }
+      ]
+    },
+    {
+      "id": "isomerism",
+      "title": "Isomerism in complexes",
+      "terms": ["linkage isomerism", "coordination isomerism", "ionization isomerism", "hydrate isomerism", "geometric isomers of complexes", "cis-trans isomerism in complexes", "fac isomer", "mer isomer", "facial", "meridional", "optical isomerism in complexes", "optical isomers of complexes", "cisplatin", "transplatin", "enantiomers of complexes", "Δ and Λ"],
+      "body": [
+        "Isomers of complexes fall into the same two classes as those of organic molecules.",
+        { "h": "Structural (constitutional) isomers" },
+        { "list": [
+          "**Ionization isomers** exchange a ligand and a counterion: [Co(NH₃)₅Br]SO₄ (violet, gives BaSO₄ with Ba²⁺) and [Co(NH₃)₅SO₄]Br (red, gives AgBr with Ag⁺).",
+          "**Hydrate isomers** exchange water between the sphere and the lattice: [Cr(H₂O)₆]Cl₃ (violet), [CrCl(H₂O)₅]Cl₂·H₂O (blue-green) and [CrCl₂(H₂O)₄]Cl·2H₂O (dark green).",
+          "**Coordination isomers** swap ligands between a cationic and an anionic complex: [Co(NH₃)₆][Cr(CN)₆] and [Cr(NH₃)₆][Co(CN)₆].",
+          "**Linkage isomers** differ in which donor atom of an ambidentate ligand is bound: [Co(NH₃)₅(NO₂)]²⁺ (nitro, N-bound, yellow) and [Co(NH₃)₅(ONO)]²⁺ (nitrito, O-bound, red), which convert under light or heat."
+        ] },
+        { "h": "Stereoisomers" },
+        { "list": [
+          "**Geometric isomers**: **cis** (ligands adjacent) and **trans** (opposite). Square planar [Pt(NH₃)₂Cl₂] has both: **cisplatin** is an anticancer drug, as it binds DNA (two adjacent guanines), and trans-platin is inactive. Octahedral MA₄B₂ also has cis and trans forms (the green trans- and violet cis-[Co(NH₃)₄Cl₂]⁺).",
+          "**Facial (fac) and meridional (mer)** isomers occur in octahedral MA₃B₃: in the fac isomer the three A ligands occupy one triangular face, and in the mer isomer they lie along a meridian (a plane through the metal, like a line of longitude).",
+          "**Optical isomers**: a complex without an improper rotation axis is chiral. Octahedral complexes with three chelate rings, such as [M(en)₃]ⁿ⁺ and [M(ox)₃]³⁻, are chiral (a propeller shape), as is cis-[M(en)₂Cl₂]⁺, though its trans isomer is not (it has a mirror plane). The two enantiomers are labeled Δ (right-handed propeller) and Λ (left-handed)."
+        ] },
+        { "example": {
+          "title": "Counting isomers",
+          "problem": "How many stereoisomers does the octahedral complex [Ma₂b₂c₂] have?",
+          "solution": "Five geometric isomers can be drawn, according to whether pairs of identical ligands are trans or cis. One of them (all three pairs cis) is chiral and occurs as a pair of enantiomers, so there are 6 stereoisomers in all."
+        } }
+      ],
+      "check": [
+        { "q": "Which complex is chiral?", "a": "cis-[Co(en)₂Cl₂]⁺", "wrong": ["trans-[Co(en)₂Cl₂]⁺", "[Co(NH₃)₆]³⁺", "[PtCl₄]²⁻"] },
+        { "q": "How are [Co(NH₃)₅NO₂]²⁺ and [Co(NH₃)₅ONO]²⁺ related?", "a": "Linkage isomers", "wrong": ["Ionization isomers", "Optical isomers", "Geometric isomers"] }
+      ]
+    },
+    {
+      "id": "chelate",
+      "title": "Chelate effect and stability constants",
+      "terms": ["chelate effect", "macrocyclic effect", "stability constant", "stability constants", "stepwise formation constants", "stepwise stability constants", "overall stability constant", "log β", "bite angle"],
+      "body": [
+        "A metal ion in water binds ligands in steps, each with its own stepwise constant, M + L ⇌ ML (K₁), ML + L ⇌ ML₂ (K₂), and so on. The product K₁K₂···Kₙ is the **overall stability constant** βₙ. A large β means a stable complex. The **chelate effect** is the extra stability of complexes of chelating ligands compared with comparable monodentate ligands:",
+        { "table": {
+          "head": ["Reaction", "log β"],
+          "rows": [["Ni²⁺ + 6NH₃ ⇌ [Ni(NH₃)₆]²⁺", "8.6"], ["Ni²⁺ + 3en ⇌ [Ni(en)₃]²⁺", "18.3"], ["Ni²⁺ + EDTA⁴⁻ ⇌ [Ni(EDTA)]²⁻", "18.6"]],
+          "caption": "Both [Ni(NH₃)₆]²⁺ and [Ni(en)₃]²⁺ have six Ni–N bonds, yet the en complex is about 10¹⁰ times more stable."
+        } },
+        "The origin is mainly **entropy**. In the reaction [Ni(NH₃)₆]²⁺ + 3en → [Ni(en)₃]²⁺ + 6NH₃, three bidentate ligands replace six monodentate ones, so the number of free molecules in solution rises from 3 to 6. The entropy gain (ΔS° > 0, with ΔH° nearly zero because the Ni–N bonds are similar) makes ΔG° = −TΔS° negative. A second contribution is that once one end of a chelate is attached, the other end is held close to the metal and ring closure is easy (a high effective concentration). Five- and six-membered chelate rings are the most stable, and macrocyclic ligands (porphyrins, crown ethers, cryptands) show an even larger **macrocyclic effect**.",
+        { "example": {
+          "title": "Sizing the chelate effect",
+          "problem": "Calculate the free energy difference between the [Ni(NH₃)₆]²⁺ and [Ni(en)₃]²⁺ formations at 25 °C.",
+          "solution": "Δlog β = 18.3 − 8.6 = 9.7. The difference in ΔG° is −RT ln(10) × 9.7 = −5.71 × 9.7 = −55 kJ mol⁻¹: the en complex is lower in free energy by about 55 kJ mol⁻¹."
+        } }
+      ],
+      "check": [
+        { "q": "What is the main origin of the chelate effect?", "a": "A gain in entropy, as one chelating ligand replaces several monodentate ligands", "wrong": ["Stronger metal–donor bonds in chelates", "A large positive enthalpy", "Lower coordination number"] },
+        { "q": "A 5-membered chelate ring generally forms most readily with…", "a": "Ligands such as ethylenediamine", "wrong": ["Ligands with a long, flexible chain", "Monodentate ligands", "Very rigid ligands that cannot bend"] }
+      ]
+    },
+    {
+      "id": "irving-hsab",
+      "title": "Irving–Williams series and hard–soft acid–base theory",
+      "terms": ["Irving–Williams series", "Irving-Williams series", "hard and soft acids and bases", "HSAB principle", "HSAB", "Pearson hardness", "hard acid", "soft acid", "hard base", "soft base", "borderline acids", "chalcophile", "lithophile", "Goldschmidt classification", "absolute hardness"],
+      "body": [
+        "For a given ligand, the stability of complexes of the divalent first-row ions follows the **Irving–Williams series** whatever the ligand: **Mn²⁺ < Fe²⁺ < Co²⁺ < Ni²⁺ < Cu²⁺ > Zn²⁺**. The increase from Mn to Cu follows the decreasing ionic radius (a stronger electrostatic attraction) and the growing crystal-field stabilization energy (see the next chapter). Copper(II) is the most stable of the series, since the Jahn–Teller distortion of d⁹ gives extra stabilization, and zinc(II), with d¹⁰, has none.",
+        "Which metals prefer which ligands? Pearson’s **hard and soft acids and bases (HSAB)** principle sorts them. **Hard** species are small, highly charged and not easily polarized; **soft** species are large, of low charge and easily polarized.",
+        { "table": {
+          "head": ["", "Acids (metal ions)", "Bases (ligands)"],
+          "rows": [
+            ["**Hard**", "H⁺, Li⁺, Na⁺, Mg²⁺, Ca²⁺, Al³⁺, Ti⁴⁺, Cr³⁺, Fe³⁺, Co³⁺", "F⁻, OH⁻, H₂O, NH₃, RO⁻, CO₃²⁻, SO₄²⁻, Cl⁻ (borderline hard)"],
+            ["**Borderline**", "Fe²⁺, Co²⁺, Ni²⁺, Cu²⁺, Zn²⁺, Pb²⁺", "Br⁻, N₃⁻, pyridine, SO₃²⁻"],
+            ["**Soft**", "Cu⁺, Ag⁺, Au⁺, Hg²⁺, Cd²⁺, Pd²⁺, Pt²⁺, low-oxidation-state metals", "I⁻, RS⁻, CN⁻, CO, PR₃, SCN⁻ (S-bound)"]
+          ],
+          "caption": "HSAB classification."
+        } },
+        "The rule is: **hard acids bind preferentially to hard bases, and soft acids to soft bases**. The explanation is that hard–hard interactions are mainly ionic (electrostatic) and soft–soft interactions are mainly covalent. Examples: Al³⁺ and Ti⁴⁺ occur in nature as oxides and silicates (O donors), whereas Cu, Zn, Hg, Pb and Ag occur as sulfides. Goldschmidt called these **lithophile** and **chalcophile** elements. Mercury(II) binds to the sulfur of cysteine, which explains its toxicity, and the antidote dimercaprol (BAL) is a dithiol that competes for it. Fluoride is a hard base and stabilizes high oxidation states (AgF₂, CoF₃), while soft ligands (CO, PR₃, CN⁻) stabilize low oxidation states. Pearson’s absolute hardness, η = (I − A)/2 (half the difference between ionization energy and electron affinity), places species on a numerical scale.",
+        { "example": {
+          "title": "Using HSAB",
+          "problem": "Predict whether Hg²⁺ prefers to bind F⁻ or I⁻, and whether Fe³⁺ prefers H₂O or PR₃.",
+          "solution": "Hg²⁺ is a soft acid and prefers the soft base I⁻ (HgI₂ is very insoluble; HgF₂ hydrolyzes). Fe³⁺ is a hard acid and prefers the hard base H₂O (hexaaqua complex) to the soft PR₃."
+        } }
+      ],
+      "check": [
+        { "q": "Which metal ion forms the most stable complexes in the Irving–Williams series?", "a": "Cu²⁺", "wrong": ["Mn²⁺", "Zn²⁺", "Fe²⁺"] },
+        { "q": "Which pair is the best match under HSAB?", "a": "Ag⁺ and I⁻", "wrong": ["Ag⁺ and F⁻", "Al³⁺ and I⁻", "Hg²⁺ and OH⁻"] }
+      ]
+    }
+  ],
+  "summary": [
+    "Werner’s theory: the metal has a primary valence (oxidation state) and a secondary valence (coordination number). Ligands in the coordination sphere are not precipitated or ionized.",
+    "Ligands are classified by denticity. Octahedral (CN 6) is the commonest geometry; d⁸ Pt(II) and Pd(II) are square planar.",
+    "Names: ligands alphabetically, then metal with Roman oxidation state, with -ate for anionic complexes.",
+    "Isomers: ionization, hydrate, coordination and linkage; cis/trans, fac/mer and chiral (Δ/Λ) stereoisomers.",
+    "The chelate effect is mainly entropic. Stability follows the Irving–Williams series, and HSAB says hard–hard and soft–soft pairs bind best."
+  ],
+  "problems": [
+    {
+      "q": "Name: (a) [Cr(H₂O)₄Cl₂]Cl, (b) Na₃[Co(NO₂)₆], (c) [Ni(CO)₄], (d) [Cu(NH₃)₄]SO₄. Write the formula of potassium trioxalatoferrate(III).",
+      "solution": "(a) Tetraaquadichlorochromium(III) chloride. (b) Sodium hexanitrocobaltate(III). (c) Tetracarbonylnickel(0). (d) Tetraamminecopper(II) sulfate. Potassium trioxalatoferrate(III): K₃[Fe(ox)₃] (three oxalate 2− with Fe³⁺ give 3−).",
+      "a": "(a) tetraaquadichlorochromium(III) chloride; (b) sodium hexanitrocobaltate(III); (c) tetracarbonylnickel(0); (d) tetraamminecopper(II) sulfate; K₃[Fe(ox)₃]."
+    },
+    {
+      "q": "Draw all stereoisomers of [Co(en)₂Cl₂]⁺ and say which are chiral.",
+      "solution": "The trans isomer has both chlorides on opposite sides and a mirror plane: achiral. The cis isomer has no mirror plane and exists as the Δ and Λ enantiomers: chiral. Three stereoisomers in total.",
+      "a": "trans (achiral) and cis (two enantiomers, chiral)."
+    },
+    {
+      "q": "The stepwise constants for Cd²⁺ with Cl⁻ are K₁ = 100, K₂ = 5, K₃ = 0.5, K₄ = 0.3. Calculate β₄ and explain why successive constants decrease.",
+      "solution": "β₄ = 100 × 5 × 0.5 × 0.3 = 75. Successive constants fall because there are fewer remaining sites (a statistical factor), the ligands repel each other and the metal becomes less electron-poor as ligands add.",
+      "a": "β₄ = 75; the constants decrease for statistical, steric and electrostatic reasons."
+    },
+    {
+      "q": "Why does Cu²⁺ in the Irving–Williams series bind ligands more tightly than Zn²⁺, though the two ions have almost equal radii?",
+      "solution": "The d⁹ configuration of Cu²⁺ has a Jahn–Teller distortion that lowers the energy through additional ligand-field stabilization (and it has a larger crystal-field stabilization than the d¹⁰ Zn²⁺, which has none).",
+      "a": "Ligand-field stabilization, including Jahn–Teller distortion, favors Cu²⁺."
+    }
+  ]
+}

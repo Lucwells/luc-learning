@@ -1,0 +1,435 @@
+{
+  "id": "quantum-foundations",
+  "view": "chapter",
+  "title": "Quantum Mechanics: Postulates and Exactly Solvable Systems",
+  "description": "The postulates of quantum mechanics, the Schrödinger equation, and the particle in a box, tunneling, the harmonic oscillator and the rigid rotor.",
+  "overview": [
+    "Classical mechanics fails for electrons in atoms and molecules: it cannot account for discrete energy levels, for the stability of matter or for the interaction of light with molecules. Quantum mechanics replaces trajectories with wavefunctions, and replaces measurements of definite values with the probability of several outcomes. Everything in chemistry that depends on electronic structure, from bond lengths to spectra, follows from it.",
+    "This chapter states the postulates, then solves four simple systems exactly. These are the particle in a box (quantization from confinement), the barrier (tunneling), the harmonic oscillator (vibrations) and the rigid rotor (rotations). Together they are the models behind molecular spectroscopy, and the building blocks for the treatment of atoms and molecules in the next chapter."
+  ],
+  "objectives": [
+    "State the postulates of quantum mechanics and use operators to find eigenvalues and expectation values.",
+    "Use commutators to decide which observables can be known simultaneously.",
+    "Solve the particle in a box and use it to model conjugated π systems.",
+    "Calculate tunneling probabilities for a rectangular barrier.",
+    "Find vibrational levels of a diatomic from the harmonic oscillator and the effect of isotopic substitution.",
+    "Calculate rotational constants and energy levels of a rigid rotor."
+  ],
+  "sections": [
+    {
+      "id": "postulates",
+      "title": "The postulates of quantum mechanics",
+      "terms": [
+        "postulates of quantum mechanics",
+        "wavefunction",
+        "wavefunctions",
+        "wave function postulate",
+        "eigenvalue",
+        "eigenvalues",
+        "eigenfunction",
+        "eigenfunctions",
+        "expectation value",
+        "expectation values",
+        "Born interpretation",
+        "normalization condition",
+        "normalized",
+        "Hermitian operator",
+        "Hermitian operators",
+        "commutator",
+        "commutation relation",
+        "commuting operators",
+        "operator",
+        "operators",
+        "momentum operator",
+        "Hamiltonian"
+      ],
+      "body": [
+        "Quantum mechanics rests on a few statements that cannot be derived, only tested against experiment.",
+        {
+          "list": [
+            "**Postulate 1: the state.** The state of a system is described completely by a **wavefunction** Ψ(r, t). By the **Born interpretation**, |Ψ|² dτ is the probability of finding the particle in the volume element dτ. The wavefunction must be single-valued, continuous and square-integrable, and is **normalized**: ∫|Ψ|² dτ = 1.",
+            "**Postulate 2: observables.** Each observable (position, momentum, energy) corresponds to a linear **Hermitian operator**. Position x̂ = x, momentum p̂ₓ = −iħ ∂/∂x, kinetic energy T̂ = −(ħ²/2m)∇², and the total energy operator, the **Hamiltonian**, is Ĥ = T̂ + V̂.",
+            "**Postulate 3: measurement.** The only values that a measurement of an observable can give are the **eigenvalues** a of its operator, found from the eigenvalue equation Âψ = aψ, where ψ is the **eigenfunction**. After the measurement, the system is in the corresponding eigenstate.",
+            "**Postulate 4: expectation values.** For a system in state Ψ, the average of many measurements is the **expectation value** ⟨A⟩ = ∫Ψ* Â Ψ dτ (for a normalized Ψ).",
+            "**Postulate 5: time evolution.** The wavefunction evolves according to the time-dependent Schrödinger equation, iħ ∂Ψ/∂t = ĤΨ."
+          ]
+        },
+        "Hermitian operators have real eigenvalues, which is necessary for measured quantities, and eigenfunctions with different eigenvalues are orthogonal. If a wavefunction is not an eigenfunction of the operator, the result of a measurement is uncertain: it yields one of the eigenvalues, with probabilities given by the expansion coefficients, and ⟨A⟩ gives the average.",
+        {
+          "h": "Commutators and the uncertainty principle"
+        },
+        "The **commutator** of two operators is [Â, B̂] = ÂB̂ − B̂Â. If it is zero, the operators **commute**, and the two observables can be known simultaneously, with common eigenfunctions (the energy and the angular momentum of an atomic electron). If not, they cannot. The fundamental case is [x̂, p̂ₓ] = iħ, which gives the Heisenberg uncertainty principle, Δx Δpₓ ≥ ħ/2.",
+        {
+          "example": {
+            "title": "An eigenvalue and an expectation value",
+            "problem": "Show that ψ = e^{ikx} is an eigenfunction of p̂ₓ, and find ⟨x⟩ for the ground state of a particle in a box of length L (ψ = √(2/L) sin(πx/L)).",
+            "solution": [
+              "p̂ₓψ = −iħ d(e^{ikx})/dx = −iħ(ik)e^{ikx} = ħk ψ. The eigenvalue is ħk: the particle has definite momentum ħk.",
+              "⟨x⟩ = ∫₀ᴸ (2/L) x sin²(πx/L) dx = L/2. By symmetry the average position is the center of the box, though the particle is never found at the center in the excited state n = 2."
+            ]
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "What does |Ψ|² dτ represent?",
+          "a": "The probability of finding the particle in the volume dτ",
+          "wrong": [
+            "The energy of the particle",
+            "The momentum of the particle",
+            "The phase of the wave"
+          ]
+        },
+        {
+          "q": "If two operators do not commute, then…",
+          "a": "The two observables cannot both be known exactly at the same time",
+          "wrong": [
+            "Both observables are always zero",
+            "They have the same eigenvalues",
+            "They are not Hermitian"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "schrodinger",
+      "title": "The Schrödinger equation and stationary states",
+      "terms": [
+        "time-independent Schrödinger equation",
+        "time-dependent Schrödinger equation",
+        "Schrödinger equation",
+        "stationary states",
+        "stationary state",
+        "Hamiltonian operator",
+        "boundary conditions",
+        "separation of variables",
+        "superposition",
+        "quantum number n"
+      ],
+      "body": [
+        "For a particle of mass m in a potential V(x), the time-dependent equation is iħ ∂Ψ/∂t = −(ħ²/2m) ∂²Ψ/∂x² Ψ + V(x)Ψ. When V does not depend on time, **separation of variables**, Ψ(x, t) = ψ(x) f(t), gives f(t) = e^{−iEt/ħ} and the **time-independent Schrödinger equation**:",
+        {
+          "eq": "Ĥψ = Eψ     −(ħ²/2m) d²ψ/dx² + V(x)ψ = Eψ"
+        },
+        "This is an eigenvalue problem: the allowed energies E are the eigenvalues of Ĥ. The solutions for which |Ψ|² does not change with time are the **stationary states**: Ψ = ψ(x)e^{−iEt/ħ} has a time-independent probability density, since the phase factor cancels. Quantization arises from the **boundary conditions**: ψ must be finite and continuous and go to zero where the particle cannot be, and only certain values of E satisfy them. A general state is a **superposition** of stationary states, Ψ = Σcₙψₙe^{−iEₙt/ħ}, and its density oscillates in time at the frequencies (Eₙ − Eₘ)/h: this is the origin of the frequency in a spectral transition."
+      ],
+      "check": [
+        {
+          "q": "What causes energy quantization in the Schrödinger equation?",
+          "a": "The boundary conditions on ψ allow only certain energies",
+          "wrong": [
+            "The potential energy is always quantized",
+            "The particle’s mass is quantized",
+            "The time dependence"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "box",
+      "title": "The particle in a box",
+      "terms": [
+        "particle in a box",
+        "particle in a one-dimensional box",
+        "infinite square well",
+        "particle in a three-dimensional box",
+        "free-electron model",
+        "zero-point energy of a box",
+        "nodes of wavefunction",
+        "degenerate levels"
+      ],
+      "body": [
+        "A particle of mass m is confined to 0 < x < L, where V = 0 inside and V = ∞ outside (an **infinite square well**). The wavefunction vanishes at the walls, ψ(0) = ψ(L) = 0. Inside, the equation −(ħ²/2m)ψ″ = Eψ has solutions sin(kx), and the boundary condition at x = L requires kL = nπ:",
+        {
+          "eq": [
+            "ψₙ(x) = √(2/L) sin(nπx/L)",
+            "Eₙ = n²h² / (8mL²)     n = 1, 2, 3, …"
+          ]
+        },
+        {
+          "svg": "<svg viewBox='0 0 460 260' role='img' aria-label='Wavefunctions of a particle in a box' font-family='system-ui, sans-serif' font-size='12'><g fill='none' stroke='currentColor' stroke-width='3'><path d='M80,20 V225 M380,20 V225 M80,225 H380'/></g><path d='M70,207 H390' fill='none' stroke='currentColor' stroke-width='1' stroke-dasharray='4 3' opacity='.5'/><path d='M70,153 H390' fill='none' stroke='currentColor' stroke-width='1' stroke-dasharray='4 3' opacity='.5'/><path d='M70,63 H390' fill='none' stroke='currentColor' stroke-width='1' stroke-dasharray='4 3' opacity='.5'/><path d='M80,207.0 L85,206.2 L90,205.3 L95,204.5 L100,203.7 L105,202.9 L110,202.1 L115,201.3 L120,200.5 L125,199.7 L130,199.0 L135,198.3 L140,197.6 L145,196.9 L150,196.3 L155,195.7 L160,195.1 L165,194.6 L170,194.1 L175,193.6 L180,193.1 L185,192.7 L190,192.4 L195,192.1 L200,191.8 L205,191.5 L210,191.3 L215,191.2 L220,191.1 L225,191.0 L230,191.0 L235,191.0 L240,191.1 L245,191.2 L250,191.3 L255,191.5 L260,191.8 L265,192.1 L270,192.4 L275,192.7 L280,193.1 L285,193.6 L290,194.1 L295,194.6 L300,195.1 L305,195.7 L310,196.3 L315,196.9 L320,197.6 L325,198.3 L330,199.0 L335,199.7 L340,200.5 L345,201.3 L350,202.1 L355,202.9 L360,203.7 L365,204.5 L370,205.3 L375,206.2 L380,207.0' fill='none' style='stroke:var(--accent)' stroke-width='2.5'/><path d='M80,153.0 L85,151.3 L90,149.7 L95,148.1 L100,146.5 L105,145.0 L110,143.6 L115,142.3 L120,141.1 L125,140.1 L130,139.1 L135,138.4 L140,137.8 L145,137.3 L150,137.1 L155,137.0 L160,137.1 L165,137.3 L170,137.8 L175,138.4 L180,139.1 L185,140.1 L190,141.1 L195,142.3 L200,143.6 L205,145.0 L210,146.5 L215,148.1 L220,149.7 L225,151.3 L230,153.0 L235,154.7 L240,156.3 L245,157.9 L250,159.5 L255,161.0 L260,162.4 L265,163.7 L270,164.9 L275,165.9 L280,166.9 L285,167.6 L290,168.2 L295,168.7 L300,168.9 L305,169.0 L310,168.9 L315,168.7 L320,168.2 L325,167.6 L330,166.9 L335,165.9 L340,164.9 L345,163.7 L350,162.4 L355,161.0 L360,159.5 L365,157.9 L370,156.3 L375,154.7 L380,153.0' fill='none' style='stroke:var(--accent)' stroke-width='2.5'/><path d='M80,63.0 L85,60.5 L90,58.1 L95,55.7 L100,53.6 L105,51.7 L110,50.1 L115,48.7 L120,47.8 L125,47.2 L130,47.0 L135,47.2 L140,47.8 L145,48.7 L150,50.1 L155,51.7 L160,53.6 L165,55.7 L170,58.1 L175,60.5 L180,63.0 L185,65.5 L190,67.9 L195,70.3 L200,72.4 L205,74.3 L210,75.9 L215,77.3 L220,78.2 L225,78.8 L230,79.0 L235,78.8 L240,78.2 L245,77.3 L250,75.9 L255,74.3 L260,72.4 L265,70.3 L270,67.9 L275,65.5 L280,63.0 L285,60.5 L290,58.1 L295,55.7 L300,53.6 L305,51.7 L310,50.1 L315,48.7 L320,47.8 L325,47.2 L330,47.0 L335,47.2 L340,47.8 L345,48.7 L350,50.1 L355,51.7 L360,53.6 L365,55.7 L370,58.1 L375,60.5 L380,63.0' fill='none' style='stroke:var(--accent)' stroke-width='2.5'/><g fill='currentColor'><text x='64' y='211' text-anchor='end'>n = 1</text><text x='396' y='211'>1E₁</text><text x='64' y='157' text-anchor='end'>n = 2</text><text x='396' y='157'>4E₁</text><text x='64' y='67' text-anchor='end'>n = 3</text><text x='396' y='67'>9E₁</text><text x='230' y='244' text-anchor='middle'>0                      x                      L</text><text x='86' y='16'>energy</text></g></svg>",
+          "caption": "The first three wavefunctions of a particle in a box. Each is drawn on its energy level (E ∝ n²). ψₙ has n − 1 interior nodes."
+        },
+        {
+          "list": [
+            "The lowest energy is E₁ = h²/(8mL²), not zero: the **zero-point energy**, required by the uncertainty principle (confinement of the particle to L means its momentum cannot be zero).",
+            "Energy rises as n², and the level spacing falls with the size of the box and the mass: the lighter the particle and the smaller the box, the larger the spacing. For macroscopic objects the spacing is unobservably small and quantum behavior is lost.",
+            "The wavefunction ψₙ has n − 1 **nodes** (zeros between the walls). More nodes means higher curvature and higher kinetic energy."
+          ]
+        },
+        "In three dimensions with a cubic box, E = (nₓ² + n_y² + n_z²)h²/(8mL²). Different combinations give the same energy: the level (nₓ, n_y, n_z) = (2, 1, 1), (1, 2, 1) and (1, 1, 2) is three-fold **degenerate** (E = 6h²/8mL²). The density of such levels grows quickly with energy, which is the basis of the statistical treatment of gases.",
+        {
+          "h": "A model for conjugated molecules"
+        },
+        "The π electrons of a linear conjugated polyene are free to move along the carbon chain, and can be treated as particles in a one-dimensional box of length L about equal to the chain length (the **free-electron model**). Each level holds two electrons, and the lowest energy absorption is from the HOMO to the LUMO.",
+        {
+          "example": {
+            "title": "Hexatriene",
+            "problem": "Treat the six π electrons of 1,3,5-hexatriene as particles in a box of length L = 7.3 Å. Calculate the wavelength of the lowest-energy absorption.",
+            "solution": [
+              "Six electrons fill n = 1, 2, 3. The lowest excitation is n = 3 → n = 4: ΔE = (4² − 3²) h²/(8mL²) = 7h²/(8mL²).",
+              {
+                "eq": [
+                  "h²/(8m) = (6.626 × 10⁻³⁴)² / (8 × 9.109 × 10⁻³¹) = 6.02 × 10⁻³⁸ J m²",
+                  "ΔE = 7 × 6.02 × 10⁻³⁸ / (7.3 × 10⁻¹⁰)² = 7.9 × 10⁻¹⁹ J",
+                  "λ = hc/ΔE = 1.986 × 10⁻²⁵ / 7.9 × 10⁻¹⁹ = 251 nm"
+                ]
+              },
+              "The experimental value is 258 nm. The model also shows why absorption moves to longer wavelength as the chain lengthens: L grows and the gap falls (β-carotene absorbs at 450 nm)."
+            ]
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "How does the energy of a particle in a box depend on the box length L?",
+          "a": "E ∝ 1/L²",
+          "wrong": [
+            "E ∝ L",
+            "E ∝ L²",
+            "It does not depend on L"
+          ]
+        },
+        {
+          "q": "How many nodes does the n = 4 wavefunction have between the walls?",
+          "a": "3",
+          "wrong": [
+            "4",
+            "5",
+            "2"
+          ]
+        },
+        {
+          "q": "Why is the lowest energy of a confined particle not zero?",
+          "a": "Confinement makes the momentum uncertain, so some kinetic energy is unavoidable",
+          "wrong": [
+            "The walls add potential energy",
+            "The particle must keep moving by Newton’s laws",
+            "The box has a nonzero temperature"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tunneling",
+      "title": "Quantum tunneling",
+      "terms": [
+        "quantum tunneling",
+        "quantum tunnelling",
+        "tunnelling",
+        "tunneling",
+        "barrier penetration",
+        "transmission probability",
+        "ammonia inversion",
+        "scanning tunneling microscope",
+        "STM",
+        "kinetic isotope effect from tunneling"
+      ],
+      "body": [
+        "A classical particle with energy E below a barrier of height V₀ cannot cross it. A quantum particle can: inside the barrier its wavefunction does not vanish but decays exponentially, ψ ∝ e^{−κx} with κ = √(2m(V₀ − E))/ħ. If the barrier is thin, the wavefunction is nonzero on the other side, and the particle appears there. This is **tunneling**. For a rectangular barrier of width a, when κa is large, the transmission probability is",
+        {
+          "eq": "T ≈ exp(−2κa),     κ = √(2m(V₀ − E)) / ħ"
+        },
+        "T falls exponentially with the barrier width and with the square root of the mass, so tunneling matters for light particles (electrons, H atoms) and thin barriers.",
+        {
+          "example": {
+            "title": "Electron and proton",
+            "problem": "Find T for an electron of energy 1.0 eV meeting a barrier of 2.0 eV and width 0.50 nm, and compare with a proton under the same conditions.",
+            "solution": [
+              {
+                "eq": [
+                  "κ(electron) = √(2 × 9.109 × 10⁻³¹ × 1.602 × 10⁻¹⁹) / 1.055 × 10⁻³⁴ = 5.1 × 10⁹ m⁻¹",
+                  "T = exp(−2 × 5.1 × 10⁹ × 0.50 × 10⁻⁹) = e^{−5.1} = 6 × 10⁻³"
+                ]
+              },
+              "A proton is 1836 times heavier, so κ is √1836 = 43 times larger and T ≈ e^{−219}, about 10⁻⁹⁵: negligible. This is why electrons tunnel readily and heavy nuclei seldom do."
+            ]
+          }
+        },
+        "Examples of tunneling are everywhere in chemistry and physics. The **scanning tunneling microscope** (STM) measures the tunneling current between a sharp tip and a surface, which varies by a factor of about 10 for each 0.1 nm change in the gap, and resolves single atoms. α-Decay is tunneling of an α-particle out of the nucleus. Hydrogen atom and proton transfer in enzymes show kinetic isotope effects (the deuterium reaction is much slower than the protium reaction) that are too large for classical behavior, indicating tunneling. The **ammonia inversion**, in which the N atom passes through the plane of the three H atoms, is a double-well problem. The molecule tunnels through the 24 kJ mol⁻¹ barrier at a frequency of 23.8 GHz, splitting the ground state into a close pair of levels, and this was the basis of the ammonia maser."
+      ],
+      "check": [
+        {
+          "q": "How does the tunneling probability change if the barrier width doubles?",
+          "a": "It falls roughly as the square (T ∝ e^{−2κa})",
+          "wrong": [
+            "It halves",
+            "It doubles",
+            "It does not change"
+          ]
+        },
+        {
+          "q": "Why is tunneling more important for electrons than for protons?",
+          "a": "The decay constant κ depends on √m, so light particles penetrate far more",
+          "wrong": [
+            "Electrons have charge",
+            "Protons have more energy",
+            "Protons are bosons"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "oscillator",
+      "title": "The harmonic oscillator and molecular vibration",
+      "terms": [
+        "harmonic oscillator",
+        "quantum harmonic oscillator",
+        "zero-point energy",
+        "Hermite polynomials",
+        "force constant",
+        "anharmonic",
+        "anharmonicity",
+        "Morse potential",
+        "reduced mass",
+        "vibrational frequency",
+        "vibrational quantum number",
+        "anharmonic oscillator",
+        "overtone intervals"
+      ],
+      "body": [
+        "For small displacements, the potential energy of a vibrating bond is V = ½kx², where k is the **force constant**, a measure of the stiffness of the bond, and x the displacement from equilibrium. The two atoms vibrate relative to each other as one particle of **reduced mass** μ = m₁m₂/(m₁ + m₂). Solving the Schrödinger equation gives equally spaced levels:",
+        {
+          "eq": [
+            "E_v = (v + ½) ħω     ω = √(k/μ)     v = 0, 1, 2, …",
+            "ν̃ = ω/(2πc) = (1/2πc) √(k/μ)"
+          ]
+        },
+        "The wavefunctions are Gaussians multiplied by **Hermite polynomials**. The lowest level has a **zero-point energy** of ½ħω, so a bond cannot be stationary even at 0 K. The selection rule for absorption is Δv = ±1 (for a harmonic oscillator), so the fundamental frequency ν̃ appears in the IR spectrum.",
+        {
+          "example": {
+            "title": "HCl and DCl",
+            "problem": "HCl has k = 516 N m⁻¹. Calculate its vibrational wavenumber, and that of DCl.",
+            "solution": [
+              {
+                "eq": [
+                  "μ(HCl) = (1 × 35)/(1 + 35) amu = 0.972 amu = 1.614 × 10⁻²⁷ kg",
+                  "ω = √(516 / 1.614 × 10⁻²⁷) = 5.65 × 10¹⁴ s⁻¹",
+                  "ν̃ = ω/(2πc) = 5.65 × 10¹⁴ / (2π × 2.998 × 10¹⁰ cm s⁻¹) = 3000 cm⁻¹"
+                ]
+              },
+              "The observed value is 2991 cm⁻¹. For DCl, k is the same (the electronic structure is unchanged) and μ = 1.89 amu, so ν̃ = 3000 × √(0.972/1.89) = 2150 cm⁻¹ (observed 2145). Heavier isotopes vibrate at lower frequency."
+            ]
+          }
+        },
+        "Real bonds are **anharmonic**: they weaken as they stretch and break at large separation, whereas the parabola goes on rising. The **Morse potential**, V = D_e(1 − e^{−a(r − r_e)})², describes this and gives energy levels E_v = (v + ½)ħω − (v + ½)²ħω x_e, with spacing that decreases with v, converging at the dissociation limit. Anharmonicity relaxes the selection rule, so weak **overtones** (Δv = ±2, near 2ν̃) appear. The depth D_e is measured from the minimum of the curve, and the dissociation energy from the ground state is D₀ = D_e − ½ħω.",
+        "The zero-point energy depends on mass (through ω ∝ 1/√μ), and so replacing H with D lowers the zero-point energy of an X–H bond by about 4–5 kJ mol⁻¹. A C–H bond is broken more easily than a C–D bond, because the C–D bond starts lower, so reactions that break it are slower: the primary kinetic isotope effect, k_H/k_D up to about 7 at 25 °C."
+      ],
+      "check": [
+        {
+          "q": "How does the vibrational frequency change when H is replaced by D in an X–H bond?",
+          "a": "It decreases by about 1/√2, because the reduced mass roughly doubles",
+          "wrong": [
+            "It increases by √2",
+            "It does not change",
+            "It doubles"
+          ]
+        },
+        {
+          "q": "What is the zero-point energy of a harmonic oscillator?",
+          "a": "½ħω",
+          "wrong": [
+            "0",
+            "ħω",
+            "kT"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rotor",
+      "title": "Angular momentum and the rigid rotor",
+      "terms": [
+        "rigid rotor",
+        "angular momentum",
+        "spherical harmonics",
+        "rotational constant",
+        "moment of inertia",
+        "rotational energy levels",
+        "space quantization",
+        "rotational quantum number",
+        "quantization of angular momentum",
+        "orbital angular momentum",
+        "rotational degeneracy"
+      ],
+      "body": [
+        "A diatomic molecule that rotates without changing its bond length is a **rigid rotor**: a particle of reduced mass μ on a sphere of radius r, with **moment of inertia** I = μr². Its Schrödinger equation depends only on the angles, and its eigenfunctions are the **spherical harmonics** Y_J^{m}(θ, φ):",
+        {
+          "eq": [
+            "E_J = ħ² J(J + 1) / 2I = B hc J(J + 1)     J = 0, 1, 2, …",
+            "B = h / (8π² c I)     (in cm⁻¹)"
+          ]
+        },
+        "A rigid rotor’s rotational energy is E_J = ħ²J(J + 1)/2I, and the angular momentum has magnitude |L| = ħ√(J(J + 1)). Its component along a chosen axis is mħ, with m = −J … +J: **space quantization**. Only the magnitude and one component (conventionally L_z) can be known at the same time, because the components of L do not commute with one another, so L never points exactly along z. The level spacing grows with J: E_J − E_{J−1} = 2BJ (in cm⁻¹), and the J = 0 to 1 transition is at 2B.",
+        {
+          "example": {
+            "title": "CO rotational constant",
+            "problem": "Calculate the rotational constant of ¹²C¹⁶O (r = 1.128 Å) in cm⁻¹, and the energy of the J = 0 → 1 transition.",
+            "solution": [
+              {
+                "eq": [
+                  "μ = (12 × 15.995)/(27.995) amu = 6.856 amu = 1.1385 × 10⁻²⁶ kg",
+                  "I = μr² = 1.1385 × 10⁻²⁶ × (1.128 × 10⁻¹⁰)² = 1.449 × 10⁻⁴⁶ kg m²",
+                  "B = h/(8π²cI) = 6.626 × 10⁻³⁴ / (8π² × 2.998 × 10¹⁰ cm s⁻¹ × 1.449 × 10⁻⁴⁶) = 1.93 cm⁻¹"
+                ]
+              },
+              "The J = 0 → 1 transition occurs at 2B = 3.86 cm⁻¹, or 115.7 GHz, in the microwave region."
+            ]
+          }
+        },
+        "Rotational angular momentum links to the hydrogen atom: the angular part of the electron’s wavefunction in an atom is the same set of Y_l^m, with l the angular momentum quantum number, and the degeneracy 2l + 1 of a subshell comes from the allowed values of m. The same mathematics governs electron orbital angular momentum, nuclear rotation and the spherical harmonics used to describe orbitals."
+      ],
+      "check": [
+        {
+          "q": "What is the degeneracy of the J = 3 rotational level of a diatomic?",
+          "a": "7",
+          "wrong": [
+            "3",
+            "6",
+            "9"
+          ],
+          "why": "2J + 1 = 7."
+        },
+        {
+          "q": "How does the rotational constant B change on substituting a heavier isotope?",
+          "a": "B decreases, because I increases",
+          "wrong": [
+            "B increases",
+            "B is unchanged",
+            "B becomes zero"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "The state is a wavefunction with |Ψ|² as probability density. Observables are Hermitian operators, measurements give eigenvalues, and ⟨A⟩ = ∫Ψ*ÂΨ dτ. Operators that do not commute obey an uncertainty relation.",
+    "Ĥψ = Eψ with boundary conditions gives quantized energies. A superposition of stationary states oscillates at the transition frequencies.",
+    "Particle in a box: Eₙ = n²h²/8mL². It explains the zero-point energy and the colors of conjugated molecules.",
+    "Tunneling probability T ≈ exp(−2κa) falls with barrier width and √mass. It is crucial for electrons and for the STM.",
+    "Harmonic oscillator: E_v = (v + ½)ħω with ω = √(k/μ). Anharmonicity adds overtones, and zero-point energy underlies isotope effects.",
+    "Rigid rotor: E_J = BhcJ(J + 1) with degeneracy 2J + 1, B = h/8π²cI."
+  ],
+  "problems": [
+    {
+      "q": "An electron in a one-dimensional box of length 0.50 nm. Calculate the n = 1 → 2 transition wavelength.",
+      "solution": "ΔE = (4 − 1)h²/(8mL²) = 3 × 6.02 × 10⁻³⁸ / (0.50 × 10⁻⁹)² = 3 × 6.02 × 10⁻³⁸/2.5 × 10⁻¹⁹ = 7.2 × 10⁻¹⁹ J. λ = hc/ΔE = 1.986 × 10⁻²⁵/7.2 × 10⁻¹⁹ = 275 nm.",
+      "a": "About 275 nm (ultraviolet)."
+    },
+    {
+      "q": "Show that ψ = sin(2πx/L) is an eigenfunction of Ĥ = −(ħ²/2m)d²/dx² and find the eigenvalue.",
+      "solution": "Ĥψ = −(ħ²/2m)(−(2π/L)² sin(2πx/L)) = (ħ²4π²/2mL²)ψ = (4h²/8mL²)ψ, since ħ = h/2π. E = 4h²/(8mL²), i.e. n = 2.",
+      "a": "Yes, E = 4h²/(8mL²) (n = 2)."
+    },
+    {
+      "q": "The fundamental vibration of ¹H³⁵Cl is 2991 cm⁻¹. Calculate the force constant (μ = 1.614 × 10⁻²⁷ kg).",
+      "solution": "k = μ(2πcν̃)² = 1.614 × 10⁻²⁷ × (2π × 2.998 × 10¹⁰ × 2991)² = 1.614 × 10⁻²⁷ × (5.634 × 10¹⁴)² = 512 N m⁻¹.",
+      "a": "k ≈ 512 N m⁻¹."
+    },
+    {
+      "q": "The rotational constant of ¹H³⁵Cl is 10.59 cm⁻¹. Find the bond length.",
+      "solution": "I = h/(8π²cB) = 6.626 × 10⁻³⁴/(8π² × 2.998 × 10¹⁰ × 10.59) = 2.643 × 10⁻⁴⁷ kg m². r = √(I/μ) = √(2.643 × 10⁻⁴⁷/1.614 × 10⁻²⁷) = 1.28 × 10⁻¹⁰ m.",
+      "a": "r = 1.28 Å."
+    }
+  ]
+}

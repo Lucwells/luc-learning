@@ -1,0 +1,143 @@
+{
+  "id": "carbohydrates",
+  "view": "chapter",
+  "title": "Carbohydrates",
+  "description": "The stereochemistry, ring forms and reactions of sugars, and the structures of disaccharides and polysaccharides.",
+  "overview": [
+    "Carbohydrates are the most abundant organic compounds on Earth. Glucose fuels cells, starch and glycogen store the energy, cellulose gives plants their structure, and sugars on cell surfaces carry biological signals. Chemically, they are polyhydroxy aldehydes and ketones, and every general idea of organic chemistry, from stereochemistry through hemiacetals to acyl substitution, appears in them.",
+    "This chapter covers the structure and stereochemistry of monosaccharides, their cyclic hemiacetal forms and the anomeric center, characteristic reactions, and how sugar units join into disaccharides and polysaccharides. The metabolism of carbohydrates is treated in the chapter on biochemistry."
+  ],
+  "objectives": [
+    "Classify monosaccharides and draw Fischer projections of D-glucose, D-mannose, D-galactose and D-fructose.",
+    "Draw pyranose and furanose forms and the α and β anomers, and explain mutarotation.",
+    "Draw the chair conformation of β-D-glucopyranose and explain its stability.",
+    "Predict the products of glycoside formation, oxidation, reduction and chain extension or shortening.",
+    "Identify reducing and nonreducing sugars.",
+    "Describe sucrose, lactose, maltose, starch, glycogen and cellulose."
+  ],
+  "sections": [
+    {
+      "id": "monosaccharides",
+      "title": "Monosaccharides and Fischer projections",
+      "terms": ["carbohydrate", "carbohydrates", "monosaccharide", "monosaccharides", "sugar", "sugars", "aldose", "aldoses", "ketose", "ketoses", "aldohexose", "glucose", "D-glucose", "fructose", "galactose", "mannose", "ribose", "D sugar", "L sugar", "D/L configuration"],
+      "body": [
+        "A **monosaccharide** is a simple sugar with the formula (CH₂O)ₙ and n usually 3–6. It is an **aldose** if it has an aldehyde (C1) and a **ketose** if it has a ketone (normally C2), with a hydroxyl on each of the other carbons. Names combine the carbon count and the type: an aldohexose (glucose), a ketohexose (fructose), an aldopentose (ribose).",
+        "Sugars are drawn as **Fischer projections** with the carbonyl at the top. A sugar is **D** if the OH on the highest-numbered stereocenter (the one farthest from the carbonyl) is on the right, and **L** if on the left. Nearly all natural sugars are D. This describes configuration and is unrelated to the sign of optical rotation. An aldohexose has four stereocenters, so 2⁴ = 16 stereoisomers, eight D and eight L.",
+        { "svg": "<svg viewBox='0 0 300 290' role='img' aria-label='Fischer projection of D-glucose' font-family='system-ui, sans-serif' font-size='14'><g fill='none' stroke='currentColor' stroke-width='2'><path d='M150,40 V250'/><path d='M150,85 H190'/><path d='M150,125 H110'/><path d='M150,165 H190'/><path d='M150,205 H190'/></g><g fill='currentColor'><text x='150' y='28' text-anchor='middle'>CHO</text><text x='198' y='90'>OH</text><text x='72' y='130'>HO</text><text x='198' y='170'>OH</text><text x='198' y='210'>OH</text><text x='150' y='272' text-anchor='middle'>CH₂OH</text><text x='122' y='90' text-anchor='end' font-size='12' opacity='.7'>H</text><text x='178' y='130' font-size='12' opacity='.7'>H</text><text x='122' y='170' text-anchor='end' font-size='12' opacity='.7'>H</text><text x='122' y='210' text-anchor='end' font-size='12' opacity='.7'>H</text><text x='230' y='60' font-size='12' opacity='.7'>C1</text><text x='230' y='240' font-size='12' opacity='.7'>C6</text></g></svg>", "caption": "D-Glucose in a Fischer projection. The OH groups at C2, C4 and C5 are on the right, and C3 on the left. D-Mannose differs from it at C2, and D-galactose at C4." },
+        "A mnemonic for the pattern of D-glucose from top to bottom: right, left, right, right. Sugars that differ at only one stereocenter are **epimers**: D-mannose is the C2 epimer of glucose, and D-galactose is the C4 epimer. The ketose fructose has three stereocenters (C3, C4, C5) and is D because C5 has OH on the right. Ribose and 2-deoxyribose are the pentoses of RNA and DNA.",
+        { "example": {
+          "title": "Drawing an epimer",
+          "problem": "How does the Fischer projection of D-galactose differ from D-glucose?",
+          "solution": "Only the configuration at C4 differs. In D-galactose the C4 OH is on the left, and the others (C2 right, C3 left, C5 right) are the same as in glucose. Right, left, left, right: galactose."
+        } }
+      ],
+      "check": [
+        { "q": "How many stereoisomers does an aldohexose have?", "a": "16", "wrong": ["8", "4", "32"] },
+        { "q": "D-Mannose and D-glucose differ only at C2. They are…", "a": "Epimers", "wrong": ["Enantiomers", "Anomers", "Constitutional isomers"] }
+      ]
+    },
+    {
+      "id": "cyclic",
+      "title": "Cyclic forms, anomers and mutarotation",
+      "terms": ["anomer", "anomers", "anomeric carbon", "anomeric center", "mutarotation", "pyranose", "furanose", "Haworth projection", "α-D-glucopyranose", "β-D-glucopyranose", "hemiacetal form of sugars", "anomeric effect"],
+      "body": [
+        "A sugar’s hydroxyl can attack its own carbonyl to form a cyclic hemiacetal. In glucose, the C5–OH adds to C1 to give a six-membered ring, a **pyranose** (after pyran). The ring oxygen comes from C5. When the C4–OH adds to a ketose or aldose, the product is a five-membered **furanose** (fructose is often a furanose in sucrose, and ribose is a furanose in nucleotides). In solution, glucose is more than 99% in the pyranose form, and less than 0.01% is the open-chain aldehyde.",
+        "Closing the ring creates a new stereocenter, C1, the **anomeric carbon**, which carries OH and O in a hemiacetal. The two possible configurations are **anomers**. In the Haworth projection of a D-pyranose, the **β anomer** has the C1–OH on the same side as the CH₂OH at C5 (up), and the **α anomer** has it on the opposite side (down).",
+        "Dissolved pure α-D-glucopyranose ([α]D +112°) slowly changes its optical rotation to +52.7°, and pure β-anomer ([α]D +18.7°) changes to the same value. This is **mutarotation**: the anomers interconvert through the open-chain aldehyde, and settle at an equilibrium mixture of about 36% α and 64% β (with about 0.003% open chain).",
+        { "h": "Why β-glucose is favored" },
+        "In the chair conformation of **β-D-glucopyranose** every substituent, including the anomeric OH and the CH₂OH, is **equatorial**. It is the only D-aldohexose for which this is true, which accounts for its stability and for the dominance of glucose in nature, and why β predominates at equilibrium. In the α anomer the anomeric OH is axial. It is stabilized somewhat by the **anomeric effect**, the preference of an electronegative substituent at C1 for the axial position, from donation of an oxygen lone pair into the C–O σ* orbital, so the α anomer is more populated than steric arguments alone would predict.",
+        { "example": {
+          "title": "Equilibrium rotation",
+          "problem": "Verify the equilibrium specific rotation of glucose from the anomer percentages.",
+          "solution": "0.36(+112°) + 0.64(+18.7°) = +40.3 + 12.0 = +52.3°, which matches the observed +52.7° (the small difference is the open-chain and furanose forms)."
+        } }
+      ],
+      "check": [
+        { "q": "What distinguishes α- and β-D-glucopyranose?", "a": "The configuration at the anomeric carbon, C1", "wrong": ["The configuration at C4", "The ring size", "The position of the carbonyl"] },
+        { "q": "Why does the optical rotation of a freshly dissolved pure anomer change over time?", "a": "The anomers interconvert through the open-chain form until equilibrium is reached", "wrong": ["The sugar decomposes", "The solvent racemizes it", "It polymerizes"] }
+      ]
+    },
+    {
+      "id": "sugar-reactions",
+      "title": "Reactions of monosaccharides",
+      "terms": ["glycoside", "glycosides", "glycosidic bond", "glycosidic linkage", "reducing sugar", "reducing sugars", "nonreducing sugar", "aldonic acid", "aldaric acid", "alditol", "sorbitol", "Kiliani–Fischer", "Kiliani–Fischer synthesis", "Ruff degradation", "osazone", "Benedict's test"],
+      "body": [
+        "A sugar behaves like the functional groups it contains: alcohols, hemiacetals and aldehydes.",
+        { "list": [
+          "**Glycoside formation.** In acidic alcohol, the anomeric OH is replaced by OR, giving an acetal, a **glycoside** (methyl β-D-glucopyranoside and the α anomer). The bond is a **glycosidic bond**. Glycosides are stable to base, no longer mutarotate and are hydrolyzed by aqueous acid or by enzymes (glycosidases). Nucleosides and many natural products (digoxin, salicin) are glycosides.",
+          "**Oxidation.** The aldehyde form is oxidized by Tollens’ reagent, Fehling’s or Benedict’s reagent, so aldoses are **reducing sugars**. Ketoses such as fructose also react, because base interconverts them with aldoses through an enediol. Bromine water oxidizes only the aldehyde, giving an **aldonic acid** (glucose gives gluconic acid). Nitric acid oxidizes both ends, giving an **aldaric acid** (glucaric acid).",
+          "**Reduction.** NaBH₄ reduces the C=O to an alcohol, giving an **alditol**. Glucose gives sorbitol, a sugar substitute, and xylose gives xylitol.",
+          "**Chain extension and shortening.** The **Kiliani–Fischer synthesis** adds one carbon at C1: HCN gives a cyanohydrin as two C2 epimers, and hydrogenation of the nitrile to an aldehyde gives two aldoses with one more carbon. The **Ruff degradation** removes C1: oxidation to the aldonic acid, then Fe³⁺/H₂O₂ oxidatively decarboxylates it.",
+          "**Osazone formation** with phenylhydrazine converts C1 and C2 to hydrazones, removing the C2 stereocenter, so glucose, mannose and fructose give the same osazone. Fischer used this, with the other reactions, to determine the configuration of glucose."
+        ] },
+        { "example": {
+          "title": "Reducing or not?",
+          "problem": "Is methyl β-D-glucopyranoside a reducing sugar?",
+          "solution": "No. The anomeric carbon is an acetal, not a hemiacetal, so the ring cannot open to expose an aldehyde, and the compound does not react with Tollens’ or Benedict’s reagent."
+        } }
+      ],
+      "check": [
+        { "q": "Which reagent oxidizes glucose to gluconic acid but not further?", "a": "Br₂/H₂O", "wrong": ["HNO₃", "NaBH₄", "H₂, Pd/C"] },
+        { "q": "A sugar with a free anomeric OH is…", "a": "A reducing sugar", "wrong": ["A nonreducing sugar", "A glycoside", "An alditol"] }
+      ]
+    },
+    {
+      "id": "polysaccharides",
+      "title": "Disaccharides and polysaccharides",
+      "terms": ["disaccharide", "disaccharides", "polysaccharide", "polysaccharides", "oligosaccharide", "sucrose", "maltose", "lactose", "cellobiose", "starch", "amylose", "amylopectin", "glycogen", "cellulose", "chitin", "table sugar", "lactose intolerance"],
+      "body": [
+        "Monosaccharides are joined by glycosidic bonds between the anomeric carbon of one and an OH of another. The configuration of the bond (α or β) and the positions joined determine the properties.",
+        { "table": {
+          "head": ["Sugar", "Units and linkage", "Reducing?", "Notes"],
+          "rows": [
+            ["**Maltose**", "Glucose α(1→4) glucose", "Yes (free anomeric OH)", "Product of starch hydrolysis"],
+            ["**Cellobiose**", "Glucose β(1→4) glucose", "Yes", "Repeating unit of cellulose"],
+            ["**Lactose**", "Galactose β(1→4) glucose", "Yes", "Milk sugar; digested by lactase, and its absence causes lactose intolerance"],
+            ["**Sucrose**", "Glucose α(1→2)β fructose", "**No** (both anomeric carbons are in the bond)", "Table sugar"]
+          ],
+          "caption": "Common disaccharides."
+        } },
+        "Polysaccharides are polymers of glucose, differing in linkage:",
+        { "list": [
+          "**Starch**, the plant energy store, is a mixture of **amylose** (about 20–30%: unbranched α(1→4) chains, which coil into a helix that binds iodine to give the blue-black color of the iodine test) and **amylopectin** (α(1→4) chains with α(1→6) branches roughly every 24–30 units).",
+          "**Glycogen**, the animal energy store, resembles amylopectin but is more highly branched (every 8–12 units), which gives many chain ends for rapid mobilization of glucose.",
+          "**Cellulose**, the most abundant organic polymer, is a linear polymer of glucose with **β(1→4)** links. Every other unit is rotated 180° so the chains are straight, and they pack side by side in sheets held by extensive hydrogen bonds into rigid microfibrils. Humans lack an enzyme that cleaves β-links, so cellulose is indigestible fiber, though cattle and termites host microbes that supply it.",
+          "**Chitin**, in arthropod shells and fungal walls, is the cellulose analogue made of N-acetylglucosamine."
+        ] },
+        "Whether a linkage is α or β changes the shape completely: α(1→4) chains curl into helices that are readily digested, while β(1→4) chains are rigid and straight. That single stereochemical difference separates food from wood.",
+        { "example": {
+          "title": "Reducing or nonreducing",
+          "problem": "Why is sucrose nonreducing, though both glucose and fructose are reducing sugars?",
+          "solution": "The glycosidic bond connects the anomeric carbon of glucose (C1) with the anomeric carbon of fructose (C2). Neither ring can open, so there is no free aldehyde or hemiketal, and sucrose gives no reaction with Tollens’ or Benedict’s reagent. Acid hydrolysis releases the two reducing sugars, as an equimolar mixture called invert sugar, which is sweeter than sucrose."
+        } }
+      ],
+      "check": [
+        { "q": "Which polysaccharide has β(1→4) glycosidic bonds?", "a": "Cellulose", "wrong": ["Starch", "Glycogen", "Amylopectin"] },
+        { "q": "Which disaccharide is NOT a reducing sugar?", "a": "Sucrose", "wrong": ["Maltose", "Lactose", "Cellobiose"] }
+      ]
+    }
+  ],
+  "summary": [
+    "Monosaccharides are polyhydroxy aldehydes or ketones. A D sugar has the OH of the last stereocenter on the right. An aldohexose has 16 stereoisomers, and epimers differ at one center.",
+    "Sugars cyclize to pyranose and furanose hemiacetals. The new stereocenter is the anomeric carbon, with α and β forms that interconvert by mutarotation. β-D-glucopyranose has all substituents equatorial.",
+    "Glycosides are acetals, stable to base and hydrolyzed by acid. Free hemiacetals make a sugar reducing. Br₂ gives aldonic acids and NaBH₄ gives alditols. Kiliani–Fischer lengthens a chain and Ruff shortens it.",
+    "Maltose, lactose and cellobiose are reducing, and sucrose is not. Starch and glycogen contain α-links, and cellulose has β(1→4) links, giving rigid hydrogen-bonded fibers."
+  ],
+  "problems": [
+    {
+      "q": "Draw the Fischer projection of L-glucose, and state its relationship to D-glucose.",
+      "solution": "L-Glucose is the mirror image of D-glucose: every OH is on the opposite side (C2 left, C3 right, C4 left, C5 left). The two are enantiomers.",
+      "a": "L-Glucose is the enantiomer of D-glucose."
+    },
+    {
+      "q": "Predict the products: (a) D-glucose + Br₂/H₂O; (b) D-glucose + NaBH₄; (c) D-glucose + CH₃OH/H⁺; (d) D-arabinose + HCN, then H₂/Pd.",
+      "solution": "(a) D-Gluconic acid. (b) D-Glucitol (sorbitol). (c) Methyl α- and β-D-glucopyranoside. (d) D-Glucose and D-mannose (the Kiliani–Fischer synthesis gives the two C2 epimers).",
+      "a": "(a) gluconic acid; (b) sorbitol; (c) methyl glucosides; (d) D-glucose + D-mannose."
+    },
+    {
+      "q": "Explain why cellulose is insoluble and structural, while amylose is digestible.",
+      "solution": "In cellulose each glucose is flipped relative to its neighbor (β(1→4)), giving straight chains that pack side by side and form strong interchain hydrogen bonds, making microfibrils that are insoluble and rigid. The α(1→4) links in amylose make helical coils that are accessible to amylase.",
+      "a": "The β linkage gives straight, hydrogen-bonded chains; the α linkage gives a helix."
+    }
+  ]
+}

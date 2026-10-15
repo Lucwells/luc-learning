@@ -1,0 +1,527 @@
+{
+  "id": "mass-spectrometry",
+  "view": "chapter",
+  "title": "Mass Spectrometry",
+  "description": "Ion sources, mass analyzers, tandem MS, and the coupling of MS to GC and LC.",
+  "overview": [
+    "A mass spectrometer weighs ions. It turns the analyte into gas-phase ions, separates them by mass-to-charge ratio (m/z) and counts them. The result is a spectrum of ion abundance against m/z, from which the molar mass, the elemental composition, the structure and the amount of the analyte can be found. Mass spectrometry is the most sensitive general-purpose detector in chemistry (attomole amounts) and, coupled to chromatography, the standard tool for identifying and quantifying compounds in complex mixtures.",
+    "This chapter treats the instrument in the order of the ions’ path: ionization methods, mass analyzers and their figures of merit, tandem MS, and then the coupling to GC and LC and to ICP for elemental speciation. The interpretation of EI fragmentation patterns of organic molecules (the McLafferty rearrangement, the nitrogen rule) belongs to the chapter on organic spectroscopy, and the ICP source to the chapter on atomic spectroscopy."
+  ],
+  "objectives": [
+    "Compare hard and soft ionization: EI, CI, ESI, APCI and MALDI, and choose a source for a given analyte.",
+    "Explain how quadrupole, time-of-flight, ion-trap, Orbitrap and FT-ICR analyzers separate ions, and compare resolving power and mass accuracy.",
+    "Calculate resolving power and mass accuracy, and decide what resolution is needed to separate two ions.",
+    "Explain tandem MS, collision-induced dissociation, and the scan modes of a triple quadrupole (product ion, precursor ion, SRM/MRM).",
+    "Describe GC–MS and LC–MS, SIM, ion suppression, and quantitation with isotope-labeled internal standards.",
+    "Explain how hyphenated techniques, such as HPLC–ICP–MS, are used for speciation."
+  ],
+  "sections": [
+    {
+      "id": "ionization",
+      "title": "Ionization methods",
+      "terms": [
+        "mass spectrometer",
+        "mass-to-charge ratio",
+        "m/z",
+        "ionization source",
+        "electron ionization",
+        "EI",
+        "chemical ionization",
+        "CI",
+        "electrospray ionization",
+        "ESI",
+        "electrospray",
+        "APCI",
+        "atmospheric pressure chemical ionization",
+        "MALDI",
+        "matrix-assisted laser desorption/ionization",
+        "soft ionization",
+        "hard ionization",
+        "fragmentation",
+        "protonated molecule",
+        "multiply charged ions",
+        "Taylor cone",
+        "charge residue model",
+        "ion evaporation"
+      ],
+      "body": [
+        "The ion source decides what kinds of molecules can be analyzed and how much fragmentation the spectrum shows. A hard source gives much fragmentation, with a rich fingerprint but often no molecular ion. A soft source gives mainly the intact molecule, with its mass but little structural information.",
+        {
+          "table": {
+            "head": [
+              "Source",
+              "Mechanism",
+              "Analytes",
+              "Ions formed",
+              "Notes"
+            ],
+            "rows": [
+              [
+                "**Electron ionization (EI)**",
+                "70 eV electrons strip an electron from a gas-phase molecule",
+                "Volatile, thermally stable, M < 600 u (GC effluent)",
+                "M⁺• and many fragments",
+                "Hard. Reproducible spectra, which are matched to libraries."
+              ],
+              [
+                "**Chemical ionization (CI)**",
+                "A reagent gas (CH₄, NH₃, isobutane) is ionized by EI, and its ions protonate the analyte in gas-phase collisions",
+                "As for EI",
+                "[M+H]⁺ (or [M+NH₄]⁺, [M−H]⁻)",
+                "Soft: molecular mass when EI shows no M⁺•."
+              ],
+              [
+                "**Electrospray (ESI)**",
+                "A solution is sprayed from a capillary at 2–5 kV; charged droplets shrink and release ions",
+                "Polar and ionic molecules, from small drugs to proteins (up to MDa)",
+                "[M+nH]ⁿ⁺ or [M−nH]ⁿ⁻, often multiply charged",
+                "Soft. Direct coupling to LC. Sensitive to salts and to ion suppression."
+              ],
+              [
+                "**APCI**",
+                "A heated nebulizer evaporates the solution; a corona discharge ionizes the solvent vapor, which protonates the analyte",
+                "Less polar, medium-mass molecules (steroids, lipids, pesticides)",
+                "[M+H]⁺, [M−H]⁻",
+                "Soft. Complements ESI for compounds that do not carry charges in solution."
+              ],
+              [
+                "**MALDI**",
+                "The analyte, co-crystallized with an absorbing matrix, is desorbed by a laser pulse; the matrix transfers a proton",
+                "Proteins, polymers, oligonucleotides, intact tissue (imaging)",
+                "Mostly [M+H]⁺, singly charged",
+                "Soft. Pulsed, so combined with time-of-flight analyzers."
+              ]
+            ],
+            "caption": "Common ionization sources."
+          }
+        },
+        {
+          "h": "Electron ionization"
+        },
+        "The molecule M in the vacuum meets an electron of 70 eV: M + e⁻ → M⁺• + 2e⁻. The ionization energy of an organic molecule is only 8–12 eV, so the excess of energy leaves the molecular ion with a high internal energy and it fragments by bond cleavage. 70 eV is chosen because the ionization efficiency is at a maximum and the spectrum varies little with the energy, so a spectrum measured on any instrument is the same, and libraries of more than 300,000 compounds (the NIST library) can be searched for an identification.",
+        {
+          "h": "Electrospray"
+        },
+        "In **electrospray**, a solution flows through a metal capillary held at a few kV. The field draws the liquid into a **Taylor cone**, which emits a jet that breaks into charged droplets. A drying gas and heat evaporate the solvent; as a droplet shrinks, the charge density rises until the repulsion overcomes the surface tension (the Rayleigh limit) and the droplet fissions into smaller droplets. Small ions are finally released into the gas phase (the ion evaporation model for small molecules; the charge residue model for large ones). The key practical consequence is that large molecules acquire many charges: a protein of mass M picks up n protons, and appears at m/z = (M + n × 1.00728)/n. Because the m/z values are small (500–2500) even for a protein of 50 kDa, a quadrupole or TOF analyzer can measure it, and the mass is calculated from a series of peaks (deconvolution).",
+        {
+          "example": {
+            "title": "Charge states of a protein",
+            "problem": "Two adjacent peaks in the ESI spectrum of a protein appear at m/z 1001.0 and 1112.2. Find the charges and the mass.",
+            "solution": "Adjacent charge states differ by one proton. Let the peak at 1112.2 carry n charges and the peak at 1001.0 carry n + 1. Each peak obeys m/z = (M + 1.007n)/n, so M = n(1112.2 − 1.007) = (n+1)(1001.0 − 1.007). So 1111.19n = 999.99(n+1), giving 111.2n = 999.99, n = 8.99 ≈ 9. M = 9 × 1111.19 = 10,000.7 ≈ 10,000 u: the peaks are the [M+10H]¹⁰⁺ at 1001.0 and [M+9H]⁹⁺ at 1112.2."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Why does EI use 70 eV electrons?",
+          "a": "The ionization efficiency is at a maximum and spectra are reproducible between instruments, so library searching works",
+          "wrong": [
+            "The ionization energy of organic molecules is 70 eV",
+            "Lower energies destroy the sample",
+            "70 eV is needed to ionize helium carrier gas"
+          ]
+        },
+        {
+          "q": "Which source is suited to a 40 kDa protein in aqueous solution coupled to LC?",
+          "a": "ESI",
+          "wrong": [
+            "EI",
+            "CI with methane",
+            "Flame ionization"
+          ]
+        },
+        {
+          "q": "In ESI a protein usually appears as…",
+          "a": "A series of multiply charged ions [M+nH]ⁿ⁺",
+          "wrong": [
+            "A single M⁺• ion",
+            "Only fragments",
+            "A radical anion"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "analyzers",
+      "title": "Mass analyzers",
+      "terms": [
+        "mass analyzer",
+        "mass analyzers",
+        "quadrupole",
+        "quadrupole mass filter",
+        "time-of-flight",
+        "ion trap",
+        "Orbitrap",
+        "FT-ICR",
+        "mass resolution",
+        "resolving power",
+        "mass accuracy",
+        "magnetic sector",
+        "reflectron",
+        "Fourier transform ion cyclotron resonance",
+        "resolution at half height",
+        "ppm mass error",
+        "mass defect",
+        "exact mass"
+      ],
+      "body": [
+        "The analyzer separates the ions by m/z. Its main figures of merit are the mass range, the speed, the **resolving power** R = m/Δm (where Δm is the peak width at half height, FWHM, or two peaks of equal height that are separated by Δm with a valley of 10%), and the **mass accuracy**, the error of the measured mass in ppm: (m_measured − m_true)/m_true × 10⁶.",
+        {
+          "table": {
+            "head": [
+              "Analyzer",
+              "Principle",
+              "Resolving power",
+              "Mass accuracy",
+              "Characteristics"
+            ],
+            "rows": [
+              [
+                "**Quadrupole**",
+                "Four rods with RF + DC voltages; only ions of one m/z have a stable path",
+                "Unit (about 1–2 × 10³ at m/z 500)",
+                "100–1000 ppm",
+                "Robust, cheap, fast scanning; the core of GC–MS and the triple quadrupole. Poor above m/z 4000."
+              ],
+              [
+                "**Time-of-flight (TOF)**",
+                "Ions accelerated through a fixed voltage fly down a drift tube; lighter ions arrive first",
+                "10⁴–6 × 10⁴ (with a reflectron)",
+                "1–5 ppm",
+                "No upper mass limit; spectrum in microseconds; pulsed sources (MALDI) or orthogonal acceleration (ESI)."
+              ],
+              [
+                "**Ion trap** (quadrupole, linear)",
+                "Ions are confined in an RF field and ejected by m/z",
+                "Unit",
+                "Low",
+                "Can do MSⁿ in time (isolate, fragment, repeat) in one place."
+              ],
+              [
+                "**Orbitrap**",
+                "Ions orbit around a central spindle electrode, oscillating axially at a frequency ∝ (z/m)^{1/2}; image current is Fourier-transformed",
+                "10⁵–10⁶",
+                "<1–3 ppm",
+                "High resolution and accuracy in a benchtop instrument; the proteomics and metabolomics standard."
+              ],
+              [
+                "**FT-ICR**",
+                "Ions in a 7–21 T field circulate at the cyclotron frequency ω = qB/m; the image current is Fourier-transformed",
+                "10⁶–10⁷",
+                "<1 ppm",
+                "Highest resolution, an expensive superconducting magnet; petroleomics, complex mixtures."
+              ]
+            ],
+            "caption": "Mass analyzers."
+          }
+        },
+        {
+          "h": "Quadrupole and time of flight"
+        },
+        "In the **quadrupole mass filter**, the opposite pairs of the four rods carry a voltage U + V cos ωt and −(U + V cos ωt). For a given U and V, the paths of ions of only one m/z are stable and pass through the rods; the others strike a rod and are lost. Scanning U and V (keeping U/V constant) scans the mass. It is a filter (and not a storage device), so it is inherently a scanning instrument: when it scans 1000 m/z values, it spends only 0.1% of the time on each, which costs sensitivity. Setting it to a single m/z (SIM) restores the sensitivity.",
+        "In **time-of-flight**, all ions get the same kinetic energy zeU = ½mv², so the velocity is v = (2zeU/m)^{1/2} and the flight time over a path L is t = L(m/2zeU)^{1/2}: t² ∝ m/z. A **reflectron** (an ion mirror) compensates for the spread of initial energies, and doubles the path in a compact instrument, and increases the resolving power from 10³ to 2 × 10⁴ or more. A whole spectrum is recorded in each pulse, so a TOF is the natural detector for fast chromatography and for pulsed sources.",
+        {
+          "h": "Resolution and exact mass"
+        },
+        "Atomic masses are not integers (¹²C is 12.00000 by definition, but ¹H is 1.007825, ¹⁶O 15.994915, ¹⁴N 14.003074), and the difference from the integer mass is the **mass defect**. Two ions of the same nominal mass but a different composition have a slightly different exact mass, and a high-resolution instrument separates them and identifies the elemental formula from the measured exact mass.",
+        {
+          "example": {
+            "title": "Resolving N₂ from CO",
+            "problem": "N₂⁺• and CO⁺• both have nominal mass 28. What resolving power separates them, and what do ppm mass error limits do for assigning formulas?",
+            "solution": "N₂ = 2 × 14.003074 = 28.006148. CO = 12.000000 + 15.994915 = 27.994915. Δm = 0.011233. R = 28/0.0112 ≈ 2500. This needs a TOF or Orbitrap, and cannot be done by a unit-resolution quadrupole. For formula assignment, at m/z 300 a 3 ppm error is ±0.0009 u, which usually leaves only one or two formulas of C, H, N and O consistent with the measured mass, and the isotope pattern removes the remainder."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "In a TOF analyzer, which ions arrive at the detector first?",
+          "a": "Those with the smallest m/z",
+          "wrong": [
+            "Those with the largest m/z",
+            "Those with the greatest charge only",
+            "All arrive at the same time"
+          ]
+        },
+        {
+          "q": "What resolving power is needed to separate ions at m/z 200.000 and 200.020?",
+          "a": "10,000",
+          "wrong": [
+            "1,000",
+            "100",
+            "1,000,000"
+          ]
+        },
+        {
+          "q": "Why is a scanning quadrupole less sensitive than a quadrupole in SIM mode?",
+          "a": "In a scan it spends only a small fraction of the time at each m/z, but SIM stays on the chosen m/z",
+          "wrong": [
+            "SIM uses a more powerful detector",
+            "SIM uses a higher voltage",
+            "In scan mode ions are destroyed"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tandem",
+      "title": "Tandem mass spectrometry",
+      "terms": [
+        "tandem mass spectrometry",
+        "MS/MS",
+        "triple quadrupole",
+        "collision-induced dissociation",
+        "CID",
+        "precursor ion",
+        "product ion",
+        "neutral loss scan",
+        "product ion scan",
+        "precursor ion scan",
+        "multiple reaction monitoring",
+        "MRM",
+        "SRM",
+        "selected reaction monitoring",
+        "collision cell in MS/MS",
+        "MSⁿ",
+        "quadrupole time-of-flight",
+        "Q-TOF"
+      ],
+      "body": [
+        "In **tandem mass spectrometry (MS/MS)** one mass analyzer selects an ion (the **precursor ion**), a collision cell fragments it, and a second analyzer measures the fragments (**product ions**). In **collision-induced dissociation (CID)** the selected ions are accelerated into a cell with 10⁻³–10⁻² mbar of argon or nitrogen; the collisions convert kinetic energy into internal energy, and the ions fragment by the weakest bonds. Because the fragments come from one chosen ion, the spectrum of a component can be obtained from a mixture without a prior separation, and gives the structure (peptide sequencing, drug metabolite identification).",
+        "The **triple quadrupole** is the workhorse of quantitative analysis: Q1 (mass filter) – q2 (the collision cell, an RF-only quadrupole) – Q3 (mass filter). Its scan modes are:",
+        {
+          "list": [
+            "**Product ion scan**: Q1 fixed on the precursor, Q3 scans. Gives the structure of a selected ion.",
+            "**Precursor ion scan**: Q3 fixed on a diagnostic fragment, Q1 scans. Finds all the compounds that give this fragment (e.g. all glucuronides, m/z 113).",
+            "**Neutral loss scan**: Q1 and Q3 scan together with a fixed mass offset (e.g. 98 u for the loss of H₃PO₄ from phosphopeptides).",
+            "**Selected/multiple reaction monitoring (SRM/MRM)**: Q1 and Q3 both fixed on a chosen precursor → product pair (a *transition*). Only the analyte that has the right precursor mass and gives the right fragment is detected, so the chemical noise is greatly reduced, and the sensitivity (pg to fg) and the selectivity are the best of any MS mode. One quantifier transition and a second qualifier transition (the ratio of the two must match a standard) are monitored for each compound, with dozens of compounds per run."
+          ]
+        },
+        "Hybrid instruments combine the advantages: the **Q-TOF** (a quadrupole for selection, a collision cell, a TOF for high-resolution product ions) and the Orbitrap hybrids give accurate masses of precursors and fragments. Ion traps can repeat the cycle: isolate, fragment, isolate a fragment, fragment (MSⁿ), which is useful for the structures of glycans and natural products.",
+        {
+          "example": {
+            "title": "An MRM method",
+            "problem": "Caffeine ([M+H]⁺ = m/z 195) fragments mainly to m/z 138 (loss of 57, CH₃NCO) and 110. Write the SRM method, and why use two transitions?",
+            "solution": "Quantifier: 195 → 138 (the strongest). Qualifier: 195 → 110. Q1 is fixed at 195, Q3 alternates between 138 and 110, each for a dwell time of 20–50 ms. Another compound with the same precursor mass (isobaric) is unlikely to give both fragments in the same ratio, so the qualifier/quantifier ratio (within ±20% of the standard) confirms identity, and the signal at 138 is used for the calibration."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "In which scan mode does a triple quadrupole give the lowest detection limits?",
+          "a": "SRM/MRM",
+          "wrong": [
+            "Full-scan Q1",
+            "Precursor ion scan",
+            "Neutral-loss scan"
+          ]
+        },
+        {
+          "q": "What happens in the collision cell?",
+          "a": "Selected precursor ions collide with a gas and fragment (CID)",
+          "wrong": [
+            "Ions are neutralized",
+            "Ions are accelerated to the detector",
+            "The sample is ionized"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gcms",
+      "title": "GC–MS",
+      "terms": [
+        "gas chromatography–mass spectrometry",
+        "gas chromatography-mass spectrometry",
+        "GC-MS",
+        "GC–MS",
+        "selected ion monitoring",
+        "SIM mode",
+        "SIM",
+        "total ion chromatogram",
+        "TIC",
+        "NIST library",
+        "spectral library",
+        "library search",
+        "extracted ion chromatogram",
+        "PFTBA",
+        "tuning",
+        "deconvolution of coeluting peaks"
+      ],
+      "body": [
+        "In **GC–MS** the effluent of a capillary column (1–2 mL min⁻¹ of helium) flows directly into the EI source, since the vacuum system of the instrument takes this flow rate. The column’s separation (see the chapter on chromatography) and the spectrum’s identification together make the most widely used method for volatile and semi-volatile organic compounds: environmental pollutants, drugs and metabolites (after derivatization), flavors, petroleum, forensic samples.",
+        {
+          "list": [
+            "In **full-scan** mode the quadrupole scans, for example, m/z 40–500 every 0.2 s, giving a mass spectrum at every point in the chromatogram. The sum of all ion intensities at each time is the **total ion chromatogram (TIC)**. A mass spectrum of a peak is compared with a **spectral library** (the NIST library): a search gives a ranked list of matches with a match factor. A match above ~800/1000 is a likely identification, but it must be confirmed by the retention index or a standard because isomers have almost identical spectra.",
+            "An **extracted ion chromatogram (XIC)** plots one m/z against time. It finds a compound in a crowded TIC by its characteristic ion (m/z 149 for phthalates, m/z 91 for alkylbenzenes).",
+            "In **selected ion monitoring (SIM)** the quadrupole jumps between 2–5 chosen ions and spends the whole time on them. The sensitivity increases 10–100 times with respect to full scan, so SIM is used for target compounds at trace levels (dioxins, pesticides), at the price of the library search.",
+            "The instrument is tuned with a calibrant, **perfluorotributylamine (PFTBA)**, which gives fragments at m/z 69, 219 and 502 across the mass range, used to adjust the lens voltages and the mass axis, and to check the relative abundances."
+          ]
+        },
+        "The isotope pattern in an EI spectrum shows the composition: a chlorine-containing ion shows M and M+2 with the ratio 3:1 (³⁵Cl:³⁷Cl), a compound with Br shows M and M+2 at 1:1, and the M+1 peak (1.1% per carbon) gives the number of carbons. These are discussed in the organic spectroscopy chapter.",
+        {
+          "example": {
+            "title": "SIM versus full scan",
+            "problem": "A GC–MS method to measure benzo[a]pyrene (m/z 252) in smoked food has an LOD of 5 µg kg⁻¹ in full scan. Why is SIM better, and which ions are monitored?",
+            "solution": "In SIM the instrument measures only m/z 252 (quantifier), 253 and 250 (qualifiers) with a dwell time of about 100 ms each, instead of scanning 450 masses. The time on the analyte ion increases by a factor of about 100–1000, so the S/N improves by about 10–30× and LOD falls to 0.1–0.5 µg kg⁻¹. The qualifier ratios (253/252 ≈ 22%, from ¹³C, and 250/252 ≈ 25%, from the loss of H₂) confirm identity."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "What is plotted in a total ion chromatogram?",
+          "a": "The summed intensity of all ions against retention time",
+          "wrong": [
+            "One m/z against time",
+            "Mass against intensity",
+            "Temperature against time"
+          ]
+        },
+        {
+          "q": "Why is SIM more sensitive than full scan?",
+          "a": "The detector spends all its time on a few chosen ions",
+          "wrong": [
+            "It uses a lower vacuum",
+            "It increases the ion source energy",
+            "It averages spectra"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lcms",
+      "title": "LC–MS and quantitation",
+      "terms": [
+        "LC-MS",
+        "LC–MS",
+        "LC-MS/MS",
+        "LC–MS/MS",
+        "liquid chromatography–mass spectrometry",
+        "liquid chromatography-mass spectrometry",
+        "ion suppression",
+        "matrix effect in LC-MS",
+        "isotope-labeled internal standard",
+        "stable isotope dilution",
+        "volatile buffers",
+        "post-column infusion",
+        "adduct formation",
+        "sodium adduct",
+        "in-source fragmentation"
+      ],
+      "body": [
+        "**LC–MS** couples a liquid chromatograph to an atmospheric-pressure source (ESI or APCI), which solves the problem of removing 0.2–1 mL min⁻¹ of liquid before the vacuum. It reaches non-volatile, polar, thermally labile and high-mass analytes that GC cannot: drugs and metabolites in plasma, pesticides, peptides, proteins. Triple-quadrupole **LC–MS/MS** in MRM mode is the dominant method for quantitation in complex biological matrices at ng mL⁻¹ and below.",
+        {
+          "list": [
+            "**Mobile phase compatibility**: only volatile buffers (ammonium formate or acetate, formic acid at 0.1%) can be used; phosphate buffers and non-volatile salts deposit in the source. Additives in the eluent determine the ions: formic acid favors [M+H]⁺, ammonia or ammonium acetate favor [M−H]⁻, and sodium contamination gives [M+Na]⁺ adducts, which fragment poorly.",
+            "**Ion suppression**: the co-eluting matrix components compete with the analyte for the limited charge on the droplet surface and for evaporation, so the response in the sample is lower (or higher) than in solvent. It is not seen in the chromatogram, so it needs to be tested, for example by **post-column infusion** of the analyte while injecting a blank matrix extract and looking for dips in the baseline at the retention time. It is reduced by better sample cleanup (SPE), better chromatographic separation of the analyte from the matrix interferences, dilution, or lower flow rates (nano-ESI).",
+            "The most reliable correction is a **stable isotope-labeled internal standard** (e.g. ¹³C₆- or D₅-analogue of the analyte), added at the start of sample preparation. It has the same retention time, extraction recovery and ionization behavior, so it is suppressed to the same extent, and the ratio of the analyte and standard signals remains accurate. This is isotope dilution (see the chapter on quantitative analysis for internal standards)."
+          ]
+        },
+        {
+          "example": {
+            "title": "Ion suppression",
+            "problem": "A drug at 50 ng mL⁻¹ gives a peak area of 100,000 in methanol, but 55,000 when spiked into plasma extract. Calculate the matrix effect, and the area ratio when a deuterated standard is used and gives areas of 200,000 in solvent and 110,000 in plasma.",
+            "solution": "Matrix effect = 55,000/100,000 = 55%, which is 45% suppression. For the deuterated standard 110,000/200,000 = 55% as well, so the ratio of analyte to standard is 55,000/110,000 = 0.50 in plasma against 100,000/200,000 = 0.50 in solvent. The ratio is not changed, and the quantitation is correct."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Why is phosphate buffer avoided in LC–MS?",
+          "a": "It is not volatile and fouls the source",
+          "wrong": [
+            "It absorbs UV light",
+            "It reacts with the column",
+            "It raises the pH too far"
+          ]
+        },
+        {
+          "q": "What best corrects ion suppression in quantitative LC–MS/MS?",
+          "a": "A stable isotope-labeled internal standard",
+          "wrong": [
+            "A larger injection volume",
+            "A faster gradient",
+            "A lower collision energy"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "speciation",
+      "title": "Hyphenated techniques and speciation",
+      "terms": [
+        "speciation",
+        "speciation analysis",
+        "hyphenated technique",
+        "hyphenated techniques",
+        "arsenic speciation",
+        "LC-ICP-MS",
+        "HPLC-ICP-MS",
+        "HPLC–ICP–MS",
+        "methylmercury",
+        "GC-ICP-MS",
+        "chemical species",
+        "arsenobetaine",
+        "toxicity of species"
+      ],
+      "body": [
+        "The total concentration of an element often says little about its risk. Arsenic as inorganic arsenite As(III) is highly toxic, as arsenate As(V) toxic, but as the arsenobetaine in fish it is nearly harmless; mercury as methylmercury accumulates in fish and damages the nervous system, whereas inorganic Hg²⁺ is much less bioavailable; Cr(VI) is carcinogenic and Cr(III) is a nutrient. **Speciation analysis** determines the concentration of each chemical form.",
+        "A **hyphenated technique** couples a separation method to an element-specific detector. The species are separated chromatographically, and the ICP-MS then detects the element in each peak, with its high sensitivity, wide dynamic range and an element-selective response that does not depend on the molecular structure of the species (so one calibration with any species of the element gives roughly the response of all).",
+        {
+          "list": [
+            "**HPLC–ICP–MS** for arsenic: anion-exchange chromatography with an ammonium carbonate or phosphate eluent, in about 10 minutes, separates arsenobetaine, As(III), dimethylarsinic acid (DMA), monomethylarsonic acid (MMA) and As(V). The column effluent goes straight to the nebulizer, and ⁷⁵As (with the collision cell for ArCl) is monitored. Rice and seafood are standard applications.",
+            "**GC–ICP–MS** or GC–AFS with hydride or ethylation derivatization for volatile organometallic species (methylmercury, butyltins).",
+            "**IC–ICP–MS** for Cr(III)/Cr(VI) and for iodine species (iodide/iodate), and **CE–ICP–MS** for small samples."
+          ]
+        },
+        "Two problems must be controlled: the species must not change during sampling, storage and extraction (e.g. As(III) oxidizes, Hg is methylated or lost), and quantitation needs a certified reference material for the species, or species-specific isotope dilution, in which an enriched-isotope-labeled form of each species is added to the sample.",
+        {
+          "example": {
+            "title": "Total vs species",
+            "problem": "Rice contains total arsenic of 0.30 mg kg⁻¹ by ICP-MS. HPLC–ICP–MS finds 0.12 inorganic As (As(III) + As(V)), 0.15 DMA, 0.03 MMA. Why does the species result matter?",
+            "solution": "The sum of the species is 0.30 mg kg⁻¹, so recovery of the total is 100%. Regulations on rice (for example a Codex limit of 0.2 mg kg⁻¹ for polished rice) apply to the inorganic arsenic, the species of greatest toxicity. Here 0.12 mg kg⁻¹ is below the limit, although the total is above it; a total-arsenic measurement would have condemned acceptable rice."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Why does ICP-MS detection suit speciation after HPLC?",
+          "a": "It gives element-specific, sensitive detection of each separated species",
+          "wrong": [
+            "It gives structural information of each species",
+            "It separates the species itself",
+            "It avoids the need for chromatography"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Hard sources (EI) fragment molecules, which gives library-searchable spectra. Soft sources (CI, ESI, APCI, MALDI) give the intact ion for molar mass. ESI gives multiply charged ions for large molecules.",
+    "Analyzers: quadrupole (unit resolution, robust, SIM/MRM), TOF (unlimited mass range, fast), ion trap (MSⁿ), Orbitrap and FT-ICR (R up to 10⁶–10⁷, ppm accuracy). Resolving power is R = m/Δm; exact masses identify formulas.",
+    "MS/MS: select a precursor, fragment it by CID, measure the products. Triple quadrupole modes: product ion, precursor ion, neutral loss and SRM/MRM, the most selective and sensitive quantitation mode.",
+    "GC–MS: EI, library search, TIC, XIC, SIM for trace analysis. LC–MS: volatile buffers, ion suppression, stable isotope-labeled internal standards.",
+    "Speciation: HPLC–ICP–MS and similar hyphenated methods quantify the toxic forms of an element rather than only its total concentration."
+  ],
+  "problems": [
+    {
+      "q": "What resolving power is needed to separate C₂H₄⁺• (28.0313) from N₂⁺• (28.0061) and from CO⁺• (27.9949)? Which analyzers can do it?",
+      "solution": "Smallest gap: C₂H₄/N₂: Δm = 0.0252, R = 28/0.0252 ≈ 1100 (a good quadrupole or any TOF). N₂/CO: Δm = 0.0112, R ≈ 2500 (TOF, Orbitrap, FT-ICR). C₂H₄ to CO: Δm = 0.0364, R ≈ 770. So R ≥ 2500 resolves all three: a TOF with reflectron, Orbitrap or FT-ICR; not a unit-resolution quadrupole.",
+      "a": "About 2500 for all three; TOF, Orbitrap or FT-ICR."
+    },
+    {
+      "q": "An Orbitrap measures a peak at m/z 609.2812 for a compound with formula C₃₃H₄₀N₂O₉ (in its protonated form, calculated m/z 609.2807). Compute the mass error.",
+      "solution": "Error = (609.2812 − 609.2807)/609.2807 × 10⁶ = 0.0005/609.28 × 10⁶ = 0.8 ppm. This is within the 1–3 ppm typical of the Orbitrap, so the formula is consistent.",
+      "a": "0.8 ppm"
+    },
+    {
+      "q": "A TOF analyzer has a 1.00 m flight tube and accelerates singly charged ions through 20.0 kV. Calculate the flight time of an ion of m = 1000 u. (1 u = 1.6605 × 10⁻²⁷ kg, e = 1.602 × 10⁻¹⁹ C.)",
+      "solution": "v = (2eU/m)^{1/2} = (2 × 1.602 × 10⁻¹⁹ × 20,000 / 1.6605 × 10⁻²⁴)^{1/2} = (3.859 × 10⁹)^{1/2} = 6.21 × 10⁴ m s⁻¹. t = L/v = 1.00/6.21 × 10⁴ = 16.1 µs.",
+      "a": "16 µs"
+    },
+    {
+      "q": "Explain why a triple quadrupole in MRM mode can detect a drug in plasma at 1 ng mL⁻¹ while a single quadrupole in SIM mode cannot do so reliably.",
+      "solution": "In SIM, any co-eluting plasma component that has an ion at the same m/z contributes to the signal (chemical noise). In MRM, the interference must have the same precursor mass and also give the same fragment, which is much less likely, so the background is reduced by a factor of 10–1000, and the S/N rises by the same factor even if the absolute signal of the analyte is a little lower.",
+      "a": "Two stages of mass selection remove chemical noise from the matrix."
+    }
+  ]
+}

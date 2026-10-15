@@ -1,0 +1,365 @@
+{
+  "id": "rate-theories",
+  "view": "chapter",
+  "title": "Theories of Reaction Rates",
+  "description": "Complex mechanisms, unimolecular reactions, collision theory, transition state theory and kinetic isotope effects.",
+  "overview": [
+    "Chemical kinetics at the general chemistry level describes how fast reactions go and uses the Arrhenius equation to fit the temperature dependence. Physical chemistry asks why: what determines the pre-exponential factor and the activation energy, and how can we calculate a rate constant from the properties of molecules, as we calculate an equilibrium constant from partition functions?",
+    "This chapter answers with three levels of theory. It first solves the kinetics of more complex mechanisms (consecutive, parallel and opposing steps), then explains unimolecular reactions (Lindemann–Hinshelwood), and finally derives rate constants from collision theory and from transition state theory, with kinetic isotope effects as the experimental test."
+  ],
+  "objectives": [
+    "Solve the kinetics of consecutive, parallel and opposing reactions.",
+    "Explain the pressure dependence of unimolecular rate constants (Lindemann–Hinshelwood).",
+    "Calculate collision frequencies and rate constants from collision theory, and the diffusion-controlled limit.",
+    "Use the Eyring equation to find activation parameters ΔH‡, ΔS‡ and ΔG‡.",
+    "Predict kinetic isotope effects from zero-point energies."
+  ],
+  "sections": [
+    {
+      "id": "complex",
+      "title": "Consecutive, parallel and opposing reactions",
+      "terms": [
+        "consecutive reactions",
+        "parallel reactions",
+        "opposing reactions",
+        "relaxation time",
+        "branching ratio",
+        "reversible first-order reaction",
+        "intermediate concentration profile",
+        "A → B → C",
+        "kinetic scheme"
+      ],
+      "body": [
+        "Real mechanisms combine elementary steps, and the integrated rate laws can be solved exactly for the simplest combinations. Three patterns recur.",
+        {
+          "h": "Consecutive reactions"
+        },
+        "For A → B → C with first-order constants k₁ and k₂ and starting with only A, the concentrations are [A] = [A]₀e^{−k₁t}, and",
+        {
+          "eq": [
+            "[B] = [A]₀ k₁/(k₂ − k₁) (e^{−k₁t} − e^{−k₂t})",
+            "t_max = ln(k₁/k₂)/(k₁ − k₂)     [B]_max/[A]₀ = (k₁/k₂)^{−k₂/(k₁ − k₂)}"
+          ]
+        },
+        "The intermediate B rises, passes through a maximum and decays. If k₂ ≫ k₁, B never accumulates and its concentration is small and almost constant: the steady-state approximation. The product C forms at a rate set by the slower step, the rate-determining step.",
+        {
+          "example": {
+            "title": "Intermediate maximum",
+            "problem": "For A → B → C with k₁ = 0.10 s⁻¹ and k₂ = 0.020 s⁻¹, find the time at which [B] is a maximum and the maximum fraction.",
+            "solution": "t_max = ln(0.10/0.020)/(0.10 − 0.020) = ln 5/0.080 = 20 s. [B]_max/[A]₀ = 5^{−0.020/0.080} = 5^{−0.25} = 0.67. Two thirds of the material is present as B at the maximum."
+          }
+        },
+        {
+          "h": "Parallel reactions"
+        },
+        "If A forms two products in competing first-order steps, A → B (k₁) and A → C (k₂), A decays with k_obs = k₁ + k₂, and the product ratio [B]/[C] = k₁/k₂ is fixed for all times. The **branching ratio** gives the selectivity, and the temperature dependence of the ratio is controlled by the difference of the activation energies: raising T favors the product with the higher activation energy.",
+        {
+          "h": "Opposing reactions"
+        },
+        "For a reversible first-order reaction A ⇌ B, with k_f and k_r, the approach to equilibrium follows a single exponential: [A] − [A]_eq = ([A]₀ − [A]_eq) e^{−(k_f + k_r)t}. The **relaxation time** τ = 1/(k_f + k_r) is shorter than either individual lifetime. At equilibrium the rates match, so K = k_f/k_r, which links kinetics to thermodynamics. The sum, not the difference, of the rate constants determines the speed of relaxation, which is the basis of temperature-jump experiments on fast equilibria.",
+        {
+          "example": {
+            "title": "Relaxation to equilibrium",
+            "problem": "For A ⇌ B with k_f = 0.50 s⁻¹ and k_r = 0.10 s⁻¹, find K and the relaxation time, and the equilibrium composition starting from pure A.",
+            "solution": "K = 0.50/0.10 = 5. τ = 1/(0.60 s⁻¹) = 1.7 s. At equilibrium [B]/[A] = 5, so the mixture is 83% B."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "In parallel first-order reactions A → B and A → C, the ratio [B]/[C] is…",
+          "a": "k₁/k₂ at all times",
+          "wrong": [
+            "Time dependent, rising with t",
+            "Equal to 1",
+            "k₂/k₁ only at long times"
+          ]
+        },
+        {
+          "q": "For A ⇌ B, the relaxation to equilibrium has rate constant…",
+          "a": "k_f + k_r",
+          "wrong": [
+            "k_f − k_r",
+            "k_f only",
+            "k_f/k_r"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "unimolecular",
+      "title": "Unimolecular reactions: Lindemann–Hinshelwood and RRKM",
+      "terms": [
+        "Lindemann–Hinshelwood mechanism",
+        "Lindemann mechanism",
+        "unimolecular reaction",
+        "unimolecular reactions",
+        "falloff region",
+        "RRKM theory",
+        "collisional activation",
+        "Rice–Ramsperger–Kassel–Marcus",
+        "energized molecule",
+        "high-pressure limit",
+        "low-pressure limit"
+      ],
+      "body": [
+        "Experiments show that many gas-phase reactions of a single molecule, such as the isomerization of cyclopropane or the decomposition of N₂O₅, are first order at high pressure. How does a molecule get enough energy to react, if no other molecule takes part in the rate law? Lindemann (1922) proposed that the energy comes from collisions with another molecule M, and the reaction happens in a separate step:",
+        {
+          "eq": [
+            "A + M ⇌ A* + M     (k₁, k₋₁)   collisional activation and deactivation",
+            "A* → P     (k₂)   reaction of the energized molecule"
+          ]
+        },
+        "Applying the steady-state approximation to A*:",
+        {
+          "eq": [
+            "[A*] = k₁[A][M] / (k₋₁[M] + k₂)",
+            "rate = k₂[A*] = k₂k₁[A][M]/(k₋₁[M] + k₂) = k_uni[A]"
+          ]
+        },
+        {
+          "list": [
+            "**High pressure** (k₋₁[M] ≫ k₂): the activation equilibrium is maintained, and the rate = (k₁k₂/k₋₁)[A], first order, with k_∞ = k₁k₂/k₋₁.",
+            "**Low pressure** (k₋₁[M] ≪ k₂): every A* reacts before it can be deactivated, so the rate = k₁[A][M], second order overall: the collision is rate-limiting."
+          ]
+        },
+        "As the pressure falls, the observed first-order constant falls from k_∞: the **falloff region**. A plot of 1/k_uni against 1/[M] is a straight line (1/k_uni = k₋₁/(k₁k₂) + 1/(k₁[M])) in the Lindemann scheme. Experiments show the falloff begins at a much higher pressure than predicted, and the plot curves. The reason is that the model treats all energized molecules as reacting with the same rate constant k₂, whereas in fact k₂ depends strongly on how much energy the molecule has, and on how many ways (vibrational modes) the energy can be distributed.",
+        "**RRKM theory** (Rice–Ramsperger–Kassel–Marcus) corrects this: it assumes that the energy of A* is rapidly randomized among all its vibrations (intramolecular vibrational redistribution), and the rate constant k(E) is the probability that enough energy flows into the reaction coordinate, proportional to the ratio of the number of states of the transition state to the density of states of the molecule. Larger molecules, with more modes, hold the energy longer, and so the falloff region shifts to lower pressure: a small molecule such as CH₃NC → CH₃CN is in the falloff region at 10 torr, but a large one is already at high pressure at 10⁻³ torr. RRKM theory predicts the full pressure- and temperature-dependence and is the standard model for atmospheric and combustion reactions.",
+        {
+          "example": {
+            "title": "Pressure dependence",
+            "problem": "A unimolecular gas reaction has k_∞ = 1.0 × 10⁻³ s⁻¹ and falls to half that value at 0.50 atm. What is k_uni at 0.10 atm in the Lindemann model?",
+            "solution": "k_uni = k_∞ [M]/([M] + k₂/k₋₁). Half of k_∞ at 0.50 atm means k₂/k₋₁ = 0.50 atm (in pressure units). At 0.10 atm: k_uni = 1.0 × 10⁻³ × 0.10/(0.10 + 0.50) = 1.7 × 10⁻⁴ s⁻¹."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "At low pressure, the Lindemann–Hinshelwood rate law is…",
+          "a": "Second order overall: rate = k₁[A][M]",
+          "wrong": [
+            "First order in A",
+            "Zero order",
+            "Independent of M"
+          ]
+        },
+        {
+          "q": "Why does RRKM theory give a better description than the Lindemann model?",
+          "a": "k₂ depends on the energy of A* and the number of vibrational modes among which it is shared",
+          "wrong": [
+            "It ignores collisions",
+            "It uses a different activation energy",
+            "It treats the reaction as bimolecular"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "collision",
+      "title": "Collision theory of rate constants",
+      "terms": [
+        "collision frequency",
+        "collision cross-section",
+        "reactive cross section",
+        "effective collisions",
+        "diffusion-controlled limit",
+        "collision theory of bimolecular reactions",
+        "collision rate",
+        "orientation factor",
+        "line-of-centers model",
+        "encounter pair"
+      ],
+      "body": [
+        "Simple collision theory gives the rate constant of a bimolecular gas reaction A + B → P as the rate at which A and B collide with enough energy. Two molecules collide if their centers come within the **collision cross-section** σ = πd², where d is the mean of the molecular diameters. The number of collisions per unit volume and time between A and B is Z_AB = σ c̄_rel [A][B] with the mean relative speed c̄_rel = √(8kT/πμ). The fraction of the collisions that have kinetic energy along the line of centers above a threshold E_a is e^{−E_a/RT}, so",
+        {
+          "eq": "k = P σ √(8kT/πμ) N_A e^{−E_a/RT}"
+        },
+        "The factor P, the **steric factor**, is the fraction of collisions in which the orientation allows reaction. P = 1 would mean that every sufficiently energetic collision reacts. The pre-exponential factor of the Arrhenius equation is then A = P σ c̄_rel N_A, and it should rise as √T.",
+        {
+          "example": {
+            "title": "Collision-theory prefactor",
+            "problem": "For molecules with σ = 0.40 nm² and μ = 20 amu, find the maximum A (P = 1) at 298 K.",
+            "solution": [
+              {
+                "eq": [
+                  "c̄_rel = √(8kT/πμ) = √(8 × 4.116 × 10⁻²¹ / (π × 3.32 × 10⁻²⁶)) = 562 m s⁻¹",
+                  "A = σ c̄_rel N_A = (4.0 × 10⁻¹⁹ m²)(562 m s⁻¹)(6.022 × 10²³ mol⁻¹) = 1.35 × 10⁸ m³ mol⁻¹ s⁻¹ = 1.4 × 10¹¹ M⁻¹ s⁻¹"
+                ]
+              },
+              "Measured pre-exponential factors are often smaller: P is about 0.16 for 2NOCl → 2NO + Cl₂ and about 10⁻⁶ for reactions of large molecules that must collide in a specific way. A reaction with a P larger than 1 shows that the theory underestimates the cross-section, as in the ‘harpoon’ mechanism for K + Br₂ (long-range electron jump), where P ≈ 4."
+            ]
+          }
+        },
+        {
+          "h": "The diffusion-controlled limit"
+        },
+        "In solution, a molecule undergoes many collisions with solvent before meeting a reactant. If every encounter leads to reaction, the rate is limited by how quickly A and B diffuse together, the **diffusion-controlled limit**: k_d = 8RT/(3η) (the Smoluchowski result for equal-size molecules in a solvent of viscosity η). For water at 298 K (η = 8.9 × 10⁻⁴ Pa s) it gives k_d = 8 × 8.314 × 298/(3 × 8.9 × 10⁻⁴) = 7.4 × 10⁶ m³ mol⁻¹ s⁻¹ = 7.4 × 10⁹ M⁻¹ s⁻¹, close to the observed rate constants for acid–base reactions of H₃O⁺ with OH⁻ (1.4 × 10¹¹, which is faster since protons hop by the Grotthuss mechanism), and for diffusion-controlled reactions such as fluorescence quenching, radical recombination and the binding of ligands by enzymes at the speed limit (carbonic anhydrase, kcat/K_M ≈ 10⁸ M⁻¹ s⁻¹). Slower reactions are activation-controlled."
+      ],
+      "check": [
+        {
+          "q": "What does the steric factor P represent in collision theory?",
+          "a": "The fraction of energetic collisions that have the proper orientation",
+          "wrong": [
+            "The collision frequency",
+            "The activation energy",
+            "The mass of the molecules"
+          ]
+        },
+        {
+          "q": "What limits the rate constant of a diffusion-controlled reaction in water?",
+          "a": "The rate at which the reactants diffuse together",
+          "wrong": [
+            "The activation energy",
+            "The steric factor",
+            "The temperature only"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tst",
+      "title": "Transition state theory and the Eyring equation",
+      "terms": [
+        "Eyring equation",
+        "activated complex theory",
+        "activation entropy",
+        "activation enthalpy",
+        "Gibbs energy of activation",
+        "Eyring plot",
+        "entropy of activation",
+        "enthalpy of activation",
+        "transmission coefficient",
+        "quasi-equilibrium assumption"
+      ],
+      "body": [
+        "**Transition state theory (TST)**, developed by Eyring, Evans and Polanyi (1935), calculates the rate constant from the properties of the reactants and of the **activated complex** at the top of the barrier on the potential energy surface. It makes two assumptions: the activated complex is in quasi-equilibrium with the reactants, and the complex falls apart through its one unbound motion (the reaction coordinate, a vibration with an imaginary frequency) at a rate of kT/h per complex. The result, the **Eyring equation**:",
+        {
+          "eq": [
+            "k = κ (kT/h) K^‡     K^‡ = e^{−Δ‡G/RT}",
+            "k = κ (kT/h) exp(Δ‡S/R) exp(−Δ‡H/RT)"
+          ]
+        },
+        "Here κ (about 1) is the transmission coefficient. The universal factor kT/h (6.2 × 10¹² s⁻¹ at 298 K) is the rate at which any activated complex passes through the barrier. The reaction is then described by thermodynamic parameters of activation: the **enthalpy of activation** Δ‡H (the energy barrier), the **entropy of activation** Δ‡S (how much more or less ordered the complex is than the reactants) and the Gibbs energy Δ‡G = Δ‡H − TΔ‡S. A bimolecular association has a strongly negative Δ‡S (two molecules combine into one complex: −80 to −150 J K⁻¹ mol⁻¹), and a unimolecular dissociation that loosens the structure has Δ‡S > 0.",
+        "From the Eyring equation, a plot of ln(k/T) against 1/T (an **Eyring plot**) is a straight line of slope −Δ‡H/R and intercept ln(k_B/h) + Δ‡S/R. The relation to the Arrhenius activation energy is E_a = Δ‡H + RT for a solution reaction (and Δ‡H + 2RT for a gas-phase bimolecular reaction).",
+        {
+          "example": {
+            "title": "Activation free energy",
+            "problem": "A first-order reaction has k = 2.0 × 10⁻³ s⁻¹ at 298 K. Find Δ‡G. With k = 8.0 × 10⁻² s⁻¹ at 328 K, find Δ‡H and Δ‡S.",
+            "solution": [
+              {
+                "eq": [
+                  "kT/h = 6.21 × 10¹² s⁻¹ at 298 K;   Δ‡G = −RT ln(kh/kT) = −2.478 kJ × ln(3.22 × 10⁻¹⁶) = 88.4 kJ mol⁻¹"
+                ]
+              },
+              "Eyring plot: ln[(k/T)₂/(k/T)₁] = ln[(8.0 × 10⁻²/328)/(2.0 × 10⁻³/298)] = ln(36.3) = 3.59 = (Δ‡H/R)(1/298 − 1/328) = (Δ‡H/R)(3.07 × 10⁻⁴), so Δ‡H = 3.59 × 8.314/3.07 × 10⁻⁴ = 97.2 kJ mol⁻¹.",
+              "Then Δ‡S = (Δ‡H − Δ‡G)/T = (97.2 − 88.4)/298 = +30 J K⁻¹ mol⁻¹. The positive entropy of activation suggests a loosening transition state, consistent with a dissociative step."
+            ]
+          }
+        },
+        "TST gives the right form and useful quantitative accuracy when the potential energy surface is known, and a very successful framework for interpreting measured Δ‡H and Δ‡S. Its weaknesses: some trajectories recross the barrier (κ < 1), tunneling is ignored (important for H transfer), and it is classical for the motion along the reaction coordinate. Variational TST and trajectory calculations on computed surfaces address these."
+      ],
+      "check": [
+        {
+          "q": "What is the slope of an Eyring plot (ln(k/T) against 1/T)?",
+          "a": "−Δ‡H/R",
+          "wrong": [
+            "Δ‡H/R",
+            "−Δ‡S/R",
+            "−E_a/R exactly"
+          ]
+        },
+        {
+          "q": "A strongly negative Δ‡S suggests…",
+          "a": "A more ordered transition state, as in a bimolecular association",
+          "wrong": [
+            "A loose, dissociative transition state",
+            "No barrier",
+            "A radical chain"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "kie",
+      "title": "Kinetic isotope effects",
+      "terms": [
+        "kinetic isotope effect",
+        "kinetic isotope effects",
+        "primary kinetic isotope effect",
+        "secondary kinetic isotope effect",
+        "deuterium isotope effect",
+        "KIE",
+        "zero-point energy difference",
+        "solvent isotope effect",
+        "heavy atom isotope effect"
+      ],
+      "body": [
+        "Replacing an atom with a heavier isotope leaves the electronic potential energy surface unchanged but lowers the vibrational frequencies and so the zero-point energies. The change in rate is the **kinetic isotope effect**, KIE = k_light/k_heavy, and it is a powerful probe of which bonds change in the rate-determining step.",
+        {
+          "list": [
+            "A **primary KIE** arises when the bond to the isotope is broken or formed in the rate-determining step. In the transition state the C–H stretch becomes the reaction coordinate and loses its zero-point energy, while the C–D bond starts lower in energy, so the barrier for C–D cleavage is higher by (at most) the difference in zero-point energies.",
+            "A **secondary KIE** arises when the isotope is on an atom whose bonding changes but is not broken (an sp³ → sp² change in hybridization gives k_H/k_D about 1.1–1.25 and sp² → sp³ gives about 0.8–0.95). It tells the hybridization change at the reacting carbon.",
+            "**Solvent isotope effects** (H₂O versus D₂O) test whether proton transfer is involved."
+          ]
+        },
+        {
+          "example": {
+            "title": "Maximum C–H/C–D effect",
+            "problem": "The C–H stretch is 2900 cm⁻¹ and the C–D stretch 2100 cm⁻¹. Estimate the maximum k_H/k_D at 298 K, assuming the stretching zero-point energy is entirely lost at the transition state.",
+            "solution": "ΔZPE = ½(2900 − 2100) cm⁻¹ = 400 cm⁻¹ = 400 × 0.01196 = 4.78 kJ mol⁻¹. k_H/k_D = exp(4780/(8.314 × 298)) = e^{1.93} = 6.9. Observed primary effects range from 1 to about 7 at 25 °C; values above about 10 point to hydrogen **tunneling**, as in the enzyme soybean lipoxygenase, where k_H/k_D ≈ 80. KIEs fall with rising temperature, as ΔZPE/RT shrinks."
+          }
+        },
+        "Heavy-atom effects are small but measurable (¹²C/¹³C about 1.04, ³²S/³⁴S about 1.02) and give the extent of bond breaking in the transition state. The measurement of a KIE shows whether a C–H bond cleaves in the rate-determining step of an oxidation by a cytochrome P450 enzyme, or whether an elimination follows E2 or E1 mechanisms."
+      ],
+      "check": [
+        {
+          "q": "What causes the primary kinetic isotope effect?",
+          "a": "The C–D bond has a lower zero-point energy, so it requires more energy to reach the transition state",
+          "wrong": [
+            "D has a different charge",
+            "D is heavier and therefore slower to collide",
+            "The electronic surface changes with isotope"
+          ]
+        },
+        {
+          "q": "A k_H/k_D of 50 at room temperature most strongly suggests…",
+          "a": "Tunneling of the hydrogen",
+          "wrong": [
+            "No C–H bond breaking",
+            "A radical chain mechanism",
+            "A diffusion-controlled step"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "A → B → C: B reaches a maximum at t_max = ln(k₁/k₂)/(k₁ − k₂). Parallel reactions have a fixed product ratio k₁/k₂. Opposing reactions relax with k_f + k_r and K = k_f/k_r.",
+    "Lindemann–Hinshelwood: first order at high pressure (k_∞ = k₁k₂/k₋₁), second order at low pressure, and a falloff in between. RRKM theory includes the energy dependence of k₂.",
+    "Collision theory: k = Pσ√(8kT/πμ)N_A e^{−E_a/RT}. In solution the diffusion limit is k_d = 8RT/3η, about 7 × 10⁹ M⁻¹ s⁻¹ in water.",
+    "Eyring: k = κ(kT/h)exp(Δ‡S/R)exp(−Δ‡H/RT). The Eyring plot gives Δ‡H and Δ‡S, and E_a = Δ‡H + RT in solution.",
+    "KIEs: C–H/C–D up to about 7 at 25 °C from zero-point energy differences. Larger values signal tunneling."
+  ],
+  "problems": [
+    {
+      "q": "For A → B → C, k₁ = 0.050 min⁻¹ and k₂ = 0.50 min⁻¹. Show that the steady-state approximation applies and estimate [B]/[A] at long times.",
+      "solution": "Since k₂ ≫ k₁, B decays much faster than it forms. After the first few minutes [B] ≈ (k₁/k₂)[A] = 0.10[A] (the steady-state value), so B is never more than about 10% of A.",
+      "a": "[B]/[A] ≈ k₁/k₂ = 0.10."
+    },
+    {
+      "q": "An enzyme-catalyzed reaction between a substrate and an enzyme with encounter radius 0.5 nm has a measured k of 5 × 10⁷ M⁻¹ s⁻¹. Is the reaction diffusion-controlled? (η = 8.9 × 10⁻⁴ Pa s, 298 K.)",
+      "solution": "k_d = 8RT/3η = 7.4 × 10⁹ M⁻¹ s⁻¹. The measured value is 100 times smaller than this limit, so the reaction is not diffusion-controlled: the reaction step itself (activation) is slower than the encounter.",
+      "a": "No: k is about 150 times below the diffusion limit."
+    },
+    {
+      "q": "The rate constant of an SN2 reaction in solution is 1.0 × 10⁻⁴ M⁻¹ s⁻¹ at 300 K and 2.4 × 10⁻³ M⁻¹ s⁻¹ at 330 K. Find Δ‡H and Δ‡S.",
+      "solution": "ln[(k₂/T₂)/(k₁/T₁)] = ln[(2.4 × 10⁻³/330)/(1.0 × 10⁻⁴/300)] = ln(21.8) = 3.08 = (Δ‡H/R)(1/300 − 1/330) = (Δ‡H/R)(3.03 × 10⁻⁴); Δ‡H = 3.08 × 8.314/3.03 × 10⁻⁴ = 84.5 kJ mol⁻¹. At 300 K: kT/h = 6.25 × 10¹²; k/(kT/h) = 1.6 × 10⁻¹⁷ (using M⁻¹ s⁻¹ with standard state 1 M); Δ‡G = −RT ln(1.6 × 10⁻¹⁷) = 2.494 × 38.67 = 96.4 kJ mol⁻¹. Δ‡S = (84.5 − 96.4)/300 = −40 J K⁻¹ mol⁻¹.",
+      "a": "Δ‡H = 84.5 kJ/mol; Δ‡S ≈ −40 J K⁻¹ mol⁻¹ (negative, as expected for a bimolecular reaction)."
+    },
+    {
+      "q": "The C–H and C–D stretching frequencies for a reacting bond are 3000 and 2200 cm⁻¹. Estimate the maximum KIE at 298 K and at 400 K.",
+      "solution": "ΔZPE = ½(800) = 400 cm⁻¹ = 4.78 kJ mol⁻¹. At 298 K: e^{4780/2478} = e^{1.93} = 6.9. At 400 K: e^{4780/3326} = e^{1.44} = 4.2. The KIE falls as T rises.",
+      "a": "6.9 at 298 K and 4.2 at 400 K."
+    }
+  ]
+}

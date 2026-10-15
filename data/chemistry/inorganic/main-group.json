@@ -1,0 +1,160 @@
+{
+  "id": "main-group",
+  "view": "chapter",
+  "title": "Main-Group Chemistry",
+  "description": "Periodic trends and the descriptive chemistry of the s- and p-block elements: hydrides, oxides, halogens, allotropes and noble gas compounds.",
+  "overview": [
+    "The main-group elements, the s and p blocks, include nearly everything abundant in the Earth’s crust and atmosphere, in living matter and in industrial chemistry: hydrogen, carbon, nitrogen, oxygen, sodium, silicon, sulfur and chlorine. Their chemistry is organized by a few trends, and by a few exceptions: the first element of each group differs from its heavier congeners, and heavy elements prefer oxidation states two below the group number.",
+    "This chapter develops those trends, then surveys the groups in turn, with attention to what each element’s compounds do and why. The unifying themes are the acid–base character of oxides, the stability of oxidation states, and the way bond strengths and orbital size shape structure."
+  ],
+  "objectives": [
+    "Explain the anomalous behavior of period 2 elements, the inert pair effect and diagonal relationships.",
+    "Classify hydrides and oxides as ionic, covalent, acidic, basic or amphoteric, and predict the trend across a period.",
+    "Describe the reactivity trends of Groups 1 and 2, including flame colors.",
+    "Describe the allotropes of carbon, phosphorus and sulfur, and the structures and acid–base properties of their oxides.",
+    "Explain the oxidizing power of the halogens, interhalogen compounds and polyhalides.",
+    "Describe the chemistry of the noble gases."
+  ],
+  "sections": [
+    {
+      "id": "trends",
+      "title": "Trends and exceptions",
+      "terms": ["inert pair effect", "diagonal relationship", "diagonal relationships", "first-row anomaly", "period 2 anomaly", "s-block", "p-block", "group trends"],
+      "body": [
+        "Across a period, effective nuclear charge rises and atoms shrink, so electronegativity and ionization energy increase, and elements change from metal to nonmetal. Down a group the opposite trends hold, and metallic character, atomic size and the preference for higher coordination numbers all increase.",
+        "Three recurring patterns refine this picture.",
+        { "list": [
+          "**The period 2 anomaly.** The first element of each group (Li, Be, B, C, N, O, F) is small and has only 2s and 2p orbitals available, so it obeys the octet rule, forms strong multiple bonds, and has a maximum coordination number of four. Carbon forms C=C and C≡C bonds, but silicon forms Si–Si single bonds, because the 3p orbitals overlap poorly sideways: CO₂ is a gas, SiO₂ a network solid. Nitrogen exists as N≡N, and phosphorus as single-bonded P₄ (the N≡N bond energy is 945 kJ mol⁻¹ against P≡P at 485, though the P–P single bond is much stronger than N–N, 201 vs 160).",
+          "**The inert pair effect.** Heavier p-block elements prefer an oxidation state two units below the group maximum, because the ns² electrons are held tightly and relativistic effects contract the 6s orbital. Tl⁺ is more stable than Tl³⁺, Pb²⁺ than Pb⁴⁺ (PbO₂ is a strong oxidant) and Bi³⁺ than Bi⁵⁺ (bismuthates oxidize Mn²⁺ to permanganate).",
+          "**Diagonal relationships.** Elements are similar to the one diagonally below and to the right, because the increase in charge and size roughly cancel: Li resembles Mg (both form nitrides and carbonates that decompose easily), Be resembles Al (amphoteric hydroxides, covalent chlorides), and B resembles Si (weak acids, volatile hydrides)."
+        ] }
+      ],
+      "check": [
+        { "q": "Why is CO₂ a gas but SiO₂ a network solid?", "a": "Carbon forms strong π bonds, silicon does not, so Si prefers four single Si–O bonds", "wrong": ["Si is more electronegative than C", "CO₂ has ionic bonds", "SiO₂ has C–Si bonds"] },
+        { "q": "The inert pair effect explains why…", "a": "Pb²⁺ is more stable than Pb⁴⁺", "wrong": ["Carbon forms four bonds", "Na forms Na⁺", "Chlorine is a gas"] }
+      ]
+    },
+    {
+      "id": "hydrides-oxides",
+      "title": "Hydrides and oxides",
+      "terms": ["hydride", "hydrides", "ionic hydride", "covalent hydride", "metallic hydride", "acidic oxide", "acidic oxides", "basic oxide", "basic oxides", "amphoteric oxide", "amphoteric oxides", "oxide", "oxides", "peroxide", "superoxide", "acid anhydride oxide"],
+      "body": [
+        { "h": "Hydrides" },
+        "Binary hydrogen compounds are of three types. **Ionic (saline) hydrides** of Groups 1 and 2 (NaH, CaH₂) contain H⁻, a powerful base and reducing agent that reacts violently with water (CaH₂ + 2H₂O → Ca(OH)₂ + 2H₂), and are used as drying agents and bases. **Covalent hydrides** of the p block range from acidic (HCl, H₂S) through neutral (CH₄, H₂O) to basic (NH₃, PH₃), with boiling points governed by hydrogen bonding for NH₃, H₂O and HF. **Metallic hydrides** (PdHₓ, LaNi₅H₆) absorb hydrogen into the lattice and are explored for hydrogen storage.",
+        { "h": "Oxides and their acid–base behavior" },
+        "Oxides react with water and with acids or bases according to the character of the element. Metals give **basic oxides** (Na₂O + H₂O → 2NaOH; CaO + 2H⁺ → Ca²⁺ + H₂O). Nonmetals give **acidic oxides**, acid anhydrides that form oxoacids with water (SO₃ + H₂O → H₂SO₄; CO₂ + H₂O ⇌ H₂CO₃; P₄O₁₀ + 6H₂O → 4H₃PO₄) and react with bases. Elements near the metal–nonmetal border give **amphoteric oxides** that dissolve in both acids and bases: Al₂O₃, ZnO, BeO, SnO, PbO.",
+        { "eq": ["Al₂O₃ + 6H⁺ → 2Al³⁺ + 3H₂O   (with acid; the Al³⁺ is hydrated as [Al(H₂O)₆]³⁺)", "Al₂O₃ + 2OH⁻ + 3H₂O → 2[Al(OH)₄]⁻ (base)"] },
+        { "table": {
+          "head": ["Period 3 oxide", "Na₂O", "MgO", "Al₂O₃", "SiO₂", "P₄O₁₀", "SO₃", "Cl₂O₇"],
+          "rows": [["Character", "Strongly basic", "Basic", "Amphoteric", "Weakly acidic", "Acidic", "Strongly acidic", "Strongly acidic"], ["Bonding", "Ionic", "Ionic", "Ionic/covalent", "Network covalent", "Molecular", "Molecular", "Molecular"]],
+          "caption": "Oxide character changes from basic to acidic across a period."
+        } },
+        "Oxygen forms several anions. The oxide O²⁻ is typical, the **peroxide** O₂²⁻ (Na₂O₂, with an O–O single bond) and the **superoxide** O₂⁻ (KO₂, paramagnetic with one unpaired electron). The heavier alkali metals favor the larger anions because the lattice energy is best when cation and anion sizes match: Li gives Li₂O, Na gives Na₂O₂, and K, Rb and Cs give MO₂. KO₂ releases oxygen from CO₂ and moisture, and is used in emergency breathing apparatus (4KO₂ + 2CO₂ → 2K₂CO₃ + 3O₂)."
+      ],
+      "check": [
+        { "q": "Which oxide is amphoteric?", "a": "Al₂O₃", "wrong": ["Na₂O", "SO₃", "P₄O₁₀"] },
+        { "q": "What does CaH₂ produce with water?", "a": "Ca(OH)₂ and H₂", "wrong": ["CaO and H₂O", "CaH₂O", "Ca and H₂"] }
+      ]
+    },
+    {
+      "id": "s-block",
+      "title": "Groups 1 and 2",
+      "terms": ["Group 1 elements", "Group 2 elements", "flame test", "flame tests", "alkali metal reactivity", "sodium", "lithium", "magnesium", "calcium carbonate", "lime", "quicklime", "slaked lime", "cement", "solvated electron", "electride", "cryptand", "alkali metals in liquid ammonia"],
+      "body": [
+        "The **alkali metals** (Li to Cs) have one ns electron, and the lowest ionization energies in their periods. They are soft, low-melting (Li 181 °C, Cs 28.5 °C) and reactive. Reactivity with water increases down the group, though the standard potentials are almost the same (E° about −2.9 to −3.0 V; lithium is the most negative, −3.04, because of its very large hydration energy). Lithium reacts steadily with water, sodium vigorously with the molten metal ball skating on the surface, potassium ignites the hydrogen, and cesium explodes. They dissolve in liquid ammonia to give blue solutions of **solvated electrons**, M → M⁺ + e⁻(am), which are strong reducing agents, used in the Birch reduction. Cryptands and crown ethers trap the cations and allow isolation of crystalline alkalides and electrides.",
+        "The **alkaline earth metals** have two valence electrons, and form M²⁺ compounds, harder and denser than the alkali metals, with higher melting points. Beryllium is exceptional: small, highly polarizing, forming covalent compounds (BeCl₂ is a polymer chain, and the hydroxide is amphoteric, as in the diagonal relationship with Al). Magnesium is the lightest structural metal and in chlorophyll; calcium is in bones, shells and cement.",
+        { "table": {
+          "head": ["Trend (down Group 2)", "Observation"],
+          "rows": [["Solubility of hydroxides", "Increases: Mg(OH)₂ (K_sp 5.6 × 10⁻¹²) < Ca(OH)₂ < Ba(OH)₂"], ["Solubility of sulfates", "Decreases: MgSO₄ (soluble) ≫ CaSO₄ > SrSO₄ > BaSO₄ (insoluble)"], ["Thermal stability of carbonates", "Increases, as the polarizing power of M²⁺ falls"]],
+          "caption": "Trends in the alkaline earth compounds."
+        } },
+        "The calcium carbonate cycle is industrially central. Limestone is heated to lime (CaCO₃ → CaO + CO₂, 900 °C), lime reacts with water to give slaked lime Ca(OH)₂, and absorbs CO₂ from the air to reform carbonate: the setting of mortar. **Cement** is made from lime, silica and alumina; its production is a major source of CO₂ (about 8% of global emissions).",
+        { "h": "Flame tests" },
+        "Heated in a flame, a salt atomizes and its valence electrons are excited and then emit visible light at characteristic wavelengths, giving a **flame test**: Li crimson (671 nm), Na yellow (589 nm, the D lines), K lilac (766 and 770 nm), Rb red-violet, Cs blue-violet, Ca brick-red, Sr crimson, Ba apple-green, Cu blue-green. Fireworks use the same emissions. The method is the basis of atomic emission spectroscopy."
+      ],
+      "check": [
+        { "q": "Which Group 2 sulfate is least soluble?", "a": "BaSO₄", "wrong": ["MgSO₄", "CaSO₄", "BeSO₄"] },
+        { "q": "What color does sodium give in a flame test?", "a": "Yellow", "wrong": ["Lilac", "Crimson", "Green"] }
+      ]
+    },
+    {
+      "id": "p-block-13-14",
+      "title": "Groups 13 and 14",
+      "terms": ["Group 13 elements", "Group 14 elements", "aluminum chemistry", "gallium", "thallium", "diamond", "graphite", "fullerene", "fullerenes", "buckminsterfullerene", "C60", "graphene", "carbon nanotube", "carbon nanotubes", "silicon", "germanium", "tin", "lead", "silicon dioxide", "carbon monoxide", "AlCl3"],
+      "body": [
+        "**Group 13** (B, Al, Ga, In, Tl) has three valence electrons. Boron is a metalloid whose compounds are covalent and electron-deficient (see the chapter on boranes). Aluminum is the most abundant metal in the crust, a reactive metal protected by a thin Al₂O₃ layer. It forms the amphoteric Al₂O₃ and Al(OH)₃. AlCl₃ is a strong Lewis acid (a catalyst in Friedel–Crafts reactions) and exists as a dimer, Al₂Cl₆, with bridging chlorines, so that each Al has an octet. In the heavier members the +1 state grows stable by the inert pair effect: Tl⁺ resembles an alkali metal ion and is toxic.",
+        "**Group 14** (C, Si, Ge, Sn, Pb) changes from a nonmetal (C) to metalloids (Si, Ge) and metals (Sn, Pb). Carbon has several **allotropes**:",
+        { "list": [
+          "**Diamond**: every carbon is sp³, in a rigid tetrahedral network, so it is hard, an electrical insulator and an excellent thermal conductor.",
+          "**Graphite**: sp² carbons in flat hexagonal layers 3.35 Å apart held by dispersion forces; the layers slide, so it is soft and a lubricant, and delocalized π electrons make it conduct along the layers. It is slightly more stable than diamond at 1 atm.",
+          "**Fullerenes**: closed cages of sp² carbons, such as **C₆₀** (buckminsterfullerene, 20 hexagons and 12 pentagons, like a football), discovered in 1985 (Kroto, Curl and Smalley, Nobel Prize 1996).",
+          "**Graphene** is a single sheet of graphite (Geim and Novoselov, Nobel Prize 2010), and **carbon nanotubes** are rolled sheets, with exceptional strength and electrical properties."
+        ] },
+        "The oxides show the period 2 anomaly: CO₂ is a gas, with C=O double bonds, and SiO₂ (quartz, sand) is a network of Si–O single bonds. Carbon monoxide, a good ligand, binds hemoglobin 200 times more strongly than O₂. Silicon is a semiconductor, and the basis of electronics; it is made by reducing SiO₂ with carbon at 2000 °C and purified to 99.9999999% by zone refining. Lead(IV) is a strong oxidant (the PbO₂ cathode of a lead–acid battery), a consequence of the inert pair effect, and tin(II) is a mild reductant (SnCl₂)."
+      ],
+      "check": [
+        { "q": "Why does graphite conduct electricity along its layers?", "a": "Delocalized π electrons in the sp² sheets", "wrong": ["It has free metal ions", "Its layers are ionic", "It has sp³ bonds"] },
+        { "q": "Why is AlCl₃ a dimer?", "a": "Bridging chlorines give each Al an octet", "wrong": ["Al–Al bonds form", "It is ionic", "It forms hydrogen bonds"] }
+      ]
+    },
+    {
+      "id": "p-block-15-16",
+      "title": "Groups 15 and 16",
+      "terms": ["Group 15 elements", "Group 16 elements", "pnictogens", "chalcogens", "nitrogen oxides", "ammonia chemistry", "white phosphorus", "red phosphorus", "black phosphorus", "phosphoric acid", "phosphorus oxide", "dioxygen", "hydrogen peroxide", "sulfur allotropes", "sulfur dioxide", "sulfuric acid", "selenium", "thiosulfate"],
+      "body": [
+        "**Group 15** (N, P, As, Sb, Bi) goes from nonmetal to metal. Dinitrogen, N≡N, is kinetically inert (945 kJ mol⁻¹), so N₂ makes up 78% of air, and fixing it requires the Haber process or nitrogenase. Nitrogen forms oxides of every oxidation state from +1 to +5: N₂O (laughing gas), NO (a signaling molecule and radical), N₂O₃, NO₂ (brown, in equilibrium with N₂O₄), N₂O₅. NH₃ is a pyramidal base and ligand; hydrazine N₂H₄ is a rocket fuel.",
+        "**Phosphorus** prefers P–P single bonds: **white phosphorus** is tetrahedral P₄ with strained 60° angles, and so is reactive, ignites in air and is stored under water. Heating gives polymeric red phosphorus (match heads), and high pressure gives layered black phosphorus. Burning phosphorus gives P₄O₁₀ (a cage with each P tetrahedrally bonded to four oxygens, the best desiccant) or, with limited oxygen, P₄O₆. P₄O₁₀ + water gives phosphoric acid, H₃PO₄, a triprotic acid, whose salts are fertilizers, and phosphates link in the backbone of DNA and in ATP. Arsenic, antimony and bismuth are metalloids and metals, with toxic As³⁺ and low-toxicity Bi³⁺ (bismuth subsalicylate in Pepto-Bismol).",
+        "**Group 16** (O, S, Se, Te, Po) is the chalcogens. Oxygen exists as the paramagnetic diradical O₂ (the MO result, bond order 2) and as the bent ozone, O₃. **Hydrogen peroxide**, H₂O₂, disproportionates (2H₂O₂ → 2H₂O + O₂) and is both an oxidant and a reductant. Sulfur forms many allotropes, most commonly the crown-shaped ring S₈ (rhombic and monoclinic forms). At 160 °C, rings open and polymerize, giving viscous liquid sulfur. Burning sulfur gives SO₂, a reducing agent and preservative, which is oxidized over V₂O₅ to SO₃, then hydrated to H₂SO₄ (the contact process), the most-produced chemical. Thiosulfate S₂O₃²⁻ reduces iodine in titrations, and the photographic fixer dissolves AgBr as a complex. Selenium is an essential trace element and is photoconductive."
+      ],
+      "check": [
+        { "q": "Why is white phosphorus so reactive?", "a": "The P–P–P angles of 60° in P₄ make the molecule strained", "wrong": ["It has P≡P triple bonds", "It is ionic", "It contains hydrogen"] },
+        { "q": "What is the sulfur allotrope that is stable at room temperature?", "a": "Cyclic S₈", "wrong": ["S₂", "Linear S₈ chains", "S₄"] }
+      ]
+    },
+    {
+      "id": "halogens-noble",
+      "title": "Halogens and noble gases",
+      "terms": ["halogen chemistry", "fluorine", "chlorine", "bromine", "iodine", "interhalogen compounds", "interhalogen", "polyhalide", "polyhalides", "triiodide", "hydrogen fluoride", "oxoacids of chlorine", "hypochlorite", "chlorate", "perchlorate", "noble gas compounds", "xenon fluorides", "xenon tetrafluoride", "xenon difluoride", "Bartlett", "helium", "argon", "xenon", "krypton"],
+      "body": [
+        "The **halogens** (F, Cl, Br, I) are the most electronegative group. The diatomic molecules are oxidizing agents whose strength falls down the group (F₂ > Cl₂ > Br₂ > I₂, E° = +2.87, +1.36, +1.07, +0.54 V), and so a halogen displaces any heavier halide from solution. F₂ is so reactive that it burns water and glass; the F–F bond is unusually weak (159 kJ mol⁻¹) because of lone-pair repulsion in a small molecule. HF is a weak acid in water (pK_a 3.2), whereas HCl, HBr and HI are strong, because the H–X bond weakens down the group. Hydrofluoric acid etches glass by forming SiF₆²⁻. The oxoacids of chlorine, HOCl < HClO₂ < HClO₃ < HClO₄, rise in acid strength with the number of oxygens, and HClO₄ is one of the strongest acids known; hypochlorite is the bleach.",
+        "Halogens combine to form **interhalogen compounds** (ClF, BrF₃, ClF₃, IF₅, IF₇) that follow VSEPR (ClF₃ is T-shaped, IF₅ square pyramidal, IF₇ pentagonal bipyramidal) and are fluorinating agents. In **polyhalide** anions the halide adds to a molecule: I₂ + I⁻ ⇌ I₃⁻ (triiodide, linear, the brown color of iodine in KI and the starch test), and ICl₂⁻, Br₃⁻.",
+        { "h": "Noble gases" },
+        "The noble gases (He to Rn) were thought inert until Neil Bartlett (1962) found that PtF₆, a powerful oxidant, oxidizes O₂ and also xenon, giving a solid first thought to be XePtF₆. Since then **xenon fluorides** (XeF₂, linear; **XeF₄**, square planar; XeF₆, distorted octahedral), oxides (XeO₃, explosive) and some krypton compounds (KrF₂) have been made, and the 3c-4e bonding in XeF₂ explains hypervalent geometry without d orbitals. Chemistry becomes possible for the heavier gases because the first ionization energy falls (Xe 1170 kJ mol⁻¹) and fluorine can oxidize them. Helium (boiling at 4.2 K, the coolant for superconducting magnets) and neon have no known stable neutral compounds under ordinary conditions. Argon is made in the fractional distillation of liquid air.",
+        { "example": {
+          "title": "VSEPR of a noble gas compound",
+          "problem": "Predict the shape of XeF₄ and XeF₂.",
+          "solution": "XeF₂: Xe has 8 valence electrons, two bonds and three lone pairs, five domains in a trigonal bipyramid with the lone pairs equatorial: linear. XeF₄: four bonds and two lone pairs, six domains in an octahedron with the lone pairs opposite: square planar."
+        } }
+      ],
+      "check": [
+        { "q": "Which halogen is the strongest oxidizing agent?", "a": "F₂", "wrong": ["Cl₂", "Br₂", "I₂"] },
+        { "q": "What is the shape of XeF₄?", "a": "Square planar", "wrong": ["Tetrahedral", "Seesaw", "Octahedral"] },
+        { "q": "Why is HF a weak acid when HCl is strong?", "a": "The H–F bond is much stronger", "wrong": ["Fluorine is less electronegative than chlorine", "HF is a polymer", "Fluoride is a strong base only in the gas phase"] }
+      ]
+    }
+  ],
+  "summary": [
+    "The first element of each group is small and prefers multiple bonds and octets. Heavier p-block elements show the inert pair effect, and diagonal relationships link Li–Mg, Be–Al and B–Si.",
+    "Hydrides are ionic, covalent or metallic. Oxides change from basic through amphoteric to acidic across a period.",
+    "Alkali metals reduce water more violently down the group and give characteristic flame colors. Group 2 hydroxides become more soluble and sulfates less soluble down the group.",
+    "Carbon allotropes include diamond, graphite, fullerenes, graphene and nanotubes. Aluminum halides are Lewis acids. P₄ and S₈ are the common allotropes of phosphorus and sulfur.",
+    "Halogen oxidizing power falls from F₂ to I₂. HX acidity rises down the group. Noble gases such as Xe form fluorides and oxides."
+  ],
+  "problems": [
+    {
+      "q": "Predict the products and say whether each is acidic, basic or amphoteric: (a) Na₂O + H₂O, (b) SO₃ + H₂O, (c) ZnO + NaOH(aq), (d) Al₂O₃ + HCl.",
+      "solution": "(a) NaOH (basic oxide). (b) H₂SO₄ (acidic oxide). (c) Na₂[Zn(OH)₄] (zincate), as ZnO is amphoteric. (d) AlCl₃ and H₂O, amphoteric oxide acting as a base.",
+      "a": "(a) NaOH; (b) H₂SO₄; (c) Na₂[Zn(OH)₄]; (d) AlCl₃."
+    },
+    {
+      "q": "Why does PbO₂ act as a strong oxidizing agent while CO₂ does not?",
+      "solution": "In lead the +4 state is destabilized by the inert pair effect (the 6s² pair is tightly held), so Pb(IV) is readily reduced to Pb(II). Carbon(IV) is the stable state of carbon, since it forms four strong bonds.",
+      "a": "The inert pair effect makes Pb(II) the stable oxidation state."
+    },
+    {
+      "q": "Explain why lithium has the most negative E° of the alkali metals yet reacts less vigorously with water than potassium.",
+      "solution": "E° is a thermodynamic quantity that includes the large hydration energy of the small Li⁺ ion. The reaction rate depends on kinetic factors: lithium’s higher melting point and the lack of heating at its surface, along with the hydroxide film, make it react more slowly than potassium, which melts and ignites.",
+      "a": "E° is thermodynamic, rates are kinetic."
+    }
+  ]
+}

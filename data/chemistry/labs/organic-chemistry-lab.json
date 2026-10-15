@@ -1,7 +1,7 @@
 {
+  "id": "ochem-lab",
   "title": "Organic Chemistry Laboratory",
   "description": "The practical side of organic chemistry: lab safety and notebooks, glassware, workup and purification techniques, and the standard experiments with their reactions, procedures, characterization and common problems.",
-  "category": ["Chemistry", "Laboratory Courses", "Organic Chemistry Lab"],
   "view": "articles",
   "entries": [
     {

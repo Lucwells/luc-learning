@@ -1,0 +1,427 @@
+{
+  "id": "aldehydes-ketones",
+  "view": "chapter",
+  "title": "Aldehydes and Ketones",
+  "description": "The carbonyl group and its nucleophilic addition reactions: hydrates, acetals, imines, cyanohydrins, Wittig alkenes and reductions.",
+  "overview": [
+    "The carbonyl group, C=O, is the most important functional group in organic chemistry. It appears in sugars, fats, proteins, drugs and nearly every synthetic target, and its reactions form carbon–carbon bonds and interconvert most other functional groups. The key to all of it is one idea: the carbonyl carbon is electrophilic, and nucleophiles attack it.",
+    "This chapter covers the structure and reactivity of aldehydes and ketones and the nucleophilic addition reactions that follow: water, alcohols, cyanide, amines, phosphorus ylides and hydrides."
+  ],
+  "objectives": [
+    "Name aldehydes and ketones and explain their electrophilic reactivity.",
+    "Write mechanisms for nucleophilic addition under basic and acidic conditions.",
+    "Predict the equilibrium of hydrate and hemiacetal formation, and use acetals as protecting groups.",
+    "Form imines, enamines and oximes, and carry out reductive amination.",
+    "Plan alkene syntheses with the Wittig and Horner–Wadsworth–Emmons reactions.",
+    "Choose reagents to reduce a carbonyl to an alcohol or a methylene, and to oxidize aldehydes."
+  ],
+  "sections": [
+    {
+      "id": "carbonyl",
+      "title": "The carbonyl group",
+      "terms": [
+        "carbonyl",
+        "carbonyl group",
+        "carbonyl compound",
+        "carbonyl compounds",
+        "aldehyde",
+        "aldehydes",
+        "ketone",
+        "ketones",
+        "carbonyl electrophilicity",
+        "acetone",
+        "formaldehyde"
+      ],
+      "body": [
+        "In a carbonyl group the carbon is sp² and trigonal planar, with bond angles near 120°. The C=O bond is strongly polar because oxygen is much more electronegative: the carbon carries partial positive charge, and the oxygen partial negative. In resonance terms, the zwitterionic contributor C⁺–O⁻ contributes significantly. The carbon is therefore an **electrophile**, attacked by nucleophiles from either face along a path at about 107° to the C=O bond (the Bürgi–Dunitz angle), and the oxygen is weakly basic (the pK_a of a protonated ketone is about −7).",
+        "An **aldehyde** has at least one H on the carbonyl carbon (RCHO, named -al, such as ethanal, CH₃CHO), and a **ketone** has two carbons (RCOR′, named -one: propanone, or acetone). The carbonyl carbon of an aldehyde is numbered C1. In IR spectra the C=O stretch is a strong, sharp band near 1715 cm⁻¹ for ketones and 1730 cm⁻¹ for aldehydes (which also show C–H stretches near 2720 and 2820 cm⁻¹).",
+        "Aldehydes are more reactive than ketones, for two reasons. Sterically, an H is smaller than an alkyl group, so the nucleophile approaches more easily and the product is less crowded. Electronically, the alkyl groups of a ketone donate electron density to the carbonyl carbon and stabilize it, which reduces its electrophilicity. Formaldehyde is the most reactive and benzaldehyde, whose carbonyl is conjugated with the ring, is less reactive than aliphatic aldehydes.",
+        {
+          "table": {
+            "head": [
+              "Compound",
+              "Boiling point (°C)",
+              "Comment"
+            ],
+            "rows": [
+              [
+                "Butane",
+                "−0.5",
+                "Dispersion only"
+              ],
+              [
+                "Propanal",
+                "48",
+                "Dipole–dipole, no H bonds"
+              ],
+              [
+                "Propanone (acetone)",
+                "56",
+                "Fully miscible with water"
+              ],
+              [
+                "Propan-1-ol",
+                "97",
+                "Hydrogen-bonded"
+              ]
+            ],
+            "caption": "Carbonyl compounds boil between alkanes and alcohols of the same size."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Why are aldehydes more reactive toward nucleophiles than ketones?",
+          "a": "Less steric hindrance and less electron donation to the carbonyl carbon",
+          "wrong": [
+            "They have a stronger C=O bond",
+            "They have no π bond",
+            "They are more acidic at oxygen"
+          ]
+        },
+        {
+          "q": "Which IR band indicates a ketone?",
+          "a": "A strong, sharp band near 1715 cm⁻¹",
+          "wrong": [
+            "A broad band near 3300 cm⁻¹",
+            "A band near 2100 cm⁻¹",
+            "A band near 1650 cm⁻¹ only"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "addition",
+      "title": "Nucleophilic addition: mechanism and equilibria",
+      "terms": [
+        "nucleophilic addition",
+        "nucleophilic addition to carbonyl",
+        "carbonyl hydrate",
+        "gem-diol",
+        "cyanohydrin",
+        "cyanohydrins",
+        "hydrogen cyanide"
+      ],
+      "body": [
+        "The fundamental reaction of aldehydes and ketones is **nucleophilic addition**. The nucleophile attacks the carbonyl carbon, the C=O π electrons move to oxygen to give a tetrahedral alkoxide, and protonation gives the neutral product. The carbon changes from sp² to sp³.",
+        {
+          "list": [
+            "**Strong nucleophiles** (hydride, Grignard reagents, acetylide, cyanide) add irreversibly, because the product alkoxide is a poor leaving group. The attack is the rate-determining step, and the protonation is a separate workup step.",
+            "**Weak nucleophiles** (water, alcohols, amines) need help. Acid protonates the carbonyl oxygen first, making the carbon a far better electrophile (activation by acid). Base catalysis works through a more nucleophilic anion. These additions are reversible, and the position of equilibrium matters."
+          ]
+        },
+        {
+          "h": "Hydrates"
+        },
+        "Water adds to give a **hydrate** (geminal diol): R₂C=O + H₂O ⇌ R₂C(OH)₂. Equilibrium favors the hydrate only for the most electrophilic carbonyls. Formaldehyde in water is more than 99.9% hydrate (K = 2 × 10³), acetaldehyde about 58% (K = 1.0), and acetone only 0.14% (K = 1.4 × 10⁻³). Electron-withdrawing groups favor hydrates: chloral (CCl₃CHO) and ninhydrin form stable crystalline hydrates. The hydrate is why oxidation of an aldehyde under aqueous conditions goes through to the acid.",
+        {
+          "h": "Cyanohydrins"
+        },
+        "Hydrogen cyanide (made in situ from NaCN and acid, since HCN is gaseous and highly toxic) adds to give a **cyanohydrin**, R₂C(OH)C≡N. It adds one carbon to the skeleton, and the nitrile can be hydrolyzed to an α-hydroxy acid (with H₃O⁺, heat) or reduced to a β-amino alcohol (LiAlH₄). The reaction is reversible and favorable for aldehydes and unhindered ketones.",
+        {
+          "example": {
+            "title": "Chain extension",
+            "problem": "Convert benzaldehyde to mandelic acid (PhCH(OH)COOH).",
+            "solution": "Add NaCN and acid to benzaldehyde to give mandelonitrile, PhCH(OH)CN. Hydrolyze the nitrile with aqueous acid and heat to the acid: mandelic acid, with one more carbon than the starting material."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Which carbonyl compound is most hydrated in water?",
+          "a": "Formaldehyde",
+          "wrong": [
+            "Acetone",
+            "Benzaldehyde",
+            "Cyclohexanone"
+          ]
+        },
+        {
+          "q": "What does the addition of HCN to an aldehyde give?",
+          "a": "A cyanohydrin",
+          "wrong": [
+            "An imine",
+            "A hemiacetal",
+            "A carboxylic acid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "acetals",
+      "title": "Hemiacetals and acetals",
+      "terms": [
+        "hemiacetal",
+        "hemiacetals",
+        "acetal",
+        "acetals",
+        "ketal",
+        "ketals",
+        "cyclic acetal",
+        "acetal formation",
+        "acetal hydrolysis",
+        "hemiketal"
+      ],
+      "body": [
+        "An alcohol adds to a carbonyl to give a **hemiacetal** (R₂C(OH)OR′), usually unfavorable for simple ketones, but easy for aldehydes and favorable intramolecularly: a hydroxy aldehyde with the OH four or five carbons away cyclizes to a five- or six-membered cyclic hemiacetal. This is how sugars exist in solution (glucose is more than 99% cyclic).",
+        "With acid catalysis and a second equivalent of alcohol, the hemiacetal is protonated, loses water to give an oxocarbenium ion, and a second alcohol adds to give an **acetal** (R₂C(OR′)₂). Each step is reversible. To make the acetal, remove the water (a Dean–Stark trap, or excess alcohol with a dehydrating agent), and to hydrolyze it, add excess aqueous acid. Using ethylene glycol gives a five-membered **cyclic acetal** (a 1,3-dioxolane), which is favored entropically.",
+        {
+          "key": "Acetals are stable to base, to nucleophiles, to Grignard reagents and to hydrides, but are hydrolyzed by aqueous acid. This makes them ideal protecting groups for aldehydes and ketones."
+        },
+        {
+          "example": {
+            "title": "Selective reduction using an acetal",
+            "problem": "Reduce only the ester in methyl 4-oxopentanoate (CH₃COCH₂CH₂COOCH₃) to give 5-hydroxypentan-2-one.",
+            "solution": [
+              "LiAlH₄ would reduce both the ketone and the ester, and NaBH₄ would reduce the ketone but not the ester, giving the wrong product.",
+              "Protect the ketone as its cyclic acetal (ethylene glycol, H⁺, remove water). Reduce the ester with LiAlH₄ to the primary alcohol (the acetal is inert to hydride). Remove the protecting group with H₃O⁺, which regenerates the ketone."
+            ]
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Acetals are stable to…",
+          "a": "Base and nucleophiles, but not aqueous acid",
+          "wrong": [
+            "Aqueous acid, but not base",
+            "Neither acid nor base",
+            "Both acid and base"
+          ]
+        },
+        {
+          "q": "How is the equilibrium driven toward an acetal?",
+          "a": "By removing water",
+          "wrong": [
+            "By adding water",
+            "By adding base",
+            "By raising the pH"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nitrogen",
+      "title": "Reactions with nitrogen nucleophiles",
+      "terms": [
+        "imine",
+        "imines",
+        "Schiff base",
+        "enamine",
+        "enamines",
+        "oxime",
+        "oximes",
+        "hydrazone",
+        "hydrazones",
+        "semicarbazone",
+        "reductive amination",
+        "Wolff–Kishner",
+        "Wolff-Kishner reduction",
+        "Clemmensen",
+        "Clemmensen reduction",
+        "sodium cyanoborohydride"
+      ],
+      "body": [
+        "A primary amine adds to the carbonyl, and after proton transfers loses water to give an **imine** (Schiff base, R₂C=N–R′). A secondary amine, which has no second N–H to lose, gives an **enamine** (C=C–N), losing a proton from the α carbon instead. Both reactions are acid-catalyzed and reversible, and the rate peaks near pH 4.5: below that the amine is protonated and not nucleophilic, and above it there is too little acid to activate the carbonyl and to protonate the OH of the carbinolamine so that water can leave.",
+        {
+          "table": {
+            "head": [
+              "Nucleophile",
+              "Product",
+              "Use"
+            ],
+            "rows": [
+              [
+                "RNH₂",
+                "Imine",
+                "Intermediate; hydrolyzes back in acid"
+              ],
+              [
+                "R₂NH",
+                "Enamine",
+                "Nucleophilic carbon, as in the Stork reaction"
+              ],
+              [
+                "NH₂OH",
+                "Oxime",
+                "Crystalline derivative; Beckmann rearrangement"
+              ],
+              [
+                "NH₂NH₂",
+                "Hydrazone",
+                "Wolff–Kishner reduction"
+              ],
+              [
+                "PhNHNH₂, 2,4-DNP",
+                "Phenylhydrazone, 2,4-DNP hydrazone",
+                "Colored derivatives for identification"
+              ]
+            ],
+            "caption": "Nitrogen nucleophiles with aldehydes and ketones."
+          }
+        },
+        {
+          "h": "Reductive amination"
+        },
+        "An imine can be reduced as it forms. Treating a carbonyl compound and an amine with NaBH₃CN (sodium cyanoborohydride) or NaBH(OAc)₃ at about pH 6 gives an amine in one pot. The reagent is mild enough that it does not reduce the carbonyl, but reduces the iminium ion. This is the most useful way to make secondary and tertiary amines, since direct alkylation of amines overreacts.",
+        {
+          "h": "Deoxygenation of carbonyls"
+        },
+        "To convert C=O to CH₂, use the **Wolff–Kishner** reduction (hydrazine, KOH, ethylene glycol, 200 °C: basic conditions, through the hydrazone and loss of N₂) or the **Clemmensen** reduction (zinc amalgam, concentrated HCl: acidic conditions). Choose according to which the rest of the molecule tolerates. Together with Friedel–Crafts acylation they give straight-chain alkylbenzenes.",
+        {
+          "example": {
+            "title": "Reductive amination",
+            "problem": "Prepare N-methylcyclohexylamine from cyclohexanone.",
+            "solution": "Mix cyclohexanone and methylamine with NaBH₃CN at pH about 6. The imine forms in equilibrium and is reduced to the secondary amine."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "A secondary amine with a ketone gives…",
+          "a": "An enamine",
+          "wrong": [
+            "An imine",
+            "An oxime",
+            "A hydrate"
+          ]
+        },
+        {
+          "q": "Which reaction converts a ketone to an alkane under basic conditions?",
+          "a": "Wolff–Kishner",
+          "wrong": [
+            "Clemmensen",
+            "Cannizzaro",
+            "Wittig"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wittig",
+      "title": "The Wittig reaction",
+      "terms": [
+        "Wittig reaction",
+        "Wittig",
+        "ylide",
+        "ylides",
+        "phosphonium ylide",
+        "phosphorane",
+        "oxaphosphetane",
+        "Horner–Wadsworth–Emmons",
+        "Horner-Wadsworth-Emmons",
+        "HWE reaction",
+        "triphenylphosphine oxide"
+      ],
+      "body": [
+        "The **Wittig reaction** converts a C=O into a C=C with predictable placement of the double bond: R₂C=O + Ph₃P=CHR′ → R₂C=CHR′ + Ph₃P=O. The reagent is a phosphorus **ylide** (a neutral species with adjacent opposite charges, ⁻CHR′–PPh₃⁺). It is made in two steps: SN2 of triphenylphosphine on a primary alkyl halide gives a phosphonium salt, and a strong base (n-BuLi, NaH) removes the acidic α-proton (pK_a about 22).",
+        "The ylide carbon attacks the carbonyl to give a betaine or directly a four-membered **oxaphosphetane**, which collapses to the alkene and triphenylphosphine oxide. The strong P=O bond (about 540 kJ mol⁻¹) drives the reaction. The double bond forms exactly where the C=O was, with no mixture of positional isomers, unlike elimination reactions.",
+        {
+          "list": [
+            "**Unstabilized ylides** (R′ = alkyl) give mainly **Z**-alkenes.",
+            "**Stabilized ylides** (R′ = C=O, CN: Ph₃P=CHCO₂Et) are less reactive and give mainly **E**-alkenes.",
+            "The **Horner–Wadsworth–Emmons (HWE)** reaction uses a phosphonate carbanion, (EtO)₂P(O)CH⁻CO₂Et, with an aldehyde or ketone. It gives E-α,β-unsaturated esters with high selectivity, the by-product (a water-soluble phosphate) is easily removed, and the reagents react with hindered ketones that stabilized Wittig ylides do not."
+          ]
+        },
+        {
+          "example": {
+            "title": "Methylenation",
+            "problem": "Synthesize methylenecyclohexane from cyclohexanone.",
+            "solution": "Prepare Ph₃P=CH₂ from CH₃Br: Ph₃P + CH₃Br gives Ph₃P⁺CH₃ Br⁻, then n-BuLi. Add cyclohexanone: the oxaphosphetane collapses to methylenecyclohexane and Ph₃P=O. Acid-catalyzed elimination from 1-methylcyclohexanol would give the more substituted 1-methylcyclohexene instead; the Wittig reaction gives the exocyclic alkene specifically."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "What drives the Wittig reaction?",
+          "a": "Formation of the strong P=O bond in triphenylphosphine oxide",
+          "wrong": [
+            "Release of ring strain",
+            "Loss of N₂",
+            "Formation of a C–C σ bond only"
+          ]
+        },
+        {
+          "q": "A stabilized ylide (Ph₃P=CHCO₂Et) gives mainly…",
+          "a": "The E alkene",
+          "wrong": [
+            "The Z alkene",
+            "The alkane",
+            "A 1:1 mixture"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "redox",
+      "title": "Reduction and oxidation of carbonyl compounds",
+      "terms": [
+        "Tollens' test",
+        "Tollens' reagent",
+        "silver mirror test",
+        "Fehling's test",
+        "reduction of carbonyls",
+        "sodium borohydride",
+        "lithium aluminum hydride",
+        "hydride reduction",
+        "oxidation of aldehydes",
+        "Cannizzaro reaction"
+      ],
+      "body": [
+        "Hydride donors reduce carbonyls to alcohols by nucleophilic addition of H⁻ followed by protonation. **Sodium borohydride** (NaBH₄, in ethanol or methanol) reduces aldehydes and ketones but not esters, acids or amides, and tolerates water and alcohols. **Lithium aluminum hydride** (LiAlH₄, in ether) is far more reactive and reduces nearly all carbonyls, including acids and esters (to primary alcohols) and amides (to amines), and reacts violently with water. Both attack with equal facility from the less hindered face of a cyclic ketone: small hydrides prefer axial attack (giving the equatorial alcohol), and bulky hydrides (L-Selectride) attack equatorially.",
+        "**Aldehydes oxidize easily** because of their aldehyde hydrogen, to carboxylic acids, with any oxidant from Jones reagent to air. Ketones resist oxidation without breaking C–C bonds. The ease distinguishes the two classes. In **Tollens’ test** an aldehyde reduces the silver–ammonia complex, [Ag(NH₃)₂]⁺, to metallic silver, which plates the test tube as a mirror, while ketones do not react. **Fehling’s** and Benedict’s tests use Cu(II), which gives a red Cu₂O precipitate with aliphatic aldehydes. These tests also identify reducing sugars.",
+        "An aldehyde with no α-hydrogens, such as benzaldehyde or formaldehyde, on treatment with concentrated hydroxide undergoes the **Cannizzaro reaction**, a disproportionation: one molecule is reduced to the alcohol and another oxidized to the carboxylate, 2 PhCHO + OH⁻ → PhCH₂OH + PhCOO⁻."
+      ],
+      "check": [
+        {
+          "q": "NaBH₄ reduces which of these?",
+          "a": "A ketone but not an ester",
+          "wrong": [
+            "An ester but not a ketone",
+            "Both equally",
+            "Neither"
+          ]
+        },
+        {
+          "q": "What happens when an aldehyde is warmed with Tollens’ reagent?",
+          "a": "A silver mirror forms",
+          "wrong": [
+            "A blue solution forms",
+            "Nothing happens",
+            "A yellow precipitate forms"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "The carbonyl carbon is electrophilic. Aldehydes are more reactive than ketones, because of less steric hindrance and less electron donation.",
+    "Strong nucleophiles add irreversibly. Weak ones add reversibly and need acid activation. Hydrate formation depends on carbonyl electrophilicity.",
+    "Acetals protect carbonyls from base and nucleophiles and are removed with aqueous acid.",
+    "Primary amines give imines and secondary amines give enamines, with optimum pH near 4.5. Reductive amination makes amines. Wolff–Kishner and Clemmensen convert C=O to CH₂.",
+    "The Wittig reaction makes C=C exactly where C=O was. Unstabilized ylides give Z, and stabilized ylides and HWE give E.",
+    "NaBH₄ reduces aldehydes and ketones. LiAlH₄ reduces all carbonyls. Aldehydes (not ketones) are oxidized easily, as in Tollens’ test."
+  ],
+  "problems": [
+    {
+      "q": "Predict the products: (a) cyclopentanone + NaBH₄, then H₃O⁺; (b) acetophenone + CH₃NH₂, H⁺, then NaBH₃CN; (c) butanal + Ph₃P=CHCH₃; (d) acetone + ethylene glycol, H⁺, with water removed.",
+      "solution": "(a) Cyclopentanol. (b) N-Methyl-1-phenylethylamine. (c) Hex-2-ene, mainly (Z). (d) The cyclic acetal 2,2-dimethyl-1,3-dioxolane.",
+      "a": "(a) cyclopentanol; (b) N-methyl-1-phenylethylamine; (c) (Z)-hex-2-ene; (d) 2,2-dimethyl-1,3-dioxolane."
+    },
+    {
+      "q": "Outline the synthesis of 1-phenylpropene (PhCH=CHCH₃) by two Wittig routes.",
+      "solution": "(1) Benzaldehyde + the ylide from ethyl bromide (Ph₃P=CHCH₃). (2) Acetaldehyde + the ylide from benzyl bromide (Ph₃P=CHPh, which is stabilized by the phenyl and favors E).",
+      "a": "PhCHO + Ph₃P=CHCH₃, or CH₃CHO + Ph₃P=CHPh."
+    },
+    {
+      "q": "Explain why the rate of imine formation is highest near pH 4.5 and falls at lower and higher pH.",
+      "solution": "The first step needs a free amine as nucleophile, which is protonated and unreactive at low pH. The loss of water from the carbinolamine needs acid to protonate the OH. At high pH there is too little acid for this step, which becomes rate-limiting.",
+      "a": "A compromise between a free amine at high pH and acid catalysis at low pH."
+    },
+    {
+      "q": "Convert cyclohexanone into 1-hydroxycyclohexanecarboxylic acid, adding one carbon.",
+      "solution": "Add NaCN with acid to cyclohexanone to form the cyanohydrin, 1-hydroxycyclohexanecarbonitrile. Hydrolyze the nitrile with aqueous acid and heat to give 1-hydroxycyclohexanecarboxylic acid.",
+      "a": "NaCN/H⁺, then H₃O⁺, heat."
+    }
+  ]
+}

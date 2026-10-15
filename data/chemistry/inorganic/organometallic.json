@@ -1,0 +1,443 @@
+{
+  "id": "organometallic",
+  "view": "chapter",
+  "title": "Organometallic Chemistry and Catalysis",
+  "description": "Metal–carbon bonds, the 18-electron rule, ligand bonding, elementary steps and the catalytic processes that make plastics, fuels and chemicals.",
+  "overview": [
+    "Organometallic compounds, which contain metal–carbon bonds, bridge organic and inorganic chemistry. They are the catalysts for making most plastics, many pharmaceuticals, acetic acid, and the aldehydes that become detergents and plasticizers. Their chemistry is organized by electron counting, by a handful of elementary steps, and by the observation that a catalyst is a molecule that runs through the same steps again and again.",
+    "This chapter covers electron counting and the 18-electron rule, the bonding of carbonyl, phosphine, alkene and cyclopentadienyl ligands, the elementary reactions, the industrial processes that use them, and compounds containing metal–metal bonds."
+  ],
+  "objectives": [
+    "Count valence electrons by the neutral and ionic methods and apply the 18-electron rule.",
+    "Describe the bonding of CO, phosphines, alkenes and cyclopentadienyl, including back-donation, and use IR data.",
+    "Identify oxidative addition, reductive elimination, migratory insertion and β-hydride elimination.",
+    "Write catalytic cycles for hydrogenation, hydroformylation, the Monsanto process and olefin metathesis.",
+    "Describe metal–metal bonding, including the quadruple bond in Re₂Cl₈²⁻."
+  ],
+  "sections": [
+    {
+      "id": "eighteen",
+      "title": "The 18-electron rule",
+      "terms": [
+        "organometallic",
+        "organometallic compounds",
+        "organometallic chemistry",
+        "18-electron rule",
+        "eighteen-electron rule",
+        "electron counting",
+        "covalent method",
+        "ionic method",
+        "valence electron count",
+        "coordinatively saturated",
+        "coordinative unsaturation",
+        "ferrocene",
+        "sandwich compounds",
+        "metallocene",
+        "Zeise's salt"
+      ],
+      "body": [
+        "An **organometallic compound** has at least one bond between a metal and carbon. The d-block metals have nine valence orbitals (five d, one s, three p) that can hold 18 electrons, and stable complexes of low-spin metals with π-acceptor ligands tend to have exactly 18 valence electrons around the metal. This is the **18-electron rule**, the analogue of the octet rule.",
+        "Counting uses either of two conventions that give the same total:",
+        {
+          "table": {
+            "head": [
+              "Ligand",
+              "Neutral (covalent) method",
+              "Ionic method",
+              "Notes"
+            ],
+            "rows": [
+              [
+                "CO, PR₃, NH₃, H₂O, η²-alkene",
+                "2",
+                "2",
+                "Neutral two-electron donors"
+              ],
+              [
+                "H, CH₃, R, Cl (X-type)",
+                "1",
+                "2 (as H⁻, CH₃⁻, Cl⁻)",
+                "Anionic or radical, one-electron donor"
+              ],
+              [
+                "η³-Allyl",
+                "3",
+                "4",
+                "Counts as a 3-electron radical"
+              ],
+              [
+                "η⁵-Cyclopentadienyl (Cp)",
+                "5",
+                "6 (Cp⁻)",
+                "Aromatic six-electron donor as anion"
+              ],
+              [
+                "η⁶-Benzene",
+                "6",
+                "6",
+                ""
+              ],
+              [
+                "NO (linear)",
+                "3",
+                "2 (NO⁺)",
+                ""
+              ],
+              [
+                "Metal atom d electrons",
+                "Group number",
+                "Group number − oxidation state",
+                ""
+              ]
+            ],
+            "caption": "Electron contributions of ligands."
+          }
+        },
+        "The prefix η (eta) with a superscript, the **hapticity**, gives the number of carbon atoms bound to the metal: η⁵-C₅H₅ binds through all five carbons.",
+        {
+          "example": {
+            "title": "Counting electrons",
+            "problem": "Count electrons in Cr(CO)₆, Fe(CO)₅, ferrocene Fe(η⁵-C₅H₅)₂, Mn(CO)₅(CH₃) and the 16-electron Wilkinson’s catalyst RhCl(PPh₃)₃.",
+            "solution": [
+              "Cr(CO)₆: Cr 6 + 6 × 2 = 18. Fe(CO)₅: Fe 8 + 5 × 2 = 18. Ferrocene: Fe 8 + 2 × 5 = 18. Mn(CO)₅CH₃: Mn 7 + 5 × 2 + 1 = 18.",
+              "RhCl(PPh₃)₃: Rh 9 + Cl 1 + 3 × 2 = 16, with a d⁸ Rh(I) in a square planar geometry. Square planar d⁸ complexes (Rh(I), Ir(I), Pd(II), Pt(II)) are stable at 16 electrons and are coordinatively unsaturated, which is what lets them act as catalysts."
+            ]
+          }
+        },
+        "The rule works best for the middle and right of the d block with strong-field ligands. It fails for early metals (too few electrons, like TiCl₄ at 8), for large ligands that block the sites, and for the first-row metals with weak-field ligands. Ferrocene, discovered in 1951 and identified as a sandwich (the iron held between two parallel Cp rings) by Wilkinson and Fischer (Nobel Prize 1973), is extremely stable and undergoes electrophilic substitution like benzene. **Zeise’s salt**, K[PtCl₃(C₂H₄)], made in 1827, was the first organometallic compound."
+      ],
+      "check": [
+        {
+          "q": "How many valence electrons does Fe(CO)₅ have?",
+          "a": "18",
+          "wrong": [
+            "16",
+            "14",
+            "20"
+          ]
+        },
+        {
+          "q": "Why are 16-electron square planar complexes good catalysts?",
+          "a": "They can add a ligand, accommodating oxidative addition or substrate binding",
+          "wrong": [
+            "They are very stable",
+            "They have no d electrons",
+            "They never react"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ligands",
+      "title": "Ligands: carbonyls, phosphines, alkenes and cyclopentadienyl",
+      "terms": [
+        "carbonyl ligand",
+        "metal carbonyl",
+        "metal carbonyls",
+        "phosphine ligand",
+        "phosphine ligands",
+        "π-acid ligand",
+        "hapticity",
+        "cyclopentadienyl",
+        "cone angle",
+        "Tolman cone angle",
+        "Dewar–Chatt–Duncanson model",
+        "back-bonding",
+        "back-donation",
+        "CO stretching frequency",
+        "Mond process",
+        "nickel tetracarbonyl",
+        "carbene complex",
+        "Fischer carbene",
+        "Schrock carbene"
+      ],
+      "body": [
+        "**Carbon monoxide** binds through carbon with a synergic pair of interactions (the **Dewar–Chatt–Duncanson model**): a σ bond from the CO lone pair to a metal d orbital, and **π back-donation** from a filled metal d orbital into the empty π* orbital of CO. Each strengthens the other. Back-donation weakens the C≡O bond, and so lowers its IR stretching frequency, which makes ν(CO) an excellent probe of the electron density at the metal:",
+        {
+          "table": {
+            "head": [
+              "Species",
+              "ν(CO) (cm⁻¹)",
+              "Interpretation"
+            ],
+            "rows": [
+              [
+                "Free CO",
+                "2143",
+                "Reference"
+              ],
+              [
+                "[Mn(CO)₆]⁺",
+                "2090",
+                "Positive charge, little back-donation"
+              ],
+              [
+                "Ni(CO)₄",
+                "2057",
+                ""
+              ],
+              [
+                "Cr(CO)₆",
+                "2000",
+                ""
+              ],
+              [
+                "[V(CO)₆]⁻",
+                "1860",
+                "Negative charge, strong back-donation"
+              ],
+              [
+                "Bridging CO (μ₂)",
+                "1700–1860",
+                "CO spans two metals (a ketone-like C=O)"
+              ]
+            ],
+            "caption": "CO stretching frequencies of metal carbonyls."
+          }
+        },
+        "The **Mond process** purifies nickel: impure Ni reacts with CO at 50 °C to give volatile, toxic Ni(CO)₄, which is separated and decomposed at 230 °C to pure nickel.",
+        {
+          "list": [
+            "**Phosphines** (PR₃) are σ-donors and weak π-acceptors (into P–R σ* orbitals). Their steric size is measured by Tolman’s **cone angle** (PMe₃ 118°, PPh₃ 145°, P(tBu)₃ 182°). Their donor strength is tuned by R: alkyl phosphines are electron-rich, and fluorinated or aryl phosphines are acceptors. Size and electronics determine the catalyst’s activity and selectivity, and chiral phosphines make asymmetric catalysis possible.",
+            "**Alkenes** bind side-on (η²). The π electrons donate to the metal and the metal back-donates to π*, which weakens the C=C bond and makes the alkene reactive (as in Zeise’s salt).",
+            "**Cyclopentadienyl** (Cp, η⁵) binds through the cyclic π system and is a very stable spectator ligand, forming sandwich compounds (ferrocene, Cp₂Fe) and half-sandwich ‘piano-stool’ compounds (CpMn(CO)₃).",
+            "**Carbene** complexes have a M=CR₂ bond: Fischer carbenes (electrophilic carbon, low-oxidation-state metals with π-acceptors) and Schrock alkylidenes (nucleophilic carbon, high-oxidation-state early metals). Schrock carbenes catalyze olefin metathesis."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "Why does back-donation lower the CO stretching frequency?",
+          "a": "Electron density enters the CO π* orbital, weakening the C–O bond",
+          "wrong": [
+            "The metal pulls CO electrons from the σ orbital",
+            "CO becomes heavier",
+            "The M–C bond becomes weaker"
+          ]
+        },
+        {
+          "q": "Which ligand has the largest cone angle?",
+          "a": "P(tBu)₃",
+          "wrong": [
+            "PMe₃",
+            "PPh₃",
+            "PH₃"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "steps",
+      "title": "Elementary steps in organometallic reactions",
+      "terms": [
+        "oxidative addition",
+        "reductive elimination",
+        "migratory insertion",
+        "β-hydride elimination",
+        "beta-hydride elimination",
+        "transmetalation",
+        "ligand dissociation",
+        "catalytic cycle",
+        "catalytic cycles",
+        "turnover number",
+        "turnover frequency",
+        "TON",
+        "TOF",
+        "Vaska's complex",
+        "insertion reaction",
+        "1,2-insertion",
+        "nucleophilic attack on coordinated ligand"
+      ],
+      "body": [
+        "Organometallic reactions, and catalytic cycles, are built from a short list of steps.",
+        {
+          "list": [
+            "**Ligand association and dissociation.** A 16-electron complex binds a ligand to become 18-electron, and an 18-electron complex loses one first to open a site.",
+            "**Oxidative addition.** A metal complex inserts into a bond A–B, so that A and B become ligands: the metal oxidation state rises by 2 and the electron count by 2, and the coordination number rises by 2. It needs a metal with a free site and a lone pair, i.e., a low-valent, 16-electron d⁸ or d¹⁰ complex. **Vaska’s complex**, IrCl(CO)(PPh₃)₂ (16 e⁻), adds H₂ to give the 18-electron dihydride Ir(H)₂Cl(CO)(PPh₃)₂, and also adds CH₃I, HCl and O₂.",
+            "**Reductive elimination** is the reverse: two ligands combine and leave, lowering the oxidation state by 2. It forms C–H and C–C bonds and is the product-forming step of cross-coupling and hydrogenation.",
+            "**Migratory insertion** moves a ligand to an adjacent unsaturated ligand, with no change in oxidation state: CO inserts into M–CH₃ to give an acyl, M–C(O)CH₃ (carbonylation, the key step of the Monsanto process); an alkene inserts into M–H to give an alkyl (hydrogenation), or into M–C (polymerization). The insertion is syn, and creates a vacant site.",
+            "**β-Hydride elimination** is the reverse of alkene insertion: a metal alkyl with a hydrogen on the β carbon transfers it to the metal and releases an alkene. It is how alkyl groups on metals decompose, and why simple alkyls are unstable unless they lack β-hydrogens (CH₃, CH₂Ph, CH₂SiMe₃) or have the vacant site blocked.",
+            "**Transmetalation** transfers a group from one metal to another (B, Sn, Zn to Pd in cross-coupling)."
+          ]
+        },
+        "The efficiency of a catalyst is expressed by the **turnover number** (TON, moles of product per mole of catalyst before deactivation) and the **turnover frequency** (TOF, turnovers per unit time). Industrial catalysts reach TON of 10⁵ or more, which makes the use of expensive metals (Rh, Pd, Ir) economical."
+      ],
+      "check": [
+        {
+          "q": "In an oxidative addition to a metal complex, the oxidation state of the metal…",
+          "a": "Increases by 2",
+          "wrong": [
+            "Decreases by 2",
+            "Stays the same",
+            "Increases by 1"
+          ]
+        },
+        {
+          "q": "Which step forms the product C–C or C–H bond in a catalytic cycle?",
+          "a": "Reductive elimination",
+          "wrong": [
+            "Oxidative addition",
+            "Ligand dissociation",
+            "β-Hydride elimination"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "catalysis",
+      "title": "Industrial catalytic processes",
+      "terms": [
+        "Wilkinson's catalyst",
+        "Wilkinson's catalyst hydrogenation",
+        "hydroformylation",
+        "oxo process",
+        "Monsanto process",
+        "Cativa process",
+        "Wacker process",
+        "olefin metathesis",
+        "alkene metathesis",
+        "Grubbs catalyst",
+        "Ziegler–Natta polymerization",
+        "Fischer–Tropsch",
+        "Fischer–Tropsch process",
+        "Chauvin mechanism",
+        "asymmetric hydrogenation",
+        "Noyori hydrogenation",
+        "BINAP",
+        "homogeneous catalysis in industry",
+        "acetic acid production"
+      ],
+      "body": [
+        {
+          "h": "Hydrogenation with Wilkinson’s catalyst"
+        },
+        "**Wilkinson’s catalyst**, RhCl(PPh₃)₃, hydrogenates alkenes at room temperature and 1 atm. The cycle: (1) dissociation of a PPh₃ gives the 14-electron RhCl(PPh₃)₂; (2) oxidative addition of H₂ gives the 16-electron Rh(III) dihydride; (3) the alkene coordinates; (4) migratory insertion into a Rh–H gives an alkyl; (5) reductive elimination releases the alkane and restores Rh(I). Selectivity: less hindered alkenes react faster, and the C=O, nitro and ester groups are untouched. With chiral phosphines (DIPAMP, BINAP), the same chemistry is **asymmetric hydrogenation**, which gives one enantiomer of the product (Knowles: L-DOPA for Parkinson’s disease; Noyori; Nobel Prize 2001).",
+        {
+          "h": "Hydroformylation (the oxo process)"
+        },
+        "An alkene, CO and H₂ combine to form an aldehyde with one more carbon: RCH=CH₂ + CO + H₂ → RCH₂CH₂CHO (linear) + RCH(CH₃)CHO (branched). About 10 million tons per year of aldehydes are made, and are reduced to alcohols for plasticizers and detergents (butanol, 2-ethylhexanol). The classical catalyst is HCo(CO)₄ (made from Co₂(CO)₈, at 150 °C and 200 atm). Rhodium catalysts with phosphine ligands, HRh(CO)(PPh₃)₃, work at 100 °C and 10–20 atm and favor the linear product. The cycle involves alkene insertion into M–H, CO insertion into the alkyl to give an acyl, and hydrogenolysis of the acyl.",
+        {
+          "h": "Acetic acid: Monsanto and Cativa processes"
+        },
+        "Methanol and CO give acetic acid, CH₃OH + CO → CH₃COOH, catalyzed by [Rh(CO)₂I₂]⁻ with CH₃I as co-catalyst (**Monsanto process**, 150–200 °C, 30–60 atm; more than 99% selectivity). The cycle: CH₃OH + HI → CH₃I; oxidative addition of CH₃I to Rh(I) gives a Rh(III) methyl; migratory insertion of CO gives a Rh(III) acyl; reductive elimination of CH₃COI and hydrolysis gives acetic acid and regenerates HI. The **Cativa process** (BP) uses an iridium catalyst, and is faster and cheaper.",
+        {
+          "h": "Wacker process"
+        },
+        "Ethene is oxidized to acetaldehyde by O₂ with PdCl₂ and CuCl₂ in water: C₂H₄ + ½O₂ → CH₃CHO. Water attacks the coordinated ethene (nucleophilic attack on a ligand), β-hydride elimination and reinsertion give the product and Pd(0), and CuCl₂ reoxidizes Pd(0) to Pd(II) while O₂ reoxidizes copper.",
+        {
+          "h": "Olefin metathesis"
+        },
+        "In **olefin metathesis** two alkenes exchange their alkylidene groups: RCH=CHR + R′CH=CHR′ ⇌ 2 RCH=CHR′. Chauvin proposed the mechanism: a metal carbene M=CHR adds to the alkene in a [2+2] cycloaddition to give a metallacyclobutane, which opens the other way to give a new alkene and a new carbene. **Grubbs catalysts** (Ru) and Schrock catalysts (Mo, W) tolerate many functional groups, and are used to make drugs, polymers and specialty chemicals (Chauvin, Grubbs and Schrock shared the 2005 Nobel Prize).",
+        {
+          "h": "Polymerization and Fischer–Tropsch"
+        },
+        "In Ziegler–Natta polymerization an alkene inserts repeatedly into the Ti–C bond of a growing chain (Cossee–Arlman mechanism). In the **Fischer–Tropsch process**, a syngas mixture (CO + H₂) is converted over Fe or Co catalysts to a mixture of hydrocarbons, (2n + 1)H₂ + nCO → CₙH₂ₙ₊₂ + nH₂O, to make liquid fuels from coal, natural gas or biomass."
+      ],
+      "check": [
+        {
+          "q": "What is hydroformylation?",
+          "a": "The addition of H₂ and CO to an alkene to give an aldehyde",
+          "wrong": [
+            "Hydrogenation of an alkene",
+            "Oxidation of ethene to acetaldehyde",
+            "Metathesis of two alkenes"
+          ]
+        },
+        {
+          "q": "What intermediate does the Chauvin mechanism of metathesis involve?",
+          "a": "A metallacyclobutane",
+          "wrong": [
+            "A free radical",
+            "A carbocation",
+            "A metal hydride dimer"
+          ]
+        },
+        {
+          "q": "Why is Wilkinson’s catalyst 16-electron but active?",
+          "a": "It dissociates a phosphine to create a vacant site for H₂ to add",
+          "wrong": [
+            "It has no d electrons",
+            "It is a Rh(0) complex",
+            "It contains no phosphine"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "clusters",
+      "title": "Metal–metal bonds and clusters",
+      "terms": [
+        "metal–metal bond",
+        "metal–metal bonds",
+        "quadruple bond",
+        "cluster compounds",
+        "metal cluster",
+        "metal clusters",
+        "Re₂Cl₈²⁻",
+        "dirhenium",
+        "δ bond",
+        "delta bond",
+        "Cotton",
+        "bridging carbonyl",
+        "Mn₂(CO)₁₀",
+        "Fe₃(CO)₁₂",
+        "Mo₆Cl₈"
+      ],
+      "body": [
+        "Many metals form direct M–M bonds, which form dimers and **clusters** (three or more metal atoms). In Mn₂(CO)₁₀ each Mn is 17-electron (7 + 10) without the bond; the Mn–Mn single bond brings each to 18. Fe₃(CO)₁₂ and Rh₆(CO)₁₆ are triangular and octahedral clusters, with some CO ligands bridging the metals. Cluster electron counts follow rules related to Wade’s rules for boranes. Octahedral M₆ clusters such as [Mo₆Cl₈]⁴⁺ and [Nb₆Cl₁₂]²⁺ have metals joined by delocalized bonding with halides capping the faces or edges.",
+        "In 1964 Cotton showed that **[Re₂Cl₈]²⁻** has a **quadruple bond**. The two Re(III) (d⁴) are joined in an eclipsed structure (the two ReCl₄ squares are eclipsed, with a short Re–Re distance of 2.24 Å). The d_{z²} orbitals overlap head-on to make a σ bond, the d_{xz} and d_{yz} overlap to make two π bonds, and the d_{xy} orbitals overlap face to face to make a **δ bond**. The 8 d electrons fill σ²π⁴δ² for a bond order of 4. The eclipsed geometry is a consequence of the δ bond: rotation by 45° toward the staggered form would destroy the δ overlap. The same quadruple bond is in Cr₂(OAc)₄(H₂O)₂ and Mo₂(OAc)₄ (bond order 4), and a quintuple Cr–Cr bond was reported in 2005.",
+        {
+          "example": {
+            "title": "Bond order",
+            "problem": "Find the Mn–Mn bond order in Mn₂(CO)₁₀, and the Re–Re bond order in [Re₂Cl₈]²⁻.",
+            "solution": "Mn₂(CO)₁₀: each Mn has 7 + 5 × 2 = 17 electrons, so one shared electron pair, a single Mn–Mn σ bond, brings each to 18. [Re₂Cl₈]²⁻: Re(III) is d⁴, so 8 d electrons fill σ, 2π and δ bonding orbitals: σ²π⁴δ², bond order 4."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "What is the Re–Re bond order in [Re₂Cl₈]²⁻?",
+          "a": "4",
+          "wrong": [
+            "1",
+            "2",
+            "3"
+          ]
+        },
+        {
+          "q": "Why is [Re₂Cl₈]²⁻ eclipsed?",
+          "a": "Eclipsing gives the best overlap for the δ bond",
+          "wrong": [
+            "Chloride ligands attract each other",
+            "It reduces steric strain",
+            "Rhenium prefers eclipsed geometry for no reason"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "The 18-electron rule: stable low-spin d-block organometallics have 18 valence electrons. Square planar d⁸ complexes (Wilkinson’s catalyst, Vaska’s complex) are stable at 16 electrons and are catalytically active.",
+    "CO and alkenes bind by σ donation and π back-donation (Dewar–Chatt–Duncanson). ν(CO) falls with back-donation. Phosphine size is the cone angle.",
+    "Elementary steps: ligand association/dissociation, oxidative addition (+2 oxidation state), reductive elimination, migratory insertion, β-hydride elimination and transmetalation.",
+    "Industrial processes: Wilkinson hydrogenation, hydroformylation (Co or Rh), Monsanto/Cativa acetic acid, Wacker oxidation, olefin metathesis (Chauvin mechanism), Ziegler–Natta and Fischer–Tropsch.",
+    "Metal–metal bonds range from single (Mn₂(CO)₁₀) to quadruple (Re₂Cl₈²⁻, σ²π⁴δ²). Clusters follow electron-counting rules."
+  ],
+  "problems": [
+    {
+      "q": "Count the electrons and give the oxidation state of the metal in (a) [CpFe(CO)₂CH₃], (b) [Co(CO)₄]⁻, (c) IrCl(CO)(PPh₃)₂ and (d) Ni(CO)₄.",
+      "solution": "(a) Cp 5 + Fe 8 + 2 CO 4 + CH₃ 1 = 18; Fe(II). (b) Co 9 + 4 × 2 + 1 (charge) = 18; Co(−I). (c) Ir 9 + Cl 1 + CO 2 + 2 PPh₃ 4 = 16; Ir(I). (d) Ni 10 + 8 = 18; Ni(0).",
+      "a": "(a) 18, Fe(II); (b) 18, Co(−I); (c) 16, Ir(I); (d) 18, Ni(0)."
+    },
+    {
+      "q": "Predict which of [Mn(CO)₆]⁺, Cr(CO)₆ and [V(CO)₆]⁻ has the highest ν(CO), and explain.",
+      "solution": "[Mn(CO)₆]⁺ has the highest. It has the highest metal oxidation state and positive charge, so the metal is the poorest donor and there is the least back-donation into CO π*. The anion [V(CO)₆]⁻ has the most electron-rich metal and the lowest ν(CO).",
+      "a": "[Mn(CO)₆]⁺ (about 2090 cm⁻¹)."
+    },
+    {
+      "q": "Write the catalytic cycle for the hydrogenation of ethene with RhCl(PPh₃)₃ and label each step.",
+      "solution": "(1) Ligand dissociation: RhCl(PPh₃)₃ → RhCl(PPh₃)₂ + PPh₃. (2) Oxidative addition of H₂: Rh(III)H₂Cl(PPh₃)₂. (3) Alkene coordination. (4) Migratory insertion of ethene into Rh–H to give a Rh–CH₂CH₃ ethyl hydride. (5) Reductive elimination of ethane, giving back RhCl(PPh₃)₂ (and PPh₃ recoordinates).",
+      "a": "Dissociation, oxidative addition, coordination, migratory insertion, reductive elimination."
+    }
+  ]
+}

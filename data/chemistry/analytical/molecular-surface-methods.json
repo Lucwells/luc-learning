@@ -1,0 +1,595 @@
+{
+  "id": "molecular-surface-methods",
+  "view": "chapter",
+  "title": "Molecular Spectroscopy, X-ray and Surface Methods",
+  "description": "UV–Vis, fluorescence, FTIR and Raman; X-ray diffraction and fluorescence; XPS, Auger and SIMS; electron and probe microscopies.",
+  "overview": [
+    "Atomic methods tell which elements are present. This chapter covers the methods that tell what the molecules and materials are: how light of different energies is absorbed, emitted or scattered by molecules (UV–Vis, fluorescence, infrared and Raman), how X-rays reveal crystal structure and elemental composition, and how electrons, ions and sharp probes interrogate the top few nanometers of a surface.",
+    "The quantum-mechanical origin of molecular spectra and NMR is treated in the physical chemistry chapter on molecular spectroscopy, and the interpretation of IR, NMR and MS spectra of organic molecules is in the organic spectroscopy chapter. Here the focus is on instruments, figures of merit and analytical use."
+  ],
+  "objectives": [
+    "Describe a UV–Vis spectrophotometer and explain real deviations from Beer’s law, including stray light.",
+    "Explain fluorescence quantum yield, Stokes shift, quenching (Stern–Volmer) and the inner-filter effect, and why fluorescence is more sensitive than absorption.",
+    "Explain how an FTIR spectrometer works, its advantages, ATR sampling, and the selection rules of Raman against IR.",
+    "Apply Bragg’s law and the Scherrer equation, and compare XRD with XRF.",
+    "Use the photoelectric equation for XPS, and distinguish XPS, Auger, SIMS and EDS.",
+    "Compare SEM, TEM, AFM and STM in resolution, sample requirements and information."
+  ],
+  "sections": [
+    {
+      "id": "uvvis",
+      "title": "UV–Visible absorption spectrophotometry",
+      "terms": [
+        "UV–Vis spectroscopy",
+        "UV-Vis spectroscopy",
+        "UV–Vis",
+        "UV-Vis",
+        "UV-visible spectroscopy",
+        "spectrophotometer",
+        "double-beam spectrophotometer",
+        "monochromator",
+        "cuvette",
+        "stray light",
+        "deviations from Beer’s law",
+        "isosbestic point",
+        "photodiode array",
+        "spectrophotometry",
+        "colorimetric analysis"
+      ],
+      "body": [
+        "In **UV–Visible spectrophotometry** a solution absorbs light (190–800 nm) by electronic transitions: π → π* in conjugated systems, n → π* in carbonyls, charge transfer in metal complexes and d–d transitions of transition-metal ions. The absorbance A = log(P₀/P) = εbc (Beer’s law, derived in the chapter on molecular spectroscopy) is proportional to concentration, which makes the method the simplest quantitative technique, with a typical working range A = 0.1–1.0.",
+        "A **spectrophotometer** has a source (deuterium lamp for the UV, tungsten–halogen for the visible), a **monochromator** (a grating, to select the wavelength), a sample **cuvette** (quartz for the UV, since glass and plastic absorb below 320 nm; path length usually 1.00 cm), and a detector (a photomultiplier or a photodiode). In a **double-beam** instrument the light is split into a sample beam and a reference beam, which corrects for drift of the lamp and for the absorption of the solvent (the **blank**). A **photodiode array** instrument disperses the light after the sample and records the whole spectrum at once in under a second, useful for kinetics and as an HPLC detector.",
+        {
+          "h": "Deviations from Beer’s law"
+        },
+        {
+          "list": [
+            "**Chemical**: if the absorbing species is in equilibrium (an indicator HIn ⇌ In⁻, dimerization), the fractions change with concentration and pH, so the plot of A against c is curved. Control the pH with a buffer, or measure at an isosbestic point, where two interconverting species have the same ε, so the absorbance does not depend on their ratio.",
+            "**Instrumental**: polychromatic light (a monochromator band wider than the absorption band), and **stray light**, radiation of the wrong wavelength that reaches the detector. At high absorbance the true transmitted power is small, so a constant stray-light fraction dominates and the absorbance levels off.",
+            "**Real (high concentration)**: at c > 0.01 M the interactions between molecules change ε, and the refractive index changes."
+          ]
+        },
+        {
+          "example": {
+            "title": "Stray light limits the useful range",
+            "problem": "The stray light of a spectrophotometer is 0.1% of P₀. What absorbance does it display for a solution with a true A = 3.00?",
+            "solution": "True P = 10⁻³P₀. With stray light P_s = 10⁻³P₀: A_apparent = log[(P₀ + P_s)/(P + P_s)] = log(1.001/0.002) = log 500.5 = 2.70. A 10% error in A at A = 3 shows why the working range is kept below A ≈ 1–2, and why the sample is diluted."
+          }
+        },
+        "Quantitation by **colorimetric analysis** uses a color-forming reagent for a nonabsorbing analyte (Fe²⁺ with 1,10-phenanthroline for iron, ε = 11,100 L mol⁻¹ cm⁻¹; molybdenum blue for phosphate; Griess reagent for nitrite), and the calibration curve is built from standards as in the chapter on quantitative analysis."
+      ],
+      "check": [
+        {
+          "q": "Why are quartz cuvettes used for UV measurements?",
+          "a": "Glass and most plastics absorb below about 320 nm",
+          "wrong": [
+            "Quartz is cheaper",
+            "Quartz scatters less visible light",
+            "Quartz increases ε"
+          ]
+        },
+        {
+          "q": "What does stray light do to the absorbance of a very concentrated sample?",
+          "a": "It makes the measured absorbance lower than the true absorbance",
+          "wrong": [
+            "Raises it above the true value",
+            "Has no effect",
+            "Makes it negative"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fluorescence",
+      "title": "Fluorescence spectroscopy",
+      "terms": [
+        "fluorescence spectroscopy",
+        "fluorophore",
+        "fluorophores",
+        "fluorescence quantum yield",
+        "quenching",
+        "excitation spectrum",
+        "Stern–Volmer",
+        "Stern-Volmer",
+        "Stern–Volmer equation",
+        "inner filter effect",
+        "spectrofluorometer",
+        "fluorescence lifetime",
+        "right-angle geometry"
+      ],
+      "body": [
+        "A molecule excited by absorption of a photon returns to the ground state by non-radiative paths (internal conversion, vibrational relaxation, intersystem crossing) or by emitting a photon. Emission from the lowest excited singlet state is **fluorescence** (lifetime 1–100 ns); emission from the triplet state is **phosphorescence** (µs to seconds, since the transition is spin-forbidden). The paths are summarized in the **Jablonski diagram** (see the photochemistry chapter). The **fluorescence quantum yield** Φ_F = k_F/(k_F + k_nr) = photons emitted / photons absorbed is high for rigid, conjugated molecules (fluorescein 0.9, quinine sulfate 0.55) and low for flexible molecules and those with heavy atoms.",
+        "Because the molecule relaxes vibrationally in the excited state before it emits, the emitted photon has lower energy: the emission spectrum is shifted to a longer wavelength relative to the absorption, and is roughly the mirror image of it (the **Stokes shift**, 20–100 nm). The **excitation spectrum** (intensity at a fixed emission wavelength, scanning the excitation) resembles the absorption spectrum, and the **emission spectrum** (fixed excitation, scanning the emission) is characteristic of the fluorophore.",
+        "A **spectrofluorometer** has an excitation monochromator, the sample, and the emission monochromator and detector at 90° to the excitation beam (**right-angle geometry**), so the transmitted excitation light does not reach the detector. This dark background is the reason for the sensitivity: fluorescence is measured against zero, whereas absorbance is a small difference between two large signals, so detection limits are 10³–10⁶ times lower (ppb–ppt, single molecules with lasers). For dilute solutions (A < 0.05), the intensity F = 2.303 Φ_F P₀ ε b c: linear in c, and proportional to the power of the source (so a laser increases the sensitivity). Only about 10% of compounds fluoresce naturally (PAHs, aromatic amino acids, quinine, riboflavin, chlorophyll); others are tagged with a fluorescent label or derivatized (OPA for amino acids, dansyl chloride).",
+        {
+          "list": [
+            "**Quenching** reduces the intensity by collisions with a quencher Q (O₂, I⁻, acrylamide, heavy atoms), and in the dynamic case follows the **Stern–Volmer** equation F₀/F = 1 + K_SV[Q] = 1 + k_q τ₀[Q], where τ₀ is the lifetime without quencher. A plot of F₀/F against [Q] is a line with slope K_SV. Dissolved oxygen is a quencher, so oxygen is removed for sensitive work.",
+            "The **inner filter effect**: at high concentration (A > 0.05) the solution absorbs the excitation light before it reaches the center of the cuvette and re-absorbs some of the emission, so F is no longer proportional to c, and the intensity can decrease. Dilute the sample.",
+            "Other analytical forms include time-resolved fluorescence (lifetimes), polarization and anisotropy (binding), and Förster resonance energy transfer (FRET), a ruler for distances of 2–10 nm in biomolecules."
+          ]
+        },
+        {
+          "example": {
+            "title": "Stern–Volmer plot",
+            "problem": "The fluorescence of a dye falls to 40% of its value (F₀/F = 2.5) in 0.030 M iodide, and its lifetime without quencher is 5.0 ns. Find K_SV and k_q.",
+            "solution": "K_SV = (F₀/F − 1)/[Q] = 1.5/0.030 M = 50 M⁻¹. k_q = K_SV/τ₀ = 50 M⁻¹/5.0 × 10⁻⁹ s = 1.0 × 10¹⁰ M⁻¹ s⁻¹, close to the diffusion limit, which is consistent with dynamic quenching."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Why is the emission at a longer wavelength than the absorption?",
+          "a": "Vibrational relaxation in the excited state lowers its energy before emission (Stokes shift)",
+          "wrong": [
+            "The molecule gains energy from the solvent",
+            "The lamp emits red light",
+            "Emission is always phosphorescence"
+          ]
+        },
+        {
+          "q": "Why is fluorescence more sensitive than absorption?",
+          "a": "The signal is measured at 90° against a dark background, instead of as a small difference between two large powers",
+          "wrong": [
+            "The source is more powerful by law",
+            "Fluorescence has larger ε",
+            "It has no noise"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ir-raman",
+      "title": "FTIR and Raman spectroscopy",
+      "terms": [
+        "FTIR",
+        "Fourier transform",
+        "Fourier transform infrared spectroscopy",
+        "interferometer",
+        "Michelson interferometer",
+        "interferogram",
+        "attenuated total reflectance",
+        "ATR",
+        "KBr pellet",
+        "Fellgett advantage",
+        "multiplex advantage",
+        "evanescent wave",
+        "Raman",
+        "Stokes scattering",
+        "anti-Stokes scattering",
+        "surface-enhanced Raman spectroscopy",
+        "SERS",
+        "Jacquinot advantage",
+        "Connes advantage",
+        "optical path difference",
+        "apodization"
+      ],
+      "body": [
+        "Infrared absorption by vibrations, and the group frequencies useful for organic compounds, are covered in the chapters on organic spectroscopy and molecular spectroscopy. This section describes the instruments.",
+        {
+          "h": "Fourier transform infrared (FTIR)"
+        },
+        "Old dispersive IR instruments scanned the wavenumber through a slit, one wavelength at a time, with most of the weak source power lost. An FTIR spectrometer uses a **Michelson interferometer**: the beam is divided by a beamsplitter into two paths, one with a fixed mirror and one with a mirror that moves at a constant velocity, and the beams are recombined. The difference in the path lengths is the optical path difference δ; for each wavenumber ν̃ the recombined intensity oscillates as cos(2πν̃δ), and the detector, with all wavenumbers at once, records the sum, the **interferogram** I(δ). A **Fourier transform** of the interferogram gives the spectrum. The spectral resolution is the inverse of the maximum path difference, Δν̃ = 1/δ_max. Since the path difference is twice the mirror displacement, a resolution of 2 cm⁻¹ needs δ_max = 0.5 cm, so the mirror moves 0.25 cm. A He–Ne laser (632.8 nm) gives the exact mirror position and the wavenumber accuracy.",
+        {
+          "list": [
+            "**Fellgett (multiplex) advantage**: all wavelengths are measured at the same time, so in the same time a spectrum of M resolution elements has an S/N higher by √M than a scanning instrument. A complete spectrum takes a second, and many scans (16–64) are averaged.",
+            "**Jacquinot (throughput) advantage**: no slits, so more light reaches the detector.",
+            "**Connes advantage**: the laser makes the wavenumber scale accurate and reproducible, so spectra can be added and subtracted (background removal)."
+          ]
+        },
+        {
+          "h": "Sampling"
+        },
+        "Samples have to be transparent: liquids between NaCl or KBr plates; solids ground into a **KBr pellet** (1% sample in dry KBr pressed to a disc) or a mull; gases in a long-path cell. The most popular modern method is **attenuated total reflectance (ATR)**: the sample is pressed against a crystal of high refractive index (diamond, ZnSe, Ge) through which the beam is totally internally reflected. The light does not simply reflect; an **evanescent wave** penetrates into the sample a short distance, with the depth d_p = λ/[2π n₁ (sin²θ − (n₂/n₁)²)^{1/2}], and is absorbed there. No sample preparation is needed (solids, liquids, powders and polymers directly on the crystal) and the path is short and constant, so even water-rich samples can be measured.",
+        {
+          "example": {
+            "title": "ATR penetration depth",
+            "problem": "Calculate the penetration depth at 1000 cm⁻¹ (λ = 10 µm) for a ZnSe crystal (n₁ = 2.4), a sample with n₂ = 1.5 and an incidence angle of 45°.",
+            "solution": "sin²45° = 0.500; (n₂/n₁)² = (0.625)² = 0.391; the square root of (0.500 − 0.391) = 0.331. d_p = 10 µm/(2π × 2.4 × 0.331) = 10/4.99 = 2.0 µm. At 3000 cm⁻¹ (λ = 3.3 µm) the depth is 3 times less, so the bands at high wavenumber look weaker than in transmission."
+          }
+        },
+        {
+          "h": "Raman spectroscopy"
+        },
+        "In **Raman scattering** a monochromatic laser photon is scattered inelastically by a molecule. Most scattering is elastic (**Rayleigh**, unchanged frequency). In a small fraction (10⁻⁶–10⁻⁸) the molecule takes vibrational energy from the photon (**Stokes scattering**, ν₀ − ν_vib), or, if it is already in an excited vibrational level, gives energy to the photon (**anti-Stokes**, ν₀ + ν_vib, weaker because fewer molecules are in the excited level, as the Boltzmann factor shows). The spectrum is plotted as the Raman shift, Δν̃ = 1/λ₀ − 1/λ_s, which is independent of the laser wavelength.",
+        "The selection rules differ from those of IR. A vibration is IR-active if the dipole moment changes, and Raman-active if the polarizability changes. Symmetric stretches of nonpolar bonds (C=C, S–S, C≡C, N≡N, the ring breathing mode) are strong in Raman and weak or absent in IR, and polar bonds (O–H, C=O) are the reverse. For a molecule with a center of symmetry the **rule of mutual exclusion** applies: no vibration is active in both. Water is a weak Raman scatterer, so aqueous solutions and biological samples are measured easily; glass is transparent, so no special windows are needed.",
+        {
+          "list": [
+            "The Raman cross-section is tiny, and the intensity is proportional to ν⁴ of the laser, so visible or UV lasers are more efficient, but they excite fluorescence (which can be 10⁶ times larger than Raman). A near-IR laser (785 or 1064 nm, with FT-Raman) avoids fluorescence at the cost of intensity.",
+            "**Surface-enhanced Raman spectroscopy (SERS)** places the analyte on a roughened gold or silver surface or on nanoparticles: the local electromagnetic field of the plasmon resonance and a chemical effect increase the signal by 10⁶–10⁸, up to single-molecule detection (explosives, pigments in art, drugs).",
+            "Applications: identification of polymorphs and minerals, carbon materials (the D and G bands of graphene and nanotubes), in situ reaction monitoring, and confocal Raman microscopy with a 1 µm spatial resolution."
+          ]
+        },
+        {
+          "example": {
+            "title": "Raman shift",
+            "problem": "Diamond has a Raman band at 1332 cm⁻¹. At what wavelength is its Stokes line with a 532 nm laser?",
+            "solution": "ν̃₀ = 1/(532 × 10⁻⁷ cm) = 18,797 cm⁻¹. ν̃_s = 18,797 − 1332 = 17,465 cm⁻¹, so λ = 1/17,465 = 5.726 × 10⁻⁵ cm = 573 nm."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "What is the Fellgett advantage?",
+          "a": "All wavenumbers are measured simultaneously, which improves S/N by √M",
+          "wrong": [
+            "The use of a laser to calibrate the mirror",
+            "No slits, so more light reaches the detector",
+            "A higher resolution of the grating"
+          ]
+        },
+        {
+          "q": "A vibration of a symmetric nonpolar bond (N≡N) is…",
+          "a": "Raman active and IR inactive",
+          "wrong": [
+            "IR active and Raman inactive",
+            "Both active",
+            "Neither active"
+          ]
+        },
+        {
+          "q": "What is the advantage of ATR over KBr pellets?",
+          "a": "No sample preparation, and a short constant path length",
+          "wrong": [
+            "Higher resolution",
+            "Deeper penetration",
+            "Measures only gases"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "xray",
+      "title": "X-ray diffraction and fluorescence",
+      "terms": [
+        "X-ray crystallography",
+        "XRD",
+        "powder diffraction",
+        "powder X-ray diffraction",
+        "Scherrer equation",
+        "Bragg diffraction",
+        "single-crystal diffraction",
+        "X-ray fluorescence",
+        "XRF",
+        "Moseley's law",
+        "wavelength-dispersive XRF",
+        "energy-dispersive XRF",
+        "characteristic X-rays",
+        "Cu Kα",
+        "unit cell determination",
+        "Miller indices",
+        "phase identification",
+        "diffraction"
+      ],
+      "body": [
+        "X-rays have wavelengths (0.1–10 Å) comparable to the distances between atoms. When a beam falls on a crystal, the waves scattered by the planes of atoms (spacing d) interfere constructively only at the angles that satisfy **Bragg’s law**, nλ = 2d sinθ (derived in the chapter on solutions and phases, for solids). The positions of the diffraction peaks give the unit cell dimensions, and the intensities give the positions of the atoms.",
+        {
+          "list": [
+            "**Single-crystal diffraction** (X-ray crystallography) with a crystal of 0.1–0.3 mm measures thousands of reflections; the electron density is reconstructed by Fourier transform, giving the complete three-dimensional structure with bond lengths to 0.001 Å. It is the definitive method for molecular structure (small molecules, proteins, DNA) if a crystal can be grown.",
+            "**Powder X-ray diffraction (XRD)** uses a finely ground polycrystalline sample, in which crystallites have all orientations, so every set of planes diffracts at its Bragg angle; the pattern is a series of peaks at 2θ, a fingerprint of the crystalline phase. It is compared with the database of the ICDD to identify **phases** (minerals, polymorphs of a drug, the products of a solid-state synthesis), to quantify mixtures, to refine unit cells, and to find the crystallite size. Amorphous materials give a broad hump.",
+            "The **Scherrer equation** gives the crystallite size from the peak breadth: τ = Kλ/(β cos θ), with K ≈ 0.9 and β the peak width at half height (in radians), after correcting for instrumental broadening. Smaller crystals give broader peaks (nanoparticles)."
+          ]
+        },
+        {
+          "example": {
+            "title": "Powder pattern of gold",
+            "problem": "Using Cu Kα (1.5406 Å), the (111) peak of gold appears at 2θ = 38.2° with a width β = 0.20°. (a) Find d. (b) Estimate the crystallite size.",
+            "solution": "(a) θ = 19.1°, d = λ/(2 sinθ) = 1.5406/(2 × 0.3272) = 2.354 Å (a = d√3 = 4.077 Å, the lattice parameter of Au). (b) β = 0.20° = 3.49 × 10⁻³ rad. τ = 0.9 × 1.5406/(3.49 × 10⁻³ × cos 19.1°) = 1.3865/(3.30 × 10⁻³) = 420 Å ≈ 42 nm."
+          }
+        },
+        {
+          "h": "X-ray fluorescence"
+        },
+        "In **X-ray fluorescence (XRF)** a primary X-ray beam (from a tube, or a radioactive source) ejects an inner-shell (K or L) electron from the atoms in the sample, and an outer electron falls into the hole and emits a **characteristic X-ray** with the energy of the difference between the levels. The energy depends on the atomic number: **Moseley’s law**, √ν = a(Z − b), where b ≈ 1 for the Kα lines (Fe Kα 6.40 keV, Cu Kα 8.05 keV, Pb Lα 10.55 keV). So the element is identified by the energy of the lines, and its amount by the intensity. In **wavelength-dispersive XRF** (WDXRF) a crystal analyzer separates the lines by Bragg diffraction (resolution high, 5–20 eV, slow, sequential); **energy-dispersive XRF** (EDXRF) uses a solid-state detector (silicon drift) which records the whole spectrum with a resolution of 130–150 eV, so benchtop and handheld instruments are possible.",
+        "XRF is nondestructive, needs little preparation (a solid, a pressed powder, a glass bead, a liquid), covers Na to U in concentrations from ppm to 100%, and gives a total-elemental composition in minutes: alloys, geological samples, cement, RoHS screening of electronics, and artwork. Its weaknesses are the poor sensitivity for light elements (Z < 11, since their low-energy X-rays are absorbed by air and the sample), matrix effects (absorption and enhancement), and detection limits in the ppm range, not the ppb of ICP."
+      ],
+      "check": [
+        {
+          "q": "A powder diffraction pattern with only broad humps indicates…",
+          "a": "An amorphous or very poorly crystalline material",
+          "wrong": [
+            "A single crystal",
+            "A pure metal",
+            "Perfect long-range order"
+          ]
+        },
+        {
+          "q": "In XRF, what identifies the element?",
+          "a": "The energy of the characteristic X-ray lines, through Moseley’s law",
+          "wrong": [
+            "The angle of Bragg diffraction by the sample",
+            "The color of the emission",
+            "The mass of the ejected electron"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "surface",
+      "title": "Surface analysis: XPS, Auger, SIMS and EDS",
+      "terms": [
+        "XPS",
+        "X-ray photoelectron spectroscopy",
+        "Auger electron spectroscopy",
+        "Auger electron",
+        "AES",
+        "SIMS",
+        "secondary ion mass spectrometry",
+        "energy-dispersive X-ray spectroscopy",
+        "EDS",
+        "EDX",
+        "binding energy of electrons",
+        "sputtering",
+        "photoelectric effect in XPS",
+        "chemical shift in XPS",
+        "inelastic mean free path",
+        "ultra-high vacuum",
+        "depth profiling",
+        "surface sensitivity",
+        "ESCA",
+        "static SIMS",
+        "dynamic SIMS"
+      ],
+      "body": [
+        "Surface properties (catalysis, corrosion, adhesion, semiconductors, coatings) are determined by the outermost few atomic layers, which are not representative of the bulk. Surface methods use electrons or ions of limited range as the probe or as the signal. Electrons with kinetic energies of 50–1500 eV have an **inelastic mean free path** of only 0.5–3 nm in a solid, so only those that come from the top 5–10 nm escape without energy loss: **surface sensitivity**. Because the electrons must also travel to the detector without collision with gas molecules, these methods are run in **ultra-high vacuum** (UHV, < 10⁻⁸ mbar), which also keeps the surface from being contaminated.",
+        {
+          "h": "X-ray photoelectron spectroscopy (XPS)"
+        },
+        "In **XPS** (ESCA), monochromatic X-rays (Al Kα, hν = 1486.6 eV) eject core electrons by the photoelectric effect, and the kinetic energy of the photoelectrons is measured in an electron energy analyzer. By conservation of energy:",
+        {
+          "eq": "KE = hν − BE − φ"
+        },
+        "where BE is the **binding energy** of the electron and φ the work function of the spectrometer. BE identifies the element and orbital (C 1s ≈ 285 eV, O 1s ≈ 532 eV, N 1s ≈ 400 eV, Si 2p ≈ 99 eV). XPS also gives the chemical state: an atom with a higher oxidation state or bound to electronegative neighbors has a larger binding energy (the **chemical shift**): C 1s at 284.8 eV (C–C), 286.5 (C–O), 288 (C=O), 289 (O–C=O); Si 2p at 99.3 eV (Si) and 103.4 eV (SiO₂). Peak areas, corrected for the sensitivity factors, give the atomic composition to ~1 atom % (all elements except H and He). Depth profiles are made by alternating the analysis with argon-ion sputtering.",
+        {
+          "example": {
+            "title": "Binding energy",
+            "problem": "Photoelectrons are detected with a kinetic energy of 1197.4 eV using Al Kα radiation and a spectrometer work function of 4.5 eV. What is the binding energy, and which peak is it likely to be?",
+            "solution": "BE = 1486.6 − 1197.4 − 4.5 = 284.7 eV: the C 1s peak of hydrocarbon (adventitious carbon), which is commonly used as the reference at 284.8 eV."
+          }
+        },
+        {
+          "h": "Auger electron spectroscopy (AES)"
+        },
+        "A focused electron beam (3–10 keV) ionizes a core level (K). An outer electron (L₁) falls into the hole, and the energy released ejects a second outer electron (L₂,₃), the **Auger electron**, in a three-electron process called KL₁L₂,₃. The kinetic energy of the Auger electron depends only on the energy levels of the atom, not on the energy of the excitation: for Cu LMM it is 920 eV. AES has a small spot (10 nm), thus giving surface maps, and a high sensitivity to elements Li–U (not H, He), but the chemical information is poorer than in XPS, and the beam damages insulators.",
+        {
+          "h": "Secondary ion mass spectrometry (SIMS)"
+        },
+        "In **SIMS**, a primary ion beam (Cs⁺, O₂⁺, Ar clusters, Bi₃⁺) strikes the surface, and the **sputtering** ejects atoms, molecular fragments and a small fraction of ions (secondary ions) that are analyzed by a mass spectrometer (TOF or magnetic sector). It is the most sensitive surface method (ppm to ppb, all elements, all isotopes, and molecular fragments), with depth resolution of nm and lateral resolution of 50 nm–1 µm. **Static SIMS** (low dose, < 10¹² ions cm⁻²) analyses the intact top monolayer and molecular species (polymer additives, lipids). **Dynamic SIMS** erodes the sample for depth profiles of dopants in semiconductors. The ion yield depends strongly on the matrix (it varies by 10⁴), so quantitation needs standards.",
+        {
+          "h": "Energy-dispersive X-ray spectroscopy (EDS)"
+        },
+        "**EDS** (EDX) is an X-ray analysis added to an electron microscope: the electron beam produces characteristic X-rays from the interaction volume (~1 µm), which are sorted by energy by a silicon drift detector (resolution ~130 eV). It gives a quick elemental analysis (B or C–U, ~0.1–1 wt%) and maps of the elements across the image, but it is not truly surface-specific (the depth is micrometers), and light elements and overlapping lines (S K and Mo L, Pb M) are difficult.",
+        {
+          "table": {
+            "head": [
+              "Method",
+              "Probe → signal",
+              "Information",
+              "Depth / spot",
+              "Detection limit"
+            ],
+            "rows": [
+              [
+                "XPS",
+                "X-rays → photoelectrons",
+                "Elements (not H, He), oxidation state, bonding",
+                "5–10 nm / 10 µm–mm",
+                "~0.1–1 at.%"
+              ],
+              [
+                "AES",
+                "Electrons → Auger electrons",
+                "Elements (not H, He); maps",
+                "2–5 nm / 10 nm",
+                "~0.1–1 at.%"
+              ],
+              [
+                "SIMS",
+                "Ions → secondary ions",
+                "All elements and isotopes; molecules; depth profiles",
+                "1 nm–µm / 50 nm–µm",
+                "ppm–ppb"
+              ],
+              [
+                "EDS",
+                "Electrons → X-rays",
+                "Elements B–U; maps",
+                "~1 µm / ~1 µm",
+                "~0.1–1 wt.%"
+              ],
+              [
+                "XRF",
+                "X-rays → X-rays",
+                "Bulk elements Na–U",
+                "µm–mm / mm",
+                "ppm"
+              ]
+            ],
+            "caption": "Surface and X-ray elemental methods."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "XPS uses Al Kα (1486.6 eV). A photoelectron has KE 900 eV, φ = 4.5 eV. What is BE?",
+          "a": "582.1 eV",
+          "wrong": [
+            "2386 eV",
+            "900 eV",
+            "1491 eV"
+          ]
+        },
+        {
+          "q": "Why must XPS and AES be run in UHV?",
+          "a": "Electrons must travel without collisions, and the surface must stay clean",
+          "wrong": [
+            "X-rays are absorbed by air only",
+            "To cool the sample",
+            "To raise the work function"
+          ]
+        },
+        {
+          "q": "Which method has the lowest detection limits (ppm–ppb) for surface analysis?",
+          "a": "SIMS",
+          "wrong": [
+            "XPS",
+            "AES",
+            "EDS"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "microscopy",
+      "title": "Electron and probe microscopy",
+      "terms": [
+        "atomic force microscopy",
+        "atomic force microscope",
+        "AFM",
+        "cantilever",
+        "scanning tunneling microscopy",
+        "tunneling current",
+        "scanning electron microscopy",
+        "scanning electron microscope",
+        "SEM",
+        "secondary electrons",
+        "backscattered electrons",
+        "transmission electron microscopy",
+        "transmission electron microscope",
+        "TEM",
+        "electron wavelength",
+        "tapping mode",
+        "diffraction limit",
+        "scanning probe microscopy",
+        "high-resolution TEM",
+        "selected area electron diffraction"
+      ],
+      "body": [
+        "An optical microscope is limited by diffraction to a resolution of about λ/2 ≈ 200 nm. To see smaller things, microscopies use electrons, whose de Broglie wavelength λ = h/p is thousands of times smaller, or probes that scan the surface.",
+        {
+          "h": "Electron microscopy"
+        },
+        "In a **scanning electron microscope (SEM)** an electron beam of 1–30 keV, focused to a spot of 1–5 nm, is scanned across the surface in a raster, and the signal that is produced at each point forms the image. **Secondary electrons** (< 50 eV, from the top 5–10 nm) give the topographic contrast and the typical 3-D look, with a large depth of field. **Backscattered electrons** (elastically scattered by the nuclei, with ~ the beam energy) are more numerous for heavy elements, so they give composition contrast (Z-contrast). The sample must be conductive or coated with a thin layer of gold or carbon to avoid charging, and be in vacuum (low-vacuum or environmental modes allow wet or insulating samples). Magnification is 10× to 500,000×, with a resolution of about 1–5 nm, and EDS is generally attached.",
+        "In a **transmission electron microscope (TEM)** a high-energy beam (80–300 keV) passes through a sample thinner than ~100 nm and is focused by magnetic lenses into an image on a detector. The contrast is due to scattering by the thicker or heavier areas, and diffraction contrast shows the crystal defects. The wavelength at 200 kV is only about 2.5 pm, so the limit is determined by lens aberrations (now corrected) to ~0.05–0.1 nm: **high-resolution TEM** resolves the atomic lattice of crystals; **selected area electron diffraction** gives the crystal structure of a nanoscale area. The price is difficult sample preparation (microtome, ion milling), the vacuum and the damage of the beam.",
+        {
+          "h": "Scanning probe microscopy"
+        },
+        "The **scanning tunneling microscope (STM)** brings a sharp metal tip (ideally one atom at the end) to within ~0.5–1 nm of a conducting surface and applies a small bias (mV–V). Electrons tunnel through the vacuum gap (the quantum tunneling of the physics chapter), and the **tunneling current** falls off exponentially with the distance: I ∝ exp(−2κd), with κ = (2mφ)^{1/2}/ħ ≈ 1.1 Å⁻¹ for a work function φ = 4.5 eV. A change of only 1 Å in the gap changes the current by a factor of e^{2.2} ≈ 9, which is the reason for the vertical resolution of 0.01 Å and lateral atomic resolution. The tip is scanned by piezoelectric actuators in constant-current mode (a feedback loop adjusts the height) to map the surface. STM works only for conducting and semiconducting samples, images the electron density near the Fermi level, and can also manipulate single atoms.",
+        "The **atomic force microscope (AFM)** senses the force between a sharp tip and the surface. The tip is on the end of a flexible **cantilever**, and a laser beam reflected from the back of the cantilever onto a four-quadrant photodiode detects the deflection (Hooke’s law F = −kx, with k = 0.1–50 N m⁻¹). In contact mode the tip drags over the surface; in **tapping mode** the cantilever oscillates near its resonance frequency and the tip only touches the surface briefly, so soft samples (polymers, biomolecules, cells) are not damaged. AFM works on insulators, in air, in liquid and at ambient conditions, and provides the height (vertical resolution 0.1 nm; lateral 1–10 nm), and also mechanical, adhesion, magnetic and electrical properties.",
+        {
+          "table": {
+            "head": [
+              "Technique",
+              "Resolution",
+              "Sample",
+              "Information"
+            ],
+            "rows": [
+              [
+                "Optical",
+                "~200 nm",
+                "Any",
+                "Color, morphology"
+              ],
+              [
+                "SEM",
+                "1–5 nm",
+                "Conductive/coated, vacuum",
+                "Topography, composition (+EDS)"
+              ],
+              [
+                "TEM",
+                "0.05–0.2 nm",
+                "Ultrathin (< 100 nm), vacuum",
+                "Internal structure, lattice images, diffraction"
+              ],
+              [
+                "STM",
+                "Atomic (0.1 nm lateral, 0.01 nm vertical)",
+                "Conductive, flat; usually UHV",
+                "Electron density; atom manipulation"
+              ],
+              [
+                "AFM",
+                "0.1 nm vertical, 1–10 nm lateral",
+                "Any; air or liquid",
+                "Topography, forces, mechanical properties"
+              ]
+            ],
+            "caption": "Microscopy methods compared."
+          }
+        },
+        {
+          "example": {
+            "title": "STM sensitivity",
+            "problem": "In an STM with φ = 4.5 eV, by what factor does the tunneling current change if the tip retreats by 0.5 Å?",
+            "solution": "κ = (2mφ)^{1/2}/ħ = (2 × 9.109 × 10⁻³¹ × 4.5 × 1.602 × 10⁻¹⁹)^{1/2}/1.0546 × 10⁻³⁴ = 1.09 × 10¹⁰ m⁻¹ = 1.09 Å⁻¹. I ratio = exp(−2κΔd) = exp(−2 × 1.09 × 0.5) = exp(−1.09) = 0.34: the current falls to a third of its value."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Which SEM signal gives atomic-number (composition) contrast?",
+          "a": "Backscattered electrons",
+          "wrong": [
+            "Secondary electrons",
+            "Auger electrons only",
+            "Transmitted electrons"
+          ]
+        },
+        {
+          "q": "Which microscope can image an insulating polymer in liquid?",
+          "a": "AFM",
+          "wrong": [
+            "STM",
+            "TEM",
+            "SEM in high vacuum"
+          ]
+        },
+        {
+          "q": "Why can an STM resolve single atoms vertically?",
+          "a": "The tunneling current depends exponentially on the tip–surface distance",
+          "wrong": [
+            "The tip is a laser",
+            "Electrons are heavy",
+            "The current is independent of distance"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "UV–Vis: A = εbc, double-beam instruments, deviations from Beer’s law (chemical, polychromatic, stray light). Working range A = 0.1–1.",
+    "Fluorescence: emission at 90° against a dark background gives ppb–ppt detection. Quantum yield, Stokes shift, Stern–Volmer quenching, inner-filter effect.",
+    "FTIR: Michelson interferometer, Fourier transform; Fellgett, Jacquinot and Connes advantages; ATR needs no sample preparation. Raman: change of polarizability, complementary to IR (mutual exclusion), SERS enhancement 10⁶–10⁸.",
+    "XRD: Bragg’s law, single-crystal structures, powder phase identification, Scherrer crystallite size. XRF: characteristic X-rays by Moseley’s law, Na–U in ppm range.",
+    "XPS: KE = hν − BE − φ, gives oxidation states. AES, SIMS (ppm–ppb, depth profiles) and EDS complete surface and microanalysis. Surface methods need UHV.",
+    "SEM (topography, 1–5 nm), TEM (lattice images, < 0.1 nm), STM (tunneling current, atomic) and AFM (forces, any sample)."
+  ],
+  "problems": [
+    {
+      "q": "An iron(II)–phenanthroline complex has ε = 11,100 L mol⁻¹ cm⁻¹ at 510 nm. A 25.0 mL sample solution in a 1.00 cm cell gives A = 0.444. Calculate the molar concentration and the mass of iron in the 25.0 mL (Fe: 55.85 g mol⁻¹).",
+      "solution": "c = A/(εb) = 0.444/(11,100 × 1.00) = 4.00 × 10⁻⁵ M. n = 4.00 × 10⁻⁵ × 0.0250 = 1.00 × 10⁻⁶ mol; m = 1.00 × 10⁻⁶ × 55.85 = 55.9 µg.",
+      "a": "4.00 × 10⁻⁵ M; 55.9 µg of Fe"
+    },
+    {
+      "q": "A FTIR spectrometer needs a resolution of 4 cm⁻¹. What optical path difference must the moving mirror produce, and how far does the mirror move?",
+      "solution": "δ_max = 1/Δν̃ = 1/4 cm⁻¹ = 0.25 cm. The optical path difference is twice the mirror displacement, so the mirror moves 0.125 cm = 1.25 mm.",
+      "a": "δ = 0.25 cm; mirror displacement 1.25 mm"
+    },
+    {
+      "q": "The (200) reflection of NaCl with Cu Kα (1.5406 Å) appears at 2θ = 31.7°. Calculate d and the lattice parameter a of this cubic crystal.",
+      "solution": "θ = 15.85°; sinθ = 0.2731. d₂₀₀ = λ/(2 sinθ) = 1.5406/0.5462 = 2.82 Å. For a cubic lattice d = a/√(h²+k²+l²) = a/2, so a = 5.64 Å.",
+      "a": "d = 2.82 Å; a = 5.64 Å"
+    },
+    {
+      "q": "Explain why the XPS spectrum of a silicon wafer shows two Si 2p peaks, at 99.3 eV and 103.4 eV, and how the thickness of the oxide layer could be estimated.",
+      "solution": "The 99.3 eV peak is from elemental Si of the substrate, and the 103.4 eV peak (chemical shift ≈ +4 eV) is from Si(IV) in the native SiO₂ layer. The photoelectrons from the substrate are attenuated by the overlayer according to I = I₀exp(−t/λcosθ), so the ratio of the two peak areas, with the known inelastic mean free path λ ≈ 3 nm, gives the oxide thickness t (typically 1–2 nm for a native oxide).",
+      "a": "Bulk Si and SiO₂; the intensity ratio gives the oxide thickness via the electron attenuation."
+    },
+    {
+      "q": "A fluorescent sample gives a nonlinear and decreasing calibration curve above 5 × 10⁻⁵ M, where A at the excitation wavelength reaches 0.1. Explain this and how to fix it.",
+      "solution": "At A > 0.05 the inner filter effect becomes important: the sample absorbs the excitation beam before the center of the cuvette (primary) and re-absorbs emitted light (secondary), so F falls below the linear prediction. Dilute the samples so that A < 0.05, use a shorter path length or front-face geometry, or correct F with the measured absorbance.",
+      "a": "Inner filter effect; dilute or use a shorter path / front-face detection."
+    }
+  ]
+}

@@ -1,0 +1,577 @@
+{
+  "id": "atoms-molecules-ions",
+  "view": "chapter",
+  "title": "Atoms, Molecules and Ions",
+  "description": "What atoms are made of, how the periodic table is organized, how ions and compounds are named, and what a mole is.",
+  "overview": [
+    "All matter is built from a little over a hundred kinds of atoms. What makes one element different from another is the number of protons in its nucleus. How atoms combine into molecules and ions, and how many of them are in a sample you can weigh, is the foundation for every quantitative idea in chemistry.",
+    "This chapter describes the experiments that revealed the structure of the atom, introduces isotopes and atomic mass, tours the periodic table, then covers chemical formulas, nomenclature and the mole."
+  ],
+  "objectives": [
+    "Describe the evidence for electrons, the nucleus and neutrons.",
+    "Use atomic number, mass number and isotope notation, and compute an average atomic mass.",
+    "Locate groups, periods, metals, nonmetals and metalloids on the periodic table.",
+    "Predict ion charges, write formulas of ionic compounds, and name ionic and molecular compounds.",
+    "Convert among mass, moles and number of particles using molar mass and Avogadro’s constant."
+  ],
+  "sections": [
+    {
+      "id": "atomic-models",
+      "title": "The structure of the atom",
+      "terms": [
+        "atom",
+        "atoms",
+        "atomic theory",
+        "subatomic particles",
+        "subatomic particle",
+        "nucleus",
+        "Dalton's atomic theory",
+        "Dalton",
+        "Thomson",
+        "plum pudding model",
+        "Rutherford",
+        "gold foil experiment",
+        "Millikan",
+        "Chadwick",
+        "nuclear model",
+        "cathode rays",
+        "proton",
+        "protons",
+        "neutron",
+        "neutrons"
+      ],
+      "body": [
+        "In 1808 John Dalton proposed that each element consists of identical, indivisible atoms; that atoms of different elements differ in mass; and that compounds form when atoms combine in small whole-number ratios. Dalton’s theory explained the laws of conservation of mass and definite proportions. Its one great error was that atoms are indivisible.",
+        {
+          "h": "The electron"
+        },
+        "In 1897 J. J. Thomson showed that cathode rays are streams of negatively charged particles, because electric and magnetic fields deflect them. From the size of the deflections he found their charge-to-mass ratio, e/m = 1.76 × 10¹¹ C kg⁻¹. In 1909 Robert Millikan measured the charge on tiny oil droplets and found they carry whole multiples of 1.602 × 10⁻¹⁹ C, the charge of one electron. Combined with e/m, this gives the electron’s mass: 9.109 × 10⁻³¹ kg, about 1/1836 of a hydrogen atom. Thomson pictured the atom as a positive sphere with electrons embedded in it, the plum-pudding model.",
+        {
+          "h": "The nucleus"
+        },
+        "In 1909 Rutherford, Geiger and Marsden fired α particles (He²⁺ nuclei) at a thin gold foil. Most passed straight through, but about one in 8000 was deflected through a large angle, some bouncing back. Rutherford wrote that it was “as if you fired a 15-inch shell at a piece of tissue paper and it came back.” The result is impossible if positive charge is spread through the atom. Instead, nearly all the mass and all the positive charge sit in a tiny **nucleus**, about 10⁻¹⁵ m across, in an atom about 10⁻¹⁰ m across. If the nucleus were a marble, the atom would be about a kilometer wide. The electrons occupy the space around it.",
+        "In 1932 James Chadwick identified the **neutron**, an uncharged particle with nearly the same mass as the proton, which accounts for the nuclear mass not explained by protons alone.",
+        {
+          "table": {
+            "head": [
+              "Particle",
+              "Charge",
+              "Mass (u)",
+              "Mass (kg)",
+              "Location"
+            ],
+            "rows": [
+              [
+                "Proton",
+                "+1",
+                "1.00728",
+                "1.6726 × 10⁻²⁷",
+                "Nucleus"
+              ],
+              [
+                "Neutron",
+                "0",
+                "1.00866",
+                "1.6749 × 10⁻²⁷",
+                "Nucleus"
+              ],
+              [
+                "Electron",
+                "−1",
+                "0.000549",
+                "9.109 × 10⁻³¹",
+                "Around the nucleus"
+              ]
+            ],
+            "caption": "The subatomic particles. Charge is in units of e = 1.602 × 10⁻¹⁹ C."
+          }
+        },
+        "Protons and neutrons are not elementary: each consists of three quarks, held together by the strong force. The electron is a lepton and is currently believed to be elementary."
+      ],
+      "check": [
+        {
+          "q": "What did the gold-foil experiment show?",
+          "a": "Positive charge and most of the mass are concentrated in a tiny nucleus",
+          "wrong": [
+            "Electrons are embedded in a positive sphere",
+            "Atoms are indivisible",
+            "Neutrons exist in the nucleus"
+          ]
+        },
+        {
+          "q": "Which particle has a mass about 1/1836 that of a proton?",
+          "a": "Electron",
+          "wrong": [
+            "Neutron",
+            "Alpha particle",
+            "Positron"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "isotopes",
+      "title": "Atomic number, mass number and isotopes",
+      "terms": [
+        "atomic number",
+        "mass number",
+        "isotope",
+        "isotopes",
+        "nuclide",
+        "atomic mass",
+        "average atomic mass",
+        "atomic mass unit",
+        "atomic weight",
+        "relative atomic mass"
+      ],
+      "body": [
+        "The **atomic number** Z is the number of protons in the nucleus. It defines the element: every atom with Z = 6 is carbon. In a neutral atom the number of electrons equals Z. The **mass number** A is the number of protons plus neutrons, so the number of neutrons is N = A − Z.",
+        "A nuclide is written ᴬ_{Z}X, for example ¹²₆C. **Isotopes** are atoms of the same element with different numbers of neutrons, such as carbon-12, carbon-13 and carbon-14. They have nearly identical chemistry, because chemistry is governed by electrons, but different masses and, for some, an unstable nucleus (see the chapter on nuclear chemistry).",
+        "Atomic masses are measured in **atomic mass units**. One u is defined as exactly 1/12 of the mass of a carbon-12 atom, 1.66054 × 10⁻²⁷ kg. The mass of an atom in u is close to, but not exactly, its mass number, because binding energy contributes to the nuclear mass. The atomic mass on the periodic table is the weighted average over the natural abundances of the isotopes:",
+        {
+          "eq": "average atomic mass = Σ (fractional abundance × isotope mass)"
+        },
+        {
+          "example": {
+            "title": "Average atomic mass of chlorine",
+            "problem": "Chlorine is 75.77% ³⁵Cl (34.969 u) and 24.23% ³⁷Cl (36.966 u). Find the average atomic mass.",
+            "solution": [
+              {
+                "eq": "0.7577 × 34.969 + 0.2423 × 36.966 = 26.496 + 8.957 = 35.45 u"
+              },
+              "No single chlorine atom has mass 35.45 u. Mass spectrometry shows two peaks, at 35 and 37, in a 3:1 ratio."
+            ]
+          }
+        },
+        {
+          "example": {
+            "title": "Counting particles",
+            "problem": "How many protons, neutrons and electrons are in a ⁵⁶Fe³⁺ ion?",
+            "solution": "Iron has Z = 26, so 26 protons. Neutrons: 56 − 26 = 30. The ion has lost three electrons: 26 − 3 = 23 electrons."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "How many neutrons are in ¹⁴C?",
+          "a": "8",
+          "wrong": [
+            "6",
+            "14",
+            "20"
+          ],
+          "why": "N = A − Z = 14 − 6 = 8."
+        },
+        {
+          "q": "Boron has isotopes ¹⁰B (19.9%, 10.013 u) and ¹¹B (80.1%, 11.009 u). Its average atomic mass is closest to…",
+          "a": "10.81 u",
+          "wrong": [
+            "10.51 u",
+            "10.00 u",
+            "11.01 u"
+          ],
+          "why": "0.199 × 10.013 + 0.801 × 11.009 = 10.81 u."
+        }
+      ]
+    },
+    {
+      "id": "periodic-table",
+      "title": "The periodic table",
+      "terms": [
+        "periodic table",
+        "group",
+        "groups",
+        "period",
+        "periods",
+        "metals",
+        "nonmetals",
+        "metalloids",
+        "metalloid",
+        "alkali metal",
+        "alkali metals",
+        "alkaline earth metal",
+        "halogen",
+        "halogens",
+        "noble gas",
+        "noble gases",
+        "main-group elements",
+        "lanthanides",
+        "actinides"
+      ],
+      "body": [
+        "The periodic table arranges the elements in order of increasing atomic number so that elements with similar chemical properties fall in the same column. The columns are **groups**, numbered 1 to 18; the rows are **periods**, numbered 1 to 7. The explanation of why properties repeat is in the chapter on atomic structure. Here we need only the layout.",
+        {
+          "list": [
+            "**Metals** (left and center) are lustrous, conduct heat and electricity, are malleable and ductile, and tend to lose electrons. **Nonmetals** (upper right) are poor conductors and tend to gain electrons. **Metalloids**, a diagonal band including B, Si, Ge, As, Sb and Te, have intermediate properties; silicon is a semiconductor.",
+            "**Main-group elements** are Groups 1, 2 and 13–18. **Transition metals** fill the d block (Groups 3–12). The **lanthanides** and **actinides** form the two rows below the table.",
+            "Several groups have family names: Group 1 the **alkali metals** (Li, Na, K…), Group 2 the **alkaline earth metals**, Group 17 the **halogens** (F, Cl, Br, I) and Group 18 the **noble gases**."
+          ]
+        },
+        "Hydrogen is placed above Group 1 but is a nonmetal with its own chemistry. At room temperature only two elements are liquids, bromine and mercury; eleven are gases (H, N, O, F, Cl and the noble gases).",
+        {
+          "tip": "For an interactive version, with each element’s properties, see the Reference page, The Elements, at the front of this book."
+        }
+      ],
+      "check": [
+        {
+          "q": "Which of these elements is a halogen?",
+          "a": "Bromine",
+          "wrong": [
+            "Sodium",
+            "Argon",
+            "Sulfur"
+          ]
+        },
+        {
+          "q": "Elements in the same group of the periodic table have similar…",
+          "a": "Chemical properties",
+          "wrong": [
+            "Atomic masses",
+            "Numbers of neutrons",
+            "Densities"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "molecules-ions",
+      "title": "Molecules, ions and chemical formulas",
+      "terms": [
+        "molecule",
+        "molecules",
+        "ion",
+        "ions",
+        "cation",
+        "cations",
+        "anion",
+        "anions",
+        "polyatomic ion",
+        "polyatomic ions",
+        "molecular compound",
+        "molecular compounds",
+        "ionic compound",
+        "ionic compounds",
+        "formula unit",
+        "molecular formula",
+        "structural formula",
+        "diatomic molecule",
+        "allotrope",
+        "allotropes",
+        "chemical formula",
+        "chemical formulas",
+        "subscript",
+        "subscripts"
+      ],
+      "body": [
+        "A **molecule** is a group of atoms held together by covalent bonds that behaves as a unit. A **molecular formula** gives the number of each type of atom (glucose is C₆H₁₂O₆). A **structural formula** shows how they are connected. The **empirical formula** gives the simplest whole-number ratio (glucose: CH₂O). Seven elements exist as **diatomic molecules** under normal conditions: H₂, N₂, O₂, F₂, Cl₂, Br₂ and I₂. Some elements have several forms with different structures, called **allotropes**: O₂ and O₃ (ozone), or graphite, diamond and C₆₀.",
+        {
+          "h": "Ions"
+        },
+        "An **ion** is an atom or group of atoms with a net charge. A **cation** has lost electrons and is positive; an **anion** has gained electrons and is negative. Atoms in main groups tend to form the ion that gives them the electron count of the nearest noble gas, so the charge can be predicted from the group.",
+        {
+          "table": {
+            "head": [
+              "Group",
+              "1",
+              "2",
+              "13",
+              "15",
+              "16",
+              "17"
+            ],
+            "rows": [
+              [
+                "Typical ion",
+                "+1",
+                "+2",
+                "+3",
+                "−3",
+                "−2",
+                "−1"
+              ],
+              [
+                "Examples",
+                "Na⁺, K⁺",
+                "Mg²⁺, Ca²⁺",
+                "Al³⁺",
+                "N³⁻, P³⁻",
+                "O²⁻, S²⁻",
+                "F⁻, Cl⁻"
+              ]
+            ],
+            "caption": "Common charges of main-group ions."
+          }
+        },
+        "Transition metals form cations of variable charge (Fe²⁺ and Fe³⁺, Cu⁺ and Cu²⁺). **Polyatomic ions** are covalently bonded groups carrying a charge. They must be memorized:",
+        {
+          "table": {
+            "head": [
+              "Formula",
+              "Name",
+              "Formula",
+              "Name"
+            ],
+            "rows": [
+              [
+                "NH₄⁺",
+                "ammonium",
+                "OH⁻",
+                "hydroxide"
+              ],
+              [
+                "NO₃⁻",
+                "nitrate",
+                "NO₂⁻",
+                "nitrite"
+              ],
+              [
+                "SO₄²⁻",
+                "sulfate",
+                "SO₃²⁻",
+                "sulfite"
+              ],
+              [
+                "PO₄³⁻",
+                "phosphate",
+                "CO₃²⁻",
+                "carbonate"
+              ],
+              [
+                "HCO₃⁻",
+                "hydrogen carbonate (bicarbonate)",
+                "CH₃COO⁻",
+                "acetate"
+              ],
+              [
+                "ClO₄⁻",
+                "perchlorate",
+                "ClO₃⁻",
+                "chlorate"
+              ],
+              [
+                "CN⁻",
+                "cyanide",
+                "MnO₄⁻",
+                "permanganate"
+              ],
+              [
+                "CrO₄²⁻",
+                "chromate",
+                "Cr₂O₇²⁻",
+                "dichromate"
+              ]
+            ]
+          }
+        },
+        "An **ionic compound** is a lattice of cations and anions with no discrete molecules, so its formula (a **formula unit**) gives only the ratio of ions. The ratio is set by charge neutrality: Al³⁺ and O²⁻ give Al₂O₃, because 2(+3) + 3(−2) = 0. Polyatomic ions are enclosed in parentheses when more than one is needed: Ca₃(PO₄)₂."
+      ],
+      "check": [
+        {
+          "q": "What is the formula of aluminum sulfate?",
+          "a": "Al₂(SO₄)₃",
+          "wrong": [
+            "AlSO₄",
+            "Al₃(SO₄)₂",
+            "Al(SO₄)₃"
+          ],
+          "why": "Al³⁺ and SO₄²⁻: 2(+3) + 3(−2) = 0."
+        },
+        {
+          "q": "How many protons and electrons does the S²⁻ ion have?",
+          "a": "16 protons, 18 electrons",
+          "wrong": [
+            "16 protons, 14 electrons",
+            "18 protons, 16 electrons",
+            "18 protons, 18 electrons"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nomenclature",
+      "title": "Naming compounds",
+      "terms": [
+        "nomenclature",
+        "naming compounds",
+        "binary compound",
+        "oxyacid",
+        "hydrate",
+        "hydrates",
+        "Stock system",
+        "naming ionic compounds"
+      ],
+      "body": [
+        "Systematic names let a chemist reconstruct a formula from a name and the reverse.",
+        {
+          "h": "Ionic compounds"
+        },
+        "Name the cation, then the anion. A monatomic cation takes the name of the element. If the metal can form more than one ion, the charge is given in Roman numerals (the **Stock system**): FeCl₂ is iron(II) chloride, FeCl₃ is iron(III) chloride. Monatomic anions take the stem of the element plus -ide: chloride, oxide, sulfide, nitride. Polyatomic ions keep their names. Fe₂(SO₄)₃ is iron(III) sulfate; NH₄NO₃ is ammonium nitrate.",
+        {
+          "h": "Binary molecular compounds"
+        },
+        "Two nonmetals: name the first element, then the second with -ide, using Greek prefixes for the number of atoms (mono-, di-, tri-, tetra-, penta-, hexa-, hepta-, octa-, nona-, deca-). Mono- is dropped on the first element. CO is carbon monoxide, N₂O₄ is dinitrogen tetroxide, P₄O₁₀ is tetraphosphorus decaoxide.",
+        {
+          "h": "Acids"
+        },
+        "Binary acids are named hydro-…-ic acid in water solution: HCl is hydrochloric acid. For an acid derived from an oxoanion, -ate becomes -ic and -ite becomes -ous: H₂SO₄ is sulfuric acid (from sulfate), H₂SO₃ is sulfurous acid (from sulfite), HNO₃ is nitric acid, HClO₄ is perchloric acid.",
+        {
+          "h": "Hydrates"
+        },
+        "Some ionic solids incorporate water in the crystal. CuSO₄·5H₂O is copper(II) sulfate pentahydrate.",
+        {
+          "example": {
+            "title": "Names and formulas",
+            "problem": "Name Mg(NO₃)₂ and N₂O₅. Write the formulas of copper(I) oxide and ammonium sulfide.",
+            "solution": [
+              "Mg(NO₃)₂ is ionic, magnesium nitrate (Mg²⁺ takes no Roman numeral because it has only one common charge). N₂O₅ is dinitrogen pentoxide.",
+              "Copper(I) is Cu⁺ and oxide is O²⁻, so the formula is Cu₂O. Ammonium is NH₄⁺ and sulfide is S²⁻, so the formula is (NH₄)₂S."
+            ]
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "What is the name of FeSO₄?",
+          "a": "Iron(II) sulfate",
+          "wrong": [
+            "Iron(III) sulfate",
+            "Iron sulfide",
+            "Iron(II) sulfite"
+          ],
+          "why": "SO₄²⁻ is sulfate. One Fe²⁺ balances one SO₄²⁻."
+        },
+        {
+          "q": "What is the formula for diphosphorus trioxide?",
+          "a": "P₂O₃",
+          "wrong": [
+            "PO₃",
+            "P₃O₂",
+            "P₂O₅"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mole",
+      "title": "The mole and molar mass",
+      "terms": [
+        "mole",
+        "moles",
+        "Avogadro's number",
+        "Avogadro constant",
+        "Avogadro's constant",
+        "molar mass",
+        "formula mass",
+        "molecular mass",
+        "molecular weight",
+        "formula weight",
+        "molar masses"
+      ],
+      "body": [
+        "Atoms are far too small to count or weigh individually, so chemists count them in bulk. One **mole** is the amount of substance containing as many entities as there are atoms in exactly 12 g of carbon-12. That number is **Avogadro’s constant**:",
+        {
+          "eq": "N_{A} = 6.02214076 × 10²³ mol⁻¹"
+        },
+        "The **molar mass** M of a substance is the mass of one mole, in g mol⁻¹. For an element it is numerically equal to the atomic mass in u. For a compound it is the sum over the formula: for CaCO₃, 40.08 + 12.01 + 3(16.00) = 100.09 g mol⁻¹. The mole is the bridge between the atomic scale and the laboratory scale.",
+        {
+          "eq": [
+            "n = m / M",
+            "N = n · N_{A}"
+          ]
+        },
+        {
+          "example": {
+            "title": "From mass to number of atoms",
+            "problem": "How many oxygen atoms are in 10.0 g of CaCO₃?",
+            "solution": [
+              {
+                "eq": [
+                  "n(CaCO₃) = 10.0 g / 100.09 g mol⁻¹ = 0.0999 mol",
+                  "n(O) = 3 × 0.0999 = 0.300 mol",
+                  "N(O) = 0.300 mol × 6.022 × 10²³ mol⁻¹ = 1.81 × 10²³ atoms"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "example": {
+            "title": "Molar mass of a hydrate",
+            "problem": "Find the molar mass of CuSO₄·5H₂O, and the mass of anhydrous CuSO₄ in 10.00 g of the hydrate.",
+            "solution": [
+              {
+                "eq": [
+                  "M(CuSO₄·5H₂O) = 63.55 + 32.06 + 4(16.00) + 5(18.02) = 249.7 g mol⁻¹",
+                  "M(CuSO₄) = 159.6 g mol⁻¹"
+                ]
+              },
+              "Mass of CuSO₄ = 10.00 g × 159.6 / 249.7 = 6.39 g."
+            ]
+          }
+        },
+        {
+          "key": "Always convert to moles first. Mass, volume of gas and number of particles are all linked through the mole."
+        }
+      ],
+      "check": [
+        {
+          "q": "What is the molar mass of H₂O, to one decimal place?",
+          "a": "18.0 g/mol",
+          "wrong": [
+            "17.0 g/mol",
+            "16.0 g/mol",
+            "10.0 g/mol"
+          ]
+        },
+        {
+          "q": "How many moles are in 36.0 g of water?",
+          "a": "2.00 mol",
+          "wrong": [
+            "0.500 mol",
+            "18.0 mol",
+            "36.0 mol"
+          ],
+          "why": "36.0 g / 18.0 g/mol = 2.00 mol."
+        },
+        {
+          "q": "How many molecules are in 0.500 mol of N₂?",
+          "a": "3.01 × 10²³",
+          "wrong": [
+            "6.02 × 10²³",
+            "1.20 × 10²⁴",
+            "3.01 × 10²²"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Thomson found the electron, Rutherford found the nucleus and Chadwick found the neutron. Nearly all the mass is in a nucleus about 10⁵ times smaller than the atom.",
+    "Atomic number Z is the number of protons. Isotopes differ in neutron number. Average atomic mass weights each isotope by abundance.",
+    "The periodic table has groups (columns) and periods (rows). Metals are at left and center, nonmetals at upper right.",
+    "Main-group ions have predictable charges. Ionic compounds are electrically neutral and are named from the cation, then the anion. Molecular compounds use Greek prefixes.",
+    "One mole is 6.022 × 10²³ entities. n = m/M converts between mass and moles."
+  ],
+  "problems": [
+    {
+      "q": "Complete the table for ¹³¹I⁻, ⁵⁹Co²⁺ and ³¹P: number of protons, neutrons and electrons in each.",
+      "solution": "¹³¹I⁻: Z = 53, N = 131 − 53 = 78, electrons 53 + 1 = 54. ⁵⁹Co²⁺: Z = 27, N = 32, electrons 25. ³¹P: Z = 15, N = 16, electrons 15.",
+      "a": "I⁻: 53 p, 78 n, 54 e. Co²⁺: 27 p, 32 n, 25 e. P: 15 p, 16 n, 15 e."
+    },
+    {
+      "q": "Gallium has two stable isotopes, ⁶⁹Ga (68.926 u) and ⁷¹Ga (70.925 u). The average atomic mass is 69.723 u. Find the percentage abundances.",
+      "solution": "Let x be the fraction of ⁶⁹Ga. 68.926x + 70.925(1 − x) = 69.723. So 70.925 − 1.999x = 69.723 and x = 1.202/1.999 = 0.601.",
+      "a": "60.1% ⁶⁹Ga and 39.9% ⁷¹Ga."
+    },
+    {
+      "q": "Name (a) NaClO, (b) Cr₂O₃, (c) SF₆, (d) Ca(HCO₃)₂. Write formulas for (e) lithium nitride and (f) tin(IV) chloride.",
+      "solution": "(a) Na⁺ and ClO⁻ (hypochlorite). (b) Cr is +3 because 3 O²⁻ = −6. (c) Sulfur with six fluorines. (d) Ca²⁺ with two HCO₃⁻. (e) Li⁺ and N³⁻. (f) Sn⁴⁺ and Cl⁻.",
+      "a": "(a) sodium hypochlorite, (b) chromium(III) oxide, (c) sulfur hexafluoride, (d) calcium hydrogen carbonate, (e) Li₃N, (f) SnCl₄."
+    },
+    {
+      "q": "A 2.50 g sample of aspirin, C₉H₈O₄, is dissolved in water. How many moles and molecules does it contain?",
+      "solution": "M = 9(12.01) + 8(1.008) + 4(16.00) = 180.16 g mol⁻¹. n = 2.50 / 180.16 = 0.01388 mol. N = 0.01388 × 6.022 × 10²³ = 8.36 × 10²¹.",
+      "a": "0.0139 mol, 8.36 × 10²¹ molecules."
+    }
+  ]
+}

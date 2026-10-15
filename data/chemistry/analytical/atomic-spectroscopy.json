@@ -1,0 +1,578 @@
+{
+  "id": "atomic-spectroscopy",
+  "view": "chapter",
+  "title": "Atomic Spectroscopy",
+  "description": "Flame and graphite furnace atomic absorption, hydride generation and cold-vapor methods, ICP-OES and ICP-MS.",
+  "overview": [
+    "To measure the metals in a sample, a chemist first has to convert them into free atoms in the gas phase, since atoms, unlike molecules, absorb and emit light at a few sharp wavelengths characteristic of each element. This is atomic spectroscopy. The methods differ in how the atoms are produced (a flame, a heated graphite tube, a plasma) and in what is measured (absorption, emission, fluorescence or mass), and each reaches a different detection limit, from parts per million for flame methods to parts per quadrillion in ICP-MS.",
+    "This chapter covers the principle of atomic absorption and emission, then flame AAS, graphite-furnace AAS (the technique of choice for trace levels of metals in small samples), hydride-generation and cold-vapor methods for As, Se and Hg, and the plasma methods, ICP-OES and ICP-MS. It closes with a comparison to help select a technique."
+  ],
+  "objectives": [
+    "Explain atomic absorption and emission, line sources, and how temperature affects excited-state populations.",
+    "Describe the components and optimization of flame AAS, and the chemical, ionization and spectral interferences.",
+    "Describe the heating program of a graphite furnace, matrix modifiers and Zeeman background correction.",
+    "Explain hydride generation, cold-vapor Hg analysis and atomic fluorescence.",
+    "Describe the ICP torch, axial and radial viewing, ICP-MS interfaces and interferences, and collision/reaction cells.",
+    "Choose between FAAS, GFAAS, ICP-OES and ICP-MS for a given problem."
+  ],
+  "sections": [
+    {
+      "id": "principles",
+      "title": "Principles of atomic absorption and emission",
+      "terms": [
+        "atomic spectroscopy",
+        "atomic spectrometry",
+        "atomic absorption spectroscopy",
+        "atomic absorption",
+        "AAS",
+        "hollow-cathode lamp",
+        "hollow cathode lamp",
+        "line source",
+        "continuum source AAS",
+        "atomic emission spectroscopy",
+        "atomization",
+        "atomic line width",
+        "spectral line broadening",
+        "excited-state population",
+        "Boltzmann distribution in flames"
+      ],
+      "body": [
+        "A free atom has sharp energy levels, so it absorbs light only at wavelengths that match transitions from the ground state to excited states: the resonance lines (for sodium the 589.0 and 589.6 nm doublet from the 3s → 3p transition). The lines are very narrow (about 0.001–0.005 nm, broadened by the Doppler effect and by collisions), which gives atomic spectroscopy its selectivity. In **atomic absorption spectroscopy (AAS)** light of the resonance wavelength passes through the cloud of atoms, and the absorbance follows Beer’s law, A = εbN: proportional to the number of atoms in the path.",
+        "Because atomic lines are about 100 times narrower than the bandwidth of a normal monochromator, an ordinary continuum lamp would give a tiny absorbance. AAS therefore uses a **line source**, a **hollow-cathode lamp (HCL)** for each element: a sealed glass tube with a cathode made of (or lined with) the analyte metal and an anode, filled with neon or argon. The discharge sputters atoms from the cathode, which are excited by collisions and emit the narrow lines of that element, which are exactly the lines that the same element absorbs in the sample. The lamp is pulsed or chopped so the instrument can distinguish its light from the flame’s own emission. The drawback is a lamp for each element. **Continuum-source AAS** uses a single xenon arc lamp with a high-resolution echelle spectrometer and a CCD, which gives all elements and a better background correction.",
+        {
+          "h": "Atoms in flames: absorption or emission?"
+        },
+        "At a flame temperature T, the fraction of atoms in an excited state follows the Boltzmann distribution, N*/N₀ = (g*/g₀)e^{−E/kT}. In an air–acetylene flame, almost all atoms are in the ground state, which is why absorption (which uses ground-state atoms) works for most elements. In a hotter source the excited fraction rises exponentially, which makes emission methods practical.",
+        {
+          "table": {
+            "head": [
+              "Atom (line)",
+              "E (eV)",
+              "N*/N₀ at 2500 K (flame)",
+              "N*/N₀ at 6000 K (plasma)"
+            ],
+            "rows": [
+              [
+                "Na (589 nm)",
+                "2.10",
+                "1.7 × 10⁻⁴",
+                "0.052"
+              ],
+              [
+                "Zn (214 nm)",
+                "5.80",
+                "6 × 10⁻¹²",
+                "4 × 10⁻⁵"
+              ]
+            ],
+            "caption": "Excited-state fractions (with g*/g₀ = 3). A 3500 K increase in temperature raises the excited fraction by a factor of 300 for sodium and 10⁷ for zinc."
+          }
+        },
+        "Zinc, with its UV resonance line, is almost impossible to determine by flame emission but is easy by AAS, whereas sodium and potassium are excellent by flame emission (flame photometry, the classic clinical method for Na and K in serum). The plasma at 6000–10,000 K excites almost all elements, which is the principle of ICP-OES."
+      ],
+      "check": [
+        {
+          "q": "Why does AAS require a line source such as a hollow-cathode lamp?",
+          "a": "Atomic absorption lines are far narrower than a monochromator bandwidth, so a continuum lamp would give almost no absorbance",
+          "wrong": [
+            "Atoms absorb all wavelengths equally",
+            "The lamp heats the sample",
+            "Hollow cathodes are cheaper"
+          ]
+        },
+        {
+          "q": "Why is zinc better determined by AAS than by flame emission?",
+          "a": "Its resonance line is at high energy, so almost no atoms are excited in a flame",
+          "wrong": [
+            "Zinc does not emit light",
+            "Zinc has no resonance line",
+            "Flames are too hot for zinc"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "faas",
+      "title": "Flame atomic absorption (FAAS)",
+      "terms": [
+        "flame atomic absorption",
+        "FAAS",
+        "flame AAS",
+        "nebulizer",
+        "burner",
+        "air–acetylene flame",
+        "air-acetylene flame",
+        "nitrous oxide–acetylene",
+        "nitrous oxide-acetylene flame",
+        "releasing agent",
+        "ionization suppressor",
+        "ionization interference",
+        "spray chamber",
+        "chemical interference",
+        "spectral interference in AAS",
+        "background correction",
+        "deuterium lamp background correction",
+        "premix burner",
+        "oxidizing flame",
+        "fuel-rich flame",
+        "refractory elements"
+      ],
+      "body": [
+        "In **flame AAS** a solution is drawn into a **nebulizer**, a pneumatic device in which a fast stream of oxidant gas breaks the liquid into a fine aerosol. In the spray chamber the larger droplets drain away, and only about 5–10% of the sample, the smallest droplets, reaches the **burner**, a long slot (10 cm) that gives a long path for absorption. In the flame the droplets are desolvated, the solid particles are vaporized, and the salt is dissociated to atoms (atomization), in about a millisecond, while the atom cloud is in the light path for only a short time. The beam from the hollow-cathode lamp passes through the flame, a monochromator isolates the line, and a photomultiplier measures the transmitted light.",
+        {
+          "table": {
+            "head": [
+              "Flame",
+              "Temperature (°C)",
+              "Use"
+            ],
+            "rows": [
+              [
+                "Air–acetylene",
+                "2100–2400",
+                "Most elements: Na, K, Ca, Mg, Cu, Fe, Zn, Pb, Cd, Ni, Mn (the standard flame)"
+              ],
+              [
+                "Nitrous oxide–acetylene",
+                "2700–2900",
+                "Refractory elements that form stable oxides: Al, Si, Ti, V, Mo, W, Ba (a fuel-rich, reducing, red flame)"
+              ],
+              [
+                "Air–hydrogen",
+                "2000",
+                "Low-wavelength elements (As, Se), low background"
+              ]
+            ],
+            "caption": "Flames for AAS."
+          }
+        },
+        "Detection limits are 0.01–1 mg L⁻¹ (ppm range), precision 0.5–2% RSD, and a determination takes a few seconds, so FAAS remains a robust, cheap, high-throughput method for single elements at the ppm level. Optimization means adjusting the fuel-to-oxidant ratio (fuel-rich favors elements whose oxides are stable, and the oxidizing flame the others), the height of the observation zone above the burner, and the lamp current.",
+        {
+          "h": "Interferences"
+        },
+        {
+          "list": [
+            "**Chemical interference**: the analyte forms a compound that does not atomize completely. Calcium in the presence of phosphate forms Ca₃(PO₄)₂ or calcium pyrophosphate, which is stable in the flame and lowers the signal. A **releasing agent** (lanthanum or strontium, which bind the phosphate preferentially) or a **protecting agent** (EDTA, which holds the calcium until it reaches the flame) removes it, or use the hotter nitrous oxide flame.",
+            "**Ionization interference**: in a hot flame, easily ionized atoms (K, Na, Cs, Ca, Ba) lose an electron, M ⇌ M⁺ + e⁻, reducing the number of neutral atoms. An excess of an easily ionized element (an **ionization suppressor**, such as 0.1–0.2% CsCl or KCl) floods the flame with electrons and pushes the equilibrium back toward the neutral atoms.",
+            "**Physical interference**: viscosity, surface tension and density change the nebulization efficiency. Match the matrix in the standards or use standard additions.",
+            "**Spectral interference and background**: molecular absorption (from particles scattering light, and molecular bands such as CaOH) is subtracted by measuring the absorbance of a continuum source (a deuterium lamp) at the same time, and subtracting it. Direct overlap of atomic lines is rare in AAS because the lines are so narrow."
+          ]
+        },
+        {
+          "example": {
+            "title": "Calcium with phosphate",
+            "problem": "The calcium signal in an air–acetylene flame drops from 0.250 to 0.150 absorbance when 0.01 M phosphate is present. What can be done?",
+            "solution": "Add 1000 mg L⁻¹ lanthanum to all samples and standards. La³⁺ binds phosphate more strongly than Ca²⁺ does (releasing agent), leaving Ca free to atomize. Alternatively, EDTA as a protecting agent, or the hotter N₂O–acetylene flame, which decomposes the Ca phosphate."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Which flame is used for aluminum and other refractory-oxide-forming elements?",
+          "a": "Nitrous oxide–acetylene",
+          "wrong": [
+            "Air–acetylene",
+            "A cold propane flame",
+            "Hydrogen–oxygen at 1000 °C"
+          ]
+        },
+        {
+          "q": "Why is CsCl added to potassium samples in flame AAS?",
+          "a": "It suppresses ionization of K by providing excess electrons",
+          "wrong": [
+            "It lowers the flame temperature",
+            "It provides a releasing agent for phosphate",
+            "It increases viscosity"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gfaas",
+      "title": "Graphite furnace AAS (GF-AAS, ETAAS)",
+      "terms": [
+        "graphite furnace",
+        "graphite furnace atomic absorption",
+        "GF-AAS",
+        "GFAAS",
+        "ETAAS",
+        "electrothermal atomization",
+        "electrothermal atomic absorption",
+        "pyrolytic graphite",
+        "matrix modifier",
+        "matrix modifiers",
+        "Zeeman background correction",
+        "Zeeman effect",
+        "L'vov platform",
+        "pyrolysis step",
+        "atomization step",
+        "drying step",
+        "ashing step",
+        "furnace program",
+        "transient signal",
+        "peak area integration",
+        "stabilized temperature platform furnace",
+        "STPF"
+      ],
+      "body": [
+        "In **graphite furnace atomic absorption** (also **electrothermal atomic absorption**, ETAAS), a small drop of sample (5–50 µL) is placed inside a graphite tube about 3 cm long, in the light path, and the tube is heated electrically through a programmed series of temperatures. All of the analyte is atomized in a short burst, and the atoms stay in the light path for a second or more, against milliseconds in a flame, and the sample is not diluted by a large volume of flame gas. Together these raise the sensitivity by a factor of 100–1000: the detection limit is 0.01–1 µg L⁻¹ (ppb), or absolute amounts of 1–100 pg.",
+        {
+          "table": {
+            "head": [
+              "Step",
+              "Temperature (°C)",
+              "Purpose"
+            ],
+            "rows": [
+              [
+                "**Dry**",
+                "100–130 (ramp)",
+                "Evaporate the solvent gently, without spattering"
+              ],
+              [
+                "**Pyrolysis** (ashing)",
+                "300–1400",
+                "Remove the matrix (organic matter, salts) by thermal decomposition, but before the analyte is lost"
+              ],
+              [
+                "**Atomization**",
+                "1500–2800 (fast, gas flow stopped)",
+                "Vaporize and atomize the analyte: a transient absorption peak, measured by its height or area"
+              ],
+              [
+                "**Clean-out**",
+                "2500–2900",
+                "Burn off the residue before the next sample"
+              ]
+            ],
+            "caption": "A typical graphite furnace program. Argon flows through the tube except during atomization."
+          }
+        },
+        "The optimization of the pyrolysis and atomization temperatures is the art of GFAAS. The pyrolysis temperature should be as high as possible to remove the matrix, without losing the analyte. Volatile elements (Cd, Pb, As, Se, Hg) would be lost below 600 °C. The atomization temperature should be the lowest that gives a complete signal.",
+        {
+          "list": [
+            "**Matrix modifiers** are reagents added to the sample that change the volatility of the analyte or of the matrix. A palladium nitrate–magnesium nitrate modifier stabilizes volatile analytes (Pb, Cd, As, Se, Sb) up to a pyrolysis temperature of 1000–1200 °C by forming an alloy or a compound with the analyte, so the matrix can be removed more completely. Ammonium nitrate removes NaCl from the matrix (NH₄NO₃ + NaCl → NaNO₃ + NH₄Cl, which volatilizes).",
+            "A pyrolytic graphite coating on the tube seals the porous graphite so the sample does not soak into the wall, and the tube lasts longer. The **L’vov platform**, a small graphite plate in the tube, delays the vaporization of the sample until the gas inside the tube has reached the atomization temperature (isothermal atomization), which reduces matrix interference and gives reproducible peaks. Together with fast heating, modifiers, and peak-area integration, these are the **stabilized temperature platform furnace** (STPF) conditions.",
+            "**Background correction** is essential, since the matrix produces large molecular absorption and scatter. **Zeeman background correction** applies a magnetic field (about 1 T) to the furnace, which splits the absorption line of the atom into components (π and σ±) of different polarization (the **Zeeman effect**). The absorbance is measured with the field off (atom plus background) and on (background only, since the π component moves away from the line). The two measurements are made at the same wavelength, and nearly simultaneously, so it corrects for rapidly changing, structured backgrounds, much better than a deuterium lamp."
+          ]
+        },
+        "GFAAS is slower than FAAS (two to three minutes per replicate), usually measures one element at a time, has a narrower linear range (about 2 orders of magnitude) and a lower precision (2–5% RSD), but its sensitivity, tiny sample volume and ability to analyze some solid samples directly make it the standard for trace metals in blood, urine, drinking water, and sediments.",
+        {
+          "example": {
+            "title": "Absolute detection limit",
+            "problem": "A 20 µL aliquot of water is injected into a graphite furnace and the concentration LOD for lead is 0.10 µg L⁻¹. What is the absolute LOD in picograms?",
+            "solution": "Mass = 0.10 µg L⁻¹ × 20 × 10⁻⁶ L = 2.0 × 10⁻⁶ µg = 2.0 pg. A flame with a 5 mL min⁻¹ uptake over a 10 s reading would use 0.8 mL, 40,000 times as much sample for an LOD of about 10 µg L⁻¹."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "What is the purpose of the pyrolysis step in a graphite furnace program?",
+          "a": "To remove the matrix thermally while keeping the analyte",
+          "wrong": [
+            "To atomize the analyte",
+            "To dry the sample",
+            "To clean the tube"
+          ]
+        },
+        {
+          "q": "How does Zeeman background correction work?",
+          "a": "A magnetic field splits the atomic line, so the background can be measured with the field on at the same wavelength",
+          "wrong": [
+            "It uses a second lamp",
+            "It averages many scans",
+            "It removes the matrix by heating"
+          ]
+        },
+        {
+          "q": "Why is GFAAS more sensitive than flame AAS?",
+          "a": "The whole sample is atomized and stays in the light path for about a second",
+          "wrong": [
+            "It uses a hotter source",
+            "It uses a better detector",
+            "It uses more sample"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hydride-cv",
+      "title": "Hydride generation and cold-vapor methods",
+      "terms": [
+        "hydride generation",
+        "hydride generation AAS",
+        "cold-vapor",
+        "cold vapor",
+        "CVAAS",
+        "HGAAS",
+        "atomic fluorescence",
+        "AFS",
+        "atomic fluorescence spectrometry",
+        "sodium borohydride reduction",
+        "arsine",
+        "mercury vapor",
+        "T-tube quartz cell",
+        "prereduction"
+      ],
+      "body": [
+        "Some elements are poorly suited to normal flame or furnace analysis: As, Se, Sb, Bi, Te, Ge, Sn and Pb have resonance lines in the far UV (190–230 nm), where flames absorb strongly, and are volatile, and mercury is lost by volatilization. Methods that separate the analyte from the sample as a gas solve both problems.",
+        {
+          "list": [
+            "**Hydride generation (HG-AAS)**: the sample, in acid, is mixed with sodium borohydride, which reduces the analyte to its volatile hydride: As(III) → AsH₃, Se(IV) → H₂Se, Sb(III) → SbH₃, plus Bi, Te, Ge, Sn and Pb. Argon sweeps the gas into a quartz tube (the T-cell) heated by a flame or electrically to 900–1000 °C, where the hydride decomposes into atoms that absorb. As(V) and Se(VI) do not form hydrides efficiently and are **prereduced** (As(V) to As(III) with KI and ascorbic acid; Se(VI) to Se(IV) by boiling in HCl). The advantages are 100% sample introduction (against 5–10% for a nebulizer), separation of the analyte from the matrix, and detection limits of 0.01–0.1 µg L⁻¹.",
+            "**Cold-vapor AAS (CVAAS)** for mercury: Hg(II) is reduced to Hg(0) with SnCl₂ or NaBH₄, and a stream of gas carries the Hg vapor at room temperature into a quartz cell in the light path, where it absorbs at 253.7 nm. No atomization is needed, because mercury is already an atomic vapor at room temperature. The LOD is about 0.01–0.1 µg L⁻¹, and with preconcentration on a gold trap (amalgamation) below 1 ng L⁻¹. Strict contamination control is needed, and the method is the standard for mercury in water, fish and soils.",
+            "**Atomic fluorescence spectrometry (AFS)**: a light source (a lamp or a laser) excites the atoms, and the fluorescence emitted is measured at 90° to the beam, so the detector sees a dark background. It is very sensitive for Hg, As, Se and Sb (LOD ng L⁻¹), has a wide linear range (5–6 orders), and the instruments are simpler than ICP-MS. Combined with hydride and cold-vapor generation, AFS is a standard method for speciation of As, Hg and Se."
+          ]
+        },
+        {
+          "example": {
+            "title": "Why prereduction?",
+            "problem": "A water sample contains arsenic as arsenate, As(V). Why is the result of hydride-generation AAS too low without a pretreatment?",
+            "solution": "NaBH₄ forms arsine from As(III) efficiently, but As(V) reacts slowly and with a lower yield, so only part of the arsenic is volatilized. Adding KI and ascorbic acid in HCl reduces As(V) to As(III) first, so that all the arsenic is measured. Without this step total arsenic is underestimated. Omitting prereduction on purpose, at a controlled pH, is a way to measure As(III) alone (a simple speciation method)."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Why is mercury measured by cold-vapor AAS without a flame?",
+          "a": "Hg(0) is an atomic vapor at room temperature, so no atomization step is needed",
+          "wrong": [
+            "Mercury does not absorb light",
+            "Mercury melts at room temperature to emit light",
+            "A flame would produce Hg²⁺"
+          ]
+        },
+        {
+          "q": "What gas does NaBH₄ produce from As(III) in acid?",
+          "a": "Arsine, AsH₃",
+          "wrong": [
+            "Hydrogen only",
+            "AsCl₃",
+            "Arsenic trioxide"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "icp",
+      "title": "ICP-OES and ICP-MS",
+      "terms": [
+        "ICP-OES",
+        "ICP-MS",
+        "inductively coupled plasma",
+        "ICP",
+        "optical emission spectroscopy",
+        "ICP torch",
+        "inductively coupled plasma mass spectrometry",
+        "collision cell",
+        "collision/reaction cell",
+        "kinetic energy discrimination",
+        "isobaric interference",
+        "polyatomic interference",
+        "polyatomic interferences",
+        "axial view",
+        "radial view",
+        "laser ablation",
+        "cones",
+        "sampler cone",
+        "skimmer cone",
+        "isotope dilution",
+        "argon plasma",
+        "spectral overlap in ICP",
+        "echelle polychromator",
+        "internal standardization in ICP-MS",
+        "space charge effect",
+        "ICP-MS/MS",
+        "triple quadrupole ICP-MS"
+      ],
+      "body": [
+        "The **inductively coupled plasma (ICP)** is the standard source for multi-element analysis. The **ICP torch** consists of three concentric quartz tubes. Argon flows through all three: a plasma gas (12–18 L min⁻¹, along the outside), an auxiliary gas, and a nebulizer gas (about 1 L min⁻¹) that carries the sample aerosol up the center. A copper coil around the top of the torch carries radio-frequency current (27 or 40 MHz, 1–1.5 kW), which induces an oscillating magnetic field that couples to the argon after a Tesla spark has seeded it with electrons, heating the plasma to 6000–10,000 K (and about 6000–7500 K in the central channel where the sample passes). The sample is dried, vaporized, atomized, ionized and excited in about 2 ms at a temperature almost three times higher than the best flame, and in an inert atmosphere, so oxides do not form. Atoms of nearly every element are efficiently excited, and matrix effects are much smaller than in flames.",
+        {
+          "h": "ICP-OES"
+        },
+        "In **ICP optical emission spectroscopy (ICP-OES)** the emission of the excited atoms and ions is dispersed by a spectrometer, usually an echelle polychromator with a CCD detector that records hundreds of lines at once, giving **simultaneous multi-element** analysis of 20–70 elements per minute. The plasma may be viewed from the side (**radial view**, which is robust against high-matrix samples and has a wide linear range) or end-on (**axial view**, which sees the full length of the central channel and improves detection limits by a factor of 5–10, but suffers more from matrix effects and self-absorption). Detection limits are 0.1–10 µg L⁻¹ with a linear range of 4–6 orders of magnitude and 1–2% RSD. The limitation is **spectral interference**: with thousands of lines from the plasma, the line of the analyte may be overlapped by a line of a matrix element (a rich emitter such as iron), and is corrected by choosing another line, by interelement correction, or by high spectral resolution.",
+        {
+          "h": "ICP-MS"
+        },
+        "In **inductively coupled plasma mass spectrometry (ICP-MS)** the plasma is used as an ion source. The ions pass from the atmospheric-pressure plasma into the vacuum through two metal **cones**, the **sampler** and the **skimmer** (nickel or platinum, 0.5–1 mm orifices), then through ion optics, and are separated by a quadrupole mass filter by their mass-to-charge ratio and counted with an electron multiplier. ICP-MS has detection limits of ng L⁻¹ to pg L⁻¹ (ppt to sub-ppt), a dynamic range of 8–9 orders, rapid analysis of nearly all elements, and gives **isotopic information**, used for isotope ratios (lead provenance, geochronology) and for **isotope dilution**, the most accurate calibration: a known amount of an enriched isotope is added to the sample, and the change in isotope ratio gives the analyte amount, independent of recovery and of matrix effects. It also pairs with **laser ablation** (a pulsed laser vaporizes a spot on a solid, and the particles are carried into the plasma) for direct analysis of rocks, glass and tissue with a spatial resolution of 5–100 µm.",
+        "Its weaknesses are interferences. **Isobaric interferences** are other elements with an isotope at the same mass (⁴⁰Ar on ⁴⁰Ca; ¹¹⁴Sn on ¹¹⁴Cd). **Polyatomic interferences** arise from ions formed from the plasma gas, the solvent and the matrix: ⁴⁰Ar¹⁶O⁺ on ⁵⁶Fe, ⁴⁰Ar³⁵Cl⁺ on ⁷⁵As (the one that makes arsenic in chloride samples difficult), ⁴⁰Ar₂⁺ on ⁸⁰Se, ³⁵Cl¹⁶O⁺ on ⁵¹V. The mass difference is tiny: ⁷⁵As is 74.9216 and ⁴⁰Ar³⁵Cl is 74.9312, so a resolving power of 75/0.0096 ≈ 7800 is needed to separate them, while a quadrupole has only 300–400. Other problems are **matrix suppression** (heavy matrix ions repel the lighter analyte ions by space-charge), signal drift (corrected with **internal standards** such as Rh, In or Y) and clogging of the cones, which limits the total dissolved solids to about 0.2%.",
+        {
+          "list": [
+            "A **collision/reaction cell (CRC)** placed before the quadrupole reduces polyatomic interferences. In **collision mode** with helium, the larger polyatomic ions undergo more collisions than the single-atom analyte ions and lose more energy; an energy barrier at the exit then rejects them: **kinetic energy discrimination (KED)**. This works for many interferences and many elements at once without prior knowledge of the matrix.",
+            "In **reaction mode** a gas such as NH₃, O₂ or H₂ reacts selectively, removing the interference (Ar⁺ with H₂ or NH₃ to neutralize it, for Ca and Fe) or shifting the analyte to a new mass (As⁺ + O₂ → AsO⁺ at m/z 91, free of ArCl). **ICP-MS/MS** (triple quadrupole) has a mass filter before the cell as well, to control which ions enter and so the reaction chemistry is predictable."
+          ]
+        },
+        {
+          "example": {
+            "title": "Arsenic in a chloride matrix",
+            "problem": "Arsenic (m/z 75) is to be determined in a sample of seawater. What interference is expected, and how can it be removed in ICP-MS?",
+            "solution": "The plasma produces ⁴⁰Ar³⁵Cl⁺ from the Ar and the high chloride content, with m/z 75, the same nominal mass as ⁷⁵As⁺. In a quadrupole instrument (resolution about 0.7 u) the two cannot be separated. Options: a collision cell with He and kinetic energy discrimination, which rejects the larger ArCl⁺ ions; or reaction with O₂, which converts As⁺ to AsO⁺ (m/z 91), where no interference occurs (⁹¹Zr is absent in most samples); and using an internal standard (Ge or Y) and a matrix-matched calibration."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "What is the main advantage of ICP over a flame as an atomization source?",
+          "a": "A temperature of 6000–10,000 K in an inert atmosphere, which excites nearly all elements with few matrix effects",
+          "wrong": [
+            "It is cheaper",
+            "It uses no gas",
+            "It runs at a lower temperature"
+          ]
+        },
+        {
+          "q": "What is the major interference on ⁷⁵As in ICP-MS?",
+          "a": "⁴⁰Ar³⁵Cl⁺",
+          "wrong": [
+            "⁴⁰Ar¹⁶O⁺",
+            "⁷⁵Br",
+            "⁵⁶Fe⁺"
+          ]
+        },
+        {
+          "q": "How does kinetic energy discrimination remove polyatomic ions?",
+          "a": "They lose more energy in collisions with He than atomic ions do and are rejected by an energy barrier",
+          "wrong": [
+            "They are charged and are removed by the magnetic field",
+            "They react with He",
+            "They are too light"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "choosing",
+      "title": "Choosing an atomic spectroscopy method",
+      "terms": [
+        "detection limits comparison",
+        "choosing an atomic method",
+        "comparison of atomic spectroscopic techniques",
+        "FAAS vs GFAAS vs ICP",
+        "atomic spectroscopic method selection"
+      ],
+      "body": [
+        "The right technique depends on the number of elements, concentrations, sample size, throughput and budget.",
+        {
+          "table": {
+            "head": [
+              "",
+              "FAAS",
+              "GFAAS",
+              "ICP-OES",
+              "ICP-MS"
+            ],
+            "rows": [
+              [
+                "Typical LOD",
+                "10–1000 µg L⁻¹",
+                "0.01–1 µg L⁻¹",
+                "0.1–10 µg L⁻¹",
+                "0.001–0.1 µg L⁻¹ (ng L⁻¹ or less)"
+              ],
+              [
+                "Elements per run",
+                "1 (sequential)",
+                "1",
+                "20–70 simultaneously",
+                "Nearly the whole periodic table"
+              ],
+              [
+                "Linear range",
+                "2–3 orders",
+                "1–2 orders",
+                "4–6 orders",
+                "8–9 orders"
+              ],
+              [
+                "Sample volume",
+                "mL (a few)",
+                "5–50 µL",
+                "mL (a few)",
+                "mL (or less)"
+              ],
+              [
+                "Time per sample",
+                "Seconds",
+                "2–3 min",
+                "Seconds per many elements",
+                "Minutes for many elements"
+              ],
+              [
+                "Precision (RSD)",
+                "0.5–2%",
+                "2–5%",
+                "1–2%",
+                "1–3% (0.01–0.1% for isotope ratios by MC-ICP-MS)"
+              ],
+              [
+                "Main interferences",
+                "Chemical, ionization",
+                "Matrix, background",
+                "Spectral overlap",
+                "Polyatomic, isobaric, matrix suppression"
+              ],
+              [
+                "Cost (instrument)",
+                "Low",
+                "Moderate",
+                "High",
+                "Highest (and the highest running cost)"
+              ]
+            ],
+            "caption": "Comparison of atomic spectroscopic techniques."
+          }
+        },
+        "A few rules of thumb. For a handful of elements at ppm concentration, FAAS is the cheapest and fastest. For a few trace elements in small samples (blood, a few mL of water), GFAAS gives the lowest detection limits of the single-element methods. For many elements at ppb to ppm, as in environmental and industrial laboratories, ICP-OES is the workhorse. For ultratrace levels, isotope ratios, semiconductor-grade materials, speciation by coupling with chromatography, or any need to cover most of the periodic table at once, ICP-MS is the answer. In practice a laboratory often has ICP-OES for the concentrated elements and ICP-MS for the trace elements of the same sample."
+      ],
+      "check": [
+        {
+          "q": "Which technique gives simultaneous multi-element analysis with ppb detection limits and a wide linear range?",
+          "a": "ICP-OES (or ICP-MS)",
+          "wrong": [
+            "FAAS",
+            "GFAAS",
+            "Cold-vapor AAS"
+          ]
+        },
+        {
+          "q": "Which is best for lead in 20 µL of a blood sample at µg/L levels?",
+          "a": "GFAAS",
+          "wrong": [
+            "FAAS",
+            "ICP-OES with a 5 mL sample",
+            "Gravimetric analysis"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Atoms absorb and emit narrow resonance lines. AAS uses element-specific hollow-cathode lamps. Excited-state populations rise exponentially with T, so hot plasmas excite nearly all elements.",
+    "FAAS: nebulizer and burner, ppm limits. Air–acetylene is standard and N₂O–acetylene is for refractory oxides. Interferences are chemical (releasing agents), ionization (suppressors), physical and spectral.",
+    "GFAAS: dry, pyrolysis, atomization and clean-out steps. Matrix modifiers, L’vov platform and Zeeman correction give ppt to ppb sensitivity on µL samples.",
+    "Hydride generation (As, Se, Sb…) and cold-vapor Hg increase sensitivity by separating the analyte. AFS adds sensitivity with a dark background.",
+    "ICP-OES: 6000–10,000 K plasma, simultaneous multi-element, spectral interference. ICP-MS: ng L⁻¹ limits, isotope ratios and isotope dilution, polyatomic interferences (ArCl on As) removed by collision/reaction cells.",
+    "Choose by elements, concentration, sample size and cost: FAAS (ppm, one element), GFAAS (ppb, µL), ICP-OES (many elements), ICP-MS (ultratrace, isotopes)."
+  ],
+  "problems": [
+    {
+      "q": "Calculate the fraction of sodium atoms in the 3p state at 2500 K and at 6000 K. (λ = 589 nm, g*/g₀ = 3.)",
+      "solution": "E = hc/λ = 3.37 × 10⁻¹⁹ J = 2.10 eV. At 2500 K, kT = 0.2154 eV and N*/N₀ = 3e^{−9.75} = 3 × 5.8 × 10⁻⁵ = 1.7 × 10⁻⁴. At 6000 K, kT = 0.517 eV and N*/N₀ = 3e^{−4.06} = 3 × 0.0172 = 0.052. The excited fraction rises 300-fold.",
+      "a": "1.7 × 10⁻⁴ at 2500 K and 0.052 at 6000 K."
+    },
+    {
+      "q": "A graphite furnace analysis of cadmium without a modifier gives a low and irreproducible signal when the pyrolysis temperature is 700 °C. Explain and suggest a remedy.",
+      "solution": "Cadmium is volatile (b.p. 765 °C, and as CdCl₂ even lower), so at 700 °C part of the cadmium is lost in the pyrolysis step, with the loss depending on the matrix. A modifier of Pd(NO₃)₂ with Mg(NO₃)₂ stabilizes Cd to about 800–900 °C, or the pyrolysis temperature can be reduced to about 300–400 °C if the matrix is simple.",
+      "a": "Cd is lost during pyrolysis; use a Pd/Mg modifier or lower the pyrolysis temperature."
+    },
+    {
+      "q": "Why is hydride-generation AAS about 100 times more sensitive for arsenic than flame AAS?",
+      "solution": "Hydride generation delivers essentially all of the arsenic to the atomizer (flame nebulization delivers only about 5–10%), as a pure gas free of the matrix, into a quartz cell with no dilution by a large flame gas volume, and avoids the absorption of the flame at the 193.7 nm As line.",
+      "a": "Complete transport of the analyte as a gas, with a low background."
+    },
+    {
+      "q": "The vanadium isotope ⁵¹V (50.9440) and ³⁵Cl¹⁶O (50.9638) overlap in ICP-MS. What resolution would be required to separate them, and how could they be handled with a quadrupole?",
+      "solution": "R = m/Δm = 50.95/0.0198 = 2570: far beyond a quadrupole (300–400). Use a collision cell with He and KED (ClO⁺ is a diatomic and loses more energy than V⁺ in collisions), or react V⁺ with O₂ to form VO⁺ (m/z 67) and measure it there, or use a high-resolution (sector field) instrument.",
+      "a": "R ≈ 2600; use KED, mass-shift reaction or a sector-field instrument."
+    }
+  ]
+}

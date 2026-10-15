@@ -1,0 +1,403 @@
+{
+  "id": "enolates",
+  "view": "chapter",
+  "title": "Enolates and Carbonyl Condensations",
+  "description": "α-Hydrogen acidity, aldol and Claisen reactions, enolate alkylation, and conjugate addition.",
+  "overview": [
+    "The carbonyl carbon is electrophilic, but the carbon next to it, the α carbon, can be made nucleophilic. Remove an α-proton and the result is an enolate, a carbon nucleophile that attacks carbonyl compounds and alkyl halides to form carbon–carbon bonds. These reactions assemble the skeletons of sugars, steroids, fatty acids and most natural products, and they are the core of synthetic strategy.",
+    "This chapter develops enolate formation and control, then the main reactions: aldol and Claisen condensations, alkylation (including the malonic and acetoacetic ester syntheses), and conjugate addition, with ring-forming applications such as the Robinson annulation."
+  ],
+  "objectives": [
+    "Explain the acidity of α-hydrogens and compare pK_a values of carbonyl compounds.",
+    "Form kinetic and thermodynamic enolates and choose bases for each.",
+    "Predict the products of aldol additions and condensations, including crossed and intramolecular versions.",
+    "Predict the products of Claisen and Dieckmann condensations.",
+    "Use malonic ester and acetoacetic ester syntheses and enamine alkylation to make substituted acids and ketones.",
+    "Describe Michael addition, 1,2- versus 1,4-addition, and the Robinson annulation."
+  ],
+  "sections": [
+    {
+      "id": "enolate-formation",
+      "title": "Enolates and α-hydrogen acidity",
+      "terms": [
+        "enolate",
+        "enolates",
+        "alpha hydrogen",
+        "alpha hydrogens",
+        "α-hydrogen",
+        "α-hydrogens",
+        "alpha carbon",
+        "α-carbon",
+        "LDA",
+        "lithium diisopropylamide",
+        "kinetic enolate",
+        "thermodynamic enolate",
+        "enolization",
+        "haloform reaction",
+        "iodoform test",
+        "alpha halogenation",
+        "α-halogenation",
+        "Hell–Volhard–Zelinsky"
+      ],
+      "body": [
+        "A hydrogen on the carbon next to a carbonyl is acidic, because loss of H⁺ leaves a carbanion whose charge is delocalized onto oxygen: the **enolate**. A ketone’s α-hydrogen has pK_a about 19–20, much lower than an alkane (about 50) or an alkene C–H (44).",
+        {
+          "table": {
+            "head": [
+              "Compound type",
+              "Approximate pK_a of α-H"
+            ],
+            "rows": [
+              [
+                "Aldehyde",
+                "17"
+              ],
+              [
+                "Ketone",
+                "19–20"
+              ],
+              [
+                "Ester",
+                "25"
+              ],
+              [
+                "Nitrile",
+                "25–30"
+              ],
+              [
+                "Amide",
+                "30"
+              ],
+              [
+                "Diethyl malonate (a 1,3-diester)",
+                "13"
+              ],
+              [
+                "Ethyl acetoacetate (a β-ketoester)",
+                "11"
+              ],
+              [
+                "Acetylacetone (a 1,3-diketone)",
+                "9"
+              ]
+            ],
+            "caption": "Acidity of α-hydrogens. A second carbonyl, between which the hydrogen sits, lowers the pK_a by about 8."
+          }
+        },
+        "The base determines how much enolate forms. Hydroxide or ethoxide (conjugate acid pK_a 16–17) deprotonate a ketone only partially (an equilibrium with a small fraction of enolate), which is enough for reactions in which the enolate meets an electrophile present at the same time, as in the aldol reaction. **Lithium diisopropylamide (LDA)** (conjugate acid pK_a 36), a strong, bulky, non-nucleophilic base, converts a ketone completely to its enolate at −78 °C in THF, allowing the enolate to be made first and the electrophile added second.",
+        {
+          "h": "Kinetic and thermodynamic enolates"
+        },
+        "An unsymmetrical ketone such as 2-methylcyclohexanone has two sets of α-hydrogens. LDA at −78 °C removes the more accessible, less substituted one, in an irreversible reaction under **kinetic control**, giving the less substituted (**kinetic**) enolate. Under equilibrating conditions (a weaker base such as NaOEt in ethanol, or higher temperature, so the enolates interconvert), the more stable, more substituted (**thermodynamic**) enolate predominates.",
+        {
+          "h": "α-Halogenation"
+        },
+        "Under acid, a ketone enolizes slowly and brominates once at the α position. Under base the first halogen makes the remaining α-hydrogens more acidic, so reaction continues until all are replaced. A methyl ketone then undergoes the **haloform reaction**: the CX₃ group is expelled as a leaving group after hydroxide attacks the carbonyl, giving a carboxylate and CHX₃. With iodine it is the **iodoform test** (yellow precipitate of CHI₃) for methyl ketones and for CH₃CH(OH)–R. A carboxylic acid is α-brominated through its acid bromide in the **Hell–Volhard–Zelinsky** reaction (Br₂, cat. PBr₃).",
+        {
+          "example": {
+            "title": "Choosing the base",
+            "problem": "Which enolate of 2-methylcyclohexanone forms with LDA at −78 °C, and which with NaOEt in EtOH?",
+            "solution": "LDA gives the less substituted (kinetic) enolate, with the double bond toward C6, because the bulky base removes the more accessible CH₂ proton irreversibly. NaOEt allows equilibration and gives mostly the more substituted (thermodynamic) enolate, with the double bond toward the methyl-bearing carbon."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Which is the most acidic?",
+          "a": "CH₃COCH₂COCH₃ (acetylacetone)",
+          "wrong": [
+            "CH₃COCH₃",
+            "CH₃COOCH₂CH₃",
+            "CH₃CH₃"
+          ]
+        },
+        {
+          "q": "Which base gives complete, irreversible conversion of a ketone to its less substituted enolate?",
+          "a": "LDA at −78 °C",
+          "wrong": [
+            "NaOH in water",
+            "NaOEt in ethanol",
+            "Pyridine"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "aldol",
+      "title": "The aldol reaction",
+      "terms": [
+        "aldol",
+        "aldol reaction",
+        "aldol addition",
+        "aldol condensation",
+        "crossed aldol",
+        "mixed aldol",
+        "directed aldol",
+        "Claisen–Schmidt condensation",
+        "retro-aldol",
+        "enone",
+        "α,β-unsaturated carbonyl",
+        "Knoevenagel condensation",
+        "Knoevenagel",
+        "intramolecular aldol"
+      ],
+      "body": [
+        "In the **aldol reaction** the enolate of one carbonyl compound adds to the carbonyl of another. With acetaldehyde and aqueous NaOH the product is 3-hydroxybutanal, an **aldol** (aldehyde plus alcohol):",
+        {
+          "eq": "2 CH₃CHO → CH₃CH(OH)CH₂CHO   (NaOH, H₂O, 5 °C)"
+        },
+        "A C–C bond forms between the α carbon of one molecule and the carbonyl carbon of the other. The step is reversible (**retro-aldol**), and ketones, with less favorable equilibria, often need the product removed. Heating the aldol product with base or acid eliminates water to give a conjugated **enone** (α,β-unsaturated carbonyl): that is the **aldol condensation**, driven by the stability of the conjugated product: CH₃CH=CHCHO (crotonaldehyde).",
+        {
+          "h": "Crossed (mixed) aldol reactions"
+        },
+        "If two different carbonyl compounds are mixed, each can serve as enolate and as electrophile, giving up to four products. The reaction is practical in three cases:",
+        {
+          "list": [
+            "One partner has **no α-hydrogens** and is a better electrophile (benzaldehyde, formaldehyde). It is added to the enolizable partner. Benzaldehyde and acetone give benzalacetone (PhCH=CHCOCH₃), a **Claisen–Schmidt** condensation, and with excess benzaldehyde, dibenzalacetone.",
+            "The enolate is made completely first with LDA (**directed aldol**), then the second carbonyl is added.",
+            "An activated methylene compound (diethyl malonate, malononitrile) condenses with aldehydes in the **Knoevenagel** condensation, catalyzed by a weak base such as piperidine."
+          ]
+        },
+        {
+          "h": "Intramolecular aldol"
+        },
+        "A dicarbonyl compound can close a ring when five- or six-membered rings result. Hexane-2,5-dione with NaOH gives 3-methylcyclopent-2-enone.",
+        {
+          "example": {
+            "title": "Predict an aldol product",
+            "problem": "Give the product of heating butanal with aqueous NaOH.",
+            "solution": [
+              "The enolate of butanal (α carbon C2) attacks the carbonyl of a second butanal, giving 3-hydroxy-2-ethylhexanal.",
+              "On heating, loss of water gives the conjugated enal, 2-ethylhex-2-enal (the precursor of 2-ethylhexanol, used in plasticizers)."
+            ]
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "What drives dehydration of an aldol to the condensation product?",
+          "a": "Formation of a conjugated enone",
+          "wrong": [
+            "Release of ring strain",
+            "Neutralization of the base",
+            "Formation of an aromatic ring always"
+          ]
+        },
+        {
+          "q": "Which gives a clean crossed aldol with acetone?",
+          "a": "Benzaldehyde",
+          "wrong": [
+            "Acetaldehyde",
+            "Propanal",
+            "Butanone"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "claisen",
+      "title": "Claisen and Dieckmann condensations",
+      "terms": [
+        "Claisen condensation",
+        "Dieckmann condensation",
+        "Dieckmann",
+        "β-ketoester",
+        "beta-ketoester",
+        "β-keto ester",
+        "ethyl acetoacetate",
+        "acetoacetate",
+        "mixed Claisen",
+        "crossed Claisen"
+      ],
+      "body": [
+        "Esters also have acidic α-hydrogens (pK_a 25). In the **Claisen condensation** an ester enolate adds to the carbonyl of a second ester and, unlike an aldehyde, the tetrahedral intermediate expels alkoxide to regenerate a carbonyl: nucleophilic acyl substitution. Two molecules of ethyl acetate give ethyl acetoacetate, a **β-ketoester**:",
+        {
+          "eq": "2 CH₃COOEt + NaOEt → CH₃COCH₂COOEt + EtOH   (then H₃O⁺)"
+        },
+        "A full equivalent of base is needed, because the product, with pK_a about 11, is deprotonated by ethoxide to a stabilized enolate. That final, favorable step pulls the otherwise unfavorable equilibrium to completion. The alkoxide must match the ester (ethoxide with ethyl esters), or ester exchange scrambles the product. A **mixed Claisen** condensation works when one ester has no α-hydrogens (ethyl benzoate, diethyl carbonate, ethyl formate).",
+        "The intramolecular version, the **Dieckmann condensation**, closes five- and six-membered rings: diethyl adipate (a 1,6-diester) gives 2-carbethoxycyclopentanone, and diethyl pimelate gives the six-membered ring analogue. Hydrolysis and decarboxylation of the β-ketoester then gives a cyclic ketone.",
+        {
+          "example": {
+            "title": "A Dieckmann ring closure",
+            "problem": "What is the product of diethyl hexanedioate (diethyl adipate) with NaOEt, then H₃O⁺?",
+            "solution": "The enolate formed at one α carbon attacks the other ester carbonyl, forming a five-membered ring and expelling ethoxide: ethyl 2-oxocyclopentanecarboxylate. Treating it with aqueous acid and heat would hydrolyze the ester and decarboxylate it to cyclopentanone."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Why does the Claisen condensation need a full equivalent of base?",
+          "a": "The product β-ketoester is deprotonated, which drives the equilibrium",
+          "wrong": [
+            "The base is a catalyst that is regenerated",
+            "The ester is a weak acid",
+            "The base is consumed in making ethanol"
+          ]
+        },
+        {
+          "q": "What is the Dieckmann condensation?",
+          "a": "An intramolecular Claisen condensation that forms a ring",
+          "wrong": [
+            "An intermolecular aldol reaction",
+            "A decarboxylation",
+            "An ester hydrolysis"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "alkylation",
+      "title": "Alkylation of enolates",
+      "terms": [
+        "alkylation of enolates",
+        "enolate alkylation",
+        "malonic ester synthesis",
+        "acetoacetic ester synthesis",
+        "diethyl malonate",
+        "decarboxylation",
+        "Stork enamine",
+        "Stork enamine alkylation",
+        "β-keto acid"
+      ],
+      "body": [
+        "An enolate is a nucleophile in SN2 reactions with primary alkyl halides (methyl, primary, allylic and benzylic work best; secondary halides eliminate, and tertiary halides never work). With a ketone, LDA makes the enolate quantitatively, and the alkyl halide is then added: R–CO–CH₃ → R–CO–CH₂R′.",
+        {
+          "h": "Malonic ester synthesis"
+        },
+        "Diethyl malonate (pK_a 13) is converted by NaOEt entirely into its enolate and alkylated. A second alkylation is possible. Hydrolysis with aqueous acid gives a malonic acid, and heating the 1,3-diacid causes **decarboxylation**: it loses CO₂ through a cyclic six-membered transition state to give an enol, which tautomerizes. The overall result converts R–X into R–CH₂COOH, a carboxylic acid with two more carbons.",
+        {
+          "h": "Acetoacetic ester synthesis"
+        },
+        "Ethyl acetoacetate (pK_a 11) is alkylated at the central carbon in the same way. Hydrolysis and decarboxylation of the β-keto acid (which loses CO₂ even more easily than a malonic acid) gives a methyl ketone, R–CH₂COCH₃. It converts R–X into a ketone with three more carbons.",
+        {
+          "example": {
+            "title": "Malonic ester synthesis",
+            "problem": "Prepare 2-methylbutanoic acid from diethyl malonate.",
+            "solution": [
+              "Deprotonate diethyl malonate with NaOEt and alkylate with CH₃CH₂Br to give diethyl ethylmalonate. Deprotonate again and alkylate with CH₃I to give diethyl ethylmethylmalonate.",
+              "Hydrolyze with aqueous acid and heat: the diacid decarboxylates, leaving CH₃CH₂CH(CH₃)COOH, 2-methylbutanoic acid."
+            ]
+          }
+        },
+        {
+          "example": {
+            "title": "Acetoacetic ester synthesis",
+            "problem": "Prepare 4-phenylbutan-2-one from ethyl acetoacetate.",
+            "solution": "Alkylate the enolate of ethyl acetoacetate with benzyl bromide to give ethyl 2-benzylacetoacetate. Hydrolyze (H₃O⁺ or NaOH then H₃O⁺) and heat: decarboxylation gives PhCH₂CH₂COCH₃."
+          }
+        },
+        {
+          "h": "Enamines"
+        },
+        "An enamine is a neutral, milder enolate equivalent. Its β carbon is nucleophilic and reacts with alkyl halides, acyl chlorides and Michael acceptors. Hydrolysis of the resulting iminium ion returns the ketone. This is the **Stork enamine** sequence: ketone + pyrrolidine → enamine → reaction with R–X → H₃O⁺ gives the α-alkylated ketone, with less overalkylation than with strong bases."
+      ],
+      "check": [
+        {
+          "q": "What is the product of the acetoacetic ester synthesis?",
+          "a": "A methyl ketone",
+          "wrong": [
+            "A carboxylic acid",
+            "An alcohol",
+            "An aldehyde"
+          ]
+        },
+        {
+          "q": "Which alkyl halide is unsuitable for enolate alkylation?",
+          "a": "tert-Butyl bromide",
+          "wrong": [
+            "Methyl iodide",
+            "Benzyl bromide",
+            "Allyl chloride"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "conjugate",
+      "title": "Conjugate addition, Michael and Robinson reactions",
+      "terms": [
+        "Michael addition",
+        "Michael reaction",
+        "Michael acceptor",
+        "Michael donor",
+        "Robinson annulation",
+        "conjugate addition",
+        "1,4-addition",
+        "1,2-addition",
+        "α,β-unsaturated ketone",
+        "enone conjugate addition",
+        "Wieland–Miescher ketone"
+      ],
+      "body": [
+        "An α,β-unsaturated carbonyl compound has two electrophilic carbons: the carbonyl carbon (C2, direct or 1,2-addition) and the β carbon (C4 of the conjugated system, **conjugate** or 1,4-addition), since resonance places partial positive charge on both. The enol or enolate that results from 1,4-addition protonates at carbon.",
+        {
+          "list": [
+            "**Hard, strongly basic nucleophiles** (Grignard reagents, organolithiums, LiAlH₄) attack the carbonyl directly under kinetic control (1,2). The product is an allylic alcohol.",
+            "**Soft, weakly basic nucleophiles** (stabilized enolates, Gilman cuprates, amines, thiolates, cyanide) add 1,4, under thermodynamic control: they form a C–Nu bond at the β carbon and preserve the strong C=O bond."
+          ]
+        },
+        "The **Michael addition** (Michael reaction) is the 1,4-addition of an enolate (the donor) to an α,β-unsaturated carbonyl (the **Michael acceptor**), making a 1,5-dicarbonyl compound. Malonates, β-ketoesters, nitroalkanes and enamines are the usual donors.",
+        {
+          "h": "Robinson annulation"
+        },
+        "A Michael addition followed by an intramolecular aldol condensation builds a six-membered ring in one operation: the **Robinson annulation**. Methyl vinyl ketone and a cyclohexanone enolate add 1,4 to give a 1,5-diketone, whose enolate then attacks the other ketone and dehydrates, giving a cyclohexenone fused to the first ring. It is a standard route to steroids and terpenes. With 2-methylcyclohexane-1,3-dione and methyl vinyl ketone it gives the Wieland–Miescher ketone, an intermediate for steroid synthesis.",
+        {
+          "example": {
+            "title": "1,2 versus 1,4",
+            "problem": "Predict the product of cyclohex-2-enone with (a) CH₃MgBr and (b) (CH₃)₂CuLi, each followed by H₃O⁺.",
+            "solution": "(a) The Grignard reagent attacks the carbonyl (1,2): 1-methylcyclohex-2-en-1-ol. (b) The cuprate adds to the β carbon (1,4): 3-methylcyclohexanone."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "A Gilman reagent with an enone gives…",
+          "a": "Conjugate (1,4) addition",
+          "wrong": [
+            "Direct (1,2) addition",
+            "No reaction",
+            "Reduction of the C=C"
+          ]
+        },
+        {
+          "q": "What two reactions make up a Robinson annulation?",
+          "a": "A Michael addition then an intramolecular aldol condensation",
+          "wrong": [
+            "A Claisen and a Wittig reaction",
+            "A Diels–Alder and an aldol",
+            "An alkylation and a hydrolysis"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "α-Hydrogens are acidic (pK_a 17–25 for simple carbonyls, 9–13 for 1,3-dicarbonyls). LDA gives the kinetic enolate completely, and NaOEt gives the thermodynamic one under equilibrium.",
+    "Aldol reactions join an enolate and a carbonyl. Heat gives the enone (condensation). Crossed aldols work when one partner has no α-H.",
+    "Claisen condensations of esters give β-ketoesters and are driven by deprotonation of the product. Dieckmann closes 5- and 6-membered rings.",
+    "Enolate alkylation requires primary halides. Malonic ester synthesis gives substituted acetic acids, and acetoacetic ester gives methyl ketones, after decarboxylation.",
+    "Soft nucleophiles add 1,4 to enones and hard ones add 1,2. Michael addition plus aldol is the Robinson annulation."
+  ],
+  "problems": [
+    {
+      "q": "Give the products: (a) cyclohexanone + LDA (−78 °C), then CH₃I; (b) benzaldehyde + acetophenone + NaOH, heat; (c) ethyl propanoate + NaOEt, then H₃O⁺.",
+      "solution": "(a) 2-Methylcyclohexanone. (b) Chalcone, PhCH=CHCOPh. (c) Ethyl 2-methyl-3-oxopentanoate (CH₃CH₂COCH(CH₃)COOEt), the Claisen product.",
+      "a": "(a) 2-methylcyclohexanone; (b) chalcone; (c) ethyl 2-methyl-3-oxopentanoate."
+    },
+    {
+      "q": "Outline a synthesis of hexanoic acid from diethyl malonate.",
+      "solution": "Deprotonate diethyl malonate with NaOEt and alkylate once with 1-bromobutane to give diethyl butylmalonate. Hydrolyze with aqueous acid and heat; decarboxylation gives CH₃CH₂CH₂CH₂CH₂COOH, hexanoic acid (the butyl group plus two carbons from malonate).",
+      "a": "NaOEt, BuBr; H₃O⁺, heat."
+    },
+    {
+      "q": "Show how an intramolecular aldol converts heptane-2,6-dione into 3-methylcyclohex-2-enone.",
+      "solution": "Base removes an α-hydrogen from C1 (the methyl) to give an enolate, which attacks the carbonyl at C6 through a six-membered ring transition state. Dehydration of the β-hydroxy ketone forms the conjugated enone, a six-membered ring with the methyl group of the other end at C3.",
+      "a": "Enolate attack on the C6 carbonyl, then dehydration."
+    },
+    {
+      "q": "Why does a secondary alkyl halide give poor yields in the malonic ester synthesis?",
+      "solution": "The enolate is also a base. With a secondary halide, SN2 is slow and E2 elimination competes, giving an alkene from the halide.",
+      "a": "E2 competes with SN2."
+    }
+  ]
+}

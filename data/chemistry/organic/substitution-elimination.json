@@ -1,0 +1,413 @@
+{
+  "id": "substitution-elimination",
+  "view": "chapter",
+  "title": "Substitution and Elimination",
+  "description": "SN2, SN1, E2 and E1: how alkyl halides and related substrates react with nucleophiles and bases.",
+  "overview": [
+    "The most basic reactions of organic chemistry occur at an sp³ carbon bearing a leaving group, typically a halide. A nucleophile can replace the leaving group (substitution), or a base can remove a neighboring proton and expel the leaving group to form an alkene (elimination). These four reactions, SN2, SN1, E2 and E1, compete, and an essential skill is to predict which wins.",
+    "This chapter treats the mechanism of each, the evidence for it, the roles of the substrate, nucleophile, leaving group and solvent, and finally a systematic way to choose between substitution and elimination."
+  ],
+  "objectives": [
+    "Describe the mechanisms, rate laws and stereochemistry of SN2 and SN1 reactions.",
+    "Rank leaving groups, nucleophiles and solvents.",
+    "Predict carbocation rearrangements.",
+    "Describe E2 and E1, apply Zaitsev’s rule, and recognize when the Hofmann product forms.",
+    "Predict the major product of the reaction of an alkyl halide with a given reagent."
+  ],
+  "sections": [
+    {
+      "id": "sn2",
+      "title": "The SN2 reaction",
+      "terms": [
+        "SN2",
+        "SN2 reaction",
+        "nucleophilic substitution",
+        "bimolecular nucleophilic substitution",
+        "backside attack",
+        "Walden inversion",
+        "inversion of configuration in SN2",
+        "nucleophilicity",
+        "polar aprotic solvent",
+        "polar aprotic solvents",
+        "Finkelstein reaction",
+        "neopentyl",
+        "leaving group",
+        "leaving groups"
+      ],
+      "body": [
+        "In **nucleophilic substitution** a nucleophile replaces a leaving group on carbon: Nu:⁻ + R–X → R–Nu + X:⁻. In the **SN2** (substitution, nucleophilic, bimolecular) mechanism, the nucleophile attacks the carbon from the side opposite the leaving group, as the leaving group departs, in a single concerted step with one transition state:",
+        {
+          "eq": [
+            "HO⁻ + CH₃CH₂Br → CH₃CH₂OH + Br⁻",
+            "rate = k[R–X][Nu⁻]"
+          ]
+        },
+        "The rate depends on both reactants, hence bimolecular and second order. Because the nucleophile approaches from the **backside**, directly opposite the C–X bond, the stereochemistry at the carbon is **inverted**, like an umbrella blowing inside-out (Walden inversion). (R)-2-bromobutane gives (S)-2-butanol.",
+        {
+          "h": "Substrate"
+        },
+        "Steric hindrance controls the SN2 rate. The nucleophile must reach the back of the carbon, and each alkyl group impedes it: **methyl > primary > secondary ≫ tertiary** (tertiary halides do not react by SN2). Even a primary halide with a bulky neighbor, such as neopentyl bromide ((CH₃)₃CCH₂Br), is nearly inert. Allylic and benzylic halides are faster because the π system stabilizes the transition state. Relative rates for R–Br with I⁻: methyl 30, ethyl 1, isopropyl 0.03, neopentyl 10⁻⁵.",
+        {
+          "h": "Leaving group"
+        },
+        "A good leaving group is a weak base, the conjugate base of a strong acid, which can carry the negative charge stably: I⁻ > Br⁻ > Cl⁻ ≫ F⁻, and sulfonates such as tosylate (TsO⁻), mesylate and triflate, which are better than any halide. HO⁻, RO⁻ and H₂N⁻ are poor and do not leave. Alcohols are converted to leaving groups by protonation (H₂O leaves) or by making sulfonates or halides.",
+        {
+          "h": "Nucleophile"
+        },
+        "Nucleophilicity increases with negative charge (HO⁻ > H₂O) and, across a row, with decreasing electronegativity (NH₃ > H₂O; R₃P > R₃N is a polarizability effect). Down a group, in protic solvents, larger and more polarizable atoms are better nucleophiles (I⁻ > Br⁻ > Cl⁻ > F⁻; RS⁻ ≫ RO⁻), because they are less tightly solvated. Excellent nucleophiles that are weakly basic: I⁻, Br⁻, N₃⁻, RS⁻, CN⁻, PR₃.",
+        {
+          "h": "Solvent"
+        },
+        "**Polar aprotic solvents** (acetone, DMSO, DMF, acetonitrile) dissolve ionic nucleophiles but, with no O–H or N–H, do not hydrogen bond to the anion. The nucleophile is bare and very reactive, so SN2 rates can be 10³–10⁶ faster than in methanol or water. A classic use is the **Finkelstein reaction**, R–Cl + NaI in acetone → R–I + NaCl(s), driven by precipitation of NaCl.",
+        {
+          "svg": "<svg viewBox='0 0 480 230' role='img' aria-label='Energy profiles of SN2 and SN1' font-family='system-ui, sans-serif' font-size='12'><g fill='none' stroke='currentColor' stroke-width='1.5'><path d='M30,20 V200 H215 M265,20 V200 H455'/></g><path fill='none' style='stroke:var(--accent)' stroke-width='2.5' d='M30,150 H55 C85,150 95,60 125,60 C155,60 165,160 195,160 H215'/><path fill='none' style='stroke:var(--accent)' stroke-width='2.5' d='M265,150 H290 C310,150 315,55 335,55 C355,55 360,115 375,115 C390,115 395,85 410,85 C425,85 430,165 450,165'/><g fill='currentColor'><text x='36' y='14'>SN2: one step</text><text x='271' y='14'>SN1: two steps</text><text x='125' y='50' text-anchor='middle'>[Nu···C···X]‡</text><text x='375' y='140' text-anchor='middle' font-size='11'>R⁺ (carbocation)</text><text x='335' y='45' text-anchor='middle'>slow: C–X breaks</text><text x='215' y='218' text-anchor='end'>reaction coordinate</text><text x='455' y='218' text-anchor='end'>reaction coordinate</text></g></svg>",
+          "caption": "SN2 has a single transition state. SN1 has a carbocation intermediate between two transition states. The first, forming the carbocation, is the slow step."
+        },
+        {
+          "example": {
+            "title": "Predicting the SN2 product",
+            "problem": "What is the product of (S)-2-bromohexane with NaN₃ in DMSO?",
+            "solution": "Azide is a strong nucleophile and weak base, the secondary substrate permits SN2, and DMSO is aprotic: SN2 with inversion. The product is (R)-2-azidohexane. The incoming N and the departing Br both have the highest CIP priority, so inversion of geometry changes the label from S to R."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Which substrate reacts fastest in SN2?",
+          "a": "CH₃Br",
+          "wrong": [
+            "(CH₃)₂CHBr",
+            "(CH₃)₃CBr",
+            "(CH₃)₃CCH₂Br"
+          ]
+        },
+        {
+          "q": "What is the stereochemical outcome of an SN2 reaction at a stereocenter?",
+          "a": "Inversion of configuration",
+          "wrong": [
+            "Retention of configuration",
+            "Racemization",
+            "No change at carbon"
+          ]
+        },
+        {
+          "q": "Which is the best leaving group?",
+          "a": "Tosylate (TsO⁻)",
+          "wrong": [
+            "HO⁻",
+            "F⁻",
+            "NH₂⁻"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sn1",
+      "title": "The SN1 reaction",
+      "terms": [
+        "SN1",
+        "SN1 reaction",
+        "unimolecular nucleophilic substitution",
+        "solvolysis",
+        "polar protic solvent",
+        "polar protic solvents",
+        "carbocation rearrangement",
+        "carbocation rearrangements",
+        "hydride shift",
+        "methyl shift",
+        "1,2-shift",
+        "Wagner–Meerwein",
+        "ion pair"
+      ],
+      "body": [
+        "In the **SN1** mechanism (substitution, nucleophilic, unimolecular) the leaving group departs first, in a slow step, giving a carbocation, which is then captured by the nucleophile in a fast step:",
+        {
+          "eq": [
+            "(CH₃)₃C–Br → (CH₃)₃C⁺ + Br⁻   (slow)",
+            "(CH₃)₃C⁺ + H₂O → (CH₃)₃C–OH₂⁺ → (CH₃)₃COH   (fast)",
+            "rate = k[R–X]"
+          ]
+        },
+        "The rate does not depend on the nucleophile, which is why SN1 is called first order. The carbocation is planar, so the nucleophile can attack either face. If the carbon was a stereocenter, the product is largely **racemized**; usually there is a modest excess of inversion because the leaving group still shields one face briefly (an ion pair). When the solvent is the nucleophile, as with water or ethanol, the reaction is called **solvolysis**.",
+        {
+          "list": [
+            "**Substrate:** the rate follows carbocation stability, **tertiary > secondary ≫ primary**, and allylic and benzylic are fast. Relative solvolysis rates of R–Br in water: methyl 1, ethyl 1, isopropyl 12, tert-butyl 1.2 × 10⁶.",
+            "**Leaving group:** the same trend as for SN2.",
+            "**Solvent:** **polar protic solvents** (water, alcohols, carboxylic acids) stabilize both the carbocation and the departing anion by hydrogen bonding and ion–dipole interactions, which accelerates ionization.",
+            "**Nucleophile:** weak nucleophiles are enough, because the carbocation is extremely reactive."
+          ]
+        },
+        {
+          "h": "Carbocation rearrangements"
+        },
+        "Because a carbocation is a discrete intermediate, it can rearrange to a more stable one by moving a neighboring group with its bonding electrons, a 1,2-shift. A **hydride shift** or a **methyl shift** converts a secondary into a tertiary cation (or a less stabilized into a more stabilized one). SN1 and E1 reactions, and alkene hydrations, often give rearranged products.",
+        {
+          "example": {
+            "title": "A rearrangement",
+            "problem": "3-Methylbutan-2-ol is treated with HBr. What is the major product?",
+            "solution": [
+              "Protonation and loss of water gives a secondary cation, (CH₃)₂CH–CH⁺–CH₃. A hydride shift from the neighboring tertiary carbon gives the tertiary cation (CH₃)₂C⁺–CH₂CH₃, which is captured by Br⁻.",
+              "The major product is 2-bromo-2-methylbutane, not 2-bromo-3-methylbutane. Rearrangement is the signature of a carbocation."
+            ]
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "The rate of an SN1 reaction depends on…",
+          "a": "The concentration of the substrate only",
+          "wrong": [
+            "The concentrations of the substrate and the nucleophile",
+            "The concentration of the nucleophile only",
+            "Neither"
+          ]
+        },
+        {
+          "q": "SN1 at a chiral center typically gives…",
+          "a": "Mostly racemic product",
+          "wrong": [
+            "Complete inversion",
+            "Complete retention",
+            "An achiral product"
+          ]
+        },
+        {
+          "q": "A secondary carbocation next to a tertiary carbon with a hydrogen is likely to…",
+          "a": "Undergo a hydride shift to a tertiary cation",
+          "wrong": [
+            "Lose its charge to the solvent immediately",
+            "Form a carbanion",
+            "Remain unchanged"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "elimination",
+      "title": "Elimination: E2 and E1",
+      "terms": [
+        "E2",
+        "E2 reaction",
+        "E1",
+        "E1 reaction",
+        "elimination reaction",
+        "elimination reactions",
+        "Zaitsev's rule",
+        "Zaitsev",
+        "Saytzeff",
+        "Hofmann product",
+        "Hofmann rule",
+        "dehydrohalogenation",
+        "dehydration",
+        "dehydration of alcohols",
+        "anti-periplanar",
+        "β-hydrogen",
+        "beta elimination"
+      ],
+      "body": [
+        "In an **elimination** a base removes a proton from the carbon adjacent (β) to the one bearing the leaving group, and the electrons form a π bond: H–C–C–X → C=C + HX. It converts an alkyl halide into an alkene.",
+        {
+          "h": "E2"
+        },
+        "The **E2** reaction is concerted: the base removes the proton as the leaving group leaves, in one step, with rate = k[R–X][Base]. The geometry matters: the H and the leaving group must be **anti-periplanar** (dihedral 180°), so that the C–H bonding electrons can overlap with the C–X antibonding orbital. In cyclohexanes this means both must be axial, and a substituent that locks the leaving group equatorial prevents E2. Menthyl chloride eliminates 200 times more slowly than neomenthyl chloride, and gives a different alkene, because of this rule.",
+        "With a small base, the major product is the more substituted alkene: **Zaitsev’s rule**. Zaitsev alkenes are more stable (hyperconjugation), and the transition state shows some alkene character. With a bulky base such as potassium tert-butoxide, the base cannot easily reach the internal hydrogen, and removes the more accessible one, giving the less substituted alkene, the **Hofmann product**. Poor leaving groups such as –NR₃⁺ and fluoride also give Hofmann elimination.",
+        {
+          "table": {
+            "head": [
+              "Substrate",
+              "Base",
+              "Major product"
+            ],
+            "rows": [
+              [
+                "2-Bromo-2-methylbutane",
+                "NaOEt, EtOH",
+                "2-Methylbut-2-ene (Zaitsev, 70–80%)"
+              ],
+              [
+                "2-Bromo-2-methylbutane",
+                "KOtBu, tBuOH",
+                "2-Methylbut-1-ene (Hofmann, about 70%)"
+              ]
+            ],
+            "caption": "Base size controls regiochemistry in E2."
+          }
+        },
+        {
+          "h": "E1"
+        },
+        "**E1** shares the first step with SN1: formation of the carbocation. A weak base (the solvent) then removes a β-hydrogen. The rate is k[R–X]. E1 follows Zaitsev’s rule, can involve rearrangements and always accompanies SN1. Heating favors E1 over SN1. The same mechanism explains the **dehydration of alcohols** with concentrated H₂SO₄ or H₃PO₄: the OH is protonated, water leaves, and the cation loses a proton. Ease of dehydration is tertiary > secondary > primary, and the equilibrium is driven by removing the alkene or water by distillation.",
+        {
+          "example": {
+            "title": "Zaitsev vs Hofmann",
+            "problem": "Give the major alkene from 2-bromobutane with (a) NaOEt and (b) KOtBu.",
+            "solution": "(a) Ethoxide is a small base: Zaitsev, giving but-2-ene (mostly E, about 80%) over but-1-ene. (b) tert-Butoxide is bulky: the less hindered terminal hydrogen is removed more, increasing the proportion of but-1-ene (about 50%) as the Hofmann product."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "In E2, the proton and the leaving group must be…",
+          "a": "Anti-periplanar",
+          "wrong": [
+            "Syn-periplanar only",
+            "On the same carbon",
+            "Gauche"
+          ]
+        },
+        {
+          "q": "Which base gives the Hofmann (less substituted) alkene?",
+          "a": "Potassium tert-butoxide",
+          "wrong": [
+            "Sodium ethoxide",
+            "Sodium hydroxide",
+            "Sodium methoxide"
+          ]
+        },
+        {
+          "q": "Which reaction involves a carbocation intermediate?",
+          "a": "E1",
+          "wrong": [
+            "E2",
+            "SN2",
+            "Hydrogenation"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "competition",
+      "title": "Substitution or elimination?",
+      "terms": [
+        "substitution versus elimination",
+        "SN2 versus E2",
+        "SN1 versus E1",
+        "predicting substitution and elimination",
+        "Williamson ether synthesis"
+      ],
+      "body": [
+        "Substitution and elimination compete because nucleophiles are also bases. The factors, in order of importance:",
+        {
+          "list": [
+            "**Substrate.** Methyl and primary substrates favor SN2. Tertiary substrates cannot do SN2 and go by E2 with a strong base, or SN1/E1 without one. Secondary substrates are on the borderline, and the reagent decides.",
+            "**Reagent.** A strong, unhindered base that is also a good nucleophile (HO⁻, MeO⁻, EtO⁻) gives SN2/E2 mixtures on primary and E2 on secondary and tertiary. A strong, bulky base (tBuO⁻, LDA) gives E2. A good nucleophile that is a weak base (I⁻, Br⁻, N₃⁻, CN⁻, RS⁻, PR₃) gives SN2 on primary and secondary. A weak nucleophile and weak base (H₂O, ROH) gives SN1/E1 on tertiary and secondary.",
+            "**Temperature.** Heat favors elimination, since it forms more molecules (greater entropy, ΔS > 0, so a larger −TΔS)."
+          ]
+        },
+        {
+          "table": {
+            "head": [
+              "Substrate",
+              "Strong nucleophile, weak base (I⁻, CN⁻, N₃⁻, RS⁻)",
+              "Strong small base (HO⁻, RO⁻)",
+              "Strong bulky base (tBuO⁻)",
+              "Weak nucleophile/base (H₂O, ROH)"
+            ],
+            "rows": [
+              [
+                "Methyl",
+                "SN2",
+                "SN2",
+                "SN2",
+                "No reaction"
+              ],
+              [
+                "Primary",
+                "SN2",
+                "SN2 (E2 if hindered)",
+                "E2",
+                "No reaction (unless allylic/benzylic)"
+              ],
+              [
+                "Secondary",
+                "SN2",
+                "E2 (some SN2)",
+                "E2",
+                "Slow SN1/E1"
+              ],
+              [
+                "Tertiary",
+                "E2 (no SN2)",
+                "E2",
+                "E2",
+                "SN1/E1 (heat gives E1)"
+              ]
+            ],
+            "caption": "A guide to predicting the major pathway."
+          }
+        },
+        {
+          "example": {
+            "title": "Choosing the pathway",
+            "problem": "Predict the major product: (a) 1-bromobutane + NaCN in DMSO; (b) 2-bromo-2-methylpropane + NaOEt in ethanol; (c) 2-bromopropane + NaOEt in ethanol, heat; (d) 2-bromo-2-methylpropane in warm ethanol.",
+            "solution": [
+              "(a) Primary substrate, good nucleophile, polar aprotic solvent: SN2, giving pentanenitrile (a one-carbon chain extension).",
+              "(b) Tertiary substrate and strong base: E2, giving 2-methylpropene.",
+              "(c) Secondary substrate with a strong base and heat: mainly E2, giving propene, with some SN2 ether.",
+              "(d) Tertiary substrate with only a weak nucleophile/base, solvolysis: SN1 giving tert-butyl ethyl ether, with E1 isobutene as a minor product at higher temperature."
+            ]
+          }
+        },
+        "A synthetically important SN2 reaction is the **Williamson ether synthesis**: an alkoxide plus a primary alkyl halide gives an ether, R–O⁻ + R′–X → R–O–R′. To make an unsymmetrical ether, the halide should be the less hindered partner. tert-Butyl methyl ether comes from methyl iodide and potassium tert-butoxide, not from tert-butyl bromide and methoxide (which gives only the alkene)."
+      ],
+      "check": [
+        {
+          "q": "A tertiary alkyl halide with NaOEt in ethanol gives mainly…",
+          "a": "E2 elimination",
+          "wrong": [
+            "SN2 substitution",
+            "No reaction",
+            "SN1 substitution"
+          ]
+        },
+        {
+          "q": "Why is NaCN in DMSO a good way to convert a primary alkyl bromide to a nitrile?",
+          "a": "CN⁻ is a strong nucleophile and weak base, and DMSO leaves it unsolvated, favoring SN2",
+          "wrong": [
+            "CN⁻ is a bulky base that gives E2",
+            "DMSO stabilizes carbocations",
+            "The reaction goes by SN1"
+          ]
+        },
+        {
+          "q": "How should tert-butyl methyl ether be made by the Williamson method?",
+          "a": "tert-BuO⁻ + CH₃I",
+          "wrong": [
+            "CH₃O⁻ + tert-BuBr",
+            "CH₃OH + tert-BuOH with acid only",
+            "CH₃O⁻ + tert-BuOH"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "SN2: one step, rate = k[RX][Nu], inversion, methyl > 1° > 2°, favored by polar aprotic solvents and good nucleophiles.",
+    "SN1: two steps through a carbocation, rate = k[RX], racemization, 3° > 2°, favored by polar protic solvents, with rearrangements possible.",
+    "E2: one step, anti-periplanar H and X, Zaitsev with small bases and Hofmann with bulky bases. E1: carbocation then loss of H⁺, Zaitsev, accompanies SN1.",
+    "Good leaving groups are weak bases: I⁻, Br⁻, TsO⁻. Convert OH into a leaving group by protonation or sulfonylation.",
+    "To predict the outcome, consider the substrate, then the base and nucleophile, then the solvent and temperature. Heat favors elimination."
+  ],
+  "problems": [
+    {
+      "q": "Rank in order of decreasing SN2 reactivity: CH₃CH₂CH₂Br, (CH₃)₂CHBr, CH₃Br, (CH₃)₃CCH₂Br, (CH₃)₃CBr.",
+      "solution": "Methyl is least hindered, then primary, secondary, then the neopentyl (hindered primary), and tertiary, which does not react.",
+      "a": "CH₃Br > CH₃CH₂CH₂Br > (CH₃)₂CHBr > (CH₃)₃CCH₂Br > (CH₃)₃CBr."
+    },
+    {
+      "q": "Explain why (R)-2-bromooctane racemizes in the presence of NaBr in acetone, while a given amount of (R)-2-octanol does not.",
+      "solution": "Bromide is both a nucleophile and a leaving group, so repeated SN2 inversion converts R to S and back, giving the racemate. Hydroxide is a poor leaving group, so the alcohol does not undergo substitution.",
+      "a": "Repeated SN2 by Br⁻ inverts the stereocenter."
+    },
+    {
+      "q": "Draw the mechanism and predict the major product for 2,3-dimethylbutan-2-ol with concentrated H₂SO₄ and heat.",
+      "solution": "Protonation of OH, loss of H₂O to give the tertiary cation (CH₃)₂C⁺–CH(CH₃)₂, then loss of a β-proton. The Zaitsev product is the tetrasubstituted alkene 2,3-dimethylbut-2-ene (major), with 2,3-dimethylbut-1-ene minor.",
+      "a": "2,3-Dimethylbut-2-ene."
+    },
+    {
+      "q": "A trans-1-bromo-2-methylcyclohexane gives only 3-methylcyclohexene with KOtBu, while the cis isomer gives 1-methylcyclohexene. Explain.",
+      "solution": "E2 requires an axial leaving group and an axial β-hydrogen (anti). In the trans isomer’s only reactive chair (Br axial), the methyl-bearing carbon’s hydrogen is equatorial, so only the other β-hydrogen can be removed. In the cis isomer, the conformation with Br axial has an axial H on the methyl-bearing carbon, allowing the Zaitsev alkene.",
+      "a": "The anti-periplanar requirement controls which β-H is lost."
+    }
+  ]
+}

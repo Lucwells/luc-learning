@@ -1,0 +1,151 @@
+{
+  "id": "amines",
+  "view": "chapter",
+  "title": "Amines and Rearrangements",
+  "description": "Basicity and synthesis of amines, their characteristic reactions, and rearrangements that move groups to electron-deficient atoms.",
+  "overview": [
+    "Amines are the organic bases. They are in amino acids and proteins, in neurotransmitters such as dopamine and serotonin, in most drugs, and in the alkaloids (morphine, caffeine, nicotine, quinine) that plants make. A nitrogen lone pair makes them basic and nucleophilic, and the same property causes a recurring synthetic problem: an amine is more nucleophilic than the ammonia it came from, so direct alkylation overreacts.",
+    "This chapter covers the structure and basicity of amines, the methods that avoid overalkylation, their main reactions, and a family of rearrangements (Hofmann, Curtius, Beckmann, Baeyer–Villiger) in which a group migrates to an electron-deficient nitrogen or oxygen."
+  ],
+  "objectives": [
+    "Classify and name amines, and rank them by basicity.",
+    "Choose a synthesis of a primary, secondary or tertiary amine that avoids overalkylation.",
+    "Predict the products of acylation, exhaustive methylation and Hofmann elimination, and nitrous acid reactions.",
+    "Write mechanisms for the Hofmann, Curtius, Beckmann and Baeyer–Villiger rearrangements.",
+    "Use migratory aptitude to predict which group moves."
+  ],
+  "sections": [
+    {
+      "id": "amine-properties",
+      "title": "Structure, basicity and properties of amines",
+      "terms": ["amine", "amines", "amino group", "ammonium", "ammonium ion", "quaternary ammonium", "quaternary ammonium salt", "primary amine", "secondary amine", "tertiary amine", "alkaloid", "alkaloids", "basicity of amines"],
+      "body": [
+        "An **amine** has a nitrogen bonded to one, two or three carbons (**primary**, **secondary**, **tertiary**) and a lone pair. Nitrogen is sp³ and pyramidal (C–N–C about 108°). The lone pair undergoes rapid inversion (barrier about 25 kJ mol⁻¹), so an amine with three different groups cannot be resolved. Names: alkanamine (butan-2-amine) or N-substituted names (N-methylpropan-1-amine). A **quaternary ammonium** salt, R₄N⁺, has no lone pair and no inversion.",
+        "Amines hydrogen bond through N–H (weaker than O–H), so primary and secondary amines boil between alkanes and alcohols (butylamine 78 °C, butan-1-ol 118 °C, and tertiary amines, with no N–H, lower, like trimethylamine at 3 °C). Low-mass amines dissolve in water. Many amines smell of fish.",
+        { "h": "Basicity" },
+        "The pK_a of the conjugate acid (the **ammonium** ion) measures base strength:",
+        { "table": {
+          "head": ["Amine", "pK_a of conjugate acid", "Why"],
+          "rows": [
+            ["NH₃", "9.25", "Reference"],
+            ["CH₃NH₂, (CH₃)₂NH", "10.6, 10.7", "Alkyl groups donate electrons and stabilize the cation"],
+            ["(CH₃)₃N", "9.8", "Less solvation of the ammonium ion offsets donation"],
+            ["Aniline, PhNH₂", "4.6", "The lone pair is delocalized into the ring"],
+            ["Pyridine", "5.2", "The lone pair is in an sp² orbital (more s character)"],
+            ["Amide, RCONH₂", "about −0.5", "The lone pair is delocalized into the carbonyl; amides are essentially nonbasic"]
+          ],
+          "caption": "Basicity of amines."
+        } },
+        "An amine dissolves in dilute aqueous acid as its ammonium salt, and is recovered with base. This is used to extract amines from organic mixtures, and drugs are often sold as hydrochlorides because the salt is soluble and stable. An aliphatic amine is a weak base but a good nucleophile, and so reacts with alkyl halides, acyl chlorides and carbonyls."
+      ],
+      "check": [
+        { "q": "Which is the weakest base?", "a": "Acetamide", "wrong": ["Methylamine", "Ammonia", "Triethylamine"] },
+        { "q": "Why is aniline a much weaker base than cyclohexylamine?", "a": "The nitrogen lone pair is delocalized into the aromatic ring", "wrong": ["Aniline has no lone pair", "Aniline is larger", "The ring donates electrons to nitrogen"] }
+      ]
+    },
+    {
+      "id": "amine-synthesis",
+      "title": "Synthesis of amines",
+      "terms": ["Gabriel synthesis", "amine synthesis", "nitro reduction of arenes", "azide reduction", "overalkylation", "phthalimide", "reductive amination of aldehydes", "staudinger reaction"],
+      "body": [
+        "**Direct alkylation** of ammonia or an amine by an alkyl halide gives a mixture, because each product is more nucleophilic than the starting amine: primary, secondary, tertiary and quaternary salts all form. It is useful only with a large excess of NH₃, or for making quaternary salts. Better methods give a single class:",
+        { "table": {
+          "head": ["Method", "Starting material", "Reagents", "Product"],
+          "rows": [
+            ["**Azide reduction**", "R–X (primary or secondary)", "NaN₃ (SN2), then LiAlH₄ or H₂/Pd", "R–NH₂ (only primary)"],
+            ["**Gabriel synthesis**", "R–X (primary)", "Potassium phthalimide (SN2), then N₂H₄ or NaOH", "R–NH₂ (only primary)"],
+            ["Nitrile reduction", "R–X", "NaCN, then LiAlH₄ or H₂/Ni", "R–CH₂NH₂ (one extra carbon)"],
+            ["Amide reduction", "R–COCl", "R′₂NH, then LiAlH₄", "R–CH₂NR′₂ (1°, 2° or 3°)"],
+            ["**Reductive amination**", "Aldehyde or ketone", "R′NH₂ or R′₂NH, NaBH₃CN", "2° or 3° amine"],
+            ["**Nitro reduction**", "Ar–NO₂", "H₂/Pd, or Fe/HCl, then base", "Ar–NH₂"],
+            ["Hofmann or Curtius rearrangement", "Amide or acyl azide", "See below", "R–NH₂ with one carbon fewer"]
+          ],
+          "caption": "Routes to amines."
+        } },
+        "The Gabriel and azide methods work because the nitrogen nucleophile (phthalimide anion, azide) can be alkylated only once, as the product has no remaining nucleophilic N–H or lone pair. Azides are explosive when small and must be handled with care."
+      ],
+      "check": [
+        { "q": "Which method gives a pure primary amine from a primary alkyl bromide?", "a": "Gabriel synthesis", "wrong": ["Heating with NH₃ in equal amounts", "Reductive amination with a ketone", "Hofmann elimination"] },
+        { "q": "How are aromatic amines normally made?", "a": "Nitration followed by reduction of the nitro group", "wrong": ["SN2 of NH₃ on aryl halides", "Gabriel synthesis", "Direct amination of benzene with NH₃"] }
+      ]
+    },
+    {
+      "id": "amine-reactions",
+      "title": "Reactions of amines",
+      "terms": ["Hofmann elimination", "exhaustive methylation", "Hinsberg test", "Hinsberg", "N-nitrosamine", "nitrosamine", "nitrous acid", "Cope elimination", "acylation of amines", "sulfonamide"],
+      "body": [
+        { "list": [
+          "**Acylation.** Amines react with acyl chlorides or anhydrides to give amides, which are not basic and cannot be acylated again. Acetylation is used to moderate an aromatic amine’s reactivity (see the chapter on aromatic chemistry).",
+          "**Hofmann elimination.** Exhaustive methylation (excess CH₃I) converts an amine to a quaternary ammonium iodide. Ag₂O and water exchange I⁻ for OH⁻, and heating gives an alkene by E2. The leaving group, a tertiary amine, is bulky and poor, and the base removes the most accessible hydrogen. The product is the **less substituted (Hofmann) alkene**, the opposite of Zaitsev. Butan-2-amine gives mainly but-1-ene.",
+          "**Hinsberg test.** Benzenesulfonyl chloride reacts with primary amines to give a sulfonamide that dissolves in NaOH (the N–H is acidic), with secondary amines to give an insoluble sulfonamide, and not at all with tertiary amines. It distinguishes the three classes.",
+          "**Nitrous acid (NaNO₂, HCl).** Primary aromatic amines give diazonium salts (see the chapter on aromatic chemistry), and primary aliphatic amines give unstable diazonium ions that lose N₂ to give carbocations and mixtures. Secondary amines give **N-nitrosamines** (R₂N–N=O), yellow oils, potent carcinogens formed from amines and nitrite in cured meat and tobacco. Tertiary aliphatic amines are not changed."
+        ] },
+        "Many drugs and natural products are amines: the **alkaloids**, nitrogen bases from plants, include morphine, quinine, caffeine, nicotine and cocaine. Their amine groups are protonated at physiological pH, which controls how they cross membranes and bind receptors.",
+        { "example": {
+          "title": "Hofmann elimination",
+          "problem": "What alkene forms when pentan-2-amine is treated with excess CH₃I, then Ag₂O, then heat?",
+          "solution": "The amine becomes the trimethylammonium hydroxide. E2 removes a β-hydrogen, and the less hindered, more acidic hydrogen is on the methyl (C1), not the CH₂ (C3). The major product is pent-1-ene (Hofmann), with pent-2-ene minor."
+        } }
+      ],
+      "check": [
+        { "q": "Hofmann elimination of a quaternary ammonium hydroxide gives mainly…", "a": "The less substituted alkene", "wrong": ["The more substituted alkene", "An alcohol", "An amide"] },
+        { "q": "In the Hinsberg test, which amine gives a sulfonamide that dissolves in NaOH?", "a": "A primary amine", "wrong": ["A secondary amine", "A tertiary amine", "Ammonia only"] }
+      ]
+    },
+    {
+      "id": "rearrangements",
+      "title": "Rearrangements to electron-deficient atoms",
+      "terms": ["Hofmann rearrangement", "Curtius rearrangement", "Beckmann rearrangement", "Baeyer–Villiger oxidation", "Baeyer-Villiger oxidation", "Baeyer–Villiger", "migratory aptitude", "ring expansion", "isocyanate", "caprolactam", "acyl azide", "Schmidt reaction"],
+      "body": [
+        "In several reactions an R group migrates with its bonding pair from carbon to an adjacent electron-deficient nitrogen or oxygen as a leaving group departs. They resemble the carbocation 1,2-shifts but are concerted, with retention of configuration at the migrating carbon.",
+        { "h": "Hofmann and Curtius rearrangements" },
+        "A primary amide treated with Br₂ and NaOH (**Hofmann rearrangement**) is N-brominated, deprotonated, and the R group migrates from carbon to nitrogen as bromide leaves, giving an **isocyanate** (R–N=C=O), which water hydrolyzes to the amine with loss of CO₂. The product, R–NH₂, has **one carbon fewer** than the amide. The **Curtius rearrangement** reaches the same isocyanate from an **acyl azide** (RCON₃, from an acyl chloride and NaN₃) by heating, with loss of N₂. The isocyanate can be trapped with an alcohol to give a carbamate or with water to give the amine.",
+        { "h": "Beckmann rearrangement" },
+        "A ketone oxime treated with acid rearranges to an amide: the group anti to the leaving OH migrates to nitrogen, giving a nitrilium ion, then the amide. Cyclohexanone oxime gives ε-caprolactam, the monomer of nylon-6, made on a scale of millions of tons per year. The Schmidt reaction of a ketone with HN₃ follows a similar course.",
+        { "h": "Baeyer–Villiger oxidation" },
+        "A peroxyacid (mCPBA, peracetic acid) converts a ketone into an ester by inserting oxygen on one side of the carbonyl. The tetrahedral peroxide intermediate (the Criegee intermediate) rearranges as a carboxylate leaves, with one group migrating to oxygen. Cyclic ketones give lactones: cyclohexanone gives ε-caprolactone, a polyester monomer.",
+        { "h": "Migratory aptitude" },
+        "When two groups can move, the one best able to stabilize a developing positive charge migrates, giving a general order of **migratory aptitude**: **tertiary alkyl > cyclohexyl > secondary alkyl ≈ phenyl > primary alkyl > methyl**. Hydride also migrates readily. In the Baeyer–Villiger oxidation of 2-methylcyclohexyl methyl ketone, the secondary ring carbon migrates, not the methyl.",
+        { "example": {
+          "title": "Predicting a Baeyer–Villiger product",
+          "problem": "What does the Baeyer–Villiger oxidation of tert-butyl methyl ketone and of acetophenone with mCPBA give?",
+          "solution": "tert-Butyl methyl ketone: the tertiary group migrates, giving tert-butyl acetate. Acetophenone: phenyl migrates in preference to methyl, giving phenyl acetate."
+        } },
+        { "example": {
+          "title": "Hofmann rearrangement",
+          "problem": "Convert pentanamide to butan-1-amine.",
+          "solution": "Br₂, NaOH, H₂O: the butyl group migrates to nitrogen, giving butyl isocyanate, which hydrolyzes and loses CO₂. The amine has four carbons, one fewer than the amide."
+        } }
+      ],
+      "check": [
+        { "q": "The Hofmann rearrangement of RCONH₂ gives…", "a": "RNH₂ (one carbon shorter)", "wrong": ["RCH₂NH₂ (one carbon longer)", "RCOOH", "R–NO₂"] },
+        { "q": "In the Baeyer–Villiger oxidation of methyl cyclohexyl ketone, which group migrates?", "a": "Cyclohexyl", "wrong": ["Methyl", "Both equally", "Neither"] },
+        { "q": "The Beckmann rearrangement of cyclohexanone oxime gives…", "a": "Caprolactam", "wrong": ["Cyclohexanol", "Adipic acid", "Aniline"] }
+      ]
+    }
+  ],
+  "summary": [
+    "Amines are basic (ammonium pK_a about 10–11) and nucleophilic. Aromatic amines and amides are far less basic.",
+    "Avoid overalkylation by using azide, Gabriel, nitrile or amide reduction, reductive amination, or nitro reduction.",
+    "Hofmann elimination gives the less substituted alkene. The Hinsberg test separates 1°, 2° and 3° amines. Secondary amines form nitrosamines with nitrite.",
+    "Hofmann and Curtius rearrangements convert acids and amides to amines with one fewer carbon through isocyanates.",
+    "Beckmann converts oximes to amides (caprolactam). Baeyer–Villiger converts ketones to esters. Migratory aptitude: 3° > cyclohexyl > 2° ≈ phenyl > 1° > methyl."
+  ],
+  "problems": [
+    {
+      "q": "Propose syntheses of (a) benzylamine from benzyl bromide, (b) N-ethylaniline from aniline, (c) 2-phenylethylamine from benzyl bromide.",
+      "solution": "(a) Potassium phthalimide, then hydrazine (Gabriel), or NaN₃ then LiAlH₄. (b) Acetylate aniline, reduce with LiAlH₄ to N-ethylaniline; or react aniline with acetaldehyde and NaBH₃CN. (c) NaCN (SN2) to benzyl cyanide, then LiAlH₄ reduces the nitrile to PhCH₂CH₂NH₂.",
+      "a": "(a) Gabriel or azide route; (b) acylation then LiAlH₄, or reductive amination; (c) NaCN then LiAlH₄."
+    },
+    {
+      "q": "Give the structure of the product of (a) cyclopentanone + mCPBA, (b) benzamide + Br₂/NaOH, (c) the oxime of acetophenone + H₂SO₄ (phenyl migrates).",
+      "solution": "(a) δ-Valerolactone (a six-membered lactone). (b) Aniline. (c) Acetanilide (N-phenylacetamide).",
+      "a": "(a) δ-valerolactone; (b) aniline; (c) acetanilide."
+    },
+    {
+      "q": "Rank by basicity: ethylamine, aniline, acetamide, ammonia, pyridine.",
+      "solution": "Ethylamine (pK_aH 10.7) > ammonia (9.25) > pyridine (5.2) > aniline (4.6) > acetamide (−0.5).",
+      "a": "ethylamine > ammonia > pyridine > aniline > acetamide."
+    }
+  ]
+}

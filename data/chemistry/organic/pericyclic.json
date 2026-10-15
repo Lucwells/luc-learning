@@ -1,0 +1,302 @@
+{
+  "id": "pericyclic",
+  "view": "chapter",
+  "title": "Pericyclic Reactions",
+  "description": "The Diels–Alder reaction, electrocyclic reactions, sigmatropic rearrangements and the Woodward–Hoffmann rules.",
+  "overview": [
+    "Most reactions in the previous chapters are stepwise: an electron-rich species attacks an electron-poor one, an intermediate forms, and a second step follows. A different class of reactions occurs in a single concerted step through a cyclic transition state, with no intermediates and no catalysts needed. These are pericyclic reactions. They form carbon–carbon bonds with outstanding stereochemical control, and the Diels–Alder reaction, which builds a six-membered ring from two simple pieces, is one of the most useful reactions in synthesis.",
+    "This chapter explains the Diels–Alder reaction and its stereochemistry, then electrocyclic reactions and sigmatropic rearrangements. Frontier molecular orbital theory and the Woodward–Hoffmann rules unify them and predict which reactions occur and by what geometry."
+  ],
+  "objectives": [
+    "Predict the products, regiochemistry and stereochemistry of Diels–Alder reactions, including the endo rule.",
+    "Use the Woodward–Hoffmann rules to predict conrotatory or disrotatory ring closure.",
+    "Describe the [3,3] sigmatropic Cope and Claisen rearrangements.",
+    "Explain pericyclic selection rules with frontier molecular orbitals.",
+    "Identify 1,3-dipolar cycloadditions and the azide–alkyne click reaction."
+  ],
+  "sections": [
+    {
+      "id": "diels-alder",
+      "title": "The Diels–Alder reaction",
+      "terms": [
+        "Diels–Alder",
+        "Diels-Alder",
+        "Diels–Alder reaction",
+        "Diels-Alder reaction",
+        "diene",
+        "dienes",
+        "dienophile",
+        "dienophiles",
+        "cycloaddition",
+        "[4+2] cycloaddition",
+        "endo rule",
+        "endo product",
+        "exo product",
+        "s-cis",
+        "s-trans",
+        "pericyclic reaction",
+        "pericyclic reactions",
+        "retro-Diels–Alder"
+      ],
+      "body": [
+        "In the **Diels–Alder reaction** a conjugated **diene** (4 π electrons) and an alkene or alkyne, the **dienophile** (2 π electrons), react to form a cyclohexene. Three π bonds are replaced by two new σ bonds and one new π bond, which is thermodynamically favorable by about 150 kJ mol⁻¹ and works in one step as a **[4+2] cycloaddition**.",
+        {
+          "eq": "CH₂=CH–CH=CH₂ + CH₂=CH–CHO → cyclohex-3-ene-1-carbaldehyde"
+        },
+        {
+          "list": [
+            "The diene must be able to adopt the **s-cis** conformation (about the central single bond), with both termini close enough to bond to the dienophile. Cyclopentadiene, locked s-cis, is exceptionally reactive. A diene held s-trans (in a ring) does not react.",
+            "In the common “normal electron demand” case the reaction is fastest between an **electron-rich diene** (alkyl, alkoxy substituents) and an **electron-poor dienophile** (conjugated to C=O, CN, NO₂: maleic anhydride, acrolein, acrylonitrile, quinones).",
+            "It is **stereospecific**: the geometry of the diene and dienophile is retained in the product, because both new bonds form on the same face of each partner (**suprafacial**). A cis dienophile (maleate) gives cis substituents on the ring, and a trans dienophile (fumarate) gives trans.",
+            "With cyclic dienes the product is bicyclic, and the **endo rule** applies: the dienophile’s electron-withdrawing group prefers to lie under the diene’s π system in the transition state (secondary orbital overlap), giving the **endo** product as the kinetic product. Cyclopentadiene and maleic anhydride give the endo adduct, which is more crowded and thermodynamically less stable than the exo product.",
+            "With an unsymmetrical diene and dienophile, the “ortho” (1,2) and “para” (1,4) products dominate over “meta”: a 1-substituted diene with an acrylate gives the 1,2 (ortho) product, and a 2-substituted diene gives the 1,4 (para) product."
+          ]
+        },
+        {
+          "example": {
+            "title": "Stereospecificity",
+            "problem": "What is the product of (E,E)-hexa-2,4-diene with dimethyl maleate?",
+            "solution": "The two methyl groups from an (E,E)-diene end up cis to each other on the new ring, since the “outside” substituents of the diene both go to the same face. The maleate (cis) esters are cis. The product is cis,cis,cis-dimethyl 3,6-dimethylcyclohex-4-ene-1,2-dicarboxylate: all four substituents on one face."
+          }
+        },
+        "Cyclopentadiene is a Diels–Alder diene and also a dienophile: at room temperature it dimerizes to dicyclopentadiene over several hours, and the dimer cracks back to the monomer on heating at about 170 °C (a **retro-Diels–Alder** reaction). The reaction was discovered by Otto Diels and Kurt Alder (Nobel Prize 1950), and is used in the synthesis of steroids, vitamins and many drugs."
+      ],
+      "check": [
+        {
+          "q": "Which diene is very unreactive in a Diels–Alder reaction?",
+          "a": "(2Z,4Z)-Hexa-2,4-diene, because the inside methyl groups clash in the s-cis conformation",
+          "wrong": [
+            "Cyclopentadiene",
+            "Buta-1,3-diene",
+            "2,3-Dimethylbuta-1,3-diene"
+          ]
+        },
+        {
+          "q": "What does the endo rule say?",
+          "a": "The electron-withdrawing group on the dienophile ends up under the newly formed ring (endo)",
+          "wrong": [
+            "The exo product is always favored",
+            "The reaction is not stereospecific",
+            "The diene must be s-trans"
+          ]
+        },
+        {
+          "q": "A cis-dienophile in a Diels–Alder reaction gives…",
+          "a": "A product with the two substituents cis on the ring",
+          "wrong": [
+            "A product with the substituents trans",
+            "A mixture of cis and trans",
+            "No reaction"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "electrocyclic",
+      "title": "Electrocyclic reactions",
+      "terms": [
+        "electrocyclic",
+        "electrocyclic reaction",
+        "electrocyclic reactions",
+        "electrocyclization",
+        "conrotatory",
+        "disrotatory",
+        "ring closure",
+        "ring opening of cyclobutene"
+      ],
+      "body": [
+        "An **electrocyclic reaction** interconverts a conjugated polyene and a cyclic compound with one fewer π bond: a σ bond forms between the termini (ring closure), or breaks (ring opening). Butadiene closes to cyclobutene and hexatriene to cyclohexadiene. Stereochemistry is the signature: the two termini rotate in a specific way as the ring closes.",
+        {
+          "list": [
+            "In **conrotatory** closure, the two terminal groups rotate in the same direction (both clockwise or both counterclockwise).",
+            "In **disrotatory** closure, they rotate in opposite directions (one clockwise, one counterclockwise)."
+          ]
+        },
+        "Which mode occurs depends on the number of π electrons and on whether the reaction is driven by heat or light (Woodward–Hoffmann rules):",
+        {
+          "table": {
+            "head": [
+              "π electrons",
+              "Thermal (heat)",
+              "Photochemical (light)",
+              "Example"
+            ],
+            "rows": [
+              [
+                "4n (4, 8…)",
+                "Conrotatory",
+                "Disrotatory",
+                "Butadiene ⇌ cyclobutene"
+              ],
+              [
+                "4n + 2 (6, 10…)",
+                "Disrotatory",
+                "Conrotatory",
+                "Hexatriene ⇌ cyclohexadiene"
+              ]
+            ],
+            "caption": "Woodward–Hoffmann rules for electrocyclic reactions."
+          }
+        },
+        {
+          "example": {
+            "title": "Stereochemical outcome",
+            "problem": "Predict the products of thermal ring closure of (2E,4E)-hexa-2,4-diene and (2E,4Z)-hexa-2,4-diene.",
+            "solution": "Four π electrons, thermal: conrotatory. (E,E)-Diene gives trans-3,4-dimethylcyclobutene (the methyls end up on opposite faces), and (E,Z)-diene gives cis-3,4-dimethylcyclobutene. The reaction is completely stereospecific. By contrast, (2E,4Z,6E)-octa-2,4,6-triene (6 π electrons, thermal, disrotatory) gives cis-5,6-dimethylcyclohexa-1,3-diene."
+          }
+        },
+        "Ring opening of cyclobutene to butadiene is favorable because of the ring strain, and cyclohexadiene closure is favorable because hexatriene is less stable than the ring. Electrocyclic reactions occur in biology: the photochemical opening of 7-dehydrocholesterol in skin, followed by a thermal [1,7] shift, makes vitamin D₃, and the 11-cis retinal isomerization in the eye involves related photochemistry."
+      ],
+      "check": [
+        {
+          "q": "A thermal electrocyclic ring closure of a 4π-electron system is…",
+          "a": "Conrotatory",
+          "wrong": [
+            "Disrotatory",
+            "Random",
+            "Photochemical"
+          ]
+        },
+        {
+          "q": "What changes the mode of ring closure from conrotatory to disrotatory in a 4π system?",
+          "a": "Using light instead of heat",
+          "wrong": [
+            "Adding a catalyst",
+            "Using a polar solvent",
+            "Raising the temperature"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sigmatropic",
+      "title": "Sigmatropic rearrangements",
+      "terms": [
+        "sigmatropic",
+        "sigmatropic rearrangement",
+        "sigmatropic rearrangements",
+        "Cope rearrangement",
+        "Cope",
+        "Claisen rearrangement",
+        "Claisen",
+        "[3,3] sigmatropic",
+        "[1,5] hydrogen shift",
+        "allyl vinyl ether",
+        "oxy-Cope"
+      ],
+      "body": [
+        "In a **sigmatropic rearrangement** a σ bond migrates across a π system, with the π bonds reorganizing: one σ bond is broken and a new σ bond is formed at a different position. The notation [i,j] gives the number of atoms on each fragment between the two ends of the σ bond. A [1,5] shift moves a group (typically H) from one end of a pentadienyl system to the other. A [3,3] shift reorganizes six atoms.",
+        {
+          "list": [
+            "The **Cope rearrangement** is the [3,3] shift of a 1,5-diene, which proceeds through a chair-like six-membered transition state. It is reversible, and the equilibrium favors the more substituted or conjugated, more stable diene.",
+            "The **Claisen rearrangement** is the [3,3] shift of an allyl vinyl ether (or an allyl aryl ether), giving a γ,δ-unsaturated carbonyl compound. The new C=O bond makes it irreversible. Allyl phenyl ether, heated to about 200 °C, gives 2-allylphenol (after tautomerization of the cyclohexadienone intermediate)."
+          ]
+        },
+        {
+          "example": {
+            "title": "A Claisen rearrangement",
+            "problem": "What is the product of heating allyl vinyl ether?",
+            "solution": "The [3,3] shift breaks the O–CH₂ (allylic) bond and forms a C–C bond between the vinyl terminus and the allyl terminus: pent-4-enal, CH₂=CH–CH₂–CH₂–CHO."
+          }
+        },
+        "Sigmatropic shifts are suprafacial and thermally allowed when (4n + 2) electrons are involved, so [3,3] shifts (6 electrons) occur thermally, as do [1,5] H shifts. A [1,5] H shift in a cyclopentadiene substituted with a methyl group scrambles its position around the ring at room temperature, which is why methylcyclopentadiene exists as a mixture of isomers."
+      ],
+      "check": [
+        {
+          "q": "The Claisen rearrangement of an allyl vinyl ether gives…",
+          "a": "A γ,δ-unsaturated carbonyl compound",
+          "wrong": [
+            "A 1,5-diene",
+            "An epoxide",
+            "A β-hydroxy ketone"
+          ]
+        },
+        {
+          "q": "What is the transition-state geometry of a Cope rearrangement?",
+          "a": "A chair-like six-membered ring",
+          "wrong": [
+            "A planar four-membered ring",
+            "An open chain",
+            "A bridged bicyclic"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fmo",
+      "title": "Frontier orbitals and the Woodward–Hoffmann rules",
+      "terms": [
+        "Woodward–Hoffmann rules",
+        "Woodward-Hoffmann rules",
+        "frontier molecular orbital",
+        "frontier molecular orbitals",
+        "FMO theory",
+        "orbital symmetry",
+        "suprafacial",
+        "antarafacial",
+        "1,3-dipolar cycloaddition",
+        "click chemistry",
+        "Huisgen cycloaddition",
+        "azide–alkyne cycloaddition"
+      ],
+      "body": [
+        "Why are some pericyclic reactions easy and others never seen? In **frontier molecular orbital (FMO) theory** the important interaction in a reaction is between the **HOMO** of one reactant and the **LUMO** of the other. A bond can form only if the orbital lobes at the two termini have matching phases (the same sign). In the Diels–Alder reaction, the HOMO of butadiene (ψ₂) and the LUMO of ethene (π*) have matching symmetry at both ends: bonding occurs at both termini on the same face, so the thermal [4+2] reaction is **allowed**.",
+        "By contrast, the thermal [2+2] cycloaddition of two alkenes to a cyclobutane (HOMO of one, LUMO of the other) has mismatched phases at one end for suprafacial overlap, so it is **forbidden** thermally. Light promotes an electron into the next orbital, which changes the HOMO’s symmetry, so [2+2] cycloadditions are photochemically allowed. They are used to make cyclobutanes and are involved in thymine dimer formation in DNA damaged by UV light.",
+        "The **Woodward–Hoffmann rules** summarize the results: a thermal pericyclic reaction with (4n + 2) electrons, all components suprafacial, is allowed, as is one with 4n electrons when one component is antarafacial; photochemical reactions follow the opposite pattern. Electrocyclic reactions with 4n electrons are conrotatory when thermal, and disrotatory when photochemical, as in the table above. Fukui and Hoffmann shared the 1981 Nobel Prize in Chemistry for these ideas, and Woodward (who died in 1979) had won the 1965 prize for synthesis.",
+        {
+          "h": "1,3-Dipolar cycloadditions"
+        },
+        "A 1,3-dipole (azide, nitrone, ozone, diazomethane, nitrile oxide) adds to an alkene or alkyne in a thermal [3+2] cycloaddition, giving a five-membered heterocycle. The addition of an organic azide to an alkyne, the **Huisgen cycloaddition**, gives a 1,2,3-triazole. With copper(I) catalysis it is fast, selective for the 1,4-isomer, and tolerant of water and many functional groups: the archetypal **click reaction**, now widely used to link molecules in biology and materials science (Sharpless, Meldal and Bertozzi shared the 2022 Nobel Prize in Chemistry for click and bioorthogonal chemistry). Ozonolysis begins with a 1,3-dipolar cycloaddition of ozone to the alkene."
+      ],
+      "check": [
+        {
+          "q": "A thermal [2+2] cycloaddition of two ordinary alkenes is…",
+          "a": "Forbidden by orbital symmetry, but allowed photochemically",
+          "wrong": [
+            "Allowed thermally and photochemically",
+            "Forbidden both thermally and photochemically",
+            "Allowed thermally only"
+          ]
+        },
+        {
+          "q": "Which orbitals interact in FMO theory?",
+          "a": "The HOMO of one reactant and the LUMO of the other",
+          "wrong": [
+            "Two HOMOs",
+            "Two LUMOs",
+            "Only core orbitals"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Diels–Alder: diene (s-cis) + dienophile → cyclohexene, concerted and stereospecific, with the endo product favored for cyclic dienes. Electron-rich dienes pair with electron-poor dienophiles.",
+    "Electrocyclic reactions: 4n electrons are conrotatory when thermal and 4n + 2 are disrotatory. Light reverses the modes.",
+    "[3,3] sigmatropic rearrangements (Cope and Claisen) go through chair transition states. The Claisen rearrangement gives γ,δ-unsaturated carbonyls irreversibly.",
+    "FMO theory: matching HOMO–LUMO phases make a reaction allowed. Thermal [4+2] is allowed and [2+2] is forbidden; photochemical [2+2] is allowed.",
+    "1,3-Dipolar cycloadditions, including the Cu-catalyzed azide–alkyne click reaction, build five-membered heterocycles."
+  ],
+  "problems": [
+    {
+      "q": "Predict the Diels–Alder products: (a) 1,3-butadiene + maleic anhydride, (b) cyclopentadiene + maleic anhydride (give endo/exo), (c) 2,3-dimethylbutadiene + acrylonitrile.",
+      "solution": "(a) cis-Tetrahydrophthalic anhydride (cyclohex-4-ene-1,2-dicarboxylic anhydride). (b) The endo-norbornene dicarboxylic anhydride (cis-5-norbornene-endo-2,3-dicarboxylic anhydride), the kinetic product. (c) 3,4-Dimethylcyclohex-3-ene-1-carbonitrile.",
+      "a": "(a) cis-cyclohex-4-ene-1,2-dicarboxylic anhydride; (b) the endo adduct; (c) 3,4-dimethylcyclohex-3-ene-1-carbonitrile."
+    },
+    {
+      "q": "Why does butadiene react with ethene only under forcing conditions (about 200 °C), whereas butadiene reacts with maleic anhydride at 25 °C?",
+      "solution": "Ethene is neither electron-poor nor has a low-lying LUMO. Maleic anhydride’s carbonyl groups lower its LUMO, which narrows the HOMO(diene)–LUMO(dienophile) gap and speeds the reaction.",
+      "a": "The electron-withdrawing groups lower the dienophile’s LUMO energy."
+    },
+    {
+      "q": "What is the stereochemical course of the thermal and photochemical ring closure of (2E,4E)-hexa-2,4-diene?",
+      "solution": "Thermal (4 electrons, conrotatory): trans-3,4-dimethylcyclobutene. Photochemical (disrotatory): cis-3,4-dimethylcyclobutene.",
+      "a": "Thermal trans; photochemical cis."
+    },
+    {
+      "q": "Give the product of heating allyl phenyl ether to about 200 °C, and explain why the final product is a phenol.",
+      "solution": "A [3,3] sigmatropic (Claisen) shift moves the allyl group from oxygen to the ortho carbon, giving the non-aromatic 6-allylcyclohexa-2,4-dienone. This keto form quickly tautomerizes (enolizes) to restore the aromatic ring, giving the phenol.",
+      "a": "2-Allylphenol."
+    }
+  ]
+}

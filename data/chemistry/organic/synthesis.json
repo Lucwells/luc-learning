@@ -1,0 +1,473 @@
+{
+  "id": "organic-synthesis",
+  "view": "chapter",
+  "title": "Cross-Coupling, Protecting Groups and Synthesis Planning",
+  "description": "Palladium-catalyzed coupling, protecting groups, retrosynthetic analysis and a summary of named reactions.",
+  "overview": [
+    "Knowing individual reactions is not the same as making a molecule. A real synthesis may take ten or thirty steps, and every step must work on a molecule that already carries other functional groups. Organic synthesis therefore combines three skills: forming carbon–carbon bonds efficiently (palladium catalysis has transformed this), keeping one functional group safe while another reacts (protecting groups), and working backward from the target to find a route (retrosynthesis).",
+    "This chapter covers all three, and closes with a reference list of named reactions that did not fit elsewhere."
+  ],
+  "objectives": [
+    "Describe the catalytic cycle of palladium cross-coupling and name the Suzuki, Heck, Sonogashira, Stille, Negishi and Buchwald–Hartwig reactions.",
+    "Choose protecting groups for alcohols, carbonyls, amines and acids, and explain orthogonal protection.",
+    "Carry out a retrosynthetic analysis using disconnections, synthons and functional-group interconversion.",
+    "Compare linear and convergent syntheses by overall yield.",
+    "Recognize the reactions of Cannizzaro, Birch, McMurry, Mannich, Perkin, Reformatsky and the benzoin condensation."
+  ],
+  "sections": [
+    {
+      "id": "cross-coupling",
+      "title": "Palladium-catalyzed cross-coupling",
+      "terms": [
+        "Suzuki coupling",
+        "Suzuki reaction",
+        "Suzuki–Miyaura coupling",
+        "Heck reaction",
+        "Sonogashira coupling",
+        "Stille coupling",
+        "Negishi coupling",
+        "Buchwald–Hartwig amination",
+        "cross-coupling reactions",
+        "cross-coupling",
+        "palladium catalysis",
+        "organoboron",
+        "boronic acid",
+        "boronic acids"
+      ],
+      "body": [
+        "Aryl and vinyl halides do not undergo SN2, and SNAr works only on activated rings. A transition-metal catalyst, palladium, lets them join a nucleophilic partner by a three-step catalytic cycle:",
+        {
+          "list": [
+            "**Oxidative addition:** Pd(0) inserts into the C–X bond of the halide, giving R–Pd(II)–X. The rate is I > Br ≈ OTf ≫ Cl.",
+            "**Transmetalation:** the second partner transfers its carbon group from its metal (B, Sn, Zn, Cu) to palladium, giving R–Pd–R′.",
+            "**Reductive elimination:** R and R′ couple to form R–R′, and Pd(0) is regenerated."
+          ],
+          "ordered": true
+        },
+        {
+          "table": {
+            "head": [
+              "Reaction",
+              "Coupling partners",
+              "Conditions",
+              "Product"
+            ],
+            "rows": [
+              [
+                "**Suzuki** (Suzuki–Miyaura)",
+                "Ar–X + R–B(OH)₂ (boronic acid)",
+                "Pd cat., base (K₂CO₃)",
+                "Ar–R (biaryls, styrenes)"
+              ],
+              [
+                "**Heck**",
+                "Ar–X + alkene",
+                "Pd cat., Et₃N",
+                "Substituted alkene (usually trans)"
+              ],
+              [
+                "**Sonogashira**",
+                "Ar–X + terminal alkyne",
+                "Pd cat., CuI, amine",
+                "Ar–C≡C–R"
+              ],
+              [
+                "**Stille**",
+                "Ar–X + R–SnBu₃",
+                "Pd cat.",
+                "Ar–R (tin is toxic)"
+              ],
+              [
+                "**Negishi**",
+                "Ar–X + R–ZnX",
+                "Pd or Ni cat.",
+                "Ar–R (works with alkyl groups)"
+              ],
+              [
+                "**Buchwald–Hartwig**",
+                "Ar–X + R₂NH",
+                "Pd cat., bulky phosphine ligand, base",
+                "Ar–NR₂"
+              ]
+            ],
+            "caption": "Palladium cross-coupling reactions."
+          }
+        },
+        "The Suzuki coupling is the most widely used, since boronic acids are stable to air and water and have low toxicity, and it is used on a large scale in drug manufacture. Heck, Negishi and Suzuki shared the 2010 Nobel Prize in Chemistry. Bulky electron-rich ligands (PPh₃, tri-tert-butylphosphine, biarylphosphines) tune the catalyst and allow aryl chlorides to react.",
+        {
+          "example": {
+            "title": "A Suzuki coupling",
+            "problem": "Prepare 4-methylbiphenyl.",
+            "solution": "Couple bromobenzene with 4-methylphenylboronic acid, with Pd(PPh₃)₄ and aqueous K₂CO₃ in a solvent such as toluene/ethanol. Oxidative addition, transmetalation (the base converts the boronic acid to a boronate) and reductive elimination give the biaryl, a bond that would be very hard to make otherwise."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Which is not a step in the cross-coupling catalytic cycle?",
+          "a": "Hydrogenation",
+          "wrong": [
+            "Oxidative addition",
+            "Transmetalation",
+            "Reductive elimination"
+          ]
+        },
+        {
+          "q": "Which reaction couples an aryl halide with a terminal alkyne?",
+          "a": "Sonogashira",
+          "wrong": [
+            "Suzuki",
+            "Heck",
+            "Buchwald–Hartwig"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "protecting",
+      "title": "Protecting groups",
+      "terms": [
+        "protecting group",
+        "protecting groups",
+        "TBS ether",
+        "silyl ether",
+        "silyl ethers",
+        "TBAF",
+        "benzyl ether",
+        "Boc group",
+        "Boc",
+        "Cbz group",
+        "Cbz",
+        "Fmoc",
+        "orthogonal protection",
+        "solid-phase peptide synthesis",
+        "Merrifield synthesis",
+        "deprotection",
+        "THP ether",
+        "MOM ether"
+      ],
+      "body": [
+        "A **protecting group** temporarily masks a reactive functional group so that another part of the molecule can be changed. A good one goes on in high yield, survives the reaction conditions, and comes off in high yield under mild conditions that do not harm anything else. Each protection and deprotection adds two steps to a synthesis, so protecting groups are used only when necessary.",
+        {
+          "table": {
+            "head": [
+              "Functional group",
+              "Protecting group",
+              "Installed with",
+              "Removed with"
+            ],
+            "rows": [
+              [
+                "Alcohol",
+                "**Silyl ether** (TBS, TIPS)",
+                "TBSCl, imidazole",
+                "F⁻ (**TBAF**) or acid"
+              ],
+              [
+                "Alcohol",
+                "**Benzyl ether** (Bn)",
+                "BnBr, NaH",
+                "H₂, Pd/C"
+              ],
+              [
+                "Alcohol",
+                "THP or MOM ether (acetals)",
+                "Dihydropyran, H⁺ or MOMCl",
+                "Aqueous acid"
+              ],
+              [
+                "Aldehyde, ketone",
+                "Cyclic acetal",
+                "Ethylene glycol, H⁺",
+                "Aqueous acid"
+              ],
+              [
+                "Amine",
+                "**Boc** (tert-butoxycarbonyl)",
+                "Boc₂O",
+                "Trifluoroacetic acid"
+              ],
+              [
+                "Amine",
+                "**Cbz** (benzyloxycarbonyl)",
+                "CbzCl, base",
+                "H₂, Pd/C"
+              ],
+              [
+                "Amine",
+                "**Fmoc**",
+                "Fmoc-Cl",
+                "Piperidine (base)"
+              ],
+              [
+                "Carboxylic acid",
+                "Methyl, benzyl or tert-butyl ester",
+                "ROH/H⁺, BnBr, isobutene/H⁺",
+                "Hydroxide; H₂/Pd; acid"
+              ]
+            ],
+            "caption": "Common protecting groups."
+          }
+        },
+        "**Orthogonal protection** uses groups removable independently by different reagents, say Boc (acid) and Fmoc (base) on two amines, or TBS (fluoride) and benzyl (hydrogenolysis) on two alcohols, so that each can be revealed in turn.",
+        {
+          "h": "Solid-phase peptide synthesis"
+        },
+        "In the **Merrifield solid-phase peptide synthesis** (Nobel Prize 1984), the C-terminal amino acid is anchored to an insoluble polystyrene bead, and amino acids are added one at a time. Each cycle removes the N-terminal protecting group (Fmoc, with piperidine) and couples the next Fmoc-protected amino acid with a coupling reagent. Reagents and by-products are washed away from the bead by filtration. Side chains carry acid-labile protecting groups (tert-butyl), and in the last step trifluoroacetic acid releases the peptide from the bead and removes the side-chain groups. Automated synthesizers make peptides of 30–50 residues this way."
+      ],
+      "check": [
+        {
+          "q": "Which reagent removes a TBS ether?",
+          "a": "TBAF (fluoride)",
+          "wrong": [
+            "H₂/Pd",
+            "Piperidine",
+            "LiAlH₄"
+          ]
+        },
+        {
+          "q": "What does orthogonal protection mean?",
+          "a": "Protecting groups that can be removed independently by different conditions",
+          "wrong": [
+            "Groups that are removed by the same reagent",
+            "Groups at right angles in space",
+            "Groups that protect two sites at once"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "retrosynthesis",
+      "title": "Retrosynthetic analysis",
+      "terms": [
+        "retrosynthesis",
+        "retrosynthetic analysis",
+        "disconnection",
+        "disconnections",
+        "synthon",
+        "synthons",
+        "target molecule",
+        "umpolung",
+        "functional group interconversion",
+        "FGI",
+        "convergent synthesis",
+        "linear synthesis",
+        "synthetic equivalent",
+        "overall yield"
+      ],
+      "body": [
+        "Corey’s **retrosynthetic analysis** works backward from the **target molecule**. Each step breaks the target into simpler precursors, repeated until the pieces are available starting materials. Forward and backward thinking use the same reactions, and a double arrow (⇒) marks a retrosynthetic step.",
+        {
+          "list": [
+            "A **disconnection** breaks a bond, the reverse of a bond-forming reaction. Choose bonds next to functional groups, where reactions are reliable.",
+            "A disconnection gives idealized fragments, **synthons** (a carbocation and a carbanion, say), each of which corresponds to a real reagent, its **synthetic equivalent** (R⁺ ⇒ R–Br, R⁻ ⇒ R–MgBr).",
+            "**Functional-group interconversion (FGI)** changes one group for another (alcohol ⇒ ketone) to reveal a disconnection.",
+            "**Umpolung** (polarity reversal) makes a normally electrophilic carbon nucleophilic: a dithiane makes an aldehyde carbon a nucleophile, and cyanide in the benzoin condensation does the same."
+          ]
+        },
+        {
+          "table": {
+            "head": [
+              "Target feature",
+              "Disconnect to",
+              "Reaction"
+            ],
+            "rows": [
+              [
+                "Alcohol with carbons on the carbinol carbon",
+                "Carbonyl + R–MgX",
+                "Grignard addition"
+              ],
+              [
+                "β-Hydroxy carbonyl; α,β-unsaturated carbonyl",
+                "Two carbonyl compounds",
+                "Aldol (condensation)"
+              ],
+              [
+                "1,3-Dicarbonyl",
+                "Ester + enolate",
+                "Claisen"
+              ],
+              [
+                "1,5-Dicarbonyl",
+                "Enolate + enone",
+                "Michael"
+              ],
+              [
+                "Cyclohexene",
+                "Diene + alkene",
+                "Diels–Alder"
+              ],
+              [
+                "Alkene C=C",
+                "Carbonyl + ylide",
+                "Wittig"
+              ],
+              [
+                "Ether",
+                "Alkoxide + R–X",
+                "Williamson"
+              ],
+              [
+                "Amine",
+                "Carbonyl + amine",
+                "Reductive amination"
+              ],
+              [
+                "Biaryl",
+                "Aryl halide + arylboronic acid",
+                "Suzuki"
+              ]
+            ],
+            "caption": "Common disconnections."
+          }
+        },
+        {
+          "example": {
+            "title": "A retrosynthesis",
+            "problem": "Plan a synthesis of 4-methylpent-3-en-2-one (mesityl oxide), (CH₃)₂C=CHCOCH₃, from simple materials.",
+            "solution": [
+              "FGI: the α,β-unsaturated ketone comes from dehydration of a β-hydroxy ketone, the aldol, (CH₃)₂C(OH)CH₂COCH₃.",
+              "Disconnect the aldol between the carbinol carbon and the α carbon: a ketone (acetone) as the electrophile and an acetone enolate as the nucleophile.",
+              "Forward: acetone, a catalytic base (Ba(OH)₂ or NaOH) gives the aldol, and heat or acid dehydrates it to mesityl oxide. The starting material is only acetone."
+            ]
+          }
+        },
+        {
+          "h": "Linear and convergent routes"
+        },
+        "In a **linear synthesis** the steps are done in sequence, and the **overall yield** is the product of each step’s yield: seven steps at 80% give 0.80⁷ = 21%. In a **convergent synthesis**, two fragments are built separately and then joined. With the same seven reactions arranged as two three-step branches and a final coupling, the longest sequence is only four steps, and the yield is 0.80⁴ = 41%. Convergent routes are preferred for long syntheses, because the loss in each step compounds."
+      ],
+      "check": [
+        {
+          "q": "A target contains a 1,5-dicarbonyl relationship. Which reaction suggests itself?",
+          "a": "Michael addition",
+          "wrong": [
+            "Aldol condensation",
+            "Claisen condensation",
+            "Diels–Alder"
+          ]
+        },
+        {
+          "q": "A synthesis of 6 steps with 70% yield per step has an overall yield of…",
+          "a": "About 12%",
+          "wrong": [
+            "70%",
+            "42%",
+            "About 3%"
+          ],
+          "why": "0.70⁶ = 0.118."
+        }
+      ]
+    },
+    {
+      "id": "named-reactions",
+      "title": "Further named reactions",
+      "terms": [
+        "named reactions",
+        "McMurry reaction",
+        "Mannich reaction",
+        "Perkin reaction",
+        "Reformatsky reaction",
+        "benzoin condensation",
+        "Mannich base",
+        "cinnamic acid"
+      ],
+      "body": [
+        "Several reactions are known mainly by name:",
+        {
+          "table": {
+            "head": [
+              "Reaction",
+              "Reactants",
+              "Product"
+            ],
+            "rows": [
+              [
+                "**Cannizzaro**",
+                "Aldehyde with no α-H, conc. NaOH",
+                "Alcohol + carboxylate (disproportionation)"
+              ],
+              [
+                "**Birch reduction**",
+                "Arene, Na or Li, NH₃(l), ROH",
+                "1,4-Cyclohexadiene"
+              ],
+              [
+                "**McMurry**",
+                "Two ketones or aldehydes, TiCl₃/LiAlH₄ or Zn(Cu)",
+                "Alkene (reductive coupling), including macrocycles"
+              ],
+              [
+                "**Mannich**",
+                "Non-enolizable aldehyde (often HCHO) + amine + enolizable carbonyl",
+                "β-Amino carbonyl (Mannich base)"
+              ],
+              [
+                "**Perkin**",
+                "ArCHO + acid anhydride + carboxylate",
+                "Cinnamic acid (α,β-unsaturated acid)"
+              ],
+              [
+                "**Reformatsky**",
+                "α-Bromo ester + Zn, then aldehyde or ketone",
+                "β-Hydroxy ester (via a zinc enolate that does not add to esters)"
+              ],
+              [
+                "**Benzoin condensation**",
+                "2 ArCHO, cyanide (or a thiazolium catalyst)",
+                "α-Hydroxy ketone (umpolung of an aldehyde carbon)"
+              ]
+            ],
+            "caption": "Selected named reactions."
+          }
+        },
+        "The Mannich reaction is the biosynthetic route to many alkaloids. The benzoin condensation shows an acyl anion equivalent: cyanide adds to the aldehyde, the resulting cyanohydrin’s C–H becomes acidic, and the carbanion attacks a second aldehyde. The thiazolium ring of thiamine (vitamin B₁) catalyzes the same kind of reaction in the enzymes of carbohydrate metabolism."
+      ],
+      "check": [
+        {
+          "q": "A benzaldehyde in concentrated NaOH gives…",
+          "a": "Benzyl alcohol and benzoate (Cannizzaro)",
+          "wrong": [
+            "An aldol product",
+            "Benzoin",
+            "No reaction"
+          ]
+        },
+        {
+          "q": "What does the Reformatsky reaction make?",
+          "a": "A β-hydroxy ester",
+          "wrong": [
+            "An alkene",
+            "A 1,5-diketone",
+            "An amine"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Palladium cross-coupling proceeds by oxidative addition, transmetalation and reductive elimination. Suzuki (boronic acids), Heck (alkenes), Sonogashira (alkynes) and Buchwald–Hartwig (amines) are the main variants.",
+    "Protecting groups mask functionality: silyl ethers for alcohols, acetals for carbonyls, Boc/Cbz/Fmoc for amines. Orthogonal sets remove one group at a time.",
+    "Retrosynthesis disconnects the target at functional groups, uses synthons and FGI, and may need umpolung.",
+    "Convergent syntheses give higher overall yields than linear ones of the same length.",
+    "Named reactions such as Cannizzaro, Birch, McMurry, Mannich, Perkin, Reformatsky and benzoin extend the toolkit."
+  ],
+  "problems": [
+    {
+      "q": "Propose a retrosynthesis and forward synthesis of 2-methylhexan-2-ol using a Grignard reagent.",
+      "solution": "The carbinol carbon carries two methyl groups and a butyl group. Disconnecting any one C–C bond to it gives a Grignard reagent and a ketone: butylmagnesium bromide plus acetone, or methylmagnesium bromide plus hexan-2-one. The first is more practical because both starting materials are inexpensive. Forward: 1-bromobutane and Mg in ether give BuMgBr; add acetone; work up with H₃O⁺.",
+      "a": "BuMgBr + acetone, then H₃O⁺ (or CH₃MgBr + hexan-2-one)."
+    },
+    {
+      "q": "Show how the Heck reaction can make (E)-stilbene, PhCH=CHPh.",
+      "solution": "Couple iodobenzene (or bromobenzene) with styrene using Pd(OAc)₂ and Et₃N. The aryl–Pd adds across the alkene (migratory insertion), and β-hydride elimination gives the trans alkene.",
+      "a": "PhI + styrene, Pd(OAc)₂, Et₃N."
+    },
+    {
+      "q": "Convert 4-bromobutan-1-ol into 5-hydroxypentanoic acid. Explain why a protecting group is needed.",
+      "solution": "A Grignard reagent cannot be made from 4-bromobutan-1-ol, because the O–H would protonate it as it forms. Protect the alcohol as a TBS ether (TBSCl, imidazole). Make the Grignard reagent (Mg, ether), add CO₂, and acidify to give the protected acid. Remove the silyl group with TBAF to give 5-hydroxypentanoic acid.",
+      "a": "TBSCl; Mg; CO₂, then H₃O⁺; TBAF."
+    }
+  ]
+}

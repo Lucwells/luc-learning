@@ -1,0 +1,478 @@
+{
+  "id": "lab-techniques",
+  "view": "chapter",
+  "title": "Laboratory Techniques: Separation, Purification and Measurement",
+  "description": "Filtration, centrifugation, distillation, recrystallization, extraction, planar and column chromatography, electrophoresis, reaction setups and classical measurements.",
+  "overview": [
+    "A synthesis ends with a mixture. Before a compound can be characterized, it has to be separated from the solvent, the by-products and the unreacted starting materials, and its purity has to be judged. A few classic techniques, each exploiting a difference in a physical property, do almost all of this work: size (filtration, centrifugation), volatility (distillation), solubility (recrystallization and extraction), polarity (chromatography) and charge (electrophoresis).",
+    "This chapter describes each of these, with the quantitative reasoning behind them, then the setups for running reactions under reflux or in the absence of air, and the classical measurements of mass, heat and melting point. Instrumental methods that are built on these ideas are covered in the chapters that follow."
+  ],
+  "objectives": [
+    "Select a separation technique from the physical property that differs between the components.",
+    "Calculate the efficiency of extraction and compare single and multiple extractions.",
+    "Explain how simple, fractional and vacuum distillation work, and why azeotropes limit them.",
+    "Choose a recrystallization solvent and explain each step of the procedure.",
+    "Interpret R_f values on TLC and choose eluents for column chromatography.",
+    "Describe gel electrophoresis, inert-atmosphere techniques, gravimetric analysis and melting-point analysis."
+  ],
+  "sections": [
+    {
+      "id": "solid-liquid",
+      "title": "Separating solids from liquids: filtration and centrifugation",
+      "terms": [
+        "filtration",
+        "filter paper",
+        "filtrate",
+        "Büchner funnel",
+        "vacuum filtration",
+        "hot filtration",
+        "gravity filtration",
+        "centrifugation",
+        "centrifuge",
+        "centrifuged",
+        "supernatant",
+        "relative centrifugal force",
+        "RCF",
+        "pellet"
+      ],
+      "body": [
+        "**Filtration** separates an insoluble solid from a liquid by passing the mixture through a porous medium that retains the particles. The liquid that passes is the **filtrate**. In **gravity filtration** the liquid runs through a fluted filter paper in a funnel, which suits a case where the liquid is wanted (and the solid is discarded), and **hot filtration** removes insoluble impurities from a hot solution before crystallization. In **vacuum filtration**, a **Büchner funnel** with a flat perforated plate sits on a flask connected to a water aspirator or pump, and the pressure difference draws the liquid rapidly through the paper, leaving a dry cake of solid: this is the usual way to collect crystals. Fine precipitates may need a membrane filter (0.2–0.45 µm), a sintered-glass frit or a Celite pad, which keeps the pores from clogging.",
+        "In **centrifugation** the mixture is spun in tubes, so that a centrifugal field many times stronger than gravity pulls particles to the bottom, forming a **pellet** and leaving a clear **supernatant** that is decanted or pipetted off. It suits small volumes, colloids and biological samples (cells, proteins, DNA) that clog filters. The strength of the field is given as the relative centrifugal force (in multiples of g):",
+        {
+          "eq": "RCF = 1.118 × 10⁻⁵ × r × (rpm)²     (r = radius in cm)"
+        },
+        {
+          "example": {
+            "title": "Centrifuge speed",
+            "problem": "A rotor with an effective radius of 8.0 cm spins at 10,000 rpm. What is the RCF?",
+            "solution": "RCF = 1.118 × 10⁻⁵ × 8.0 × (10,000)² = 8.9 × 10³ × g. It is the RCF (not the rpm) that should be quoted in a method, since it is independent of the rotor."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Why is vacuum filtration used to collect crystals?",
+          "a": "Reduced pressure below the filter draws the liquid through quickly and dries the solid",
+          "wrong": [
+            "The vacuum dissolves the crystals",
+            "It heats the crystals",
+            "It removes soluble impurities by evaporation"
+          ]
+        },
+        {
+          "q": "A centrifuge produces a pellet and a…",
+          "a": "Supernatant",
+          "wrong": [
+            "Filtrate",
+            "Distillate",
+            "Eluent"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "distillation",
+      "title": "Distillation",
+      "terms": [
+        "distillation",
+        "distil",
+        "distillate",
+        "condenser",
+        "fractional distillation",
+        "fractionating column",
+        "vacuum distillation",
+        "steam distillation",
+        "azeotropic distillation",
+        "theoretical plate",
+        "reflux ratio",
+        "boiling chips",
+        "simple distillation",
+        "Kugelrohr"
+      ],
+      "body": [
+        "**Distillation** separates liquids by their different volatility. The mixture is heated to boiling in a flask, and the vapor, richer in the more volatile component, passes into a water-cooled **condenser**, where it liquefies and is collected as the **distillate**. **Boiling chips** or stirring prevent bumping. Simple distillation works when the boiling points differ by more than about 70 °C, or to remove a solvent from a nonvolatile solid.",
+        "When the boiling points are closer, **fractional distillation** is needed. A **fractionating column** packed with glass beads, rings or metal sponge provides a large surface on which vapor repeatedly condenses and revaporizes. Each cycle is equivalent to a simple distillation, a **theoretical plate**, which enriches the vapor in the more volatile component, as the tie lines of the boiling-point diagram show (see the chapter on thermodynamics). A column with N theoretical plates separates components whose boiling points differ by a few degrees if N is large (about 10–50 for the usual ones), and returning part of the condensate to the column (the reflux ratio) improves the separation at the expense of speed. In industry the same principle fractionates crude oil in columns with hundreds of plates.",
+        {
+          "list": [
+            "**Vacuum distillation** lowers the boiling point by reducing the pressure (the Clausius–Clapeyron equation), and distils compounds that decompose near their normal boiling points. Boiling points drop by about 100–150 °C at 10 torr. Short-path and Kugelrohr apparatus reduce losses of small amounts.",
+            "**Steam distillation** codistils a water-insoluble liquid with steam at below 100 °C (the vapor pressures add: the mixture boils when P₁ + P_water = P_atm). It isolates essential oils from plants (eucalyptus oil, limonene) without heating them to their own boiling point.",
+            "**Azeotropes** limit distillation. Ethanol–water forms a minimum-boiling azeotrope at 95.6% ethanol, so distillation cannot go beyond this, and absolute ethanol is made by adding an entrainer (benzene or cyclohexane, in the azeotropic distillation), or by molecular sieves."
+          ]
+        },
+        {
+          "example": {
+            "title": "Steam distillation",
+            "problem": "Bromobenzene (b.p. 156 °C, immiscible with water) and water have vapor pressures of 117 torr and 643 torr at 95 °C (total 760 torr). What mass ratio of bromobenzene to water is in the distillate?",
+            "solution": "The mole ratio in the vapor equals the ratio of the vapor pressures: n(PhBr)/n(H₂O) = 117/643 = 0.182. The mass ratio is 0.182 × (157.0/18.02) = 1.59: the distillate contains about 1.6 g of bromobenzene per gram of water, though the mixture boils at 95 °C."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "What does a fractionating column do?",
+          "a": "Provides many repeated vaporization–condensation cycles (theoretical plates)",
+          "wrong": [
+            "Cools the vapor only once",
+            "Removes the azeotrope",
+            "Raises the boiling point"
+          ]
+        },
+        {
+          "q": "Why is vacuum distillation used for heat-sensitive compounds?",
+          "a": "Lower pressure gives a lower boiling point",
+          "wrong": [
+            "It removes water",
+            "It makes the liquid more volatile by heating it more",
+            "It stops the vapor condensing"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "crystallization",
+      "title": "Recrystallization",
+      "terms": [
+        "recrystallization",
+        "recrystallisation",
+        "recrystallized",
+        "recrystallised",
+        "crystallization from solution",
+        "mother liquor",
+        "solvent for recrystallization",
+        "seed crystal",
+        "oiling out",
+        "activated charcoal",
+        "purification of solids"
+      ],
+      "body": [
+        "**Recrystallization** purifies a solid by dissolving it in a hot solvent and letting it crystallize on cooling. It works because the compound is much more soluble hot than cold, while the impurities, present in smaller amounts, stay in solution (the **mother liquor**) or are removed beforehand.",
+        {
+          "list": [
+            "**Choose the solvent**: the compound should dissolve completely at the boiling point and hardly at all at 0 °C; impurities should be either very soluble in the cold solvent or insoluble in the hot one; the solvent must not react with the compound, should boil below the compound’s melting point and be easy to remove. Test small portions of solid in several solvents. If no single solvent works, use a **solvent pair** (a good solvent, such as ethanol, and a poor one, such as water, added to the hot solution to the cloud point).",
+            "**Dissolve** in the minimum amount of hot solvent: any excess lowers the yield. Colored impurities can be adsorbed with **activated charcoal**, then filtered hot to remove charcoal and insoluble material.",
+            "**Cool slowly**: slow cooling gives large, pure crystals that exclude impurities, while rapid cooling traps impurities in small crystals. If crystals do not appear, scratch the glass or add a **seed crystal**. If the compound separates as a liquid (**oiling out**), reheat and add more solvent.",
+            "**Collect** the crystals by vacuum filtration, wash with a small amount of ice-cold solvent, dry, and check the purity by melting point (it should be sharper and higher)."
+          ]
+        },
+        "Recovery is never complete, since some product stays dissolved in the cold solvent. A typical recovery is 70–90%, and if the solubility in the cold solvent is 1 g per 100 mL and 100 mL is used for 5.0 g of compound, about 1 g (20%) is lost.",
+        {
+          "example": {
+            "title": "Estimating the yield",
+            "problem": "5.00 g of crude acetanilide is dissolved in 100 mL of boiling water (solubility 5.5 g per 100 mL at 100 °C and 0.5 g per 100 mL at 0 °C). What is the maximum recovery on cooling to 0 °C?",
+            "solution": "At 0 °C, 0.5 g remains in solution, so up to 4.5 g of the 5.00 g crystallizes: 90% recovery if the sample were pure. Using 20% excess solvent would leave 0.6 g dissolved and lower the recovery to 88%."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Why is slow cooling preferred in recrystallization?",
+          "a": "Large crystals form that exclude impurities, whereas rapid cooling traps them",
+          "wrong": [
+            "It increases the solubility",
+            "It forms an oil",
+            "It prevents crystals from forming"
+          ]
+        },
+        {
+          "q": "A good recrystallization solvent dissolves the compound…",
+          "a": "Well when hot but poorly when cold",
+          "wrong": [
+            "Well at all temperatures",
+            "Poorly at all temperatures",
+            "Only when cold"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "extraction",
+      "title": "Liquid–liquid extraction",
+      "terms": [
+        "liquid–liquid extraction",
+        "liquid-liquid extraction",
+        "solvent extraction",
+        "separatory funnel",
+        "separating funnel",
+        "distribution coefficient",
+        "partition coefficient",
+        "acid–base extraction",
+        "drying agent",
+        "emulsion",
+        "back extraction"
+      ],
+      "body": [
+        "**Liquid–liquid extraction** transfers a solute from one solvent into a second, **immiscible** one. The two layers are shaken in a **separatory funnel** and separated. At equilibrium the solute is distributed between the layers according to its **distribution (partition) coefficient** K_D = C_org/C_aq. The fraction remaining in the aqueous layer after one extraction with volume V_org of solvent, from volume V_aq, is f = 1/(1 + K_D V_org/V_aq). Dividing the same total volume of solvent into several portions extracts more:",
+        {
+          "eq": "fraction remaining after n extractions = [1/(1 + K_D V_org/V_aq)]ⁿ"
+        },
+        {
+          "example": {
+            "title": "One extraction against two",
+            "problem": "A compound with K_D = 4.0 (ether/water) is in 100 mL of water. Compare one extraction with 100 mL of ether and two extractions with 50 mL each.",
+            "solution": [
+              "One extraction: f = 1/(1 + 4.0 × 1.0) = 0.20, so 80% is extracted.",
+              "Two with 50 mL: each leaves 1/(1 + 4.0 × 0.5) = 1/3, so f = (1/3)² = 0.11: 89% extracted. Three with 33 mL: f = (1/(1 + 1.33))³ = 0.079, 92%. Several small portions beat one large one."
+            ]
+          }
+        },
+        {
+          "h": "Acid–base extraction"
+        },
+        "Ionizable compounds can be moved between layers by changing the pH. A carboxylic acid (RCOOH) is soluble in ether but, as its sodium salt RCOO⁻ Na⁺, is soluble in water. Washing an ether solution of a mixture with aqueous NaHCO₃ extracts the carboxylic acids (not the weaker phenols), and aqueous NaOH extracts phenols as well; dilute HCl extracts amines as ammonium salts. Acidifying the aqueous layer regenerates the neutral compound, which precipitates or can be extracted back into ether. Neutral compounds remain in the organic layer. This allows a mixture of an acid, a base and a neutral compound to be separated cleanly.",
+        "In practice: vent the funnel to release pressure; avoid vigorous shaking when an **emulsion** is likely (add brine, which increases the density of the water layer and salts out organics); remember which layer is on top (the less dense, usually ether or ethyl acetate; dichloromethane and chloroform are denser than water); and dry the organic layer with a **drying agent** (anhydrous MgSO₄ or Na₂SO₄) before the solvent is evaporated."
+      ],
+      "check": [
+        {
+          "q": "Why are several small extractions better than one large one with the same total solvent volume?",
+          "a": "The fraction remaining falls geometrically with the number of extractions",
+          "wrong": [
+            "Small portions have higher K_D",
+            "Small volumes dissolve more",
+            "The solvent is purer"
+          ]
+        },
+        {
+          "q": "How can a carboxylic acid be separated from a neutral compound in ether?",
+          "a": "Extract with aqueous NaHCO₃, which converts the acid to its water-soluble salt",
+          "wrong": [
+            "Extract with dilute HCl",
+            "Extract with more ether",
+            "Evaporate the ether"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "chromatography-lab",
+      "title": "Planar and column chromatography",
+      "terms": [
+        "thin-layer chromatography",
+        "TLC",
+        "paper chromatography",
+        "Rf value",
+        "column chromatography",
+        "flash chromatography",
+        "eluent",
+        "mobile phase in column",
+        "silica gel",
+        "eluotropic series",
+        "R_f"
+      ],
+      "body": [
+        "In **chromatography** a mixture is carried by a moving (mobile) phase over a stationary phase, and the components separate because they spend different fractions of their time in the stationary phase. On silica gel (polar), polar compounds stick and move slowly, and nonpolar compounds move fast.",
+        {
+          "list": [
+            "**Thin-layer chromatography (TLC)** uses a plate coated with silica. A spot of the solution is applied near the bottom edge, and the plate stands in a shallow pool of **eluent**, which rises by capillary action. The ratio of distances is the **retention factor**, R_f = (distance moved by the spot)/(distance moved by the solvent front), between 0 and 1 and characteristic of a compound in a given solvent. Spots are seen under UV (254 nm) or with a stain (iodine, KMnO₄, ninhydrin for amines). TLC checks a reaction’s progress, assesses purity (one spot) and finds the right eluent for a column. **Paper chromatography** is the same with a cellulose (water-bonded) stationary phase, used for inks, dyes and amino acids.",
+            "In **column chromatography** the stationary phase fills a glass column, the mixture is applied on top, and the eluent runs through, with fractions collected. **Flash chromatography** drives the eluent through under gas pressure with fine silica (40–63 µm), and separates grams of material in minutes. The usual eluent is a hexane/ethyl acetate mixture, with the polarity increased gradually (the **eluotropic series**: hexane < toluene < dichloromethane < diethyl ether < ethyl acetate < acetone < ethanol < methanol). A guide: choose the eluent that gives an R_f of about 0.3 for the desired compound on TLC; two compounds can be separated by column if their R_f values differ by more than about 0.15."
+          ]
+        },
+        {
+          "example": {
+            "title": "Reading a TLC plate",
+            "problem": "On a plate, the solvent front travels 6.0 cm. Compound A moves 4.5 cm and compound B moves 1.8 cm. Calculate the R_f values, and say which is more polar.",
+            "solution": "R_f(A) = 4.5/6.0 = 0.75, R_f(B) = 1.8/6.0 = 0.30. B moves less on polar silica, so B is the more polar compound (A will elute first from a column)."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "On silica gel, a more polar compound has…",
+          "a": "A lower R_f",
+          "wrong": [
+            "A higher R_f",
+            "The same R_f as a nonpolar one",
+            "R_f greater than 1"
+          ]
+        },
+        {
+          "q": "How is R_f defined?",
+          "a": "Distance traveled by the spot divided by the distance traveled by the solvent front",
+          "wrong": [
+            "Distance of the spot from the plate edge",
+            "Solvent front distance divided by spot distance",
+            "The retention time"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "electrophoresis",
+      "title": "Gel electrophoresis",
+      "terms": [
+        "gel electrophoresis",
+        "electrophoresis",
+        "SDS-PAGE",
+        "agarose gel",
+        "polyacrylamide gel",
+        "DNA ladder",
+        "ethidium bromide",
+        "Western blot",
+        "staining proteins"
+      ],
+      "body": [
+        "**Electrophoresis** separates charged molecules by their migration in an electric field. In **gel electrophoresis** the molecules move through a porous gel matrix, which sieves them by size as well as charge.",
+        {
+          "list": [
+            "**Agarose gels** (0.5–2% agarose) resolve DNA and RNA fragments of 100 bp to 25 kb. All nucleic acids carry a similar charge per unit length (the phosphate backbone), so they move toward the positive electrode at a rate that depends on length: the smaller fragments migrate farther. A lane of known fragments (a ladder) calibrates the sizes, and a DNA dye such as ethidium bromide or SYBR Safe (fluorescent when bound to DNA) shows the bands under UV light.",
+            "**SDS-PAGE** (sodium dodecyl sulfate polyacrylamide gel electrophoresis) separates proteins by molecular mass. SDS, an anionic detergent, denatures proteins and coats them with negative charge in proportion to their length (about 1.4 g SDS per gram protein), so all move to the anode, and the polyacrylamide gel sieves them: log(mass) is linear in the distance migrated. The bands are stained with Coomassie blue or silver, or transferred to a membrane for a Western blot, detected with antibodies.",
+            "**Capillary electrophoresis** (see the chapter on chromatography) and **isoelectric focusing**, which separates proteins by their isoelectric point in a pH gradient, extend the method."
+          ]
+        },
+        "The migration rate is the electrophoretic mobility times the field, v = μE, and the mobility rises with charge and falls with size and with the viscosity of the medium. The potential used (100–200 V) is limited by the heat that the current generates, which is why gels run in a buffer that carries the current and fixes the pH."
+      ],
+      "check": [
+        {
+          "q": "In SDS-PAGE, proteins separate according to…",
+          "a": "Molecular mass, since SDS gives all proteins a similar charge per length",
+          "wrong": [
+            "Their original charge",
+            "Their color",
+            "Their amino-acid composition only"
+          ]
+        },
+        {
+          "q": "In agarose gel electrophoresis of DNA, the longer fragments…",
+          "a": "Migrate more slowly",
+          "wrong": [
+            "Migrate faster",
+            "Do not move",
+            "Migrate to the negative electrode"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "reaction-setups",
+      "title": "Running reactions: reflux and inert atmosphere",
+      "terms": [
+        "reflux",
+        "refluxing",
+        "heating under reflux",
+        "Schlenk line",
+        "glovebox",
+        "inert atmosphere",
+        "air-sensitive",
+        "air-free",
+        "freeze–pump–thaw",
+        "cannula transfer",
+        "degassing",
+        "Dean–Stark trap",
+        "syringe technique",
+        "oven-dried glassware"
+      ],
+      "body": [
+        "To run a reaction hot for hours without losing solvent, the flask is fitted with a vertical condenser, so that the vapor condenses and drips back: **heating under reflux**. The reaction temperature is then fixed at the solvent’s boiling point (ethanol 78 °C, toluene 111 °C, DMF 153 °C), however strongly the flask is heated, which makes the temperature reproducible. A heating mantle or oil bath is the heat source, a stir bar gives smooth boiling, and the top of the condenser is open to the atmosphere (or fitted with a drying tube or an inert-gas line) so that the system is never sealed. A **Dean–Stark trap** collects the water from a reaction refluxing in toluene and drives equilibria such as esterification and acetal formation forward.",
+        "Many reagents, including organolithiums, Grignards, metal hydrides, low-valent metal complexes and many catalysts, react with O₂ and water. They are handled in an **inert atmosphere** of nitrogen or argon:",
+        {
+          "list": [
+            "The **Schlenk line** is a double manifold, one for vacuum and one for inert gas, with taps that let glassware be evacuated and refilled with gas (three cycles) to remove air. Glassware is oven-dried (120 °C) or flame-dried under vacuum to remove the film of water on glass. Solvents are dried (over sieves, or by a still) and **degassed** by bubbling with the gas or by **freeze–pump–thaw** cycles. Liquids move through septa by gas-tight syringe or by **cannula** (a double-ended needle) driven by a small pressure difference.",
+            "The **glovebox** is a sealed chamber filled with nitrogen or argon, with a catalyst that keeps O₂ and H₂O below about 1 ppm, and built-in gloves. It is the best for weighing and handling air-sensitive solids and for setting up reactions for long times."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "Why is a reaction heated under reflux at a constant temperature?",
+          "a": "The temperature is fixed at the solvent’s boiling point",
+          "wrong": [
+            "The heat source is thermostatted",
+            "Condensers cool the flask",
+            "The solvent does not boil"
+          ]
+        },
+        {
+          "q": "What is a Schlenk line used for?",
+          "a": "Working with air-sensitive materials under vacuum or an inert gas",
+          "wrong": [
+            "Distilling water",
+            "Measuring pH",
+            "Sealing the apparatus airtight during heating"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "measurement",
+      "title": "Classical measurements: gravimetric analysis and melting point",
+      "terms": [
+        "gravimetric analysis",
+        "gravimetric",
+        "melting point determination",
+        "melting point apparatus",
+        "melting point depression",
+        "capillary tube",
+        "mixed melting point",
+        "melting range",
+        "digestion of precipitate",
+        "constant mass",
+        "gravimetric factor",
+        "purity assessment"
+      ],
+      "body": [
+        "In **gravimetric analysis** the analyte is converted into a pure, stable compound of known composition that is weighed. The classic example is chloride as AgCl, or sulfate as BaSO₄. The precipitate must be of low solubility, be formed in large, filterable particles (**digestion**, standing hot in the mother liquor, makes crystals grow and reduces coprecipitated impurities), washed, dried or ignited to **constant mass** (two successive weighings agree), and have a known formula. The analyte mass is the mass of precipitate times the **gravimetric factor**, the ratio of molar masses.",
+        {
+          "example": {
+            "title": "Sulfate as BaSO₄",
+            "problem": "A 0.5000 g sample containing sulfate gives 0.4567 g of BaSO₄ (M = 233.39 g mol⁻¹). Find the mass percent of sulfate (M = 96.06 g mol⁻¹).",
+            "solution": "Gravimetric factor = 96.06/233.39 = 0.4116. Mass of SO₄²⁻ = 0.4567 × 0.4116 = 0.1880 g, and the percent is 0.1880/0.5000 × 100 = 37.6%."
+          }
+        },
+        "Gravimetric analysis is slow but absolute: it needs no calibration, only a good balance, and it remains a primary method for standardizing others (see the chapter on quantitative analysis). Other classical methods, titration and calorimetry, are treated in the chapters on stoichiometry, acids and bases, and thermochemistry.",
+        {
+          "h": "Melting point"
+        },
+        "A pure crystalline compound melts sharply (over 0.5–1 °C), and impurities lower and broaden the melting range (**melting point depression**, a colligative effect). In **melting point determination**, a few crystals are packed into a **capillary tube** and heated slowly (1–2 °C min⁻¹ near the melting point) in a heated block or oil bath, and the temperatures of first liquid and complete melting are recorded as the melting range. A mixed melting point identifies an unknown: if a mixture of the sample and an authentic standard melts sharply at the same temperature, they are identical, but if the melting range falls and broadens, they are different compounds. Typical values: acetanilide 114 °C, benzoic acid 122 °C, urea 133 °C, aspirin 135 °C."
+      ],
+      "check": [
+        {
+          "q": "What does a broad, depressed melting range indicate?",
+          "a": "An impure sample",
+          "wrong": [
+            "A pure sample",
+            "A polymer",
+            "A gas"
+          ]
+        },
+        {
+          "q": "A precipitate for gravimetric analysis should be…",
+          "a": "Pure, of low solubility, of known composition and filterable",
+          "wrong": [
+            "Colloidal",
+            "Hydrated to an unknown degree",
+            "Highly soluble"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Choose a separation by the property that differs: size (filtration, centrifugation), volatility (distillation), solubility (recrystallization, extraction), polarity (chromatography), charge (electrophoresis).",
+    "RCF = 1.118 × 10⁻⁵ r (rpm)². Fractional distillation uses many theoretical plates, and azeotropes limit it.",
+    "Recrystallize with a solvent that dissolves the compound hot and not cold, using minimum hot solvent and slow cooling.",
+    "Extraction: f = [1/(1 + K_DV_org/V_aq)]ⁿ. Several small portions beat one large one, and pH controls acid–base extraction.",
+    "R_f = spot distance/front distance. On silica, polar compounds have low R_f. Use R_f ≈ 0.3 to choose a column eluent.",
+    "SDS-PAGE separates by mass, and agarose by DNA length. Reflux fixes the temperature at the boiling point, and Schlenk lines and gloveboxes handle air-sensitive compounds. A sharp melting point means a pure compound."
+  ],
+  "problems": [
+    {
+      "q": "A compound has K_D = 2.5 between ethyl acetate and water. Starting with 50 mL of water, compare one extraction with 60 mL against three extractions with 20 mL each.",
+      "solution": "One: f = 1/(1 + 2.5 × 60/50) = 1/4.0 = 0.25 (75% extracted). Three: each f = 1/(1 + 2.5 × 20/50) = 1/2.0 = 0.50, so f = 0.125 (87.5% extracted).",
+      "a": "75% for one extraction and 87.5% for three."
+    },
+    {
+      "q": "Design a separation of a mixture of benzoic acid, 4-nitroaniline and naphthalene dissolved in ether using extractions.",
+      "solution": "Extract with aqueous NaHCO₃: benzoic acid goes into the water as sodium benzoate (acidify the water to recover it). Extract the ether with dilute HCl: 4-nitroaniline goes into the water as the anilinium salt (basify to recover it). The neutral naphthalene remains in the ether, which is dried and evaporated.",
+      "a": "NaHCO₃ for the acid, HCl for the amine, and the neutral stays in the ether."
+    },
+    {
+      "q": "A gravimetric determination gives 0.3120 g AgCl (M = 143.32) from a 0.5000 g sample. Find the mass percent chloride (35.45 g/mol).",
+      "solution": "Gravimetric factor = 35.45/143.32 = 0.2473. Cl = 0.3120 × 0.2473 = 0.07717 g, so 15.4%.",
+      "a": "15.4% Cl."
+    },
+    {
+      "q": "A rotor of 10.0 cm effective radius must give 12,000 × g. What speed in rpm is needed?",
+      "solution": "rpm = √(RCF/(1.118 × 10⁻⁵ r)) = √(12,000/(1.118 × 10⁻⁵ × 10.0)) = √(1.073 × 10⁸) = 10,360 rpm.",
+      "a": "About 10,400 rpm."
+    }
+  ]
+}

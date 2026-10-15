@@ -1,0 +1,646 @@
+{
+  "id": "quantum-atoms-molecules",
+  "view": "chapter",
+  "title": "Quantum Mechanics of Atoms and Molecules",
+  "description": "The hydrogen atom, electron spin, approximation methods, many-electron atoms, the Born–Oppenheimer approximation, molecular orbitals, Hückel theory and computational chemistry.",
+  "overview": [
+    "Only one atom, hydrogen, and one molecule, H₂⁺, can be solved exactly. All of chemistry beyond them depends on approximations. The question is how to approximate well: how to treat electron repulsion, how to account for spin, how to build molecular orbitals from atomic ones, and how to carry out these calculations on a computer for molecules of useful size.",
+    "This chapter starts from the hydrogen atom, adds spin and the Pauli principle, develops the two main approximation methods (perturbation and variational), uses them for helium and many-electron atoms, and then moves to molecules: the Born–Oppenheimer approximation, molecular orbital theory for diatomics, Hückel theory for π systems, and modern computational chemistry."
+  ],
+  "objectives": [
+    "Describe the solution of the hydrogen atom: energies, orbitals, radial distributions and the role of nuclear charge Z.",
+    "Explain electron spin, antisymmetry and Slater determinants.",
+    "Apply the variational principle and first-order perturbation theory to helium.",
+    "Explain Hartree–Fock, electron correlation and basis sets, and derive atomic term symbols and the ground term by Hund’s rules.",
+    "Explain the Born–Oppenheimer approximation, potential energy curves and the LCAO treatment of H₂⁺.",
+    "Calculate Hückel π energies and delocalization energies.",
+    "Describe how DFT and other computational methods are used."
+  ],
+  "sections": [
+    {
+      "id": "hydrogen",
+      "title": "The hydrogen atom",
+      "terms": [
+        "hydrogen atom",
+        "radial wavefunction",
+        "radial distribution function",
+        "Bohr radius",
+        "hydrogen-like atoms",
+        "hydrogenic",
+        "hydrogenic atom",
+        "hydrogen-like ion",
+        "Rydberg constant",
+        "reduced mass of hydrogen",
+        "orbital angular momentum quantum number",
+        "atomic orbitals as solutions"
+      ],
+      "body": [
+        "The Hamiltonian of a hydrogen-like atom (one electron, nuclear charge Z) is Ĥ = −(ħ²/2μ)∇² − Ze²/(4πε₀r). In spherical coordinates it separates into a radial equation and the angular equation of the rigid rotor, so the solutions are products ψ_{nlm}(r, θ, φ) = R_{nl}(r) Y_l^m(θ, φ), with quantum numbers n = 1, 2, … ; l = 0 … n − 1; m = −l … +l. These are the atomic orbitals. The energy depends only on n:",
+        {
+          "eq": [
+            "E_n = −Z² R_H / n²,     R_H = 13.6 eV = 2.18 × 10⁻¹⁸ J = 109,678 cm⁻¹",
+            "a₀ = 4πε₀ħ²/(m_e e²) = 52.9 pm   (the Bohr radius)"
+          ]
+        },
+        "Each level n has n² degenerate states (the sum of 2l + 1 over l). This is the accidental degeneracy of the Coulomb potential, and it is lifted in many-electron atoms. The ground state wavefunction is ψ₁ₛ = (1/√π)(Z/a₀)^{3/2} e^{−Zr/a₀}. The probability of finding the electron between r and r + dr, the **radial distribution function**, is P(r) = 4πr²|ψ|²: for the 1s orbital it is zero at r = 0, peaks at r = a₀ (the most probable distance, the Bohr radius) and has ⟨r⟩ = 3a₀/2. An orbital has n − l − 1 radial nodes and l angular nodes.",
+        {
+          "table": {
+            "head": [
+              "Quantity",
+              "Hydrogen 1s",
+              "Trend"
+            ],
+            "rows": [
+              [
+                "Energy",
+                "−13.6 eV",
+                "∝ Z²/n²"
+              ],
+              [
+                "Most probable radius",
+                "a₀ = 52.9 pm",
+                "∝ n²/Z"
+              ],
+              [
+                "⟨r⟩",
+                "1.5 a₀",
+                "Grows as n²"
+              ],
+              [
+                "Radial nodes",
+                "0 (1s), 1 (2s), n − l − 1",
+                ""
+              ]
+            ],
+            "caption": "Properties of hydrogenic orbitals."
+          }
+        },
+        {
+          "example": {
+            "title": "He⁺ and spectral lines",
+            "problem": "Find the ionization energy of He⁺ and the wavelength of its n = 2 → 1 transition.",
+            "solution": [
+              "He⁺ is hydrogenic with Z = 2. The ionization energy is Z² × 13.6 eV = 54.4 eV.",
+              "ΔE(2 → 1) = Z²R_H(1 − 1/4) = 4 × 13.6 × 0.75 = 40.8 eV, so λ = 1240 eV nm / 40.8 eV = 30.4 nm, in the far ultraviolet."
+            ]
+          }
+        },
+        "A real hydrogen atom has a very small correction from the finite nuclear mass: R_H uses the reduced mass of electron and proton, 0.99946 m_e, and this shifts the lines of deuterium relative to hydrogen by about 0.03%, the way deuterium was discovered (Urey, 1931)."
+      ],
+      "check": [
+        {
+          "q": "How many degenerate states does the n = 3 level of hydrogen have?",
+          "a": "9",
+          "wrong": [
+            "3",
+            "6",
+            "18"
+          ],
+          "why": "n² = 9 (3s: 1, 3p: 3, 3d: 5)."
+        },
+        {
+          "q": "Where is the 1s radial distribution function maximum?",
+          "a": "At r = a₀",
+          "wrong": [
+            "At r = 0",
+            "At r = 2a₀",
+            "At infinity"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spin",
+      "title": "Electron spin and the Pauli principle",
+      "terms": [
+        "electron spin",
+        "Stern–Gerlach experiment",
+        "Stern-Gerlach experiment",
+        "antisymmetry principle",
+        "Slater determinant",
+        "Slater determinants",
+        "fermions",
+        "bosons",
+        "spin–orbit coupling",
+        "spin-orbit coupling",
+        "spin orbital",
+        "spin orbitals",
+        "spin angular momentum",
+        "exchange antisymmetry",
+        "Pauli principle"
+      ],
+      "body": [
+        "Electrons have an intrinsic angular momentum, **spin**, with quantum number s = ½ and z-component m_s = ±½ (spin α and β). In the Stern–Gerlach experiment (1922) a beam of silver atoms (one unpaired 5s electron) passing through an inhomogeneous magnetic field split into two beams, not the continuous smear expected classically. Spin has no classical analogue, and it follows from relativistic quantum mechanics (Dirac).",
+        "Particles with half-integer spin (electrons, protons, neutrons) are **fermions**, and those with integer spin (photons, ⁴He nuclei) are **bosons**. The **antisymmetry principle** (the general form of the Pauli exclusion principle) states that the total wavefunction of identical fermions changes sign when any two are exchanged: Ψ(1, 2) = −Ψ(2, 1). Two electrons in the same spin orbital would give Ψ = 0, so no two electrons share all four quantum numbers.",
+        "A convenient way to build an antisymmetric many-electron wavefunction from **spin orbitals** (a spatial orbital times α or β) is the **Slater determinant**. For helium in the ground state, 1s²:",
+        {
+          "eq": "Ψ = (1/√2) | 1s(1)α(1)   1s(1)β(1) ;  1s(2)α(2)   1s(2)β(2) |  =  1s(1)1s(2) × (1/√2)[α(1)β(2) − β(1)α(2)]"
+        },
+        "The determinant is zero if two rows or two columns are the same (the exclusion principle) and changes sign on exchange of two electrons. For helium it reduces to a symmetric spatial part times an antisymmetric spin part (a singlet). In an excited 1s2s state the spins can be parallel (triplet, with an antisymmetric spatial wavefunction, in which the electrons avoid each other and so have lower energy) or opposite (singlet, higher). This exchange effect is the origin of Hund’s first rule.",
+        "**Spin–orbit coupling** is the interaction of the spin magnetic moment with the magnetic field produced by the orbital motion. It combines l and s into a total angular momentum j = l ± s, and splits the levels. The splitting grows rapidly with nuclear charge (∝ Z⁴), so it is a fine detail of the hydrogen spectrum but large in heavy atoms. In sodium, the 3p level splits into ²P₃/₂ and ²P₁/₂, which gives the yellow D lines at 589.0 and 589.6 nm."
+      ],
+      "check": [
+        {
+          "q": "A Slater determinant ensures that the wavefunction…",
+          "a": "Changes sign on exchange of two electrons",
+          "wrong": [
+            "Is symmetric on exchange of two electrons",
+            "Has no spin",
+            "Describes bosons"
+          ]
+        },
+        {
+          "q": "Why is the triplet 1s2s state of helium lower in energy than the singlet?",
+          "a": "The antisymmetric spatial wavefunction keeps the electrons apart, reducing repulsion",
+          "wrong": [
+            "Triplet electrons are closer together",
+            "The singlet has higher nuclear charge",
+            "Spin–orbit coupling lowers the triplet"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "approximations",
+      "title": "Approximation methods: helium",
+      "terms": [
+        "variational principle",
+        "variational method",
+        "perturbation theory",
+        "helium atom",
+        "electron repulsion",
+        "trial wavefunction",
+        "first-order perturbation",
+        "effective nuclear charge in helium",
+        "screening in helium",
+        "variational energy",
+        "zero-order wavefunction"
+      ],
+      "body": [
+        "The helium atom, with two electrons, has a Hamiltonian that includes the repulsion term e²/(4πε₀r₁₂) and cannot be solved exactly. Two general strategies give approximate answers.",
+        {
+          "list": [
+            "**Perturbation theory**: treat the Hamiltonian as Ĥ = Ĥ⁰ + Ĥ′, where Ĥ⁰ can be solved and Ĥ′ is small. The first-order energy is E = E⁰ + ⟨ψ⁰|Ĥ′|ψ⁰⟩. Higher orders give a series of corrections.",
+            "**Variational principle**: for any normalized trial function φ, the energy ⟨φ|Ĥ|φ⟩ is **never lower than the true ground-state energy**: E[φ] ≥ E₀. Therefore, adjust the parameters of φ to minimize E, and the lowest value is the best estimate, and the error is smaller in the energy than in the wavefunction."
+          ]
+        },
+        {
+          "example": {
+            "title": "Helium by perturbation theory",
+            "problem": "Estimate the ground-state energy of He by treating electron repulsion as a perturbation.",
+            "solution": [
+              "Zeroth order: ignore repulsion, so each electron is hydrogenic with Z = 2 in 1s: E⁰ = 2 × (−4 × 13.6) = −108.8 eV.",
+              "First order: the expectation value of e²/4πε₀r₁₂ in the 1s² state is (5/8)Z hartree = (5/8)(2)(27.2 eV) = +34.0 eV. So E = −108.8 + 34.0 = −74.8 eV.",
+              "The experimental value (the sum of the first and second ionization energies, with the sign changed) is −79.0 eV: first-order perturbation theory recovers most of the repulsion but overestimates it by 4 eV."
+            ]
+          }
+        },
+        {
+          "example": {
+            "title": "Helium by the variational principle",
+            "problem": "Use the trial function 1s(1)1s(2) with an effective nuclear charge ζ as variational parameter. Find the best ζ and energy.",
+            "solution": [
+              "Each electron screens the other, so the effective charge should be less than Z = 2. The energy as a function of ζ is E(ζ) = ζ² − 2Zζ + (5/8)ζ in hartree (1 E_h = 27.2 eV). Minimizing: dE/dζ = 2ζ − 2Z + 5/8 = 0, so **ζ = Z − 5/16 = 1.6875**.",
+              "E_min = −ζ² = −2.848 E_h = −77.5 eV. This is closer to the experimental −79.0 eV than the perturbation result, and above it, as the variational principle requires. The Hartree–Fock limit is −2.862 E_h (−77.9 eV); the rest, 1.1 eV, is electron correlation."
+            ]
+          }
+        },
+        "The lesson is that each electron sees a nucleus partly shielded by the other, with an effective charge of 1.69 in helium. The same idea of **effective nuclear charge** explains the periodic trends."
+      ],
+      "check": [
+        {
+          "q": "The variational principle states that for any trial wavefunction the computed energy is…",
+          "a": "Greater than or equal to the true ground-state energy",
+          "wrong": [
+            "Less than or equal to the true energy",
+            "Exactly the true energy",
+            "Unrelated to the true energy"
+          ]
+        },
+        {
+          "q": "What is the effective nuclear charge in the helium variational treatment?",
+          "a": "1.6875, less than 2 because of screening by the other electron",
+          "wrong": [
+            "2",
+            "1",
+            "2.5"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "many-electron",
+      "title": "Many-electron atoms: Hartree–Fock and term symbols",
+      "terms": [
+        "Hartree–Fock",
+        "Hartree-Fock",
+        "self-consistent field",
+        "SCF method",
+        "term symbol",
+        "term symbols",
+        "Russell–Saunders coupling",
+        "Russell-Saunders coupling",
+        "LS coupling",
+        "electron correlation",
+        "basis set",
+        "basis sets",
+        "configuration interaction",
+        "coupled cluster",
+        "Hund's rules",
+        "Koopmans' theorem",
+        "correlation energy",
+        "Møller–Plesset"
+      ],
+      "body": [
+        "In the **Hartree–Fock (HF)** method each electron moves in the average electric field of the nucleus and all other electrons, and the orbitals are those that give the lowest energy for a single Slater determinant. Because each orbital depends on the others, the equations are solved iteratively until the orbitals no longer change: the **self-consistent field (SCF)** procedure. The orbital energies approximate the ionization energies (**Koopmans’ theorem**). HF treats each electron as moving in an average field of the others, and neglects their instantaneous avoidance of each other. The remainder is the **electron correlation** energy, E_exact − E_HF (about 1 eV for the pair in helium, and 0.3–0.5 eV per electron pair in molecules, which is as large as a chemical bond’s energy changes).",
+        "Correlation is recovered by post-HF methods: **configuration interaction** (CI) mixes in excited determinants, Møller–Plesset perturbation theory (MP2) adds a perturbative correction, and **coupled cluster** (CCSD(T), the “gold standard” of quantum chemistry) includes excitations to infinite order. All expand the orbitals in a **basis set**, a finite set of atom-centered functions (Gaussians). Larger basis sets (STO-3G < 6-31G* < cc-pVTZ < cc-pVQZ) approach the exact result and cost more.",
+        {
+          "h": "Term symbols"
+        },
+        "The electronic states of an atom with several unfilled orbitals are classified by the total orbital angular momentum L (S, P, D, F for 0, 1, 2, 3), the total spin S, and the total angular momentum J, in the **Russell–Saunders (LS) coupling** scheme, appropriate for light atoms. A **term symbol** is written ²ˢ⁺¹L_J, with 2S + 1 the spin multiplicity. Closed subshells contribute nothing (L = S = 0), so only the open subshell matters. The ground term is chosen by **Hund’s rules**: (1) the term with the greatest S lies lowest; (2) among those, the greatest L; (3) for a subshell less than half filled J = |L − S| is lowest, and for one more than half filled J = L + S.",
+        {
+          "example": {
+            "title": "Ground terms of carbon, nitrogen and oxygen",
+            "problem": "Find the ground term symbols of C (2p²), N (2p³) and O (2p⁴).",
+            "solution": [
+              "C: the 2p² configuration gives the terms ¹S, ¹D and ³P (15 microstates in all). Hund’s first rule picks the triplet, ³P (S = 1, L = 1, J = 0, 1, 2). The subshell is less than half filled, so J = 0 is lowest: **³P₀**.",
+              "N: 2p³ has S = 3/2 (all three spins parallel), which forces the orbitals to be m = +1, 0, −1 and L = 0: **⁴S₃/₂**.",
+              "O: 2p⁴ has the same terms as 2p² (two holes), so the ground term is ³P. The shell is more than half filled, so J = L + S = 2: **³P₂**."
+            ]
+          }
+        },
+        "Term symbols determine which transitions are allowed (ΔS = 0, ΔL = 0, ±1, ΔJ = 0, ±1) and explain atomic spectra and magnetic moments."
+      ],
+      "check": [
+        {
+          "q": "What is the ground-state term symbol of a sodium atom?",
+          "a": "²S₁/₂",
+          "wrong": [
+            "²P₁/₂",
+            "¹S₀",
+            "³S₁"
+          ]
+        },
+        {
+          "q": "What does electron correlation mean in Hartree–Fock theory?",
+          "a": "The energy missed because electrons are treated in an average field and avoid each other instantaneously",
+          "wrong": [
+            "The energy of the nuclei",
+            "The spin–orbit coupling",
+            "The energy of the basis set"
+          ]
+        },
+        {
+          "q": "Hund’s first rule says the ground term has…",
+          "a": "The maximum total spin S",
+          "wrong": [
+            "The minimum total spin",
+            "The minimum J",
+            "The maximum J"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "born-oppenheimer",
+      "title": "The Born–Oppenheimer approximation and H₂⁺",
+      "terms": [
+        "Born–Oppenheimer approximation",
+        "Born-Oppenheimer approximation",
+        "potential energy surface",
+        "potential energy curve",
+        "hydrogen molecule ion",
+        "H₂⁺",
+        "overlap integral",
+        "dissociation energy",
+        "bonding orbital energy curve",
+        "equilibrium bond length from potential curve",
+        "adiabatic approximation"
+      ],
+      "body": [
+        "A molecule’s Hamiltonian contains the motions of the electrons and of the nuclei. Because nuclei are at least 1836 times heavier than electrons, they move slowly: the electrons adjust instantly to any nuclear arrangement. The **Born–Oppenheimer approximation** therefore treats the nuclei as fixed when solving for the electrons. This gives an electronic energy E_el(R) for each nuclear geometry R, and adding the nuclear repulsion gives a **potential energy curve** (for a diatomic) or **potential energy surface** (for several nuclei) on which the nuclei then move. The surface is the most important concept in chemical reactivity and spectroscopy: equilibrium structures are minima, and transition states are saddle points. The approximation fails when two surfaces come close together (conical intersections, important in photochemistry and in electron-transfer reactions).",
+        "The simplest molecule is **H₂⁺** (two protons, one electron), which can be solved exactly at fixed R. An approximation as a **linear combination of atomic orbitals (LCAO)**, ψ± = (φ_A ± φ_B)/√(2(1 ± S)) from the two hydrogen 1s orbitals, shows the mechanism of bonding. Here S = ∫φ_Aφ_B dτ is the **overlap integral**, which is nonzero when the orbitals overlap. The bonding combination (ψ₊, σ_g) concentrates electron density between the nuclei and lowers the energy; the antibonding combination (ψ₋, σ_u*) has a node between them and is repulsive at all R.",
+        {
+          "table": {
+            "head": [
+              "Quantity",
+              "LCAO",
+              "Exact"
+            ],
+            "rows": [
+              [
+                "Equilibrium bond length R_e",
+                "132 pm",
+                "106 pm"
+              ],
+              [
+                "Dissociation energy D_e",
+                "1.77 eV",
+                "2.79 eV"
+              ]
+            ],
+            "caption": "H₂⁺ ground state. The LCAO is qualitatively right but not accurate."
+          }
+        },
+        "The lowering of the bonding orbital is controlled by the resonance (exchange) integral, which is negative: the more the orbitals overlap, the larger the energy gain, and the antibonding orbital is raised by more than the bonding orbital is lowered (when overlap is included). This asymmetry is why filled bonding and antibonding orbitals (He₂) give no net bond. The dissociation energy D_e is measured from the minimum of the curve, and D₀ = D_e − E_zp from the ground vibrational level."
+      ],
+      "check": [
+        {
+          "q": "What does the Born–Oppenheimer approximation assume?",
+          "a": "Nuclei are fixed while the electrons are solved for, because nuclei move much more slowly",
+          "wrong": [
+            "Electrons are fixed while nuclei move",
+            "Nuclei and electrons move at the same speed",
+            "There is no electron repulsion"
+          ]
+        },
+        {
+          "q": "What makes a combination of two atomic orbitals bonding?",
+          "a": "The orbitals add in phase, concentrating electron density between the nuclei",
+          "wrong": [
+            "They have different signs",
+            "They are on atoms of different elements",
+            "They have no overlap"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "diatomics",
+      "title": "Molecular orbitals of diatomic molecules",
+      "terms": [
+        "MO diagrams",
+        "sigma–pi crossover",
+        "s–p mixing",
+        "homonuclear diatomic",
+        "heteronuclear diatomic",
+        "homonuclear diatomics",
+        "gerade",
+        "ungerade",
+        "σg",
+        "πu",
+        "bond order from MO"
+      ],
+      "body": [
+        "The MO treatment of homonuclear diatomics extends the LCAO method of H₂⁺ to the 2s and 2p orbitals. The atomic orbitals combine in pairs of the same symmetry about the bond axis: 2s with 2s gives σ_g(2s) and σ_u*(2s); 2p_z with 2p_z gives σ_g(2p) and σ_u*(2p); 2pₓ and 2p_y combine to two degenerate π_u(2p) and π_g*(2p) pairs. The labels **g (gerade)** and **u (ungerade)** state whether the orbital is symmetric or antisymmetric under inversion through the center.",
+        "The order of σ_g(2p) and π_u(2p) depends on the mixing of 2s and 2p orbitals (**s–p mixing**), which is strong when the 2s–2p energy gap is small (B, C, N) and pushes σ_g(2p) above π_u(2p). The levels cross over at O₂: for Li₂ to N₂ the π_u(2p) is below σ_g(2p) and for O₂ and F₂ it is above. This **σ–π crossover** explains why the HOMO of N₂ is a σ orbital (σ_g) whereas that of O₂ is π_g* with two unpaired electrons.",
+        {
+          "table": {
+            "head": [
+              "Molecule",
+              "Valence configuration",
+              "Term symbol",
+              "Bond order"
+            ],
+            "rows": [
+              [
+                "N₂",
+                "σ_g²σ_u*²π_u⁴σ_g²",
+                "¹Σ_g⁺",
+                "3"
+              ],
+              [
+                "O₂",
+                "σ_g²σ_u*²σ_g²π_u⁴π_g*²",
+                "³Σ_g⁻",
+                "2"
+              ],
+              [
+                "F₂",
+                "…π_g*⁴",
+                "¹Σ_g⁺",
+                "1"
+              ],
+              [
+                "C₂",
+                "σ_g²σ_u*²π_u⁴",
+                "¹Σ_g⁺",
+                "2 (two π bonds)"
+              ]
+            ],
+            "caption": "Molecular orbital configurations of homonuclear diatomics."
+          }
+        },
+        "In **heteronuclear diatomics** (CO, HF, NO) the more electronegative atom contributes more to the bonding orbitals and the less electronegative atom more to the antibonding ones, so the bonding orbitals are polarized toward the electronegative atom. In CO (isoelectronic with N₂, bond order 3) the HOMO is a σ orbital mostly on carbon, and this is why carbon is the donor atom in metal carbonyls. In HF, the fluorine 2p orbital is much lower than the hydrogen 1s and combines with it to give a σ bond polarized toward F, and the two F 2p orbitals perpendicular to the bond are nonbonding lone pairs."
+      ],
+      "check": [
+        {
+          "q": "What is the term symbol of the ground state of O₂?",
+          "a": "³Σ_g⁻ (a triplet)",
+          "wrong": [
+            "¹Σ_g⁺",
+            "²Π",
+            "¹Δ"
+          ]
+        },
+        {
+          "q": "Why is the HOMO of N₂ a σ orbital, but that of O₂ a π* orbital?",
+          "a": "s–p mixing in N₂ places σ_g(2p) above π_u, and no mixing in O₂ reverses them",
+          "wrong": [
+            "N₂ has fewer electrons only",
+            "O₂ has no σ orbitals",
+            "N₂ is heteronuclear"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "huckel",
+      "title": "Hückel molecular orbital theory",
+      "terms": [
+        "Hückel theory",
+        "Hückel method",
+        "secular determinant",
+        "π electron energy",
+        "delocalization energy",
+        "resonance energy of benzene",
+        "Coulomb integral",
+        "resonance integral",
+        "π-electron approximation",
+        "HMO",
+        "bond order in Hückel theory"
+      ],
+      "body": [
+        "**Hückel theory** treats the π electrons of a conjugated hydrocarbon on their own, as occupying molecular orbitals built from the carbon 2p orbitals perpendicular to the molecular plane, ψ = Σcᵢφᵢ. The σ framework is ignored. Three assumptions reduce the problem to simple algebra: all the **Coulomb integrals** Hᵢᵢ = α are the same (the energy of an electron in an isolated 2p orbital); the **resonance integral** between bonded neighbors is Hᵢⱼ = β (negative, giving the stabilization of bonding); and it is zero between non-neighbors, and overlap integrals Sᵢⱼ = 0 for i ≠ j.",
+        "The energies are the roots of the **secular determinant** |H − ES| = 0, which becomes a determinant with α − E on the diagonal and β where two carbons are bonded. With x = (α − E)/β, ethene gives x² − 1 = 0, so E = α ± β:",
+        {
+          "table": {
+            "head": [
+              "Molecule",
+              "π MO energies (in α + xβ)",
+              "π electrons",
+              "π energy",
+              "Delocalization energy"
+            ],
+            "rows": [
+              [
+                "Ethene",
+                "x = ±1",
+                "2",
+                "2α + 2β",
+                "—"
+              ],
+              [
+                "Allyl (cation, radical, anion)",
+                "x = ±√2, 0",
+                "2, 3, 4",
+                "2α + 2.83β (cation)",
+                "0.83β (cation)"
+              ],
+              [
+                "Butadiene",
+                "x = ±1.618, ±0.618",
+                "4",
+                "4α + 4.47β",
+                "0.47β"
+              ],
+              [
+                "Cyclobutadiene",
+                "x = ±2, 0, 0",
+                "4",
+                "4α + 4β",
+                "0 (antiaromatic)"
+              ],
+              [
+                "Benzene",
+                "x = ±2, ±1, ±1",
+                "6",
+                "6α + 8β",
+                "2β"
+              ]
+            ],
+            "caption": "Hückel π energies. The delocalization energy is the π energy minus that of the same number of isolated ethene units."
+          }
+        },
+        "Delocalization lowers the π energy: in butadiene by 0.47β compared with two isolated double bonds (4α + 4β), and in benzene by 2β. With β ≈ −75 kJ mol⁻¹ this gives the resonance energy of benzene of about 150 kJ mol⁻¹. For cyclobutadiene the two electrons in the degenerate nonbonding pair give no gain: 4α + 4β is the same as two isolated double bonds, and with the electrons in degenerate orbitals the molecule is destabilized, which is **antiaromaticity**. Hückel’s 4n + 2 rule follows directly from the pattern of levels of a ring: one lowest level, then degenerate pairs, so six electrons fill the first two shells.",
+        {
+          "example": {
+            "title": "The allyl system",
+            "problem": "Find the π energies of the allyl system (three carbons in a chain) and the π energy of the allyl radical.",
+            "solution": [
+              "Determinant: |x 1 0; 1 x 1; 0 1 x| = x³ − 2x = 0, so x = 0, ±√2: E = α + 1.414β, α, α − 1.414β.",
+              "The allyl radical has 3 π electrons: two in the lowest level and one in the nonbonding level at α. E_π = 2(α + 1.414β) + α = 3α + 2.83β. The allyl cation (2 electrons) has 2α + 2.83β, and the anion (4 electrons) 4α + 2.83β: the same π bonding energy, which is why the three are all easily formed."
+            ]
+          }
+        },
+        "The HOMO and LUMO coefficients predict reactivity: electrophiles attack where the HOMO is largest, and nucleophiles where the LUMO is largest. The Hückel energies also give the first electronic absorption: ΔE = E_LUMO − E_HOMO falls as the chain lengthens, in the pattern of the particle-in-a-box result."
+      ],
+      "check": [
+        {
+          "q": "What is the Hückel delocalization energy of benzene?",
+          "a": "2β",
+          "wrong": [
+            "0",
+            "β",
+            "0.47β"
+          ]
+        },
+        {
+          "q": "Why is cyclobutadiene antiaromatic in Hückel theory?",
+          "a": "Its two nonbonding electrons occupy a degenerate pair and give no delocalization energy",
+          "wrong": [
+            "It has six π electrons",
+            "It has no π bonds",
+            "It has a negative β"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "computational",
+      "title": "Computational chemistry and DFT",
+      "terms": [
+        "density functional theory",
+        "DFT",
+        "Kohn–Sham",
+        "exchange–correlation functional",
+        "B3LYP",
+        "geometry optimization",
+        "computational chemistry",
+        "ab initio",
+        "semiempirical",
+        "molecular dynamics",
+        "force field",
+        "force fields",
+        "imaginary frequency",
+        "QM/MM",
+        "Hohenberg–Kohn",
+        "electron density",
+        "transition state search",
+        "molecular mechanics"
+      ],
+      "body": [
+        "Computational chemistry applies quantum mechanics (and classical mechanics) on computers to predict structures, energies, spectra and reaction pathways. The choice of method balances accuracy against cost.",
+        {
+          "list": [
+            "**Ab initio** (“from first principles”) methods use only the laws of physics and the fundamental constants: Hartree–Fock, MP2, CI and coupled cluster. The cost rises steeply with system size (HF as N⁴, MP2 N⁵, CCSD(T) N⁷, where N is the basis-set size), so CCSD(T) is limited to small molecules.",
+            "**Semiempirical** methods (PM3, AM1, GFN-xTB) replace the hard integrals with parameters fitted to experiment. They are fast and apply to thousands of atoms, with lower reliability.",
+            "**Density functional theory (DFT)**: Hohenberg and Kohn proved (1964) that the ground-state energy is a functional of the electron density ρ(r) alone, which is a function of only three coordinates, however many electrons the system has. In the **Kohn–Sham** scheme, a fictitious system of noninteracting electrons with the same density is solved with orbitals, and everything not treated exactly (exchange and correlation) is gathered into the **exchange–correlation functional**, which is approximated. Functionals range from the local density approximation to gradient-corrected (PBE) and **hybrid** functionals that mix in some exact HF exchange (**B3LYP**). Cost scales as about N³, making DFT the main method for molecules of 10–1000 atoms. Kohn and Pople shared the 1998 Nobel Prize in Chemistry.",
+            "**Molecular mechanics** and **molecular dynamics** use classical **force fields** (AMBER, CHARMM) that treat atoms as balls and bonds as springs, with energy terms for bond stretching, angle bending, torsions and nonbonded (Lennard–Jones and Coulomb) interactions. These allow simulations of proteins and membranes with 10⁵–10⁶ atoms for microseconds. Hybrid **QM/MM** methods treat the reactive site with quantum mechanics and the surroundings with molecular mechanics (Karplus, Levitt and Warshel, Nobel Prize 2013)."
+          ]
+        },
+        {
+          "h": "What is calculated"
+        },
+        "**Geometry optimization** moves the nuclei downhill on the potential energy surface until the gradient (the forces) vanishes. A stationary point is characterized by the second derivatives (the Hessian): all vibrational frequencies are real at a **minimum** (a stable molecule), and exactly one **imaginary frequency** at a first-order saddle point, a **transition state**, whose imaginary mode is the reaction coordinate. The vibrational frequencies give the zero-point energy and the IR spectrum, and the energies of reactants, products and transition state give reaction energies and barriers. A target is “chemical accuracy”, about 4 kJ mol⁻¹ (1 kcal mol⁻¹), which CCSD(T) with large basis sets reaches for small molecules and well-chosen DFT functionals approach.",
+        {
+          "example": {
+            "title": "Characterizing a stationary point",
+            "problem": "A geometry optimization of a molecule converges, and a frequency calculation shows one imaginary frequency of 1200i cm⁻¹. What has been found?",
+            "solution": "A first-order saddle point, not a minimum. The imaginary frequency means the structure is a maximum along one direction, the reaction coordinate: a transition state. To confirm which minima it connects, follow the intrinsic reaction coordinate downhill in both directions."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "What does an imaginary vibrational frequency at a stationary point indicate?",
+          "a": "A saddle point (transition state), not a minimum",
+          "wrong": [
+            "A very strong bond",
+            "A numerical error only",
+            "A triplet state"
+          ]
+        },
+        {
+          "q": "In DFT, the ground-state energy is a functional of…",
+          "a": "The electron density",
+          "wrong": [
+            "The wavefunction of all electrons only",
+            "The nuclear charge only",
+            "The basis set"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Hydrogenic atoms: E_n = −Z²R_H/n², degenerate in l, with a₀ = 52.9 pm. The 1s radial distribution peaks at a₀.",
+    "Electrons are fermions with spin ½. The antisymmetry principle is built into Slater determinants. Spin–orbit coupling grows as Z⁴.",
+    "Helium shows two approximations: perturbation theory (−74.8 eV) and the variational principle (ζ = 1.6875, −77.5 eV) against the experimental −79.0 eV.",
+    "Hartree–Fock uses an average field. The missing correlation energy is recovered by CI, MP2 and coupled cluster. Hund’s rules give ground terms (C ³P₀, N ⁴S₃/₂, O ³P₂).",
+    "Born–Oppenheimer separates nuclear and electronic motion and gives potential energy surfaces. LCAO gives bonding and antibonding MOs, with s–p mixing and σ–π crossover in diatomics.",
+    "Hückel theory (α, β) gives π energies and delocalization energies (benzene 2β). DFT and force fields are the working methods of computational chemistry."
+  ],
+  "problems": [
+    {
+      "q": "Calculate the wavelength of the first line in the Lyman series of hydrogen (2 → 1), and the ionization energy (in kJ mol⁻¹) of Li²⁺ in its ground state.",
+      "solution": "H: ΔE = 13.6 × (1 − 1/4) = 10.2 eV, λ = 1240/10.2 = 121.6 nm. Li²⁺: Z = 3, I = 9 × 13.6 = 122.4 eV = 122.4 × 96.485 = 1.181 × 10⁴ kJ mol⁻¹.",
+      "a": "121.6 nm; 11,810 kJ/mol."
+    },
+    {
+      "q": "Use first-order perturbation theory (E = −Z²·2·13.6 + (5/8)Z·27.2 eV) for Li⁺ (Z = 3) and compare with the variational result E = −(Z − 5/16)² E_h.",
+      "solution": "Perturbation: E⁰ = −2 × 9 × 13.6 = −244.8 eV; correction (5/8)(3)(27.2) = +51.0 eV; E = −193.8 eV. Variational: ζ = 2.6875, E = −7.222 E_h = −196.5 eV. The experimental value is −198.1 eV.",
+      "a": "Perturbation −193.8 eV; variational −196.5 eV (experiment −198.1 eV)."
+    },
+    {
+      "q": "Find the ground-state term symbols of Si (3p²), P (3p³) and S (3p⁴).",
+      "solution": "Si has the same terms as C: ³P₀. P has the same as N: ⁴S₃/₂. S is like O (two holes): ³P₂.",
+      "a": "Si ³P₀; P ⁴S₃/₂; S ³P₂."
+    },
+    {
+      "q": "Using the Hückel energies, calculate the π energy of butadiene and its delocalization energy. Then give the HOMO–LUMO gap in units of |β|.",
+      "solution": "Levels: α + 1.618β, α + 0.618β, α − 0.618β, α − 1.618β. Four electrons fill the lower two: E_π = 2(α + 1.618β) + 2(α + 0.618β) = 4α + 4.472β. Two isolated double bonds: 4α + 4β, so delocalization energy 0.472β. The HOMO is α + 0.618β and the LUMO is α − 0.618β, so the gap is 1.236|β|.",
+      "a": "E_π = 4α + 4.472β; delocalization energy 0.472|β|; gap 1.236|β|."
+    }
+  ]
+}

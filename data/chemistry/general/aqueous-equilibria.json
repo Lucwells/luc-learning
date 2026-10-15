@@ -1,0 +1,383 @@
+{
+  "id": "aqueous-equilibria",
+  "view": "chapter",
+  "title": "Buffers, Titrations and Solubility",
+  "description": "Equilibria that control the pH of solutions and the solubility of salts.",
+  "overview": [
+    "Blood stays at pH 7.4 though the body produces acid constantly. A titration can find the concentration of a drug or the acidity of wine to four digits. Limestone caves form as water slowly dissolves rock, and kidney stones as the same minerals crystallize. These are all consequences of a few coupled aqueous equilibria.",
+    "This chapter applies the equilibrium machinery of the last two chapters to three problems: resisting changes in pH (buffers), following a neutralization point by point (titration curves), and predicting whether a salt will dissolve or precipitate (the solubility product)."
+  ],
+  "objectives": [
+    "Explain how a buffer works and calculate its pH with the Henderson–Hasselbalch equation.",
+    "Design a buffer of a target pH and calculate its response to added acid or base.",
+    "Sketch and calculate points on titration curves for strong and weak acids, and select an indicator.",
+    "Write K_sp expressions and compute molar solubility.",
+    "Account for the common-ion effect and pH on solubility.",
+    "Predict precipitation by comparing Q with K_sp, and treat complex-ion formation."
+  ],
+  "sections": [
+    {
+      "id": "buffers",
+      "title": "Common ions and buffers",
+      "terms": [
+        "buffer",
+        "buffers",
+        "buffer solution",
+        "buffer solutions",
+        "Henderson–Hasselbalch equation",
+        "Henderson-Hasselbalch equation",
+        "Henderson–Hasselbalch",
+        "buffer capacity",
+        "buffer range",
+        "common ion effect on pH"
+      ],
+      "body": [
+        "A **buffer** is a solution that resists changes in pH when small amounts of acid or base are added. It contains a weak acid and its conjugate base in comparable amounts, for example CH₃COOH and CH₃COO⁻. Added strong acid is consumed by the base, CH₃COO⁻ + H₃O⁺ → CH₃COOH + H₂O, and added strong base by the acid, CH₃COOH + OH⁻ → CH₃COO⁻ + H₂O. In each case the large reservoir changes only slightly, and so the ratio, and therefore the pH, changes little.",
+        "The acid dissociation equilibrium gives the pH directly. Taking the logarithm of K_a = [H₃O⁺][A⁻]/[HA] gives the **Henderson–Hasselbalch equation**:",
+        {
+          "eq": "pH = pK_{a} + log ([A⁻]/[HA])"
+        },
+        "When [A⁻] = [HA] the pH equals the pK_a. A buffer works well within about one pH unit of its pK_a, where the ratio lies between 1:10 and 10:1. The **buffer capacity** is the amount of acid or base it can absorb before the pH changes significantly. It is larger for higher concentrations and greatest when [A⁻] = [HA].",
+        {
+          "example": {
+            "title": "Response of a buffer to added acid",
+            "problem": "A 1.00 L buffer contains 0.100 mol CH₃COOH and 0.100 mol CH₃COONa (pK_a 4.74). Find the pH, and the pH after adding 0.010 mol HCl.",
+            "solution": [
+              "Initially pH = 4.74 + log(0.100/0.100) = 4.74.",
+              "HCl converts 0.010 mol acetate to acetic acid: [A⁻] = 0.090, [HA] = 0.110.",
+              {
+                "eq": "pH = 4.74 + log(0.090/0.110) = 4.65"
+              },
+              "The same amount of HCl in 1.00 L of pure water would change the pH from 7.00 to 2.00."
+            ]
+          }
+        },
+        {
+          "example": {
+            "title": "Designing a buffer",
+            "problem": "How should NH₃ and NH₄Cl be combined to make a buffer of pH 9.00? (pK_a of NH₄⁺ = 9.25.)",
+            "solution": [
+              {
+                "eq": "9.00 = 9.25 + log([NH₃]/[NH₄⁺]),   [NH₃]/[NH₄⁺] = 10^{−0.25} = 0.56"
+              },
+              "Use about 0.56 mol of NH₃ for each 1.00 mol of NH₄Cl, at a total concentration large enough for the capacity needed."
+            ]
+          }
+        },
+        "Blood is buffered mainly by the pair H₂CO₃/HCO₃⁻ (apparent pK_a 6.1). At pH 7.4 the ratio is 10^{1.3} = 20 : 1, far from the ideal 1 : 1. The system still copes well with acid, because breathing regulates the CO₂ level and the kidneys regulate the HCO₃⁻ level, so both reservoirs are continually restored."
+      ],
+      "check": [
+        {
+          "q": "A buffer has pH 5.00 and the acid has pK_a 4.74. What is [A⁻]/[HA]?",
+          "a": "1.8",
+          "wrong": [
+            "0.55",
+            "5.0",
+            "0.26"
+          ],
+          "why": "log ratio = 5.00 − 4.74 = 0.26; ratio = 10^{0.26} = 1.8."
+        },
+        {
+          "q": "Which pair makes the best buffer at pH 9.2?",
+          "a": "NH₃/NH₄⁺",
+          "wrong": [
+            "CH₃COOH/CH₃COO⁻",
+            "HCl/Cl⁻",
+            "H₂CO₃/HCO₃⁻"
+          ]
+        },
+        {
+          "q": "A buffer resists pH change because it contains…",
+          "a": "A weak acid and its conjugate base",
+          "wrong": [
+            "A strong acid and a strong base",
+            "A salt and water",
+            "A catalyst"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "titration",
+      "title": "Titration curves and indicators",
+      "terms": [
+        "titration curve",
+        "titration curves",
+        "half-equivalence point",
+        "equivalence point pH",
+        "indicator",
+        "acid–base indicator",
+        "endpoint",
+        "phenolphthalein",
+        "methyl orange",
+        "bromothymol blue",
+        "buffer region"
+      ],
+      "body": [
+        "A titration curve plots pH against the volume of titrant added. Its shape tells which species dominate at each stage.",
+        {
+          "h": "Strong acid with strong base"
+        },
+        "For 25.00 mL of 0.100 M HCl titrated with 0.100 M NaOH, the pH rises slowly at first, since the large amount of acid takes up the base, then jumps through pH 7 at the equivalence point and levels off in the basic range.",
+        {
+          "table": {
+            "head": [
+              "V(NaOH), mL",
+              "0",
+              "12.50",
+              "24.90",
+              "25.00",
+              "25.10",
+              "30.00"
+            ],
+            "rows": [
+              [
+                "pH",
+                "1.00",
+                "1.48",
+                "3.70",
+                "7.00",
+                "10.30",
+                "11.96"
+              ]
+            ],
+            "caption": "Strong acid–strong base titration. Before the equivalence point, pH is set by the excess H₃O⁺. After it, by the excess OH⁻."
+          }
+        },
+        {
+          "h": "Weak acid with strong base"
+        },
+        "Titrating 25.00 mL of 0.100 M acetic acid with 0.100 M NaOH shows four regions:",
+        {
+          "svg": "<svg viewBox='0 0 460 260' role='img' aria-label='Titration curve of acetic acid with NaOH' font-family='system-ui, sans-serif' font-size='12'><g fill='none' stroke='currentColor' stroke-width='1.5'><path d='M50,20 V220 H430'/></g><path fill='none' style='stroke:var(--accent)' stroke-width='2.5' d='M50.0,179.2 L53.6,176.7 L57.2,172.3 L60.8,169.7 L64.4,167.8 L68.0,166.2 L71.6,165.0 L75.2,163.9 L78.8,162.9 L82.4,162.0 L86.0,161.2 L89.6,160.5 L93.2,159.8 L96.8,159.1 L100.4,158.5 L104.0,157.9 L107.6,157.3 L111.2,156.8 L114.8,156.2 L118.4,155.7 L122.0,155.2 L125.6,154.7 L129.2,154.2 L132.8,153.7 L136.4,153.2 L140.0,152.7 L143.6,152.2 L147.2,151.7 L150.8,151.2 L154.4,150.7 L158.0,150.2 L161.6,149.7 L165.2,149.1 L168.8,148.6 L172.4,148.0 L176.0,147.5 L179.6,146.9 L183.2,146.2 L186.8,145.6 L190.4,144.9 L194.0,144.1 L197.6,143.3 L201.2,142.5 L204.8,141.5 L208.4,140.4 L212.0,139.1 L215.6,137.6 L219.2,135.7 L222.8,133.1 L226.4,128.7 L229.3,118.7 L229.9,104.4 L230.0,96.2 L230.1,87.9 L230.7,73.7 L233.6,63.9 L237.2,59.6 L240.8,57.2 L248.0,54.2 L262.4,50.8 L284.0,48.0 L320.0,45.3 L360.0,43.6 L410.0,42.2'/><g stroke='currentColor' stroke-width='1' stroke-dasharray='4 3' opacity='.55'><path d='M140,220 V152.7 H50'/><path d='M230,220 V96.2 H50'/></g><g fill='currentColor'><circle cx='140' cy='152.7' r='4'/><circle cx='230' cy='96.2' r='4'/><text x='56' y='14'>pH</text><text x='430' y='240' text-anchor='end'>mL NaOH added</text><text x='44' y='224' text-anchor='end'>0</text><text x='44' y='157' text-anchor='end'>4.74</text><text x='44' y='100' text-anchor='end'>8.72</text><text x='140' y='238' text-anchor='middle'>12.5</text><text x='230' y='238' text-anchor='middle'>25.0</text><text x='148' y='172'>half-equivalence: pH = pKₐ</text><text x='238' y='118'>equivalence</text></g></svg>",
+          "caption": "Titration of 25.00 mL of 0.100 M acetic acid with 0.100 M NaOH. The curve is flattest in the buffer region and passes through pK_a at half-equivalence."
+        },
+        {
+          "list": [
+            "**Start:** a weak acid solution. pH = 2.87 for 0.100 M acetic acid.",
+            "**Buffer region** before the equivalence point: HA and A⁻ coexist, and pH = pK_a + log(n_A⁻/n_HA). At the **half-equivalence point** (12.50 mL), [A⁻] = [HA] and pH = pK_a = 4.74. This is how pK_a is measured.",
+            "**Equivalence point** (25.00 mL): all acid has become acetate, a weak base. [A⁻] = 2.50 mmol/50.0 mL = 0.0500 M. K_b = 5.6 × 10⁻¹⁰ gives [OH⁻] = 5.3 × 10⁻⁶ M and pH = 8.72. The equivalence pH is above 7.",
+            "**Beyond equivalence**: excess OH⁻ sets the pH. At 30.00 mL: (0.500 mmol)/(55.0 mL) = 9.1 × 10⁻³ M OH⁻, pH 11.96."
+          ]
+        },
+        "A weak base titrated with strong acid mirrors this picture, with an equivalence pH below 7. A polyprotic acid shows one equivalence point per proton, if the pK_a values are far enough apart.",
+        {
+          "h": "Indicators"
+        },
+        "An **indicator** is a weak acid whose conjugate forms have different colors. It changes color over about one pH unit around its own pK_a. Choose one that changes color near the equivalence-point pH.",
+        {
+          "table": {
+            "head": [
+              "Indicator",
+              "Transition range (pH)",
+              "Color change"
+            ],
+            "rows": [
+              [
+                "Methyl orange",
+                "3.1–4.4",
+                "red → yellow"
+              ],
+              [
+                "Bromothymol blue",
+                "6.0–7.6",
+                "yellow → blue"
+              ],
+              [
+                "Phenolphthalein",
+                "8.2–10.0",
+                "colorless → pink"
+              ]
+            ],
+            "caption": "Common indicators."
+          }
+        },
+        "For the strong acid–strong base titration, the jump is so steep that any of these works. For acetic acid with NaOH the equivalence pH is 8.72, so phenolphthalein is the right choice and methyl orange is not."
+      ],
+      "check": [
+        {
+          "q": "In the titration of a weak acid with NaOH, the pH at the half-equivalence point equals…",
+          "a": "The pK_a of the acid",
+          "wrong": [
+            "7.00",
+            "The pK_b of the base",
+            "The pH at the equivalence point"
+          ]
+        },
+        {
+          "q": "Why is the equivalence point of a weak acid–strong base titration above pH 7?",
+          "a": "The conjugate base of the acid hydrolyzes and produces OH⁻",
+          "wrong": [
+            "Excess NaOH is present",
+            "The acid is not completely neutralized",
+            "Water is a base"
+          ]
+        },
+        {
+          "q": "Which indicator is best for titrating acetic acid with NaOH?",
+          "a": "Phenolphthalein",
+          "wrong": [
+            "Methyl orange",
+            "Bromothymol blue",
+            "Any indicator works equally well"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ksp",
+      "title": "Solubility equilibria",
+      "terms": [
+        "solubility product",
+        "Ksp",
+        "K_sp",
+        "solubility product constant",
+        "molar solubility",
+        "sparingly soluble",
+        "slightly soluble",
+        "common ion effect",
+        "common ion",
+        "common-ion effect"
+      ],
+      "body": [
+        "A sparingly soluble ionic solid in contact with its solution is in equilibrium, for example AgCl(s) ⇌ Ag⁺(aq) + Cl⁻(aq). Its equilibrium constant, the **solubility product**, omits the solid:",
+        {
+          "eq": [
+            "K_{sp} = [Ag⁺][Cl⁻] = 1.8 × 10⁻¹⁰",
+            "PbI₂(s) ⇌ Pb²⁺ + 2I⁻     K_{sp} = [Pb²⁺][I⁻]² = 9.8 × 10⁻⁹"
+          ]
+        },
+        "The **molar solubility** s is the moles that dissolve per liter. For a salt MₓAᵧ, K_sp = (xs)ˣ(ys)ʸ.",
+        {
+          "example": {
+            "title": "Molar solubility from K_sp",
+            "problem": "Find the molar solubility of (a) AgCl and (b) PbI₂ in pure water.",
+            "solution": [
+              {
+                "eq": [
+                  "(a) K_sp = s² = 1.8 × 10⁻¹⁰,   s = 1.3 × 10⁻⁵ M",
+                  "(b) K_sp = (s)(2s)² = 4s³ = 9.8 × 10⁻⁹,   s = 1.35 × 10⁻³ M"
+                ]
+              },
+              "Compare K_sp values directly only for salts with the same formula type. Ag₂CrO₄ (K_sp = 1.1 × 10⁻¹²) is more soluble than AgCl (K_sp = 1.8 × 10⁻¹⁰), since s = (K_sp/4)^{1/3} = 6.5 × 10⁻⁵ M, against 1.3 × 10⁻⁵ M."
+            ]
+          }
+        },
+        {
+          "h": "Common-ion effect"
+        },
+        "Adding a solution of one of the ions shifts the equilibrium toward the solid and reduces the solubility (Le Chatelier). In 0.10 M NaCl, the Cl⁻ that dissolving AgCl contributes is negligible, so s = K_sp/[Cl⁻] = 1.8 × 10⁻¹⁰ / 0.10 = 1.8 × 10⁻⁹ M, 7000 times lower than in pure water.",
+        {
+          "h": "Effect of pH"
+        },
+        "If the anion is a base, acid raises the solubility by removing it. Mg(OH)₂ (K_sp = 5.6 × 10⁻¹²) has s = (K_sp/4)^{1/3} = 1.1 × 10⁻⁴ M in water, but in a solution buffered at pH 12 ([OH⁻] = 0.010 M), s = K_sp/[OH⁻]² = 5.6 × 10⁻⁸ M. In acid, OH⁻ is consumed and the solid dissolves. This is why carbonate rocks such as limestone dissolve in acid rain, and why antacids (Mg(OH)₂, CaCO₃) neutralize stomach acid.",
+        {
+          "h": "Will it precipitate?"
+        },
+        "Compare the reaction quotient Q = [M]ˣ[A]ʸ, evaluated at the concentrations just after mixing, with K_sp. If Q > K_sp, precipitate forms. If Q < K_sp, the solution is unsaturated and no solid forms.",
+        {
+          "example": {
+            "title": "Precipitation test",
+            "problem": "Equal volumes of 0.010 M Pb(NO₃)₂ and 0.020 M NaI are mixed. Does PbI₂ precipitate?",
+            "solution": [
+              "Each solution is diluted by half: [Pb²⁺] = 0.0050 M, [I⁻] = 0.010 M.",
+              {
+                "eq": "Q = [Pb²⁺][I⁻]² = (0.0050)(0.010)² = 5.0 × 10⁻⁷ > K_sp = 9.8 × 10⁻⁹"
+              },
+              "Yes: PbI₂ precipitates, as a yellow solid."
+            ]
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "What is the K_sp expression for Ca₃(PO₄)₂?",
+          "a": "[Ca²⁺]³[PO₄³⁻]²",
+          "wrong": [
+            "[Ca²⁺][PO₄³⁻]",
+            "[Ca²⁺]²[PO₄³⁻]³",
+            "[Ca₃(PO₄)₂]"
+          ]
+        },
+        {
+          "q": "The solubility of AgCl is lowest in…",
+          "a": "0.1 M NaCl",
+          "wrong": [
+            "Pure water",
+            "0.1 M NaNO₃",
+            "0.1 M KNO₃"
+          ]
+        },
+        {
+          "q": "Which is more soluble in acid than in water?",
+          "a": "CaCO₃",
+          "wrong": [
+            "AgCl",
+            "BaSO₄",
+            "PbI₂"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "complex",
+      "title": "Complex-ion equilibria",
+      "terms": [
+        "formation constant",
+        "Kf",
+        "K_f"
+      ],
+      "body": [
+        "A metal cation can bind several molecules or ions called **ligands** to form a **complex ion**. The reaction has a **formation constant** K_f, usually large:",
+        {
+          "eq": "Ag⁺ + 2NH₃ ⇌ [Ag(NH₃)₂]⁺     K_{f} = 1.6 × 10⁷"
+        },
+        "Complex formation can dissolve an insoluble salt, because it removes the free metal ion from the solubility equilibrium. For AgCl in aqueous ammonia, the overall reaction is the sum of the two, and its constant is the product:",
+        {
+          "eq": "AgCl(s) + 2NH₃ ⇌ [Ag(NH₃)₂]⁺ + Cl⁻     K = K_{sp} K_{f} = (1.8 × 10⁻¹⁰)(1.6 × 10⁷) = 2.9 × 10⁻³"
+        },
+        "This is much greater than K_sp, so AgCl dissolves readily in ammonia, though AgBr (K_sp = 5 × 10⁻¹³) barely does. Hydroxides of Al³⁺, Zn²⁺ and Pb²⁺ are **amphoteric**: they precipitate on adding a little base but redissolve in excess as hydroxo complexes, Al(OH)₃ + OH⁻ ⇌ [Al(OH)₄]⁻. Bonding in complexes is explored in the inorganic chemistry chapters."
+      ],
+      "check": [
+        {
+          "q": "How does ammonia dissolve AgCl?",
+          "a": "It binds Ag⁺ as [Ag(NH₃)₂]⁺, lowering [Ag⁺] and pulling the equilibrium forward",
+          "wrong": [
+            "It raises the pH",
+            "It reacts with Cl⁻",
+            "It increases K_sp"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "A buffer holds a weak acid and its conjugate base. pH = pK_a + log([A⁻]/[HA]), with useful range pK_a ± 1.",
+    "Titration curves: the pH at the half-equivalence point is pK_a for a weak acid, and the equivalence point of a weak acid with a strong base is above pH 7. Pick an indicator that changes color at the equivalence pH.",
+    "K_sp = ∏[ion]^coefficient. Molar solubility follows from K_sp and stoichiometry.",
+    "Common ions lower solubility. Adding acid raises the solubility of salts of basic anions. Precipitation occurs when Q > K_sp.",
+    "Complexation raises solubility. K for a dissolution through a complex is K_sp × K_f."
+  ],
+  "problems": [
+    {
+      "q": "How many grams of sodium formate (HCOONa, 68.01 g/mol) must be added to 500 mL of 0.200 M formic acid (pK_a 3.75) to make a buffer of pH 4.20?",
+      "solution": "4.20 = 3.75 + log([A⁻]/[HA]) so [A⁻]/[HA] = 10^{0.45} = 2.82. [A⁻] = 2.82 × 0.200 = 0.564 M. n = 0.564 × 0.500 = 0.282 mol. m = 0.282 × 68.01 = 19.2 g.",
+      "a": "19.2 g."
+    },
+    {
+      "q": "25.00 mL of 0.100 M NH₃ (K_b = 1.8 × 10⁻⁵) is titrated with 0.100 M HCl. Find the pH at (a) 0 mL, (b) 12.50 mL, (c) 25.00 mL.",
+      "solution": "(a) [OH⁻] = √(1.8 × 10⁻⁵ × 0.100) = 1.3 × 10⁻³, pH = 11.13. (b) Half-equivalence: pH = pK_a(NH₄⁺) = 9.25. (c) Equivalence: [NH₄⁺] = 0.0500 M, K_a = 5.6 × 10⁻¹⁰, [H⁺] = √(5.6 × 10⁻¹⁰ × 0.0500) = 5.3 × 10⁻⁶, pH = 5.28.",
+      "a": "(a) 11.13, (b) 9.25, (c) 5.28."
+    },
+    {
+      "q": "K_sp of CaF₂ is 3.9 × 10⁻¹¹. Find its molar solubility in (a) pure water and (b) 0.010 M NaF.",
+      "solution": "(a) K_sp = 4s³: s = (3.9 × 10⁻¹¹/4)^{1/3} = 2.1 × 10⁻⁴ M. (b) [F⁻] ≈ 0.010 M: s = K_sp/[F⁻]² = 3.9 × 10⁻¹¹ / 1.0 × 10⁻⁴ = 3.9 × 10⁻⁷ M.",
+      "a": "(a) 2.1 × 10⁻⁴ M; (b) 3.9 × 10⁻⁷ M."
+    },
+    {
+      "q": "50.0 mL of 1.0 × 10⁻⁴ M AgNO₃ is mixed with 50.0 mL of 1.0 × 10⁻⁴ M NaCl. Does AgCl precipitate?",
+      "solution": "After mixing: [Ag⁺] = [Cl⁻] = 5.0 × 10⁻⁵ M. Q = 2.5 × 10⁻⁹, which is above K_sp = 1.8 × 10⁻¹⁰.",
+      "a": "Yes: Q = 2.5 × 10⁻⁹ > K_sp."
+    }
+  ]
+}

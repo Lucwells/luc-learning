@@ -1,0 +1,357 @@
+{
+  "id": "boranes-silicates",
+  "view": "chapter",
+  "title": "Electron-Deficient Bonding, Silicates and Inorganic Polymers",
+  "description": "Boranes and Wade’s rules, three-center bonds, silicate minerals, zeolites, silicones and phosphazenes.",
+  "overview": [
+    "The Lewis octet rule describes carbon, nitrogen and oxygen well, but the elements near boron and silicon need other ideas. Boron has fewer valence electrons than orbitals, and its hydrides are electron-deficient cages held by three-center bonds. Silicon, with no tendency to form π bonds, builds chains, sheets and frameworks of Si–O units, which make up more than 90% of the Earth’s crust.",
+    "This chapter covers the structure of the boranes and the electron-counting rules (Wade’s rules) that predict cluster shapes, the three-center bond in hypervalent molecules, the silicate minerals and zeolites, and inorganic polymers with Si–O and P–N backbones."
+  ],
+  "objectives": [
+    "Describe the structure and bonding of diborane, including the 3c-2e bridge bond.",
+    "Apply Wade’s rules to classify a borane or carborane as closo, nido or arachno.",
+    "Describe the 3c-4e bond and explain hypervalent molecules without invoking d orbitals.",
+    "Classify silicates by the way SiO₄ tetrahedra link, and describe the structure and uses of zeolites.",
+    "Describe the synthesis and properties of silicones and polyphosphazenes."
+  ],
+  "sections": [
+    {
+      "id": "boranes",
+      "title": "Boranes and three-center bonds",
+      "terms": [
+        "borane",
+        "boranes",
+        "diborane",
+        "electron-deficient",
+        "electron-deficient compounds",
+        "three-center bond",
+        "three-center two-electron bond",
+        "3c-2e",
+        "banana bond",
+        "bridging hydrogen",
+        "borohydride",
+        "Lipscomb",
+        "BH3"
+      ],
+      "body": [
+        "Boron has three valence electrons and four valence orbitals. A molecule such as BH₃ would have six electrons around boron, and it does not exist as such: it dimerizes. In **diborane**, B₂H₆, the two borons share a pair of hydrogen atoms in bridges, and the molecule has 12 valence electrons for eight B–H connections, so there are not enough electrons for eight 2-center bonds. Four terminal B–H bonds are ordinary 2c-2e bonds (8 electrons). The remaining 4 electrons hold the two bridging B–H–B units, each a **three-center two-electron (3c-2e) bond**: a single pair spread over B, H and B, formed by the overlap of two boron sp³ orbitals with a hydrogen 1s orbital. The B–H–B bonds are longer (1.33 Å) and weaker than the terminal B–H (1.19 Å) and the B–H–B angle is 83°. Such compounds are **electron-deficient**.",
+        "Lipscomb received the 1976 Nobel Prize in Chemistry for the theory of boron hydride bonding. Diborane is prepared from NaBH₄ and BF₃ (3NaBH₄ + 4BF₃ → 2B₂H₆ + 3NaBF₄), ignites in air and is a strong Lewis acid and reducing agent. In THF it is the monomer adduct BH₃·THF, the reagent for hydroboration (see the chapter on alkenes). **Sodium borohydride** NaBH₄ contains the tetrahedral BH₄⁻ ion, a mild hydride donor and a common reducing agent (see the chapter on carbonyls)."
+      ],
+      "check": [
+        {
+          "q": "How many valence electrons does diborane have?",
+          "a": "12",
+          "wrong": [
+            "8",
+            "14",
+            "16"
+          ],
+          "why": "2 × 3 (B) + 6 × 1 (H) = 12."
+        },
+        {
+          "q": "A B–H–B bridge in diborane is…",
+          "a": "A three-center, two-electron bond",
+          "wrong": [
+            "Two ordinary B–H bonds",
+            "A hydrogen bond",
+            "An ionic bond"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wade",
+      "title": "Higher boranes and Wade’s rules",
+      "terms": [
+        "Wade's rules",
+        "Wade’s rules",
+        "closo",
+        "nido",
+        "arachno",
+        "hypho",
+        "carborane",
+        "carboranes",
+        "polyhedral boranes",
+        "skeletal electron pairs",
+        "cluster electron counting",
+        "dodecaborate",
+        "icosahedron"
+      ],
+      "body": [
+        "Larger boranes are polyhedral cages (clusters). **Wade’s rules** classify their shapes by counting skeletal electrons, the electrons that hold the cluster together. Each B–H unit contributes **2** skeletal electrons (the three valence electrons of boron plus one from H, minus the two used for the B–H bond to hydrogen), each additional bridging H contributes **1**, and the charge adds electrons. The number of skeletal electron pairs, relative to the number of boron atoms n, gives the structure:",
+        {
+          "table": {
+            "head": [
+              "Skeletal electron pairs",
+              "Class",
+              "Shape",
+              "Example"
+            ],
+            "rows": [
+              [
+                "n + 1",
+                "**closo** (closed)",
+                "Complete deltahedron with n vertices",
+                "[B₆H₆]²⁻ (octahedron), [B₁₂H₁₂]²⁻ (icosahedron)"
+              ],
+              [
+                "n + 2",
+                "**nido** (nest)",
+                "Closo shape with one vertex missing",
+                "B₅H₉ (square pyramid), B₁₀H₁₄"
+              ],
+              [
+                "n + 3",
+                "**arachno** (web)",
+                "Closo shape with two vertices missing",
+                "B₄H₁₀, B₅H₁₁"
+              ],
+              [
+                "n + 4",
+                "**hypho**",
+                "Three vertices missing",
+                "Rare"
+              ]
+            ],
+            "caption": "Wade’s rules."
+          }
+        },
+        {
+          "example": {
+            "title": "Applying Wade’s rules",
+            "problem": "Classify B₅H₉ and [B₆H₆]²⁻.",
+            "solution": [
+              "B₅H₉: five BH units give 10 electrons, and the four extra hydrogens add 4: total 14 electrons = 7 pairs. With n = 5, that is n + 2: **nido**, a square pyramid, the octahedron with one vertex removed.",
+              "[B₆H₆]²⁻: six BH units give 12, plus 2 from the charge: 14 electrons = 7 pairs = n + 1: **closo**, an octahedron."
+            ]
+          }
+        },
+        "**Carboranes** contain CH units in place of BH⁻ units. A BH unit supplies 2 skeletal electrons and a CH unit supplies 3. The icosahedral carboranes C₂B₁₀H₁₂ (the o-, m- and p-isomers) have 10 × 2 + 2 × 3 = 26 electrons = 13 pairs = n + 1, so they are closo, and very robust thermally and chemically. They have applications in boron neutron capture therapy for cancer, and as heat-resistant polymers. Wade’s rules extend to metal clusters and to transition-metal carbonyl clusters, which follow related electron-counting patterns."
+      ],
+      "check": [
+        {
+          "q": "A borane has 7 skeletal electron pairs and 5 boron atoms. It is…",
+          "a": "Nido",
+          "wrong": [
+            "Closo",
+            "Arachno",
+            "Hypho"
+          ],
+          "why": "n + 2 pairs."
+        },
+        {
+          "q": "What does closo mean?",
+          "a": "A closed polyhedron with every vertex occupied",
+          "wrong": [
+            "An open cage missing two vertices",
+            "A linear chain",
+            "A ring"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hypervalent",
+      "title": "Hypervalency and three-center four-electron bonds",
+      "terms": [
+        "hypervalent",
+        "hypervalency",
+        "hypervalent molecule",
+        "three-center four-electron bond",
+        "3c-4e",
+        "3c-4e bond",
+        "octet expansion"
+      ],
+      "body": [
+        "Molecules such as SF₆, PCl₅ and XeF₂ seem to have more than eight electrons around the central atom: they are **hypervalent**. The old explanation used d orbitals (sp³d², sp³d) but calculations show that d orbitals of main-group atoms are too high in energy and too diffuse to take part significantly. The better description is the **three-center four-electron (3c-4e) bond**, which accounts for hypervalency with only s and p orbitals.",
+        "Take F–Xe–F. The Xe 5p orbital along the axis combines with one p orbital on each F, giving three molecular orbitals: a bonding combination, a nonbonding one (located on the F atoms), and an antibonding one. The four electrons (two from Xe, one from each F) fill the bonding and nonbonding orbitals. The result is a bond order of ½ per Xe–F link, and a negative charge on the more electronegative F atoms. The same idea explains the axial bonds of PCl₅ and SF₄ (axial bonds are longer and weaker), the three halogens of I₃⁻ and the bonds in ClF₃. SF₆ can be described as three 3c-4e bonds along three perpendicular axes, using only the s and p orbitals of sulfur: its stability comes from the ionic character of the S–F bonds."
+      ],
+      "check": [
+        {
+          "q": "How does the 3c-4e bond explain hypervalency?",
+          "a": "Four electrons occupy a bonding and a nonbonding MO spread over three atoms, using only s and p orbitals",
+          "wrong": [
+            "It uses d orbitals on the central atom",
+            "It involves ionic bonding only",
+            "It needs five bonding pairs"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "silicates",
+      "title": "Silicates and zeolites",
+      "terms": [
+        "silicate",
+        "silicates",
+        "silicate minerals",
+        "aluminosilicate",
+        "aluminosilicates",
+        "zeolite",
+        "zeolites",
+        "molecular sieve",
+        "molecular sieves",
+        "orthosilicate",
+        "olivine",
+        "pyroxene",
+        "amphibole",
+        "asbestos",
+        "mica",
+        "clay",
+        "clays",
+        "feldspar",
+        "quartz",
+        "glass",
+        "ZSM-5"
+      ],
+      "body": [
+        "Silicon is bonded tetrahedrally to four oxygen atoms. The SiO₄⁴⁻ tetrahedron is the unit of the silicates, and the Si–O bond (452 kJ mol⁻¹) is very strong. Silicates are classified by how many oxygens each tetrahedron shares with neighbors:",
+        {
+          "table": {
+            "head": [
+              "Structure",
+              "Shared O per SiO₄",
+              "Formula unit",
+              "Examples"
+            ],
+            "rows": [
+              [
+                "Isolated tetrahedra (orthosilicate)",
+                "0",
+                "SiO₄⁴⁻",
+                "Olivine (Mg,Fe)₂SiO₄, zircon"
+              ],
+              [
+                "Pairs",
+                "1",
+                "Si₂O₇⁶⁻",
+                "Thortveitite"
+              ],
+              [
+                "Single chains",
+                "2",
+                "(SiO₃)ₙ²ⁿ⁻",
+                "Pyroxenes (enstatite, MgSiO₃)"
+              ],
+              [
+                "Double chains (ribbons)",
+                "2 and 3",
+                "(Si₄O₁₁)ₙ⁶ⁿ⁻",
+                "Amphiboles, asbestos (fibrous)"
+              ],
+              [
+                "Sheets",
+                "3",
+                "(Si₂O₅)ₙ²ⁿ⁻",
+                "Talc, micas, clays (cleave into flakes)"
+              ],
+              [
+                "Three-dimensional framework",
+                "4",
+                "SiO₂",
+                "Quartz, cristobalite; feldspars and zeolites when Al replaces some Si"
+              ]
+            ],
+            "caption": "Silicate structures. More sharing of oxygens gives lower charge per silicon and a more extended structure."
+          }
+        },
+        "When Al³⁺ replaces some Si⁴⁺ in a framework, the lattice carries a negative charge, balanced by cations (Na⁺, K⁺, Ca²⁺): these are **aluminosilicates**. The feldspars are the most abundant minerals in the crust. **Zeolites** are aluminosilicates with a framework with regular pores of molecular dimensions (0.3–1 nm). They act as **molecular sieves** (adsorbing water but excluding larger molecules, to dry solvents and gases), as ion exchangers (zeolite A softens water in detergents by trading Na⁺ for Ca²⁺ and Mg²⁺), and as acid catalysts in which the pores impose shape selectivity (ZSM-5 converts methanol to gasoline, and in catalytic cracking). **Glass** is amorphous silicate: sand (SiO₂) fused with Na₂CO₃ and CaCO₃ gives soda-lime glass, and adding B₂O₃ gives borosilicate glass (Pyrex), with a lower thermal expansion."
+      ],
+      "check": [
+        {
+          "q": "Quartz, SiO₂, is a…",
+          "a": "Framework silicate, with every oxygen shared between two silicons",
+          "wrong": [
+            "Chain silicate",
+            "Isolated tetrahedron silicate",
+            "Sheet silicate"
+          ]
+        },
+        {
+          "q": "What property of zeolites makes them useful as molecular sieves?",
+          "a": "Their pores of fixed, molecular size",
+          "wrong": [
+            "Their color",
+            "Their low density only",
+            "Their ionic radius"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "inorganic-polymers",
+      "title": "Silicones and phosphazenes",
+      "terms": [
+        "silicone",
+        "silicones",
+        "siloxane",
+        "siloxanes",
+        "polysiloxane",
+        "polydimethylsiloxane",
+        "PDMS",
+        "Rochow process",
+        "direct process",
+        "phosphazene",
+        "phosphazenes",
+        "polyphosphazene",
+        "inorganic polymer",
+        "inorganic polymers"
+      ],
+      "body": [
+        "**Silicones** (polysiloxanes) have an inorganic backbone of alternating silicon and oxygen atoms, –[R₂Si–O]ₙ–, with organic groups on silicon. They are made from dimethyldichlorosilane, (CH₃)₂SiCl₂, itself made by the Rochow direct process (Si + 2CH₃Cl, Cu catalyst, about 300 °C). Hydrolysis replaces the Si–Cl bonds with Si–OH, which condense with loss of water to chains and rings.",
+        {
+          "eq": "n (CH₃)₂SiCl₂ + 2n H₂O → [–Si(CH₃)₂–O–]ₙ + 2n HCl"
+        },
+        "The Si–O–Si backbone is very flexible (the Si–O–Si angle is wide and the rotation barrier is low), so silicone polymers have glass transition temperatures near −120 °C, and stay fluid or rubbery over a huge temperature range (−50 to +250 °C). The Si–O bond is stronger than C–C, so silicones resist heat, light and oxidation, and the methyl groups make them water-repellent. Chain length and cross-linking give oils (lubricants, antifoams), greases, rubbers (sealants, gaskets, medical tubing) and resins (coatings).",
+        {
+          "h": "Phosphazenes"
+        },
+        "A **phosphazene** has the repeating unit –N=PR₂–. Heating the cyclic trimer (NPCl₂)₃ to about 250 °C gives a high polymer, poly(dichlorophosphazene), (NPCl₂)ₙ, a rubbery material that hydrolyzes in moist air. The reactive P–Cl bonds can then be replaced by alkoxides, aryloxides or amines (OR, OCH₂CF₃, NHR), producing a family of stable polyphosphazenes with properties set by the side groups: flame-resistant elastomers, biodegradable polymers for drug delivery, and fuel-cell membranes. Like silicones, the backbone is very flexible and the properties are tunable, but the bonding in –N=P– is delocalized and better described as ionic (N⁻–P⁺) than as true double bonds."
+      ],
+      "check": [
+        {
+          "q": "Why do silicone polymers stay flexible at low temperature?",
+          "a": "The Si–O–Si backbone rotates easily, giving a very low glass transition",
+          "wrong": [
+            "They are cross-linked",
+            "They contain C=C bonds",
+            "They are crystalline"
+          ]
+        },
+        {
+          "q": "What is the starting material for most silicone polymers?",
+          "a": "(CH₃)₂SiCl₂",
+          "wrong": [
+            "SiO₂",
+            "CH₃SiH₃",
+            "Si(OH)₄"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Diborane has 3c-2e bridging B–H–B bonds. Compounds with fewer electrons than needed for 2c-2e bonding are electron-deficient.",
+    "Wade’s rules: skeletal electron pairs n + 1, n + 2, n + 3 give closo, nido, arachno clusters. A BH unit gives 2 skeletal electrons and a CH unit 3.",
+    "Hypervalent molecules such as XeF₂ and SF₆ are described by 3c-4e bonds, not by d-orbital hybridization.",
+    "Silicates are built from SiO₄ tetrahedra, classified from isolated units through chains and sheets to frameworks. Zeolites are porous aluminosilicates used as sieves, ion exchangers and catalysts.",
+    "Silicones have a flexible Si–O–Si backbone, a very low T_g and thermal stability. Polyphosphazenes have tunable side groups on an N=P backbone."
+  ],
+  "problems": [
+    {
+      "q": "Classify B₄H₁₀, B₁₀H₁₄ and [B₁₂H₁₂]²⁻ with Wade’s rules.",
+      "solution": "B₄H₁₀: 4 × 2 + 6 = 14 electrons, 7 pairs = n + 3: arachno. B₁₀H₁₄: 10 × 2 + 4 = 24 electrons, 12 pairs = n + 2: nido. [B₁₂H₁₂]²⁻: 12 × 2 + 2 = 26 electrons, 13 pairs = n + 1: closo (icosahedron).",
+      "a": "B₄H₁₀ arachno; B₁₀H₁₄ nido; [B₁₂H₁₂]²⁻ closo."
+    },
+    {
+      "q": "Explain why SiO₂ is a network solid while CO₂ is a gas.",
+      "solution": "Si–O single bonds are very strong (452 kJ mol⁻¹), and the Si=O π bond is weak because 3p–2p overlap is poor. Four single Si–O bonds are more stable than two Si=O double bonds, so silicon is surrounded by four oxygens in a network. Carbon forms strong C=O π bonds, so CO₂ is a small molecule.",
+      "a": "Strong Si–O σ bonds and weak Si=O π bonds."
+    },
+    {
+      "q": "A zeolite has the formula Na₁₂[(AlO₂)₁₂(SiO₂)₁₂]·27H₂O (zeolite A). Why is it a water softener?",
+      "solution": "The framework has a negative charge from Al³⁺ replacing Si⁴⁺, balanced by mobile Na⁺ ions in the pores. Ca²⁺ and Mg²⁺ are held more strongly (higher charge density), so Na⁺ is exchanged for them, and the water is softened.",
+      "a": "Ion exchange of Na⁺ for Ca²⁺ and Mg²⁺."
+    }
+  ]
+}

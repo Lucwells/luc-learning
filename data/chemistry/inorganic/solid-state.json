@@ -1,0 +1,516 @@
+{
+  "id": "solid-state",
+  "view": "chapter",
+  "title": "Solid-State Chemistry and Materials",
+  "description": "Ionic crystal structures, lattice energy, defects, band theory, semiconductors and superconductors.",
+  "overview": [
+    "Most of the useful materials of the modern world are solids with a defined structure: the silicon of chips, the perovskites in capacitors and solar cells, the layered oxides in batteries, the ceramics in engines and the superconducting wires in MRI scanners. Their properties, from color to conductivity to hardness, follow from how ions or atoms are arranged and from the imperfections in the arrangement.",
+    "This chapter describes the common ionic structures and the radius ratio guideline, lattice energy and the Born–Haber cycle, point defects and ionic conduction, the band theory of metals, insulators and semiconductors, and superconductivity."
+  ],
+  "objectives": [
+    "Describe rock salt, cesium chloride, zinc blende, fluorite, rutile, perovskite and spinel structures.",
+    "Use the radius ratio and the tolerance factor to predict coordination and stability.",
+    "Calculate lattice energy with a Born–Haber cycle and estimate it with the Born–Landé and Kapustinskii equations.",
+    "Describe Schottky and Frenkel defects, non-stoichiometry, color centers and solid electrolytes.",
+    "Use band theory to classify metals, semiconductors and insulators, and explain doping and p–n junctions.",
+    "Describe superconductivity, the Meissner effect and BCS theory."
+  ],
+  "sections": [
+    {
+      "id": "structures",
+      "title": "Ionic solid structures",
+      "terms": [
+        "rock salt structure",
+        "cesium chloride structure",
+        "caesium chloride structure",
+        "zinc blende",
+        "fluorite structure",
+        "perovskite",
+        "spinel",
+        "radius ratio",
+        "radius ratio rule",
+        "antifluorite",
+        "wurtzite",
+        "rutile",
+        "hexagonal close packing",
+        "cubic close packing",
+        "octahedral holes",
+        "tetrahedral holes",
+        "tolerance factor",
+        "interstitial sites",
+        "normal spinel",
+        "inverse spinel"
+      ],
+      "body": [
+        "Many ionic structures are close-packed arrays of the larger ions (usually the anions), with the smaller ions in the **holes** between them. A close-packed layer stacks as ABAB (hexagonal close packing, hcp) or ABCABC (cubic close packing, ccp, which is the face-centered cubic lattice). For N spheres there are N **octahedral holes** (surrounded by six spheres) and 2N **tetrahedral holes** (surrounded by four).",
+        "The structure that forms depends on the **radius ratio** r₊/r₋. The cation should touch all its neighbors without letting the anions touch each other:",
+        {
+          "table": {
+            "head": [
+              "r₊/r₋",
+              "Coordination number",
+              "Geometry"
+            ],
+            "rows": [
+              [
+                "0.155–0.225",
+                "3",
+                "Trigonal planar"
+              ],
+              [
+                "0.225–0.414",
+                "4",
+                "Tetrahedral"
+              ],
+              [
+                "0.414–0.732",
+                "6",
+                "Octahedral"
+              ],
+              [
+                "0.732–1.0",
+                "8",
+                "Cubic"
+              ]
+            ],
+            "caption": "Radius ratio rule."
+          }
+        },
+        {
+          "table": {
+            "head": [
+              "Structure",
+              "Description",
+              "Coordination (M:X)",
+              "Examples"
+            ],
+            "rows": [
+              [
+                "**Rock salt**",
+                "ccp anions, cations in all octahedral holes",
+                "6:6",
+                "NaCl (r₊/r₋ = 102/181 = 0.56), MgO, KCl, AgCl"
+              ],
+              [
+                "**Cesium chloride**",
+                "Simple cubic anions, cation in the cube center",
+                "8:8",
+                "CsCl (0.92), CsBr, CsI"
+              ],
+              [
+                "**Zinc blende**",
+                "ccp anions, cations in half the tetrahedral holes",
+                "4:4",
+                "ZnS (0.40), CuCl, GaAs"
+              ],
+              [
+                "**Wurtzite**",
+                "hcp analogue of zinc blende",
+                "4:4",
+                "ZnS (hexagonal), ZnO, AlN"
+              ],
+              [
+                "**Fluorite**",
+                "ccp cations, anions in all tetrahedral holes",
+                "8:4",
+                "CaF₂, ZrO₂, UO₂"
+              ],
+              [
+                "**Antifluorite**",
+                "Fluorite with the ions exchanged",
+                "4:8",
+                "Li₂O, Na₂O"
+              ],
+              [
+                "**Rutile**",
+                "Distorted hcp anions, cations in half the octahedral holes",
+                "6:3",
+                "TiO₂, SnO₂, MgF₂"
+              ],
+              [
+                "**Perovskite**",
+                "A cation (12-coordinate) at the cube center, B cation (6-coordinate) at the corners, X at the edge centers",
+                "ABX₃; A 12, B 6",
+                "CaTiO₃, BaTiO₃, SrTiO₃, CH₃NH₃PbI₃"
+              ],
+              [
+                "**Spinel**",
+                "ccp O²⁻, A in 1/8 of tetrahedral holes, B in 1/2 of octahedral",
+                "AB₂O₄",
+                "MgAl₂O₄, Fe₃O₄, ZnFe₂O₄"
+              ]
+            ],
+            "caption": "Common ionic structures."
+          }
+        },
+        "The perovskite ABX₃ is stable if the **tolerance factor** t = (r_A + r_X)/[√2 (r_B + r_X)] lies between about 0.8 and 1.0. At t near 1 the cubic structure is ideal, and a smaller t tilts the octahedra. **BaTiO₃** is a ferroelectric used in capacitors, because the Ti⁴⁺ is slightly off-center and gives a switchable polarization. The high-temperature superconductors and the new halide perovskite solar cells are perovskite derivatives. In the **spinel** AB₂O₄, a *normal* spinel has A²⁺ on tetrahedral and B³⁺ on octahedral sites (MgAl₂O₄), and an *inverse* spinel has the A²⁺ on octahedral sites and half of the B³⁺ tetrahedral (Fe₃O₄, magnetite, Fe³⁺[Fe²⁺Fe³⁺]O₄). The preference follows the ligand field stabilization energy: ions with a large octahedral preference (Ni²⁺, d⁸; Cr³⁺, d³) go to octahedral sites.",
+        {
+          "example": {
+            "title": "Radius ratio",
+            "problem": "Predict the coordination number in ZnS (r(Zn²⁺) = 74 pm, r(S²⁻) = 184 pm) and in CsCl (r(Cs⁺) = 167 pm, r(Cl⁻) = 181 pm).",
+            "solution": "ZnS: 74/184 = 0.40, in the 0.225–0.414 range: tetrahedral, CN 4 (zinc blende or wurtzite). CsCl: 167/181 = 0.92: CN 8 (cesium chloride structure)."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "How many tetrahedral holes are there per anion in a close-packed array?",
+          "a": "2",
+          "wrong": [
+            "1",
+            "4",
+            "0.5"
+          ]
+        },
+        {
+          "q": "What is the coordination number of Ca²⁺ in fluorite, CaF₂?",
+          "a": "8",
+          "wrong": [
+            "4",
+            "6",
+            "12"
+          ]
+        },
+        {
+          "q": "In the perovskite CaTiO₃, how many oxygens surround each Ti⁴⁺?",
+          "a": "6",
+          "wrong": [
+            "4",
+            "8",
+            "12"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lattice-energy",
+      "title": "Lattice energy and the Born–Haber cycle",
+      "terms": [
+        "Born–Haber cycle",
+        "Born-Haber cycle",
+        "Born–Landé equation",
+        "Kapustinskii equation",
+        "Madelung constant",
+        "lattice enthalpy",
+        "thermochemical radius",
+        "Kapustinskii"
+      ],
+      "body": [
+        "The lattice energy of an ionic solid can be calculated or measured indirectly. The **Born–Haber cycle** applies Hess’s law: it writes the formation of the solid from its elements in two routes, one directly (the enthalpy of formation) and one stepwise through gaseous ions. For NaCl:",
+        {
+          "table": {
+            "head": [
+              "Step",
+              "ΔH (kJ mol⁻¹)"
+            ],
+            "rows": [
+              [
+                "Na(s) → Na(g), sublimation",
+                "+107"
+              ],
+              [
+                "Na(g) → Na⁺(g) + e⁻, ionization energy",
+                "+496"
+              ],
+              [
+                "½Cl₂(g) → Cl(g), half of the bond energy",
+                "+122"
+              ],
+              [
+                "Cl(g) + e⁻ → Cl⁻(g), electron affinity",
+                "−349"
+              ],
+              [
+                "Na⁺(g) + Cl⁻(g) → NaCl(s), lattice energy U",
+                "**−787**"
+              ],
+              [
+                "Sum = Na(s) + ½Cl₂(g) → NaCl(s), ΔH_f",
+                "−411"
+              ]
+            ],
+            "caption": "Born–Haber cycle for NaCl. U is found by difference: −411 − (107 + 496 + 122 − 349) = −787 kJ mol⁻¹."
+          }
+        },
+        "Theory gives U from electrostatics. The **Born–Landé equation** sums the Coulomb attraction of an ion pair with the lattice factor (the **Madelung constant** M, the geometric sum over the structure: 1.748 for rock salt, 1.763 for CsCl, 1.638 for zinc blende, 2.519 for fluorite) and a repulsion term with Born exponent n:",
+        {
+          "eq": "U = −(N_A M z₊ z₋ e² / 4πε₀ r₀)(1 − 1/n)"
+        },
+        "For NaCl (r₀ = 282 pm, n = 8) it gives −755 kJ mol⁻¹, in good agreement with −787 from the cycle, and the difference is mainly the covalent contribution and dispersion forces. The **Kapustinskii equation** estimates U for any ionic compound without the structure, from the numbers of ions per formula unit (ν), the charges and the radii: U = K ν |z₊ z₋| / (r₊ + r₋) × (1 − d/(r₊ + r₋)), with K = 1.202 × 10⁻⁴ J m mol⁻¹ and d = 3.45 × 10⁻¹¹ m (use r in meters). This lets a chemist estimate ionic radii of complex ions (thermochemical radii).",
+        "The cycle explains why MgCl₂ exists but not MgCl or MgCl₃. Making Mg⁺ saves energy, but the lattice energy gain of forming Mg²⁺ (about −2500 kJ mol⁻¹) far exceeds the cost of the second ionization (1451 kJ mol⁻¹). For a Mg³⁺, the third ionization energy (7733 kJ mol⁻¹) is not recovered.",
+        {
+          "example": {
+            "title": "Born–Haber calculation",
+            "problem": "Calculate the lattice energy of KCl from: ΔH_f(KCl) = −437; sublimation of K +89; IE(K) +419; ½D(Cl₂) +122; EA(Cl) −349 kJ mol⁻¹.",
+            "solution": "U = ΔH_f − (sublimation + IE + ½D + EA) = −437 − (89 + 419 + 122 − 349) = −437 − 281 = −718 kJ mol⁻¹. The value is smaller in magnitude than NaCl’s, because K⁺ is larger than Na⁺."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "A Born–Haber cycle is an application of…",
+          "a": "Hess’s law",
+          "wrong": [
+            "Le Chatelier’s principle",
+            "The ideal gas law",
+            "The Pauli principle"
+          ]
+        },
+        {
+          "q": "Why does Mg form MgCl₂ and not MgCl?",
+          "a": "The lattice energy of MgCl₂ more than offsets the second ionization energy",
+          "wrong": [
+            "Mg cannot lose one electron",
+            "MgCl is too ionic",
+            "Cl cannot take a second electron"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "defects",
+      "title": "Defects, non-stoichiometry and solid electrolytes",
+      "terms": [
+        "Schottky defect",
+        "Frenkel defect",
+        "non-stoichiometric compounds",
+        "point defects",
+        "F-center",
+        "color center",
+        "solid electrolyte",
+        "solid electrolytes",
+        "vacancy",
+        "interstitial",
+        "ionic conduction",
+        "yttria-stabilized zirconia",
+        "β-alumina",
+        "defect equilibrium"
+      ],
+      "body": [
+        "Real crystals are never perfect. At any temperature above 0 K, some of the lattice sites are empty or misplaced, because defects increase the entropy and so lower the free energy. The equilibrium fraction of defects is about e^{−ΔH/2kT}, where ΔH is the energy to create the defect pair.",
+        {
+          "list": [
+            "A **Schottky defect** is a pair of vacancies, one cation and one anion, keeping the lattice neutral. It occurs in compounds of similar ion size and high coordination number: NaCl, KCl, MgO. The density is slightly lower than the ideal.",
+            "A **Frenkel defect** is an ion that leaves its site and occupies an interstitial position, leaving a vacancy. It occurs when the cation is small and the lattice is open: AgCl, AgBr, ZnS. The density does not change.",
+            "**Non-stoichiometric compounds** deviate from simple formulas, with variable composition, because the metal can take more than one oxidation state: wüstite is Fe₁₋ₓO with x about 0.05–0.15, and TiO₂₋ₓ and the tungsten bronzes are other examples.",
+            "A **color center** (**F-center**, from German Farbe) is an electron trapped in an anion vacancy. It absorbs visible light: NaCl heated in sodium vapor turns yellow, and KCl turns violet. Radiation also makes color centers, as in smoky quartz."
+          ]
+        },
+        "Defects allow ions to move. An ion hops into a neighboring vacancy, and the net result is **ionic conduction**. A **solid electrolyte** is a solid with high ionic conductivity and negligible electronic conductivity. Examples: **β-alumina** (NaAl₁₁O₁₇, conducts Na⁺ in layers, used in sodium–sulfur batteries); **yttria-stabilized zirconia** (ZrO₂ doped with Y₂O₃, where Y³⁺ replacing Zr⁴⁺ creates O²⁻ vacancies that conduct oxide ions at 700–1000 °C: the oxygen sensor in a car exhaust, and the solid oxide fuel cell); AgI (above 147 °C the Ag⁺ ions are disordered) and lithium garnets such as Li₇La₃Zr₂O₁₂, studied for all-solid-state lithium batteries."
+      ],
+      "check": [
+        {
+          "q": "Which defect does not change the density of the crystal?",
+          "a": "Frenkel defect",
+          "wrong": [
+            "Schottky defect",
+            "Both change it",
+            "Neither can occur"
+          ]
+        },
+        {
+          "q": "How does doping ZrO₂ with Y₂O₃ make it an oxide-ion conductor?",
+          "a": "Y³⁺ replacing Zr⁴⁺ creates oxide vacancies through which O²⁻ moves",
+          "wrong": [
+            "Y³⁺ supplies free electrons",
+            "It makes the lattice cubic only",
+            "It converts oxygen to peroxide"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bands",
+      "title": "Band theory and semiconductors",
+      "terms": [
+        "band theory",
+        "semiconductor",
+        "semiconductors",
+        "band gap",
+        "doping",
+        "n-type",
+        "p-type",
+        "insulator",
+        "insulators",
+        "p–n junction",
+        "p-n junction",
+        "valence band",
+        "conduction band",
+        "Fermi level",
+        "intrinsic semiconductor",
+        "extrinsic semiconductor",
+        "LED",
+        "light-emitting diode",
+        "solar cell",
+        "photovoltaic",
+        "direct band gap",
+        "indirect band gap",
+        "metallic conductor"
+      ],
+      "body": [
+        "In a molecule, N atomic orbitals make N molecular orbitals. In a solid with N ~ 10²³ atoms, the orbitals are spaced so closely that they form continuous **bands**. The filled band made from the valence orbitals is the **valence band** and the empty or partly filled band above it is the **conduction band**, and the separation is the **band gap** E_g. Electrons conduct only if they can move into empty levels with a small change in energy.",
+        {
+          "list": [
+            "**Metals** have a partly filled band (Na, with a half-filled 3s band) or overlapping bands (Mg). Conductivity is high and falls with temperature, as lattice vibrations scatter the electrons.",
+            "**Insulators** have a filled valence band and a large gap, above about 4 eV: diamond 5.5 eV, SiO₂ about 9 eV.",
+            "**Semiconductors** have a small gap (below about 3 eV), so thermal energy promotes some electrons into the conduction band, leaving mobile holes in the valence band. Conductivity rises with temperature: Si 1.12 eV, Ge 0.67 eV, GaAs 1.43 eV, GaN 3.4 eV."
+          ]
+        },
+        {
+          "h": "Doping"
+        },
+        "The conductivity of an **intrinsic** semiconductor is tiny, and it is controlled by adding small amounts of impurities, **doping**. Silicon (Group 14) doped with phosphorus (Group 15) has extra electrons in donor levels just below the conduction band: **n-type** (negative carriers). Doped with boron (Group 13), it has acceptor levels just above the valence band, which accept electrons and leave mobile holes: **p-type** (positive carriers). Doping at parts per million changes the conductivity by orders of magnitude.",
+        {
+          "h": "The p–n junction"
+        },
+        "Where p-type and n-type regions meet, electrons and holes recombine near the interface, leaving a depletion zone with a built-in electric field. Current flows easily in one direction only, forward bias: a **diode**. A **solar cell** is a p–n junction in which absorbed photons with energy above E_g create electron–hole pairs that the field separates, generating current (silicon cells convert about 20–25% of sunlight; the theoretical limit near 33% for a single junction of about 1.3 eV). In a **light-emitting diode (LED)** the reverse occurs: electrons and holes recombine at the junction and emit a photon of energy near E_g, so the color is set by the gap (GaAs infrared; GaP green; GaN blue, whose development earned the 2014 Nobel Prize in Physics). Direct-gap materials (GaAs, GaN) emit efficiently, whereas indirect-gap silicon does not.",
+        {
+          "example": {
+            "title": "Gap and wavelength",
+            "problem": "Calculate the longest wavelength that can excite an electron across the 1.12 eV gap of silicon.",
+            "solution": "λ = hc/E_g = 1240 eV nm / 1.12 eV = 1107 nm, in the near infrared. Silicon absorbs all visible light but not photons of lower energy than the gap, which is why silicon is opaque to visible light, and transparent to infrared."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Phosphorus-doped silicon is…",
+          "a": "n-type, with extra electrons",
+          "wrong": [
+            "p-type, with holes",
+            "An insulator",
+            "Intrinsic"
+          ]
+        },
+        {
+          "q": "How does the conductivity of a semiconductor change with temperature?",
+          "a": "It rises, as more electrons are promoted across the gap",
+          "wrong": [
+            "It falls",
+            "It stays constant",
+            "It becomes zero"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "superconductors",
+      "title": "Superconductivity",
+      "terms": [
+        "superconductor",
+        "superconductors",
+        "superconductivity",
+        "Meissner effect",
+        "BCS theory",
+        "Cooper pairs",
+        "YBCO",
+        "high-temperature superconductors",
+        "critical temperature of superconductors",
+        "type II superconductor",
+        "magnetic levitation",
+        "MRI magnet"
+      ],
+      "body": [
+        "A **superconductor** loses all electrical resistance below a critical temperature T_c. Onnes found it in mercury in 1911 (T_c = 4.2 K). A current set up in a superconducting ring flows for years without a power source. Superconductors also expel magnetic fields from their interior, the **Meissner effect**, which makes a magnet float above one, and which distinguishes a superconductor from a perfect conductor.",
+        "Bardeen, Cooper and Schrieffer explained conventional superconductors in 1957 (**BCS theory**, Nobel Prize 1972). An electron moving through the lattice attracts the positive ions and produces a local distortion, which attracts a second electron: two electrons of opposite momentum and spin form a bound **Cooper pair**. Pairs behave as bosons and condense into a single quantum state that moves without scattering. A gap opens at the Fermi level, and thermal energy must exceed it to break the pairs, which sets T_c.",
+        {
+          "table": {
+            "head": [
+              "Material",
+              "T_c (K)",
+              "Notes"
+            ],
+            "rows": [
+              [
+                "Hg",
+                "4.2",
+                "First superconductor (1911)"
+              ],
+              [
+                "Nb–Ti alloy",
+                "9.5",
+                "Wire for MRI magnets"
+              ],
+              [
+                "Nb₃Sn",
+                "18",
+                "High-field magnets"
+              ],
+              [
+                "MgB₂",
+                "39",
+                "Conventional (BCS) superconductor, found in 2001"
+              ],
+              [
+                "La₂₋ₓBaₓCuO₄",
+                "35",
+                "First high-T_c cuprate (Bednorz and Müller, 1986; Nobel Prize 1987)"
+              ],
+              [
+                "YBa₂Cu₃O₇ (YBCO)",
+                "93",
+                "Above the boiling point of nitrogen (77 K)"
+              ],
+              [
+                "H₃S under 150 GPa",
+                "203",
+                "Hydride at extreme pressure"
+              ]
+            ],
+            "caption": "Critical temperatures."
+          }
+        },
+        "The cuprates (YBCO) are layered perovskites in which CuO₂ planes carry the current. They are ceramics, brittle and difficult to draw into wire, and their pairing mechanism is still not fully understood, so they are called unconventional. They are **Type II** superconductors: they tolerate magnetic fields through a mixed state, in which flux enters as vortices, so they can carry high currents in high fields. Applications include the magnets of MRI scanners (NbTi cooled by liquid helium), particle accelerators and fusion devices, magnetically levitated trains and sensitive magnetometers (SQUIDs)."
+      ],
+      "check": [
+        {
+          "q": "In BCS theory, Cooper pairs are…",
+          "a": "Pairs of electrons bound through lattice distortions",
+          "wrong": [
+            "Pairs of protons",
+            "Electron–hole pairs",
+            "Pairs of phonons"
+          ]
+        },
+        {
+          "q": "What is the Meissner effect?",
+          "a": "Expulsion of a magnetic field from a superconductor",
+          "wrong": [
+            "Zero resistance in a magnetic field",
+            "Heating by a magnetic field",
+            "Absorption of light"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Ionic structures are close-packed arrays with ions in holes. The radius ratio predicts CN 4, 6 or 8 (zinc blende, rock salt, CsCl). Fluorite, rutile, perovskite and spinel are the other key types.",
+    "The Born–Haber cycle gives lattice energy by Hess’s law (NaCl: −787 kJ mol⁻¹). The Born–Landé and Kapustinskii equations estimate it.",
+    "Schottky and Frenkel defects are vacancies and interstitials. They allow ionic conduction, which is the basis of solid electrolytes such as YSZ and β-alumina.",
+    "Bands arise from orbital overlap. Metals have partly filled bands, and semiconductors have a small gap. Doping gives n- and p-type material, and p–n junctions give diodes, solar cells and LEDs.",
+    "Superconductors have zero resistance below T_c, with the Meissner effect. BCS theory involves Cooper pairs; cuprates such as YBCO reach 93 K."
+  ],
+  "problems": [
+    {
+      "q": "Calculate the radius ratios and predict the structures: LiF (r(Li⁺) = 76 pm, r(F⁻) = 133 pm) and CsF (r(Cs⁺) = 167 pm).",
+      "solution": "LiF: 76/133 = 0.57, in the octahedral range, so rock salt. CsF: 167/133 = 1.26. The rule would predict CN 8, but CsF actually has the rock salt structure, so radius ratios are only a guide.",
+      "a": "LiF is rock salt (ratio 0.57). CsF is also rock salt, although its ratio exceeds 1."
+    },
+    {
+      "q": "Use a Born–Haber cycle to find the electron affinity of chlorine from: ΔH_f(NaCl) = −411, sublimation of Na +107, IE(Na) +496, ½D(Cl₂) +122, lattice energy −787 kJ mol⁻¹.",
+      "solution": "ΔH_f = sub + IE + ½D + EA + U, so EA = −411 − 107 − 496 − 122 + 787 = −349 kJ mol⁻¹.",
+      "a": "EA(Cl) = −349 kJ mol⁻¹."
+    },
+    {
+      "q": "A silicon crystal is doped with arsenic. Is it n- or p-type? Describe the band picture.",
+      "solution": "Arsenic (Group 15) has five valence electrons, one more than silicon needs. The extra electron sits in a donor level just below the conduction band and is easily excited into it. The material is n-type.",
+      "a": "n-type, with donor levels near the conduction band."
+    },
+    {
+      "q": "A light-emitting diode emits at 470 nm. Estimate the band gap in eV.",
+      "solution": "E = 1240 eV nm / 470 nm = 2.64 eV: a blue LED, as in GaN-based diodes (InGaN).",
+      "a": "About 2.6 eV."
+    }
+  ]
+}

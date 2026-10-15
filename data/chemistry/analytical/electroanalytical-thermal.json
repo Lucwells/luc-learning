@@ -1,0 +1,380 @@
+{
+  "id": "electroanalytical-thermal",
+  "view": "chapter",
+  "title": "Electroanalytical and Thermal Methods",
+  "description": "Potentiometry and ion-selective electrodes, voltammetry (CV, pulse methods, stripping), thermogravimetry, DSC and bomb calorimetry.",
+  "overview": [
+    "Electroanalytical methods use the electrical properties of a solution in an electrochemical cell: the potential at zero current (potentiometry, which responds to the logarithm of the activity of an ion) or the current at an imposed potential (voltammetry, which responds linearly to concentration and gives information on redox thermodynamics and kinetics). They are cheap, portable and, in the case of stripping voltammetry, among the most sensitive methods for trace metals.",
+    "Thermal methods follow the changes of a material with temperature: its mass (thermogravimetric analysis), its heat flow (differential scanning calorimetry) and the heat released in combustion (bomb calorimetry). The thermodynamics of electrochemical cells is in the electrochemistry chapter of General Chemistry, and the Nernst equation is used here without rederivation."
+  ],
+  "objectives": [
+    "Describe the parts of a potentiometric cell, reference electrodes, and the response and errors of the glass pH electrode.",
+    "Use the Nernst equation for an ion-selective electrode, the selectivity coefficient and TISAB.",
+    "Describe the three-electrode cell and the origin of diffusion-limited current in voltammetry.",
+    "Interpret a cyclic voltammogram and use the Randles–Sevcik equation.",
+    "Explain differential pulse and square wave voltammetry and anodic stripping voltammetry.",
+    "Interpret TGA and DSC curves, and calculate the enthalpy of combustion from bomb calorimetry data."
+  ],
+  "sections": [
+    {
+      "id": "potentiometry",
+      "title": "Potentiometry, pH electrodes and ion-selective electrodes",
+      "terms": [
+        "potentiometry",
+        "pH meter",
+        "glass electrode",
+        "ion-selective electrode",
+        "ion-selective electrodes",
+        "ISE",
+        "selectivity coefficient",
+        "Nernstian response",
+        "fluoride electrode",
+        "TISAB",
+        "valinomycin",
+        "reference electrode",
+        "Ag/AgCl electrode",
+        "saturated calomel electrode",
+        "SCE",
+        "liquid junction potential",
+        "indicator electrode",
+        "alkaline error",
+        "acid error",
+        "potentiometric titration",
+        "Nikolsky–Eisenman equation",
+        "gas-sensing electrode"
+      ],
+      "body": [
+        "In **potentiometry** the potential of a cell is measured under conditions of zero current (with a high-impedance voltmeter, so that the composition of the solution is not altered). The cell is made of an **indicator electrode**, whose potential depends on the activity of the analyte, and a **reference electrode** whose potential is constant. The most common reference is the **Ag/AgCl electrode** (Ag wire coated with AgCl in saturated or 3 M KCl: +0.197 V against the SHE for saturated KCl, +0.210 V for 3 M), and the **saturated calomel electrode (SCE)**, Hg/Hg₂Cl₂ in saturated KCl, +0.241 V. The contact with the sample is a porous frit, across which a small **liquid junction potential** (1–2 mV, from the different mobilities of the ions) always arises; the KCl is concentrated so that the K⁺ and Cl⁻ with almost equal mobilities carry the current and minimize it.",
+        {
+          "eq": "E_cell = E_ind − E_ref + E_j,   E_ind = K − (RT/zF) ln a  =  K − (59.16/z) log a  mV (25 °C, anion convention)"
+        },
+        "A tenfold change in the activity of a monovalent ion changes the potential by 59.16 mV, and a divalent ion by 29.6 mV. Because the response is logarithmic, a potentiometric measurement has a constant relative precision (a 1 mV error is a 4% error in the activity of a monovalent ion and 8% of a divalent ion) over many decades of concentration.",
+        {
+          "h": "The pH electrode"
+        },
+        "The pH electrode is a thin membrane of special glass (silica with Na₂O and CaO or Li₂O) that separates the sample from an internal solution (0.1 M HCl) with an Ag/AgCl wire. A hydrated gel layer forms on both faces of the glass, where H⁺ exchanges with the Na⁺ of the glass. The potential difference across the membrane depends on the difference of the activity of H⁺ on the two sides: E = const − 0.05916 pH at 25 °C. In a combination electrode the reference electrode is built around the glass electrode. A **pH meter** is calibrated with at least two buffers (4.01 and 7.00 for acidic samples; 7.00 and 10.01 for basic ones). The slope should be 95–102% of the Nernstian value, and an offset (the asymmetry potential) is corrected.",
+        {
+          "list": [
+            "**Alkaline (sodium) error**: above pH 11–12 the glass responds also to Na⁺ or Li⁺, and the measured pH is lower than the true pH. A special low-sodium glass reduces it.",
+            "**Acid error**: below pH 1 the reading is slightly high because of the saturation of the glass surface.",
+            "Others: the temperature (the slope depends on T; compensation is needed), a slow response in solutions of low ionic strength, dehydration of the membrane when stored dry (store it in a buffer or KCl), protein coating and clogging of the junction."
+          ]
+        },
+        {
+          "h": "Ion-selective electrodes"
+        },
+        "**Ion-selective electrodes (ISEs)** use membranes that respond to one ion. The glass electrode is the earliest. A **fluoride electrode** has a LaF₃ single crystal (doped with EuF₂ to improve the conductivity of F⁻ through vacancies), with a **Nernstian response** from 10⁰ to 10⁻⁶ M F⁻. A polymer membrane with an ionophore, such as **valinomycin** (a cyclic peptide that wraps K⁺ in its cavity), responds to K⁺ with a selectivity of ~10⁴ over Na⁺. Others: Ca²⁺, NO₃⁻, NH₄⁺, Ag⁺/S²⁻ (solid-state Ag₂S), and gas-sensing electrodes (CO₂, NH₃ via a pH electrode behind a gas-permeable membrane).",
+        "No membrane is perfectly selective. The **selectivity coefficient** K_{i,j} measures the response to an interfering ion j compared with the primary ion i, in the Nikolsky–Eisenman equation: E = K − (59.16/z_i) log[a_i + K_{i,j} a_j^{z_i/z_j}]. The smaller the coefficient, the better the electrode. The relative error from the interference is approximately K_{i,j}a_j/a_i (for ions of the same charge).",
+        "Since the electrode responds to activity and not to concentration, standards and samples must have the same ionic strength. For fluoride, a **total ionic strength adjustment buffer (TISAB)** is added to all solutions: it fixes the ionic strength, buffers the pH at 5–5.5 (OH⁻ is the interferent above pH 8 and HF forms below pH 4), and contains a chelating agent (CDTA) that frees F⁻ from Al³⁺ and Fe³⁺ complexes.",
+        {
+          "example": {
+            "title": "Fluoride by ISE with a single standard",
+            "problem": "A fluoride electrode reads −50.0 mV in 1.00 × 10⁻⁴ M F⁻ standard and −20.4 mV in a sample, both with TISAB. Find [F⁻] in the sample (slope −59.16 mV per decade).",
+            "solution": "E_x − E_s = −59.16 log(c_x/c_s) → +29.6 mV = −59.16 log(c_x/c_s) → log(c_x/c_s) = −0.500 → c_x = 1.00 × 10⁻⁴ × 0.316 = 3.2 × 10⁻⁵ M (0.60 mg L⁻¹ as fluoride)."
+          }
+        },
+        {
+          "example": {
+            "title": "Interference",
+            "problem": "A valinomycin K⁺ electrode has K_{K,Na} = 1 × 10⁻⁴. What is the error when measuring 1.0 mM K⁺ in 0.10 M Na⁺?",
+            "solution": "Error ≈ K a_Na/a_K = 1 × 10⁻⁴ × 0.10/1.0 × 10⁻³ = 0.010, i.e. 1%. A 100-fold lower K⁺ gives a 100% error."
+          }
+        },
+        "Potentiometry is also used as the detector of a **potentiometric titration**, which follows the electrode potential during the addition of titrant: the equivalence point is the steepest point (the maximum of ΔE/ΔV, or the zero of the second derivative). It works for colored or turbid solutions, for mixtures of acids and for very dilute solutions, where an indicator is not usable."
+      ],
+      "check": [
+        {
+          "q": "How much does the potential of an ideal divalent-cation ISE change per tenfold change in activity at 25 °C?",
+          "a": "29.6 mV",
+          "wrong": [
+            "59.2 mV",
+            "118 mV",
+            "10 mV"
+          ]
+        },
+        {
+          "q": "Why is TISAB added in fluoride determinations?",
+          "a": "It fixes ionic strength and pH, and frees F⁻ from complexes",
+          "wrong": [
+            "It precipitates fluoride",
+            "It increases the current",
+            "It oxidizes fluoride"
+          ]
+        },
+        {
+          "q": "A pH electrode reads too low at pH 13. This is…",
+          "a": "The alkaline (sodium) error",
+          "wrong": [
+            "The acid error",
+            "The junction potential only",
+            "Temperature compensation"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "voltammetry",
+      "title": "Voltammetry",
+      "terms": [
+        "voltammetry",
+        "cyclic voltammetry",
+        "voltammogram",
+        "working electrode",
+        "counter electrode",
+        "auxiliary electrode",
+        "supporting electrolyte",
+        "three-electrode cell",
+        "potentiostat",
+        "diffusion-limited current",
+        "limiting current",
+        "Cottrell equation",
+        "half-wave potential",
+        "Randles–Sevcik equation",
+        "Randles-Sevcik equation",
+        "peak potential",
+        "reversible electron transfer",
+        "irreversible electron transfer",
+        "linear sweep voltammetry",
+        "polarography",
+        "dropping mercury electrode",
+        "diffusion layer",
+        "double-layer charging current",
+        "capacitive current",
+        "differential pulse voltammetry",
+        "square wave voltammetry",
+        "glassy carbon electrode"
+      ],
+      "body": [
+        "In **voltammetry** the potential of a **working electrode** is changed according to a program, and the current from the oxidation or reduction of the analyte at its surface is recorded. The current is not zero, so three electrodes are used in a cell controlled by a **potentiostat**: the working electrode (glassy carbon, Pt, Au, or mercury) where the reaction of interest occurs; a **reference electrode** (Ag/AgCl) that sets the potential, through which no current flows; and a **counter (auxiliary) electrode** (Pt wire) that completes the circuit. A **supporting electrolyte** (0.1 M KCl, buffers) in excess of 50–100 times the analyte carries the current in the solution, so that the analyte moves to the electrode only by diffusion (not by migration in the field) and the resistance drops.",
+        "When the potential of the electrode is made negative enough to reduce the species Ox, its concentration at the electrode surface falls to zero, and a **diffusion layer** grows into the solution. The current is proportional to the concentration gradient at the surface: after a potential step, the current decays as the **Cottrell equation**, i = nFAc√(D/πt). In a stirred solution or at a rotating electrode, the layer has a constant thickness δ, and the potential sweep gives a sigmoidal wave with a plateau, the **limiting current** i_l = nFADc/δ, proportional to the concentration. The potential at half the limiting current is the **half-wave potential** E₁⁄₂, characteristic of the species (close to E°′).",
+        {
+          "h": "Cyclic voltammetry"
+        },
+        "In **cyclic voltammetry (CV)** the potential is swept linearly at a rate v (10 mV s⁻¹ to several V s⁻¹) from E₁ to E₂, then back to E₁, in an unstirred solution. The plot of current against potential is the **voltammogram**. For a reversible couple (here the ferricyanide/ferrocyanide, Fe(CN)₆³⁻ + e⁻ ⇌ Fe(CN)₆⁴⁻), the forward scan shows a cathodic peak as Ox is reduced; the current rises, reaches a peak, and then falls as the diffusion layer thickens (peak, and not plateau, because the solution is not stirred). The reverse scan oxidizes the product formed, giving an anodic peak.",
+        {
+          "list": [
+            "**Peak current** (**Randles–Sevcik equation**, 25 °C): i_p = 2.69 × 10⁵ n^{3/2} A D^{1/2} c v^{1/2}, with A in cm², D in cm² s⁻¹, c in mol cm⁻³, v in V s⁻¹, i_p in A. The peak current is proportional to the concentration, and to the square root of the scan rate, the signature of diffusion control. A plot of i_p against v^{1/2} that is a straight line through the origin shows diffusion-controlled species; if i_p is proportional to v, the species is adsorbed on the electrode.",
+            "**Reversible electron transfer**: the peak separation ΔE_p = E_pa − E_pc = 59/n mV (25 °C), independent of v; the ratio i_pa/i_pc = 1; the **formal potential** E°′ = (E_pa + E_pc)/2 (≈ E₁⁄₂). The ferrocene/ferrocenium couple, reversible and insensitive to the solvent, is used as a reference for potentials in organic solvents.",
+            "**Quasi-reversible** (slow electron transfer): ΔE_p > 59/n mV and increasing with v. **Irreversible**: no reverse peak, and the forward peak is shifted and broadened. A **chemical step** after the electron transfer (an EC mechanism) removes the product, so the reverse peak is smaller (i_pa/i_pc < 1), which allows measuring the rate of follow-up reactions."
+          ]
+        },
+        {
+          "example": {
+            "title": "Randles–Sevcik",
+            "problem": "Estimate the cathodic peak current for 1.0 mM K₃Fe(CN)₆ (D = 7.6 × 10⁻⁶ cm² s⁻¹) at a glassy carbon electrode of 3.0 mm diameter, scanned at 100 mV s⁻¹.",
+            "solution": "A = π(0.15 cm)² = 0.0707 cm². c = 1.0 × 10⁻⁶ mol cm⁻³. i_p = 2.69 × 10⁵ (1)^{3/2}(0.0707)(7.6 × 10⁻⁶)^{1/2}(1.0 × 10⁻⁶)(0.100)^{1/2} = 2.69 × 10⁵ × 0.0707 × 2.757 × 10⁻³ × 1.0 × 10⁻⁶ × 0.3162 = 1.66 × 10⁻⁵ A ≈ 17 µA. At 400 mV s⁻¹ the current is doubled (√4)."
+          }
+        },
+        {
+          "h": "Limits and pulse methods"
+        },
+        "Besides the Faradaic current, the potential sweep charges the electrical double layer at the electrode surface (the **capacitive**, or **double-layer charging current**), i_c = C_dl A v, which is proportional to the scan rate and rises faster with v than the Faradaic current (∝ v^{1/2}), so the detection limit of a linear sweep or cyclic voltammetry is only about 10⁻⁵–10⁻⁶ M. **Pulse techniques** sample the current at the end of a short potential pulse, when the capacitive current has decayed exponentially (τ = R C_dl, a few ms), while the Faradaic current decays only as t^{-1/2}.",
+        {
+          "list": [
+            "**Differential pulse voltammetry (DPV)**: small pulses (50 mV, 50 ms) are superimposed on a slow staircase ramp, and the current is measured before and at the end of each pulse; the difference is plotted against the base potential, giving a peak, with a detection limit of 10⁻⁷–10⁻⁸ M and good resolution of peaks (~50 mV apart).",
+            "**Square wave voltammetry (SWV)**: a symmetric square wave on a staircase, the current difference between the forward and reverse pulses is plotted; it is fast (a scan in seconds), as sensitive as DPV, and also shows the reversibility of the system.",
+            "**Polarography**, the original voltammetry (Heyrovský, Nobel 1959), used the **dropping mercury electrode (DME)**: each drop of mercury is a fresh, reproducible surface, with a high overpotential for H⁺ reduction (a wide negative range). Its use fell because of the toxicity of mercury, but the principle of a renewed surface remains."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "Why is a large excess of supporting electrolyte used?",
+          "a": "It carries the current, so the analyte reaches the electrode by diffusion only, and the solution resistance drops",
+          "wrong": [
+            "It is oxidized at the counter electrode",
+            "It adsorbs the analyte",
+            "It doubles the peak current"
+          ]
+        },
+        {
+          "q": "A reversible one-electron couple has ΔEp of about…",
+          "a": "59 mV",
+          "wrong": [
+            "118 mV",
+            "0 mV",
+            "590 mV"
+          ]
+        },
+        {
+          "q": "Peak current in CV is proportional to…",
+          "a": "The square root of the scan rate for a diffusing species",
+          "wrong": [
+            "The scan rate for diffusing species",
+            "The reciprocal of the concentration",
+            "Nothing; it is constant"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "stripping",
+      "title": "Stripping voltammetry",
+      "terms": [
+        "anodic stripping voltammetry",
+        "ASV",
+        "stripping voltammetry",
+        "stripping analysis",
+        "hanging mercury drop electrode",
+        "cathodic stripping voltammetry",
+        "mercury film electrode",
+        "deposition step",
+        "deposition potential",
+        "bismuth film electrode",
+        "adsorptive stripping"
+      ],
+      "body": [
+        "**Stripping voltammetry** combines a preconcentration step with a sensitive voltammetric measurement, and reaches detection limits of 10⁻⁹–10⁻¹¹ M for metals, among the lowest of any electroanalytical method. In **anodic stripping voltammetry (ASV)**, there are two steps:",
+        {
+          "list": [
+            "**Deposition (preconcentration)**: the electrode is held at a potential about 0.3–0.5 V more negative than E°′ of the metal ions for 1–10 minutes, with stirring. The ions Mⁿ⁺ are reduced and dissolve as the amalgam in a small mercury electrode (**hanging mercury drop electrode, HMDE**, or a **mercury film** on glassy carbon; or a **bismuth film** as a non-toxic substitute): Mⁿ⁺ + ne⁻ + Hg → M(Hg). Only a small fraction of the metal in solution is deposited, but in a volume of only microlitres of mercury it is enormously concentrated.",
+            "**Stripping**: after a rest period the potential is scanned in the positive direction (linear, DP or SW). Each metal is reoxidized and “stripped” from the amalgam at its characteristic potential, giving a sharp current peak, in the sequence of the easiest to oxidize: Zn (−1.0 V vs Ag/AgCl), Cd (−0.65), Pb (−0.45), Cu (−0.1 V). The peak height or area is proportional to the concentration in the solution and the deposition time."
+          ]
+        },
+        "**Cathodic stripping** is the inverse for anions that form insoluble films with the electrode (Cl⁻, S²⁻, I⁻ on mercury or silver). **Adsorptive stripping** accumulates complexes of the metals with an adsorbing ligand (dimethylglyoxime for Ni and Co). ASV can measure up to four or five metals at the same time (Zn, Cd, Pb, Cu), is cheap, portable, and suited to seawater, drinking water, blood and field work. The interferences are the overlapping peaks, intermetallic compounds (Cu–Zn), organic surfactants that adsorb on the electrode, and dissolved oxygen, which is removed by purging with nitrogen. Calibration uses standard additions to deal with the matrix.",
+        {
+          "example": {
+            "title": "Preconcentration factor",
+            "problem": "In an ASV experiment, an average deposition current of 5.0 nA flows for 300 s while Pb²⁺ is reduced (2 e⁻ per Pb) at a mercury film of volume 1.0 µL, in 25 mL of 1.0 nM Pb²⁺. How much lead is deposited, and by what factor is it concentrated?",
+            "solution": "Q = it = 5.0 × 10⁻⁹ × 300 = 1.5 × 10⁻⁶ C. n = Q/(2F) = 1.5 × 10⁻⁶/(2 × 96,485) = 7.8 × 10⁻¹² mol (7.8 pmol; 31% of the 25 pmol present). In 1.0 µL of mercury: 7.8 × 10⁻¹²/1.0 × 10⁻⁶ L = 7.8 µM. The concentration at the electrode is 7800 times that of the solution (1 nM), which makes the stripping current easily measurable."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Why is ASV more sensitive than direct DPV?",
+          "a": "The analyte is preconcentrated into a tiny electrode volume before the measurement",
+          "wrong": [
+            "It uses a higher voltage",
+            "The supporting electrolyte is removed",
+            "It avoids the use of a reference electrode"
+          ]
+        },
+        {
+          "q": "In ASV, the metal is…",
+          "a": "Reduced into the electrode during deposition and oxidized out during the positive scan",
+          "wrong": [
+            "Oxidized during deposition",
+            "Not reduced at all",
+            "Stripped by the reference electrode"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "thermal",
+      "title": "Thermal analysis and bomb calorimetry",
+      "terms": [
+        "thermal analysis",
+        "thermogravimetric analysis",
+        "TGA",
+        "differential scanning calorimetry",
+        "DSC",
+        "bomb calorimetry",
+        "differential thermal analysis",
+        "DTA",
+        "crystallinity by DSC",
+        "heat flux DSC",
+        "thermogram",
+        "decomposition temperature",
+        "evolved gas analysis",
+        "TGA-MS",
+        "heat of combustion measurement",
+        "calorimeter constant"
+      ],
+      "body": [
+        "**Thermal analysis** measures a property of the sample as a function of temperature (or time), under a controlled program (usually 5–20 °C min⁻¹ in nitrogen, air, or other gas). It characterizes materials in a way that no spectroscopic method can: stability, composition (moisture, filler, polymer content), phase changes and purity.",
+        {
+          "h": "Thermogravimetric analysis (TGA)"
+        },
+        "In **TGA** a sample (5–20 mg) sits on a microbalance in a furnace, and the mass is recorded during heating. Steps in the mass show loss of volatiles (water, solvent), decomposition (CO₂, CO, H₂O, HCl released), oxidation (mass gain when a metal oxidizes in air) and the final residue (ash, inorganic filler). The derivative curve (DTG) gives the temperature of the greatest rate of loss. The method is quantitative: the stoichiometry of each step identifies the compounds. Coupling the outlet to an MS or FTIR (**evolved gas analysis**) identifies the gases released.",
+        {
+          "example": {
+            "title": "Calcium oxalate monohydrate",
+            "problem": "CaC₂O₄·H₂O (146.11 g mol⁻¹) heated in nitrogen loses mass in three steps. Predict the percentage of the original mass remaining after each step.",
+            "solution": "Step 1 (100–250 °C), loss of H₂O: CaC₂O₄·H₂O → CaC₂O₄ + H₂O. Remaining: 128.10/146.11 = 87.7% (loss of 12.3%). Step 2 (400–500 °C), loss of CO: CaC₂O₄ → CaCO₃ + CO. Remaining: 100.09/146.11 = 68.5%. Step 3 (600–800 °C), loss of CO₂: CaCO₃ → CaO + CO₂. Remaining: 56.08/146.11 = 38.4%. Observation of these values confirms both the hydrate formula and the purity."
+          }
+        },
+        {
+          "h": "Differential scanning calorimetry (DSC)"
+        },
+        "In **DSC** the sample and an empty reference pan are heated at the same rate, and the difference in the heat flow needed to keep them at the same temperature (power-compensation DSC) or the temperature difference converted to heat flow (heat-flux DSC) is plotted against temperature. The signal is the heat capacity plus the heat of the process. Endothermic events (up or down by convention) include melting, evaporation, desolvation; exothermic include crystallization, curing of thermosets, oxidation and decomposition. The peak area is the enthalpy of the transition: ΔH = area/mass. The temperature of the onset gives the melting point, calibrated with indium (156.6 °C, 28.5 J g⁻¹). The **glass transition** of an amorphous polymer or glass appears as a step in the baseline (a change in heat capacity, ΔC_p), without a peak, at T_g. The shape of the melting peak also gives the purity (the van’t Hoff relation: impurities lower and broaden the melting). In pharmaceuticals DSC detects polymorphs, solvates and amorphous content; in polymers it measures crystallinity, T_g, and the curing of epoxies.",
+        {
+          "example": {
+            "title": "Degree of crystallinity",
+            "problem": "A 5.00 mg sample of polyethylene gives a melting endotherm with an area of 735 mJ. The enthalpy of fusion of 100% crystalline PE is 293 J g⁻¹. Find the crystallinity.",
+            "solution": "ΔH_f = 0.735 J/0.00500 g = 147 J g⁻¹. Crystallinity = 147/293 = 50%."
+          }
+        },
+        {
+          "h": "Bomb calorimetry"
+        },
+        "A **bomb calorimeter** measures the heat of combustion at constant volume. A weighed sample (0.5–1 g, in a crucible) is burned in a steel bomb filled with oxygen at 25–30 atm, immersed in a known mass of water in an insulated vessel. The ignition is electrical. The heat released raises the temperature of the bomb and the water, and the total heat capacity is the **calorimeter constant** C_cal, found by burning a standard (benzoic acid, ΔcU = −26.43 kJ g⁻¹). Because the volume is fixed, q_V = ΔU, and the enthalpy is obtained from ΔH = ΔU + Δn_g RT, where Δn_g is the change in moles of gas in the combustion reaction.",
+        {
+          "example": {
+            "title": "Enthalpy of combustion of naphthalene",
+            "problem": "Combustion of 1.000 g of benzoic acid raises the temperature of a bomb calorimeter by 2.470 K. Combustion of 0.5000 g of naphthalene (C₁₀H₈, 128.17 g mol⁻¹) raises it by 1.880 K. Find ΔcU and ΔcH of naphthalene at 298 K.",
+            "solution": "C_cal = 26,430 J/2.470 K = 10,700 J K⁻¹. q = 10,700 × 1.880 = 20,100 J for 0.5000 g → 40.2 kJ g⁻¹ → ΔcU = −40.2 × 128.17 = −5150 kJ mol⁻¹. C₁₀H₈(s) + 12 O₂(g) → 10 CO₂(g) + 4 H₂O(l): Δn_g = 10 − 12 = −2. ΔcH = ΔcU + Δn_g RT = −5150 − 2(8.314 × 10⁻³)(298) = −5150 − 5 = −5155 kJ mol⁻¹."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "A TGA curve shows a step of 12.3% at about 150 °C for CaC₂O₄·H₂O. What is lost?",
+          "a": "The water of hydration",
+          "wrong": [
+            "CO",
+            "CO₂",
+            "Calcium"
+          ]
+        },
+        {
+          "q": "How does a glass transition appear in a DSC trace?",
+          "a": "As a step in the baseline (change in heat capacity) with no peak",
+          "wrong": [
+            "As a sharp endothermic peak",
+            "As a sharp exothermic peak",
+            "As a loss of mass"
+          ]
+        },
+        {
+          "q": "A bomb calorimeter measures ΔU rather than ΔH because…",
+          "a": "The volume is constant",
+          "wrong": [
+            "The pressure is constant",
+            "No gas is produced",
+            "The temperature is constant"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Potentiometry: zero current, E = K − (59.16/z) log a. Reference electrodes: Ag/AgCl, SCE. Glass pH electrode: two-point calibration, alkaline and acid errors. ISEs: selectivity coefficient, ionic strength buffer (TISAB for F⁻).",
+    "Voltammetry: three-electrode cell with supporting electrolyte. Diffusion-limited current is proportional to concentration. CV: Randles–Sevcik, ΔEp = 59/n mV for a reversible couple, E°′ = midpoint.",
+    "Pulse methods (DPV, SWV) discriminate against capacitive current to reach 10⁻⁷–10⁻⁸ M. ASV preconcentrates metals into a mercury or bismuth electrode for 10⁻⁹–10⁻¹¹ M.",
+    "TGA gives mass losses (stoichiometric). DSC gives transition temperatures, enthalpies, T_g and crystallinity. A bomb calorimeter measures ΔU at constant volume and ΔH = ΔU + Δn_g RT."
+  ],
+  "problems": [
+    {
+      "q": "A pH electrode gives −22.0 mV in pH 7.00 buffer and +154.4 mV in pH 4.01 buffer. Calculate the slope (mV per pH unit, and as % of the Nernst slope 59.16) and the pH of a sample reading +47.0 mV.",
+      "solution": "Slope = (−22.0 − 154.4)/(7.00 − 4.01) = −176.4/2.99 = −59.0 mV per pH unit, which is 99.7% of the Nernstian slope. The sample reading is 107.4 mV below the pH 4.01 buffer, so pH = 4.01 + (154.4 − 47.0)/59.0 = 4.01 + 1.82 = 5.83.",
+      "a": "Slope −59.0 mV/pH (99.7%); sample pH 5.83"
+    },
+    {
+      "q": "A one-electron reversible couple shows cathodic and anodic peaks at −0.412 V and −0.355 V (vs Ag/AgCl). Find E°′, ΔEp and say whether it is consistent with a reversible system. How would you check that the species diffuses to the electrode?",
+      "solution": "E°′ = (−0.412 − 0.355)/2 = −0.384 V vs Ag/AgCl. ΔEp = 57 mV, consistent with 59 mV for n = 1 (reversible). Vary the scan rate v: if the peak current is proportional to v^{1/2}, and ΔEp is independent of v, the species diffuses and the transfer is reversible.",
+      "a": "E°′ = −0.384 V; ΔEp = 57 mV (reversible); check i_p vs v^{1/2}."
+    },
+    {
+      "q": "In the Randles–Sevcik equation, what happens to the peak current if the concentration is doubled and the scan rate is made four times larger?",
+      "solution": "i_p ∝ c v^{1/2}, so i_p rises by 2 × √4 = 2 × 2 = 4 times.",
+      "a": "Fourfold increase"
+    },
+    {
+      "q": "A TGA experiment on 25.00 mg of hydrated copper sulfate, CuSO₄·xH₂O, shows a mass loss of 9.01 mg on heating to 250 °C, leaving the anhydrous salt (159.61 g mol⁻¹). Find x.",
+      "solution": "Anhydrous CuSO₄: 25.00 − 9.01 = 15.99 mg = 15.99/159.61 = 0.1002 mmol. Water: 9.01/18.015 = 0.5002 mmol. x = 0.5002/0.1002 = 4.99, so x = 5 (CuSO₄·5H₂O).",
+      "a": "x = 5"
+    }
+  ]
+}

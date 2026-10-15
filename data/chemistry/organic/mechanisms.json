@@ -1,0 +1,461 @@
+{
+  "id": "organic-mechanisms",
+  "view": "chapter",
+  "title": "Electron Flow, Acidity and Conjugation",
+  "description": "Curved-arrow mechanisms, reactive intermediates, acid strength, resonance and conjugated systems.",
+  "overview": [
+    "Organic reactions look bewildering as a list, but they follow from a small number of ideas about where electrons are and where they go. A molecule reacts at its electron-rich sites with partners that are electron-poor, and an acid–base proton transfer is the simplest case. The curved-arrow notation tracks this flow, and the stability of the intermediates that form along the way decides which path a reaction takes.",
+    "This chapter develops that toolkit. It covers curved arrows and reactive intermediates, the factors that control acid strength and how to use pK_a values to predict reactions, resonance and conjugation, and the distinction between kinetic and thermodynamic control."
+  ],
+  "objectives": [
+    "Use curved arrows to show electron movement in reaction steps.",
+    "Rank carbocations, radicals and carbanions by stability and explain hyperconjugation.",
+    "Predict the direction of an acid–base reaction from pK_a values.",
+    "Explain acid strength by atom, resonance, inductive and hybridization effects.",
+    "Draw resonance structures and describe the π molecular orbitals of a conjugated diene.",
+    "Distinguish kinetic and thermodynamic control, and state the Hammond postulate."
+  ],
+  "sections": [
+    {
+      "id": "arrows",
+      "title": "Curved arrows and reactive intermediates",
+      "terms": [
+        "curved arrow",
+        "curved arrows",
+        "electron pushing",
+        "carbocation",
+        "carbocations",
+        "free radical",
+        "free radicals",
+        "radical",
+        "radicals",
+        "carbanion",
+        "carbanions",
+        "hyperconjugation",
+        "homolytic",
+        "heterolytic",
+        "homolysis",
+        "heterolysis",
+        "nucleophile",
+        "nucleophiles",
+        "nucleophilic",
+        "electrophile",
+        "electrophiles",
+        "electrophilic",
+        "reactive intermediate",
+        "mechanism steps"
+      ],
+      "body": [
+        "A reaction **mechanism** is a step-by-step account of how bonds break and form. Each step is drawn with **curved arrows**, which always show the movement of electrons, never atoms. A full-headed arrow moves an electron pair and a half-headed (fishhook) arrow moves a single electron. An arrow starts at the electron source, a lone pair or a bond, and points to where the electrons end up, an atom (to form a lone pair) or between two atoms (to form a bond).",
+        {
+          "list": [
+            "A **nucleophile** (“nucleus-loving”) is an electron-pair donor: an anion, a lone-pair-bearing molecule such as H₂O or NH₃, or a π bond. It attacks an **electrophile** (“electron-loving”), an electron-poor species: a carbocation, a polarized carbon (C–Br, C=O) or a proton.",
+            "In **heterolytic** bond cleavage both electrons of the bond go to one atom, giving ions. In **homolytic** cleavage each atom gets one electron, giving two **free radicals**. Heterolysis is typical in polar solvents, and homolysis occurs with heat, light or radical initiators."
+          ]
+        },
+        {
+          "h": "Reactive intermediates"
+        },
+        "Many reactions proceed through a short-lived species of high energy:",
+        {
+          "table": {
+            "head": [
+              "Intermediate",
+              "Structure",
+              "Stability order"
+            ],
+            "rows": [
+              [
+                "Carbocation (R₃C⁺)",
+                "Planar, sp², empty p orbital",
+                "3° > 2° > 1° > methyl; allylic and benzylic extra stable"
+              ],
+              [
+                "Radical (R₃C•)",
+                "Nearly planar, one electron in p",
+                "3° > 2° > 1° > methyl; allylic and benzylic extra stable"
+              ],
+              [
+                "Carbanion (R₃C⁻)",
+                "Pyramidal, sp³, lone pair",
+                "methyl > 1° > 2° > 3° (the reverse); stabilized by C=O, C≡N, NO₂, aryl"
+              ]
+            ],
+            "caption": "Carbon intermediates."
+          }
+        },
+        "Alkyl groups stabilize a carbocation by two effects: they donate electron density through σ bonds (inductive effect), and neighboring C–H or C–C σ bonds overlap partially with the empty p orbital, delocalizing the positive charge (**hyperconjugation**). A tertiary cation has nine such C–H bonds in position. Carbanions, which are electron-rich, are destabilized by alkyl groups, so the order reverses.",
+        {
+          "key": "Reactions proceed through the most stable available intermediate. The first step in predicting the product is to ask which intermediate is lowest in energy."
+        }
+      ],
+      "check": [
+        {
+          "q": "Which carbocation is most stable?",
+          "a": "(CH₃)₃C⁺",
+          "wrong": [
+            "CH₃⁺",
+            "CH₃CH₂⁺",
+            "(CH₃)₂CH⁺"
+          ]
+        },
+        {
+          "q": "A curved arrow in a mechanism shows…",
+          "a": "The movement of an electron pair",
+          "wrong": [
+            "The movement of an atom",
+            "The direction of a reaction",
+            "The movement of a proton only"
+          ]
+        },
+        {
+          "q": "In heterolytic cleavage of a bond…",
+          "a": "Both electrons go to one fragment, forming ions",
+          "wrong": [
+            "Each fragment gets one electron",
+            "No bond breaks",
+            "The bond is retained"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "acids",
+      "title": "Organic acids and bases",
+      "terms": [
+        "pKa values",
+        "pKa table",
+        "organic acid",
+        "organic acids",
+        "acid-base equilibrium prediction",
+        "predicting reactions"
+      ],
+      "body": [
+        "A great many organic reactions begin or end with proton transfer, and the whole subject can be organized by a table of pK_a values. A lower pK_a means a stronger acid, and the equilibrium always lies toward the weaker acid and weaker base:",
+        {
+          "eq": "K_{eq} = 10^{(pK_a of acid on right − pK_a of acid on left)}"
+        },
+        {
+          "table": {
+            "head": [
+              "Acid (H shown in bold)",
+              "Approximate pK_a",
+              "Conjugate base"
+            ],
+            "rows": [
+              [
+                "**H**Cl",
+                "−7",
+                "Cl⁻"
+              ],
+              [
+                "R–O⁺**H**₂ (protonated alcohol)",
+                "−2 to −3",
+                "ROH"
+              ],
+              [
+                "RC(=O)O**H** (carboxylic acid)",
+                "4–5",
+                "RCOO⁻"
+              ],
+              [
+                "Ph–O**H** (phenol)",
+                "10",
+                "PhO⁻"
+              ],
+              [
+                "R–S**H** (thiol)",
+                "10",
+                "RS⁻"
+              ],
+              [
+                "R–N⁺**H**₃ (ammonium)",
+                "10–11",
+                "RNH₂"
+              ],
+              [
+                "**H**₂O",
+                "15.7",
+                "OH⁻"
+              ],
+              [
+                "R–O**H** (alcohol)",
+                "16–18",
+                "RO⁻"
+              ],
+              [
+                "RC(=O)C**H**₃ (ketone α-H)",
+                "19–20",
+                "enolate"
+              ],
+              [
+                "RC(=O)OR′ α-C**H**",
+                "25",
+                "ester enolate"
+              ],
+              [
+                "R–C≡C–**H** (terminal alkyne)",
+                "25",
+                "acetylide"
+              ],
+              [
+                "R₂N**H** (amine)",
+                "35–40",
+                "R₂N⁻"
+              ],
+              [
+                "H₂C=C**H**₂ (alkene)",
+                "44",
+                "vinyl anion"
+              ],
+              [
+                "R–C**H**₃ (alkane)",
+                "50",
+                "carbanion"
+              ]
+            ],
+            "caption": "pK_a values of common organic acids (in water or DMSO, approximate)."
+          }
+        },
+        "Use the table to choose a base. A base can deprotonate an acid completely only if its conjugate acid has a pK_a at least 2–3 units higher.",
+        {
+          "example": {
+            "title": "Choosing a base for a terminal alkyne",
+            "problem": "Can NaOH or NaNH₂ deprotonate 1-hexyne (pK_a 25)?",
+            "solution": [
+              "With NaOH the conjugate acid is water (pK_a 15.7). K = 10^{15.7−25} = 10^{−9.3}: the equilibrium lies far toward the alkyne, so NaOH does not work.",
+              "With NaNH₂ the conjugate acid is NH₃ (pK_a 38). K = 10^{38−25} = 10^{13}: complete deprotonation. NaNH₂ is the right base."
+            ]
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Which is the stronger acid: ethanol (pK_a 16) or acetic acid (pK_a 4.76)?",
+          "a": "Acetic acid",
+          "wrong": [
+            "Ethanol",
+            "They are equal",
+            "Neither is an acid"
+          ]
+        },
+        {
+          "q": "Which base is strong enough to deprotonate a ketone α-hydrogen (pK_a 19) essentially completely?",
+          "a": "Lithium diisopropylamide (conjugate acid pK_a 36)",
+          "wrong": [
+            "NaOH (conjugate acid pK_a 15.7)",
+            "NaHCO₃ (conjugate acid pK_a 6.4)",
+            "Pyridine (conjugate acid pK_a 5.2)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "acidity-factors",
+      "title": "What makes an acid strong",
+      "terms": [
+        "resonance stabilization",
+        "conjugate base stability",
+        "s-character",
+        "ARIO",
+        "acidity trends"
+      ],
+      "body": [
+        "Acid strength is the stability of the conjugate base. A more stable anion is a weaker base, so its acid is stronger. Four factors, easily remembered as ARIO, explain nearly all trends.",
+        {
+          "list": [
+            "**Atom.** The atom carrying the charge matters most. Across a period, more electronegative atoms stabilize negative charge better: CH₄ (50) < NH₃ (38) < H₂O (15.7) < HF (3.2). Down a group, larger atoms spread the charge over a larger volume: H₂S (7.0) is a stronger acid than H₂O.",
+            "**Resonance.** Delocalizing the charge stabilizes the base. A carboxylate ion shares its charge between two oxygens, so acetic acid (4.76) is eleven pK_a units stronger than ethanol (about 16), which has a localized alkoxide. Phenol (10) is stronger than cyclohexanol (about 16) because phenoxide delocalizes into the ring. A carbonyl lowers the pK_a of its α-hydrogens (acetone, 19) by resonance.",
+            "**Inductive effect.** Electron-withdrawing atoms pull density through σ bonds and stabilize the anion. The effect falls rapidly with distance: CH₃COOH (4.76), ClCH₂COOH (2.87), Cl₂CHCOOH (1.35), Cl₃CCOOH (0.66), CF₃COOH (0.5).",
+            "**Orbital (hybridization).** The more s character in the orbital holding the lone pair, the closer to the nucleus the electrons are and the more stable the anion: ethyne (sp, 25) < ethene (sp², 44) < ethane (sp³, 50) in pK_a."
+          ]
+        },
+        {
+          "example": {
+            "title": "Ranking acids",
+            "problem": "Rank in order of increasing acidity: ethanol, phenol, acetic acid, 4-nitrophenol.",
+            "solution": "Ethanol (pK_a 16, localized charge on O) < phenol (10, charge delocalized into the ring) < 4-nitrophenol (7.2, charge also delocalized onto the nitro group) < acetic acid (4.76, charge delocalized over two oxygens)."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Which is a stronger acid, CF₃COOH or CH₃COOH?",
+          "a": "CF₃COOH, because the fluorines stabilize the carboxylate inductively",
+          "wrong": [
+            "CH₃COOH, because it has no electronegative atoms",
+            "They are equal",
+            "CF₃COOH, because F forms stronger bonds to H"
+          ]
+        },
+        {
+          "q": "Why is ethyne (pK_a 25) more acidic than ethane (pK_a 50)?",
+          "a": "The sp carbon holds the lone pair in an orbital with more s character",
+          "wrong": [
+            "Ethyne has more hydrogen atoms",
+            "Ethyne is aromatic",
+            "Ethane is a stronger acid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "conjugation",
+      "title": "Resonance and conjugation",
+      "terms": [
+        "resonance hybrid",
+        "conjugated diene",
+        "conjugated dienes",
+        "conjugated system",
+        "conjugated systems",
+        "conjugation",
+        "allylic",
+        "allyl cation",
+        "allylic cation",
+        "Hückel molecular orbital",
+        "π molecular orbitals",
+        "extended conjugation"
+      ],
+      "body": [
+        "When a π bond, a lone pair or a charge sits next to another π bond, their p orbitals overlap and electrons spread over all the atoms involved. This is **conjugation**, and it is described by resonance structures: different drawings of the same species differing only in electron positions, with the true structure a hybrid that is lower in energy than any one contributor.",
+        {
+          "list": [
+            "Only electrons move, never atoms. All structures must have the same number of electrons and valid Lewis structures.",
+            "Better contributors have more bonds, full octets, less charge separation, and negative charge on the more electronegative atom.",
+            "The more and the more equivalent the structures, the greater the stabilization."
+          ]
+        },
+        "The **allyl cation**, CH₂=CH–CH₂⁺ ↔ ⁺CH₂–CH=CH₂, has the charge shared between the two end carbons, so it is as stable as a secondary carbocation. **Allylic** and benzylic positions are therefore unusually reactive in substitution and radical reactions.",
+        {
+          "h": "π molecular orbitals of butadiene"
+        },
+        "In molecular orbital terms, the four p orbitals of 1,3-butadiene combine into four π MOs, with 0, 1, 2 and 3 nodes. The four π electrons fill ψ₁ and ψ₂, so ψ₂ is the HOMO and ψ₃ is the LUMO. Overlap across the central C2–C3 bond gives it partial double-bond character: it is 1.47 Å long, shorter than a typical C–C single bond of 1.54 Å and longer than C=C (1.34 Å).",
+        {
+          "table": {
+            "head": [
+              "Hydrogenation",
+              "ΔH (kJ mol⁻¹)",
+              "Stabilization"
+            ],
+            "rows": [
+              [
+                "1-Butene → butane",
+                "−127",
+                "−127"
+              ],
+              [
+                "1,3-Butadiene → butane (two C=C)",
+                "−239 (−254 expected for two isolated C=C)",
+                "15 kJ mol⁻¹ stabilization"
+              ],
+              [
+                "Benzene → cyclohexane (three C=C)",
+                "−208 (−360 expected for three isolated C=C)",
+                "152 kJ mol⁻¹ stabilization"
+              ]
+            ],
+            "caption": "Conjugation lowers the energy of a molecule, as seen in heats of hydrogenation."
+          }
+        },
+        "Conjugation also shifts light absorption to longer wavelengths as the HOMO–LUMO gap narrows: ethene absorbs at 165 nm, 1,3-butadiene at 217 nm, 1,3,5-hexatriene at 258 nm, and β-carotene, with eleven conjugated C=C, at about 450 nm (blue), so it appears orange. This is the basis of UV–visible spectroscopy and the color of dyes."
+      ],
+      "check": [
+        {
+          "q": "Which is a conjugated diene?",
+          "a": "CH₂=CH–CH=CH₂",
+          "wrong": [
+            "CH₂=CH–CH₂–CH=CH₂",
+            "CH₂=C=CH₂",
+            "CH₃CH=CH₂"
+          ]
+        },
+        {
+          "q": "As conjugation increases, absorption moves to…",
+          "a": "Longer wavelength",
+          "wrong": [
+            "Shorter wavelength",
+            "No change",
+            "Zero absorption"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "control",
+      "title": "Kinetic and thermodynamic control",
+      "terms": [
+        "kinetic control",
+        "thermodynamic control",
+        "kinetic product",
+        "thermodynamic product",
+        "Hammond postulate",
+        "Hammond's postulate",
+        "1,4-addition to dienes"
+      ],
+      "body": [
+        "When a reaction can give two products, the one that forms faster (lower barrier) is the **kinetic product**, and the more stable one is the **thermodynamic product**. Under mild conditions, where the reactions are irreversible, the kinetic product dominates. At higher temperatures, where products can revert and equilibrate, the thermodynamic product dominates.",
+        "The classic case is the addition of HBr to 1,3-butadiene. Protonation at C1 gives an allylic cation, with positive charge shared by C2 and C4. Bromide can attack either:",
+        {
+          "eq": [
+            "1,2-adduct (3-bromobut-1-ene): kinetic, 80% at −80 °C",
+            "1,4-adduct (1-bromobut-2-ene): thermodynamic, 80% at 40 °C"
+          ]
+        },
+        {
+          "svg": "<svg viewBox='0 0 460 250' role='img' aria-label='Kinetic and thermodynamic products' font-family='system-ui, sans-serif' font-size='12'><g fill='none' stroke='currentColor' stroke-width='1.5'><path d='M50,20 V220 H440'/></g><path fill='none' style='stroke:var(--accent)' stroke-width='2.5' d='M60,130 C110,130 130,85 170,85 C210,85 225,160 270,160 H330'/><path fill='none' stroke='currentColor' stroke-width='2.5' stroke-dasharray='7 4' d='M60,130 C110,130 150,50 200,50 C250,50 275,200 325,200 H400'/><g fill='currentColor'><text x='56' y='14'>energy</text><text x='440' y='240' text-anchor='end'>reaction coordinate</text><text x='62' y='150'>allylic cation + Br⁻</text><text x='170' y='76' text-anchor='middle' style='fill:var(--accent)'>lower barrier</text><text x='335' y='160' style='fill:var(--accent)'>1,2 (kinetic)</text><text x='405' y='200'>1,4 (thermodynamic)</text><text x='200' y='40' text-anchor='middle'>higher barrier</text></g></svg>",
+          "caption": "The kinetic product forms over the lower barrier. The thermodynamic product is lower in energy. At low temperature the first forms and stays, and at higher temperature the system reaches equilibrium and favors the second."
+        },
+        "The **Hammond postulate** connects the two: a transition state resembles whichever neighbor (reactant or product, or intermediate) it is closer to in energy. For an exothermic step the transition state is early and resembles the reactants. For an endothermic step it is late and resembles the products, which is why the stability of a carbocation or radical intermediate controls the rate of its formation. This justifies the rule that more stable intermediates form faster."
+      ],
+      "check": [
+        {
+          "q": "At low temperature, an irreversible reaction that can give two products usually gives…",
+          "a": "The one that forms fastest (kinetic product)",
+          "wrong": [
+            "The more stable product",
+            "A 50:50 mixture",
+            "Neither product"
+          ]
+        },
+        {
+          "q": "The Hammond postulate says a transition state for an endothermic step resembles…",
+          "a": "The products",
+          "wrong": [
+            "The reactants",
+            "A radical",
+            "Neither"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Curved arrows show electron-pair movement from a nucleophile to an electrophile. Carbocations and radicals are stabilized by alkyl substitution and resonance, but carbanions are destabilized by it.",
+    "pK_a values predict acid–base equilibria. The equilibrium lies toward the weaker acid. A useful base has a conjugate acid with pK_a at least 2 higher than the acid to be deprotonated.",
+    "Acidity is set by atom, resonance, induction and orbital hybridization, all of which determine conjugate base stability.",
+    "Conjugation delocalizes electrons, lowers energy and shifts absorption to longer wavelengths.",
+    "The kinetic product forms faster, and the thermodynamic product is more stable. The Hammond postulate relates a transition state to its nearest neighbor in energy."
+  ],
+  "problems": [
+    {
+      "q": "Predict the position of equilibrium for (a) CH₃COOH + CH₃O⁻, (b) PhOH + HCO₃⁻, (c) CH₃CH₂OH + NaH. Use pK_a: CH₃COOH 4.76, CH₃OH 15.5, PhOH 10, H₂CO₃ 6.35, EtOH 16, H₂ 35.",
+      "solution": "(a) K = 10^{15.5−4.76} = 10^{10.7}: far to the right. (b) K = 10^{6.35−10} = 10^{−3.7}: far to the left, so phenol is not deprotonated by bicarbonate. (c) K = 10^{35−16} = 10^{19}: complete (H₂ gas leaves).",
+      "a": "(a) products; (b) reactants; (c) products."
+    },
+    {
+      "q": "Explain why the N–H of an amide (pK_a about 17) is much more acidic than the N–H of an amine (about 38).",
+      "solution": "The conjugate base of an amide is stabilized by resonance with the carbonyl, which places the negative charge on oxygen. The amide anion also has the inductive pull of the C=O. An amide ion from an amine is localized on nitrogen.",
+      "a": "Resonance delocalization onto the carbonyl oxygen."
+    },
+    {
+      "q": "Draw the resonance structures of the pentadienyl cation CH₂=CH–CH=CH–CH₂⁺ and say how many carbons share the charge.",
+      "solution": "Moving the π electrons successively moves the cation along the chain to C1, C3 and C5. The charge is shared by three carbons: C1, C3 and C5.",
+      "a": "Three carbons share the positive charge (C1, C3, C5)."
+    },
+    {
+      "q": "For the addition of HBr to 1,3-butadiene, which product predominates at 40 °C after a long time, and why?",
+      "solution": "The 1,4-adduct, 1-bromobut-2-ene. At 40 °C the addition is reversible, so the product ratio reflects stability, and the 1,4-adduct has a more substituted (disubstituted) double bond.",
+      "a": "The thermodynamic 1,4-adduct."
+    }
+  ]
+}

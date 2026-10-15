@@ -1,0 +1,431 @@
+{
+  "id": "statistical-mechanics",
+  "view": "chapter",
+  "title": "Statistical Mechanics",
+  "description": "The Boltzmann distribution, partition functions, heat capacities and the calculation of entropy and equilibrium constants from molecular properties.",
+  "overview": [
+    "Thermodynamics describes the behavior of matter in bulk without asking what it is made of. Statistical mechanics supplies the missing link: given the energy levels of a molecule, which quantum mechanics and spectroscopy provide, it predicts the thermodynamic properties of a mole of those molecules. The entropy of an ideal gas, the heat capacity of a solid and the equilibrium constant of a gas-phase reaction can all be calculated from spectroscopic constants.",
+    "This chapter develops the Boltzmann distribution and the partition function, builds the partition function of a molecule from translational, rotational, vibrational and electronic pieces, uses it to derive the heat capacities of gases and solids, and shows how entropy and equilibrium constants follow."
+  ],
+  "objectives": [
+    "Apply the Boltzmann distribution to populations of energy levels.",
+    "Define the partition function and calculate thermodynamic functions from it.",
+    "Calculate translational, rotational and vibrational partition functions and the entropy of an ideal gas (Sackur–Tetrode).",
+    "Explain equipartition, why vibrations freeze out, and the Einstein and Debye models of solids.",
+    "Relate entropy to the number of microstates, including residual entropy, and calculate K from partition functions."
+  ],
+  "sections": [
+    {
+      "id": "boltzmann",
+      "title": "The Boltzmann distribution",
+      "terms": [
+        "Boltzmann distribution",
+        "Boltzmann factor",
+        "macrostate",
+        "statistical entropy",
+        "Boltzmann constant",
+        "most probable distribution",
+        "thermal energy",
+        "kT",
+        "Boltzmann's entropy formula",
+        "population of energy levels",
+        "degeneracy factor"
+      ],
+      "body": [
+        "A macroscopic system has a fixed number of molecules N, volume V and energy E, a **macrostate**. There are a huge number of ways to distribute the molecules over the molecular energy levels consistent with it, and each way is a **microstate**. The fundamental assumption is that all accessible microstates are equally likely. The distribution that has by far the most microstates, so overwhelmingly the likeliest, is the **Boltzmann distribution**. The fraction of molecules in a state of energy εᵢ is",
+        {
+          "eq": "Nᵢ/N = e^{−εᵢ/kT} / q,     q = Σ gᵢ e^{−εᵢ/kT}"
+        },
+        "where k = 1.381 × 10⁻²³ J K⁻¹ is the **Boltzmann constant** (R divided by Avogadro’s number), gᵢ the degeneracy of the level, and q the normalizing sum, the partition function. The **Boltzmann factor** e^{−ε/kT} compares the energy gap with the **thermal energy** kT (2.48 kJ mol⁻¹, or 207 cm⁻¹, at 298 K). Levels with ε ≪ kT are well populated, and those with ε ≫ kT are nearly empty. The ratio of populations of two levels is N₂/N₁ = (g₂/g₁)e^{−ΔE/kT}.",
+        {
+          "example": {
+            "title": "A two-level system",
+            "problem": "Two levels, nondegenerate, are separated by 5.0 kJ mol⁻¹. What fraction of molecules is in the upper level at 298 K, and at 1000 K?",
+            "solution": [
+              "ΔE/RT = 5000/(8.314 × 298) = 2.02: N₂/N₁ = e^{−2.02} = 0.133, so the upper fraction = 0.133/1.133 = 11.7%.",
+              "At 1000 K: ΔE/RT = 0.601, ratio = 0.548, fraction = 35.4%. Heating moves population upward, and at infinite temperature it would approach equality (50%)."
+            ]
+          }
+        },
+        "The connection to entropy is Boltzmann’s formula S = k ln W, with W the number of microstates (the thermodynamic probability) of the macrostate. A system with more ways to arrange its energy has more entropy, and the spontaneous process increases W. For N molecules each free to be in either half of a container, W = 2ᴺ, so S rises by Nk ln 2 on doubling the volume, which is R ln 2 per mole."
+      ],
+      "check": [
+        {
+          "q": "What does the Boltzmann factor e^{−ε/kT} express?",
+          "a": "The relative population of a level of energy ε at temperature T",
+          "wrong": [
+            "The wavelength of the level",
+            "The degeneracy",
+            "The total energy of the system"
+          ]
+        },
+        {
+          "q": "If the energy gap between two levels is much less than kT, their populations are…",
+          "a": "Nearly equal",
+          "wrong": [
+            "Very different",
+            "Zero in the upper",
+            "Zero in the lower"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "partition-function",
+      "title": "The partition function",
+      "terms": [
+        "partition function",
+        "molecular partition function",
+        "canonical partition function",
+        "canonical ensemble",
+        "ensemble",
+        "thermal wavelength",
+        "indistinguishable particles",
+        "thermodynamic functions from partition function",
+        "statistical ensemble"
+      ],
+      "body": [
+        "The **molecular partition function** q = Σ gᵢ e^{−εᵢ/kT} counts the number of thermally accessible states at temperature T. At T → 0 it equals the degeneracy of the ground state, and at high T it approaches the total number of states. It carries all the thermodynamic information about the molecule.",
+        "For a macroscopic sample, the **canonical ensemble** is an imaginary collection of copies of the system at fixed N, V and T that exchange energy with a heat bath. The **canonical partition function** Q sums over the states of the whole system. For N independent molecules, Q = qᴺ if they are distinguishable (atoms in a crystal), and Q = qᴺ/N! if they are **indistinguishable** (a gas), where N! corrects for the overcounting of arrangements that differ only in the labeling of identical molecules.",
+        "All thermodynamic functions follow from Q:",
+        {
+          "eq": [
+            "U = kT² (∂ ln Q/∂T)_V",
+            "A = −kT ln Q",
+            "S = U/T + k ln Q",
+            "P = kT (∂ ln Q/∂V)_T",
+            "G = A + PV"
+          ]
+        },
+        "For molecules whose energy is a sum of independent contributions, ε = ε_trans + ε_rot + ε_vib + ε_elec, the partition function factorizes: q = q_trans q_rot q_vib q_elec, and the functions A, S and U, the logarithms, are sums of separate contributions. This is why the energy levels from different spectroscopies add up to the thermodynamics. The translational part is, for a molecule of mass m in a volume V,",
+        {
+          "eq": [
+            "q_trans = V/Λ³,     Λ = h/√(2πmkT)   (the thermal wavelength)"
+          ]
+        },
+        "The thermal wavelength is the de Broglie wavelength of a molecule with thermal energy: about 16 pm for argon at 298 K. When Λ is much smaller than the spacing between molecules, classical statistics is valid (a gas at ordinary conditions)."
+      ],
+      "check": [
+        {
+          "q": "What is the partition function of a system at T = 0?",
+          "a": "The degeneracy of the ground state",
+          "wrong": [
+            "Zero",
+            "Infinity",
+            "One always"
+          ]
+        },
+        {
+          "q": "Why is Q = qᴺ/N! for a gas, not qᴺ?",
+          "a": "The molecules are indistinguishable, and permuting identical molecules gives the same state",
+          "wrong": [
+            "The gas molecules are distinguishable",
+            "N! gives the energy",
+            "It makes the entropy zero"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "molecular-q",
+      "title": "Translational, rotational and vibrational partition functions",
+      "terms": [
+        "translational partition function",
+        "rotational partition function",
+        "vibrational partition function",
+        "electronic partition function",
+        "rotational temperature",
+        "vibrational temperature",
+        "characteristic temperature",
+        "symmetry number",
+        "Sackur–Tetrode equation",
+        "Sackur-Tetrode equation",
+        "entropy of an ideal gas",
+        "high-temperature limit of rotational partition function"
+      ],
+      "body": [
+        "Each type of motion has a characteristic temperature that separates its low- and high-temperature behavior, defined by the level spacing: Θ = (energy spacing)/k.",
+        {
+          "list": [
+            "**Rotation** (linear molecule): the levels are E_J = hcB J(J + 1) with degeneracy 2J + 1. The **rotational temperature** is Θ_rot = hcB/k (B in cm⁻¹ times 1.4388 K cm). If T ≫ Θ_rot (nearly always except for H₂), the sum can be replaced by an integral: **q_rot = T/(σΘ_rot)**. The **symmetry number** σ is the number of indistinguishable orientations the molecule can reach by rotation: σ = 1 for heteronuclear diatomics (HCl) and 2 for homonuclear (N₂), because rotating a homonuclear molecule by 180° gives the same state, so half of the states are not allowed.",
+            "**Vibration**: harmonic levels (v + ½)hcν̃ and a **vibrational temperature** Θ_vib = hcν̃/k, with q_vib = 1/(1 − e^{−Θ_vib/T}), measured from the ground vibrational level. Θ_vib is typically 1000–6000 K, far above room temperature, so q_vib ≈ 1 and only the lowest level is occupied.",
+            "**Electronic**: q_elec = g₀ for ground states well separated from excited ones (kT is much less than the gap, as for most molecules at ordinary temperatures)."
+          ]
+        },
+        {
+          "table": {
+            "head": [
+              "Molecule",
+              "B (cm⁻¹)",
+              "Θ_rot (K)",
+              "ν̃ (cm⁻¹)",
+              "Θ_vib (K)"
+            ],
+            "rows": [
+              [
+                "H₂",
+                "60.9",
+                "87.6",
+                "4401",
+                "6332"
+              ],
+              [
+                "N₂",
+                "2.00",
+                "2.88",
+                "2359",
+                "3394"
+              ],
+              [
+                "HCl",
+                "10.6",
+                "15.2",
+                "2991",
+                "4303"
+              ],
+              [
+                "I₂",
+                "0.037",
+                "0.054",
+                "215",
+                "309"
+              ]
+            ],
+            "caption": "Characteristic temperatures."
+          }
+        },
+        {
+          "example": {
+            "title": "q_rot and q_vib for N₂ and I₂ at 298 K",
+            "problem": "Calculate q_rot for N₂ and the populations of vibrationally excited levels of N₂ and I₂ at 298 K.",
+            "solution": [
+              "q_rot(N₂) = T/(σΘ_rot) = 298/(2 × 2.88) = 52: about 52 rotational levels are accessible.",
+              "Vibration of N₂: Θ_vib/T = 3394/298 = 11.4, so the fraction in v = 1 is e^{−11.4} = 1.1 × 10⁻⁵: all the molecules are in v = 0. For I₂: Θ_vib/T = 1.04, q_vib = 1/(1 − e^{−1.04}) = 1.55, and the fraction in v = 0 is 1/1.55 = 65% with 23% in v = 1: the vibration of I₂ is highly excited at room temperature."
+            ]
+          }
+        },
+        {
+          "h": "The entropy of an ideal gas"
+        },
+        "From q_trans (and Q = qᴺ/N!) the entropy of a monatomic ideal gas follows, the **Sackur–Tetrode equation**:",
+        {
+          "eq": "S_m = R [ ln( kT / (P Λ³) ) + 5/2 ]"
+        },
+        "It predicts S rises with T (as (3/2)R ln T), with mass (heavier atoms have more closely spaced translational levels), and with falling pressure. No experimental entropy is needed. For argon at 298 K and 1 bar, Λ = 16.0 pm, kT/P = 4.12 × 10⁻²⁶ m³, Λ³ = 4.10 × 10⁻³³ m³, so ln(kT/PΛ³) = ln(1.005 × 10⁷) = 16.12 and S_m = 8.314 × (16.12 + 2.5) = 154.8 J K⁻¹ mol⁻¹, which agrees with the calorimetric value, 154.8: a notable triumph for statistical mechanics, and good evidence that the third law and the quantum counting of states are right. For molecules, the rotational and vibrational parts add to this."
+      ],
+      "check": [
+        {
+          "q": "Why is the symmetry number 2 for N₂ but 1 for HCl?",
+          "a": "A 180° rotation of N₂ gives an indistinguishable orientation",
+          "wrong": [
+            "N₂ has two atoms and HCl has more",
+            "HCl is polar",
+            "N₂ is heavier"
+          ]
+        },
+        {
+          "q": "At room temperature, most diatomic molecules are in…",
+          "a": "The ground vibrational level, and many rotational levels",
+          "wrong": [
+            "Many vibrational levels",
+            "The ground rotational level only",
+            "An excited electronic state"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "heat-capacity",
+      "title": "Equipartition and heat capacities",
+      "terms": [
+        "equipartition theorem",
+        "equipartition",
+        "Einstein model",
+        "Debye model",
+        "Dulong–Petit law",
+        "heat capacity of solids",
+        "frozen out",
+        "Debye T³ law",
+        "heat capacity of gases",
+        "degrees of freedom and heat capacity",
+        "Debye temperature",
+        "Einstein temperature"
+      ],
+      "body": [
+        "The **equipartition theorem** states that, at high enough temperature for classical behavior, each quadratic term in the energy of a molecule contributes ½kT to the average energy (½R to the molar heat capacity). Translation has three quadratic terms (½mv²ₓ, and so on), a linear molecule has two rotational terms, a nonlinear molecule three, and each vibrational mode contributes two (kinetic and potential), so",
+        {
+          "table": {
+            "head": [
+              "Molecule type",
+              "Translation",
+              "Rotation",
+              "Vibration (if fully active)",
+              "C_V,m at room temperature (observed)"
+            ],
+            "rows": [
+              [
+                "Monatomic (Ar)",
+                "3/2 R",
+                "0",
+                "0",
+                "12.5 J K⁻¹ mol⁻¹ (= 3R/2)"
+              ],
+              [
+                "Diatomic (N₂)",
+                "3/2 R",
+                "R",
+                "R (2 terms)",
+                "20.8 (= 5R/2): vibration absent"
+              ],
+              [
+                "Nonlinear polyatomic (H₂O)",
+                "3/2 R",
+                "3/2 R",
+                "(3N − 6)R",
+                "about 25 (3R plus some vibration)"
+              ]
+            ],
+            "caption": "Equipartition and observed heat capacities."
+          }
+        },
+        "The comparison shows the failure of classical equipartition, and why quantum mechanics is needed: at room temperature the vibrations of N₂ contribute almost nothing to C_V, because they are **frozen out**: with Θ_vib = 3394 K and kT much smaller than the spacing hν, the oscillator is nearly always in its ground state and cannot absorb small amounts of energy. The vibrational contribution to the heat capacity of a mode is",
+        {
+          "eq": "C_V,vib = R (Θ/T)² e^{Θ/T} / (e^{Θ/T} − 1)²"
+        },
+        "It tends to zero at low T, equals R at T ≫ Θ, and gives the sigmoidal rise seen in the heat capacity of Cl₂ (Θ_vib = 805 K, C_V = 25.5 at 298 K, so that its vibration contributes about 56% of the classical value R), whereas rotation unfreezes at a few kelvin for all but H₂. The same applies to rotation of H₂: below about 100 K, C_V falls to 3R/2.",
+        {
+          "h": "Solids"
+        },
+        "A solid of N atoms has 3N vibrational modes (three per atom), so equipartition predicts C_V,m = 3R = 24.9 J K⁻¹ mol⁻¹: the **Dulong–Petit law** (1819), obeyed by many metals at room temperature (Cu 24.4). But at low temperature the heat capacity falls toward zero, and diamond at 298 K has only 6.1 J K⁻¹ mol⁻¹. Einstein (1907) explained this by treating each atom as an oscillator of one frequency, with **Einstein temperature** Θ_E: C_V,m = 3R f_E(Θ_E/T), with f_E the same function as for the vibration of a molecule. It gives the right trend, but falls too fast at low T. Debye (1912) treated the solid as a continuum with a range of frequencies up to a cutoff, with the **Debye temperature** Θ_D, and obtained correctly the low-temperature **Debye T³ law**:",
+        {
+          "eq": "C_V,m = (12π⁴/5) R (T/Θ_D)³     (T ≪ Θ_D)"
+        },
+        "Θ_D is a measure of the stiffness of the lattice: diamond 2230 K, Si 645 K, Cu 343 K, Pb 105 K. The model works well for many solids at all temperatures if Θ_D is fitted. Metals have a small additional electronic term linear in T.",
+        {
+          "example": {
+            "title": "Frozen vibrations",
+            "problem": "Estimate C_V,m for N₂ at 298 K by equipartition for translation and rotation only, and the vibrational contribution from the formula.",
+            "solution": "Translation + rotation: 3/2 R + R = 5/2 R = 20.79 J K⁻¹ mol⁻¹. Vibration: Θ/T = 11.4, C_vib = R × 130 × e^{11.4}/(e^{11.4} − 1)² ≈ R × 130 × e^{−11.4} = 1.4 × 10⁻³ R ≈ 0.01 J K⁻¹ mol⁻¹: negligible. The total, 20.8, matches experiment (20.8)."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "What is the equipartition prediction of C_V,m for a monatomic gas?",
+          "a": "3R/2 = 12.5 J K⁻¹ mol⁻¹",
+          "wrong": [
+            "5R/2",
+            "3R",
+            "R"
+          ]
+        },
+        {
+          "q": "What does the Debye T³ law describe?",
+          "a": "The heat capacity of a solid at low temperature",
+          "wrong": [
+            "The heat capacity of an ideal gas",
+            "The speed of sound",
+            "The entropy of mixing"
+          ]
+        },
+        {
+          "q": "Why do the vibrations of N₂ not contribute to its heat capacity at 298 K?",
+          "a": "The vibrational quantum is much larger than kT, so the mode is frozen in its ground level",
+          "wrong": [
+            "N₂ has no vibrations",
+            "Equipartition is exact for vibration",
+            "The bond is too short"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "entropy-equilibrium",
+      "title": "Statistical entropy, residual entropy and equilibrium constants",
+      "terms": [
+        "residual entropy",
+        "absolute entropy",
+        "statistical entropy of mixing",
+        "equilibrium constant from partition functions",
+        "isotope exchange equilibrium",
+        "calculating K from spectroscopy",
+        "partition function and equilibrium constant",
+        "third law entropy"
+      ],
+      "body": [
+        "The entropy from calorimetry (integrating C_P/T from 0 K, plus the entropies of phase changes) is the **absolute** third-law entropy, and it should equal the statistical entropy calculated from the partition function. When they disagree, the difference reveals something about the crystal. The third law assumes the crystal is perfectly ordered at 0 K, but a crystal can be trapped in a disordered state. The **residual entropy** is the entropy retained at 0 K from the number of equivalent arrangements, S = k ln W.",
+        {
+          "list": [
+            "**CO** has almost no dipole moment, so in the crystal each molecule can point either way (CO or OC) with little energy difference. If each of N molecules is randomly oriented, W = 2ᴺ and S₀ = R ln 2 = 5.76 J K⁻¹ mol⁻¹. The observed discrepancy is 4.6, so the disorder is nearly but not completely random.",
+            "**Ice**: each O has four neighbors, with two near H atoms and two far (the ice rules). Counting the allowed arrangements gives W ≈ (3/2)ᴺ (Pauling), S₀ = R ln(3/2) = 3.37 J K⁻¹ mol⁻¹, and the measured residual entropy is 3.4: a successful prediction.",
+            "The **entropy of mixing** also comes from counting: placing N_A molecules of one kind and N_B of another on N lattice sites gives W = N!/(N_A!N_B!), so S = −k Σ N_i ln x_i, the thermodynamic result of the previous chapter."
+          ]
+        },
+        {
+          "h": "Equilibrium constants from partition functions"
+        },
+        "At equilibrium the Gibbs energy is a minimum, which for a gas-phase reaction gives K in terms of the molar partition functions q_m° = q°/N_A (per unit volume, at standard pressure), with energies measured from a common zero, so that ΔE₀ includes the zero-point energies:",
+        {
+          "eq": "K = Π (q°ᵢ / N_A)^{νᵢ} × exp(−Δ_rE₀ / RT)"
+        },
+        "A reaction’s K is therefore determined by the masses, moments of inertia and vibrational frequencies of the species and by the difference in their ground-state energies. This is how K of gas-phase reactions is calculated from computed or spectroscopic data. An example is the **isotope exchange equilibrium**, H₂ + D₂ ⇌ 2HD. The electronic energies are identical for all three, so only the translational, rotational, vibrational and zero-point terms matter. At high temperature, where all the partition functions become classical, K → 4 (from the symmetry numbers: σ(H₂) σ(D₂)/σ(HD)² = 4), the statistical value for random mixing, since four equally likely ways can make HD. At 298 K, K = 3.27, lowered by the zero-point energy, which favors the molecules with the heavier isotopes in the stronger bonds (D₂ and H₂ rather than HD).",
+        {
+          "example": {
+            "title": "Why K = 4 for isotope exchange",
+            "problem": "For H₂ + D₂ ⇌ 2HD at high temperature, explain why K approaches 4.",
+            "solution": "Suppose that H and D atoms pair at random in a mixture containing equal amounts of each: the probability of HH is ¼, of DD is ¼, and of HD is ½ (two ways: HD or DH). So [HD]² / ([H₂][D₂]) = (½)²/(¼ × ¼) = 4. The symmetry numbers in the partition functions (2 for H₂ and D₂, 1 for HD) express exactly this counting."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "What is the residual entropy of a crystal in which each of N molecules can orient in two ways?",
+          "a": "R ln 2 per mole",
+          "wrong": [
+            "R per mole",
+            "Zero",
+            "2R per mole"
+          ]
+        },
+        {
+          "q": "For H₂ + D₂ ⇌ 2HD, K at high temperature approaches…",
+          "a": "4",
+          "wrong": [
+            "1",
+            "2",
+            "0.25"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "The Boltzmann distribution gives Nᵢ/N = gᵢe^{−εᵢ/kT}/q. S = k ln W.",
+    "q counts accessible states. All functions follow from Q (qᴺ/N! for a gas): U = kT²(∂lnQ/∂T)_V, A = −kT ln Q, S = U/T + k ln Q.",
+    "q_trans = V/Λ³, q_rot = T/σΘ_rot, q_vib = 1/(1 − e^{−Θ_vib/T}). The Sackur–Tetrode equation gives the entropy of a monatomic gas (Ar: 154.8 J K⁻¹ mol⁻¹).",
+    "Equipartition gives ½kT per quadratic term, but vibrations freeze out at room temperature. Dulong–Petit gives 3R for solids, and Einstein and Debye explain the fall at low T (C ∝ T³).",
+    "Residual entropy (CO: R ln 2, ice: R ln 3/2) comes from disorder. K follows from partition functions and zero-point energies, as in H₂ + D₂ ⇌ 2HD."
+  ],
+  "problems": [
+    {
+      "q": "The J = 0 and J = 1 levels of HCl (B = 10.6 cm⁻¹) are in thermal equilibrium at 298 K. Find the ratio of the populations N(J = 1)/N(J = 0), and the most populated J.",
+      "solution": "E(J = 1) = 2B = 21.2 cm⁻¹; kT = 207.2 cm⁻¹. Ratio = 3 e^{−21.2/207.2} = 3 × 0.903 = 2.71 (the factor 3 is the degeneracy). J_max = √(kT/2B) − ½ = √(207.2/21.2) − 0.5 = √9.77 − 0.5 = 2.6, so J = 3 is the most populated.",
+      "a": "2.71; J = 3."
+    },
+    {
+      "q": "Use the Sackur–Tetrode equation to compare S_m of Ne and Xe at 298 K and 1 bar.",
+      "solution": "S depends on mass through Λ³ ∝ m^{−3/2}, so S ∝ (3/2) ln m. ΔS = (3/2)R ln(131.3/20.18) = 1.5 × 8.314 × 1.873 = 23.4 J K⁻¹ mol⁻¹. S(Ne) = 146.3 and S(Xe) = 169.7 J K⁻¹ mol⁻¹.",
+      "a": "Xe has 23.4 J K⁻¹ mol⁻¹ more entropy than Ne."
+    },
+    {
+      "q": "At what temperature is the molar heat capacity of a vibrational mode with Θ_vib = 1000 K equal to half of its classical value R? (Solve numerically; use Θ/T = x and f(x) = x²eˣ/(eˣ − 1)².)",
+      "solution": "Try x = 2: f = 4 × 7.389/(6.389)² = 0.724. x = 3: 9 × 20.09/(19.09)² = 0.496. x = 3.0 gives f ≈ 0.50, so T = 1000/3.0 ≈ 333 K.",
+      "a": "About 333 K."
+    },
+    {
+      "q": "Calculate the heat capacity of copper at 20 K using the Debye T³ law (Θ_D = 343 K), and compare with 298 K.",
+      "solution": "C = (12π⁴/5) R (T/Θ_D)³ = 233.8 × 8.314 × (20/343)³ = 1944 × 1.98 × 10⁻⁴ = 0.385 J K⁻¹ mol⁻¹ (the measured value is about 0.44, which includes the electronic part). At 298 K the Dulong–Petit value 24.9 applies: 60 times larger.",
+      "a": "About 0.39 J K⁻¹ mol⁻¹ at 20 K, against 24.4 at 298 K."
+    }
+  ]
+}

@@ -1,0 +1,614 @@
+{
+  "id": "organic-structure",
+  "view": "chapter",
+  "title": "Structure and Nomenclature",
+  "description": "Carbon’s bonding, functional groups, IUPAC naming, isomers and the physical properties of organic compounds.",
+  "overview": [
+    "Organic chemistry is the chemistry of carbon compounds, and carbon’s ability to form four strong bonds, to itself and to H, N, O, S and the halogens, produces millions of stable molecules. A few dozen structural patterns, the functional groups, organize that variety. Once a functional group is recognized, the molecule’s physical properties and its reactions can be predicted.",
+    "This chapter develops the language of organic chemistry. It introduces the ways molecules are drawn, the common functional groups, systematic IUPAC naming, the kinds of isomers, how structure determines boiling point and solubility, and the origin and use of hydrocarbon fuels."
+  ],
+  "objectives": [
+    "Interpret and draw condensed and skeletal structures.",
+    "Recognize the major functional groups.",
+    "Name alkanes, cycloalkanes, alkenes, alkynes and compounds with one principal functional group by IUPAC rules.",
+    "Draw constitutional isomers and calculate degrees of unsaturation.",
+    "Predict boiling-point and solubility trends from intermolecular forces.",
+    "Describe how petroleum is refined and what octane number means."
+  ],
+  "sections": [
+    {
+      "id": "carbon",
+      "title": "Carbon and the way organic molecules are drawn",
+      "terms": [
+        "organic chemistry",
+        "organic compound",
+        "organic compounds",
+        "catenation",
+        "skeletal structure",
+        "line-angle formula",
+        "condensed structural formula",
+        "tetravalent"
+      ],
+      "body": [
+        "Carbon has four valence electrons and nearly always forms four bonds. Its electronegativity (2.55) is intermediate, so C–C and C–H bonds are strong, nonpolar and kinetically inert, while bonds to N, O and the halogens are polar and are where reactions happen. Carbon atoms bond with themselves in chains, branches and rings (**catenation**), and with single, double and triple bonds, which correspond to sp³, sp² and sp hybridization (see the chapter on bonding).",
+        {
+          "table": {
+            "head": [
+              "Carbon type",
+              "Geometry",
+              "Bond angle",
+              "Example"
+            ],
+            "rows": [
+              [
+                "sp³ (four σ bonds)",
+                "Tetrahedral",
+                "109.5°",
+                "Ethane"
+              ],
+              [
+                "sp² (three σ, one π)",
+                "Trigonal planar",
+                "120°",
+                "Ethene, carbonyl C"
+              ],
+              [
+                "sp (two σ, two π)",
+                "Linear",
+                "180°",
+                "Ethyne, nitrile C"
+              ]
+            ],
+            "caption": "Hybridization and geometry of carbon."
+          }
+        },
+        "Organic structures are drawn in three common ways:",
+        {
+          "list": [
+            "A **condensed formula** writes each carbon with its attached atoms: CH₃CH₂CH₂OH. Parentheses show repeating or branching groups, as in (CH₃)₂CHCH₃.",
+            "A **skeletal (line-angle) structure** shows the carbon framework as lines. Each vertex and each line end is a carbon atom, hydrogens on carbon are not shown, and heteroatoms and hydrogens attached to them are written out. Hexane is a zigzag of five lines. Rings are polygons.",
+            "**Wedges and dashes** indicate three dimensions: a solid wedge points toward the viewer and a hashed bond points away."
+          ]
+        },
+        "To read a skeletal structure, add hydrogens until every carbon has four bonds. A vertex with two lines attached carries two hydrogens, a line end carries three, and a carbon in a ring with two ring bonds and one substituent carries one."
+      ],
+      "check": [
+        {
+          "q": "How many hydrogens are on a carbon in a skeletal structure that is a vertex joining two single bonds?",
+          "a": "2",
+          "wrong": [
+            "1",
+            "3",
+            "4"
+          ]
+        },
+        {
+          "q": "Which hybridization does the carbon in a C≡N group have?",
+          "a": "sp",
+          "wrong": [
+            "sp²",
+            "sp³",
+            "sp³d"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "functional-groups",
+      "title": "Functional groups",
+      "terms": [
+        "functional group",
+        "functional groups",
+        "haloalkane",
+        "alkyl halide",
+        "alkyl halides",
+        "thiol",
+        "nitro compound",
+        "hydrocarbon skeleton"
+      ],
+      "body": [
+        "A **functional group** is an atom or group of atoms that gives a molecule its characteristic reactivity. The rest of the molecule, the hydrocarbon framework, is often written R. The same functional group reacts in the same way in different molecules.",
+        {
+          "table": {
+            "head": [
+              "Class",
+              "Group",
+              "Example",
+              "Suffix / prefix"
+            ],
+            "rows": [
+              [
+                "Alkene",
+                "C=C",
+                "CH₂=CH₂ (ethene)",
+                "-ene"
+              ],
+              [
+                "Alkyne",
+                "C≡C",
+                "HC≡CH (ethyne)",
+                "-yne"
+              ],
+              [
+                "Arene",
+                "Benzene ring",
+                "C₆H₆ (benzene)",
+                "phenyl-, benzene"
+              ],
+              [
+                "Alkyl halide",
+                "C–X (X = F, Cl, Br, I)",
+                "CH₃CH₂Br",
+                "bromo-, chloro-"
+              ],
+              [
+                "Alcohol",
+                "C–OH",
+                "CH₃CH₂OH (ethanol)",
+                "-ol / hydroxy-"
+              ],
+              [
+                "Ether",
+                "C–O–C",
+                "CH₃OCH₃",
+                "alkoxy-"
+              ],
+              [
+                "Thiol",
+                "C–SH",
+                "CH₃SH",
+                "-thiol"
+              ],
+              [
+                "Amine",
+                "C–N",
+                "CH₃NH₂ (methylamine)",
+                "-amine / amino-"
+              ],
+              [
+                "Aldehyde",
+                "RCHO",
+                "CH₃CHO (ethanal)",
+                "-al"
+              ],
+              [
+                "Ketone",
+                "RC(=O)R′",
+                "CH₃COCH₃ (propanone)",
+                "-one"
+              ],
+              [
+                "Carboxylic acid",
+                "RCOOH",
+                "CH₃COOH (ethanoic acid)",
+                "-oic acid"
+              ],
+              [
+                "Ester",
+                "RCOOR′",
+                "CH₃COOCH₃",
+                "-oate"
+              ],
+              [
+                "Amide",
+                "RCONR′₂",
+                "CH₃CONH₂",
+                "-amide"
+              ],
+              [
+                "Acyl chloride",
+                "RCOCl",
+                "CH₃COCl",
+                "-oyl chloride"
+              ],
+              [
+                "Nitrile",
+                "R–C≡N",
+                "CH₃CN",
+                "-nitrile"
+              ],
+              [
+                "Nitro",
+                "R–NO₂",
+                "CH₃NO₂",
+                "nitro-"
+              ]
+            ],
+            "caption": "Common functional groups."
+          }
+        },
+        "The **carbonyl group**, C=O, appears in aldehydes, ketones, acids, esters, amides and acyl chlorides. Its polarity (oxygen δ⁻, carbon δ⁺) makes the carbon electrophilic and the oxygen weakly basic. Carbonyl chemistry takes up much of the second half of the subject.",
+        {
+          "tip": "Learn to classify an unfamiliar molecule by listing its functional groups. A multifunctional molecule such as aspirin (an aromatic ring, a carboxylic acid and an ester) shows each group’s typical behavior."
+        }
+      ],
+      "check": [
+        {
+          "q": "What functional group is present in CH₃CH₂COOCH₃?",
+          "a": "Ester",
+          "wrong": [
+            "Ketone",
+            "Ether",
+            "Carboxylic acid"
+          ]
+        },
+        {
+          "q": "Which functional groups contain a carbonyl group?",
+          "a": "Aldehydes, ketones, acids, esters and amides",
+          "wrong": [
+            "Alcohols and ethers",
+            "Alkenes and alkynes",
+            "Amines and nitriles"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "alkanes",
+      "title": "Alkanes and IUPAC nomenclature",
+      "terms": [
+        "alkane",
+        "alkanes",
+        "IUPAC nomenclature",
+        "IUPAC name",
+        "IUPAC naming",
+        "substituent",
+        "substituents",
+        "cycloalkane",
+        "cycloalkanes",
+        "alkyl group",
+        "alkyl groups",
+        "homologous series",
+        "locant",
+        "parent chain",
+        "saturated hydrocarbon",
+        "n-alkane"
+      ],
+      "body": [
+        "**Alkanes** are saturated hydrocarbons, with the general formula CₙH₂ₙ₊₂ (acyclic) or CₙH₂ₙ (monocyclic, **cycloalkanes**). They form a **homologous series**, each member differing by CH₂: methane, ethane, propane, butane, pentane, hexane, heptane, octane, nonane, decane (C₁ to C₁₀).",
+        "The IUPAC system gives each structure a unique name:",
+        {
+          "list": [
+            "Find the longest continuous carbon chain (or the longest chain containing the principal functional group). Its name is the **parent**.",
+            "Number the chain from the end that gives the lowest numbers (**locants**) to the substituents, or at the first point of difference.",
+            "Name each **substituent** (alkyl group) by changing -ane to -yl: methyl, ethyl, propyl. Common branched groups: isopropyl (–CH(CH₃)₂), isobutyl, sec-butyl and tert-butyl (–C(CH₃)₃).",
+            "List substituents alphabetically, each with its locant. Alphabetize by the first letter of the name, ignoring multiplying prefixes (di-, tri-, tetra-) and the prefixes sec- and tert-, but not iso-.",
+            "Cycloalkanes use the prefix cyclo-. A ring with one substituent needs no number, and with two or more the ring is numbered to give the lowest locants, alphabetically first substituent getting 1 in a tie."
+          ],
+          "ordered": true
+        },
+        {
+          "example": {
+            "title": "Naming an alkane",
+            "problem": "Name (CH₃)₃CCH₂CH(CH₃)₂ and CH₃CH₂CH(CH₂CH₃)CH(CH₃)CH₂CH₂CH₃.",
+            "solution": [
+              "First: the longest chain is five carbons (pentane). Numbering from the end nearer the branches puts two methyls on C2 and one on C4: **2,2,4-trimethylpentane** (isooctane).",
+              "Second: the longest chain is seven carbons, heptane. The substituents are an ethyl at C3 and a methyl at C4 when numbered from the left: **3-ethyl-4-methylheptane**, since the locants {3,4} are lower than {4,5} from the other end."
+            ]
+          }
+        },
+        {
+          "h": "Compounds with functional groups"
+        },
+        "The suffix indicates the principal functional group, the highest in the priority order: **carboxylic acid > ester > amide > nitrile > aldehyde > ketone > alcohol > amine > alkene > alkyne**. Others are prefixes (halo, nitro, alkoxy, hydroxy, amino). The chain is numbered to give the principal group the lowest locant, then multiple bonds, then substituents. Double and triple bonds are indicated by -ene and -yne, with the locant of the first carbon of the bond.",
+        {
+          "example": {
+            "title": "Naming with a functional group",
+            "problem": "Name CH₃CH(OH)CH₂CH=CH₂ and CH₃CH₂CH(Cl)CH₂COOH.",
+            "solution": [
+              "The alcohol outranks the alkene. Number from the end nearest the OH: the OH is on C2 and the double bond on C4: **pent-4-en-2-ol**.",
+              "The acid is the parent (C1 = COOH): **3-chloropentanoic acid**."
+            ]
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "What is the IUPAC name of CH₃CH(CH₃)CH₂CH₃?",
+          "a": "2-Methylbutane",
+          "wrong": [
+            "1-Methylbutane",
+            "3-Methylbutane",
+            "2-Ethylpropane"
+          ]
+        },
+        {
+          "q": "In naming an alcohol that also contains a C=C, which gets the lowest locant?",
+          "a": "The OH group",
+          "wrong": [
+            "The C=C",
+            "The first substituent alphabetically",
+            "Whichever is nearer the end of the chain"
+          ]
+        },
+        {
+          "q": "What is the formula of cyclohexane?",
+          "a": "C₆H₁₂",
+          "wrong": [
+            "C₆H₁₄",
+            "C₆H₁₀",
+            "C₆H₆"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "isomers",
+      "title": "Isomers and degrees of unsaturation",
+      "terms": [
+        "isomer",
+        "isomers",
+        "isomerism",
+        "structural isomer",
+        "structural isomers",
+        "constitutional isomers",
+        "constitutional isomer",
+        "geometric isomers",
+        "cis–trans isomerism",
+        "cis-trans isomerism",
+        "degrees of unsaturation",
+        "index of hydrogen deficiency",
+        "double bond equivalents"
+      ],
+      "body": [
+        "**Isomers** are compounds with the same molecular formula but different structures. **Constitutional (structural) isomers** differ in how the atoms are connected: butane and 2-methylpropane are both C₄H₁₀, and ethanol and dimethyl ether are both C₂H₆O. The number of possible isomers grows rapidly with chain length: C₄H₁₀ has 2, C₅H₁₂ has 3, C₆H₁₄ has 5, C₈H₁₈ has 18, C₁₀H₂₂ has 75 and C₂₀H₄₂ has 366,319.",
+        "**Stereoisomers** have the same connectivity but a different arrangement in space. **Geometric (cis–trans) isomers** arise because a double bond or ring prevents rotation: in but-2-ene, the two methyl groups are on the same side (cis) or on opposite sides (trans). Cis and trans isomers have different physical properties (cis-but-2-ene boils at 3.7 °C and trans at 0.9 °C). The other kind of stereoisomerism, chirality, is the subject of its own chapter.",
+        {
+          "h": "Degrees of unsaturation"
+        },
+        "A saturated acyclic hydrocarbon is CₙH₂ₙ₊₂. Each ring or π bond removes two hydrogens. The **degrees of unsaturation** (DoU, also the index of hydrogen deficiency) count rings plus π bonds, and are found from the formula by treating halogens as hydrogens, ignoring oxygen and sulfur, and counting nitrogen as one extra hydrogen:",
+        {
+          "eq": "DoU = (2C + 2 + N − H − X) / 2"
+        },
+        {
+          "example": {
+            "title": "Using DoU",
+            "problem": "What structural features are possible for C₈H₁₀ and C₃H₆O?",
+            "solution": [
+              "C₈H₁₀: (18 − 10)/2 = 4. A benzene ring uses all four (one ring plus three C=C), so ethylbenzene or a xylene are consistent.",
+              "C₃H₆O: (8 − 6)/2 = 1. One ring or one π bond: propanal, acetone, an allylic alcohol, or an oxetane or epoxide are all possible."
+            ]
+          }
+        },
+        "Degrees of unsaturation are the first thing used when solving an unknown structure from spectroscopic data."
+      ],
+      "check": [
+        {
+          "q": "How many degrees of unsaturation does C₆H₁₂O₂ have?",
+          "a": "1",
+          "wrong": [
+            "0",
+            "2",
+            "3"
+          ],
+          "why": "(2 × 6 + 2 − 12)/2 = 1."
+        },
+        {
+          "q": "Which pair are constitutional isomers?",
+          "a": "Ethanol and dimethyl ether",
+          "wrong": [
+            "cis-But-2-ene and trans-but-2-ene",
+            "Methane and ethane",
+            "Ethanol and ethanal"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "properties",
+      "title": "Physical properties and intermolecular forces",
+      "terms": [
+        "boiling point trends",
+        "solubility of organic compounds",
+        "hydrophobic",
+        "hydrophilic",
+        "amphiphilic"
+      ],
+      "body": [
+        "Physical properties follow from the intermolecular forces described in the chapter on bonding. For organic molecules the key points are:",
+        {
+          "list": [
+            "**Boiling point rises with molar mass and surface area**, because dispersion forces grow. Straight-chain alkanes boil higher than their branched isomers, which are more compact: pentane 36 °C, 2,2-dimethylpropane 9.5 °C.",
+            "**Polar groups raise boiling point.** Dipole–dipole forces and especially hydrogen bonding (O–H, N–H) increase it, as the table of four-carbon compounds shows.",
+            "**Solubility in water** needs polar groups. A molecule is **hydrophilic** if it can hydrogen bond with water and **hydrophobic** if it cannot. Alcohols with up to about four carbons mix with water, and larger ones do not, because the nonpolar chain outweighs the OH. Molecules with both a polar head and a nonpolar tail (soaps, phospholipids) are **amphiphilic**."
+          ]
+        },
+        {
+          "table": {
+            "head": [
+              "Compound",
+              "Formula",
+              "M (g/mol)",
+              "Boiling point (°C)",
+              "Main force"
+            ],
+            "rows": [
+              [
+                "Butane",
+                "CH₃CH₂CH₂CH₃",
+                "58",
+                "−0.5",
+                "Dispersion"
+              ],
+              [
+                "Diethyl ether",
+                "CH₃CH₂OCH₂CH₃",
+                "74",
+                "34.6",
+                "Weak dipole"
+              ],
+              [
+                "Butanal",
+                "CH₃CH₂CH₂CHO",
+                "72",
+                "74.8",
+                "Dipole–dipole"
+              ],
+              [
+                "Butan-1-ol",
+                "CH₃CH₂CH₂CH₂OH",
+                "74",
+                "117.7",
+                "H bonding"
+              ],
+              [
+                "Butanoic acid",
+                "CH₃CH₂CH₂COOH",
+                "88",
+                "163.5",
+                "H bonding (dimers)"
+              ]
+            ],
+            "caption": "Boiling points of compounds with four carbons. Carboxylic acids form hydrogen-bonded dimers, which makes them the highest."
+          }
+        },
+        "Melting points also depend on how well molecules pack in the crystal, so symmetric molecules melt higher: benzene melts at 5.5 °C and toluene at −95 °C."
+      ],
+      "check": [
+        {
+          "q": "Which has the highest boiling point?",
+          "a": "Butan-1-ol",
+          "wrong": [
+            "Diethyl ether",
+            "Pentane",
+            "Butane"
+          ]
+        },
+        {
+          "q": "Why is 1-octanol poorly soluble in water, though ethanol mixes completely?",
+          "a": "Its long hydrocarbon chain is hydrophobic and outweighs the single OH group",
+          "wrong": [
+            "It has no OH group",
+            "It cannot form hydrogen bonds at all",
+            "It is a stronger acid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hydrocarbons",
+      "title": "Hydrocarbons and fuels",
+      "terms": [
+        "hydrocarbon",
+        "hydrocarbons",
+        "fuel",
+        "fuels",
+        "petroleum",
+        "crude oil",
+        "fractional distillation of petroleum",
+        "octane number",
+        "octane rating",
+        "cracking",
+        "catalytic cracking",
+        "reforming",
+        "natural gas",
+        "fossil fuels"
+      ],
+      "body": [
+        "**Hydrocarbons** contain only carbon and hydrogen. They are the main **fuels** and the raw material of the chemical industry. They come from **petroleum** (crude oil) and **natural gas**, the remains of marine organisms transformed over millions of years. Natural gas is 70–95% methane. Crude oil is a mixture of hundreds of alkanes, cycloalkanes and aromatics, with some sulfur and nitrogen compounds.",
+        "Crude oil is separated by **fractional distillation**, in which components condense at heights in a column that depend on their boiling points:",
+        {
+          "table": {
+            "head": [
+              "Fraction",
+              "Carbons",
+              "Boiling range (°C)",
+              "Use"
+            ],
+            "rows": [
+              [
+                "Gas",
+                "C₁–C₄",
+                "below 30",
+                "Fuel gas, LPG, feedstock"
+              ],
+              [
+                "Gasoline (naphtha)",
+                "C₅–C₁₂",
+                "30–200",
+                "Motor fuel, petrochemicals"
+              ],
+              [
+                "Kerosene",
+                "C₁₂–C₁₆",
+                "175–275",
+                "Jet fuel"
+              ],
+              [
+                "Diesel",
+                "C₁₅–C₂₀",
+                "200–350",
+                "Diesel fuel, heating oil"
+              ],
+              [
+                "Lubricating oil, wax",
+                "C₂₀–C₅₀",
+                "above 350",
+                "Lubricants, candles"
+              ],
+              [
+                "Residue",
+                "above C₅₀",
+                "—",
+                "Asphalt, fuel oil"
+              ]
+            ],
+            "caption": "Fractions of crude oil."
+          }
+        },
+        "Demand is greatest for gasoline, so heavier fractions are broken into smaller molecules by **cracking** (heating with a zeolite catalyst, or with steam at over 800 °C). Cracking also produces ethene and propene, the building blocks of plastics. **Reforming** converts straight-chain alkanes into branched alkanes and aromatics.",
+        "The **octane number** measures a gasoline’s resistance to knocking, premature ignition in the engine. By definition, 2,2,4-trimethylpentane (isooctane) is 100 and n-heptane is 0. Branched and aromatic hydrocarbons resist knocking better than straight chains, which is why reforming improves gasoline. Complete combustion of an alkane gives CO₂ and H₂O (CₙH₂ₙ₊₂ + (3n+1)/2 O₂ → nCO₂ + (n+1)H₂O) and releases about 45–55 kJ per gram. Burning fossil fuels releases CO₂, a greenhouse gas, and incomplete combustion produces carbon monoxide and soot."
+      ],
+      "check": [
+        {
+          "q": "What process separates crude oil into fractions?",
+          "a": "Fractional distillation",
+          "wrong": [
+            "Cracking",
+            "Filtration",
+            "Reforming"
+          ]
+        },
+        {
+          "q": "A gasoline with octane number 95 behaves like a mixture of…",
+          "a": "95% isooctane and 5% n-heptane",
+          "wrong": [
+            "95% n-heptane and 5% isooctane",
+            "95% ethanol",
+            "Pure isooctane"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Carbon forms four bonds with sp³, sp² or sp geometry. Skeletal structures show vertices as carbons with implied hydrogens.",
+    "Functional groups (C=C, –OH, C=O, –NH₂ and others) determine reactivity.",
+    "IUPAC names come from the longest chain with the principal group, lowest locants and alphabetical substituents. Acid > ester > amide > nitrile > aldehyde > ketone > alcohol > amine > alkene > alkyne.",
+    "Constitutional isomers differ in connectivity. DoU = (2C + 2 + N − H − X)/2 counts rings plus π bonds.",
+    "Boiling point rises with mass, surface area and hydrogen bonding. Solubility in water requires polar groups.",
+    "Petroleum is refined by fractional distillation, cracking and reforming. Octane number measures anti-knock quality."
+  ],
+  "problems": [
+    {
+      "q": "Name: (a) (CH₃)₂CHCH₂CH₂CH₃, (b) CH₃CH=CHCH(CH₃)₂, (c) CH₃CH₂CH(OH)CH₂CH₃, (d) a cyclohexane with methyl groups on adjacent carbons and an ethyl group on the next carbon.",
+      "solution": "(a) 2-methylpentane. (b) The chain of five carbons with the double bond at C2 and a methyl at C4: 4-methylpent-2-ene (E or Z). (c) pentan-3-ol. (d) Number the ring to give lowest locants {1,2,3}, with alphabetical priority: 1-ethyl-2,3-dimethylcyclohexane.",
+      "a": "(a) 2-methylpentane; (b) 4-methylpent-2-ene; (c) pentan-3-ol; (d) 1-ethyl-2,3-dimethylcyclohexane."
+    },
+    {
+      "q": "Draw all five constitutional isomers of C₆H₁₄ and name them.",
+      "solution": "Hexane; 2-methylpentane; 3-methylpentane; 2,2-dimethylbutane; 2,3-dimethylbutane.",
+      "a": "hexane, 2-methylpentane, 3-methylpentane, 2,2-dimethylbutane, 2,3-dimethylbutane."
+    },
+    {
+      "q": "Calculate the DoU for C₇H₇NO₂ and C₁₀H₁₅Cl, and propose a structural feature for each.",
+      "solution": "C₇H₇NO₂: (14 + 2 + 1 − 7)/2 = 5. This fits a benzene ring (4) plus one more π bond, as in nitrotoluene (N=O) or 4-aminobenzoic acid (C=O). C₁₀H₁₅Cl: (22 − 15 − 1)/2 = 3, for example a chloro-substituted bicyclic or tricyclic skeleton, or a ring and two π bonds.",
+      "a": "5 and 3."
+    },
+    {
+      "q": "Rank by boiling point, highest first: pentane, 1-butanol, 2-methylbutane, butanal.",
+      "solution": "1-butanol (118 °C, H bonding) > butanal (75 °C) > pentane (36 °C) > 2-methylbutane (28 °C, branched).",
+      "a": "1-butanol > butanal > pentane > 2-methylbutane."
+    }
+  ]
+}

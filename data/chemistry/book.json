@@ -1,0 +1,118 @@
+{
+  "id": "chemistry",
+  "title": "Chemistry",
+  "kicker": "Textbook",
+  "color": "#003262",
+  "subtitle": "General, organic, inorganic, physical and analytical chemistry, with laboratory methods.",
+  "preface": [
+    "This book covers the chemistry curriculum of a research-university chemistry degree. It starts from atoms and bonds and works up to quantum mechanics, spectroscopy and laboratory practice.",
+    "Each chapter is written to be read in order but stands alone. A term that is explained elsewhere is linked where it first appears in a section. Every section ends with a few questions you can use to test yourself."
+  ],
+  "front": [
+    "chemistry/periodic-table"
+  ],
+  "parts": [
+    {
+      "title": "General Chemistry",
+      "blurb": "Atoms, bonds, reactions, energy, rates, equilibrium and electrochemistry.",
+      "chapters": [
+        "chemistry/general/matter-measurement",
+        "chemistry/general/atoms-molecules-ions",
+        "chemistry/general/atomic-structure",
+        "chemistry/general/bonding",
+        "chemistry/general/stoichiometry",
+        "chemistry/reaction-types",
+        "chemistry/general/gases",
+        "chemistry/general/solutions-phases",
+        "chemistry/general/thermochemistry",
+        "chemistry/general/kinetics",
+        "chemistry/general/equilibrium",
+        "chemistry/general/acids-bases",
+        "chemistry/general/aqueous-equilibria",
+        "chemistry/general/electrochemistry"
+      ]
+    },
+    {
+      "title": "Organic Chemistry",
+      "blurb": "Structure, stereochemistry, reactivity and mechanisms of carbon compounds, from alkanes to polymers.",
+      "chapters": [
+        "chemistry/organic/structure",
+        "chemistry/organic/mechanisms",
+        "chemistry/organic/stereochemistry",
+        "chemistry/organic/substitution-elimination",
+        "chemistry/organic/alkenes-alkynes",
+        "chemistry/organic/alcohols",
+        "chemistry/organic/spectroscopy",
+        "chemistry/organic/pericyclic",
+        "chemistry/organic/aromatic",
+        "chemistry/organic/aldehydes-ketones",
+        "chemistry/organic/carboxylic-acids",
+        "chemistry/organic/enolates",
+        "chemistry/organic/amines",
+        "chemistry/organic/carbohydrates",
+        "chemistry/organic/polymers",
+        "chemistry/organic/synthesis"
+      ]
+    },
+    {
+      "title": "Inorganic Chemistry",
+      "blurb": "Periodic trends, symmetry, coordination chemistry, organometallics, solids and bioinorganic chemistry.",
+      "chapters": [
+        "chemistry/inorganic/main-group",
+        "chemistry/inorganic/boranes-silicates",
+        "chemistry/inorganic/symmetry",
+        "chemistry/inorganic/coordination",
+        "chemistry/inorganic/ligand-field",
+        "chemistry/inorganic/complex-reactivity",
+        "chemistry/inorganic/organometallic",
+        "chemistry/inorganic/solid-state",
+        "chemistry/inorganic/acid-base-redox",
+        "chemistry/inorganic/bioinorganic-f-block"
+      ]
+    },
+    {
+      "title": "Physical Chemistry",
+      "blurb": "Quantum mechanics, spectroscopy, thermodynamics, statistical mechanics and reaction rates.",
+      "chapters": [
+        "chemistry/physical/quantum-foundations",
+        "chemistry/physical/quantum-atoms-molecules",
+        "chemistry/physical/molecular-spectroscopy",
+        "chemistry/physical/classical-thermodynamics",
+        "chemistry/physical/statistical-mechanics",
+        "chemistry/physical/rate-theories",
+        "chemistry/physical/photochemistry-surfaces"
+      ]
+    },
+    {
+      "title": "Analytical Chemistry",
+      "blurb": "How substances are separated, measured and identified.",
+      "chapters": [
+        "chemistry/analytical/lab-techniques",
+        "chemistry/analytical/quantitative-analysis",
+        "chemistry/analytical/atomic-spectroscopy",
+        "chemistry/analytical/mass-spectrometry",
+        "chemistry/analytical/chromatography",
+        "chemistry/analytical/molecular-surface-methods",
+        "chemistry/analytical/electroanalytical-thermal"
+      ]
+    },
+    {
+      "title": "Applied and Interdisciplinary Chemistry",
+      "blurb": "Chemistry of living systems, the nucleus, the environment and industry.",
+      "chapters": [
+        "chemistry/biochemistry",
+        "chemistry/nuclear-chemistry",
+        "chemistry/environmental-chemistry",
+        "chemistry/industrial-processes"
+      ]
+    },
+    {
+      "title": "Laboratory",
+      "blurb": "Techniques and experiments from the undergraduate organic and physical chemistry laboratories.",
+      "chapters": [
+        "chemistry/labs/physical-chemistry-lab",
+        "chemistry/labs/organic-chemistry-lab"
+      ]
+    }
+  ]
+}

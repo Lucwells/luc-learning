@@ -1,0 +1,528 @@
+{
+  "id": "organic-spectroscopy",
+  "view": "chapter",
+  "title": "Structure Determination: IR, MS and NMR",
+  "description": "Interpreting infrared, mass and NMR spectra to identify organic compounds.",
+  "overview": [
+    "A chemist who has just made, or isolated, an unknown compound needs to know what it is. Today this is done mostly by spectroscopy. Infrared spectroscopy shows which functional groups are present, mass spectrometry gives the molecular mass and formula, and NMR spectroscopy shows the carbon skeleton and how the atoms are connected. Combined, they give a structure from a few milligrams of sample.",
+    "This chapter treats the interpretation of each technique, not the instrumentation (see the chapter on instrumental analysis for how the instruments work), and ends with a method for solving unknowns."
+  ],
+  "objectives": [
+    "Assign the principal IR absorptions of common functional groups.",
+    "Read a mass spectrum: molecular ion, isotope patterns, nitrogen rule and common fragmentations.",
+    "Interpret ¹H NMR chemical shifts, integration and splitting.",
+    "Interpret ¹³C NMR and DEPT spectra, and say what COSY, HSQC and HMBC show.",
+    "Combine data and the degrees of unsaturation to deduce a structure."
+  ],
+  "sections": [
+    {
+      "id": "ir",
+      "title": "Infrared spectroscopy",
+      "terms": [
+        "infrared spectroscopy",
+        "IR spectrum",
+        "IR spectra",
+        "IR absorption",
+        "wavenumber",
+        "fingerprint region",
+        "functional group region",
+        "carbonyl stretch",
+        "IR spectroscopy",
+        "infrared spectrum"
+      ],
+      "body": [
+        "Infrared radiation excites molecular vibrations. A bond absorbs when its vibration changes the dipole moment, and the frequency (expressed as the wavenumber, in cm⁻¹) rises with bond strength and falls with atomic mass. Strongly polar bonds absorb strongly: C=O, O–H and N–H. The region above 1500 cm⁻¹ holds the diagnostic group absorptions, and the region below it, the **fingerprint region**, is unique to each compound.",
+        {
+          "table": {
+            "head": [
+              "Bond",
+              "Wavenumber (cm⁻¹)",
+              "Appearance"
+            ],
+            "rows": [
+              [
+                "O–H, alcohol",
+                "3200–3600",
+                "Broad, strong"
+              ],
+              [
+                "O–H, carboxylic acid",
+                "2500–3300",
+                "Very broad, overlaps C–H"
+              ],
+              [
+                "N–H, amine or amide",
+                "3300–3500",
+                "Medium; two bands for NH₂, one for NH"
+              ],
+              [
+                "≡C–H",
+                "about 3300",
+                "Sharp, strong"
+              ],
+              [
+                "C–H, sp² / sp³",
+                "3000–3100 / 2850–3000",
+                "Medium to strong"
+              ],
+              [
+                "C≡N, C≡C",
+                "2210–2260, 2100–2260",
+                "Medium (C≡N), weak (C≡C)"
+              ],
+              [
+                "C=O, aldehyde",
+                "1725 (with C–H at 2720 and 2820)",
+                "Strong, sharp"
+              ],
+              [
+                "C=O, ketone",
+                "1715",
+                "Strong, sharp"
+              ],
+              [
+                "C=O, ester",
+                "1735–1750",
+                "Strong, sharp"
+              ],
+              [
+                "C=O, carboxylic acid",
+                "1700–1725",
+                "Strong"
+              ],
+              [
+                "C=O, amide",
+                "1630–1690",
+                "Strong"
+              ],
+              [
+                "C=O, acyl chloride, anhydride",
+                "1800, 1760 and 1820",
+                "Strong"
+              ],
+              [
+                "C=C",
+                "1620–1680",
+                "Weak to medium"
+              ],
+              [
+                "Aromatic C=C",
+                "1450–1600",
+                "Medium, several bands"
+              ],
+              [
+                "C–O",
+                "1000–1300",
+                "Strong"
+              ],
+              [
+                "N–O (nitro)",
+                "1520 and 1350",
+                "Strong"
+              ]
+            ],
+            "caption": "Characteristic infrared absorptions."
+          }
+        },
+        "Conjugation lowers a C=O stretch by about 30 cm⁻¹ (acetophenone 1685), and ring strain raises it (cyclohexanone 1715, cyclopentanone 1745, cyclobutanone 1780). Hydrogen bonding broadens and lowers O–H and N–H bands. The sequence for reading an IR spectrum: first look for a C=O band near 1700, then for O–H or N–H above 3200, then for C–H type, C≡C or C≡N, and aromatic bands."
+      ],
+      "check": [
+        {
+          "q": "A strong, sharp band at 1715 cm⁻¹ and no band above 3200 cm⁻¹ suggests…",
+          "a": "A ketone",
+          "wrong": [
+            "An alcohol",
+            "A carboxylic acid",
+            "A nitrile"
+          ]
+        },
+        {
+          "q": "A very broad band from 2500 to 3300 cm⁻¹ together with a C=O band indicates…",
+          "a": "A carboxylic acid",
+          "wrong": [
+            "An alcohol",
+            "An amide",
+            "An ester"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ms",
+      "title": "Mass spectrometry",
+      "terms": [
+        "mass spectrometry",
+        "mass spectrum",
+        "mass spectra",
+        "molecular ion",
+        "base peak",
+        "isotope pattern",
+        "nitrogen rule",
+        "McLafferty rearrangement",
+        "α-cleavage",
+        "alpha cleavage",
+        "tropylium ion",
+        "high-resolution mass spectrometry",
+        "M+2 peak"
+      ],
+      "body": [
+        "In electron-impact mass spectrometry, molecules are ionized by a 70 eV electron beam to give a radical cation, the **molecular ion** M⁺•, whose m/z gives the molecular mass. The excess energy breaks it into fragments, and the spectrum plots ion abundance against m/z. The tallest peak is the **base peak** (assigned 100%).",
+        {
+          "list": [
+            "**Isotope patterns.** ¹³C is 1.1% of carbon, so the M+1 peak is about 1.1% of M per carbon atom. Chlorine appears as M and M+2 in a 3 : 1 ratio (³⁵Cl : ³⁷Cl), and bromine as M and M+2 in 1 : 1. A pair of equal peaks two mass units apart means one bromine.",
+            "**Nitrogen rule.** A molecule with an odd number of nitrogen atoms has an odd molecular mass (nominal), and an even number (including zero) gives an even mass. A molecular ion at m/z 73 for a compound without halogens suggests one nitrogen.",
+            "**High-resolution MS** measures m/z to four decimals, and gives the molecular formula, since each element has a distinct mass defect: C₆H₁₂O is 100.0888, but C₅H₈O₂ is 100.0524, though both have nominal mass 100."
+          ]
+        },
+        {
+          "h": "Common fragmentations"
+        },
+        {
+          "list": [
+            "**α-Cleavage**: a bond next to a heteroatom or carbonyl breaks to give a stabilized cation. Ketones give acylium ions (CH₃CO⁺, m/z 43; PhCO⁺, m/z 105), and amines give iminium ions.",
+            "**Loss of a stable molecule**: alcohols lose water (M − 18); carboxylic acids and esters lose OR or OH.",
+            "**McLafferty rearrangement**: a carbonyl compound with a γ-hydrogen transfers it to oxygen through a six-membered transition state, and an alkene is lost, leaving a radical cation: butanal and 2-pentanone show m/z 44 and 58 respectively.",
+            "**Benzylic cleavage**: alkylbenzenes lose the substituent to give the benzyl cation, rearranged to the **tropylium ion**, a stable aromatic cation at m/z 91.",
+            "Alkanes fragment by cleavage to the most stable carbocations (a spaced pattern, 14 mass units apart, with the base peak at 43 or 57)."
+          ]
+        },
+        {
+          "example": {
+            "title": "Reading a spectrum",
+            "problem": "A compound shows M⁺• at m/z 156 and 158 in a 1 : 1 ratio, and a base peak at m/z 77. Suggest a structure.",
+            "solution": "The 1:1 pair indicates one bromine. 156 − 79 = 77, a C₆H₅ phenyl: bromobenzene (C₆H₅Br, 156/158). The base peak at 77 is the phenyl cation, from loss of Br•."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "A molecular ion pair at m/z 94 and 96 in a 1 : 1 ratio indicates…",
+          "a": "One bromine atom",
+          "wrong": [
+            "One chlorine atom",
+            "Two chlorine atoms",
+            "One sulfur atom"
+          ]
+        },
+        {
+          "q": "What is the nitrogen rule?",
+          "a": "An odd number of N gives an odd molecular mass",
+          "wrong": [
+            "N always makes the mass even",
+            "N doubles the M+1 peak",
+            "N is lost first in all fragmentations"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "h-nmr",
+      "title": "¹H NMR spectroscopy",
+      "terms": [
+        "1H NMR",
+        "proton NMR",
+        "chemical shift",
+        "chemical shift table",
+        "integration",
+        "splitting pattern",
+        "splitting patterns",
+        "coupling constant",
+        "coupling constants",
+        "spin–spin coupling",
+        "n+1 rule",
+        "multiplet",
+        "doublet",
+        "triplet",
+        "quartet",
+        "singlet",
+        "shielding in NMR",
+        "deshielding",
+        "D2O exchange",
+        "NMR",
+        "NMR spectroscopy",
+        "nuclear magnetic resonance spectroscopy"
+      ],
+      "body": [
+        "Nuclei with spin ½ (¹H, ¹³C) in a magnetic field absorb radio-frequency radiation at a frequency that depends on the electronic environment. Electron-withdrawing neighbors **deshield** a proton and shift it downfield (to larger δ). The **chemical shift** δ is reported in parts per million relative to tetramethylsilane (TMS, δ 0).",
+        {
+          "table": {
+            "head": [
+              "Proton type",
+              "δ (ppm)"
+            ],
+            "rows": [
+              [
+                "R–CH₃, R₂CH₂ (alkyl)",
+                "0.8–1.7"
+              ],
+              [
+                "C=C–CH (allylic), C(=O)–CH (α to carbonyl)",
+                "1.6–2.7"
+              ],
+              [
+                "≡C–H",
+                "2–3"
+              ],
+              [
+                "N–CH, Ar–CH (benzylic)",
+                "2.2–3.0"
+              ],
+              [
+                "O–CH, Cl–CH, Br–CH",
+                "3.3–4.5"
+              ],
+              [
+                "C=C–H (vinyl)",
+                "4.6–6.0"
+              ],
+              [
+                "Ar–H (aromatic)",
+                "6.5–8.5"
+              ],
+              [
+                "R–CHO (aldehyde)",
+                "9–10"
+              ],
+              [
+                "R–COOH",
+                "10–13"
+              ],
+              [
+                "O–H, N–H (variable, broad)",
+                "1–5 (alcohol), 4–7 (phenol), 1–3 (amine)"
+              ]
+            ],
+            "caption": "Approximate ¹H chemical shifts."
+          }
+        },
+        "Three features of a ¹H spectrum carry the information:",
+        {
+          "list": [
+            "**Number of signals**: one for each set of chemically equivalent hydrogens (symmetry).",
+            "**Integration**: the area of each signal is proportional to the number of hydrogens it represents.",
+            "**Splitting (multiplicity)**: a proton with n neighbors on adjacent carbons (three bonds away) that are not equivalent to it appears as n + 1 lines, **the n + 1 rule**: **singlet** (0 neighbors), **doublet** (1), **triplet** (2), **quartet** (3). The line intensities follow Pascal’s triangle (1:1, 1:2:1, 1:3:3:1). The line spacing is the **coupling constant** J in Hz, and it is the same for the two coupled protons."
+          ]
+        },
+        {
+          "table": {
+            "head": [
+              "Coupling",
+              "Typical J (Hz)"
+            ],
+            "rows": [
+              [
+                "Vicinal H–C–C–H (freely rotating)",
+                "6–8"
+              ],
+              [
+                "Alkene, trans",
+                "12–18"
+              ],
+              [
+                "Alkene, cis",
+                "6–12"
+              ],
+              [
+                "Alkene, geminal",
+                "0–3"
+              ],
+              [
+                "Aromatic, ortho / meta",
+                "7–9 / 1–3"
+              ]
+            ],
+            "caption": "Coupling constants, which also distinguish cis and trans alkenes."
+          }
+        },
+        "Recognizable patterns: an ethyl group is a triplet (3H, δ about 1.2) plus a quartet (2H); an ethyl ester OCH₂ is at δ 4.1. An isopropyl group is a doublet (6H) plus a septet (1H). A para-disubstituted benzene gives two doublets (4H total). A hydrogen on O or N usually appears as a broad singlet because of rapid exchange, and it disappears when D₂O is added (**D₂O exchange**), which identifies OH and NH."
+      ],
+      "check": [
+        {
+          "q": "A CH₂ group is next to a CH₃ and nothing else with H. Its signal is a…",
+          "a": "Quartet",
+          "wrong": [
+            "Triplet",
+            "Doublet",
+            "Singlet"
+          ]
+        },
+        {
+          "q": "A singlet at δ 9.7 integrating for 1H indicates…",
+          "a": "An aldehyde proton",
+          "wrong": [
+            "A methyl group",
+            "An aromatic proton",
+            "An alkene proton"
+          ]
+        },
+        {
+          "q": "How is a trans alkene distinguished from a cis alkene by ¹H NMR?",
+          "a": "By its larger vinyl coupling constant (about 15 Hz against 10 Hz)",
+          "wrong": [
+            "By its chemical shift only",
+            "By its integration",
+            "By D₂O exchange"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c-nmr",
+      "title": "¹³C NMR, DEPT and two-dimensional NMR",
+      "terms": [
+        "13C NMR",
+        "carbon-13 NMR",
+        "DEPT",
+        "DEPT-135",
+        "COSY",
+        "HSQC",
+        "HMBC",
+        "NOESY",
+        "two-dimensional NMR",
+        "2D NMR",
+        "spectral interpretation",
+        "structure elucidation",
+        "structure determination"
+      ],
+      "body": [
+        "¹³C is only 1.1% abundant, but modern instruments record its spectrum easily. In the standard **proton-decoupled** spectrum every unique carbon gives one singlet, so the number of signals equals the number of different carbons. Shifts span a wider range than for ¹H:",
+        {
+          "table": {
+            "head": [
+              "Carbon type",
+              "δ (ppm)"
+            ],
+            "rows": [
+              [
+                "Alkyl",
+                "0–50"
+              ],
+              [
+                "C–O, C–N, C–X",
+                "50–90"
+              ],
+              [
+                "Alkyne",
+                "65–90"
+              ],
+              [
+                "Alkene, aromatic",
+                "100–150"
+              ],
+              [
+                "Nitrile",
+                "115–125"
+              ],
+              [
+                "C=O, acid / ester / amide",
+                "160–185"
+              ],
+              [
+                "C=O, aldehyde / ketone",
+                "190–220"
+              ]
+            ],
+            "caption": "Approximate ¹³C chemical shifts."
+          }
+        },
+        "**DEPT** (distortionless enhancement by polarization transfer) reveals how many hydrogens are on each carbon. In DEPT-135, CH and CH₃ carbons point up, CH₂ carbons point down, and quaternary carbons, with no attached hydrogens, are absent. Comparing it with the full spectrum gives each carbon’s multiplicity.",
+        {
+          "h": "Two-dimensional NMR"
+        },
+        "Two-dimensional experiments plot correlations between nuclei:",
+        {
+          "list": [
+            "**COSY** (correlation spectroscopy) shows which protons are coupled to each other (usually through three bonds), tracing a chain of connected CH groups.",
+            "**HSQC** correlates each proton with the carbon it is directly bonded to (one bond).",
+            "**HMBC** correlates protons with carbons two or three bonds away, which connects fragments across quaternary carbons and heteroatoms.",
+            "**NOESY** shows protons close in space (less than about 5 Å), regardless of bonds, which gives stereochemistry and conformation."
+          ]
+        },
+        "These experiments make it possible to determine the structures of natural products of molecular weight 500 or more from a milligram of sample."
+      ],
+      "check": [
+        {
+          "q": "In a DEPT-135 spectrum, CH₂ carbons appear…",
+          "a": "Pointing down (negative)",
+          "wrong": [
+            "Pointing up",
+            "Absent",
+            "As doublets"
+          ]
+        },
+        {
+          "q": "Which 2D experiment connects protons to carbons two or three bonds away?",
+          "a": "HMBC",
+          "wrong": [
+            "COSY",
+            "HSQC",
+            "NOESY"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "elucidation",
+      "title": "Solving a structure",
+      "terms": [
+        "unknown identification",
+        "solving structures from spectra",
+        "structure problems"
+      ],
+      "body": [
+        "A reliable order of work: (1) get the formula from MS (or elemental analysis) and compute the **degrees of unsaturation**; (2) find functional groups in the IR; (3) count the ¹³C signals; (4) assign ¹H shifts, integrals and splittings; (5) assemble fragments and check that every spectrum is consistent.",
+        {
+          "example": {
+            "title": "C₄H₈O₂",
+            "problem": "An unknown has formula C₄H₈O₂. IR: 1740 cm⁻¹ (strong), no O–H. ¹H NMR: δ 1.26 (triplet, 3H), δ 2.04 (singlet, 3H), δ 4.12 (quartet, 2H). Find the structure.",
+            "solution": [
+              "DoU = (2 × 4 + 2 − 8)/2 = 1: one C=O (IR 1740, an ester, with no O–H).",
+              "The triplet (3H) and quartet (2H) at δ 1.26 and 4.12 are an ethyl group, and the shift of 4.12 puts the CH₂ on oxygen: –OCH₂CH₃. The singlet at δ 2.04 (3H) is a CH₃ on a carbonyl: CH₃C(=O)–.",
+              "The structure is **ethyl acetate**, CH₃COOCH₂CH₃."
+            ]
+          }
+        },
+        {
+          "example": {
+            "title": "C₉H₁₀O",
+            "problem": "IR: 1685 cm⁻¹. ¹H NMR: δ 1.2 (triplet, 3H), δ 3.0 (quartet, 2H), δ 7.4–7.95 (multiplet, 5H). ¹³C NMR: 7 signals, one at 200 ppm. Find the structure.",
+            "solution": [
+              "DoU = (2 × 9 + 2 − 10)/2 = 5: a benzene ring (4) and a C=O (1). The C=O at 1685 cm⁻¹ is conjugated with the ring, and 200 ppm fits a ketone.",
+              "Five aromatic hydrogens mean a monosubstituted ring. The triplet and quartet are an ethyl group, and the CH₂ at δ 3.0 is deshielded by the carbonyl. The structure is **propiophenone**, PhCOCH₂CH₃. It has seven ¹³C signals: C=O, CH₂, CH₃, and four aromatic carbons (ipso, ortho, meta and para)."
+            ]
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "A compound C₃H₆O has IR 1715 cm⁻¹ and a single ¹H NMR signal (6H) at δ 2.1. It is…",
+          "a": "Acetone",
+          "wrong": [
+            "Propanal",
+            "Propan-2-ol",
+            "Methyl vinyl ether"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "IR identifies functional groups: C=O near 1700–1750, O–H above 3200, C≡C and C≡N near 2100–2260, and C–H bands at 2850–3300.",
+    "MS gives the molecular mass, isotope patterns (Cl 3:1, Br 1:1), the nitrogen rule and structural fragments such as acylium, tropylium and McLafferty ions.",
+    "¹H NMR: number of signals gives symmetry, integration gives H counts, and the n + 1 splitting rule gives neighbors. Chemical shift gives the environment.",
+    "¹³C NMR gives one signal per unique carbon, and DEPT gives the number of attached H. COSY, HSQC and HMBC link nuclei through bonds, and NOESY through space.",
+    "Solve unknowns by formula, DoU, IR, then NMR, and check that all data are consistent."
+  ],
+  "problems": [
+    {
+      "q": "Predict the number of ¹³C NMR signals and the ¹H NMR pattern for (a) 2-methylpropan-2-ol, (b) diethyl ether, (c) p-xylene.",
+      "solution": "(a) 2 ¹³C signals (three equivalent CH₃ groups and one quaternary carbon); ¹H: a 9H singlet and a 1H singlet (OH). (b) 2 ¹³C signals; ¹H: a triplet (6H, δ 1.2) and a quartet (4H, δ 3.5). (c) 3 ¹³C signals (the CH₃ carbons, the aromatic CH carbons, and the substituted ring carbons); ¹H: a 6H singlet (δ 2.3) and a 4H singlet (δ 7.1).",
+      "a": "(a) 2 signals, singlets 9H and 1H; (b) 2 signals, triplet and quartet; (c) 3 signals, two singlets (6H and 4H)."
+    },
+    {
+      "q": "A compound C₈H₈O₂ shows IR bands at 1690 cm⁻¹ and a broad band from 2500 to 3300 cm⁻¹. ¹H NMR: δ 2.4 (singlet, 3H), 7.2 (doublet, 2H), 7.9 (doublet, 2H), 12 (broad singlet, 1H). Identify it.",
+      "solution": "DoU = 5: a ring (4) and one C=O. The broad band and δ 12 indicate COOH. Two doublets of 2H each indicate para substitution, and the 3H singlet at 2.4 is an aryl methyl. The compound is 4-methylbenzoic acid (p-toluic acid).",
+      "a": "4-Methylbenzoic acid."
+    }
+  ]
+}

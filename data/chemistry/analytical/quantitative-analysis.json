@@ -1,0 +1,306 @@
+{
+  "id": "quantitative-analysis",
+  "view": "chapter",
+  "title": "Quantitative Analysis: Calibration, Noise and Validation",
+  "description": "Calibration methods, detection limits, signal and noise, sample preparation and method validation.",
+  "overview": [
+    "An instrument does not report concentrations: it reports signals, voltages, absorbances and counts. Turning a signal into a trustworthy concentration, with a known uncertainty and a known detection limit, is the central business of analytical chemistry. The methods in the following chapters differ in their physics, but the questions asked of each are the same: how is the signal calibrated, how small an amount can be detected, how much of the signal is noise, how is the sample prepared, and how do we know the answer is right?",
+    "This chapter treats those shared questions: calibration with external standards, standard additions and internal standards; detection limits; the sources of noise and how to reduce them; sample preparation; and the validation and quality control that give a result its credibility."
+  ],
+  "objectives": [
+    "Construct a calibration curve and calculate the sensitivity, limit of detection and limit of quantitation.",
+    "Choose between external calibration, standard addition and internal standardization.",
+    "Describe the main sources of noise and how signal averaging improves the signal-to-noise ratio.",
+    "Choose a sample-preparation method for solids, liquids and complex matrices.",
+    "Evaluate accuracy and precision, and design a quality-control scheme with control charts."
+  ],
+  "sections": [
+    {
+      "id": "calibration",
+      "title": "Calibration and quantitation",
+      "terms": [
+        "calibration",
+        "calibration curves",
+        "calibration curve",
+        "external calibration",
+        "standard addition",
+        "method of standard additions",
+        "internal standard",
+        "internal standards",
+        "matrix effect",
+        "matrix effects",
+        "limit of detection",
+        "limit of quantitation",
+        "LOD",
+        "LOQ",
+        "linear dynamic range",
+        "sensitivity",
+        "linear regression",
+        "blank",
+        "working curve",
+        "analytical figures of merit"
+      ],
+      "body": [
+        "**External calibration** measures the signal of a series of standards of known concentration, fits a line y = mx + b by least squares, and reads the unknown concentration from its signal: x = (y − b)/m. The slope m is the **sensitivity**. The standards should bracket the unknown and be made up to resemble the sample. The **linear dynamic range** is the span of concentration over which the response stays linear, from the **limit of quantitation** up to the point where the curve bends (detector saturation, self-absorption, or chemical effects).",
+        {
+          "h": "Detection limits"
+        },
+        "The **limit of detection (LOD)** is the smallest concentration that can be distinguished from a blank with confidence. The usual convention takes a signal 3 standard deviations above the mean blank, and the **limit of quantitation (LOQ)** takes 10:",
+        {
+          "eq": [
+            "LOD = 3 s_blank / m",
+            "LOQ = 10 s_blank / m"
+          ]
+        },
+        {
+          "example": {
+            "title": "Detection limits",
+            "problem": "The standard deviation of ten blank readings is 0.0020 absorbance units, and the calibration slope is 0.100 absorbance per mg L⁻¹. Find the LOD and LOQ.",
+            "solution": "LOD = 3 × 0.0020/0.100 = 0.060 mg L⁻¹. LOQ = 10 × 0.0020/0.100 = 0.20 mg L⁻¹. Results between the LOD and LOQ can be reported as detected, but not quantified with confidence."
+          }
+        },
+        {
+          "h": "Matrix effects and standard addition"
+        },
+        "If the sample **matrix** (everything but the analyte) changes the response, as with a viscous sample in a flame, or salts in an electrospray source, an external calibration in a pure solvent gives biased results: these are **matrix effects**. The **method of standard additions** removes them by calibrating in the sample itself. Equal portions of the sample are spiked with increasing known amounts of analyte and diluted to the same volume, the signals are plotted against the added amount, and the line is extrapolated back to the x-intercept, which equals minus the unknown amount.",
+        {
+          "example": {
+            "title": "Standard additions",
+            "problem": "Four 10.0 mL portions of a sample receive 0, 1.0, 2.0 and 3.0 mL of a 10.0 mg L⁻¹ standard, and are diluted to 25.0 mL. The signals are 0.150, 0.250, 0.350 and 0.450. Find the analyte concentration in the sample.",
+            "solution": "The slope is 0.100 per mL of standard, and the intercept 0.150. The x-intercept is −0.150/0.100 = −1.5 mL, so the 10.0 mL sample contains the same analyte as 1.5 mL of the standard: 1.5 mL × 10.0 mg L⁻¹ = 15 µg. The concentration is 15 µg/10.0 mL = 1.5 mg L⁻¹."
+          }
+        },
+        "The cost of standard addition is one calibration per sample, and the method corrects only for a multiplicative (rotational) matrix effect, not for an additive background.",
+        {
+          "h": "Internal standards"
+        },
+        "An **internal standard** is a compound of similar behavior, added in the same known amount to all standards and samples. The calibration plots the ratio of the analyte signal to the standard signal against the concentration ratio, so that variations in injection volume, instrument drift and sample losses cancel. It is routine in chromatography and ICP (yttrium or indium for ICP-MS; a deuterated analogue for MS, which is the ideal)."
+      ],
+      "check": [
+        {
+          "q": "When should the method of standard additions be used?",
+          "a": "When the sample matrix affects the instrument’s response to the analyte",
+          "wrong": [
+            "When the sample has no matrix",
+            "To lower the detection limit",
+            "When only one standard is available"
+          ]
+        },
+        {
+          "q": "How is the limit of detection usually defined?",
+          "a": "3 s_blank / sensitivity",
+          "wrong": [
+            "10 s_blank / sensitivity",
+            "The highest linear concentration",
+            "The mean blank signal"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "noise",
+      "title": "Signal, noise and signal-to-noise ratio",
+      "terms": [
+        "signal-to-noise ratio",
+        "signal averaging",
+        "flicker noise",
+        "shot noise",
+        "thermal noise",
+        "Johnson noise",
+        "ensemble averaging",
+        "S/N",
+        "noise sources",
+        "lock-in amplifier",
+        "modulation",
+        "1/f noise",
+        "environmental noise",
+        "Fourier filtering",
+        "boxcar averaging"
+      ],
+      "body": [
+        "Every measurement has a **signal** (the part that depends on the analyte) and **noise** (random fluctuations that do not). The **signal-to-noise ratio** S/N is the figure of merit: S/N = 3 is the detection limit, and a measurement needs S/N of at least 10 for quantitation. Noise has several sources:",
+        {
+          "list": [
+            "**Thermal (Johnson) noise** is the voltage fluctuation across a resistor from the thermal motion of electrons: V_rms = √(4kTRΔf), where R is the resistance and Δf the bandwidth. It is reduced by cooling the detector and electronics, by lowering R and by narrowing the bandwidth.",
+            "**Shot noise** arises from the discrete nature of charge, whenever current crosses a junction or photons arrive at a detector: i_rms = √(2eIΔf). It scales as the square root of the signal, so S/N improves as √I, and it limits photomultipliers and photodiodes.",
+            "**Flicker (1/f) noise** has a power inversely proportional to frequency, and is large at low frequency and unimportant above about 1 kHz. It arises from source instability (lamp or laser drift) and slow fluctuations in electronics, and it is avoided by **modulating** the signal (a chopper) and detecting at a higher frequency, using a **lock-in amplifier**.",
+            "**Environmental noise** comes from external sources, such as line frequency pickup (50 or 60 Hz), vibration and radio interference. Shielding, grounding and filtering reduce it."
+          ]
+        },
+        "The standard way to improve the S/N is **signal averaging** (**ensemble averaging**): the signal is the same every time and adds linearly with the number of scans n, but random noise adds as the square root, so S/N increases as √n. Many instruments do this automatically, and it is why FT-NMR and FTIR spectra are accumulated over many scans. The price is time: to improve S/N tenfold takes 100 times as many scans, so there are diminishing returns, and drift and flicker noise (which are not random from scan to scan) are not averaged out.",
+        {
+          "example": {
+            "title": "Signal averaging",
+            "problem": "A single scan of a spectrum has S/N = 4. How many scans are needed to reach S/N = 20 for quantitation, and how long does that take if each scan takes 30 s?",
+            "solution": "S/N ∝ √n, so n = (20/4)² = 25 scans, which takes 25 × 30 s = 12.5 min. For S/N = 100, n = 625 scans, or 5.2 hours."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "By how much does S/N improve if 16 scans are averaged?",
+          "a": "By a factor of 4",
+          "wrong": [
+            "By a factor of 16",
+            "By a factor of 2",
+            "It does not improve"
+          ]
+        },
+        {
+          "q": "Which noise source is reduced by modulating the signal at a higher frequency?",
+          "a": "Flicker (1/f) noise",
+          "wrong": [
+            "Shot noise",
+            "Johnson noise",
+            "Quantization of charge"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sample-prep",
+      "title": "Sample preparation",
+      "terms": [
+        "sample preparation",
+        "acid digestion",
+        "microwave digestion",
+        "dry ashing",
+        "solid-phase extraction",
+        "SPE",
+        "solid-phase microextraction",
+        "SPME",
+        "QuEChERS",
+        "derivatization",
+        "sampling",
+        "representative sample",
+        "contamination",
+        "preconcentration",
+        "homogenization",
+        "sample dissolution",
+        "fusion"
+      ],
+      "body": [
+        "Most of the error in an analysis occurs before the sample reaches the instrument: sample preparation often takes more time than the measurement, and the sample must first be **representative** of the material (a few grams must represent a ton of ore, or a drop of blood a whole person). **Sampling** theory requires particle size reduction, thorough mixing and the right number of increments; **contamination** (from reagents, containers, dust) and losses (adsorption, volatilization) are managed with blanks.",
+        {
+          "list": [
+            "**Acid digestion** dissolves solids for elemental analysis in hot concentrated acids (HNO₃ for most organics and metals, HCl + HNO₃ as aqua regia for noble metals, HF for silicates, with closed vessels or Teflon). **Microwave digestion** does it in sealed vessels at 200 °C and 30–50 bar in minutes, with less loss of volatile elements (Hg, As, Se) and less contamination than open beakers. **Dry ashing** burns the organic matter in a furnace at 450–550 °C and dissolves the ash, which is simple but loses volatile elements. Refractory materials may need a flux fusion with lithium borate.",
+            "**Solid-phase extraction (SPE)** passes the liquid sample through a small cartridge of sorbent (C18, ion-exchange) that retains the analyte, which is washed to remove the matrix and eluted with a small volume of strong solvent: cleanup and **preconcentration** (a factor of 100–1000) in one step. **Solid-phase microextraction (SPME)** uses a fiber coated with polymer, exposed to the sample or its headspace, and then inserted directly into the GC inlet: solvent-free, widely used for volatile flavors and pollutants.",
+            "**QuEChERS** (quick, easy, cheap, effective, rugged and safe) extracts pesticides from fruit and vegetables: acetonitrile extraction with salts that induce phase separation, then a dispersive SPE cleanup with sorbents that remove sugars, fats and pigments.",
+            "**Derivatization** chemically modifies an analyte to make it detectable or volatile. Silylation of –OH and –NH groups (BSTFA) makes polar compounds volatile enough for GC, and tagging with a fluorescent label (dansyl chloride, OPA for amino acids) makes them detectable in HPLC."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "What does solid-phase extraction accomplish?",
+          "a": "Cleanup and preconcentration of the analyte",
+          "wrong": [
+            "Digestion of the solid",
+            "Separation by volatility",
+            "Detection of the analyte"
+          ]
+        },
+        {
+          "q": "Why is microwave digestion often preferred to open-vessel digestion?",
+          "a": "Closed vessels at high T and P digest quickly with less loss of volatile elements",
+          "wrong": [
+            "It avoids acids",
+            "It needs no sample",
+            "It leaves the organic matter unchanged"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "validation",
+      "title": "Method validation and quality assurance",
+      "terms": [
+        "method validation",
+        "certified reference material",
+        "certified reference materials",
+        "spike recovery",
+        "relative standard deviation",
+        "quality assurance",
+        "quality control",
+        "control chart",
+        "detection limit",
+        "accuracy and precision",
+        "repeatability",
+        "reproducibility",
+        "confidence interval",
+        "Student's t",
+        "ruggedness",
+        "robustness",
+        "selectivity"
+      ],
+      "body": [
+        "A result is only useful with a statement of its reliability. **Method validation** shows that a procedure is fit for its purpose by measuring a defined set of performance characteristics.",
+        {
+          "list": [
+            "**Accuracy** (closeness to the true value): measured by analyzing a **certified reference material (CRM)** of known composition (from NIST or similar bodies) and by **spike recovery**: a known amount of analyte is added to a real sample and the percent recovered is measured, with a target of 90–110% for trace analysis.",
+            "**Precision** (closeness of repeated results to each other): expressed by the standard deviation s, or the **relative standard deviation** RSD = 100 × s/x̄. **Repeatability** is the precision under the same conditions (one analyst, one day), and **reproducibility** is across analysts, instruments and laboratories (about 2 times larger).",
+            "**Selectivity** (freedom from interference), **linearity and range**, **LOD and LOQ**, and **robustness** (insensitivity to small deliberate changes of conditions)."
+          ]
+        },
+        "The uncertainty of a mean of n measurements is given by a **confidence interval**, x̄ ± ts/√n, where t is Student’s t for the chosen confidence level (95%) and n − 1 degrees of freedom.",
+        {
+          "example": {
+            "title": "Mean, RSD and confidence interval",
+            "problem": "Five determinations of lead in a water sample (µg L⁻¹): 10.2, 10.4, 10.1, 10.3, 10.5. Find the mean, standard deviation, RSD and the 95% confidence interval (t = 2.776 for 4 degrees of freedom).",
+            "solution": [
+              "Mean = 10.30 µg L⁻¹. s = √[Σ(x − x̄)²/(n − 1)] = √[(0.01 + 0.01 + 0.04 + 0 + 0.04)/4] = 0.158 µg L⁻¹. RSD = 0.158/10.30 × 100 = 1.5%.",
+              "95% CI = 10.30 ± 2.776 × 0.158/√5 = 10.30 ± 0.20 µg L⁻¹."
+            ]
+          }
+        },
+        {
+          "h": "Quality assurance and quality control"
+        },
+        "**Quality assurance** is the whole system of management, training and documentation that gives confidence in the data, and **quality control** is the routine checking of each batch. A typical set: a method blank (contamination), duplicates (precision), a spiked sample (recovery), a CRM or laboratory control standard (accuracy) and a continuing calibration check, with every result entered on a **control chart**. A Shewhart control chart plots the result for the control standard against time, with lines at the mean ± 2s (warning) and ± 3s (action): if a point falls outside ± 3s, or seven consecutive points are on one side of the mean, the system is out of control, and the analysis is stopped to find the cause (a drifting calibration, a contaminated reagent). Results of new methods are compared with a reference method by a t-test on paired data."
+      ],
+      "check": [
+        {
+          "q": "What does a spike recovery of 70% indicate?",
+          "a": "A loss of analyte, or suppression of the signal by the matrix",
+          "wrong": [
+            "A very precise method",
+            "A perfect method",
+            "Contamination"
+          ]
+        },
+        {
+          "q": "On a control chart, which signals that the system is out of control?",
+          "a": "A point beyond ± 3s, or a run of consecutive points on one side of the mean",
+          "wrong": [
+            "A point at the mean",
+            "A point between ±1s",
+            "Any random scatter"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Calibrate with external standards (slope = sensitivity), standard addition (matrix effects) or internal standards (drift and injection errors). LOD = 3s_blank/m, LOQ = 10s_blank/m.",
+    "Noise: thermal (√T R Δf), shot (√I) and flicker (1/f). Signal averaging improves S/N as √n. Modulation moves the signal away from 1/f noise.",
+    "Sample preparation: digestion (acid, microwave, dry ashing), SPE, SPME, QuEChERS and derivatization. Most errors occur before the instrument.",
+    "Validation covers accuracy (CRM, spike recovery), precision (RSD), selectivity, linearity, LOD/LOQ and robustness. Control charts monitor routine analyses."
+  ],
+  "problems": [
+    {
+      "q": "A calibration gives y = 0.0520x + 0.0030 (x in µg L⁻¹). A sample gives a signal of 0.210. A blank gives s = 0.0015 from 7 replicate readings. Find the sample concentration, LOD and LOQ.",
+      "solution": "x = (0.210 − 0.0030)/0.0520 = 3.98 µg L⁻¹. LOD = 3 × 0.0015/0.0520 = 0.087 µg L⁻¹. LOQ = 10 × 0.0015/0.0520 = 0.29 µg L⁻¹.",
+      "a": "3.98 µg/L; LOD 0.087 µg/L; LOQ 0.29 µg/L."
+    },
+    {
+      "q": "Adding 5.0 mL of a 20.0 mg/L standard to 20.0 mL of a sample (final 50.0 mL) raises the signal from 0.320 to 0.580 (both diluted to 50.0 mL). What is the sample concentration, assuming a linear response through zero for the unspiked sample at the same dilution?",
+      "solution": "The added analyte is 5.0 mL × 20.0 mg/L = 100 µg, giving ΔS = 0.260. The sensitivity is 0.260/100 µg = 0.00260 per µg, so the unspiked 20.0 mL contains 0.320/0.00260 = 123 µg: 123 µg/20.0 mL = 6.2 mg/L.",
+      "a": "6.2 mg/L."
+    },
+    {
+      "q": "An analysis of a CRM certified at 50.0 ± 0.8 µg/g gives 47.9, 48.3 and 47.6 µg/g. Is the method accurate?",
+      "solution": "Mean = 47.9 µg/g, s = 0.36. The bias is −2.1 µg/g (−4.2%). The 95% interval is 47.9 ± 4.30 × 0.36/√3 = 47.9 ± 0.9 µg/g, which does not include 50.0. The method shows a significant negative bias, likely incomplete digestion or analyte loss.",
+      "a": "No: a significant bias of about −4%."
+    }
+  ]
+}

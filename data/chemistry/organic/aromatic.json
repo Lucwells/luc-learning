@@ -1,0 +1,584 @@
+{
+  "id": "aromatic",
+  "view": "chapter",
+  "title": "Aromatic Chemistry",
+  "description": "Aromaticity, electrophilic and nucleophilic aromatic substitution, diazonium chemistry and aromatic heterocycles.",
+  "overview": [
+    "Benzene should be extremely reactive: three C=C bonds in a six-membered ring. Instead it resists addition, and reacts only by substitution that keeps the ring intact. The reason is aromaticity, an extra stability of about 150 kJ mol⁻¹ from a cyclic, fully conjugated set of six π electrons. Aromatic rings occur in dyes, drugs, polymers, the amino acids phenylalanine, tyrosine and tryptophan, and the bases of DNA.",
+    "This chapter explains what makes a molecule aromatic, then the characteristic reaction, electrophilic aromatic substitution, and how substituents already on the ring direct and rate-control it. It continues with substitution by nucleophiles, the versatile chemistry of diazonium salts, and the aromatic heterocycles."
+  ],
+  "objectives": [
+    "Apply Hückel’s rule to decide whether a ring is aromatic, antiaromatic or nonaromatic.",
+    "Write the mechanism of electrophilic aromatic substitution, and state the reagents for halogenation, nitration, sulfonation and Friedel–Crafts alkylation and acylation.",
+    "Predict the orientation and relative rate of substitution for substituted benzenes.",
+    "Plan multistep syntheses of polysubstituted benzenes, with the substituents introduced in the correct order.",
+    "Describe SNAr and benzyne mechanisms and diazonium reactions.",
+    "Explain the structure, basicity and reactivity of pyridine, pyrrole, furan, thiophene and imidazole."
+  ],
+  "sections": [
+    {
+      "id": "aromaticity",
+      "title": "Benzene and aromaticity",
+      "terms": [
+        "benzene",
+        "aromatic",
+        "aromatic compounds",
+        "aromatic compound",
+        "aromaticity",
+        "Hückel's rule",
+        "Hückel rule",
+        "antiaromatic",
+        "antiaromaticity",
+        "arene",
+        "arenes",
+        "phenyl",
+        "benzyl",
+        "ortho",
+        "meta",
+        "para",
+        "toluene",
+        "aniline",
+        "naphthalene"
+      ],
+      "body": [
+        "Benzene, C₆H₆, is a planar hexagon with six equal C–C bonds of 139 pm, intermediate between a single (154 pm) and a double bond (134 pm). Its six carbons are sp² and the six p orbitals overlap continuously around the ring, so the π electrons are delocalized. Hydrogenation of benzene releases 208 kJ mol⁻¹, whereas three isolated C=C would release 360: the difference, about **150 kJ mol⁻¹**, is the resonance (aromatic stabilization) energy. In MO terms, the six p orbitals combine into six π MOs, and the six electrons fill the three bonding ones, a closed shell.",
+        "**Hückel’s rule** states that a planar, cyclic, fully conjugated ring with **4n + 2** π electrons (n = 0, 1, 2…: 2, 6, 10, 14) is **aromatic**. A ring with 4n π electrons (4, 8, 12) that is planar and conjugated is **antiaromatic** and is destabilized. A ring that is not planar or not fully conjugated is nonaromatic.",
+        {
+          "table": {
+            "head": [
+              "Species",
+              "π electrons",
+              "Classification"
+            ],
+            "rows": [
+              [
+                "Benzene",
+                "6",
+                "Aromatic"
+              ],
+              [
+                "Cyclobutadiene",
+                "4",
+                "Antiaromatic (very unstable, rectangular)"
+              ],
+              [
+                "Cyclooctatetraene",
+                "8",
+                "Nonaromatic: puckered tub shape avoids antiaromaticity"
+              ],
+              [
+                "Cyclopentadienyl anion",
+                "6",
+                "Aromatic (cyclopentadiene pK_a 16, unusually acidic)"
+              ],
+              [
+                "Cycloheptatrienyl (tropylium) cation",
+                "6",
+                "Aromatic (stable salts)"
+              ],
+              [
+                "Cyclopropenyl cation",
+                "2",
+                "Aromatic"
+              ],
+              [
+                "Naphthalene",
+                "10",
+                "Aromatic"
+              ],
+              [
+                "Pyridine",
+                "6",
+                "Aromatic"
+              ]
+            ],
+            "caption": "Applying Hückel’s rule."
+          }
+        },
+        "Monosubstituted benzenes have common names (toluene, phenol, aniline, benzoic acid, styrene) or are named as substituted benzenes. A benzene ring as a substituent is **phenyl** (Ph–), and C₆H₅CH₂– is **benzyl**. Disubstituted rings use **ortho** (1,2), **meta** (1,3) and **para** (1,4), or numbers."
+      ],
+      "check": [
+        {
+          "q": "Which is aromatic?",
+          "a": "The cyclopentadienyl anion",
+          "wrong": [
+            "Cyclobutadiene",
+            "Cyclooctatetraene",
+            "The cyclopentadienyl cation"
+          ]
+        },
+        {
+          "q": "How many π electrons does naphthalene have?",
+          "a": "10",
+          "wrong": [
+            "6",
+            "8",
+            "12"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "eas",
+      "title": "Electrophilic aromatic substitution",
+      "terms": [
+        "electrophilic aromatic substitution",
+        "EAS",
+        "sigma complex",
+        "arenium ion",
+        "Wheland intermediate",
+        "Friedel–Crafts",
+        "Friedel-Crafts",
+        "Friedel–Crafts acylation",
+        "Friedel–Crafts alkylation",
+        "sulfonation",
+        "nitration",
+        "halogenation of benzene",
+        "acylium ion",
+        "nitronium ion",
+        "aromatic bromination"
+      ],
+      "body": [
+        "Aromatic rings react with strong electrophiles by **electrophilic aromatic substitution (EAS)**, in which an H of the ring is replaced by E. The mechanism has two steps. In the first (slow), the π system attacks the electrophile, giving a resonance-stabilized carbocation, the **arenium ion** (**sigma complex**), which has lost aromaticity. In the second (fast), a base removes the proton from the carbon bearing E, which restores aromaticity.",
+        {
+          "eq": [
+            "C₆H₆ + E⁺ → [C₆H₆E]⁺ (arenium ion)",
+            "[C₆H₆E]⁺ + B⁻ → C₆H₅E + HB"
+          ]
+        },
+        "Benzene does not undergo addition because this would not restore the aromatic sextet. The key reactions differ only in how the electrophile is generated:",
+        {
+          "table": {
+            "head": [
+              "Reaction",
+              "Reagents",
+              "Electrophile",
+              "Product"
+            ],
+            "rows": [
+              [
+                "Bromination, chlorination",
+                "Br₂/FeBr₃ or Cl₂/AlCl₃",
+                "Br⁺ (polarized Br–Br···FeBr₃)",
+                "Ar–Br, Ar–Cl"
+              ],
+              [
+                "Nitration",
+                "HNO₃, H₂SO₄",
+                "NO₂⁺ (nitronium ion)",
+                "Ar–NO₂"
+              ],
+              [
+                "Sulfonation",
+                "SO₃, H₂SO₄ (fuming)",
+                "SO₃ or HSO₃⁺",
+                "Ar–SO₃H (reversible)"
+              ],
+              [
+                "Friedel–Crafts alkylation",
+                "R–Cl, AlCl₃",
+                "R⁺ (carbocation)",
+                "Ar–R"
+              ],
+              [
+                "Friedel–Crafts acylation",
+                "RCOCl, AlCl₃",
+                "RC≡O⁺ (**acylium ion**)",
+                "Ar–COR (ketone)"
+              ]
+            ],
+            "caption": "Electrophilic aromatic substitution reactions."
+          }
+        },
+        {
+          "h": "Friedel–Crafts alkylation and acylation"
+        },
+        "**Friedel–Crafts alkylation** has three limitations. The carbocation can rearrange (propyl chloride gives mostly isopropylbenzene). The product is more reactive than benzene (alkyl is an activator), so polyalkylation occurs unless benzene is in large excess. And the reaction fails on strongly deactivated rings (nitrobenzene) and on rings with NH₂ groups, which coordinate to AlCl₃.",
+        "**Friedel–Crafts acylation** avoids all three. The acylium ion does not rearrange. The product ketone is deactivated, so substitution stops after one acylation. To make a straight-chain alkylbenzene, acylate and then reduce the C=O to CH₂ with the Clemmensen (Zn(Hg), HCl) or Wolff–Kishner (N₂H₄, KOH, heat) reaction.",
+        {
+          "example": {
+            "title": "Making n-propylbenzene",
+            "problem": "Alkylation of benzene with 1-chloropropane and AlCl₃ gives mostly isopropylbenzene. How is n-propylbenzene made?",
+            "solution": "Acylate benzene with propanoyl chloride/AlCl₃ to give propiophenone (PhCOCH₂CH₃), then reduce the carbonyl by Clemmensen or Wolff–Kishner reduction to PhCH₂CH₂CH₃."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "What is the electrophile in the nitration of benzene?",
+          "a": "NO₂⁺",
+          "wrong": [
+            "NO₃⁻",
+            "HNO₃",
+            "NO"
+          ]
+        },
+        {
+          "q": "Why is Friedel–Crafts acylation preferred over alkylation for making alkylbenzenes?",
+          "a": "No rearrangement and no polysubstitution; the ketone can then be reduced",
+          "wrong": [
+            "Acyl chlorides are cheaper",
+            "AlCl₃ is not needed",
+            "Acylation works on nitrobenzene"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "directing",
+      "title": "Substituent effects",
+      "terms": [
+        "ortho/para director",
+        "ortho/para directors",
+        "meta director",
+        "meta directors",
+        "activating group",
+        "activating groups",
+        "deactivating group",
+        "deactivating groups",
+        "directing effects",
+        "directing group",
+        "polysubstituted benzene",
+        "synthesis of substituted benzenes"
+      ],
+      "body": [
+        "A substituent already on a benzene ring changes both how fast it reacts and where the new group enters. The effect on the arenium ion explains both.",
+        {
+          "list": [
+            "**Activating groups** donate electron density and stabilize the arenium ion, making the ring react faster than benzene. All activators direct to **ortho/para**, because only attack at those positions puts positive charge on the carbon bearing the substituent, where it can be stabilized directly (by alkyl hyperconjugation, or by lone-pair donation from –OH, –OR and –NR₂, which gives a fourth resonance structure with a full octet on every atom).",
+            "**Deactivating groups** withdraw electron density, destabilizing the arenium ion, so the ring reacts slower. Most direct to **meta**, because attack at ortho or para would put positive charge next to the electron-withdrawing carbon. These include –NO₂, –CN, –SO₃H, –CHO, –COR, –COOH, –COOR and –NR₃⁺.",
+            "**Halogens** are the exception: deactivating (inductively withdrawing) but ortho/para directing (their lone pairs stabilize the ortho and para arenium ions by resonance)."
+          ]
+        },
+        {
+          "table": {
+            "head": [
+              "Strongly activating",
+              "Moderately activating",
+              "Weakly activating",
+              "Weakly deactivating, o/p",
+              "Moderately and strongly deactivating, meta"
+            ],
+            "rows": [
+              [
+                "–NH₂, –NR₂, –OH, –O⁻",
+                "–OR, –NHCOR",
+                "–alkyl, –aryl",
+                "–F, –Cl, –Br, –I",
+                "–CHO, –COR, –COOH, –COOR, –SO₃H, –CN, –NO₂, –NR₃⁺"
+              ]
+            ],
+            "caption": "Substituent effects in electrophilic aromatic substitution, from the most activating to the most deactivating."
+          }
+        },
+        "The rates span a huge range. Toluene nitrates about 25 times faster than benzene, phenol and aniline are so reactive they brominate without a catalyst (to the 2,4,6-tribromo product), and nitrobenzene reacts about 10⁷ times slower than benzene. Toluene’s nitration gives o : m : p products of 58 : 4 : 38, and nitrobenzene’s gives 6 : 93 : 1. Bulky groups reduce the ortho fraction (tert-butylbenzene gives mostly para).",
+        {
+          "h": "Planning a synthesis"
+        },
+        "The order of steps matters. Introduce the group that controls orientation first.",
+        {
+          "example": {
+            "title": "Order of steps",
+            "problem": "Prepare m-bromonitrobenzene and p-bromonitrobenzene from benzene.",
+            "solution": [
+              "m-Bromonitrobenzene: nitrate first (HNO₃/H₂SO₄) to give nitrobenzene, a meta director, then brominate (Br₂/FeBr₃).",
+              "p-Bromonitrobenzene: brominate first to give bromobenzene, an ortho/para director, then nitrate. This gives a mixture of ortho and para, and the para isomer is separated (it has the higher melting point and crystallizes)."
+            ]
+          }
+        },
+        {
+          "tip": "A powerful strategy is to use a group as a temporary director. An –NH₂ is too activating and gets oxidized by nitric acid, so aniline is first acetylated to acetanilide (a moderate o/p activator), then nitrated, then hydrolyzed back."
+        }
+      ],
+      "check": [
+        {
+          "q": "What is the major product of nitrating toluene?",
+          "a": "A mixture of o- and p-nitrotoluene",
+          "wrong": [
+            "m-Nitrotoluene",
+            "Benzoic acid",
+            "Nitrobenzene"
+          ]
+        },
+        {
+          "q": "Which is a meta director?",
+          "a": "–COOH",
+          "wrong": [
+            "–OH",
+            "–CH₃",
+            "–Cl"
+          ]
+        },
+        {
+          "q": "Why do –OH and –NH₂ activate the ring so strongly?",
+          "a": "Their lone pairs donate into the ring by resonance and stabilize the arenium ion",
+          "wrong": [
+            "They are electron-withdrawing by induction",
+            "They are meta directors",
+            "They form hydrogen bonds with the electrophile"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "side-chain",
+      "title": "Reactions of side chains",
+      "terms": [
+        "benzylic",
+        "benzylic position",
+        "benzylic bromination",
+        "benzylic oxidation",
+        "nitro reduction",
+        "reduction of nitro groups",
+        "Birch reduction",
+        "benzyl cation"
+      ],
+      "body": [
+        "The position next to the ring, the **benzylic** carbon, is unusually reactive because benzylic radicals, cations and anions are stabilized by resonance with the ring. Three reactions are particularly useful.",
+        {
+          "list": [
+            "**Benzylic bromination**: NBS with light or a radical initiator brominates the benzylic C–H selectively (toluene gives benzyl bromide), as in allylic bromination. Benzylic halides are excellent substrates for SN1 and SN2.",
+            "**Benzylic oxidation**: hot KMnO₄ (or Na₂Cr₂O₇) oxidizes any alkyl side chain that has at least one benzylic hydrogen to –COOH, whatever its length. Toluene and ethylbenzene both give benzoic acid, and tert-butylbenzene is inert.",
+            "**Reduction of nitro to amine**: H₂/Pd, or Fe or Sn in HCl, then base, reduces ArNO₂ to ArNH₂. Nitration followed by reduction is the standard route to anilines."
+          ]
+        },
+        "The **Birch reduction** (Na or Li in liquid NH₃ with an alcohol) reduces a benzene ring to a 1,4-cyclohexadiene, with electron-donating substituents ending up on the double bonds and electron-withdrawing ones on the sp³ carbons. It is the only simple way to reduce an aromatic ring partially."
+      ],
+      "check": [
+        {
+          "q": "What does hot KMnO₄ do to propylbenzene?",
+          "a": "Gives benzoic acid",
+          "wrong": [
+            "Gives no reaction",
+            "Oxidizes the ring",
+            "Gives phenylacetic acid"
+          ]
+        },
+        {
+          "q": "How is aniline prepared from benzene?",
+          "a": "Nitration, then reduction of the nitro group",
+          "wrong": [
+            "Chlorination, then NH₃ at 25 °C",
+            "Friedel–Crafts acylation, then NH₃",
+            "Sulfonation, then hydrolysis"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "snar",
+      "title": "Nucleophilic aromatic substitution",
+      "terms": [
+        "SNAr",
+        "nucleophilic aromatic substitution",
+        "Meisenheimer complex",
+        "benzyne",
+        "addition–elimination",
+        "elimination–addition",
+        "Sanger's reagent",
+        "2,4-dinitrofluorobenzene"
+      ],
+      "body": [
+        "Aryl halides do not undergo SN1 or SN2: SN2 needs backside attack through the ring, and SN1 would need an unstable aryl cation. They can, however, react with nucleophiles by two other mechanisms.",
+        {
+          "h": "SNAr: addition–elimination"
+        },
+        "When the ring carries strong electron-withdrawing groups (especially –NO₂) ortho or para to the leaving group, a nucleophile adds to the ring carbon bearing the halide, forming a resonance-stabilized anion, the **Meisenheimer complex**, in which the negative charge is delocalized onto the nitro group. Loss of halide then restores aromaticity. The rate-determining step is the addition, so the leaving-group order is the reverse of SN2: **F > Cl > Br > I**, since fluorine’s electronegativity makes the carbon more electrophilic. 2,4-Dinitrofluorobenzene (Sanger’s reagent) reacts with the N-terminal amino group of a peptide, and was used to sequence insulin.",
+        {
+          "h": "Benzyne: elimination–addition"
+        },
+        "An unactivated aryl halide reacts with a very strong base, such as NaNH₂ in liquid NH₃. The base removes a proton ortho to the halide, and halide leaves, giving **benzyne**, a strained, highly reactive species with a formal triple bond in the ring (its extra “π” bond lies in the plane of the ring, from the overlap of two sp² orbitals). The nucleophile then adds to either end, and the intermediate is protonated. A substituent labeled ¹⁴C or a methyl group shows that the incoming group can end up at either of two adjacent carbons: p-chlorotoluene gives a mixture of m- and p-toluidine. Benzyne is trapped by dienes in Diels–Alder reactions, which is evidence for its existence."
+      ],
+      "check": [
+        {
+          "q": "Which reacts fastest with NaOMe by SNAr?",
+          "a": "1-Fluoro-2,4-dinitrobenzene",
+          "wrong": [
+            "Chlorobenzene",
+            "1-Iodo-4-methylbenzene",
+            "1-Chloro-3-nitrobenzene"
+          ]
+        },
+        {
+          "q": "The leaving group order in SNAr is…",
+          "a": "F > Cl > Br > I",
+          "wrong": [
+            "I > Br > Cl > F",
+            "Br > I > Cl > F",
+            "All the same"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "diazonium",
+      "title": "Diazonium salts and azo dyes",
+      "terms": [
+        "diazonium salt",
+        "diazonium salts",
+        "diazotization",
+        "Sandmeyer reaction",
+        "azo coupling",
+        "azo dye",
+        "azo dyes",
+        "Balz–Schiemann",
+        "Balz–Schiemann reaction",
+        "azo compound"
+      ],
+      "body": [
+        "A primary aromatic amine reacts with nitrous acid (NaNO₂ and HCl, below 5 °C) to give a **diazonium salt**, ArN₂⁺ Cl⁻. The reaction is **diazotization**. The N₂ is an outstanding leaving group, so the diazonium group can be replaced by many nucleophiles, giving substituted benzenes that are impossible to make by direct EAS.",
+        {
+          "table": {
+            "head": [
+              "Reagent",
+              "Product",
+              "Name"
+            ],
+            "rows": [
+              [
+                "CuCl, CuBr or CuCN",
+                "Ar–Cl, Ar–Br, Ar–CN",
+                "**Sandmeyer reaction**"
+              ],
+              [
+                "KI",
+                "Ar–I",
+                ""
+              ],
+              [
+                "HBF₄, then heat",
+                "Ar–F",
+                "**Balz–Schiemann** reaction"
+              ],
+              [
+                "H₂O, H⁺, heat",
+                "Ar–OH",
+                "Phenol synthesis"
+              ],
+              [
+                "H₃PO₂",
+                "Ar–H",
+                "Removal of a directing NH₂"
+              ],
+              [
+                "Activated arene (phenol, aniline)",
+                "Ar–N=N–Ar′",
+                "**Azo coupling**"
+              ]
+            ],
+            "caption": "Reactions of arenediazonium salts."
+          }
+        },
+        "In **azo coupling**, the diazonium ion is a weak electrophile that attacks a strongly activated ring (phenol or aniline), usually para, to give an **azo compound** with the N=N group linking two aryl rings. The extended conjugation absorbs visible light, so azo compounds are intensely colored and make up more than half of commercial **azo dyes**. Methyl orange is an acid–base indicator that is an azo dye.",
+        {
+          "example": {
+            "title": "Using an amino group as a removable director",
+            "problem": "Prepare m-bromotoluene from toluene. Direct bromination gives only the ortho and para isomers.",
+            "solution": "Place an amino group para to the methyl, brominate, and then remove the amino group. (1) Nitrate toluene and isolate p-nitrotoluene. (2) Reduce NO₂ to NH₂ (Sn/HCl) to give p-toluidine. (3) Acetylate with acetic anhydride to moderate the amine, giving the acetamide. (4) Brominate: the NHCOCH₃ group is the stronger director and sends Br ortho to itself, which is meta to the methyl. (5) Hydrolyze the amide. (6) Diazotize with NaNO₂/HCl and reduce with H₃PO₂, which replaces N₂⁺ with H. The result is m-bromotoluene."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "What reaction converts ArN₂⁺ to ArCl?",
+          "a": "Sandmeyer (CuCl)",
+          "wrong": [
+            "Friedel–Crafts",
+            "Wolff–Kishner",
+            "Birch"
+          ]
+        },
+        {
+          "q": "Why are diazonium salts prepared and used at 0–5 °C?",
+          "a": "They decompose to give N₂ and aryl cations or radicals at higher temperatures",
+          "wrong": [
+            "They are too soluble at high temperature",
+            "NaNO₂ freezes",
+            "They polymerize"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "heterocycles",
+      "title": "Aromatic heterocycles",
+      "terms": [
+        "heterocycle",
+        "heterocycles",
+        "heterocyclic",
+        "heterocyclic compound",
+        "pyridine",
+        "pyrrole",
+        "furan",
+        "thiophene",
+        "imidazole",
+        "indole",
+        "purine",
+        "pyrimidine",
+        "nucleobase",
+        "nucleobases"
+      ],
+      "body": [
+        "A **heterocycle** contains one or more atoms other than carbon in a ring. Many are aromatic and play central roles in biology and medicine.",
+        {
+          "list": [
+            "**Pyridine** is a six-membered ring with one N, isoelectronic with benzene. The N lone pair lies in an sp² orbital in the plane of the ring, not part of the π system, so it is available for protonation (pK_a of pyridinium 5.2): pyridine is a weak base and a nucleophilic catalyst. The electronegative N deactivates the ring toward EAS (comparable to nitrobenzene, with substitution at C3) and activates it toward SNAr at C2 and C4.",
+            "**Pyrrole**, furan and thiophene are five-membered rings with one heteroatom. The heteroatom lone pair is part of the six π electrons (four from the two C=C and two from the lone pair), so pyrrole is not basic (the pK_a of its conjugate acid is −3.8). These rings are more reactive than benzene toward EAS, with substitution at C2, since the intermediate has three resonance structures instead of two.",
+            "**Imidazole** has two N atoms: one pyridine-like (basic, pK_a of conjugate acid 7.0) and one pyrrole-like (N–H). It is amphoteric, and it is why histidine, with its imidazole side chain, acts as an acid–base catalyst at physiological pH in enzymes.",
+            "**Indole** (a benzene fused to pyrrole) is in tryptophan, serotonin and many alkaloids. **Pyrimidines** (cytosine, thymine, uracil) and **purines** (adenine, guanine) are the nucleobases of DNA and RNA. Each is aromatic, which contributes to the stability of the stacked base pairs."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "Why is pyrrole not basic, though pyridine is?",
+          "a": "The pyrrole N lone pair is part of the aromatic π system, while pyridine’s lies in the plane",
+          "wrong": [
+            "Pyrrole has no nitrogen atom",
+            "Pyridine has no lone pair",
+            "Pyrrole is not aromatic"
+          ]
+        },
+        {
+          "q": "Which heterocycle is the side chain of histidine?",
+          "a": "Imidazole",
+          "wrong": [
+            "Indole",
+            "Pyridine",
+            "Furan"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Benzene’s 150 kJ/mol stabilization comes from six delocalized π electrons. Hückel’s rule: 4n + 2 π electrons for aromatic, 4n for antiaromatic.",
+    "EAS proceeds through an arenium ion: halogenation, nitration, sulfonation and Friedel–Crafts reactions. Acylation avoids rearrangement and polysubstitution.",
+    "Activating groups direct ortho/para, deactivators direct meta, and halogens deactivate but direct ortho/para. Plan syntheses so that the right group is introduced first.",
+    "Benzylic positions are reactive: NBS bromination, KMnO₄ oxidation to COOH. Nitro groups reduce to amines.",
+    "SNAr needs ortho/para electron-withdrawing groups (F > Cl > Br > I). Benzyne forms from aryl halides with very strong bases.",
+    "Diazonium salts, made from ArNH₂ and HNO₂, are converted to ArX, ArCN, ArOH or ArH, or coupled to dyes. Pyridine is basic and electron-poor, while pyrrole, furan and thiophene are electron-rich."
+  ],
+  "problems": [
+    {
+      "q": "Predict the major product(s): (a) chlorobenzene + HNO₃/H₂SO₄; (b) acetophenone + Br₂/FeBr₃; (c) anisole + CH₃COCl/AlCl₃; (d) toluene + hot KMnO₄ then SOCl₂.",
+      "solution": "(a) o- and p-chloronitrobenzene (Cl is o/p directing). (b) m-Bromoacetophenone (acyl is meta directing). (c) p-Methoxyacetophenone (OMe is o/p; para favored for steric reasons). (d) Benzoic acid, then benzoyl chloride.",
+      "a": "(a) o/p-chloronitrobenzene; (b) m-bromoacetophenone; (c) p-methoxyacetophenone; (d) benzoyl chloride."
+    },
+    {
+      "q": "Outline a synthesis of 4-bromobenzoic acid from toluene.",
+      "solution": "The methyl group directs ortho/para, but the carboxyl group (a meta director) must be formed last. Brominate toluene (Br₂/FeBr₃) and separate p-bromotoluene, then oxidize the methyl with hot KMnO₄ to give 4-bromobenzoic acid.",
+      "a": "Br₂/FeBr₃ (isolate para), then KMnO₄/heat."
+    },
+    {
+      "q": "Why does pyridine undergo EAS at C3, and not at C2 or C4?",
+      "solution": "Attack at C2 or C4 would give an arenium ion with a resonance structure placing the positive charge on the electronegative nitrogen with only six electrons, which is highly unfavorable. Attack at C3 avoids this, so C3 is less unfavorable.",
+      "a": "The C2 and C4 intermediates put positive charge on nitrogen."
+    },
+    {
+      "q": "Starting from benzene, make 1,3,5-tribromobenzene.",
+      "solution": "Make the symmetric pattern with an amino group, which directs to all three positions. Nitrate benzene and reduce the nitro group to give aniline. Treat with excess Br₂ in water, which brominates the 2, 4 and 6 positions to give 2,4,6-tribromoaniline. Diazotize with NaNO₂/HCl and remove the diazonium group with H₃PO₂. The three bromines remain at positions 1, 3 and 5.",
+      "a": "Nitration; Sn/HCl; Br₂ (excess); NaNO₂/HCl; H₃PO₂."
+    }
+  ]
+}

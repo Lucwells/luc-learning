@@ -1,0 +1,176 @@
+{
+  "id": "polymers",
+  "view": "chapter",
+  "title": "Polymers",
+  "description": "Chain-growth and step-growth polymerization, common plastics and fibers, and how structure determines the properties of a polymer.",
+  "overview": [
+    "Plastics, fibers, rubber, adhesives, paints and the biopolymers of living things are all polymers: very long molecules built by joining many small molecules, the monomers. About 400 million tons of synthetic polymers are made each year. A polymer’s properties depend not only on its chemical composition but on how long its chains are, how they are branched or cross-linked, and how they pack together.",
+    "This chapter covers the two basic polymerization mechanisms, chain-growth and step-growth, with the main commercial polymers made by each, and then the physical properties that make a polymer a rigid plastic, a flexible film, a fiber or an elastomer."
+  ],
+  "objectives": [
+    "Classify polymers by mechanism, composition and architecture.",
+    "Write the radical, cationic, anionic and coordination mechanisms for chain-growth polymerization.",
+    "Name the monomers and uses of the common addition and condensation polymers.",
+    "Use the Carothers equation to relate conversion to degree of polymerization.",
+    "Calculate Mₙ, M_w and dispersity.",
+    "Explain tacticity, crystallinity, the glass transition, vulcanization and the difference between thermoplastics and thermosets."
+  ],
+  "sections": [
+    {
+      "id": "basics",
+      "title": "Polymers and their classification",
+      "terms": ["polymer", "polymers", "monomer", "monomers", "polymerization", "polymerisation", "repeat unit", "degree of polymerization", "copolymer", "copolymers", "homopolymer", "macromolecule", "thermoplastic", "thermoplastics", "thermoset", "thermosets", "elastomer", "elastomers", "plastic", "plastics"],
+      "body": [
+        "A **polymer** (from Greek, “many parts”) is a molecule made by linking many **monomers**. The repeating segment is the **repeat unit**, and the number of repeat units is the **degree of polymerization**, n, usually 10³–10⁵, which gives molar masses of 10⁴–10⁶ g mol⁻¹. A polymer of one monomer is a **homopolymer**, and one from two or more monomers is a **copolymer**.",
+        { "list": [
+          "By mechanism: **chain-growth** (addition) polymers grow by adding monomers one at a time to a reactive chain end, and no small molecule is lost. **Step-growth** (condensation) polymers form by reaction between functional groups of any two molecules present, often releasing a small molecule such as water.",
+          "By architecture: **linear**, **branched** or **cross-linked** (a covalent network).",
+          "By thermal behavior: **thermoplastics** soften on heating and can be remolded (polyethylene, PVC, nylon, polystyrene). **Thermosets** are cross-linked during curing, are infusible and decompose rather than melt (epoxy, Bakelite, vulcanized rubber). **Elastomers** are lightly cross-linked polymers that stretch and spring back."
+        ] }
+      ],
+      "check": [
+        { "q": "A polymer that softens on heating and can be reshaped is a…", "a": "Thermoplastic", "wrong": ["Thermoset", "Elastomer only", "Monomer"] },
+        { "q": "Which polymerization releases a small molecule such as water?", "a": "Step-growth (condensation)", "wrong": ["Chain-growth (addition)", "Both equally", "Neither"] }
+      ]
+    },
+    {
+      "id": "chain-growth",
+      "title": "Chain-growth polymerization",
+      "terms": ["addition polymer", "addition polymers", "chain-growth polymerization", "radical polymerization", "free-radical polymerization", "cationic polymerization", "anionic polymerization", "living polymerization", "Ziegler–Natta", "Ziegler–Natta catalyst", "metallocene catalyst", "tacticity", "isotactic", "syndiotactic", "atactic", "polyethylene", "polypropylene", "polystyrene", "PVC", "polyvinyl chloride", "Teflon", "PTFE", "polytetrafluoroethylene", "PMMA", "poly(methyl methacrylate)", "LDPE", "HDPE", "block copolymer"],
+      "body": [
+        "Alkenes polymerize by chain reactions with an initiator that creates a reactive site (radical, cation, anion or metal-bound carbon) on the end of the growing chain. The steps are the usual ones: **initiation**, **propagation** and **termination**.",
+        { "h": "Radical polymerization" },
+        "A radical initiator (benzoyl peroxide, AIBN) decomposes by heat to radicals, which add to the less substituted carbon of the monomer to give the more stable radical. Each propagation step adds another monomer, in microseconds. Termination occurs by combination of two chains or disproportionation, and chain transfer (abstraction of an H from another chain) starts branches. Radical polymerization at high pressure (1000–3000 atm, 200 °C) gives **low-density polyethylene (LDPE)**, highly branched, with a low melting point; the film used for bags. It tolerates water and many functional groups, so it is the most widely used industrial method: polystyrene, PVC, PMMA, Teflon and polyacrylonitrile all form this way.",
+        { "h": "Ionic polymerization" },
+        "**Cationic** polymerization (initiated by BF₃/H₂O or strong acids) works with alkenes that give stable carbocations, such as isobutylene (polyisobutylene, in butyl rubber) and vinyl ethers. **Anionic** polymerization (initiated by n-BuLi or amide ions) works with monomers that stabilize a negative charge: styrene, dienes and acrylates. With no termination step, anionic chains stay alive until the monomer is gone, a **living polymerization**. Adding a different monomer then continues the chain as a **block copolymer**, and dispersities are very low. Cyanoacrylate adhesives (superglue) polymerize anionically on traces of moisture.",
+        { "h": "Coordination polymerization" },
+        "Ziegler and Natta found (1953–54, Nobel Prize 1963) that TiCl₄ with Al(C₂H₅)₃ polymerizes ethene at low pressure and temperature to **high-density polyethylene (HDPE)**, linear and highly crystalline, and polymerizes propene to stereoregular polypropylene. The monomer inserts into a titanium–carbon bond at a surface site. Soluble **metallocene** catalysts (zirconocene/MAO) give narrower distributions and finer control.",
+        { "h": "Tacticity" },
+        "In a vinyl polymer –[CH₂–CHR]ₙ– each substituted carbon is a stereocenter. If all the R groups are on the same side of the chain, the polymer is **isotactic**; alternating, **syndiotactic**; random, **atactic**. Radical polypropylene is atactic and soft and sticky. Ziegler–Natta polypropylene is isotactic, which packs into crystals, giving a strong, high-melting (165 °C) material for fibers and molded parts.",
+        { "table": {
+          "head": ["Polymer", "Monomer", "Typical uses"],
+          "rows": [
+            ["Polyethylene (LDPE, HDPE)", "Ethene", "Films and bags; bottles, pipes"],
+            ["Polypropylene (PP)", "Propene", "Containers, fibers, car parts"],
+            ["Poly(vinyl chloride) (PVC)", "Vinyl chloride, CH₂=CHCl", "Pipes, flooring, cable insulation"],
+            ["Polystyrene (PS)", "Styrene", "Foam cups, insulation, packaging"],
+            ["Poly(methyl methacrylate) (PMMA)", "Methyl methacrylate", "Acrylic glass, lenses"],
+            ["Polytetrafluoroethylene (**Teflon**, PTFE)", "Tetrafluoroethylene, CF₂=CF₂", "Non-stick coatings, seals"],
+            ["Polyacrylonitrile (PAN)", "Acrylonitrile", "Acrylic fibers, carbon fiber precursor"],
+            ["Poly(vinyl acetate), poly(vinyl alcohol)", "Vinyl acetate", "Adhesives, paints; PVA from hydrolysis"]
+          ],
+          "caption": "Common addition polymers."
+        } },
+        { "example": {
+          "title": "Radical polymerization of styrene",
+          "problem": "Write the initiation, propagation and termination steps for the AIBN-initiated polymerization of styrene.",
+          "solution": [
+            "Initiation: AIBN decomposes (heat), losing N₂ to give two (CH₃)₂C(CN)• radicals. A radical R• adds to the CH₂ end of styrene, giving the benzylic radical R–CH₂–CH(Ph)•.",
+            "Propagation: the benzylic radical adds to another styrene at its CH₂ terminus, again giving a benzylic radical, and repeats about 10³ times.",
+            "Termination: two chain radicals combine (head-to-head coupling) or disproportionate (one abstracts an H from the other, giving a saturated and an unsaturated chain end)."
+          ]
+        } }
+      ],
+      "check": [
+        { "q": "Which polymerization gives living chains and block copolymers?", "a": "Anionic polymerization", "wrong": ["Radical polymerization", "Cationic polymerization", "Condensation"] },
+        { "q": "Why is Ziegler–Natta polypropylene stronger than radical polypropylene?", "a": "It is isotactic and crystallizes; radical PP is atactic", "wrong": ["It has higher branching", "It is cross-linked", "It contains chlorine"] }
+      ]
+    },
+    {
+      "id": "step-growth",
+      "title": "Step-growth polymerization",
+      "terms": ["condensation polymer", "condensation polymers", "step-growth polymerization", "polyester", "polyesters", "polyamide", "polyamides", "nylon", "nylon-6,6", "nylon-6", "PET", "polyethylene terephthalate", "Kevlar", "polyurethane", "polyurethanes", "epoxy resin", "epoxy resins", "Bakelite", "polycarbonate", "Carothers equation", "aramid"],
+      "body": [
+        "In **step-growth polymerization**, two monomers with two functional groups each (A–A and B–B), or one with A and B on the same molecule, react repeatedly. Any two molecules can react, so monomers first form dimers, then oligomers, and only late in the reaction do long chains appear. High molar mass requires near-complete conversion, and a precise 1 : 1 stoichiometry, since an excess of one monomer caps the chains. Wallace Carothers developed the field at DuPont in the 1930s, producing nylon.",
+        { "eq": "Carothers equation:  Xₙ = 1 / (1 − p)" },
+        "Here Xₙ is the average degree of polymerization and p the fractional conversion of functional groups. At 90% conversion Xₙ is only 10; 99% gives 100; and 99.9% gives 1000. Chain-growth polymers, by contrast, have long chains from the start.",
+        { "table": {
+          "head": ["Polymer", "Monomers", "Linkage", "Uses"],
+          "rows": [
+            ["**PET** (polyethylene terephthalate)", "Terephthalic acid (or its dimethyl ester) + ethylene glycol", "Ester", "Bottles, polyester fabric, film"],
+            ["**Nylon-6,6**", "Adipic acid + hexamethylenediamine", "Amide", "Fibers, carpets, gears"],
+            ["**Nylon-6**", "ε-Caprolactam (ring-opening)", "Amide", "Fibers, plastics"],
+            ["**Kevlar** (aramid)", "Terephthaloyl chloride + p-phenylenediamine", "Aromatic amide", "Body armor, ropes (strength from rigid, H-bonded rods)"],
+            ["**Polyurethane**", "Diisocyanate + diol", "Carbamate (urethane)", "Foam, coatings, elastic fibers"],
+            ["**Polycarbonate**", "Bisphenol A + phosgene (or diphenyl carbonate)", "Carbonate", "Lenses, CDs, helmets"],
+            ["**Epoxy resin**", "Bisphenol A + epichlorohydrin, cured with a diamine", "Ether, cross-linked", "Adhesives, composites"],
+            ["**Bakelite**", "Phenol + formaldehyde", "Methylene bridges, cross-linked", "Electrical insulation (first synthetic plastic, 1907)"]
+          ],
+          "caption": "Common step-growth polymers."
+        } },
+        { "example": {
+          "title": "Nylon-6,6",
+          "problem": "Write the equation for nylon-6,6 and its repeat unit.",
+          "solution": [
+            { "eq": "n HOOC(CH₂)₄COOH + n H₂N(CH₂)₆NH₂ → [–OC(CH₂)₄CONH(CH₂)₆NH–]ₙ + 2n H₂O" },
+            "Each amide link forms with the loss of one water. The name records the number of carbons in the diamine (6) and in the diacid (6). In the laboratory, nylon forms at the interface of an aqueous diamine and an adipoyl chloride solution (the “nylon rope trick”)."
+          ]
+        } },
+        { "example": {
+          "title": "Carothers equation",
+          "problem": "A polyester synthesis reaches 98.5% conversion. What is Xₙ, and what molar mass does it correspond to if the repeat unit mass is 192 g mol⁻¹ (two monomer residues per repeat)?",
+          "solution": "Xₙ = 1/(1 − 0.985) = 67 monomer residues, or about 33 repeat units. The molar mass is about 33 × 192 ≈ 6.4 × 10³ g mol⁻¹, low for a useful plastic, so industrial polyesters are driven above 99.5% conversion by removing the water or glycol under vacuum."
+        } }
+      ],
+      "check": [
+        { "q": "Why must the monomers be present in a precise 1:1 ratio in step-growth polymerization?", "a": "An excess of one monomer leaves chain ends of the same type and limits chain length", "wrong": ["The reaction would explode", "The catalyst would be poisoned", "It does not matter"] },
+        { "q": "At 95% conversion, the Carothers equation gives an average degree of polymerization of…", "a": "20", "wrong": ["95", "5", "100"] }
+      ]
+    },
+    {
+      "id": "properties",
+      "title": "Properties of polymers",
+      "terms": ["molar mass distribution", "number-average molar mass", "weight-average molar mass", "dispersity", "polydispersity index", "crystallinity", "glass transition", "glass transition temperature", "vulcanization", "natural rubber", "cross-linking", "plasticizer", "biodegradable polymer", "polylactic acid", "PLA", "recycling of plastics", "microplastics"],
+      "body": [
+        "A sample of polymer is a mixture of chains of different lengths, so molar masses are averages. The **number-average** Mₙ = ΣNᵢMᵢ/ΣNᵢ counts each chain equally, and the **weight-average** M_w = ΣNᵢMᵢ²/ΣNᵢMᵢ weights heavier chains more. The **dispersity** Đ = M_w/Mₙ is 1 for identical chains and larger otherwise: about 1.05 for a living anionic polymer, 1.5–2 for radical polymerization, and 2 for step-growth.",
+        { "example": {
+          "title": "Molar mass averages",
+          "problem": "A sample has equal numbers of chains of M = 10,000 and M = 30,000 g mol⁻¹. Find Mₙ, M_w and Đ.",
+          "solution": [
+            { "eq": ["Mₙ = (10,000 + 30,000)/2 = 20,000", "M_w = (10,000² + 30,000²)/(10,000 + 30,000) = 25,000", "Đ = 25,000/20,000 = 1.25"] }
+          ]
+        } },
+        { "h": "Crystallinity and the glass transition" },
+        "Polymer chains cannot crystallize completely: crystalline regions (**crystallinity** 40–90%) are mixed with amorphous regions. Linear, regular chains pack well (HDPE, 70–90% crystalline, stiff, melting at 130 °C), and branches prevent packing (LDPE, 40–50%, flexible, melting at 110 °C). Amorphous polymers or regions show a **glass transition temperature**, T_g, below which chain segments are frozen and the material is hard and brittle, and above which segments move and the material is soft or rubbery. T_g is about 100 °C for polystyrene and PMMA (hard at room temperature), 80 °C for PVC, and −70 °C for natural rubber (elastic at room temperature). A **plasticizer** (phthalate or citrate esters) lowers T_g, which makes PVC flexible.",
+        { "h": "Rubber and cross-linking" },
+        "**Natural rubber** is cis-1,4-polyisoprene, from latex. Raw rubber is sticky and flows. Heating with sulfur (**vulcanization**, Goodyear, 1839) forms S–S cross-links between chains, so that the polymer stretches and returns to shape. A few percent sulfur makes a flexible tire, and 30% makes hard ebonite. Synthetic rubbers such as styrene–butadiene rubber (SBR), a copolymer, are vulcanized in the same way. Cross-linking converts a thermoplastic into a thermoset and is permanent.",
+        { "h": "Sustainability" },
+        "Most polyolefins resist degradation and persist as waste or as **microplastics**. Recycling codes 1–6 mark PET (1), HDPE (2), PVC (3), LDPE (4), PP (5) and PS (6). Thermoplastics can be mechanically recycled by remelting, though the properties degrade with each cycle; thermosets cannot. Bio-based and **biodegradable** polymers are an alternative: **polylactic acid (PLA)**, a polyester of lactic acid made from fermented sugar, degrades by ester hydrolysis in industrial composting. Chemical recycling, which depolymerizes PET with methanol or glycol and recovers the monomers, is under development for mixed waste."
+      ],
+      "check": [
+        { "q": "What is the dispersity of a sample in which all chains have the same length?", "a": "1", "wrong": ["0", "2", "Infinity"] },
+        { "q": "Why is vulcanized rubber elastic and not sticky?", "a": "Sulfur cross-links tie the chains into a network that returns to shape", "wrong": ["Sulfur crystallizes the chains", "It has no double bonds", "Sulfur raises the molar mass only"] },
+        { "q": "Why is HDPE stiffer than LDPE?", "a": "Linear chains pack into crystals; branching in LDPE prevents it", "wrong": ["HDPE is cross-linked", "HDPE has a lower molar mass", "LDPE has more crystallinity"] }
+      ]
+    }
+  ],
+  "summary": [
+    "Chain-growth polymers form by adding monomers to a reactive chain end (radical, cationic, anionic, coordination). Step-growth polymers form by reaction between functional groups and need high conversion.",
+    "Radical polymerization makes LDPE, PS, PVC and PMMA. Ziegler–Natta catalysts make HDPE and isotactic polypropylene. Anionic living polymerization gives block copolymers.",
+    "Nylon-6,6, PET and Kevlar are step-growth polyamides and polyesters. The Carothers equation, Xₙ = 1/(1 − p), shows the need for conversion above 99%.",
+    "Mₙ counts chains and M_w weights by mass. Đ = M_w/Mₙ measures breadth.",
+    "Crystallinity and T_g control stiffness. Vulcanization cross-links rubber. Thermosets cannot be remolded. Recycling and biodegradable polymers address plastic waste."
+  ],
+  "problems": [
+    {
+      "q": "Draw the repeat units of poly(vinyl chloride), polystyrene and Teflon, and name the monomers.",
+      "solution": "PVC: –[CH₂–CHCl]ₙ– from vinyl chloride. Polystyrene: –[CH₂–CH(C₆H₅)]ₙ– from styrene. Teflon: –[CF₂–CF₂]ₙ– from tetrafluoroethylene.",
+      "a": "Vinyl chloride, styrene and tetrafluoroethylene."
+    },
+    {
+      "q": "A mixture of 1 mol of chains of M = 5,000 and 2 mol of chains of M = 20,000 g/mol. Find Mₙ, M_w and the dispersity.",
+      "solution": "Mₙ = (1 × 5,000 + 2 × 20,000)/3 = 15,000. M_w = (1 × 5,000² + 2 × 20,000²)/(1 × 5,000 + 2 × 20,000) = (2.5 × 10⁷ + 8.0 × 10⁸)/45,000 = 18,333. Đ = 18,333/15,000 = 1.22.",
+      "a": "Mₙ = 15,000; M_w = 18,300; Đ = 1.22."
+    },
+    {
+      "q": "Why can an excess of 2% of diamine in a nylon-6,6 synthesis limit the achievable molar mass, even if conversion is complete?",
+      "solution": "With a ratio r of the two functional groups, the maximum Xₙ = (1 + r)/(1 − r). Here r = 1/1.02 = 0.980, so Xₙ = 1.980/0.0196 = 101 at most, even at 100% conversion of the limiting group. Both chain ends are then amines and cannot react further.",
+      "a": "Xₙ cannot exceed about 100."
+    },
+    {
+      "q": "Explain the difference in properties of isotactic and atactic polypropylene.",
+      "solution": "Isotactic chains have a regular, repeating stereochemistry, so they pack into crystals (melting at 165 °C), giving a strong, rigid solid. Atactic chains are irregular and cannot crystallize, so the polymer is amorphous, soft and tacky.",
+      "a": "Regular stereochemistry allows crystallization."
+    }
+  ]
+}

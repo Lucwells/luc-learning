@@ -1,122 +1,916 @@
 {
+  "id": "kinetics",
+  "view": "chapter",
   "title": "Chemical Kinetics",
-  "description": "How fast reactions go, what controls their speed, and the steps they take.",
-  "category": ["Chemistry", "General Chemistry", "Kinetics"],
-  "view": "articles",
-  "entries": [
+  "description": "How fast reactions go, what controls their speed, and how rate data reveal the steps a reaction takes.",
+  "overview": [
+    "Thermodynamics says whether a reaction can happen. Kinetics says how fast it does. Diamond is less stable than graphite at room pressure, yet diamonds last indefinitely because the conversion is immeasurably slow. Gasoline and oxygen are far from equilibrium, yet they coexist in a fuel tank until a spark supplies the first reactive molecules. Rate, not energy, decides which of these reactions we see.",
+    "This chapter moves from measurement to mechanism. We define the rate, find how it depends on concentration and temperature, and then use that information to deduce the sequence of molecular events behind an overall equation."
+  ],
+  "objectives": [
+    "Express a reaction rate in terms of any reactant or product.",
+    "Find a rate law and rate constant from initial-rate or concentration–time data.",
+    "Use integrated rate laws and half-lives for zero-, first- and second-order reactions.",
+    "Use the Arrhenius equation to find an activation energy or predict a rate constant at a new temperature.",
+    "Derive a rate law from a proposed mechanism using the rate-determining step, a pre-equilibrium or the steady-state approximation.",
+    "Explain how catalysts change rates and apply the Michaelis–Menten equation to enzymes."
+  ],
+  "sections": [
     {
-      "id": "rate", "name": "Reaction rate", "group": "Speed of reactions",
-      "terms": ["reaction rate", "rate of reaction", "rate of a reaction", "initial rate", "reaction rates"],
-      "tagline": "How quickly reactants are used up and products appear.",
-      "sections": [
-        { "text": "The rate of a reaction is the change in concentration of a reactant or product per unit of time. It is measured in moles per litre per second (M/s)." },
-        { "equations": ["rate = −Δ[A] ÷ Δt = +Δ[P] ÷ Δt"], "text": "Reactant concentrations fall, hence the minus sign, and product concentrations rise." },
-        { "h": "Things to remember", "points": [
-          "Rate depends on the coefficients. For 2A → B, the rate of loss of A is twice the rate of formation of B, so rate = −½ Δ[A]/Δt.",
-          "The rate is fastest at the start and slows as the reactants are used up. The initial rate is the rate at time zero.",
-          "Speed is raised by higher concentration, higher temperature, a larger surface area for solids, and a catalyst."
-        ] }
+      "id": "rates",
+      "title": "Reaction rates",
+      "terms": [
+        "reaction rate",
+        "rate of reaction",
+        "rate of a reaction",
+        "initial rate",
+        "reaction rates",
+        "average rate",
+        "instantaneous rate"
       ],
-      "quiz": [
-        { "q": "What are the usual units of reaction rate?", "a": "mol/(L·s)", "wrong": ["mol/L", "s/mol", "L/mol"] }
+      "body": [
+        "The **rate of reaction** measures how quickly reactants are consumed and products formed. For a general reaction aA + bB → cC + dD, it is defined so that it has one value whichever species is monitored:",
+        {
+          "eq": "rate = −(1/a) Δ[A]/Δt = −(1/b) Δ[B]/Δt = +(1/c) Δ[C]/Δt = +(1/d) Δ[D]/Δt"
+        },
+        "Dividing by the stoichiometric coefficient corrects for the fact that species with larger coefficients change faster. The minus signs make the rate positive, because reactant concentrations fall. Rate has units of concentration per time, usually M s⁻¹.",
+        {
+          "h": "Average and instantaneous rate"
+        },
+        "The ratio Δ[A]/Δt gives the **average rate** over an interval. As the interval shrinks to zero it becomes the derivative d[A]/dt, the **instantaneous rate**, which is the slope of the tangent to the concentration–time curve at that moment. Rates are usually highest at the start, when reactant concentrations are highest, and fall as reactants are used up. The **initial rate** is the instantaneous rate at t = 0, before products accumulate and complicate the picture.",
+        {
+          "example": {
+            "title": "Relating rates of change",
+            "problem": "In the decomposition 2N₂O₅ → 4NO₂ + O₂, N₂O₅ disappears at 2.0 × 10⁻³ M s⁻¹. How fast do NO₂ and O₂ appear?",
+            "solution": [
+              "The rate of reaction is rate = −½ d[N₂O₅]/dt = ½(2.0 × 10⁻³) = 1.0 × 10⁻³ M s⁻¹.",
+              {
+                "eq": [
+                  "d[NO₂]/dt = 4 × rate = 4.0 × 10⁻³ M s⁻¹",
+                  "d[O₂]/dt = 1 × rate = 1.0 × 10⁻³ M s⁻¹"
+                ]
+              },
+              "NO₂ appears four times as fast as the reaction proceeds, and O₂ at the same speed."
+            ]
+          }
+        },
+        {
+          "h": "Measuring rates"
+        },
+        "Any property that changes with concentration can be followed over time:",
+        {
+          "list": [
+            "Absorbance of a colored species, using the Beer–Lambert law, A = εbc.",
+            "Total pressure, for a gas-phase reaction in which the number of moles of gas changes.",
+            "Conductivity or pH, when ions or acids are produced or consumed.",
+            "Optical rotation or NMR signal intensity, which track specific molecules.",
+            "Quenching: stop the reaction at set times, for example by cooling or dilution, and analyze each sample. Stopped-flow mixing extends direct measurement down to milliseconds."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "For 2A → 3B, B forms at 0.060 M/s. At what rate does A disappear?",
+          "a": "0.040 M/s",
+          "wrong": [
+            "0.060 M/s",
+            "0.090 M/s",
+            "0.12 M/s"
+          ],
+          "why": "d[A]/dt = −(2/3)(0.060) = −0.040 M/s."
+        },
+        {
+          "q": "Why are initial rates used to determine a rate law?",
+          "a": "Products have not yet built up, so the reverse reaction and product effects are negligible",
+          "wrong": [
+            "The rate is constant at the start of every reaction",
+            "The initial rate does not depend on concentration",
+            "The rate constant is largest at t = 0"
+          ]
+        }
       ]
     },
     {
-      "id": "rate-law", "name": "Rate laws and reaction order", "group": "Speed of reactions",
-      "terms": ["rate law", "rate laws", "rate constant", "reaction order", "first-order", "second-order", "zero-order"],
-      "tagline": "An equation that shows how the rate depends on concentrations.",
-      "sections": [
-        { "equations": ["rate = k[A]ᵐ[B]ⁿ"], "text": "k is the rate constant. The exponents m and n are the orders with respect to A and B. The overall order is m + n." },
-        { "h": "Important", "points": [
-          "The orders must be found by experiment. They are not the coefficients in the balanced equation, except by coincidence.",
-          "Zero order: the rate does not depend on that concentration. First order: doubling the concentration doubles the rate. Second order: doubling it quadruples the rate."
-        ] },
-        { "h": "Units of k", "facts": [
-          ["Zero order", "M/s"],
-          ["First order", "1/s"],
-          ["Second order", "1/(M·s)"]
-        ] },
-        { "h": "Method of initial rates", "text": "Run the reaction several times, changing one concentration at a time, and compare the initial rates. If doubling [A] doubles the rate, the reaction is first order in A. If doubling [A] makes the rate four times faster, it is second order." }
+      "id": "rate-laws",
+      "title": "Rate laws",
+      "terms": [
+        "rate law",
+        "rate laws",
+        "rate constant",
+        "reaction order",
+        "first-order",
+        "second-order",
+        "zero-order",
+        "order of reaction",
+        "method of initial rates"
       ],
-      "quiz": [
-        { "q": "Doubling the concentration of A makes the rate four times faster. What is the order in A?", "a": "Second", "wrong": ["Zero", "First", "Third"] }
+      "body": [
+        "A **rate law** states how the rate depends on concentrations. For a reaction with reactants A and B it usually takes the form",
+        {
+          "eq": "rate = k[A]^{m}[B]^{n}"
+        },
+        "The proportionality constant k is the **rate constant**. The exponents m and n are the **orders** of the reaction with respect to A and B, and m + n is the overall order. A rate law may also contain catalysts or products.",
+        {
+          "warn": "The orders come from experiment. They are not the stoichiometric coefficients of the balanced equation, except when the equation describes a single elementary step (see Reaction mechanisms, below)."
+        },
+        "For 2NO + 2H₂ → N₂ + 2H₂O the measured rate law is rate = k[NO]²[H₂]. It is second order in NO and first order in H₂, even though the equation has two H₂ molecules.",
+        {
+          "h": "What an order means"
+        },
+        {
+          "list": [
+            "**Zero order:** the rate does not depend on that concentration.",
+            "**First order:** doubling the concentration doubles the rate.",
+            "**Second order:** doubling the concentration quadruples the rate.",
+            "Orders may also be fractions or negative. In CHCl₃ + Cl₂ → CCl₄ + HCl the rate is proportional to [CHCl₃][Cl₂]^{1/2}, a signature of a chain mechanism."
+          ]
+        },
+        {
+          "h": "The rate constant"
+        },
+        "k depends on temperature and on the presence of a catalyst, but not on concentration. Its units depend on the overall order n, because rate always has units M s⁻¹:",
+        {
+          "table": {
+            "head": [
+              "Overall order",
+              "Units of k",
+              "Example rate law"
+            ],
+            "rows": [
+              [
+                "0",
+                "M s⁻¹",
+                "rate = k"
+              ],
+              [
+                "1",
+                "s⁻¹",
+                "rate = k[A]"
+              ],
+              [
+                "2",
+                "M⁻¹ s⁻¹",
+                "rate = k[A]² or k[A][B]"
+              ],
+              [
+                "n",
+                "M^{1−n} s⁻¹",
+                "rate = k[A]^{n}"
+              ]
+            ],
+            "caption": "Units of the rate constant."
+          }
+        },
+        {
+          "h": "Method of initial rates"
+        },
+        "To find the orders, run the reaction several times, changing one initial concentration at a time, and measure the initial rate in each. Comparing two runs in which only [A] changes gives m directly:",
+        {
+          "eq": "rate₂/rate₁ = ([A]₂/[A]₁)^{m}"
+        },
+        {
+          "example": {
+            "title": "Orders and k from initial rates",
+            "problem": [
+              "For 2NO + O₂ → 2NO₂ the following initial rates were measured at constant temperature. Find the rate law and k.",
+              {
+                "table": {
+                  "head": [
+                    "Run",
+                    "[NO] (M)",
+                    "[O₂] (M)",
+                    "Initial rate (M s⁻¹)"
+                  ],
+                  "rows": [
+                    [
+                      "1",
+                      "0.010",
+                      "0.010",
+                      "7.0 × 10⁻³"
+                    ],
+                    [
+                      "2",
+                      "0.020",
+                      "0.010",
+                      "2.8 × 10⁻²"
+                    ],
+                    [
+                      "3",
+                      "0.020",
+                      "0.020",
+                      "5.6 × 10⁻²"
+                    ]
+                  ]
+                }
+              }
+            ],
+            "solution": [
+              "Runs 1 and 2: [NO] doubles with [O₂] fixed, and the rate rises by 2.8 × 10⁻² / 7.0 × 10⁻³ = 4. So 2^{m} = 4 and the reaction is second order in NO.",
+              "Runs 2 and 3: [O₂] doubles with [NO] fixed, and the rate doubles. The reaction is first order in O₂.",
+              {
+                "eq": "rate = k[NO]²[O₂]"
+              },
+              "Using run 1: k = 7.0 × 10⁻³ / ((0.010)²(0.010)) = 7.0 × 10³ M⁻² s⁻¹. The units match overall order 3."
+            ]
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Doubling [A] makes the rate four times faster. What is the order in A?",
+          "a": "Second",
+          "wrong": [
+            "Zero",
+            "First",
+            "Third"
+          ]
+        },
+        {
+          "q": "A reaction has rate = k[A][B]². What are the units of k?",
+          "a": "M⁻² s⁻¹",
+          "wrong": [
+            "M⁻¹ s⁻¹",
+            "s⁻¹",
+            "M s⁻¹"
+          ],
+          "why": "Overall order 3 gives M^{1−3} s⁻¹ = M⁻² s⁻¹."
+        },
+        {
+          "q": "The balanced equation shows 2 molecules of B. What can you conclude about the order in B?",
+          "a": "Nothing; the order must be measured",
+          "wrong": [
+            "It is second order",
+            "It is first order",
+            "It is zero order"
+          ]
+        }
       ]
     },
     {
-      "id": "integrated", "name": "Integrated rate laws and half-life", "group": "Speed of reactions",
-      "terms": ["integrated rate law", "integrated rate laws"],
-      "tagline": "Equations that tell you the concentration at any time.",
-      "sections": [
-        { "facts": [
-          ["Zero order", "[A] = [A]₀ − kt. A plot of [A] against t is a straight line. Half-life t½ = [A]₀ ÷ 2k."],
-          ["First order", "ln[A] = ln[A]₀ − kt. A plot of ln[A] against t is a straight line. t½ = 0.693 ÷ k, which does not depend on the starting concentration."],
-          ["Second order", "1/[A] = 1/[A]₀ + kt. A plot of 1/[A] against t is a straight line. t½ = 1 ÷ (k[A]₀)."]
-        ] },
-        { "h": "Finding the order from data", "text": "Plot [A], ln[A] and 1/[A] against time. The graph that is a straight line shows the order." },
-        { "h": "Worked example", "text": "A first-order reaction has k = 0.0231 min⁻¹. Its half-life is 0.693 ÷ 0.0231 = 30.0 min. After 3 half-lives, 1/8 of the reactant is left." }
+      "id": "integrated",
+      "title": "Integrated rate laws and half-life",
+      "terms": [
+        "integrated rate law",
+        "integrated rate laws",
+        "half-life",
+        "half-lives",
+        "pseudo-first-order"
       ],
-      "quiz": [
-        { "q": "In a first-order reaction, the half-life…", "a": "Is constant and depends only on k", "wrong": ["Doubles every half-life", "Depends on the starting concentration", "Is zero"] }
+      "body": [
+        "A rate law gives the rate at one composition. Integrating it gives concentration as a function of time, which is what experiments actually record.",
+        {
+          "h": "First order"
+        },
+        "For A → products with rate = k[A], the rate law is −d[A]/dt = k[A]. Separating variables and integrating from [A]₀ at t = 0 gives",
+        {
+          "eq": [
+            "ln[A] = ln[A]₀ − kt",
+            "[A] = [A]₀ e^{−kt}"
+          ]
+        },
+        "The **half-life** t_{1/2} is the time for [A] to fall to [A]₀/2. Setting [A] = [A]₀/2 gives",
+        {
+          "eq": "t_{1/2} = ln 2 / k = 0.693 / k"
+        },
+        "It does not depend on [A]₀: each half-life removes the same fraction of what remains. This is why radioactive decay, which is first order, is described by half-lives.",
+        {
+          "svg": "<svg viewBox='0 0 440 270' role='img' aria-label='First-order decay: concentration halves every half-life' font-family='system-ui, sans-serif' font-size='12'><g fill='none' stroke='currentColor' stroke-width='1.5'><path d='M50,20 V220 H410'/></g><g fill='none' stroke='currentColor' stroke-width='1' stroke-dasharray='4 3' opacity='.55'><path d='M137.5,220 V120 H50 M225,220 V170 H50 M312.5,220 V195 H50'/></g><path fill='none' style='stroke:var(--accent)' stroke-width='2.5' d='M50.0,20.0 L58.8,33.4 L67.5,45.9 L76.3,57.5 L85.0,68.4 L93.8,78.6 L102.5,88.0 L111.3,96.9 L120.0,105.1 L128.8,112.8 L137.5,120.0 L146.3,126.7 L155.0,132.9 L163.8,138.8 L172.5,144.2 L181.3,149.3 L190.0,154.0 L198.8,158.4 L207.5,162.6 L216.3,166.4 L225.0,170.0 L233.8,173.3 L242.5,176.5 L251.2,179.4 L260.0,182.1 L268.8,184.6 L277.5,187.0 L286.3,189.2 L295.0,191.3 L303.8,193.2 L312.5,195.0 L321.3,196.7 L330.0,198.2 L338.8,199.7 L347.5,201.1 L356.3,202.3 L365.0,203.5 L373.8,204.6 L382.5,205.6 L391.3,206.6 L400.0,207.5'/><g fill='currentColor'><text x='44' y='24' text-anchor='end'>[A]₀</text><text x='44' y='124' text-anchor='end'>½[A]₀</text><text x='44' y='174' text-anchor='end'>¼[A]₀</text><text x='44' y='199' text-anchor='end'>⅛[A]₀</text><text x='137.5' y='238' text-anchor='middle'>t½</text><text x='225' y='238' text-anchor='middle'>2t½</text><text x='312.5' y='238' text-anchor='middle'>3t½</text><text x='410' y='256' text-anchor='end'>time</text><text x='56' y='14'>concentration of A</text></g></svg>",
+          "caption": "First-order decay. Each half-life halves the concentration, whatever its starting value."
+        },
+        {
+          "h": "Zero and second order"
+        },
+        "For a zero-order reaction, −d[A]/dt = k, so [A] = [A]₀ − kt and t_{1/2} = [A]₀/2k. Zero-order behavior appears when something other than [A] limits the rate: a catalyst surface saturated with A, or a photochemical reaction limited by the supply of photons.",
+        "For a second-order reaction in A alone, −d[A]/dt = k[A]², so 1/[A] = 1/[A]₀ + kt and t_{1/2} = 1/(k[A]₀).",
+        {
+          "table": {
+            "head": [
+              "Order",
+              "Integrated law",
+              "Straight-line plot",
+              "Slope",
+              "Half-life"
+            ],
+            "rows": [
+              [
+                "0",
+                "[A] = [A]₀ − kt",
+                "[A] vs t",
+                "−k",
+                "[A]₀ / 2k"
+              ],
+              [
+                "1",
+                "ln[A] = ln[A]₀ − kt",
+                "ln[A] vs t",
+                "−k",
+                "0.693 / k"
+              ],
+              [
+                "2",
+                "1/[A] = 1/[A]₀ + kt",
+                "1/[A] vs t",
+                "+k",
+                "1 / (k[A]₀)"
+              ]
+            ],
+            "caption": "Integrated rate laws for a single reactant A."
+          }
+        },
+        {
+          "key": "Only a first-order half-life is constant. For zero order each successive half-life is half as long as the one before. For second order each is twice as long."
+        },
+        {
+          "example": {
+            "title": "First-order timing",
+            "problem": "A first-order reaction has k = 2.5 × 10⁻⁴ s⁻¹. How long does it take for [A] to fall from 0.100 M to 0.0250 M?",
+            "solution": [
+              {
+                "eq": "t = ln([A]₀/[A]) / k = ln(4.00) / (2.5 × 10⁻⁴ s⁻¹) = 5.5 × 10³ s"
+              },
+              "This is about 92 minutes. It checks against the half-life: t_{1/2} = 0.693 / k = 2.8 × 10³ s, and 0.100 M → 0.0250 M is two half-lives."
+            ]
+          }
+        },
+        {
+          "h": "Finding the order from concentration–time data"
+        },
+        "Plot [A], ln[A] and 1/[A] against t. The one that gives a straight line identifies the order.",
+        {
+          "example": {
+            "title": "Identify the order",
+            "problem": [
+              "The decomposition of A gives these data. Find the order and k.",
+              {
+                "table": {
+                  "head": [
+                    "t (s)",
+                    "0",
+                    "100",
+                    "200",
+                    "300"
+                  ],
+                  "rows": [
+                    [
+                      "[A] (M)",
+                      "0.100",
+                      "0.0625",
+                      "0.0455",
+                      "0.0357"
+                    ]
+                  ]
+                }
+              }
+            ],
+            "solution": [
+              "Compute ln[A]: −2.303, −2.773, −3.090, −3.332. The differences between successive points (−0.470, −0.317, −0.242) are not constant, so the reaction is not first order.",
+              "Compute 1/[A]: 10.0, 16.0, 22.0, 28.0 M⁻¹. The differences are constant at 6.0 M⁻¹ per 100 s, so 1/[A] is linear in t and the reaction is second order.",
+              {
+                "eq": "k = slope = 6.0 M⁻¹ / 100 s = 0.060 M⁻¹ s⁻¹"
+              }
+            ]
+          }
+        },
+        {
+          "h": "Pseudo-first-order conditions"
+        },
+        "If rate = k[A][B] and [B]₀ ≫ [A]₀, then [B] barely changes and rate ≈ k′[A], with k′ = k[B]₀. The reaction looks first order in A, and k is recovered as k′/[B]₀. Hydrolysis of an ester in water behaves this way because the solvent is in vast excess."
+      ],
+      "check": [
+        {
+          "q": "For which order is the half-life independent of the initial concentration?",
+          "a": "First",
+          "wrong": [
+            "Zero",
+            "Second",
+            "All orders"
+          ]
+        },
+        {
+          "q": "A plot of 1/[A] against t is a straight line. What is the order?",
+          "a": "Second",
+          "wrong": [
+            "Zero",
+            "First",
+            "Cannot be determined"
+          ]
+        },
+        {
+          "q": "A first-order reaction has t½ = 45 min. What fraction of A remains after 3.0 h?",
+          "a": "1/16",
+          "wrong": [
+            "1/4",
+            "1/8",
+            "1/32"
+          ],
+          "why": "3.0 h = 180 min = 4 half-lives, and (1/2)⁴ = 1/16."
+        }
       ]
     },
     {
-      "id": "collision", "name": "Collision theory and activation energy", "group": "Why reactions speed up",
-      "terms": ["collision theory", "transition state", "activated complex", "energy barrier"],
-      "tagline": "Molecules must collide, with enough energy and the right orientation, to react.",
-      "sections": [
-        { "text": "According to collision theory, a reaction happens only when molecules collide with at least a minimum energy, the activation energy Eₐ, and in a suitable orientation." },
-        { "h": "Energy profile", "points": [
-          "The energy rises to a peak, the transition state or activated complex, and then falls to the products.",
-          "The height of the peak above the reactants is Eₐ. The difference between products and reactants is ΔH.",
-          "A catalyst lowers Eₐ, so more collisions are successful."
-        ] },
-        { "h": "What changes the rate", "points": [
-          "Higher concentration means more collisions per second.",
-          "Higher temperature means more molecules have energy of at least Eₐ, and the collisions are more frequent too. The first effect is the larger one.",
-          "A larger surface area exposes more of a solid to collisions."
-        ] }
+      "id": "temperature",
+      "title": "Temperature and activation energy",
+      "terms": [],
+      "subs": [
+        {
+          "id": "collision",
+          "title": "Collision theory",
+          "terms": [
+            "collision theory",
+            "activation energy",
+            "energy barrier",
+            "steric factor"
+          ],
+          "body": [
+            "For molecules to react they must collide, with enough energy to begin breaking bonds, and in an orientation that lets new bonds form. The minimum energy is the **activation energy** E_{a}. Simple collision theory expresses the rate constant as a product of three factors:",
+            {
+              "eq": "k = p · Z · e^{−E_{a}/RT}"
+            },
+            {
+              "list": [
+                "Z, the collision frequency factor, counts collisions per unit time and concentration. It grows only as √T.",
+                "p, the steric factor, is the fraction of collisions with a favorable orientation, so p ≤ 1.",
+                "e^{−E_{a}/RT}, the Boltzmann factor, is the fraction of collisions with energy of at least E_{a}."
+              ]
+            },
+            "Temperature acts mainly through the exponential. A 10 K rise increases collision frequency by about 1.6%, but it raises the fraction of energetic collisions by tens of percent, so rates roughly double."
+          ]
+        },
+        {
+          "id": "arrhenius",
+          "title": "The Arrhenius equation",
+          "terms": [
+            "Arrhenius equation",
+            "Arrhenius",
+            "frequency factor",
+            "pre-exponential factor",
+            "Arrhenius plot"
+          ],
+          "body": [
+            "Arrhenius found empirically that rate constants vary with temperature as",
+            {
+              "eq": [
+                "k = A e^{−E_{a}/RT}",
+                "ln k = ln A − (E_{a}/R)(1/T)"
+              ]
+            },
+            "A is the **pre-exponential factor** (frequency factor), with the same units as k. R = 8.314 J mol⁻¹ K⁻¹ and T is in kelvin. A plot of ln k against 1/T, an **Arrhenius plot**, is a straight line of slope −E_{a}/R. With two measurements the intercept cancels:",
+            {
+              "eq": "ln(k₂/k₁) = (E_{a}/R)(1/T₁ − 1/T₂)"
+            },
+            "For E_{a} near 50 kJ mol⁻¹, a 10 K rise at room temperature multiplies k by about 1.9. Reactions with larger E_{a} are more sensitive to temperature.",
+            {
+              "example": {
+                "title": "Activation energy from two rate constants",
+                "problem": "A first-order reaction has k = 1.2 × 10⁻³ s⁻¹ at 300 K and 3.9 × 10⁻² s⁻¹ at 330 K. Find E_{a}.",
+                "solution": [
+                  {
+                    "eq": [
+                      "ln(k₂/k₁) = ln(32.5) = 3.48",
+                      "1/T₁ − 1/T₂ = 1/300 − 1/330 = 3.03 × 10⁻⁴ K⁻¹"
+                    ]
+                  },
+                  {
+                    "eq": "E_{a} = R ln(k₂/k₁) / (1/T₁ − 1/T₂) = (8.314)(3.48) / (3.03 × 10⁻⁴) = 9.6 × 10⁴ J mol⁻¹ = 96 kJ mol⁻¹"
+                  }
+                ]
+              }
+            },
+            {
+              "note": "Real Arrhenius plots curve when the mechanism changes with temperature or when quantum tunneling contributes, as in hydrogen-atom transfer at low temperature. Some reactions, including 2NO + O₂ → 2NO₂, have a negative apparent activation energy (see Pre-equilibrium and the steady-state approximation)."
+            }
+          ]
+        },
+        {
+          "id": "profile",
+          "title": "Energy profiles and the transition state",
+          "terms": [
+            "transition state",
+            "activated complex",
+            "energy profile",
+            "reaction coordinate",
+            "transition state theory"
+          ],
+          "body": [
+            "An energy profile plots potential energy along the **reaction coordinate**, the path of lowest energy from reactants to products. The maximum on this path is the **transition state** (activated complex), a fleeting arrangement in which old bonds are partly broken and new ones partly formed.",
+            {
+              "svg": "<svg viewBox='0 0 460 270' role='img' aria-label='Energy profile of an exothermic reaction' font-family='system-ui, sans-serif' font-size='13'><defs><marker id='ah1' viewBox='0 0 8 8' refX='4' refY='4' markerWidth='7' markerHeight='7' orient='auto-start-reverse'><path d='M0,0 L8,4 L0,8 z' fill='currentColor'/></marker></defs><g fill='none' stroke='currentColor' stroke-width='1.5'><path d='M50,20 V230 H440'/></g><path fill='none' style='stroke:var(--accent)' stroke-width='2.5' d='M60,170 H120 C165,170 170,55 215,55 C260,55 265,205 310,205 H400'/><g fill='none' stroke='currentColor' stroke-width='1' stroke-dasharray='4 3' opacity='.55'><path d='M100,170 H430 M100,55 H215 M400,205 H430'/></g><g fill='none' stroke='currentColor' stroke-width='1.3'><path d='M100,166 V59' marker-start='url(#ah1)' marker-end='url(#ah1)'/><path d='M424,174 V201' marker-start='url(#ah1)' marker-end='url(#ah1)'/></g><g fill='currentColor'><text x='94' y='118' text-anchor='end'>Eₐ</text><text x='432' y='192'>ΔH</text><text x='90' y='188' text-anchor='middle'>Reactants</text><text x='355' y='224' text-anchor='middle'>Products</text><text x='215' y='44' text-anchor='middle'>Transition state ‡</text><text x='440' y='250' text-anchor='end'>reaction coordinate</text><text x='56' y='14'>potential energy</text></g></svg>",
+              "caption": "Energy profile of an exothermic reaction. E_{a} is the barrier from the reactants; ΔH is the energy difference between products and reactants."
+            },
+            "The forward and reverse barriers differ by the enthalpy change: ΔH = E_{a,forward} − E_{a,reverse}. A transition state is not an **intermediate**. An intermediate sits in a valley of the profile and can sometimes be detected or isolated. A transition state is a peak and lasts about one bond vibration, roughly 10⁻¹³ s.",
+            "**Transition-state theory** treats the activated complex as in quasi-equilibrium with the reactants, which gives the Eyring equation:",
+            {
+              "eq": "k = (k_{B}T/h) e^{−ΔG‡/RT} = (k_{B}T/h) e^{ΔS‡/R} e^{−ΔH‡/RT}"
+            },
+            "Here ΔG‡, ΔH‡ and ΔS‡ are the free energy, enthalpy and entropy of activation, k_{B} is Boltzmann’s constant and h is Planck’s constant. The Eyring form separates the barrier into energetic (ΔH‡) and entropic (ΔS‡) contributions. A strongly negative ΔS‡ means the transition state is more ordered than the reactants, as in a bimolecular association."
+          ]
+        }
       ],
-      "quiz": [
-        { "q": "What does a catalyst change?", "a": "It lowers the activation energy", "wrong": ["It raises ΔH", "It changes the products", "It raises the activation energy"] }
+      "check": [
+        {
+          "q": "Which factor accounts for most of the rate increase when temperature rises?",
+          "a": "The larger fraction of collisions with energy ≥ Eₐ",
+          "wrong": [
+            "The much higher collision frequency",
+            "The decrease in activation energy",
+            "The change in steric factor"
+          ]
+        },
+        {
+          "q": "What is the slope of a plot of ln k against 1/T?",
+          "a": "−Eₐ/R",
+          "wrong": [
+            "Eₐ/R",
+            "−Eₐ",
+            "ln A"
+          ]
+        },
+        {
+          "q": "A forward reaction has Eₐ = 80 kJ/mol and ΔH = −30 kJ/mol. What is Eₐ for the reverse reaction?",
+          "a": "110 kJ/mol",
+          "wrong": [
+            "50 kJ/mol",
+            "80 kJ/mol",
+            "−30 kJ/mol"
+          ],
+          "why": "ΔH = Eₐ(forward) − Eₐ(reverse), so Eₐ(reverse) = 80 − (−30) = 110 kJ/mol."
+        }
       ]
     },
     {
-      "id": "arrhenius", "name": "The Arrhenius equation", "group": "Why reactions speed up",
-      "terms": ["Arrhenius equation", "Arrhenius", "frequency factor", "pre-exponential factor"],
-      "tagline": "How the rate constant depends on temperature.",
-      "sections": [
-        { "equations": ["k = A e^(−Eₐ/RT)", "ln k = ln A − Eₐ/RT"], "text": "A is the frequency factor, which counts how often collisions occur in a suitable orientation. Eₐ is the activation energy, R is the gas constant, and T is the temperature in kelvin." },
-        { "h": "Using it", "points": [
-          "A plot of ln k against 1/T is a straight line with slope −Eₐ/R.",
-          "With two measurements: ln(k₂/k₁) = (Eₐ/R)(1/T₁ − 1/T₂).",
-          "A rough rule is that the rate doubles for every 10 °C rise near room temperature, for typical activation energies."
-        ] }
+      "id": "mechanisms",
+      "title": "Reaction mechanisms",
+      "terms": [],
+      "subs": [
+        {
+          "id": "elementary",
+          "title": "Elementary steps and molecularity",
+          "terms": [
+            "reaction mechanism",
+            "elementary step",
+            "elementary steps",
+            "reaction intermediate",
+            "molecularity",
+            "mechanism"
+          ],
+          "body": [
+            "Most reactions proceed through a series of simple events, the **elementary steps**. The balanced equation shows only the net change. The **mechanism** is the sequence of steps that produces it. A mechanism must satisfy two tests: the steps add up to the overall equation, and the rate law it predicts matches experiment.",
+            "The **molecularity** of an elementary step is the number of species that come together in it: one (unimolecular), two (bimolecular) or, rarely, three (termolecular). For an elementary step, and only for an elementary step, the rate law follows the stoichiometry:",
+            {
+              "table": {
+                "head": [
+                  "Elementary step",
+                  "Molecularity",
+                  "Rate law"
+                ],
+                "rows": [
+                  [
+                    "A → products",
+                    "unimolecular",
+                    "k[A]"
+                  ],
+                  [
+                    "A + B → products",
+                    "bimolecular",
+                    "k[A][B]"
+                  ],
+                  [
+                    "2A → products",
+                    "bimolecular",
+                    "k[A]²"
+                  ]
+                ]
+              }
+            },
+            "A **reaction intermediate** is formed in one step and consumed in a later one, so it does not appear in the overall equation. A catalyst is likewise consumed and regenerated, but it is present at the start."
+          ]
+        },
+        {
+          "id": "rds",
+          "title": "The rate-determining step",
+          "terms": [
+            "rate-determining step",
+            "rate-limiting step",
+            "rate determining step"
+          ],
+          "body": [
+            "When one step is much slower than the others, it controls the overall rate, like the narrowest section of a pipe. This is the **rate-determining step**. The observed rate law is the rate law of that step, rewritten so that no intermediate appears.",
+            {
+              "example": {
+                "title": "Slow step first",
+                "problem": "NO₂ + CO → NO + CO₂ has the experimental rate law rate = k[NO₂]². Show that the following mechanism agrees.",
+                "solution": [
+                  {
+                    "eq": [
+                      "Step 1 (slow):  NO₂ + NO₂ → NO₃ + NO",
+                      "Step 2 (fast):  NO₃ + CO → NO₂ + CO₂"
+                    ]
+                  },
+                  "The steps add to the overall equation after NO₃ cancels, and NO₃ is the intermediate. The slow step is bimolecular in NO₂, so rate = k₁[NO₂]². CO appears only after the rate-determining step and therefore does not appear in the rate law."
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "equilibrium-ss",
+          "title": "Pre-equilibrium and the steady-state approximation",
+          "terms": [
+            "pre-equilibrium",
+            "steady-state approximation",
+            "steady state approximation",
+            "quasi-steady-state"
+          ],
+          "body": [
+            "If the slow step comes after a fast, reversible step, the intermediate is in a **pre-equilibrium** with the reactants. Its concentration follows from the equilibrium constant, not from the rate of the slow step.",
+            {
+              "example": {
+                "title": "Fast equilibrium, then slow step",
+                "problem": "For 2NO + O₂ → 2NO₂ the experimental rate law is rate = k[NO]²[O₂]. Show that this mechanism fits.",
+                "solution": [
+                  {
+                    "eq": [
+                      "Step 1 (fast equilibrium):  2NO ⇌ N₂O₂     K = k₁/k₋₁ = [N₂O₂]/[NO]²",
+                      "Step 2 (slow):  N₂O₂ + O₂ → 2NO₂"
+                    ]
+                  },
+                  {
+                    "eq": "rate = k₂[N₂O₂][O₂] = k₂K[NO]²[O₂]"
+                  },
+                  "The observed constant is k = k₂K. Step 1 is exothermic, so K falls as temperature rises. The fall in K outweighs the rise in k₂, and the observed rate decreases slightly as temperature increases: a negative apparent activation energy."
+                ]
+              }
+            },
+            "A pre-equilibrium needs the first step to be fast. The more general tool is the **steady-state approximation**: a reactive intermediate is consumed almost as fast as it forms, so its concentration stays small and nearly constant, d[I]/dt ≈ 0.",
+            {
+              "example": {
+                "title": "Steady state for a two-step mechanism",
+                "problem": "Consider A + B ⇌ I (rate constants k₁, k₋₁) followed by I → P (k₂). Find the rate law.",
+                "solution": [
+                  {
+                    "eq": [
+                      "d[I]/dt = k₁[A][B] − k₋₁[I] − k₂[I] = 0",
+                      "[I] = k₁[A][B] / (k₋₁ + k₂)"
+                    ]
+                  },
+                  {
+                    "eq": "rate = k₂[I] = k₁k₂[A][B] / (k₋₁ + k₂)"
+                  },
+                  "If k₂ ≫ k₋₁, every I goes on to product, and rate = k₁[A][B]: the first step is rate-determining. If k₋₁ ≫ k₂, rate = (k₁k₂/k₋₁)[A][B] = K k₂[A][B], the pre-equilibrium result."
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "chains",
+          "title": "Chain reactions",
+          "terms": [
+            "chain reaction",
+            "chain reactions",
+            "radical chain",
+            "propagation",
+            "initiation",
+            "termination"
+          ],
+          "body": [
+            "In a **chain reaction** a reactive intermediate, often a free radical, is regenerated in each cycle, so a few radicals convert many molecules. Chains have three kinds of step: **initiation** creates radicals, **propagation** consumes a radical and makes another, and **termination** removes radicals.",
+            "The reaction H₂ + Br₂ → 2HBr is the classic case. Its measured rate law, rate = k[H₂][Br₂]^{1/2} / (1 + k′[HBr]/[Br₂]), has a fractional order and a product term that a single step could not give. The mechanism explains both:",
+            {
+              "eq": [
+                "Initiation:  Br₂ → 2Br•",
+                "Propagation:  Br• + H₂ → HBr + H•",
+                "Propagation:  H• + Br₂ → HBr + Br•",
+                "Inhibition:  H• + HBr → H₂ + Br•",
+                "Termination:  2Br• → Br₂"
+              ]
+            },
+            "The square root of [Br₂] comes from the balance between initiation and termination, which fixes [Br•] ∝ [Br₂]^{1/2}. HBr slows the reaction because it returns H• to H₂. The same chain logic governs combustion, polymerization and ozone depletion."
+          ]
+        }
       ],
-      "quiz": [
-        { "q": "In an Arrhenius plot of ln k against 1/T, the slope equals…", "a": "−Eₐ/R", "wrong": ["Eₐ", "ln A", "R/Eₐ"] }
+      "check": [
+        {
+          "q": "Which step’s rate law matches the overall rate law?",
+          "a": "The slowest step",
+          "wrong": [
+            "The first step",
+            "The fastest step",
+            "The last step"
+          ]
+        },
+        {
+          "q": "A species formed in one step and consumed in a later step is called…",
+          "a": "An intermediate",
+          "wrong": [
+            "A catalyst",
+            "A transition state",
+            "A product"
+          ]
+        },
+        {
+          "q": "A fractional order such as rate = k[A]^{1/2} most likely indicates…",
+          "a": "A chain mechanism or a pre-dissociation step",
+          "wrong": [
+            "A single elementary step",
+            "A zero-order reaction",
+            "An error in measurement"
+          ]
+        },
+        {
+          "q": "In the steady-state approximation, what is assumed about an intermediate?",
+          "a": "Its concentration is small and nearly constant",
+          "wrong": [
+            "Its concentration is zero at all times",
+            "It forms much faster than it reacts",
+            "It is a catalyst"
+          ]
+        }
       ]
     },
     {
-      "id": "mechanisms", "name": "Reaction mechanisms", "group": "Why reactions speed up",
-      "terms": ["reaction mechanism", "reaction mechanisms", "elementary step", "elementary steps", "rate-determining step", "reaction intermediate", "molecularity"],
-      "tagline": "The step-by-step path that turns reactants into products.",
-      "sections": [
-        { "text": "Most reactions happen in a series of simple steps called elementary steps. The overall equation only shows the start and finish. The mechanism is the full sequence." },
-        { "h": "Key ideas", "points": [
-          "For an elementary step, the rate law comes straight from the coefficients. A step A + B → products is first order in A and in B. The number of molecules colliding in the step is its molecularity.",
-          "The slowest step is the rate-determining step. It controls the overall rate, like the narrowest part of a pipe.",
-          "A reaction intermediate is made in one step and used up in a later step, so it does not appear in the overall equation.",
-          "A catalyst is used up in one step and regenerated in a later one."
-        ] },
-        { "h": "Worked example", "equations": ["NO₂ + CO → NO + CO₂"], "points": [
-          "Step 1 (slow): NO₂ + NO₂ → NO₃ + NO",
-          "Step 2 (fast): NO₃ + CO → NO₂ + CO₂",
-          "NO₃ is the intermediate. The rate follows the slow step, so rate = k[NO₂]²."
-        ] }
+      "id": "catalysis",
+      "title": "Catalysis",
+      "terms": [],
+      "subs": [
+        {
+          "id": "catalysts",
+          "title": "How catalysts work",
+          "terms": [
+            "homogeneous catalysis",
+            "catalytic converter",
+            "catalyst poisoning",
+            "catalyst",
+            "catalysts"
+          ],
+          "body": [
+            "A catalyst speeds a reaction by offering a path with a lower activation energy, and is regenerated in the process. It does not change ΔG° or the equilibrium constant, because it speeds the forward and reverse reactions by the same factor. It shortens the time to reach equilibrium and has no effect on where equilibrium lies.",
+            {
+              "svg": "<svg viewBox='0 0 460 270' role='img' aria-label='Energy profile with and without a catalyst' font-family='system-ui, sans-serif' font-size='13'><g fill='none' stroke='currentColor' stroke-width='1.5'><path d='M50,20 V230 H440'/></g><path fill='none' style='stroke:var(--accent)' stroke-width='2.5' d='M60,170 H120 C165,170 170,55 215,55 C260,55 265,205 310,205 H400'/><path fill='none' style='stroke:var(--accent)' stroke-width='2.5' stroke-dasharray='7 5' d='M120,170 C165,170 170,110 215,110 C260,110 265,205 310,205'/><g fill='currentColor'><text x='215' y='44' text-anchor='middle'>uncatalyzed</text><text x='215' y='134' text-anchor='middle'>catalyzed</text><text x='90' y='188' text-anchor='middle'>Reactants</text><text x='355' y='224' text-anchor='middle'>Products</text><text x='440' y='250' text-anchor='end'>reaction coordinate</text><text x='56' y='14'>potential energy</text></g></svg>",
+              "caption": "A catalyst lowers the barrier. Reactants, products and ΔH are unchanged."
+            },
+            {
+              "list": [
+                "**Homogeneous catalysts** are in the same phase as the reactants. Acid catalysis of ester hydrolysis is one example. Chlorine atoms from CFCs catalyze the destruction of ozone in the stratosphere: Cl• + O₃ → ClO• + O₂, then ClO• + O → Cl• + O₂.",
+                "**Heterogeneous catalysts** are usually solids with gas or liquid reactants. The steps are adsorption onto the surface, reaction between adsorbed species, and desorption of the product. Iron catalyzes N₂ + 3H₂ → 2NH₃, nickel catalyzes hydrogenation of alkenes, and platinum, palladium and rhodium in a **catalytic converter** convert CO, hydrocarbons and NOₓ to CO₂, H₂O and N₂.",
+                "**Poisons** bind strongly to active sites and shut a catalyst down. Lead and sulfur compounds poison the metals in a converter."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "enzymes",
+          "title": "Enzyme kinetics",
+          "terms": [
+            "Michaelis–Menten",
+            "Michaelis-Menten",
+            "Michaelis constant",
+            "enzyme kinetics",
+            "Lineweaver–Burk",
+            "saturation kinetics"
+          ],
+          "body": [
+            "Enzymes are biological catalysts. The simplest model has the substrate S binding reversibly to the enzyme E to form a complex ES, which then releases product:",
+            {
+              "eq": "E + S ⇌ ES → E + P     (k₁, k₋₁, k_{cat})"
+            },
+            "Applying the steady-state approximation to ES gives the **Michaelis–Menten equation**:",
+            {
+              "eq": [
+                "v = V_{max}[S] / (K_{M} + [S])",
+                "V_{max} = k_{cat}[E]_{T}     K_{M} = (k₋₁ + k_{cat}) / k₁"
+              ]
+            },
+            "At low [S] (≪ K_{M}), v ≈ (V_{max}/K_{M})[S] and the reaction is first order in substrate. At high [S] (≫ K_{M}) every enzyme is occupied, v → V_{max}, and the reaction is zero order. The **Michaelis constant** K_{M} is the substrate concentration at which v = V_{max}/2. A small K_{M} indicates tight substrate binding. The turnover number k_{cat} is the number of substrate molecules converted per enzyme per second.",
+            "Taking reciprocals gives a straight line, the **Lineweaver–Burk** plot: 1/v = (K_{M}/V_{max})(1/[S]) + 1/V_{max}. Its intercepts on the vertical and horizontal axes are 1/V_{max} and −1/K_{M}.",
+            {
+              "example": {
+                "title": "Rate at a given substrate concentration",
+                "problem": "An enzyme has V_{max} = 50 μM s⁻¹ and K_{M} = 2.0 mM. Find the rate at [S] = 0.50 mM.",
+                "solution": [
+                  {
+                    "eq": "v = (50 μM s⁻¹)(0.50) / (2.0 + 0.50) = 10 μM s⁻¹"
+                  },
+                  "The substrate concentration is a quarter of K_{M}, so the enzyme runs at one fifth of V_{max}, in the first-order region."
+                ]
+              }
+            }
+          ]
+        }
       ],
-      "quiz": [
-        { "q": "What is the rate-determining step?", "a": "The slowest elementary step", "wrong": ["The first step", "The fastest elementary step", "The last step"] }
+      "check": [
+        {
+          "q": "What does a catalyst change?",
+          "a": "The activation energy of the pathway",
+          "wrong": [
+            "ΔH of the reaction",
+            "The equilibrium constant",
+            "The products formed"
+          ]
+        },
+        {
+          "q": "At [S] = K_{M} in the Michaelis–Menten equation, the rate is…",
+          "a": "V_{max} / 2",
+          "wrong": [
+            "V_{max}",
+            "V_{max} / 4",
+            "2 V_{max}"
+          ]
+        },
+        {
+          "q": "A catalytic converter uses Pt on a ceramic support. This is…",
+          "a": "Heterogeneous catalysis",
+          "wrong": [
+            "Homogeneous catalysis",
+            "Enzyme catalysis",
+            "Autocatalysis"
+          ]
+        }
       ]
+    }
+  ],
+  "summary": [
+    "Rate = −(1/a) d[A]/dt for aA + … Its units are M s⁻¹.",
+    "Rate laws and orders are found by experiment, usually by the method of initial rates. The units of k reveal the overall order.",
+    "First-order reactions have ln[A] linear in t and a constant half-life 0.693/k. Zero order is linear in [A]; second order is linear in 1/[A].",
+    "k = A e^{−E_{a}/RT}. A plot of ln k against 1/T has slope −E_{a}/R.",
+    "A mechanism is a set of elementary steps that sum to the overall equation and reproduce the observed rate law. The rate-determining step, a pre-equilibrium or the steady-state approximation lets you derive that rate law.",
+    "Catalysts lower the activation energy without changing K. Enzyme kinetics follows v = V_{max}[S]/(K_{M} + [S])."
+  ],
+  "problems": [
+    {
+      "q": "For 4NH₃ + 5O₂ → 4NO + 6H₂O, NH₃ is consumed at 0.24 M s⁻¹. Find the rates of consumption of O₂ and formation of H₂O.",
+      "solution": "The rate of reaction is 0.24/4 = 0.060 M s⁻¹. Then −d[O₂]/dt = 5(0.060) = 0.30 M s⁻¹ and d[H₂O]/dt = 6(0.060) = 0.36 M s⁻¹.",
+      "a": "O₂ is consumed at 0.30 M s⁻¹; H₂O forms at 0.36 M s⁻¹."
+    },
+    {
+      "q": [
+        "Initial-rate data for A + B + C → products:",
+        {
+          "table": {
+            "head": [
+              "Run",
+              "[A] (M)",
+              "[B] (M)",
+              "[C] (M)",
+              "Rate (M s⁻¹)"
+            ],
+            "rows": [
+              [
+                "1",
+                "0.10",
+                "0.10",
+                "0.10",
+                "2.0 × 10⁻³"
+              ],
+              [
+                "2",
+                "0.20",
+                "0.10",
+                "0.10",
+                "4.0 × 10⁻³"
+              ],
+              [
+                "3",
+                "0.10",
+                "0.30",
+                "0.10",
+                "1.8 × 10⁻²"
+              ],
+              [
+                "4",
+                "0.10",
+                "0.10",
+                "0.30",
+                "2.0 × 10⁻³"
+              ]
+            ]
+          }
+        },
+        "Find the rate law and k."
+      ],
+      "solution": "Runs 1→2: [A] doubles, rate doubles, so first order in A. Runs 1→3: [B] triples, rate rises ninefold, so second order in B. Runs 1→4: [C] triples, no change, so zero order in C. Then k = 2.0 × 10⁻³ / (0.10 × 0.10²) = 2.0 M⁻² s⁻¹.",
+      "a": "rate = k[A][B]², k = 2.0 M⁻² s⁻¹ (overall third order)."
+    },
+    {
+      "q": "A first-order radioactive sample has a half-life of 45 min. Find k, and the time for 90% of the sample to decay.",
+      "solution": "k = 0.693/45 min = 0.0154 min⁻¹. For 90% decay, [A]/[A]₀ = 0.10, so t = ln(10)/k = 2.303/0.0154 = 150 min.",
+      "a": "k = 0.0154 min⁻¹; t = 1.5 × 10² min (about 2.5 h)."
+    },
+    {
+      "q": "The rate constant of a reaction doubles when the temperature rises from 300 K to 310 K. Find E_{a}.",
+      "solution": "ln 2 = (E_{a}/R)(1/300 − 1/310) = (E_{a}/8.314)(1.075 × 10⁻⁴). So E_{a} = (0.693)(8.314)/(1.075 × 10⁻⁴) = 5.36 × 10⁴ J mol⁻¹.",
+      "a": "E_{a} ≈ 54 kJ mol⁻¹."
+    },
+    {
+      "q": "The decomposition 2O₃ → 3O₂ is proposed to occur by O₃ ⇌ O₂ + O (fast, equilibrium constant K) followed by O + O₃ → 2O₂ (slow, k₂). Derive the rate law.",
+      "solution": "The slow step gives rate = k₂[O][O₃]. From the fast equilibrium, K = [O₂][O]/[O₃], so [O] = K[O₃]/[O₂]. Substituting gives rate = k₂K[O₃]²/[O₂].",
+      "a": "rate = k₂K[O₃]²/[O₂]: second order in O₃ and inhibited by O₂."
+    },
+    {
+      "q": "An enzyme has V_{max} = 100 μM s⁻¹ and K_{M} = 5.0 mM. What substrate concentration gives v = 80 μM s⁻¹?",
+      "solution": "v/V_{max} = 0.80 = [S]/(K_{M} + [S]). So [S] = 0.80 K_{M} + 0.80[S], giving 0.20[S] = 0.80 K_{M} and [S] = 4 K_{M}.",
+      "a": "[S] = 20 mM."
     }
   ]
 }

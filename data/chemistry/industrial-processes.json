@@ -1,7 +1,7 @@
 {
+  "id": "industrial",
   "title": "Industrial Processes",
   "description": "The large-scale chemical processes that make fertilizer, acids, metals and the other materials modern life depends on.",
-  "category": ["Chemistry", "Industrial Processes"],
   "view": "articles",
   "entries": [
     {

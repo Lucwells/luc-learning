@@ -1,0 +1,525 @@
+{
+  "id": "alcohols-ethers",
+  "view": "chapter",
+  "title": "Alcohols, Ethers, Epoxides and Organometallics",
+  "description": "Interconversion of oxygen functional groups, epoxide ring opening, and carbon–carbon bond formation with Grignard and organolithium reagents.",
+  "overview": [
+    "Alcohols are the hub of functional-group chemistry. They are made from alkenes and carbonyl compounds, converted to halides and sulfonates for substitution and elimination, oxidized to aldehydes, ketones and acids, and dehydrated to alkenes. Ethers and epoxides are the relatives that share the C–O single bond. Organometallic reagents reverse the polarity of carbon and let us build new carbon skeletons, which is what makes synthesis possible.",
+    "This chapter covers the properties of alcohols, the ways to turn OH into a leaving group, oxidation, ethers and epoxides (including the regiochemistry of ring opening), and Grignard, organolithium and cuprate reagents."
+  ],
+  "objectives": [
+    "Classify alcohols and explain their physical properties and acidity.",
+    "Convert alcohols to alkyl halides and sulfonates, with the stereochemistry of each method.",
+    "Choose the oxidant that gives an aldehyde, ketone or carboxylic acid.",
+    "Cleave ethers, and predict the regiochemistry of epoxide opening under acidic and basic conditions.",
+    "Prepare and use Grignard, organolithium and Gilman reagents, and plan alcohol syntheses from carbonyl compounds."
+  ],
+  "sections": [
+    {
+      "id": "alcohols",
+      "title": "Alcohols: properties and preparation",
+      "terms": [
+        "alcohol",
+        "alcohols",
+        "primary alcohol",
+        "secondary alcohol",
+        "tertiary alcohol",
+        "hydroxyl group",
+        "phenol",
+        "phenols"
+      ],
+      "body": [
+        "An **alcohol** has an OH group on an sp³ carbon. It is **primary**, **secondary** or **tertiary** according to the number of carbons on the carbinol carbon (one, two or three). The OH is polar and forms hydrogen bonds, so alcohols boil far higher than alkanes or ethers of similar mass and dissolve in water if small (methanol, ethanol, propanols are miscible). Alcohols are weak acids (pK_a 16–18, tertiary less acidic than methanol because bulky alkyl groups hinder solvation of the alkoxide) and weak bases (the conjugate acid, ROH₂⁺, has pK_a about −2). **Phenols**, with OH on an aromatic ring, are far more acidic (pK_a 10).",
+        "Alcohols can be made in many ways. The main routes are:",
+        {
+          "table": {
+            "head": [
+              "From",
+              "Reagent",
+              "Product"
+            ],
+            "rows": [
+              [
+                "Alkene",
+                "H₃O⁺; or Hg(OAc)₂/H₂O then NaBH₄",
+                "Markovnikov alcohol"
+              ],
+              [
+                "Alkene",
+                "BH₃ then H₂O₂/NaOH",
+                "Anti-Markovnikov alcohol"
+              ],
+              [
+                "Aldehyde or ketone",
+                "NaBH₄ or LiAlH₄",
+                "Primary or secondary alcohol"
+              ],
+              [
+                "Ester or acid",
+                "LiAlH₄",
+                "Primary alcohol"
+              ],
+              [
+                "Aldehyde or ketone",
+                "R–MgX or R–Li",
+                "Secondary or tertiary alcohol"
+              ],
+              [
+                "Alkyl halide",
+                "HO⁻ (SN2)",
+                "Alcohol"
+              ]
+            ],
+            "caption": "Common syntheses of alcohols."
+          }
+        },
+        "Carbonyl reduction is the most general. NaBH₄ in ethanol or methanol is mild and reduces aldehydes and ketones, but not esters or acids. LiAlH₄ in ether (followed by a careful aqueous workup) is much stronger and reduces all carbonyl groups, and it reacts violently with water."
+      ],
+      "check": [
+        {
+          "q": "Which reagent reduces an ester to a primary alcohol?",
+          "a": "LiAlH₄",
+          "wrong": [
+            "NaBH₄",
+            "H₂O",
+            "PCC"
+          ]
+        },
+        {
+          "q": "Why is phenol more acidic than cyclohexanol?",
+          "a": "The phenoxide ion is resonance-stabilized by the ring",
+          "wrong": [
+            "Phenol has a weaker O–H bond because of sp³ carbon",
+            "Phenol is a stronger Lewis base",
+            "Cyclohexanol is aromatic"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "leaving-groups",
+      "title": "Converting OH into a leaving group",
+      "terms": [
+        "tosylate",
+        "tosylates",
+        "mesylate",
+        "mesylates",
+        "sulfonate ester",
+        "tosyl chloride",
+        "thionyl chloride",
+        "Mitsunobu reaction",
+        "Lucas test",
+        "phosphorus tribromide",
+        "PBr3",
+        "SOCl2",
+        "Lucas reagent"
+      ],
+      "body": [
+        "Hydroxide is a poor leaving group, so alcohols must be activated before they can be replaced.",
+        {
+          "list": [
+            "**With HX.** Tertiary alcohols react with HCl or HBr by SN1 and secondary alcohols more slowly, and primary alcohols by SN2 with HBr or HI. Rearrangements are possible for SN1. The **Lucas test** distinguishes alcohol classes: ZnCl₂/conc. HCl turns a tertiary alcohol cloudy at once (insoluble R–Cl), a secondary alcohol in about 5 minutes, and a primary alcohol not at all at room temperature.",
+            "**With SOCl₂ or PBr₃.** **Thionyl chloride** (with pyridine) converts primary and secondary alcohols to chlorides, and PBr₃ gives bromides. Both proceed by SN2, with **inversion** and without rearrangement, and the by-products (SO₂, HCl) are gases.",
+            "**Sulfonate esters.** An alcohol treated with a sulfonyl chloride (TsCl, MsCl) and pyridine gives a **tosylate** or **mesylate**, a leaving group as good as bromide. The C–O bond is never broken, so the configuration of the carbon is **retained** during sulfonate formation. Subsequent SN2 with a nucleophile then inverts it.",
+            "**Mitsunobu reaction.** An alcohol, PPh₃ and DEAD (diethyl azodicarboxylate) activate the oxygen in situ, and an acidic pronucleophile (a carboxylic acid, phenol or imide) displaces it by SN2 with inversion. It converts a secondary alcohol to the inverted ester, azide or ether in one pot."
+          ]
+        },
+        {
+          "example": {
+            "title": "Stereochemistry through the sulfonate",
+            "problem": "(R)-2-Octanol is treated with TsCl/pyridine and then with NaCN. Give the product configuration.",
+            "solution": "TsCl converts the alcohol to the (R)-tosylate with retention. Cyanide displaces tosylate by SN2 with inversion, giving (S)-2-methyloctanenitrile. The overall change from alcohol to nitrile is therefore one inversion."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "SOCl₂ with pyridine converts a secondary alcohol to a chloride with…",
+          "a": "Inversion of configuration",
+          "wrong": [
+            "Retention of configuration",
+            "Racemization",
+            "Rearrangement of the carbon skeleton"
+          ]
+        },
+        {
+          "q": "What does the Lucas reagent distinguish?",
+          "a": "Primary, secondary and tertiary alcohols",
+          "wrong": [
+            "Aldehydes and ketones",
+            "Alkenes and alkynes",
+            "Esters and amides"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "oxidation",
+      "title": "Oxidation of alcohols",
+      "terms": [
+        "oxidation of alcohols",
+        "Jones oxidation",
+        "Jones reagent",
+        "PCC",
+        "pyridinium chlorochromate",
+        "Swern oxidation",
+        "Dess–Martin periodinane",
+        "Dess-Martin periodinane",
+        "chromic acid",
+        "chromate ester",
+        "pinacol",
+        "periodate cleavage",
+        "diol cleavage"
+      ],
+      "body": [
+        "Oxidizing an alcohol removes the carbinol hydrogen along with the O–H hydrogen (net loss of two H, or addition of an O). A **primary** alcohol gives an aldehyde, which can go on to a carboxylic acid. A **secondary** alcohol gives a ketone. A **tertiary** alcohol has no carbinol hydrogen and is not oxidized.",
+        {
+          "table": {
+            "head": [
+              "Reagent",
+              "Primary alcohol gives",
+              "Secondary alcohol gives",
+              "Notes"
+            ],
+            "rows": [
+              [
+                "CrO₃, H₂SO₄, acetone (**Jones**) or Na₂Cr₂O₇, H₂SO₄",
+                "Carboxylic acid",
+                "Ketone",
+                "Aqueous acid: aldehyde hydrates and is further oxidized. Orange Cr(VI) turns green Cr(III)."
+              ],
+              [
+                "**PCC** (pyridinium chlorochromate), CH₂Cl₂",
+                "Aldehyde",
+                "Ketone",
+                "Anhydrous, stops at the aldehyde"
+              ],
+              [
+                "**Swern**: (COCl)₂, DMSO, then Et₃N, −78 °C",
+                "Aldehyde",
+                "Ketone",
+                "Chromium-free, mild"
+              ],
+              [
+                "**Dess–Martin periodinane**",
+                "Aldehyde",
+                "Ketone",
+                "Chromium-free, mild, room temperature"
+              ]
+            ],
+            "caption": "Alcohol oxidations."
+          }
+        },
+        "With chromium(VI), the alcohol forms a chromate ester, and loss of the carbinol hydrogen by E2-like elimination expels Cr(IV). In water, an aldehyde adds water to form a hydrate, which oxidizes again; without water (PCC in CH₂Cl₂), the oxidation stops at the aldehyde. Chromium reagents are toxic, which is why the Swern and Dess–Martin methods are preferred in modern synthesis.",
+        {
+          "h": "Diols"
+        },
+        "**Pinacol** (2,3-dimethylbutane-2,3-diol) is the model vicinal diol. In acid it rearranges to pinacolone (3,3-dimethylbutan-2-one) by loss of water to a cation and a methyl shift. Periodic acid (HIO₄ or NaIO₄) cleaves a 1,2-diol between the carbinol carbons to give two carbonyl compounds, a reaction used to analyze sugars."
+      ],
+      "check": [
+        {
+          "q": "Which reagent oxidizes a primary alcohol to an aldehyde and no further?",
+          "a": "PCC in CH₂Cl₂",
+          "wrong": [
+            "Na₂Cr₂O₇, H₂SO₄, H₂O",
+            "KMnO₄, heat",
+            "LiAlH₄"
+          ]
+        },
+        {
+          "q": "A tertiary alcohol treated with chromic acid gives…",
+          "a": "No oxidation",
+          "wrong": [
+            "A ketone",
+            "An aldehyde",
+            "A carboxylic acid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ethers",
+      "title": "Ethers",
+      "terms": [
+        "ether",
+        "ethers",
+        "diethyl ether",
+        "tetrahydrofuran",
+        "THF",
+        "dioxane",
+        "crown ether",
+        "crown ethers",
+        "ether cleavage",
+        "ether peroxide",
+        "alkoxy"
+      ],
+      "body": [
+        "An **ether** has an oxygen bonded to two carbons, R–O–R′. Ethers cannot hydrogen-bond to each other, so their boiling points are low (diethyl ether 35 °C), but their oxygen lone pairs accept hydrogen bonds, so they dissolve in water to some extent. They are inert to bases, nucleophiles, mild oxidants and reducing agents, which makes them ideal solvents: **diethyl ether**, **tetrahydrofuran (THF)** and dioxane. They also solvate cations by coordination, which is how they stabilize Grignard reagents.",
+        "Ethers are made by the Williamson synthesis (alkoxide plus primary alkyl halide) or by acid-catalyzed dehydration of two molecules of a primary alcohol, or by alkoxymercuration of an alkene. Their one useful reaction is **cleavage** by strong acids, HBr or HI: protonation of the oxygen, then SN2 attack by halide on the less hindered carbon (or SN1 for tertiary). Excess HI converts both halves to iodides.",
+        "Ethers that stand in air form explosive hydroperoxides by autoxidation (see the chapter on alkenes), so old bottles of diethyl ether and THF can be dangerous. **Crown ethers** are cyclic polyethers (18-crown-6) whose cavity binds a cation, K⁺ for 18-crown-6. They carry salts into organic solvents, leaving the anion bare and highly nucleophilic. Pedersen, Cram and Lehn shared the 1987 Nobel Prize in Chemistry for host–guest chemistry."
+      ],
+      "check": [
+        {
+          "q": "Why are ethers good solvents for Grignard reagents?",
+          "a": "Their oxygen lone pairs coordinate to magnesium, and they have no acidic hydrogens",
+          "wrong": [
+            "They react with the Grignard reagent",
+            "They are acidic",
+            "They hydrogen bond to carbon"
+          ]
+        },
+        {
+          "q": "What is formed by cleaving ethyl methyl ether with excess HI?",
+          "a": "Iodomethane and iodoethane",
+          "wrong": [
+            "Methanol and ethanol",
+            "Ethene and methane",
+            "No reaction"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "epoxides",
+      "title": "Epoxides",
+      "terms": [
+        "epoxide",
+        "epoxides",
+        "oxirane",
+        "ring opening of epoxides",
+        "epoxide ring opening",
+        "ethylene oxide",
+        "trans-diol"
+      ],
+      "body": [
+        "An **epoxide** (oxirane) is a three-membered ring ether. Its 60° angles give about 115 kJ mol⁻¹ of ring strain, so, unlike other ethers, epoxides react readily with nucleophiles in ring opening. They are made by peroxyacid oxidation of alkenes (see the alkene chapter), or by treating a halohydrin with base (an intramolecular SN2). Ethylene oxide is made industrially by silver-catalyzed air oxidation of ethene, and converted to ethylene glycol (antifreeze, polyester) and to surfactants.",
+        "Ring opening follows two patterns, with opposite regiochemistry for an unsymmetrical epoxide:",
+        {
+          "table": {
+            "head": [
+              "Conditions",
+              "Mechanism",
+              "Nucleophile attacks",
+              "Example with propylene oxide"
+            ],
+            "rows": [
+              [
+                "Basic or neutral: RO⁻, HO⁻, RMgX, LiAlH₄, NH₃, CN⁻",
+                "SN2 with relief of strain",
+                "The less hindered carbon",
+                "NaOCH₃, CH₃OH gives 1-methoxypropan-2-ol"
+              ],
+              [
+                "Acidic: H₂O/H⁺, ROH/H⁺, HX",
+                "Protonated epoxide; SN1-like with SN2 geometry",
+                "The more substituted carbon (more cationic character)",
+                "CH₃OH, H⁺ gives 2-methoxypropan-1-ol"
+              ]
+            ],
+            "caption": "Regiochemistry of epoxide opening."
+          }
+        },
+        "In both cases the attack is from the back side, so the product has **anti** stereochemistry: opening a cyclohexene oxide with hydroxide or water gives a trans-1,2-diol. Epoxide opening by a Grignard reagent is a valuable two-carbon chain extension: R–MgBr + ethylene oxide gives R–CH₂CH₂–OH after workup.",
+        {
+          "example": {
+            "title": "Opening an unsymmetrical epoxide",
+            "problem": "Give the product of 2,2-dimethyloxirane with (a) CH₃O⁻/CH₃OH and (b) CH₃OH/H₂SO₄.",
+            "solution": [
+              "(a) Base: SN2 at the less hindered CH₂ carbon, giving (CH₃)₂C(OH)CH₂OCH₃ (1-methoxy-2-methylpropan-2-ol).",
+              "(b) Acid: the more substituted (tertiary) carbon bears more positive charge, so methanol attacks there, giving (CH₃)₂C(OCH₃)CH₂OH (2-methoxy-2-methylpropan-1-ol)."
+            ]
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Sodium methoxide opens propylene oxide at…",
+          "a": "The less substituted carbon",
+          "wrong": [
+            "The more substituted carbon",
+            "Both equally",
+            "The oxygen"
+          ]
+        },
+        {
+          "q": "Acid-catalyzed hydrolysis of cyclohexene oxide gives…",
+          "a": "trans-Cyclohexane-1,2-diol",
+          "wrong": [
+            "cis-Cyclohexane-1,2-diol",
+            "Cyclohexanol",
+            "Cyclohexanone"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "organometallics",
+      "title": "Grignard, organolithium and organocuprate reagents",
+      "terms": [
+        "Grignard reagent",
+        "Grignard reagents",
+        "Grignard reaction",
+        "organolithium",
+        "organolithium reagents",
+        "Gilman reagent",
+        "Gilman reagents",
+        "organocuprate",
+        "organocuprates",
+        "organometallic reagents",
+        "n-butyllithium",
+        "carbanion equivalent",
+        "umpolung of carbon"
+      ],
+      "body": [
+        "Carbon is normally electrophilic when bonded to a heteroatom. **Organometallic reagents** make it a nucleophile. A **Grignard reagent** forms when an alkyl or aryl halide reacts with magnesium metal in ether: R–Br + Mg → R–MgBr. An **organolithium** forms from R–X and 2 Li (or by deprotonation; n-butyllithium is a common base and nucleophile). The C–metal bond is highly polarized, so the carbon behaves like a **carbanion**, and these reagents are strong bases (conjugate acid pK_a about 50) and strong nucleophiles.",
+        {
+          "warn": "Grignard and organolithium reagents are destroyed by any acidic hydrogen: water, alcohols, amines, terminal alkynes, carboxylic acids. They must be prepared and used in dry ether or THF under an inert atmosphere, and a substrate may not carry an O–H or N–H group (unless it is protected)."
+        },
+        {
+          "h": "Reactions with electrophiles"
+        },
+        {
+          "table": {
+            "head": [
+              "Electrophile",
+              "Product (after H₃O⁺ workup)"
+            ],
+            "rows": [
+              [
+                "Formaldehyde, H₂C=O",
+                "Primary alcohol (R–CH₂OH)"
+              ],
+              [
+                "Aldehyde R′CHO",
+                "Secondary alcohol"
+              ],
+              [
+                "Ketone R′₂C=O",
+                "Tertiary alcohol"
+              ],
+              [
+                "Ester R′COOR″ (2 equiv.)",
+                "Tertiary alcohol with two identical R groups"
+              ],
+              [
+                "CO₂ (dry ice)",
+                "Carboxylic acid (one more carbon)"
+              ],
+              [
+                "Epoxide",
+                "Alcohol, two carbons added"
+              ],
+              [
+                "Nitrile R′C≡N",
+                "Ketone (via imine)"
+              ]
+            ],
+            "caption": "Products of Grignard reagents with electrophiles."
+          }
+        },
+        "Esters react twice: the first addition expels alkoxide to give a ketone, which is more reactive than the ester and adds a second equivalent. To stop at a ketone from an acid derivative, a less reactive reagent is needed.",
+        {
+          "h": "Gilman reagents"
+        },
+        "**Organocuprates** (Gilman reagents, R₂CuLi) are made from two equivalents of RLi and CuI. They are softer, less basic nucleophiles. They couple with alkyl, vinyl and aryl halides (R₂CuLi + R′–X → R–R′), convert acid chlorides into ketones (they stop after one addition), and add in a conjugate (1,4) fashion to α,β-unsaturated ketones, whereas Grignard reagents usually add directly to the carbonyl (1,2).",
+        {
+          "example": {
+            "title": "Planning an alcohol synthesis",
+            "problem": "Show two ways to make 2-phenylpropan-2-ol, PhC(CH₃)₂OH, from a Grignard reagent.",
+            "solution": [
+              "The target is a tertiary alcohol with three different disconnection points: each of the three groups can be the Grignard carbon.",
+              "(1) PhMgBr + acetone. (2) CH₃MgBr + acetophenone. (3) CH₃MgBr (2 equiv.) + methyl benzoate."
+            ]
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "What is the product of CH₃MgBr with cyclohexanone, after workup?",
+          "a": "1-Methylcyclohexanol",
+          "wrong": [
+            "Cyclohexanol",
+            "Methylcyclohexane",
+            "2-Methylcyclohexanone"
+          ]
+        },
+        {
+          "q": "Why can’t a Grignard reagent be prepared from 4-bromobutan-1-ol?",
+          "a": "The O–H would protonate the reagent as it forms",
+          "wrong": [
+            "The bromide is too unreactive",
+            "Mg does not react with alcohols",
+            "The alcohol would be oxidized"
+          ]
+        },
+        {
+          "q": "A Grignard reagent reacts with CO₂ to give…",
+          "a": "A carboxylic acid with one more carbon",
+          "wrong": [
+            "An aldehyde",
+            "A ketone",
+            "An alcohol"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sulfur",
+      "title": "Thiols and sulfides",
+      "terms": [
+        "thiols",
+        "mercaptan",
+        "sulfide",
+        "sulfides",
+        "thioether",
+        "disulfide",
+        "disulfide bond",
+        "sulfoxide",
+        "sulfone"
+      ],
+      "body": [
+        "Sulfur lies below oxygen, and its compounds are analogues with different behavior. A **thiol** (R–SH) is more acidic than an alcohol (pK_a 10 against 16–18), and its conjugate base, the thiolate, is an excellent nucleophile and poor base, so thiolates give clean SN2 reactions with alkyl halides to form **sulfides** (thioethers). Thiols smell strongly (skunks, garlic, the odorant added to natural gas). Mild oxidation joins two thiols as a **disulfide**, R–S–S–R, and the reverse is a reduction. This S–S bond cross-links protein chains between cysteine residues, as in hair, and is why perming hair involves reduction and re-oxidation. Sulfides oxidize to **sulfoxides** (DMSO) and then **sulfones**."
+      ],
+      "check": [
+        {
+          "q": "What does mild oxidation of a thiol give?",
+          "a": "A disulfide",
+          "wrong": [
+            "A sulfone",
+            "An alcohol",
+            "A sulfide"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Alcohols come from alkene hydration, carbonyl reduction and Grignard additions. They are 1°, 2° or 3°, and phenols are much more acidic.",
+    "OH is made a leaving group through HX, SOCl₂ or PBr₃ (inversion), tosylation (retention, then SN2 inversion) or the Mitsunobu reaction (inversion).",
+    "Jones oxidation takes primary alcohols to acids, and PCC, Swern and Dess–Martin stop at aldehydes. Secondary alcohols give ketones.",
+    "Ethers are inert solvents, cleaved by HBr or HI. Epoxides open at the less hindered carbon with bases and at the more substituted carbon with acids, always anti.",
+    "Grignard and organolithium reagents are carbon nucleophiles and strong bases. They add to carbonyls and epoxides and require dry, aprotic conditions. Gilman reagents are softer and add 1,4."
+  ],
+  "problems": [
+    {
+      "q": "Give a synthesis of 3-methylhexan-3-ol from alkyl halides and carbonyl compounds, using any ketone, with a Grignard reagent.",
+      "solution": "3-Methylhexan-3-ol is CH₃CH₂C(OH)(CH₃)CH₂CH₂CH₃. Disconnecting any one of the three C–C bonds to the carbinol carbon gives a Grignard reagent and a ketone: (1) CH₃MgBr + hexan-3-one; (2) CH₃CH₂MgBr + pentan-2-one; (3) CH₃CH₂CH₂MgBr + butan-2-one.",
+      "a": "Any of the three ketone–Grignard combinations."
+    },
+    {
+      "q": "Predict the products: (a) (S)-butan-2-ol + SOCl₂/pyridine; (b) cyclohexylmethanol + PCC; (c) cyclohexylmethanol + Na₂Cr₂O₇/H₂SO₄/H₂O; (d) ethylene oxide + PhMgBr then H₃O⁺.",
+      "solution": "(a) (R)-2-chlorobutane (inversion). (b) Cyclohexanecarbaldehyde. (c) Cyclohexanecarboxylic acid. (d) 2-Phenylethanol.",
+      "a": "(a) (R)-2-chlorobutane; (b) aldehyde; (c) acid; (d) 2-phenylethanol."
+    },
+    {
+      "q": "Explain the opposite regiochemistry of the reactions of methyloxirane with CH₃O⁻ and with CH₃OH/H⁺.",
+      "solution": "Methoxide attacks in an SN2 step, so it goes to the less hindered CH₂. Under acid the epoxide oxygen is protonated and the C–O bond to the more substituted carbon is weakened, so that carbon bears partial positive charge and is attacked by the weak nucleophile methanol.",
+      "a": "SN2 steric control (base) versus carbocation-like electronic control (acid)."
+    },
+    {
+      "q": "Show the retrosynthesis and forward synthesis of butanoic acid from 1-bromopropane.",
+      "solution": "CH₃CH₂CH₂Br + Mg in ether gives CH₃CH₂CH₂MgBr. Add CO₂ (dry ice), then H₃O⁺: CH₃CH₂CH₂COOH.",
+      "a": "Mg, ether; CO₂; H₃O⁺."
+    }
+  ]
+}

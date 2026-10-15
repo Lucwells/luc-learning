@@ -1,0 +1,222 @@
+{
+  "id": "matter-measurement",
+  "view": "chapter",
+  "title": "Matter and Measurement",
+  "description": "How matter is classified, how its states change, and how to measure and calculate with it.",
+  "overview": [
+    "Chemistry is the study of matter and the changes it undergoes. Before atoms and bonds, we need a shared vocabulary for what matter is, and a shared way of measuring it. Every later chapter relies on both: a quantity without units, or a result with the wrong number of digits, is not a chemical result.",
+    "This chapter classifies matter, describes its three common states and the transitions between them, and sets out the measurement skills used throughout the book: SI units, significant figures, dimensional analysis and temperature scales."
+  ],
+  "objectives": [
+    "Classify a sample as an element, compound, homogeneous mixture or heterogeneous mixture.",
+    "Distinguish physical from chemical properties and changes.",
+    "Describe solids, liquids and gases at the particle level, and name each phase change.",
+    "Use SI units and prefixes, and calculate density.",
+    "Report calculated results with the correct number of significant figures.",
+    "Convert between units by dimensional analysis, and between Celsius, Kelvin and Fahrenheit."
+  ],
+  "sections": [
+    {
+      "id": "classifying",
+      "title": "Classifying matter",
+      "terms": ["matter", "pure substance", "mixture", "homogeneous mixture", "heterogeneous mixture", "solution", "physical change", "chemical change", "physical property", "chemical property"],
+      "body": [
+        "**Matter** is anything that has mass and occupies space. Matter is classified by whether its composition is fixed and whether it can be separated by physical means.",
+        { "list": [
+          "A **pure substance** has a fixed composition and distinct properties. An **element** is a pure substance that cannot be broken into simpler substances by chemical means (iron, oxygen). A **compound** consists of two or more elements combined in a fixed ratio (water, H₂O, is always 11.19% hydrogen by mass).",
+          "A **mixture** is a physical combination of substances in variable proportions. A **homogeneous mixture** (a solution) is uniform throughout, like salt water or air. A **heterogeneous mixture** has visibly distinct regions, like granite or oil and water."
+        ] },
+        "Mixtures can be separated by physical methods that exploit differences in properties: filtration separates a solid from a liquid, distillation separates liquids by boiling point, and chromatography separates components by how strongly they stick to a surface. Compounds can be broken down only by chemical reactions.",
+        { "h": "Physical and chemical change" },
+        "A **physical property** can be measured without changing the identity of the substance: melting point, density, color, conductivity. A **chemical property** describes how a substance changes into another: flammability, or the tendency to rust. In a **physical change**, such as melting ice or dissolving sugar, the substance is the same before and after. In a **chemical change** (a reaction), new substances form. Signs of a chemical change include gas evolution, a precipitate, a color change not caused by dilution, and heat or light given off.",
+        { "warn": "Dissolving and melting are physical changes, even though the material seems to vanish or flow. Salt in water is still sodium chloride, and you can recover it by evaporating the water." }
+      ],
+      "check": [
+        { "q": "Air is best classified as…", "a": "A homogeneous mixture", "wrong": ["A compound", "An element", "A heterogeneous mixture"] },
+        { "q": "Which is a chemical change?", "a": "Iron rusting", "wrong": ["Ice melting", "Sugar dissolving in water", "Water boiling"] }
+      ]
+    },
+    {
+      "id": "states",
+      "title": "States of matter and phase changes",
+      "terms": ["states of matter", "phase change", "phase changes", "sublimation", "sublimes", "sublimate", "deposition", "melting point", "boiling point", "evaporation"],
+      "body": [
+        "The three common **states of matter** differ in how freely their particles move, which in turn depends on how strongly the particles attract one another compared with their thermal energy.",
+        { "table": {
+          "head": ["State", "Particles", "Shape and volume", "Compressibility"],
+          "rows": [
+            ["Solid", "Close together, fixed positions, vibrating", "Definite shape and volume", "Very low"],
+            ["Liquid", "Close together, free to slide past one another", "Takes the shape of the container, definite volume", "Very low"],
+            ["Gas", "Far apart, moving rapidly and randomly", "Fills the container", "High"]
+          ],
+          "caption": "The three common states of matter."
+        } },
+        "A fourth state, **plasma**, is a gas in which many atoms are ionized. It makes up stars and lightning, and it is also what glows in a neon sign or a fluorescent lamp.",
+        { "h": "Phase changes" },
+        "A **phase change** moves a substance from one state to another with no change in chemical composition. Melting and freezing connect solid and liquid; vaporization and condensation connect liquid and gas; **sublimation** (solid directly to gas) and **deposition** (gas directly to solid) skip the liquid. Dry ice, solid CO₂, sublimes at −78.5 °C and 1 atm, and frost forms by deposition. Evaporation is vaporization from a liquid surface at any temperature; boiling is vaporization throughout the liquid at the temperature where vapor pressure equals the external pressure.",
+        { "svg": "<svg viewBox='0 0 460 270' role='img' aria-label='Heating curve of water' font-family='system-ui, sans-serif' font-size='12'><g fill='none' stroke='currentColor' stroke-width='1.5'><path d='M50,20 V230 H440'/></g><path fill='none' style='stroke:var(--accent)' stroke-width='2.5' d='M60,210 L110,170 L190,170 L270,70 L380,70 L420,30'/><g fill='currentColor'><text x='56' y='14'>temperature</text><text x='440' y='250' text-anchor='end'>heat added</text><text x='78' y='196' transform='rotate(-48 78 196)'>ice</text><text x='150' y='162' text-anchor='middle'>melting</text><text x='215' y='140'>liquid water</text><text x='325' y='62' text-anchor='middle'>boiling</text><text x='402' y='56'>steam</text><text x='44' y='174' text-anchor='end'>0 °C</text><text x='44' y='74' text-anchor='end'>100 °C</text></g></svg>", "caption": "Heating curve of water at 1 atm. Temperature is constant while a phase change is under way, because the added heat goes into overcoming attractions between molecules, not into raising their kinetic energy." },
+        "Heat absorbed during melting is the enthalpy of fusion, and during vaporization the enthalpy of vaporization. For water, melting 1 mol of ice takes 6.01 kJ, but vaporizing 1 mol takes 40.7 kJ: boiling must separate the molecules completely, while melting only loosens them."
+      ],
+      "check": [
+        { "q": "What is the name for a solid turning directly into a gas?", "a": "Sublimation", "wrong": ["Deposition", "Evaporation", "Condensation"] },
+        { "q": "While ice melts at 0 °C, adding heat…", "a": "Does not change the temperature until all the ice has melted", "wrong": ["Raises the temperature steadily", "Lowers the temperature", "Changes the water into hydrogen and oxygen"] }
+      ]
+    },
+    {
+      "id": "units",
+      "title": "Units and measurement",
+      "terms": ["SI units", "SI", "density", "metric prefixes", "base units", "derived units"],
+      "body": [
+        "A measurement is a number and a unit. Science uses the International System of Units (**SI**), built on seven base units. Four matter most in chemistry.",
+        { "table": {
+          "head": ["Quantity", "Unit", "Symbol"],
+          "rows": [["Length", "meter", "m"], ["Mass", "kilogram", "kg"], ["Time", "second", "s"], ["Temperature", "kelvin", "K"], ["Amount of substance", "mole", "mol"], ["Electric current", "ampere", "A"], ["Luminous intensity", "candela", "cd"]],
+          "caption": "The SI base units."
+        } },
+        "**Derived units** combine base units: the newton (kg m s⁻²) for force, the pascal (N m⁻², Pa) for pressure and the joule (N m, J) for energy. Chemists also use the liter (1 L = 1 dm³ = 1000 cm³) and milliliter (1 mL = 1 cm³). Prefixes scale a unit by powers of ten:",
+        { "table": {
+          "head": ["Prefix", "Symbol", "Factor", "Prefix", "Symbol", "Factor"],
+          "rows": [["giga", "G", "10⁹", "centi", "c", "10⁻²"], ["mega", "M", "10⁶", "milli", "m", "10⁻³"], ["kilo", "k", "10³", "micro", "μ", "10⁻⁶"], ["deci", "d", "10⁻¹", "nano", "n", "10⁻⁹"], ["", "", "", "pico", "p", "10⁻¹²"]]
+        } },
+        { "h": "Density" },
+        "**Density** is mass per unit volume, ρ = m/V. It is an intensive property: it does not depend on how much of the substance there is. Density is used to identify substances and to convert between mass and volume.",
+        { "example": {
+          "title": "Density from measurements",
+          "problem": "A metal cube measures 2.50 cm on each edge and has a mass of 140.0 g. Find its density.",
+          "solution": [
+            "V = (2.50 cm)³ = 15.6 cm³.",
+            { "eq": "ρ = m/V = 140.0 g / 15.625 cm³ = 8.96 g cm⁻³" },
+            "This matches copper. The result has three significant figures, because the edge length has three."
+          ]
+        } },
+        { "note": "Since 2019 the SI defines every unit from fixed physical constants. The mole is defined by fixing Avogadro’s constant, N_{A} = 6.02214076 × 10²³ mol⁻¹, and the kilogram by fixing Planck’s constant." }
+      ],
+      "check": [
+        { "q": "How many cm³ are in 1 L?", "a": "1000", "wrong": ["10", "100", "1,000,000"] },
+        { "q": "A 25.0 mL sample of a liquid has mass 19.7 g. What is its density?", "a": "0.788 g/mL", "wrong": ["1.27 g/mL", "0.0788 g/mL", "493 g/mL"], "why": "19.7 g / 25.0 mL = 0.788 g/mL." }
+      ]
+    },
+    {
+      "id": "sig-figs",
+      "title": "Uncertainty and significant figures",
+      "terms": ["significant figures", "significant digits", "accuracy", "precision", "scientific notation", "rounding"],
+      "body": [
+        "Every measurement has uncertainty. **Accuracy** is how close a result is to the true value. **Precision** is how closely repeated measurements agree with one another. A scale that always reads 0.5 g too high is precise but not accurate.",
+        "The **significant figures** of a number are the digits known reliably plus one estimated digit. The rules for counting them:",
+        { "list": [
+          "Nonzero digits are significant.",
+          "Zeros between nonzero digits are significant (1002 has four).",
+          "Leading zeros are not (0.0045 has two).",
+          "Trailing zeros after a decimal point are significant (2.500 has four).",
+          "Trailing zeros in a number with no decimal point are ambiguous; scientific notation removes the ambiguity (1.20 × 10³ has three).",
+          "Exact numbers, such as counted items and defined conversions (100 cm = 1 m), have unlimited significant figures."
+        ], "ordered": false },
+        { "h": "Calculating with significant figures" },
+        { "list": [
+          "**Multiplication and division:** the result has as many significant figures as the factor with the fewest.",
+          "**Addition and subtraction:** the result has as many decimal places as the term with the fewest decimal places.",
+          "Round only at the end. Carry one or two extra digits through intermediate steps."
+        ] },
+        { "example": {
+          "title": "Sig figs in practice",
+          "problem": "Evaluate (a) 12.11 + 0.3 + 23.456 and (b) 4.56 × 1.4 and (c) (6.75 − 6.20) × 3.142.",
+          "solution": [
+            "(a) The sum is 35.866. The term 0.3 has one decimal place, so the answer is **35.9**.",
+            "(b) The product is 6.384. The factor 1.4 has two significant figures, so the answer is **6.4**.",
+            "(c) First the subtraction: 6.75 − 6.20 = 0.55, which has two decimal places and two significant figures. Then 0.55 × 3.142 = 1.728, rounded to two significant figures: **1.7**."
+          ]
+        } },
+        { "warn": "The count of significant figures is not the same as the number of decimal places. 0.00520 has three significant figures and five decimal places." }
+      ],
+      "check": [
+        { "q": "How many significant figures are in 0.004050?", "a": "4", "wrong": ["3", "5", "7"] },
+        { "q": "What is 3.46 × 2.1, to the correct number of significant figures?", "a": "7.3", "wrong": ["7.27", "7.266", "7"], "why": "The product is 7.266. The factor 2.1 has two significant figures." }
+      ]
+    },
+    {
+      "id": "dimensional",
+      "title": "Dimensional analysis",
+      "terms": ["dimensional analysis", "conversion factor", "unit conversion", "factor-label method"],
+      "body": [
+        "**Dimensional analysis** converts between units by multiplying by conversion factors, each equal to 1. Arrange each factor so that the unit to be removed appears in the opposite position (numerator against denominator), and the units cancel like algebraic symbols. If the units do not work out to the desired unit, the setup is wrong.",
+        { "example": {
+          "title": "Converting speed",
+          "problem": "Convert 65 mi/h to m/s. (1 mi = 1609.344 m exactly.)",
+          "solution": [
+            { "eq": "65 mi/h × (1609.344 m / 1 mi) × (1 h / 3600 s) = 29 m/s" },
+            "The answer has two significant figures, as 65 does. The defined conversions are exact."
+          ]
+        } },
+        "When a unit is squared or cubed, so is its conversion factor. To convert 1.00 m³ to liters, use (100 cm / 1 m)³ = 10⁶ cm³ per m³, then 1 L = 1000 cm³, giving 1000 L.",
+        { "example": {
+          "title": "Combining density and a conversion",
+          "problem": "The density of ethanol is 0.789 g/mL. What volume, in liters, has a mass of 1.00 kg?",
+          "solution": [
+            { "eq": "1.00 kg × (1000 g / 1 kg) × (1 mL / 0.789 g) × (1 L / 1000 mL) = 1.27 L" }
+          ]
+        } }
+      ],
+      "check": [
+        { "q": "How many seconds are in one day?", "a": "86,400", "wrong": ["3,600", "1,440", "864,000"], "why": "24 h × 60 min/h × 60 s/min = 86,400 s." },
+        { "q": "A speed of 100 km/h is closest to…", "a": "28 m/s", "wrong": ["360 m/s", "2.8 m/s", "1.7 m/s"] }
+      ]
+    },
+    {
+      "id": "temperature",
+      "title": "Temperature",
+      "terms": ["kelvin", "absolute zero", "Kelvin scale", "temperature scale", "Celsius", "Fahrenheit", "temperature"],
+      "body": [
+        "Temperature measures how hot or cold something is. At the particle level, it is proportional to the average kinetic energy of the particles. It is different from **heat**, which is energy transferred because of a temperature difference. A bathtub of warm water holds more thermal energy than a cup of boiling water, though it is at a lower temperature.",
+        "Three scales are in common use. The Celsius scale places the freezing and boiling points of water at 0 °C and 100 °C. The Fahrenheit scale places them at 32 °F and 212 °F. The **kelvin** is the SI unit. Its scale starts at **absolute zero**, 0 K, the lowest possible temperature, at which particles have minimum energy. One kelvin is the same size as one degree Celsius.",
+        { "eq": ["T(K) = T(°C) + 273.15", "T(°F) = 1.8 · T(°C) + 32"] },
+        "Kelvin temperatures never take negative values and are written without a degree sign. Chemistry uses kelvins in any equation where temperature is a factor or a divisor, including the gas laws, the Arrhenius equation and ΔG = ΔH − TΔS, because those equations require a scale with a true zero.",
+        { "example": {
+          "title": "Temperature conversions",
+          "problem": "Liquid nitrogen boils at 77 K. Express this in °C and °F.",
+          "solution": [
+            { "eq": ["T(°C) = 77 − 273.15 = −196 °C", "T(°F) = 1.8(−196) + 32 = −321 °F"] }
+          ]
+        } }
+      ],
+      "check": [
+        { "q": "What is 25 °C in kelvin?", "a": "298 K", "wrong": ["248 K", "25 K", "-248 K"] },
+        { "q": "Which statement about absolute zero is correct?", "a": "It is 0 K, the lowest possible temperature", "wrong": ["It is 0 °C", "It is −100 °C", "Matter at 0 K has infinite energy"] }
+      ]
+    }
+  ],
+  "summary": [
+    "Matter is a pure substance (element or compound) or a mixture (homogeneous or heterogeneous). Mixtures separate by physical means; compounds only by chemical reactions.",
+    "Solids, liquids and gases differ in particle spacing and mobility. A phase change alters the state but not the composition, and the temperature stays constant during it.",
+    "SI base units, prefixes and derived units are the common language of measurement. Density is mass divided by volume.",
+    "Multiplication and division keep the fewest significant figures. Addition and subtraction keep the fewest decimal places.",
+    "Dimensional analysis converts units by multiplying by factors equal to 1.",
+    "T(K) = T(°C) + 273.15. Use kelvins in equations that contain temperature."
+  ],
+  "problems": [
+    {
+      "q": "Classify each as element, compound, homogeneous mixture or heterogeneous mixture: (a) stainless steel, (b) sucrose, (c) a salad, (d) neon gas.",
+      "solution": "Stainless steel is a uniform alloy of iron, chromium and carbon. Sucrose has fixed composition (C₁₂H₂₂O₁₁). A salad has visibly separate parts. Neon consists of a single element.",
+      "a": "(a) homogeneous mixture, (b) compound, (c) heterogeneous mixture, (d) element."
+    },
+    {
+      "q": "A 5.00 g piece of an unknown metal displaces 1.85 mL of water. Find its density and say which metal it might be: aluminum (2.70 g/cm³), iron (7.87 g/cm³) or zinc (7.14 g/cm³).",
+      "solution": "ρ = 5.00 g / 1.85 mL = 2.70 g/mL, and 1 mL = 1 cm³.",
+      "a": "2.70 g/cm³: aluminum."
+    },
+    {
+      "q": "Report each result with the correct significant figures: (a) 0.0560 × 12.5 / 3.0, (b) 105.2 − 3.75 + 0.481.",
+      "solution": "(a) 0.0560 × 12.5 = 0.700; 0.700 / 3.0 = 0.233, limited by 3.0 to two significant figures: 0.23. (b) 105.2 − 3.75 + 0.481 = 101.931, limited by 105.2 to one decimal place: 101.9.",
+      "a": "(a) 0.23, (b) 101.9."
+    },
+    {
+      "q": "A gold bar of dimensions 10.0 cm × 5.0 cm × 2.5 cm has density 19.3 g/cm³. What is its mass in kilograms, and its approximate value if gold costs $75 per gram?",
+      "solution": "V = 10.0 × 5.0 × 2.5 = 125 cm³. m = 19.3 × 125 = 2.4 × 10³ g = 2.4 kg (two significant figures, from 5.0 and 2.5). Value ≈ 2.4 × 10³ g × $75/g = $1.8 × 10⁵.",
+      "a": "2.4 kg, about $180,000."
+    },
+    {
+      "q": "The boiling point of helium is 4.2 K. Express it in °C and °F.",
+      "solution": "°C = 4.2 − 273.15 = −269.0 °C. °F = 1.8(−269.0) + 32 = −452.2 °F.",
+      "a": "−269.0 °C and −452 °F."
+    }
+  ]
+}

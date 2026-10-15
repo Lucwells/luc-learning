@@ -1,0 +1,430 @@
+{
+  "id": "symmetry",
+  "view": "chapter",
+  "title": "Symmetry and Group Theory",
+  "description": "Symmetry elements, point groups, character tables, and their use for vibrational spectra and molecular orbitals.",
+  "overview": [
+    "Symmetry is a way to predict molecular properties without solving equations. If a molecule is symmetric, its orbitals, vibrations and electronic states must reflect that symmetry, and group theory sorts them into classes. From the point group alone, one can say how many IR and Raman bands a molecule has, how atomic orbitals combine in the molecular orbitals, and which electronic transitions are allowed.",
+    "This chapter introduces symmetry elements and point groups, shows how to read a character table, and applies the method to the vibrations of H₂O and CO₂ and to the molecular orbitals of water."
+  ],
+  "objectives": [
+    "Identify symmetry elements and operations and assign a molecule’s point group.",
+    "Read character tables and interpret Mulliken symbols.",
+    "Build and reduce a reducible representation with the reduction formula.",
+    "Predict the number and IR/Raman activity of vibrations.",
+    "Construct symmetry-adapted linear combinations and a qualitative MO diagram for a small polyatomic molecule."
+  ],
+  "sections": [
+    {
+      "id": "elements",
+      "title": "Symmetry elements, operations and point groups",
+      "terms": [
+        "point group",
+        "point groups",
+        "symmetry element",
+        "symmetry elements",
+        "symmetry operation",
+        "symmetry operations",
+        "improper rotation",
+        "rotation axis",
+        "mirror plane",
+        "inversion center",
+        "Schoenflies notation",
+        "principal axis",
+        "C2v",
+        "C3v",
+        "D3h",
+        "Td",
+        "Oh",
+        "D∞h"
+      ],
+      "body": [
+        "A **symmetry operation** moves a molecule to an orientation indistinguishable from the original. It is carried out with respect to a **symmetry element**, a point, line or plane. Five kinds of element occur in molecules:",
+        {
+          "table": {
+            "head": [
+              "Element",
+              "Symbol",
+              "Operation",
+              "Example"
+            ],
+            "rows": [
+              [
+                "Identity",
+                "E",
+                "Do nothing (every molecule has it)",
+                "Any"
+              ],
+              [
+                "Proper rotation axis",
+                "Cₙ",
+                "Rotation by 360°/n",
+                "C₂ in H₂O; C₃ in NH₃; C₆ in benzene"
+              ],
+              [
+                "Mirror plane",
+                "σ (σᵥ vertical, σₕ horizontal, σ_d dihedral)",
+                "Reflection",
+                "H₂O has two σᵥ"
+              ],
+              [
+                "Inversion center",
+                "i",
+                "Every point (x, y, z) to (−x, −y, −z)",
+                "SF₆, CO₂, benzene"
+              ],
+              [
+                "Improper rotation axis",
+                "Sₙ",
+                "Rotation by 360°/n, then reflection through the perpendicular plane",
+                "S₄ in CH₄; S₁ = σ, S₂ = i"
+              ]
+            ],
+            "caption": "Symmetry elements."
+          }
+        },
+        "The set of all operations of a molecule forms a **point group** (point because at least one point stays fixed). Named with Schoenflies notation, the groups are:",
+        {
+          "list": [
+            "**C₁**: no symmetry. **Cₛ**: one mirror plane only. **Cᵢ**: only an inversion center.",
+            "**Cₙ**: a single Cₙ axis. **Cₙᵥ**: Cₙ plus n vertical mirror planes (H₂O is C₂ᵥ, NH₃ is C₃ᵥ, linear HCl and HCN are C∞ᵥ). **Cₙₕ**: Cₙ plus a horizontal plane.",
+            "**Dₙ**: Cₙ axis and n perpendicular C₂ axes. **Dₙₕ**: Dₙ plus σₕ (BF₃ is D₃ₕ, ethene D₂ₕ, benzene D₆ₕ, XeF₄ D₄ₕ, PCl₅ D₃ₕ, and linear CO₂ and H₂ D∞ₕ). **Dₙ_d**: Dₙ plus n dihedral planes (allene, staggered ethane D₃_d).",
+            "**Cubic and icosahedral groups**: **T_d** (tetrahedron: CH₄, P₄), **O_h** (octahedron: SF₆, [Fe(CN)₆]³⁻), **I_h** (C₆₀, icosahedral B₁₂H₁₂²⁻)."
+          ]
+        },
+        {
+          "h": "Finding the point group"
+        },
+        "The systematic approach is: (1) Is the molecule linear? C∞ᵥ if no inversion center and D∞ₕ if yes. (2) Does it belong to a cubic group (several C₃ axes)? T_d or O_h or I_h. (3) Otherwise find the highest-order rotation axis, Cₙ. (4) Look for n perpendicular C₂ axes (D groups). (5) Look for σₕ (add h), then for σᵥ or σ_d planes (add v or d). (6) With no rotation axis, look for a mirror plane (Cₛ), an inversion center (Cᵢ), or neither (C₁).",
+        {
+          "example": {
+            "title": "Assigning point groups",
+            "problem": "Assign point groups to H₂O, NH₃, BF₃ and trans-N₂F₂.",
+            "solution": "H₂O: a C₂ axis and two σᵥ planes, no other axes: C₂ᵥ. NH₃: a C₃ axis and three σᵥ planes: C₃ᵥ. BF₃: a C₃ axis, three perpendicular C₂ axes, and σₕ: D₃ₕ. trans-N₂F₂: a C₂ axis perpendicular to the molecular plane, σₕ (the molecular plane) and an inversion center: C₂ₕ."
+          }
+        },
+        "One test has a direct physical meaning. A molecule that has an improper axis (including a mirror plane or an inversion center) is **achiral**, and a molecule with only proper rotations (Cₙ, Dₙ) can be chiral. A molecule has a permanent **dipole moment** only if it belongs to Cₙ, Cₙᵥ or Cₛ."
+      ],
+      "check": [
+        {
+          "q": "What is the point group of CO₂?",
+          "a": "D∞ₕ",
+          "wrong": [
+            "C∞ᵥ",
+            "C₂ᵥ",
+            "D₂ₕ"
+          ]
+        },
+        {
+          "q": "What is the point group of NH₃?",
+          "a": "C₃ᵥ",
+          "wrong": [
+            "D₃ₕ",
+            "C₃ₕ",
+            "T_d"
+          ]
+        },
+        {
+          "q": "Which molecule can have a permanent dipole?",
+          "a": "A C₂ᵥ molecule such as H₂O",
+          "wrong": [
+            "A D₃ₕ molecule such as BF₃",
+            "An O_h molecule such as SF₆",
+            "A D∞ₕ molecule such as CO₂"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "character-tables",
+      "title": "Character tables and irreducible representations",
+      "terms": [
+        "character table",
+        "character tables",
+        "irreducible representation",
+        "irreducible representations",
+        "Mulliken symbol",
+        "Mulliken symbols",
+        "representation",
+        "reducible representation",
+        "reduction formula",
+        "characters",
+        "basis function",
+        "order of a group"
+      ],
+      "body": [
+        "Each symmetry operation can be represented by a matrix that acts on a set of basis functions (an orbital, a vector, a displacement). The matrices for a group multiply the way the operations do. The sum of the diagonal elements of a matrix is its **character**. A **representation** is a set of matrices, and an **irreducible representation** is one that cannot be simplified into smaller ones. The irreducible representations of a group, with their characters, are collected in its **character table**.",
+        {
+          "table": {
+            "head": [
+              "C₂ᵥ",
+              "E",
+              "C₂",
+              "σᵥ(xz)",
+              "σᵥ′(yz)",
+              "",
+              ""
+            ],
+            "rows": [
+              [
+                "A₁",
+                "1",
+                "1",
+                "1",
+                "1",
+                "z",
+                "x², y², z²"
+              ],
+              [
+                "A₂",
+                "1",
+                "1",
+                "−1",
+                "−1",
+                "R_z",
+                "xy"
+              ],
+              [
+                "B₁",
+                "1",
+                "−1",
+                "1",
+                "−1",
+                "x, R_y",
+                "xz"
+              ],
+              [
+                "B₂",
+                "1",
+                "−1",
+                "−1",
+                "1",
+                "y, R_x",
+                "yz"
+              ]
+            ],
+            "caption": "Character table of C₂ᵥ. The last two columns list the functions (x, y, z, rotations, and quadratic functions) that transform as each irreducible representation."
+          }
+        },
+        {
+          "table": {
+            "head": [
+              "C₃ᵥ",
+              "E",
+              "2C₃",
+              "3σᵥ",
+              "",
+              ""
+            ],
+            "rows": [
+              [
+                "A₁",
+                "1",
+                "1",
+                "1",
+                "z",
+                "x² + y², z²"
+              ],
+              [
+                "A₂",
+                "1",
+                "1",
+                "−1",
+                "R_z",
+                ""
+              ],
+              [
+                "E",
+                "2",
+                "−1",
+                "0",
+                "(x, y), (R_x, R_y)",
+                "(x² − y², xy), (xz, yz)"
+              ]
+            ],
+            "caption": "Character table of C₃ᵥ."
+          }
+        },
+        "**Mulliken symbols** label the irreducible representations. A and B are one-dimensional (the character of E is 1): A is symmetric (+1) under the principal rotation C_n, B antisymmetric (−1). E is two-dimensional (χ(E) = 2) and T is three-dimensional (χ(E) = 3). Subscripts 1 and 2 indicate symmetric or antisymmetric to a C₂ axis perpendicular to the principal axis or to σᵥ, subscripts g (gerade, even) and u (ungerade, odd) refer to inversion, and primes and double primes refer to σₕ. Two rules govern every table: the number of irreducible representations equals the number of classes of operations, and the sum of squares of the dimensions equals the order of the group h.",
+        "The right-hand columns of the table matter in practice. A function listed there transforms in that way: an orbital or vibration with symmetry B₁ in C₂ᵥ transforms like x, and a vibration with the symmetry of x, y or z is **IR active** (it changes the dipole moment), while one with the symmetry of a quadratic function (x², xy, …) is **Raman active** (it changes the polarizability)."
+      ],
+      "check": [
+        {
+          "q": "What does the character of E in a character table tell you?",
+          "a": "The dimension of the irreducible representation",
+          "wrong": [
+            "Whether it is IR active",
+            "The number of atoms",
+            "The point group order"
+          ]
+        },
+        {
+          "q": "A vibration that transforms like z in C₂ᵥ (A₁) is…",
+          "a": "IR active and Raman active",
+          "wrong": [
+            "IR active only",
+            "Raman active only",
+            "Neither"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vibrations",
+      "title": "Vibrational spectra",
+      "terms": [
+        "vibrational modes",
+        "normal modes",
+        "reducible representation of vibrations",
+        "unshifted atoms",
+        "mutual exclusion",
+        "rule of mutual exclusion",
+        "IR active",
+        "Raman active",
+        "selection rules for vibrations",
+        "Raman spectroscopy",
+        "3N-6"
+      ],
+      "body": [
+        "A molecule of N atoms has 3N degrees of freedom: 3 translations, 3 rotations (2 for a linear molecule), and the rest vibrations (3N − 6, or 3N − 5 if linear). To find their symmetries, (1) take the 3N Cartesian displacement vectors as a basis, (2) write the character of the reducible representation Γ₃N for each operation, (3) reduce it to irreducible representations, and (4) subtract the translations and rotations, which are listed in the character table.",
+        "The character for each operation is the number of **unshifted atoms** (atoms that stay in place) times a contribution per atom: E, 3; C₂, −1; σ, +1; i, −3; C₃, 0; S₄, −1.",
+        "The **reduction formula** gives how many times each irreducible representation i appears: nᵢ = (1/h) Σ g · χ_red · χᵢ, where h is the order of the group, g is the number of operations in a class and the sum is over classes.",
+        {
+          "example": {
+            "title": "Vibrations of H₂O (C₂ᵥ)",
+            "problem": "Find the symmetries of the three vibrations of water and say whether they are IR and Raman active.",
+            "solution": [
+              "Place the molecule in the xz plane. Unshifted atoms: E, 3 atoms; C₂, 1 (O); σᵥ(xz), 3; σᵥ′(yz), 1. Characters of Γ₃N: E 9; C₂ −1; σᵥ(xz) 3; σᵥ′(yz) 1.",
+              {
+                "eq": [
+                  "n(A₁) = ¼(9 − 1 + 3 + 1) = 3,   n(A₂) = ¼(9 − 1 − 3 − 1) = 1",
+                  "n(B₁) = ¼(9 + 1 + 3 − 1) = 3,   n(B₂) = ¼(9 + 1 − 3 + 1) = 2",
+                  "Γ₃N = 3A₁ + A₂ + 3B₁ + 2B₂"
+                ]
+              },
+              "Translations are A₁ + B₁ + B₂ (z, x, y), and rotations are A₂ + B₁ + B₂ (R_z, R_y, R_x). Subtracting: **Γ_vib = 2A₁ + B₁**.",
+              "The two A₁ modes are the symmetric stretch (3657 cm⁻¹) and the bend (1595 cm⁻¹), and the B₁ mode is the antisymmetric stretch (3756 cm⁻¹). All three transform as z or x (IR active) and as quadratic functions (Raman active)."
+            ]
+          }
+        },
+        {
+          "h": "Mutual exclusion"
+        },
+        "If a molecule has an inversion center, its vibrations are either gerade (symmetric to inversion, Raman active only, because quadratic functions are g) or ungerade (IR active only, because x, y, z are u). This is the **rule of mutual exclusion**: no mode is both IR and Raman active. For CO₂ (D∞ₕ, 4 vibrations, 3N − 5): the symmetric stretch (Σg⁺, 1388 cm⁻¹) is Raman only, the antisymmetric stretch (Σu⁺, 2349 cm⁻¹) and the doubly degenerate bend (Πu, 667 cm⁻¹) are IR only. A molecule that has both IR and Raman bands at the same frequency lacks an inversion center. Counting the IR and Raman bands of a metal carbonyl is a standard way to determine its geometry."
+      ],
+      "check": [
+        {
+          "q": "How many vibrational modes does a nonlinear molecule of 4 atoms have?",
+          "a": "6",
+          "wrong": [
+            "3",
+            "9",
+            "12"
+          ],
+          "why": "3N − 6 = 12 − 6."
+        },
+        {
+          "q": "The rule of mutual exclusion says…",
+          "a": "In a centrosymmetric molecule, no vibration is both IR and Raman active",
+          "wrong": [
+            "Every IR-active mode is Raman active",
+            "Raman bands never overlap with IR",
+            "Only symmetric modes appear in IR"
+          ]
+        },
+        {
+          "q": "How many IR-active stretches does CO₂ have?",
+          "a": "One (the antisymmetric stretch)",
+          "wrong": [
+            "Two",
+            "Zero",
+            "Three"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mo",
+      "title": "Molecular orbitals of polyatomic molecules",
+      "terms": [
+        "symmetry-adapted linear combinations",
+        "SALC",
+        "SALCs",
+        "projection operator",
+        "MO diagram of water",
+        "Walsh diagram",
+        "Walsh diagrams",
+        "frontier orbitals",
+        "nonbonding orbital",
+        "Laporte rule"
+      ],
+      "body": [
+        "Group theory builds MO diagrams in a systematic way. Orbitals combine only if they have the same symmetry, so we classify the central atom’s orbitals by irreducible representation (from the right-hand columns of the character table), form **symmetry-adapted linear combinations (SALCs)** of the ligand orbitals with the same classification (using the reduction formula on the reducible representation of the ligand orbitals, or the **projection operator**), and combine like with like.",
+        {
+          "example": {
+            "title": "The MO diagram of water (C₂ᵥ, molecule in the xz plane)",
+            "problem": "Build a qualitative MO diagram for H₂O.",
+            "solution": [
+              "Oxygen orbitals: 2s is a₁; 2p_z is a₁; 2p_x is b₁; 2p_y (perpendicular to the molecular plane) is b₂.",
+              "The two H 1s orbitals give a reducible representation with characters E 2, C₂ 0, σᵥ(xz) 2, σᵥ′(yz) 0, which reduces to a₁ + b₁: the in-phase SALC (a₁) and the out-of-phase one (b₁).",
+              "Combine like with like. The a₁ orbitals (O 2s, O 2p_z, H SALC) give three MOs: 1a₁ (mostly O 2s, bonding), 2a₁ (bonding) and 3a₁* (antibonding). The b₁ orbitals (O 2p_x and the H SALC) give a bonding 1b₁ and an antibonding 2b₁*. O 2p_y has no match among the hydrogen SALCs (b₂), so it is a **nonbonding** MO, 1b₂, and it holds a lone pair.",
+              "The eight valence electrons fill 1a₁² 1b₁² 2a₁² 1b₂². There are two O–H bonds (the 1a₁/2a₁ and 1b₁ orbitals), and two lone-pair-like orbitals (the 2a₁ and 1b₂ orbitals), in agreement with the observed photoelectron spectrum, which shows four distinct ionization energies, not the equivalent lone pairs of a simple Lewis picture."
+            ]
+          }
+        },
+        {
+          "h": "Walsh diagrams"
+        },
+        "A **Walsh diagram** plots MO energies against a geometric parameter such as the bond angle, and explains molecular shapes. For an AH₂ molecule, the highest occupied orbital of the linear form is a degenerate pair of nonbonding p orbitals (πᵤ). On bending, the in-plane component mixes with the central atom’s s orbital and becomes a 3a₁ orbital that falls steeply in energy, while the out-of-plane component (1b₂, nonbonding) hardly changes. With 4 valence electrons (BeH₂) the 3a₁ orbital is empty, so bending gives no gain, and the molecule is linear. With 6 to 8 electrons (CH₂, NH₂, H₂O) the 3a₁ orbital is occupied and bending lowers the total energy, so these molecules are bent (H₂O: 104.5°). The Walsh approach is the MO counterpart of VSEPR.",
+        {
+          "h": "Selection rules"
+        },
+        "Symmetry also governs electronic transitions. A transition is allowed if the product of the symmetries of the initial state, the final state and the dipole operator (x, y or z) contains the totally symmetric representation. In a centrosymmetric complex, d–d transitions connect g orbitals to g orbitals and are forbidden by the **Laporte rule** (g ↔ u only), and so octahedral complexes are weakly colored (ε ~ 10 M⁻¹ cm⁻¹), whereas tetrahedral complexes, with no inversion center, are more intensely colored (ε ~ 10²)."
+      ],
+      "check": [
+        {
+          "q": "Which O orbital of H₂O (C₂ᵥ, molecule in xz plane) is nonbonding?",
+          "a": "2p_y (b₂), perpendicular to the molecular plane",
+          "wrong": [
+            "2s (a₁)",
+            "2p_z (a₁)",
+            "2p_x (b₁)"
+          ]
+        },
+        {
+          "q": "Why are octahedral d⁹ or d⁶ complexes only weakly colored?",
+          "a": "d–d transitions are Laporte-forbidden (g → g) in a centrosymmetric complex",
+          "wrong": [
+            "They have no d electrons",
+            "They are spin-forbidden only",
+            "They have a large band gap"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Symmetry elements (E, Cₙ, σ, i, Sₙ) define a point group. Assign it by the flow chart: linear, cubic, highest Cₙ, perpendicular C₂, then σₕ, σᵥ, σ_d.",
+    "Character tables list irreducible representations (A, B, E, T) and the functions that transform as each. Dipole-like functions (x, y, z) govern IR activity and quadratic functions govern Raman activity.",
+    "Γ₃N comes from unshifted atoms. Reduction nᵢ = (1/h) Σ g χ χᵢ gives the vibrations after subtracting translations and rotations. H₂O has Γ_vib = 2A₁ + B₁.",
+    "In centrosymmetric molecules, no vibration is both IR and Raman active.",
+    "MO diagrams combine orbitals and SALCs of the same symmetry. Water has bonding a₁ and b₁ MOs and a nonbonding b₂ lone pair. The Laporte rule forbids g → g transitions."
+  ],
+  "problems": [
+    {
+      "q": "Assign the point group of (a) CH₂Cl₂, (b) SF₆, (c) cis-[PtCl₂(NH₃)₂] treated as a square planar PtCl₂N₂ skeleton, (d) allene H₂C=C=CH₂.",
+      "solution": "(a) C₂ᵥ. (b) O_h. (c) C₂ᵥ (a C₂ axis bisecting the Cl–Pt–Cl angle, and two mirror planes). (d) D₂_d (the two CH₂ planes are perpendicular).",
+      "a": "(a) C₂ᵥ; (b) O_h; (c) C₂ᵥ; (d) D₂_d."
+    },
+    {
+      "q": "Using Γ₃N for NH₃ (C₃ᵥ: E 12, 2C₃ 0, 3σᵥ 2), show that Γ_vib = 2A₁ + 2E.",
+      "solution": "n(A₁) = (1/6)(12 + 0 + 6) = 3; n(A₂) = (1/6)(12 + 0 − 6) = 1; n(E) = (1/6)(24 + 0 + 0) = 4. Γ₃N = 3A₁ + A₂ + 4E. Translations: A₁ + E; rotations: A₂ + E. Γ_vib = 2A₁ + 2E, with all four fundamentals (the E modes are doubly degenerate) IR and Raman active.",
+      "a": "Γ_vib = 2A₁ + 2E: four IR and Raman bands."
+    },
+    {
+      "q": "For a molecule with the formula AB₃, how can IR and Raman spectra distinguish a planar D₃ₕ from a pyramidal C₃ᵥ structure?",
+      "solution": "D₃ₕ (BF₃) has an inversion-like plane σₕ, and Γ_vib = A₁′ + 2E′ + A₂″. A₁′ is Raman only, A₂″ and E′ are IR active (E′ is also Raman active), so there are 3 IR-active and 3 Raman-active bands, with one IR band (A₂″) not in Raman and one Raman band (A₁′) not in IR. C₃ᵥ (NH₃) has 4 bands all both IR and Raman active (2A₁ + 2E), so the spectra coincide.",
+      "a": "D₃ₕ shows 3 IR bands and 3 Raman bands, not all coincident. C₃ᵥ shows 4 coincident bands."
+    }
+  ]
+}

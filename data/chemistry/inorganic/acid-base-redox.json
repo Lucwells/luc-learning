@@ -1,0 +1,521 @@
+{
+  "id": "inorganic-acid-redox",
+  "view": "chapter",
+  "title": "Inorganic Acids, Bases and Redox Chemistry",
+  "description": "Lewis acidity, oxoacid strength, superacids, Latimer, Frost and Pourbaix diagrams, and the oxidation states of the d-block metals.",
+  "overview": [
+    "Two questions organize much of inorganic chemistry: how strongly does a species donate or accept electron pairs or protons (acid–base chemistry), and how readily does it gain or lose electrons (redox chemistry)? Each has quantitative tools. For acids and bases, they are pK_a values, Pauling’s rules and the Hammett acidity function. For redox, they are the diagrams of Latimer, Frost and Pourbaix, which condense the standard potentials of an element into a form from which stability, disproportionation and corrosion can be read off.",
+    "This chapter develops those tools and applies them to the oxidation states of the d-block elements."
+  ],
+  "objectives": [
+    "Rank Lewis acids and explain the trend in the boron trihalides.",
+    "Predict the pK_a of oxoacids with Pauling’s rules and explain the acidity of aqua ions.",
+    "Describe superacids and the Hammett acidity function.",
+    "Calculate non-adjacent potentials from a Latimer diagram and identify disproportionation.",
+    "Read a Frost diagram and a Pourbaix diagram.",
+    "Describe the oxidation states of the 3d metals."
+  ],
+  "sections": [
+    {
+      "id": "lewis",
+      "title": "Lewis acidity and aqua acids",
+      "terms": [
+        "Lewis acidity",
+        "Lewis acid strength",
+        "boron trihalides",
+        "aqua acid",
+        "aqua acids",
+        "hydrolysis of metal ions",
+        "acidity of aqua ions",
+        "amphoteric hydroxide",
+        "donor–acceptor adduct",
+        "coordinate bond adduct"
+      ],
+      "body": [
+        "A Lewis acid accepts an electron pair and a Lewis base donates one, forming a donor–acceptor adduct. Typical Lewis acids are electron-deficient molecules (BF₃, AlCl₃, SO₃, SbF₅) and metal cations. Hard–soft theory guides which pairs are strongest (see the chapter on coordination compounds).",
+        "The boron trihalides show a surprising order of strength toward a reference base: **BF₃ < BCl₃ < BBr₃**. The opposite is expected from electronegativity (F pulls electron density most). The explanation is that the halogen lone pairs donate into the empty boron p orbital by π bonding, which is most effective for the small F (2p–2p overlap), so the π donation stabilizes BF₃ and reduces its acidity. A second factor is the energy to pyramidalize the BX₃ molecule on forming the adduct, which is greater for BF₃ with its stronger B–F bonds.",
+        {
+          "h": "Aqua acids"
+        },
+        "A hydrated metal ion is a Brønsted acid, since the metal polarizes the O–H bonds of the coordinated water: [M(H₂O)₆]ⁿ⁺ ⇌ [M(H₂O)₅(OH)]⁽ⁿ⁻¹⁾⁺ + H⁺. Acidity rises with charge and falls with ionic radius, that is, with the charge density.",
+        {
+          "table": {
+            "head": [
+              "Aqua ion",
+              "pK_a",
+              "Comment"
+            ],
+            "rows": [
+              [
+                "[Na(H₂O)₆]⁺",
+                "> 14",
+                "Not acidic"
+              ],
+              [
+                "[Ca(H₂O)₆]²⁺",
+                "12.6",
+                ""
+              ],
+              [
+                "[Zn(H₂O)₆]²⁺",
+                "9.0",
+                ""
+              ],
+              [
+                "[Cu(H₂O)₆]²⁺",
+                "7.5",
+                ""
+              ],
+              [
+                "[Al(H₂O)₆]³⁺",
+                "5.0",
+                "Comparable to acetic acid (4.76)"
+              ],
+              [
+                "[Fe(H₂O)₆]³⁺",
+                "2.2",
+                "Strongly acidic; solutions are yellow-brown from hydrolysis products"
+              ],
+              [
+                "[Ti(H₂O)₆]⁴⁺ (hypothetical)",
+                "< 0",
+                "Exists as TiO²⁺"
+              ]
+            ],
+            "caption": "Acidity of metal aqua ions."
+          }
+        },
+        "Hydrolysis continues as pH rises: [Fe(H₂O)₆]³⁺ gives [Fe(H₂O)₅(OH)]²⁺, then [Fe(H₂O)₄(OH)₂]⁺ and eventually the hydrous oxide Fe(OH)₃ precipitates, and dimers and polymers form on the way. Al³⁺ does the same, which is why aluminum sulfate is used to coagulate fine particles in water treatment, and why aluminum hydroxide is amphoteric (it dissolves at high pH as [Al(OH)₄]⁻)."
+      ],
+      "check": [
+        {
+          "q": "Which aqua ion is the strongest Brønsted acid?",
+          "a": "[Fe(H₂O)₆]³⁺",
+          "wrong": [
+            "[Ca(H₂O)₆]²⁺",
+            "[Zn(H₂O)₆]²⁺",
+            "[Na(H₂O)₆]⁺"
+          ]
+        },
+        {
+          "q": "Which boron trihalide is the strongest Lewis acid?",
+          "a": "BBr₃",
+          "wrong": [
+            "BF₃",
+            "BCl₃",
+            "They are equal"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "oxoacids",
+      "title": "Oxoacids, Pauling’s rules and superacids",
+      "terms": [
+        "Pauling's rules",
+        "Pauling’s rules",
+        "oxyacids",
+        "oxoacid",
+        "superacid",
+        "superacids",
+        "Hammett acidity function",
+        "magic acid",
+        "fluoroantimonic acid",
+        "carborane acid",
+        "leveling effect in superacids",
+        "Olah"
+      ],
+      "body": [
+        "An oxoacid has the formula (HO)ₘXOₚ, with m hydroxyl groups and p oxo groups (terminal =O) on the central atom X. **Pauling’s rules** relate acidity to p:",
+        {
+          "list": [
+            "**Rule 1**: pK_a ≈ 8 − 5p for the first ionization. p = 0 gives a weak acid (pK_a about 8), p = 1 gives a moderately strong acid (about 3), p = 2 a strong acid (about −2), and p = 3 a very strong acid (about −7).",
+            "**Rule 2**: successive pK_a values of a polyprotic acid rise by about 5 units each: pK₂ ≈ pK₁ + 5, pK₃ ≈ pK₁ + 10."
+          ]
+        },
+        {
+          "table": {
+            "head": [
+              "Acid",
+              "Formula (HO)ₘXOₚ",
+              "p",
+              "Predicted pK_a",
+              "Observed pK_a"
+            ],
+            "rows": [
+              [
+                "Hypochlorous",
+                "HOCl",
+                "0",
+                "8",
+                "7.5"
+              ],
+              [
+                "Boric (as B(OH)₃)",
+                "(HO)₃B",
+                "0",
+                "8",
+                "9.2"
+              ],
+              [
+                "Phosphorous",
+                "(HO)₂HPO",
+                "1",
+                "3",
+                "1.3"
+              ],
+              [
+                "Phosphoric",
+                "(HO)₃PO",
+                "1",
+                "3",
+                "2.1 (then 7.2 and 12.4)"
+              ],
+              [
+                "Chlorous",
+                "HOClO",
+                "1",
+                "3",
+                "2.0"
+              ],
+              [
+                "Sulfuric",
+                "(HO)₂SO₂",
+                "2",
+                "−2",
+                "about −3 (then 2.0)"
+              ],
+              [
+                "Nitric",
+                "HONO₂",
+                "2",
+                "−2",
+                "−1.4"
+              ],
+              [
+                "Perchloric",
+                "HOClO₃",
+                "3",
+                "−7",
+                "about −8"
+              ]
+            ],
+            "caption": "Pauling’s rules. Exceptions arise when the formula hides the true structure: H₂CO₃ appears as p = 1 (predicted 3), but the observed 6.4 includes the unhydrated CO₂ in solution (the true pK_a of H₂CO₃ itself is about 3.6); phosphorous acid has one H on P, so it is a diprotic acid."
+          }
+        },
+        "The reason is the stabilization of the conjugate base: each terminal oxygen is electron-withdrawing and spreads the negative charge by resonance. Boric acid is a different case: it behaves as a Lewis acid, B(OH)₃ + 2H₂O ⇌ [B(OH)₄]⁻ + H₃O⁺, accepting OH⁻ from water.",
+        {
+          "h": "Superacids"
+        },
+        "A **superacid** is stronger than 100% sulfuric acid. Acidity in strongly acidic non-aqueous media is measured by the **Hammett acidity function** H₀, based on the extent to which the acid protonates weak indicator bases (H₀ of 100% H₂SO₄ is −12). Water’s **leveling effect** limits aqueous acids to the strength of H₃O⁺, and superacids are used in non-leveling media.",
+        {
+          "table": {
+            "head": [
+              "Acid",
+              "H₀"
+            ],
+            "rows": [
+              [
+                "100% H₂SO₄",
+                "−12"
+              ],
+              [
+                "HSO₃F (fluorosulfuric acid)",
+                "−15"
+              ],
+              [
+                "**Magic acid**: HSO₃F + SbF₅",
+                "−23"
+              ],
+              [
+                "Fluoroantimonic acid: HF + SbF₅",
+                "−28 (the strongest liquid superacid)"
+              ],
+              [
+                "Carborane acid H(CHB₁₁Cl₁₁)",
+                "below −18; stable and non-oxidizing; protonates benzene and C₆₀"
+              ]
+            ],
+            "caption": "Superacids."
+          }
+        },
+        "George Olah (Nobel Prize 1994) used magic acid to keep carbocations (even tert-butyl cation, which is stable at low temperature in SbF₅/SO₂ solution) long enough to be observed by NMR. Magic acid protonates alkanes, including methane, giving carbonium ions (CH₅⁺, a three-center two-electron bond), which is why it is called ‘magic’: it dissolves paraffin candles."
+      ],
+      "check": [
+        {
+          "q": "Using Pauling’s rules, estimate the first pK_a of HClO₃ (HOClO₂).",
+          "a": "About −2",
+          "wrong": [
+            "About 3",
+            "About 8",
+            "About −7"
+          ]
+        },
+        {
+          "q": "What is a superacid?",
+          "a": "An acid stronger than 100% sulfuric acid",
+          "wrong": [
+            "A concentrated strong acid",
+            "Any acid with pK_a below 0",
+            "An acid used only in water"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "latimer-frost",
+      "title": "Latimer and Frost diagrams",
+      "terms": [
+        "Latimer diagram",
+        "Latimer diagrams",
+        "Frost diagram",
+        "Frost diagrams",
+        "oxidation state diagram",
+        "comproportionation",
+        "non-adjacent potential",
+        "Frost–Ebsworth diagram",
+        "stability of oxidation states"
+      ],
+      "body": [
+        "A **Latimer diagram** lists the species of an element in order of decreasing oxidation state, joined by arrows labeled with the standard potential of each couple. For copper in acid:",
+        {
+          "eq": [
+            "Cu²⁺ —0.16 V→ Cu⁺ —0.52 V→ Cu",
+            "Cu²⁺ ——— 0.34 V ———→ Cu"
+          ]
+        },
+        "The potential for a non-adjacent couple follows by adding free energies (ΔG° = −nFE°), so the potentials combine as a weighted average:",
+        {
+          "eq": "E°(overall) = (n₁E°₁ + n₂E°₂) / (n₁ + n₂)"
+        },
+        "For Cu²⁺/Cu: (1 × 0.16 + 1 × 0.52)/2 = 0.34 V. A species is unstable toward **disproportionation** (simultaneous oxidation and reduction of the same species) if the potential on its right is higher than on its left. For Cu⁺, E(right) = 0.52 > E(left) = 0.16, so 2Cu⁺ → Cu²⁺ + Cu has E° = 0.52 − 0.16 = +0.36 V and Cu⁺ is unstable in water (it persists only in complexes or insoluble salts, such as CuCl or Cu₂O). The reverse, **comproportionation**, combines a higher and a lower oxidation state: Mn²⁺ + MnO₄⁻ → MnO₂.",
+        {
+          "example": {
+            "title": "Potentials from a Latimer diagram",
+            "problem": "For iron, Fe³⁺ —0.77 V→ Fe²⁺ —(−0.44 V)→ Fe. Find E° for Fe³⁺/Fe, and say whether Fe²⁺ disproportionates.",
+            "solution": "E°(Fe³⁺/Fe) = (1 × 0.77 + 2 × (−0.44))/3 = −0.04 V. For Fe²⁺, E(right) = −0.44 < E(left) = +0.77, so it does not disproportionate. Instead Fe³⁺ and Fe metal comproportionate to Fe²⁺: iron(III) solutions are reduced by iron metal."
+          }
+        },
+        {
+          "h": "Frost diagrams"
+        },
+        "A **Frost diagram** plots nE° (proportional to the free energy of formation of each species from the element in its zero oxidation state, −ΔG°/F) against the oxidation number N. The slope of a line joining two points is the standard potential of that couple. Three rules read the diagram: the most stable species lie lowest; a species above the line joining its neighbors is unstable to disproportionation; one below the line joining its neighbors is a comproportionation product, and is stable.",
+        {
+          "svg": "<svg viewBox='0 0 460 270' role='img' aria-label='Frost diagram of manganese in acid' font-family='system-ui, sans-serif' font-size='12'><g fill='none' stroke='currentColor' stroke-width='1.5'><path d='M50,20 V240 H440'/></g><path fill='none' style='stroke:var(--accent)' stroke-width='2.5' d='M50,162.3 L160,228.9 L215,186.3 L270,159.5 L380,32 L435,16'/><g fill='currentColor'><circle cx='50' cy='162.3' r='4'/><circle cx='160' cy='228.9' r='4'/><circle cx='215' cy='186.3' r='4'/><circle cx='270' cy='159.5' r='4'/><circle cx='380' cy='32' r='4'/><circle cx='435' cy='16' r='4'/><text x='56' y='14'>nE° (V)</text><text x='440' y='260' text-anchor='end'>oxidation number</text><text x='62' y='178'>Mn</text><text x='168' y='222'>Mn²⁺ (stable)</text><text x='188' y='176'>Mn³⁺</text><text x='276' y='156'>MnO₂</text><text x='330' y='28' text-anchor='end'>MnO₄²⁻</text><text x='430' y='34' text-anchor='end'>MnO₄⁻</text></g><g fill='currentColor' font-size='11'><text x='50' y='256' text-anchor='middle'>0</text><text x='160' y='256' text-anchor='middle'>+2</text><text x='215' y='256' text-anchor='middle'>+3</text><text x='270' y='256' text-anchor='middle'>+4</text><text x='380' y='256' text-anchor='middle'>+6</text><text x='435' y='256' text-anchor='middle'>+7</text></g></svg>",
+          "caption": "Frost diagram of manganese in acid solution. Mn²⁺ is the lowest, hence the most stable. Mn³⁺ and MnO₄²⁻ lie above the lines joining their neighbors, so each disproportionates in acid. MnO₄⁻ lies very high: it is a strong oxidizing agent."
+        },
+        "From the Mn Frost diagram: Mn²⁺ is the stable state in acid. Mn³⁺ is above the line from Mn²⁺ to MnO₂ and disproportionates (2Mn³⁺ + 2H₂O → Mn²⁺ + MnO₂ + 4H⁺). Manganate MnO₄²⁻ is above the line from MnO₂ to MnO₄⁻ and also disproportionates in acid (3MnO₄²⁻ + 4H⁺ → 2MnO₄⁻ + MnO₂ + 2H₂O), though it is stable in strong base. Permanganate, high on the diagram, oxidizes almost anything below it."
+      ],
+      "check": [
+        {
+          "q": "A species in a Latimer diagram disproportionates if…",
+          "a": "The potential on its right is higher than the potential on its left",
+          "wrong": [
+            "The potential on its left is higher",
+            "Both potentials are negative",
+            "Both potentials are equal"
+          ]
+        },
+        {
+          "q": "On a Frost diagram, which species is the most stable?",
+          "a": "The one lowest on the diagram",
+          "wrong": [
+            "The one highest on the diagram",
+            "The one with the highest oxidation number",
+            "The one at the far left"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pourbaix",
+      "title": "Pourbaix diagrams",
+      "terms": [
+        "Pourbaix diagram",
+        "Pourbaix diagrams",
+        "E–pH diagram",
+        "potential–pH diagram",
+        "stability field of water",
+        "corrosion regions",
+        "passivation",
+        "immunity",
+        "water stability"
+      ],
+      "body": [
+        "A **Pourbaix diagram** plots the potential E against pH and shows which species of an element is thermodynamically stable in each region of an aqueous system. Lines mark the boundaries, and they come from the Nernst equation: a boundary that involves H⁺ has a slope of −0.059 V per pH unit (times m/n for m protons and n electrons), a boundary with no H⁺ is horizontal (it depends on E only), and one with no electrons is vertical (it depends on pH only).",
+        "Two dashed lines bound the **stability field of water**:",
+        {
+          "eq": [
+            "Upper:  O₂ + 4H⁺ + 4e⁻ ⇌ 2H₂O      E = 1.23 − 0.059 pH",
+            "Lower:  2H⁺ + 2e⁻ ⇌ H₂      E = 0.00 − 0.059 pH"
+          ]
+        },
+        "Species above the upper line oxidize water; those below the lower line reduce water to H₂. The chemistry of a metal in water takes place between them.",
+        "The diagram for iron shows three kinds of region. In the **immunity** region at low potential, Fe metal is stable. In **corrosion** regions, the stable species are dissolved ions: Fe²⁺ at low pH and moderate potential, and Fe³⁺ at low pH and higher potential. In the **passivation** regions at higher pH and potential, solid Fe(OH)₂ or Fe₂O₃/Fe(OH)₃ is stable and may form a protective layer on the metal. Rusting happens in neutral water in the presence of oxygen because the potential of the O₂/H₂O couple (+0.8 V at pH 7) lies well above the Fe/Fe²⁺ line (about −0.6 V), putting iron in the corrosion region, where Fe²⁺ forms and is converted to Fe(OH)₃ and rust.",
+        "Pourbaix diagrams are used to design corrosion protection: cathodic protection lowers the potential of the metal into the immunity region (see the chapter on electrochemistry), raising the pH to passivate iron is why concrete protects reinforcing steel, and they predict how metals dissolve in leaching (gold with cyanide and oxygen) and how natural waters transport metals. They show equilibrium only; kinetics may make a metal survive in a region where it is unstable (aluminum is protected by a thin oxide, although it should dissolve).",
+        {
+          "example": {
+            "title": "Reading a Pourbaix line",
+            "problem": "At pH 7, what is the upper limit of water stability, and will Fe³⁺(aq) (E° = 0.77 V) oxidize water?",
+            "solution": "E = 1.23 − 0.059 × 7 = 0.82 V. At pH 7 an oxidant needs E > 0.82 V to oxidize water. [Fe(H₂O)₆]³⁺ at 0.77 V does not (and at pH 7 it would precipitate as Fe(OH)₃ anyway). By contrast, MnO₄⁻ reducing to MnO₂ has E = 1.70 V at pH 0 and about 1.15 V at pH 7, above the water line, so it slowly oxidizes water; permanganate solutions therefore drift in concentration and are standardized before use."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "On a Pourbaix diagram, a boundary with no H⁺ in the half-reaction is…",
+          "a": "Horizontal (independent of pH)",
+          "wrong": [
+            "Vertical",
+            "Sloped at −0.059 V per pH",
+            "Absent"
+          ]
+        },
+        {
+          "q": "In which region does a metal form a protective oxide layer?",
+          "a": "Passivation",
+          "wrong": [
+            "Immunity",
+            "Corrosion",
+            "Water stability field only"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d-block",
+      "title": "Oxidation states of the 3d metals",
+      "terms": [
+        "transition metal",
+        "transition metals",
+        "variable oxidation states",
+        "d-block",
+        "d-block elements",
+        "oxidation states of transition metals",
+        "chromate",
+        "dichromate",
+        "permanganate",
+        "vanadium oxidation states",
+        "3d metals"
+      ],
+      "body": [
+        "A **transition metal** forms at least one ion with a partly filled d subshell. The 3d series has the characteristic properties: **variable oxidation states** (the 4s and 3d electrons have similar energies, so successive ionization energies increase only slowly), colored and paramagnetic compounds, a strong tendency to form complexes and widespread catalytic activity.",
+        {
+          "table": {
+            "head": [
+              "Metal",
+              "Common oxidation states (most stable in bold)",
+              "Notes"
+            ],
+            "rows": [
+              [
+                "Sc",
+                "**+3**",
+                "Behaves like a Group 3 main-group metal"
+              ],
+              [
+                "Ti",
+                "+2, +3, **+4**",
+                "TiO₂ pigment; Ti³⁺ is purple, a reductant"
+              ],
+              [
+                "V",
+                "+2, +3, +4, **+5**",
+                "Four colors in the oxidation states: violet V²⁺, green V³⁺, blue VO²⁺, yellow VO₂⁺"
+              ],
+              [
+                "Cr",
+                "+2, **+3**, +6",
+                "Cr₂O₇²⁻ orange, CrO₄²⁻ yellow, Cr³⁺ green; Cr(VI) is a strong oxidant and carcinogen"
+              ],
+              [
+                "Mn",
+                "**+2**, +3, +4, +6, **+7**",
+                "The widest range (+2 to +7); MnO₄⁻ purple, a strong oxidant"
+              ],
+              [
+                "Fe",
+                "**+2**, **+3**",
+                "Fe³⁺ is stable in air, Fe²⁺ oxidizes slowly"
+              ],
+              [
+                "Co",
+                "**+2**, +3",
+                "Co(III) is stable only in complexes (inert, low-spin)"
+              ],
+              [
+                "Ni",
+                "**+2**",
+                "Rarely +3 and +4; Ni(0) in Ni(CO)₄"
+              ],
+              [
+                "Cu",
+                "+1, **+2**",
+                "Cu⁺ disproportionates in water"
+              ],
+              [
+                "Zn",
+                "**+2**",
+                "d¹⁰: colorless, diamagnetic, not a typical transition metal"
+              ]
+            ],
+            "caption": "Oxidation states of the first transition series."
+          }
+        },
+        "From Sc to Mn the highest oxidation state equals the group number (all the 3d and 4s electrons are lost), and the highest states are found in oxo anions (VO₄³⁻, CrO₄²⁻, MnO₄⁻) because oxygen stabilizes them through π bonding. The stability of the highest state falls from Mn to Zn as the nuclear charge increases and the d electrons become harder to remove, so Fe(VIII) does not exist, and the oxidizing power of the M(highest) rises along the series: MnO₄⁻ (E° = +1.51 V) is a much stronger oxidant than VO₂⁺ (+1.0 V). Low oxidation states, with π-acceptor ligands (CO, phosphines), are possible for the later metals.",
+        {
+          "example": {
+            "title": "A color sequence",
+            "problem": "Zinc metal reduces yellow VO₂⁺ in acid step by step. What colors appear?",
+            "solution": "The potentials of the three vanadium couples (+1.00, +0.34 and −0.26 V) all lie above that of Zn²⁺/Zn (−0.76 V), so zinc can reduce vanadium all the way to V²⁺. The colors change from yellow (VO₂⁺, +5) to blue (VO²⁺, +4), green (V³⁺, +3) and violet (V²⁺, +2)."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Which 3d metal shows the widest range of oxidation states?",
+          "a": "Manganese (+2 to +7)",
+          "wrong": [
+            "Zinc",
+            "Scandium",
+            "Nickel"
+          ]
+        },
+        {
+          "q": "Why do transition metals have variable oxidation states?",
+          "a": "The 4s and 3d electrons are close in energy, so several can be lost",
+          "wrong": [
+            "They have no valence electrons",
+            "Their ions are large",
+            "They are all paramagnetic"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "BF₃ < BCl₃ < BBr₃ in Lewis acidity, because of π donation from F. Metal aqua ions are acidic in proportion to their charge density.",
+    "Pauling’s rule: pK_a ≈ 8 − 5p for (HO)ₘXOₚ, with successive pK_a values rising by 5. Superacids (H₀ < −12), such as magic acid, protonate even alkanes.",
+    "Latimer diagrams combine potentials as weighted averages. A species with a higher potential on its right than on its left disproportionates.",
+    "Frost diagrams (nE° versus oxidation number): low is stable, above the neighbors’ line is a disproportionator, and the slope is E°.",
+    "Pourbaix diagrams (E versus pH) show corrosion, passivation and immunity, within the stability field of water.",
+    "3d metals have variable oxidation states, with the highest equal to the group number up to Mn(VII), found in oxo anions."
+  ],
+  "problems": [
+    {
+      "q": "Estimate pK_a₁ and pK_a₂ of H₂SO₃ (OS(OH)₂, p = 1) and compare with the observed 1.9 and 7.2.",
+      "solution": "Pauling: p = 1 gives pK_a₁ ≈ 3 and pK_a₂ ≈ 8, against 1.9 and 7.2 observed. The rules are right to within about 1 unit.",
+      "a": "pK₁ ≈ 3 and pK₂ ≈ 8, close to the observed values."
+    },
+    {
+      "q": "For chlorine in acid, ClO₄⁻ —1.20→ ClO₃⁻ —1.18→ HClO₂ —1.65→ HClO —1.63→ Cl₂ —1.36→ Cl⁻ (potentials in volts). (a) Which species is unstable to disproportionation? (b) Find E° for ClO₃⁻/Cl⁻.",
+      "solution": "(a) HClO₂ has a higher potential on its right (1.65 V) than on its left (1.18 V), so it disproportionates. For ClO₃⁻, HClO and Cl₂ the potential on the right is lower than on the left, so they do not. (b) ClO₃⁻ to Cl⁻ is a 6-electron change made of steps of 2, 2, 1 and 1 electrons: E° = (2 × 1.18 + 2 × 1.65 + 1 × 1.63 + 1 × 1.36)/6 = 8.65/6 = 1.44 V.",
+      "a": "(a) HClO₂. (b) 1.44 V."
+    },
+    {
+      "q": "Use the Nernst equation to find the potential of the O₂/H₂O couple at pH 3 and at pH 11.",
+      "solution": "E = 1.23 − 0.059 × pH. At pH 3: 1.05 V. At pH 11: 0.58 V. Oxygen is a stronger oxidant in acid than in base.",
+      "a": "1.05 V at pH 3 and 0.58 V at pH 11."
+    }
+  ]
+}

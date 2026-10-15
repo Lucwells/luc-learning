@@ -1,0 +1,317 @@
+{
+  "id": "bioinorganic",
+  "view": "chapter",
+  "title": "Bioinorganic Chemistry, the f-Block and Characterization",
+  "description": "Metals in biology, the lanthanides and actinides, and the techniques used to characterize inorganic compounds.",
+  "overview": [
+    "About a third of all proteins contain a metal. Iron carries oxygen in blood, zinc breaks down carbon dioxide, copper and iron shuttle electrons in respiration, magnesium sits at the center of chlorophyll, and molybdenum and iron convert nitrogen to ammonia. Bioinorganic chemistry asks how nature tunes a metal’s properties with its surroundings, the same ligand field ideas used elsewhere in this part.",
+    "This final inorganic chapter surveys the key metalloproteins, then the lanthanides and actinides, which fill the f orbitals and have unusual properties, and the techniques (crystallography, EPR, Mössbauer and X-ray absorption) used to determine the structures and electronic states of inorganic compounds."
+  ],
+  "objectives": [
+    "Describe how hemoglobin binds oxygen, including the structural change and cooperativity.",
+    "Explain the roles of cytochromes, iron–sulfur clusters, carbonic anhydrase, nitrogenase, chlorophyll and vitamin B₁₂.",
+    "Explain the lanthanide contraction and its consequences, and the properties of the f-block elements.",
+    "Describe the uses of rare earth elements and the chemistry of uranium and plutonium.",
+    "Choose and interpret X-ray diffraction, EPR, Mössbauer and X-ray absorption data."
+  ],
+  "sections": [
+    {
+      "id": "metalloproteins",
+      "title": "Metals in biology",
+      "terms": [
+        "bioinorganic chemistry",
+        "metalloprotein",
+        "metalloproteins",
+        "trace elements",
+        "essential elements",
+        "heme",
+        "hemoglobin",
+        "myoglobin",
+        "cooperativity",
+        "Bohr effect",
+        "oxygen binding",
+        "porphyrin ring"
+      ],
+      "body": [
+        "The bulk elements of life are C, H, O, N, P and S, and the metals Na, K, Mg, Ca. The **trace elements**, needed in small amounts, include Fe, Zn, Cu, Mn, Co, Mo, Se and I. A **metalloprotein** has a metal ion held by the amino acid side chains (histidine N, cysteine S, aspartate and glutamate O, tyrosine O) and often by a cofactor such as a porphyrin. The protein fine-tunes the metal’s geometry, redox potential and reactivity (the entatic state: the metal is held in a strained geometry that suits its job).",
+        {
+          "h": "Oxygen transport: myoglobin and hemoglobin"
+        },
+        "Both proteins bind O₂ at a **heme** group: an Fe(II) held in the plane of a porphyrin (a tetradentate macrocycle) with a histidine of the protein bound in the fifth position, and the sixth position free for O₂. In deoxy heme, Fe(II) is high-spin (d⁶, t₂g⁴e_g²) and too large (radius 78 pm) to fit in the plane of the porphyrin, sitting about 0.4 Å out of the plane toward the histidine. On binding O₂ it becomes low-spin (diamagnetic, with the electrons of the Fe(II)–O₂ system paired), shrinks to 61 pm and moves into the plane, pulling the histidine and the helix with it.",
+        "**Myoglobin**, a single heme in muscle, binds O₂ with a hyperbolic curve, and stores oxygen. **Hemoglobin** is a tetramer of four hemes. The movement of the iron on binding at one heme triggers a change of quaternary structure that raises the O₂ affinity of the other three: **cooperativity**, which gives a sigmoidal binding curve (Hill coefficient about 2.8), so hemoglobin loads O₂ almost fully in the lungs (partial pressure 100 torr) and releases it in tissue (about 30 torr). The **Bohr effect** adds control: H⁺ and CO₂ in active tissue bind hemoglobin and lower its O₂ affinity so oxygen is released where it is needed. Carbon monoxide binds the heme iron about 200 times more strongly than O₂ and prevents oxygen transport, and cyanide poisons by binding to the iron of cytochrome c oxidase.",
+        {
+          "h": "Electron transfer"
+        },
+        "**Cytochromes** are heme proteins that carry electrons by cycling Fe(III)/Fe(II) with the iron in a low-spin, strongly bound environment (cytochrome c, with His and Met ligands, E° about +0.25 V). Their role is in the electron transport chain of respiration and photosynthesis. **Iron–sulfur clusters**, in which Fe ions are bridged by sulfide and bound to the protein by cysteine thiolates ([2Fe–2S], [4Fe–4S] cubane), are in **ferredoxins** and many enzymes, and carry electrons over a wide range of potentials. Blue copper proteins (plastocyanin, azurin) transfer electrons with Cu(II)/Cu(I) in a rigid, intermediate geometry between tetrahedral and square planar, which lowers the reorganization energy (see the chapter on complex reactivity), making electron transfer fast."
+      ],
+      "check": [
+        {
+          "q": "Why does the iron move into the porphyrin plane when O₂ binds?",
+          "a": "It changes from high-spin Fe(II) to the smaller low-spin state",
+          "wrong": [
+            "O₂ pulls it by static charge",
+            "It changes to Fe(III) and gets larger",
+            "The porphyrin shrinks"
+          ]
+        },
+        {
+          "q": "Cooperativity in hemoglobin means…",
+          "a": "Binding O₂ at one heme raises the O₂ affinity of the other hemes",
+          "wrong": [
+            "Each heme binds oxygen independently",
+            "Hemoglobin binds only CO",
+            "The tetramer separates when it binds O₂"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "enzymes-metals",
+      "title": "Metal-containing enzymes and cofactors",
+      "terms": [
+        "cytochrome",
+        "cytochromes",
+        "nitrogenase",
+        "carbonic anhydrase",
+        "chlorophyll",
+        "vitamin B12",
+        "cobalamin",
+        "iron–sulfur cluster",
+        "iron–sulfur clusters",
+        "ferredoxin",
+        "superoxide dismutase",
+        "FeMo cofactor",
+        "zinc enzymes",
+        "metalloenzyme",
+        "metalloenzymes",
+        "cisplatin therapy",
+        "heavy metal toxicity"
+      ],
+      "body": [
+        {
+          "list": [
+            "**Carbonic anhydrase** has a Zn²⁺ bound by three histidines and one water. The zinc lowers the pK_a of its water to about 7, so that at physiological pH it is Zn–OH⁻, which attacks CO₂ to give bicarbonate: CO₂ + H₂O ⇌ HCO₃⁻ + H⁺. The enzyme turns over 10⁶ times a second, close to the diffusion limit, and ensures CO₂ is removed from the blood. Zn²⁺ is chosen because it is a strong Lewis acid and, being d¹⁰, has no redox chemistry or ligand field preference, and so a flexible geometry.",
+            "**Nitrogenase** reduces N₂ to NH₃ at room temperature and 1 atm, a reaction that takes 400 °C and 200 atm industrially: N₂ + 8H⁺ + 8e⁻ + 16 ATP → 2NH₃ + H₂ + 16 ADP + 16 P_i. The active site, the iron–molybdenum cofactor (FeMoco, MoFe₇S₉C with a central carbide), is a cluster of sulfur-bridged iron atoms with one molybdenum, and the second protein, an Fe protein with a [4Fe–4S] cluster, delivers the electrons. Fixation by this enzyme supplies about half of the nitrogen in food.",
+            "**Chlorophyll** is a Mg(II) chlorin, a porphyrin with one reduced double bond that shifts its absorption into the red and blue, and so leaves green light unabsorbed. Mg²⁺ (d⁰, closed shell) gives a long-lived excited state that donates an electron to start photosynthesis.",
+            "**Vitamin B₁₂** (cobalamin) has cobalt in a corrin ring with a Co–C bond to a 5′-deoxyadenosyl or methyl group, one of the few organometallic compounds in biology. It catalyzes rearrangements by homolysis of the Co–C bond and methyl transfers (methionine synthase).",
+            "**Superoxide dismutase** (Cu/Zn) removes the superoxide radical, 2O₂⁻ + 2H⁺ → H₂O₂ + O₂, by cycling Cu(II)/Cu(I), protecting cells from oxidative damage."
+          ]
+        },
+        "Metals are also toxic and therapeutic. Pb²⁺ binds sulfur and carboxylate groups and displaces Ca²⁺ and Zn²⁺; Hg²⁺ and Cd²⁺ bind soft thiolate sites (see HSAB); chelation therapy with EDTA or dimercaprol removes them. Cisplatin treats testicular cancer by crosslinking DNA at adjacent guanines, gadolinium chelates enhance MRI contrast (Gd³⁺ has seven unpaired electrons), and technetium-99m complexes are the imaging agents of nuclear medicine."
+      ],
+      "check": [
+        {
+          "q": "Why is zinc suited to the role in carbonic anhydrase?",
+          "a": "It is a strong Lewis acid with no redox activity and a flexible geometry, giving a reactive Zn–OH at neutral pH",
+          "wrong": [
+            "It readily changes oxidation state",
+            "It binds CO₂ directly through d electrons",
+            "It is paramagnetic"
+          ]
+        },
+        {
+          "q": "What metal is at the center of vitamin B₁₂?",
+          "a": "Cobalt",
+          "wrong": [
+            "Iron",
+            "Magnesium",
+            "Zinc"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f-block",
+      "title": "The lanthanides and actinides",
+      "terms": [
+        "lanthanide contraction",
+        "lanthanide series",
+        "rare earth elements",
+        "rare earths",
+        "4f orbitals",
+        "actinide chemistry",
+        "uranyl",
+        "europium luminescence",
+        "neodymium magnets",
+        "f-block elements",
+        "f-block",
+        "5f orbitals",
+        "plutonium",
+        "uranium chemistry",
+        "cerium(IV)",
+        "transuranic elements",
+        "Nd:YAG laser",
+        "gadolinium"
+      ],
+      "body": [
+        "The **lanthanides** (La to Lu, 4f filling) and **actinides** (Ac to Lr, 5f filling) are the f-block elements. The 4f orbitals are buried inside the 5s and 5p shells, so they are shielded from the surroundings, and that determines the chemistry of the lanthanides.",
+        {
+          "list": [
+            "**Oxidation state +3** is nearly universal, because the three outer electrons (5d¹6s²) are removed and the 4f electrons stay. Exceptions arise at the empty, half-filled and filled f shells: **Ce⁴⁺** (4f⁰) is a strong oxidant (E° = +1.7 V in acid, used in redox titrations and in catalytic converters), Eu²⁺ (4f⁷) and Yb²⁺ (4f¹⁴) are reductants, and Tb⁴⁺ (4f⁷) exists.",
+            "The **lanthanide contraction**: poor shielding by 4f electrons means that the effective nuclear charge rises across the series, and the ionic radius falls steadily from La³⁺ (103 pm) to Lu³⁺ (86 pm). This has consequences throughout the periodic table. The elements that follow (Hf, Ta, W) are smaller than expected, and so Zr and Hf (Zr⁴⁺ 72 pm, Hf⁴⁺ 71 pm) have nearly identical chemistry and are hard to separate, as are Nb and Ta. The 4d and 5d metals have similar sizes, and the 5d metals (Pt, Au) are more dense and more inert.",
+            "**Weak ligand-field effects.** Because the 4f electrons interact little with ligands, the properties of each ion (color, magnetism, spectra) depend little on the compound. The f–f absorptions and emissions are narrow lines, like atomic spectra, and mostly Laporte-forbidden, so are weak but long-lived. Large radii give high coordination numbers (8–9, up to 12), and bonding is mostly ionic (hard Lewis acids that bind O and F donors)."
+          ]
+        },
+        {
+          "table": {
+            "head": [
+              "Ion",
+              "Use",
+              "Property exploited"
+            ],
+            "rows": [
+              [
+                "Eu³⁺",
+                "Red phosphor (TV and display screens, fluorescent lamps)",
+                "Narrow red f–f emission near 612 nm"
+              ],
+              [
+                "Tb³⁺",
+                "Green phosphor",
+                "Emission near 545 nm"
+              ],
+              [
+                "Nd³⁺",
+                "Nd:YAG laser (1064 nm), and Nd₂Fe₁₄B permanent magnets",
+                "f-electron laser transition; large magnetic anisotropy"
+              ],
+              [
+                "Gd³⁺",
+                "MRI contrast agents",
+                "Seven unpaired f electrons, long electron-spin relaxation"
+              ],
+              [
+                "Ce⁴⁺/Ce³⁺",
+                "Catalytic converters, glass polishing",
+                "Reversible Ce(IV)/Ce(III) couple stores oxygen"
+              ],
+              [
+                "La, Ce, Pr, Nd",
+                "Batteries (NiMH), alloys, catalysts",
+                ""
+              ]
+            ],
+            "caption": "Uses of the lanthanides."
+          }
+        },
+        "The **rare earth elements** (the lanthanides plus Sc and Y) are not rare in the crust (cerium is more abundant than copper), but are dispersed and similar in chemistry, so separating them from each other is hard. Industrial separation uses ion exchange or repeated solvent extraction, which takes advantage of the small decrease in ionic radius across the series.",
+        {
+          "h": "Actinides"
+        },
+        "The 5f orbitals are more extended than 4f, so actinides take part more in bonding, and the early actinides show a variety of oxidation states: U +3 to +6, Np +3 to +7, Pu +3 to +7 (Pu has all of +3, +4, +5 and +6 in solution at once, a result of nearly equal potentials). All are radioactive. Thorium and uranium occur naturally, and the rest are made by neutron capture in reactors (Pu-239 from U-238) or in accelerators. The **uranyl** ion, UO₂²⁺ (U(VI)), is a linear O=U=O unit with yellow-green fluorescence, and is the soluble form of uranium in water. Uranium is enriched as gaseous UF₆, whose lighter isotopologue effuses faster. Americium-241 is the ionization source of smoke detectors."
+      ],
+      "check": [
+        {
+          "q": "What is the lanthanide contraction?",
+          "a": "A steady decrease in ionic radius from La³⁺ to Lu³⁺ as 4f electrons shield poorly",
+          "wrong": [
+            "An increase in radius across the series",
+            "A contraction of the d block only",
+            "The loss of 4f electrons"
+          ]
+        },
+        {
+          "q": "Why are Zr and Hf so similar chemically?",
+          "a": "The lanthanide contraction makes Hf⁴⁺ nearly the same size as Zr⁴⁺",
+          "wrong": [
+            "They have the same number of electrons",
+            "Both are lanthanides",
+            "They are in the same period"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "characterization",
+      "title": "Characterizing inorganic compounds",
+      "terms": [
+        "EPR spectroscopy",
+        "electron paramagnetic resonance",
+        "Mössbauer spectroscopy",
+        "single-crystal X-ray diffraction",
+        "elemental analysis",
+        "EXAFS",
+        "XANES",
+        "hyperfine coupling",
+        "g value",
+        "X-ray absorption spectroscopy",
+        "isomer shift",
+        "quadrupole splitting",
+        "inorganic characterization"
+      ],
+      "body": [
+        "Inorganic compounds are characterized by the combination of several methods, each answering a different question.",
+        {
+          "list": [
+            "**Single-crystal X-ray diffraction** gives the complete three-dimensional structure: bond lengths and angles, coordination geometry and packing. X-rays diffract from the electron density of a crystal about 0.1 mm across, according to Bragg’s law (nλ = 2d sin θ), and a computer assembles the pattern into an atomic model. It is definitive but needs a good single crystal.",
+            "**Powder X-ray diffraction** uses a polycrystalline sample, and gives a pattern of peaks that is a fingerprint of the crystalline phase (compared with databases), shows purity, and gives lattice parameters. The **Scherrer equation**, τ = Kλ/(β cos θ) (K about 0.9), estimates the crystallite size τ from the peak width β (in radians). A peak 0.25° wide at 2θ = 40° (Cu Kα, λ = 0.154 nm) corresponds to τ = 0.9 × 0.154/(0.00436 × 0.940) = 34 nm.",
+            "**Elemental analysis** gives the formula: CHN combustion analysis for carbon, hydrogen and nitrogen, and ICP–OES or ICP–MS (inductively coupled plasma) for metals at ppm to ppt levels.",
+            "**EPR (electron paramagnetic resonance) spectroscopy** detects unpaired electrons, like NMR, with electron spins in a magnetic field absorbing microwaves: hν = gμ_B B (at the usual X-band of 9.5 GHz, a field of about 0.34 T). The **g value** (2.0023 for a free electron) shifts with spin–orbit coupling and tells the electronic structure of the metal (Cu(II) g about 2.0–2.4, anisotropic). **Hyperfine coupling** to nuclear spins splits the signal: Mn(II) (I = 5/2) gives six lines, Cu(II) (I = 3/2) gives four, and coupling to ligand nuclei (¹⁴N, ³¹P) shows which atoms hold the electron. EPR works for radicals and for paramagnetic metal ions (d¹, d⁵, d⁷, d⁹) and detects metal centers in proteins.",
+            "**Mössbauer spectroscopy** (gamma-ray resonance in ⁵⁷Fe, ¹¹⁹Sn, ¹⁹⁷Au) measures the nuclear environment. The **isomer shift** δ depends on the s-electron density at the nucleus and gives oxidation and spin state (high-spin Fe(II) δ about +1.0 to 1.3 mm/s, high-spin Fe(III) about +0.3 to 0.5 mm/s, relative to α-Fe), and the **quadrupole splitting** ΔE_Q gives the symmetry of the electron distribution. It is the standard probe of iron in proteins and minerals.",
+            "**X-ray absorption spectroscopy (XAS)** uses a tunable synchrotron source. **XANES** (near-edge) gives the oxidation state and geometry from the position and shape of the absorption edge, and **EXAFS** (the oscillations above the edge) gives bond lengths (to about 0.02 Å), coordination numbers and the identity of neighbors, even in solution or amorphous materials where no crystal can be grown."
+          ]
+        },
+        "Other methods complete the picture: UV–visible and IR (Raman) spectroscopy for electronic and vibrational structure, magnetic susceptibility for spin state, NMR for diamagnetic complexes, cyclic voltammetry for redox potentials, and mass spectrometry for composition.",
+        {
+          "example": {
+            "title": "EPR resonance field",
+            "problem": "At what field does a free electron (g = 2.0023) resonate with 9.5 GHz microwaves? (μ_B/h = 13.996 GHz T⁻¹.)",
+            "solution": "B = ν/(g μ_B/h) = 9.5 GHz / (2.0023 × 13.996 GHz T⁻¹) = 0.339 T, or 3390 gauss. A species with a different g resonates at a different field, and the shift is the g value."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Which technique gives the complete 3D structure of a crystalline compound?",
+          "a": "Single-crystal X-ray diffraction",
+          "wrong": [
+            "EPR",
+            "Elemental analysis",
+            "Powder diffraction (gives no atom positions)"
+          ]
+        },
+        {
+          "q": "A Cu(II) EPR signal split into four lines is due to…",
+          "a": "Hyperfine coupling to the copper nucleus (I = 3/2)",
+          "wrong": [
+            "Coupling to the solvent",
+            "Two unpaired electrons",
+            "A change in oxidation state"
+          ]
+        },
+        {
+          "q": "Which technique reports the oxidation and spin state of iron from nuclear gamma-ray resonance?",
+          "a": "Mössbauer spectroscopy",
+          "wrong": [
+            "EPR",
+            "XRD",
+            "ICP-MS"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Heme Fe(II) binds O₂ and moves into the porphyrin plane as it goes from high spin to low spin. Cooperativity in hemoglobin gives a sigmoidal curve, and CO and CN⁻ are toxic by binding iron.",
+    "Zn²⁺ in carbonic anhydrase, the FeMo cofactor of nitrogenase, Mg in chlorophyll, Co in B₁₂ and iron–sulfur clusters illustrate how proteins tune metals.",
+    "Lanthanides are +3 with shielded 4f electrons (narrow f–f spectra); the lanthanide contraction makes Zr and Hf similar. Actinides have variable oxidation states (uranyl, plutonium) and are radioactive.",
+    "Characterization: single-crystal XRD for structure, powder XRD and Scherrer for phase and crystallite size, EPR for unpaired electrons, Mössbauer for Fe oxidation and spin states, and XAS (XANES, EXAFS) for oxidation state and local structure."
+  ],
+  "problems": [
+    {
+      "q": "Why does cooperativity make hemoglobin a better oxygen carrier than the same four hemes acting independently (as in myoglobin)?",
+      "solution": "A hyperbolic, myoglobin-like curve is already close to saturation at tissue oxygen pressures, so it would release very little oxygen there. The sigmoidal hemoglobin curve is steep in that range: the protein is about 97% saturated in the lungs (100 torr) and about 75% saturated in resting venous blood, and much less saturated in working muscle, so it releases oxygen where it is needed.",
+      "a": "The sigmoidal curve gives full loading in the lungs and efficient release in tissue."
+    },
+    {
+      "q": "Pu(IV) and Pu(VI) can coexist in solution. What does that tell you about the Latimer diagram of plutonium?",
+      "solution": "The potentials of adjacent plutonium couples are nearly equal (about 1.0 V), so the species are very close in free energy and none is a strong enough oxidant or reductant to eliminate the others. Plutonium can disproportionate, such as 3Pu⁴⁺ + 2H₂O → 2Pu³⁺ + PuO₂²⁺ + 4H⁺.",
+      "a": "Close potentials, with disproportionation, allow several oxidation states in one solution."
+    },
+    {
+      "q": "An XRD peak at 2θ = 31.7° (Cu Kα, 0.154 nm) has a width of 0.40°. Estimate the crystallite size, and the d spacing of the reflection.",
+      "solution": "θ = 15.85°, cos θ = 0.962. β = 0.40° = 0.00698 rad. τ = 0.9 × 0.154/(0.00698 × 0.962) = 20.6 nm. d = λ/(2 sin θ) = 0.154/(2 × 0.2731) = 0.282 nm.",
+      "a": "About 21 nm; d = 0.282 nm."
+    }
+  ]
+}

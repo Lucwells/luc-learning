@@ -1,0 +1,568 @@
+{
+  "id": "classical-thermodynamics",
+  "view": "chapter",
+  "title": "Chemical Thermodynamics",
+  "description": "The laws, thermodynamic potentials, Maxwell relations, real gases, chemical potential, phase equilibria, solutions and equilibrium.",
+  "overview": [
+    "General chemistry introduced energy, enthalpy, entropy and free energy as tools to predict whether a reaction goes. Physical chemistry develops them into a mathematical structure that connects measurable quantities: the heat capacity of a gas tells you how its energy depends on volume, the pressure dependence of the boiling point gives the enthalpy of vaporization, and a cell’s voltage and its temperature coefficient give ΔG, ΔS and ΔH of its reaction.",
+    "This chapter builds that structure. It starts from the laws and the thermodynamic potentials, derives the Maxwell relations that turn derivatives into measurable ones, treats real gases, introduces the chemical potential as the governing quantity for phase and chemical equilibrium, and then applies it to phase diagrams, solutions, equilibrium constants and electrochemical cells."
+  ],
+  "objectives": [
+    "State the laws of thermodynamics and compute heat-engine efficiencies.",
+    "Write the fundamental equations of U, H, A and G and their natural variables.",
+    "Derive and apply Maxwell relations, and compute the Joule–Thomson effect.",
+    "Use virial and van der Waals descriptions of real gases and their critical constants.",
+    "Use chemical potential and partial molar quantities, and the Gibbs phase rule and Clapeyron equation.",
+    "Describe ideal and nonideal solutions, activity coefficients and the Debye–Hückel law.",
+    "Use the van ’t Hoff equation and the temperature coefficient of cell potential."
+  ],
+  "sections": [
+    {
+      "id": "laws",
+      "title": "The laws of thermodynamics and heat engines",
+      "terms": [
+        "zeroth law",
+        "laws of thermodynamics",
+        "Carnot cycle",
+        "Carnot efficiency",
+        "heat engine",
+        "heat engines",
+        "Kelvin–Planck statement",
+        "Clausius statement",
+        "Clausius inequality",
+        "heat pump",
+        "coefficient of performance",
+        "reversible process",
+        "thermal equilibrium"
+      ],
+      "body": [
+        "The laws of thermodynamics are the condensed experience of how energy behaves.",
+        {
+          "list": [
+            "**Zeroth law**: if A is in thermal equilibrium with B, and B with C, then A is in equilibrium with C. This defines temperature as the property that is equal for bodies in thermal equilibrium.",
+            "**First law**: energy is conserved, dU = δq + δw. U is a state function. The heat capacities C_V = (∂U/∂T)_V and C_P = (∂H/∂T)_P describe how the energy and enthalpy change with temperature.",
+            "**Second law**: for any spontaneous process the entropy of the universe increases. Equivalent statements: **Kelvin–Planck**: no cyclic process can convert heat from a single reservoir entirely into work; **Clausius**: no process can transfer heat from a colder to a hotter body with no other effect. Entropy is defined by dS = δq_rev/T, and the **Clausius inequality** is dS ≥ δq/T.",
+            "**Third law**: the entropy of a perfect crystal is zero at 0 K."
+          ]
+        },
+        {
+          "h": "Heat engines"
+        },
+        "A **heat engine** takes heat q_h from a hot reservoir at T_h, converts part to work w, and discards q_c to a cold reservoir at T_c. The efficiency is η = w/q_h = 1 − q_c/q_h. In the reversible **Carnot cycle** (two isothermal and two adiabatic steps) the entropy changes cancel, q_c/q_h = T_c/T_h, and",
+        {
+          "eq": "η_Carnot = 1 − T_c/T_h"
+        },
+        "This is the maximum efficiency of any engine working between the two temperatures, set by the second law, and no real engine exceeds it. The efficiency rises as the temperature difference grows, and so power stations use steam at 800 K or more. Running the cycle backward gives a refrigerator or **heat pump**, and the **coefficient of performance** of a heat pump is T_h/(T_h − T_c) at best: heating with a heat pump can deliver 3 to 5 units of heat per unit of electricity.",
+        {
+          "example": {
+            "title": "Engine efficiency",
+            "problem": "What is the maximum efficiency of a heat engine operating between 800 K and 300 K? How much work comes from 1000 J of heat taken from the hot reservoir?",
+            "solution": "η = 1 − 300/800 = 0.625 (62.5%). w = 0.625 × 1000 J = 625 J, and 375 J must be discarded to the cold reservoir. An actual engine achieves about half of this."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "What is the maximum efficiency of an engine operating between 600 K and 300 K?",
+          "a": "50%",
+          "wrong": [
+            "100%",
+            "25%",
+            "33%"
+          ]
+        },
+        {
+          "q": "Which law defines temperature?",
+          "a": "The zeroth law",
+          "wrong": [
+            "The first law",
+            "The second law",
+            "The third law"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "potentials",
+      "title": "Thermodynamic potentials",
+      "terms": [
+        "Helmholtz energy",
+        "Helmholtz free energy",
+        "thermodynamic potentials",
+        "fundamental equation",
+        "natural variables",
+        "maximum work",
+        "Gibbs energy",
+        "criteria for spontaneity",
+        "A = U − TS"
+      ],
+      "body": [
+        "Combining the first and second laws for a reversible change gives the **fundamental equation** dU = T dS − P dV. The internal energy U is naturally a function of entropy and volume, U(S, V), which are its **natural variables**. Other potentials, defined by Legendre transformations, are the natural functions of other pairs of variables, convenient for other experimental conditions.",
+        {
+          "table": {
+            "head": [
+              "Potential",
+              "Definition",
+              "Differential",
+              "Natural variables",
+              "Spontaneous when"
+            ],
+            "rows": [
+              [
+                "Internal energy U",
+                "U",
+                "dU = T dS − P dV",
+                "S, V",
+                "dU ≤ 0 at constant S, V"
+              ],
+              [
+                "Enthalpy H",
+                "U + PV",
+                "dH = T dS + V dP",
+                "S, P",
+                "dH ≤ 0 at constant S, P"
+              ],
+              [
+                "**Helmholtz energy** A",
+                "U − TS",
+                "dA = −S dT − P dV",
+                "T, V",
+                "dA ≤ 0 at constant T, V"
+              ],
+              [
+                "**Gibbs energy** G",
+                "H − TS",
+                "dG = −S dT + V dP",
+                "T, P",
+                "dG ≤ 0 at constant T, P"
+              ]
+            ],
+            "caption": "The thermodynamic potentials."
+          }
+        },
+        "Chemistry is usually done at constant temperature and pressure, so G is the working potential. From the differentials follow relations such as S = −(∂G/∂T)_P and V = (∂G/∂P)_T. The potentials also set the available work: the **maximum work** a system can do at constant T and V is −ΔA, and the maximum non-expansion (for example electrical) work at constant T and P is −ΔG, which is why the voltage of a battery is related to ΔG.",
+        "For an ideal gas at constant T, integrating (∂G/∂P)_T = V = nRT/P gives G = G° + nRT ln(P/P°)."
+      ],
+      "check": [
+        {
+          "q": "What are the natural variables of the Gibbs energy?",
+          "a": "T and P",
+          "wrong": [
+            "S and V",
+            "T and V",
+            "S and P"
+          ]
+        },
+        {
+          "q": "The maximum non-expansion work at constant T and P equals…",
+          "a": "−ΔG",
+          "wrong": [
+            "−ΔA",
+            "ΔH",
+            "−ΔU"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "maxwell",
+      "title": "Maxwell relations and thermodynamic identities",
+      "terms": [
+        "Maxwell relations",
+        "Maxwell relation",
+        "Gibbs–Helmholtz equation",
+        "Joule–Thomson effect",
+        "Joule–Thomson coefficient",
+        "inversion temperature",
+        "thermodynamic equation of state",
+        "exact differential",
+        "internal pressure",
+        "Joule expansion",
+        "CP − CV"
+      ],
+      "body": [
+        "Because dU, dH, dA and dG are exact differentials, the cross-derivatives of their coefficients are equal, which gives four **Maxwell relations**. They convert derivatives that are hard to measure (those involving S) into those that are easy (P, V, T):",
+        {
+          "eq": [
+            "(∂T/∂V)_S = −(∂P/∂S)_V     (∂T/∂P)_S = (∂V/∂S)_P",
+            "(∂S/∂V)_T = (∂P/∂T)_V     (∂S/∂P)_T = −(∂V/∂T)_P"
+          ]
+        },
+        "Two consequences. The **thermodynamic equation of state**, (∂U/∂V)_T = T(∂P/∂T)_V − P, shows how the energy changes when a gas expands at constant temperature. It is zero for an ideal gas (the **internal pressure** vanishes), and equals a/V_m² for a van der Waals gas: attractions between the molecules cause the energy to rise on expansion. The **Gibbs–Helmholtz equation**, (∂(G/T)/∂T)_P = −H/T², gives the temperature dependence of ΔG, and from it the van ’t Hoff equation.",
+        {
+          "h": "The Joule–Thomson effect"
+        },
+        "When a gas expands through a throttle (a porous plug, isenthalpic), its temperature changes by the **Joule–Thomson coefficient** μ_JT = (∂T/∂P)_H = [T(∂V/∂T)_P − V]/C_P. For an ideal gas it is zero. For a real gas it is positive at low temperature (cooling on expansion, dominated by attractions) and negative at high temperature (heating, dominated by repulsions). The crossover is the **inversion temperature**. For a van der Waals gas at low density, μ_JT ≈ (2a/RT − b)/C_P, and the maximum inversion temperature is T_i = 2a/(Rb). Nitrogen (621 K) and oxygen invert above room temperature and cool on expansion at 298 K, but hydrogen (205 K) and helium (40 K) heat up unless they are first cooled below the inversion temperature, which is how the Linde process liquefies gases.",
+        {
+          "example": {
+            "title": "Joule–Thomson cooling of nitrogen",
+            "problem": "Estimate μ_JT for N₂ at 298 K using van der Waals constants a = 1.39 L² atm mol⁻² and b = 0.0391 L mol⁻¹, with C_P = 29.1 J K⁻¹ mol⁻¹ (= 0.287 L atm K⁻¹ mol⁻¹).",
+            "solution": "μ_JT ≈ (2a/RT − b)/C_P = (2 × 1.39/(0.08206 × 298) − 0.0391)/0.287 = (0.1137 − 0.0391)/0.287 = 0.26 K atm⁻¹. The measured value is 0.22 K atm⁻¹. A 100 atm drop would cool nitrogen by about 25 K."
+          }
+        },
+        "Another identity gives the difference of the heat capacities: C_P − C_V = TVα²/κ_T, where α is the thermal expansion coefficient and κ_T the isothermal compressibility. For an ideal gas it is nR."
+      ],
+      "check": [
+        {
+          "q": "For an ideal gas, (∂U/∂V)_T is…",
+          "a": "Zero",
+          "wrong": [
+            "P",
+            "−P",
+            "T"
+          ]
+        },
+        {
+          "q": "Why can a gas heat up when it expands through a throttle?",
+          "a": "Above its inversion temperature, repulsive interactions dominate",
+          "wrong": [
+            "Expansion always heats a gas",
+            "The gas is ideal",
+            "Work is done on the gas by vacuum"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "real-gases",
+      "title": "Real gases: virial equation and critical constants",
+      "terms": [
+        "virial equation",
+        "virial coefficient",
+        "virial coefficients",
+        "Boyle temperature",
+        "critical constants",
+        "van der Waals constants",
+        "law of corresponding states",
+        "reduced variables",
+        "critical point constants",
+        "second virial coefficient"
+      ],
+      "body": [
+        "The compressibility factor of a real gas can be expanded in powers of the molar density (the **virial equation**): Z = PV_m/RT = 1 + B(T)/V_m + C(T)/V_m² + …, where B and C are the second and third **virial coefficients**, functions of temperature that measure pair and triple interactions. B is negative at low temperature (attractions dominate) and positive at high temperature (repulsions). The temperature where B = 0, the **Boyle temperature**, is where the gas behaves ideally over a range of pressures: for the van der Waals gas T_B = a/(Rb).",
+        "The van der Waals equation has a critical point where the liquid and gas become identical: the first and second derivatives of P with V vanish. This gives the **critical constants**:",
+        {
+          "eq": [
+            "T_c = 8a/(27Rb),   P_c = a/(27b²),   V_c = 3b,   Z_c = P_cV_c/RT_c = 3/8"
+          ]
+        },
+        "The measured critical compressibility is about 0.27–0.29, so the van der Waals result of 0.375 is only approximate. Writing P, V and T as fractions of their critical values (**reduced variables** P_r, V_r, T_r) gives an equation of state without any constants specific to the gas: (P_r + 3/V_r²)(3V_r − 1) = 8T_r. This is the **law of corresponding states**: all gases at the same reduced temperature and pressure have approximately the same compressibility factor, and so the same deviation from ideality. It is the basis of generalized compressibility charts used in engineering.",
+        {
+          "example": {
+            "title": "Critical constants of CO₂",
+            "problem": "Use a = 3.64 L² atm mol⁻² and b = 0.0427 L mol⁻¹ to find the van der Waals critical temperature and pressure of CO₂, and compare with the measured values (304.2 K, 72.8 atm).",
+            "solution": "T_c = 8a/(27Rb) = 8 × 3.64/(27 × 0.08206 × 0.0427) = 29.12/0.0946 = 308 K. P_c = a/(27b²) = 3.64/(27 × 0.001823) = 74 atm. Both are within 2% of experiment, which is good for such a simple equation."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "At the Boyle temperature, the second virial coefficient is…",
+          "a": "Zero",
+          "wrong": [
+            "Maximum",
+            "Negative",
+            "Infinite"
+          ]
+        },
+        {
+          "q": "What does the law of corresponding states say?",
+          "a": "Gases at the same reduced T and P have similar compressibility factors",
+          "wrong": [
+            "All gases have the same critical temperature",
+            "All gases are ideal at the critical point",
+            "Z always equals 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "chemical-potential",
+      "title": "Chemical potential and partial molar quantities",
+      "terms": [
+        "chemical potential",
+        "partial molar quantities",
+        "partial molar volume",
+        "partial molar",
+        "Gibbs–Duhem equation",
+        "partial molar Gibbs energy",
+        "open system",
+        "equilibrium condition for phases"
+      ],
+      "body": [
+        "In a mixture the Gibbs energy depends also on the amounts of the components. The **chemical potential** of component i is the partial molar Gibbs energy:",
+        {
+          "eq": [
+            "μᵢ = (∂G/∂nᵢ)_{T,P,n_j}",
+            "dG = −S dT + V dP + Σ μᵢ dnᵢ"
+          ]
+        },
+        "It is the energy cost of adding a molecule of i to the mixture, and it is the quantity that drives matter from where it is high to where it is low, exactly as temperature drives heat. **At equilibrium the chemical potential of each component is the same in every phase** in which it is present. This single statement is the basis of phase equilibria, solubility and chemical equilibrium. For a pure substance μ is the molar Gibbs energy, and for a species in solution μᵢ = μᵢ° + RT ln aᵢ, with aᵢ the activity.",
+        "Other **partial molar quantities** have the same meaning: the partial molar volume V̄ᵢ = (∂V/∂nᵢ)_{T,P,n_j} is the change in the volume of the mixture on adding one mole of i, which is not the same as the molar volume of the pure substance. Mixing 50 mL of ethanol and 50 mL of water gives only about 96 mL, since the partial molar volume of each component is less than its pure value (the molecules pack better). It can even be negative: MgSO₄ in water has a negative partial molar volume, as the ions contract the water around them (electrostriction).",
+        "The **Gibbs–Duhem equation**, Σ nᵢ dμᵢ = 0 (at constant T and P), says that the chemical potentials of the components of a mixture cannot vary independently: if one rises the other falls. The same holds for the other partial molar quantities."
+      ],
+      "check": [
+        {
+          "q": "At equilibrium between two phases, a component has…",
+          "a": "The same chemical potential in both phases",
+          "wrong": [
+            "The same concentration in both phases",
+            "The same partial molar volume",
+            "Different chemical potentials that balance"
+          ]
+        },
+        {
+          "q": "Why can mixing 50 mL of ethanol and 50 mL of water give less than 100 mL?",
+          "a": "The partial molar volumes in the mixture are smaller than the pure molar volumes",
+          "wrong": [
+            "Ethanol evaporates",
+            "Water is destroyed",
+            "Volume is not additive for any liquids by definition"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-equilibria",
+      "title": "Phase equilibria: the phase rule and the Clapeyron equation",
+      "terms": [
+        "Gibbs phase rule",
+        "phase rule",
+        "Clapeyron equation",
+        "lever rule",
+        "degrees of freedom",
+        "components",
+        "binary phase diagram",
+        "tie line",
+        "eutectic",
+        "boiling point diagram"
+      ],
+      "body": [
+        "The **Gibbs phase rule** gives the number of intensive variables (**degrees of freedom**, F) that can be changed independently without changing the number of phases present, for a system of C components and P phases at equilibrium:",
+        {
+          "eq": "F = C − P + 2"
+        },
+        "It follows from counting variables (T, P and C − 1 mole fractions in each phase) and the equality of chemical potentials. For pure water (C = 1): in a single phase F = 2 (T and P both adjustable); on a coexistence line (two phases) F = 1 (specifying T fixes P); at the triple point F = 0. For a binary mixture at constant pressure, F = 3 − P: a one-phase region has two degrees of freedom (T and composition), and two coexisting phases have one.",
+        {
+          "h": "The Clapeyron equation"
+        },
+        "Along a line of two-phase equilibrium μ_α = μ_β, which gives the slope of the line:",
+        {
+          "eq": "dP/dT = ΔS/ΔV = ΔH / (T ΔV)"
+        },
+        "For melting ΔV is small, so the slope is steep. For ice, ΔH_fus = 6010 J mol⁻¹, ΔV = −1.63 × 10⁻⁶ m³ mol⁻¹ (ice is less dense), so dP/dT = 6010/(273.15 × (−1.63 × 10⁻⁶)) = −1.35 × 10⁷ Pa K⁻¹ = −133 atm K⁻¹: the melting point of ice falls by 0.0075 K per atmosphere. At higher pressures (about 100 atm, the pressure under a skate blade), the shift is still only 0.75 K, so pressure melting is not the explanation for skating. For vaporization, taking V_gas as ideal and neglecting the liquid volume gives the **Clausius–Clapeyron equation**, d ln P/dT = ΔH_vap/(RT²), the basis of the vapor pressure calculations in the chapter on liquids.",
+        {
+          "h": "Binary phase diagrams"
+        },
+        "In a temperature–composition diagram of two liquids, the **tie line** across a two-phase region joins the compositions of the coexisting phases, and the **lever rule** gives their relative amounts: n_α(x_α − x₀) = n_β(x₀ − x_β), as if the tie line were a lever balanced on the overall composition x₀. Solid–liquid diagrams with a **eutectic** (the lowest-melting composition, where the liquid freezes into two solids simultaneously) govern alloys and solders: the lead–tin solder at 63% Sn melts at 183 °C, below either metal (232 °C for Sn, 327 °C for Pb).",
+        {
+          "example": {
+            "title": "Using the phase rule and lever rule",
+            "problem": "How many degrees of freedom has a binary liquid mixture in equilibrium with its vapor at a fixed pressure? In a two-phase region of a boiling-point diagram, the overall composition x₀ = 0.40, with the liquid at x = 0.25 and the vapor at 0.55: what fraction of the moles is vapor?",
+            "solution": "F = C − P + 2 = 2 − 2 + 2 = 2, minus one for the fixed pressure: F = 1 (T fixes the compositions). Lever rule: n_vap/n_liq = (0.40 − 0.25)/(0.55 − 0.40) = 1, so half of the moles are vapor."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "How many degrees of freedom are there at the triple point of water?",
+          "a": "0",
+          "wrong": [
+            "1",
+            "2",
+            "3"
+          ]
+        },
+        {
+          "q": "Why does the melting curve of water slope backward (negative dP/dT)?",
+          "a": "Ice is less dense than liquid water, so ΔV for melting is negative",
+          "wrong": [
+            "ΔH for melting is negative",
+            "Water is a polar molecule",
+            "Ice has a lower entropy than gas"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "solutions",
+      "title": "Ideal and nonideal solutions",
+      "terms": [
+        "ideal solutions",
+        "activity coefficient",
+        "activity coefficients",
+        "azeotrope",
+        "azeotropes",
+        "excess functions",
+        "enthalpy of mixing",
+        "entropy of mixing",
+        "Debye–Hückel",
+        "Debye–Hückel limiting law",
+        "ionic strength",
+        "activity",
+        "Henry's law constant",
+        "mean ionic activity coefficient",
+        "Gibbs energy of mixing",
+        "regular solution"
+      ],
+      "body": [
+        "For an **ideal solution** every component obeys Raoult’s law, and the chemical potential is μᵢ = μᵢ* + RT ln xᵢ. Mixing of ideal liquids is spontaneous, and wholly due to entropy:",
+        {
+          "eq": [
+            "Δ_mix G = nRT Σ xᵢ ln xᵢ",
+            "Δ_mix S = −nR Σ xᵢ ln xᵢ,     Δ_mix H = 0,     Δ_mix V = 0"
+          ]
+        },
+        {
+          "example": {
+            "title": "Mixing",
+            "problem": "Calculate Δ_mix S and Δ_mix G for 1 mol of an equimolar ideal mixture at 298 K.",
+            "solution": "Δ_mix S = −R(0.5 ln 0.5 + 0.5 ln 0.5) = R ln 2 = 5.76 J K⁻¹ mol⁻¹. Δ_mix G = −TΔ_mix S = −298 × 5.76 = −1.72 kJ mol⁻¹."
+          }
+        },
+        "Real solutions deviate, because unlike molecules interact differently than like molecules. The chemical potential is written with the **activity**, aᵢ = γᵢxᵢ, and γᵢ is the **activity coefficient** (γ = 1 for an ideal solution). The deviation shows in the **excess functions** (G^E = G_mix − G_mix^ideal), and in non-zero enthalpy and volume of mixing. If A–B attractions are weaker than the A–A and B–B ones, γ > 1 (positive deviation, Δ_mix H > 0); stronger gives γ < 1. Strong deviations produce **azeotropes**, mixtures that boil at constant composition, which cannot be separated by simple distillation. Ethanol and water form a minimum-boiling azeotrope (95.6% ethanol by mass at 78.2 °C), which is why distillation does not give absolute alcohol.",
+        {
+          "h": "Electrolyte solutions"
+        },
+        "Charged particles interact over long range, so electrolyte solutions are nonideal even when dilute. Each ion is surrounded by an ionic atmosphere of opposite charge, which lowers its energy. The **Debye–Hückel limiting law** gives the **mean ionic activity coefficient** of an electrolyte at low concentration:",
+        {
+          "eq": [
+            "log γ± = −A |z₊z₋| √I     (A = 0.509 for water at 25 °C)",
+            "I = ½ Σ cᵢzᵢ²     (the ionic strength)"
+          ]
+        },
+        {
+          "example": {
+            "title": "Activity coefficient",
+            "problem": "Estimate γ± for 0.010 M NaCl, and for 0.010 M CaCl₂.",
+            "solution": "NaCl: I = ½(0.010 × 1 + 0.010 × 1) = 0.010. log γ± = −0.509 × 1 × √0.010 = −0.0509, γ± = 0.889. CaCl₂: I = ½(0.010 × 4 + 0.020 × 1) = 0.030, log γ± = −0.509 × 2 × √0.030 = −0.176, γ± = 0.667. Multivalent ions deviate far more."
+          }
+        },
+        "The law holds for I below about 0.01 M, and extended versions go to 0.1 M. The effect of ionic strength is why equilibrium constants are quoted with activities, and why K_sp values of sparingly soluble salts rise in solutions of added inert electrolyte (the salt effect)."
+      ],
+      "check": [
+        {
+          "q": "What is Δ_mix H for an ideal solution?",
+          "a": "Zero",
+          "wrong": [
+            "Positive",
+            "Negative",
+            "Equal to −TΔS"
+          ]
+        },
+        {
+          "q": "What drives the mixing of two ideal liquids?",
+          "a": "The increase in entropy",
+          "wrong": [
+            "The decrease in enthalpy",
+            "A decrease in volume",
+            "The activity coefficients"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "equilibrium-cells",
+      "title": "Chemical equilibrium and electrochemical cells",
+      "terms": [
+        "reaction Gibbs energy",
+        "standard reaction Gibbs energy",
+        "equilibrium constant and temperature",
+        "cell reaction Gibbs energy",
+        "temperature coefficient of cell potential",
+        "formal potential",
+        "van 't Hoff plot",
+        "thermodynamics of cells",
+        "reaction quotient and Gibbs energy"
+      ],
+      "body": [
+        "For a reaction at constant T and P, the reaction Gibbs energy is the slope of G with the extent of reaction, Δ_rG = Σνᵢμᵢ. With μᵢ = μᵢ° + RT ln aᵢ this becomes Δ_rG = Δ_rG° + RT ln Q, and at equilibrium Δ_rG = 0:",
+        {
+          "eq": [
+            "Δ_rG° = −RT ln K",
+            "d ln K/dT = Δ_rH° / RT²     (van ’t Hoff equation)"
+          ]
+        },
+        "The van ’t Hoff equation follows from Gibbs–Helmholtz. Integrating with constant Δ_rH° gives ln K = −Δ_rH°/RT + Δ_rS°/R: a plot of ln K against 1/T is a line of slope −Δ_rH°/R and intercept Δ_rS°/R, so the equilibrium constant measured at several temperatures gives the enthalpy and the entropy of the reaction. A large positive Δ_rH° means K increases rapidly with temperature.",
+        {
+          "h": "Electrochemical cells"
+        },
+        "In a galvanic cell the electrical work done at constant T and P is the reaction Gibbs energy: Δ_rG = −nFE. Because (∂G/∂T)_P = −S, differentiating gives the **temperature coefficient of the cell potential**:",
+        {
+          "eq": [
+            "(∂E/∂T)_P = Δ_rS / nF",
+            "Δ_rH = −nFE + nFT (∂E/∂T)_P"
+          ]
+        },
+        "So a single cell, measured as a function of temperature, gives all three Δ_rG, Δ_rS and Δ_rH of the cell reaction by an electrical measurement, usually more precisely than by calorimetry. The Nernst equation, E = E° − (RT/nF) ln Q, written with activities, becomes the practical equation when concentrations are expressed with a **formal potential** E°′, the potential at 1 M concentrations and a specified ionic strength and pH, which absorbs the activity coefficients.",
+        {
+          "example": {
+            "title": "Thermodynamics from a cell",
+            "problem": "A cell reaction (n = 2) has E = 1.100 V and ∂E/∂T = −4.0 × 10⁻⁴ V K⁻¹ at 298 K. Find Δ_rG, Δ_rS and Δ_rH.",
+            "solution": [
+              {
+                "eq": [
+                  "Δ_rG = −nFE = −2 × 96,485 × 1.100 = −212.3 kJ",
+                  "Δ_rS = nF (∂E/∂T) = 2 × 96,485 × (−4.0 × 10⁻⁴) = −77 J K⁻¹",
+                  "Δ_rH = Δ_rG + TΔ_rS = −212.3 + 298 × (−0.077) = −235 kJ"
+                ]
+              },
+              "The cell delivers 212 kJ as electrical work, though the reaction releases 235 kJ as enthalpy: the remaining 23 kJ leaves as heat (TΔS), so the cell warms as it discharges."
+            ]
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "In a van ’t Hoff plot (ln K against 1/T), the slope is…",
+          "a": "−Δ_rH°/R",
+          "wrong": [
+            "Δ_rH°/R",
+            "−Δ_rS°/R",
+            "Δ_rG°/R"
+          ]
+        },
+        {
+          "q": "How is Δ_rS obtained from the cell potential?",
+          "a": "From the temperature coefficient: Δ_rS = nF(∂E/∂T)",
+          "wrong": [
+            "From E alone",
+            "From the cell’s resistance",
+            "From its volume"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "The laws: temperature (zeroth), energy conservation (first), entropy increase and the Carnot limit η = 1 − T_c/T_h (second), zero entropy of a perfect crystal at 0 K (third).",
+    "The fundamental equations dU = TdS − PdV, dH, dA and dG define natural variables. G governs processes at constant T and P, and −ΔG is the maximum non-expansion work.",
+    "Maxwell relations turn entropy derivatives into measurable ones. They give (∂U/∂V)_T and the Joule–Thomson coefficient, which changes sign at the inversion temperature.",
+    "Virial coefficients describe real gases. The van der Waals critical constants are T_c = 8a/27Rb, P_c = a/27b², V_c = 3b.",
+    "Chemical potential μᵢ = (∂G/∂nᵢ) is equal in all phases at equilibrium. The phase rule F = C − P + 2, the Clapeyron equation dP/dT = ΔH/TΔV and the lever rule describe phase diagrams.",
+    "Ideal mixing has Δ_mixH = 0 and is driven by entropy. Real solutions use activities. Debye–Hückel: log γ± = −0.509|z₊z₋|√I.",
+    "Δ_rG° = −RT ln K; van ’t Hoff d ln K/dT = ΔH°/RT²; a cell gives ΔG, ΔS = nF(∂E/∂T) and ΔH."
+  ],
+  "problems": [
+    {
+      "q": "A Carnot engine takes 2000 J from a reservoir at 450 K and discards heat at 300 K. Find its efficiency, the work and the entropy changes of both reservoirs.",
+      "solution": "η = 1 − 300/450 = 1/3. w = 667 J, q_c = 1333 J. ΔS_hot = −2000/450 = −4.44 J K⁻¹; ΔS_cold = +1333/300 = +4.44 J K⁻¹. The total is zero, as for any reversible cycle.",
+      "a": "η = 33%; w = 667 J; ΔS_total = 0."
+    },
+    {
+      "q": "Show that for a gas obeying P(V_m − b) = RT, (∂U/∂V)_T = 0 and give μ_JT in terms of b and C_P.",
+      "solution": "(∂U/∂V)_T = T(∂P/∂T)_V − P = T(R/(V_m − b)) − P = P − P = 0. For μ_JT: V_m = RT/P + b, so T(∂V/∂T)_P − V = RT/P − RT/P − b = −b. Thus μ_JT = −b/C_P: the gas always warms on throttling.",
+      "a": "(∂U/∂V)_T = 0; μ_JT = −b/C_P."
+    },
+    {
+      "q": "The vapor pressure of benzene is 100 torr at 26.1 °C and 400 torr at 60.6 °C. Find ΔH_vap and the normal boiling point.",
+      "solution": "ln(400/100) = 1.386 = (ΔH/R)(1/299.25 − 1/333.75) = (ΔH/R)(3.454 × 10⁻⁴). ΔH = 1.386 × 8.314/3.454 × 10⁻⁴ = 33.4 kJ mol⁻¹. For 760 torr: ln(760/400) = 0.642 = (ΔH/R)(1/333.75 − 1/T), so 1/T = 0.0029963 − 0.642 × 8.314/33,400 = 0.0028365; T = 352.6 K = 79.5 °C.",
+      "a": "ΔH_vap ≈ 33 kJ/mol; boiling point ≈ 80 °C (actual 80.1 °C)."
+    },
+    {
+      "q": "For N₂O₄ ⇌ 2NO₂, K = 0.14 at 298 K and 15 at 373 K. Find Δ_rH° and Δ_rS° (assume constant).",
+      "solution": "Slope: ln(15/0.14) = 4.674 = (Δ_rH°/R)(1/298 − 1/373) = (Δ_rH°/R)(6.747 × 10⁻⁴), so Δ_rH° = 4.674 × 8.314/6.747 × 10⁻⁴ = 57.6 kJ mol⁻¹. Then Δ_rG°(298) = −RT ln 0.14 = 4.87 kJ and Δ_rS° = (57.6 − 4.87)/298 = 177 J K⁻¹ mol⁻¹.",
+      "a": "Δ_rH° = 57.6 kJ/mol; Δ_rS° = 177 J K⁻¹ mol⁻¹."
+    }
+  ]
+}

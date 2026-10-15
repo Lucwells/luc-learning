@@ -1,0 +1,372 @@
+{
+  "id": "carboxylic-acids",
+  "view": "chapter",
+  "title": "Carboxylic Acids and Their Derivatives",
+  "description": "Acidity, nucleophilic acyl substitution, esters, amides, anhydrides, acyl chlorides and nitriles.",
+  "overview": [
+    "Carboxylic acids and their derivatives are the oxidation level that lies a step above aldehydes and ketones. They include fats and oils (esters), proteins (amides), aspirin, nylon and polyester, and they are the point where most synthetic routes finish. All of them undergo one reaction type, nucleophilic acyl substitution, in which a nucleophile replaces the group attached to the carbonyl.",
+    "This chapter covers the acidity and preparation of carboxylic acids, the mechanism of nucleophilic acyl substitution and the reactivity order of the derivatives, the interconversions among them, and their reductions, with an eye on biological examples such as the peptide bond and soap."
+  ],
+  "objectives": [
+    "Name carboxylic acids and derivatives, and explain the acidity of RCOOH.",
+    "Write the addition–elimination mechanism of nucleophilic acyl substitution and rank derivatives by reactivity.",
+    "Interconvert acids, acyl chlorides, anhydrides, esters and amides.",
+    "Distinguish acid-catalyzed and base-promoted ester hydrolysis (saponification).",
+    "Reduce derivatives to alcohols, aldehydes, amines and ketones with the right reagents.",
+    "Describe the chemistry of nitriles, and the peptide bond."
+  ],
+  "sections": [
+    {
+      "id": "acids",
+      "title": "Carboxylic acids",
+      "terms": [
+        "carboxylic acid",
+        "carboxylic acids",
+        "carboxylate",
+        "carboxylate ion",
+        "fatty acid",
+        "fatty acids",
+        "acetic acid",
+        "benzoic acid",
+        "carboxyl group",
+        "decarboxylation of acids",
+        "Hell–Volhard–Zelinsky reaction"
+      ],
+      "body": [
+        "A **carboxylic acid** (R–COOH) has a carbonyl and a hydroxyl on the same carbon. Names use -oic acid (ethanoic acid, CH₃COOH, or acetic acid; benzoic acid for PhCOOH). The carbon is numbered C1. Carboxylic acids are extensively hydrogen bonded: they form dimers even in the gas phase, so their boiling points are higher than alcohols of comparable mass (propanoic acid 141 °C against propan-1-ol 97 °C), and acids up to four carbons are miscible with water.",
+        "They are far more acidic than alcohols (pK_a 4–5 against 16). The conjugate base, the **carboxylate**, is stabilized by resonance, which spreads the negative charge equally over two oxygens (both C–O bonds are 126 pm, between C–O and C=O lengths). Electron-withdrawing substituents increase acidity (chloroacetic acid pK_a 2.87, trifluoroacetic acid 0.5), and benzoic acid (4.2) is slightly stronger than acetic acid (4.76). A carboxylic acid is deprotonated by bicarbonate (pK_a of H₂CO₃ 6.4), so acids can be separated from neutral compounds by extraction into aqueous NaHCO₃.",
+        {
+          "h": "Preparation"
+        },
+        {
+          "list": [
+            "Oxidation of a primary alcohol or aldehyde (Jones, KMnO₄).",
+            "Oxidative cleavage of alkenes and alkynes; side-chain oxidation of alkylbenzenes (KMnO₄).",
+            "Hydrolysis of nitriles, R–C≡N + H₃O⁺ → R–COOH, which also extends a chain by one carbon after SN2 with cyanide.",
+            "Carboxylation of a Grignard reagent: R–MgBr + CO₂, then H₃O⁺."
+          ]
+        },
+        "Long-chain acids occur in fats as **fatty acids** (palmitic C₁₆, stearic C₁₈, oleic C₁₈ with one cis C=C). Acids α-halogenate in the Hell–Volhard–Zelinsky reaction (Br₂, PBr₃), giving α-bromo acids that can be converted to α-amino acids by SN2 with ammonia."
+      ],
+      "check": [
+        {
+          "q": "Why is acetic acid much more acidic than ethanol?",
+          "a": "The acetate ion has its charge delocalized over two oxygens",
+          "wrong": [
+            "Acetic acid has a stronger O–H bond",
+            "Ethanol has a stabilized anion",
+            "Ethanol is a Lewis acid"
+          ]
+        },
+        {
+          "q": "How is a carboxylic acid separated from a neutral organic compound?",
+          "a": "By extraction into aqueous NaHCO₃",
+          "wrong": [
+            "By extraction into aqueous HCl",
+            "By distillation only",
+            "By filtration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "acyl-substitution",
+      "title": "Nucleophilic acyl substitution",
+      "terms": [
+        "nucleophilic acyl substitution",
+        "acyl substitution",
+        "acyl group",
+        "tetrahedral intermediate",
+        "carboxylic acid derivative",
+        "carboxylic acid derivatives",
+        "acid derivatives",
+        "leaving group ability in acyl substitution"
+      ],
+      "body": [
+        "Acid derivatives have the form R–C(=O)–L, where L is a leaving group: Cl (acyl chloride), OC(=O)R (anhydride), OR′ (ester), NR′₂ (amide) and, in the acid itself, OH. Nucleophiles attack the carbonyl carbon as in aldehydes and ketones, but the tetrahedral intermediate, having a potential leaving group, can collapse by expelling it and regenerating C=O: an **addition–elimination** mechanism called **nucleophilic acyl substitution**. Aldehydes and ketones have only H or R, which are not leaving groups, so they undergo addition instead.",
+        {
+          "eq": "R–CO–L + Nu⁻ → [R–C(O⁻)(L)–Nu] → R–CO–Nu + L⁻"
+        },
+        "The reaction goes forward when the new group is a poorer leaving group than the one it replaces. The result is a reactivity order that parallels leaving-group ability, which is the reverse of basicity, and also depends on how much the lone pair on L stabilizes the carbonyl by resonance (strong for nitrogen, weak for chlorine):",
+        {
+          "table": {
+            "head": [
+              "Derivative",
+              "Leaving group",
+              "Conjugate acid pK_a",
+              "Relative reactivity"
+            ],
+            "rows": [
+              [
+                "Acyl chloride",
+                "Cl⁻",
+                "−7",
+                "Highest"
+              ],
+              [
+                "Acid anhydride",
+                "RCOO⁻",
+                "4–5",
+                "High"
+              ],
+              [
+                "Thioester",
+                "RS⁻",
+                "10",
+                "Moderate (biological acyl transfer)"
+              ],
+              [
+                "Ester, carboxylic acid",
+                "RO⁻, HO⁻",
+                "16",
+                "Moderate"
+              ],
+              [
+                "Amide",
+                "R₂N⁻",
+                "35",
+                "Low"
+              ],
+              [
+                "Carboxylate",
+                "O²⁻",
+                "—",
+                "Lowest (negative charge repels Nu)"
+              ]
+            ],
+            "caption": "A more reactive derivative can be converted into any less reactive one, but not the reverse without activation."
+          }
+        },
+        {
+          "key": "A more reactive derivative can be converted to a less reactive one directly. Acyl chlorides give anhydrides, esters and amides, and esters give amides, but amides do not give esters without forcing conditions."
+        }
+      ],
+      "check": [
+        {
+          "q": "Which derivative is most reactive toward nucleophiles?",
+          "a": "Acyl chloride",
+          "wrong": [
+            "Amide",
+            "Ester",
+            "Carboxylate"
+          ]
+        },
+        {
+          "q": "Why do aldehydes and ketones undergo addition rather than substitution?",
+          "a": "They have no good leaving group on the carbonyl carbon",
+          "wrong": [
+            "They are not electrophilic",
+            "They have no π bond",
+            "The carbon is sp³"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "interconversion",
+      "title": "Interconversion of the derivatives",
+      "terms": [
+        "acyl chloride",
+        "acyl chlorides",
+        "acid chloride",
+        "acid chlorides",
+        "acid anhydride",
+        "acid anhydrides",
+        "anhydride",
+        "ester",
+        "esters",
+        "esterification",
+        "Fischer esterification",
+        "amide",
+        "amides",
+        "DCC",
+        "dicyclohexylcarbodiimide",
+        "coupling reagent",
+        "lactone",
+        "lactam",
+        "acetylation",
+        "aspirin",
+        "saponification",
+        "peptide bond",
+        "peptide bonds"
+      ],
+      "body": [
+        {
+          "h": "Acyl chlorides"
+        },
+        "Thionyl chloride (SOCl₂) or oxalyl chloride converts a carboxylic acid to an **acyl chloride**, with SO₂ and HCl as gas by-products. Acyl chlorides are the usual starting point for making other derivatives, because they react readily with water (to the acid), alcohols (esters), amines (amides) and carboxylates (anhydrides). Use pyridine or excess amine to take up the HCl.",
+        {
+          "h": "Esters"
+        },
+        "The **Fischer esterification** heats a carboxylic acid with an alcohol and a strong acid catalyst: RCOOH + R′OH ⇌ RCOOR′ + H₂O. All steps are reversible, with K about 4 for acetic acid and ethanol, so the equilibrium is driven by using excess alcohol or removing water. The mechanism is acid activation of the carbonyl, addition of the alcohol, proton transfer, and loss of water. Esters are also made from acyl chlorides or anhydrides with an alcohol, and by SN2 of a carboxylate on a primary halide. Aspirin is made by **acetylation** of salicylic acid with acetic anhydride. Intramolecular esters are **lactones** and intramolecular amides are **lactams** (penicillin has a β-lactam).",
+        {
+          "h": "Hydrolysis of esters"
+        },
+        "**Acid-catalyzed hydrolysis** is the reverse of Fischer esterification, driven by excess water, and is reversible. **Base-promoted hydrolysis (saponification)** uses hydroxide: HO⁻ adds to the carbonyl, the tetrahedral intermediate expels alkoxide, and the resulting acid is immediately deprotonated by the alkoxide or hydroxide to the carboxylate. That last step is irreversible, so saponification goes to completion. Hydrolysis of a fat (a triester of glycerol and fatty acids) with NaOH gives glycerol and soap, the sodium salts of the fatty acids. One full equivalent of base is consumed.",
+        {
+          "h": "Amides"
+        },
+        "Amides are made from acyl chlorides or anhydrides and amines (two equivalents of amine, or one plus a tertiary amine). A carboxylic acid and an amine give only an ammonium carboxylate salt at room temperature, so direct amide formation needs heat or an activating agent. **Coupling reagents** such as **DCC** (dicyclohexylcarbodiimide) activate the acid as an O-acylisourea, and this is how peptide bonds are made in the laboratory. Amides are the least reactive derivatives: the nitrogen lone pair is delocalized into the carbonyl (the C–N bond is partial double, with a rotation barrier of about 75 kJ mol⁻¹), so the amide is planar, neutral (not basic) and resistant to hydrolysis. Boiling in strong acid or base for hours is required. This stability is why the **peptide bond** of proteins is robust, and also why proteins are hydrolyzed by enzymes (proteases) under mild conditions.",
+        {
+          "example": {
+            "title": "Choosing a route to an ester",
+            "problem": "Prepare methyl benzoate by two routes.",
+            "solution": "(1) Fischer: benzoic acid, excess methanol, catalytic H₂SO₄, reflux, with excess alcohol to drive the equilibrium. (2) Acyl chloride: benzoic acid with SOCl₂ to give benzoyl chloride, then methanol with pyridine; this is irreversible and works at room temperature."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Why is saponification irreversible?",
+          "a": "The carboxylic acid product is deprotonated to the unreactive carboxylate",
+          "wrong": [
+            "The alcohol is removed by distillation",
+            "Water is consumed",
+            "The ester is regenerated"
+          ]
+        },
+        {
+          "q": "Why are amides so resistant to hydrolysis?",
+          "a": "The nitrogen lone pair is delocalized into the carbonyl, and the amide anion is a poor leaving group",
+          "wrong": [
+            "Amides have no carbonyl",
+            "Amides are strongly basic",
+            "They are nonpolar"
+          ]
+        },
+        {
+          "q": "A fat treated with NaOH gives…",
+          "a": "Glycerol and sodium salts of fatty acids (soap)",
+          "wrong": [
+            "Glycerol and fatty acids",
+            "An alkene",
+            "A polyester"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "reduction",
+      "title": "Reduction of acid derivatives, and nitriles",
+      "terms": [
+        "DIBAL-H",
+        "diisobutylaluminum hydride",
+        "Weinreb amide",
+        "lithium aluminum hydride reduction of esters",
+        "nitrile",
+        "nitriles",
+        "nitrile hydrolysis",
+        "reduction of amides",
+        "reduction of nitriles",
+        "Rosenmund reduction"
+      ],
+      "body": [
+        "Acid derivatives are reduced by hydrides, though their oxidation level lies above aldehydes. The product depends on the reagent and the derivative.",
+        {
+          "table": {
+            "head": [
+              "Derivative",
+              "LiAlH₄",
+              "DIBAL-H, −78 °C",
+              "R′MgX or R′Li"
+            ],
+            "rows": [
+              [
+                "Acid",
+                "Primary alcohol",
+                "—",
+                "Deprotonation only"
+              ],
+              [
+                "Acyl chloride",
+                "Primary alcohol",
+                "Aldehyde (with LiAl(OtBu)₃H)",
+                "Tertiary alcohol (two R′)"
+              ],
+              [
+                "Ester",
+                "Primary alcohol (two)",
+                "Aldehyde",
+                "Tertiary alcohol (two R′)"
+              ],
+              [
+                "Amide",
+                "**Amine** (C=O becomes CH₂)",
+                "Aldehyde (some)",
+                "Ketone, if a Weinreb amide"
+              ],
+              [
+                "Nitrile",
+                "Primary amine",
+                "Aldehyde (after hydrolysis of the imine)",
+                "Ketone"
+              ]
+            ],
+            "caption": "Products of reducing and organometallic additions to acid derivatives."
+          }
+        },
+        "Esters and acyl chlorides react twice with a Grignard reagent, because the intermediate ketone is more reactive than the starting ester. A **Weinreb amide** (RCON(OMe)Me) stops at the ketone, since its tetrahedral intermediate is stabilized by chelation of the magnesium and does not collapse until workup. **DIBAL-H** (diisobutylaluminum hydride), at −78 °C and one equivalent, reduces an ester to an aldehyde and stops, since the tetrahedral aluminum intermediate persists until hydrolysis.",
+        {
+          "h": "Nitriles"
+        },
+        "**Nitriles** (R–C≡N) have an sp carbon and a strong dipole. They are made by SN2 of cyanide on a primary or secondary halide, by dehydration of a primary amide (SOCl₂ or P₂O₅), and from aryl diazonium salts (Sandmeyer). They behave as carboxylic acid derivatives: **hydrolysis** with aqueous acid or base, through an amide, gives a carboxylic acid; LiAlH₄ reduces them to primary amines, and Grignard reagents add once to give ketones after hydrolysis of the imine. Nitriles are the standard way to add one carbon.",
+        {
+          "example": {
+            "title": "Chain extension",
+            "problem": "Convert 1-bromobutane into pentanoic acid and into pentan-1-amine.",
+            "solution": "Treat 1-bromobutane with NaCN in DMSO (SN2) to give pentanenitrile. Hydrolysis with aqueous acid and heat gives pentanoic acid, and reduction with LiAlH₄ gives pentan-1-amine (CH₃CH₂CH₂CH₂CH₂NH₂)."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "LiAlH₄ reduces an amide to…",
+          "a": "An amine",
+          "wrong": [
+            "An alcohol",
+            "An aldehyde",
+            "A carboxylic acid"
+          ]
+        },
+        {
+          "q": "Which reagent stops at the aldehyde stage when reducing an ester?",
+          "a": "DIBAL-H at −78 °C",
+          "wrong": [
+            "LiAlH₄ at 25 °C",
+            "NaBH₄ in methanol",
+            "H₂, Pd/C"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Carboxylic acids (pK_a 4–5) are acidic because the carboxylate is resonance stabilized. They are made by oxidation, nitrile hydrolysis or Grignard carboxylation.",
+    "Acid derivatives undergo addition–elimination (nucleophilic acyl substitution). Reactivity: acyl chloride > anhydride > thioester > ester ≈ acid > amide > carboxylate.",
+    "SOCl₂ makes acyl chlorides. Fischer esterification is reversible and saponification is irreversible. Amides need an acyl chloride, heat or a coupling agent such as DCC.",
+    "LiAlH₄ reduces derivatives to alcohols (amides to amines). DIBAL-H and Weinreb amides stop at aldehyde or ketone. Esters add two equivalents of Grignard.",
+    "Nitriles add one carbon via SN2 with cyanide, and can be hydrolyzed to acids or reduced to amines."
+  ],
+  "problems": [
+    {
+      "q": "Predict the products: (a) benzoyl chloride + NH₃ (excess); (b) ethyl acetate + NaOH, H₂O, heat, then H₃O⁺; (c) ethyl benzoate + 2 CH₃MgBr, then H₃O⁺; (d) butanamide + LiAlH₄.",
+      "solution": "(a) Benzamide plus NH₄Cl. (b) Ethanol and acetic acid (acetate first, acid after workup). (c) 2-Phenylpropan-2-ol. (d) Butylamine (butan-1-amine).",
+      "a": "(a) benzamide; (b) ethanol and acetic acid; (c) 2-phenylpropan-2-ol; (d) butan-1-amine."
+    },
+    {
+      "q": "Show how to prepare propanoic acid by two methods from 1-bromoethane.",
+      "solution": "(1) NaCN, DMSO gives propanenitrile; hydrolyze with aqueous acid and heat. (2) Mg, ether gives CH₃CH₂MgBr; CO₂, then H₃O⁺.",
+      "a": "Via the nitrile, or via the Grignard reagent and CO₂."
+    },
+    {
+      "q": "Rank by increasing rate of hydrolysis: methyl acetate, acetyl chloride, acetamide, acetic anhydride.",
+      "solution": "Acetamide is slowest, then methyl acetate, then acetic anhydride, with acetyl chloride the fastest.",
+      "a": "Acetamide < methyl acetate < acetic anhydride < acetyl chloride."
+    },
+    {
+      "q": "Explain why an ester made from a carboxylic acid and an alcohol in a Fischer esterification has a yield limited to about 67% when using equimolar reagents (K = 4).",
+      "solution": "At equilibrium K = x²/(1 − x)² = 4, so x/(1 − x) = 2 and x = 0.67. Using a large excess of alcohol (10 equivalents) or removing water pushes the yield above 95%.",
+      "a": "The equilibrium constant of 4 limits the conversion to 67%."
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 {
+  "id": "biochemistry",
   "title": "Biochemistry",
   "description": "The chemistry of living things: the molecules cells are built from, and the reactions that keep them running.",
-  "category": ["Chemistry", "Biochemistry"],
   "view": "articles",
   "entries": [
     {

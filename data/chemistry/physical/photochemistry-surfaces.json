@@ -1,0 +1,368 @@
+{
+  "id": "photochemistry-surfaces",
+  "view": "chapter",
+  "title": "Photochemistry, Transport and Surfaces",
+  "description": "Photochemical and chain reactions, experimental methods in kinetics, diffusion, adsorption and heterogeneous catalysis.",
+  "overview": [
+    "Reactions in the real world are rarely uniform gas-phase collisions in a flask. In the atmosphere, light starts the chemistry. In flames, chains of radicals multiply until the mixture explodes. In cells and solutions, reactants must diffuse to meet, and in industrial reactors, most of the work is done by catalysts on solid surfaces. This chapter covers each of these settings and the experimental tools that probe them, down to the femtosecond scale.",
+    "It starts with photochemistry and chain reactions, then the main kinetic methods, then diffusion, which governs transport and the rates of fast reactions, and ends with adsorption and the kinetics of heterogeneous catalysis."
+  ],
+  "objectives": [
+    "Calculate photon flux and the quantum yield of a photochemical reaction.",
+    "Describe a chain mechanism with initiation, propagation, branching and termination, and the origin of explosion limits.",
+    "Choose the kinetic method suited to a given timescale.",
+    "Apply Fick’s laws and the Stokes–Einstein equation, and estimate diffusion times.",
+    "Use the Langmuir and BET isotherms, and the Langmuir–Hinshelwood rate law, to describe adsorption and surface catalysis."
+  ],
+  "sections": [
+    {
+      "id": "photochemistry",
+      "title": "Photochemistry and chain reactions",
+      "terms": [
+        "chain reaction mechanism",
+        "chain carriers",
+        "branching chain reaction",
+        "explosion limits",
+        "photochemical reaction",
+        "photochemical reactions",
+        "photolysis",
+        "flash photolysis",
+        "Stark–Einstein law",
+        "photon flux",
+        "quantum yield of a reaction",
+        "quantum yield",
+        "photochemistry",
+        "primary photochemical process",
+        "initiation step",
+        "propagation step",
+        "termination step",
+        "branching step",
+        "chain length"
+      ],
+      "body": [
+        "A **photochemical reaction** is driven by the absorption of light. The **Stark–Einstein law** says that each absorbed photon activates one molecule in the primary step. The efficiency is the **quantum yield**: Φ = (number of molecules reacting)/(number of photons absorbed). The **photon flux** is the number of photons per second, equal to P/(hc/λ) for light of power P, and the dose in moles of photons is the flux multiplied by the time (an einstein is a mole of photons).",
+        {
+          "example": {
+            "title": "Photon flux and quantum yield",
+            "problem": "A 1.0 W lamp emits 365 nm light, and all of it is absorbed by a solution for 10 minutes, during which 1.5 × 10⁻³ mol of reactant is consumed. Find the photon flux and Φ.",
+            "solution": [
+              {
+                "eq": [
+                  "E(photon) = hc/λ = 1.986 × 10⁻²⁵/3.65 × 10⁻⁷ = 5.44 × 10⁻¹⁹ J",
+                  "flux = 1.0 J s⁻¹/5.44 × 10⁻¹⁹ J = 1.84 × 10¹⁸ photons s⁻¹ = 3.05 × 10⁻⁶ mol s⁻¹",
+                  "photons absorbed in 600 s = 1.83 × 10⁻³ mol"
+                ]
+              },
+              "Φ = 1.5 × 10⁻³/1.83 × 10⁻³ = 0.82."
+            ]
+          }
+        },
+        "Φ ≤ 1 for a simple reaction, since deactivation by fluorescence, collisions or internal conversion competes (the Jablonski diagram of the chapter on spectroscopy); Φ > 1 means that the photon starts a chain. In the gas-phase reaction of H₂ with Cl₂, Φ is about 10⁵: one photon splits Cl₂ into two atoms, and each starts a cycle that makes many HCl molecules.",
+        {
+          "h": "Chain reactions"
+        },
+        "A **chain reaction mechanism** has three kinds of step. **Initiation** produces the **chain carriers** (radicals), by heat, light or a reaction. **Propagation** steps consume a carrier and produce another, so a chain continues, and the number of cycles per initiation is the chain length. **Termination** steps destroy carriers (recombination, or capture at a wall). A key example is H₂ + Br₂ → 2HBr, which has the empirical rate law rate = k[H₂][Br₂]^{1/2}/(1 + k′[HBr]/[Br₂]). The mechanism is Br₂ → 2Br• (initiation), Br• + H₂ → HBr + H• and H• + Br₂ → HBr + Br• (propagation), H• + HBr → H₂ + Br• (inhibition) and 2Br• → Br₂ (termination). Applying the steady-state approximation to [H•] and [Br•] reproduces the fractional order of ½ in [Br₂] (it comes from the balance of initiation and termination, [Br•] = (K[Br₂])^{1/2}) and the HBr inhibition.",
+        {
+          "h": "Branching chains and explosions"
+        },
+        "In a **branching chain reaction**, one carrier creates more than one: in the oxidation of hydrogen, H• + O₂ → •OH + •O•, a single radical produces two (and these produce more, H₂ + •OH → H₂O + H•, •O• + H₂ → •OH + H•). The number of radicals grows exponentially, and the rate with it. The competition between branching and termination gives **explosion limits**. At very low pressure, radicals diffuse to the walls and are destroyed faster than they branch, so the mixture does not explode (below the first limit). Above the first limit, branching wins and the mixture explodes. At higher pressure the termination in the gas phase (H• + O₂ + M → HO₂• + M, favored by three-body collisions that rise as the square of pressure) wins again, and the mixture is calm above the second limit. At still higher pressure the HO₂ radical itself reacts to create new radicals, and thermal runaway sets in at the third limit. This pattern, known from the H₂–O₂ and the combustion of hydrocarbons, is the basis of fire safety and of engine knock."
+      ],
+      "check": [
+        {
+          "q": "A quantum yield Φ much greater than 1 indicates…",
+          "a": "A chain reaction started by each photon",
+          "wrong": [
+            "A fluorescent process",
+            "Reflection of light",
+            "An error in measurement"
+          ]
+        },
+        {
+          "q": "What produces an explosion limit in a branching chain reaction?",
+          "a": "The competition between radical branching and termination at the walls or in the gas phase",
+          "wrong": [
+            "The ignition source",
+            "The color of the flame",
+            "The mass of the vessel"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "methods",
+      "title": "Experimental methods in kinetics",
+      "terms": [
+        "stopped-flow",
+        "temperature-jump",
+        "pseudo-first-order conditions",
+        "isolation method",
+        "half-life method",
+        "femtochemistry",
+        "pump–probe",
+        "relaxation methods",
+        "flow methods",
+        "molecular beam",
+        "molecular beams",
+        "Zewail",
+        "initial rates method",
+        "monitoring concentration"
+      ],
+      "body": [
+        "The method must be able to start the reaction and follow it within a time comparable to the reaction’s half-life.",
+        {
+          "list": [
+            "**Classical methods** (half-life minutes to days): mix the reagents, take samples, and analyze them (by titration, chromatography or a spectroscopic measurement). In the **isolation method**, all reactants but one are in large excess, so that their concentrations stay constant, and the reaction shows **pseudo-first-order conditions**, giving the order in the remaining reactant. The **half-life method**: for an nth-order reaction t½ ∝ [A]₀^{1−n}, so measuring t½ at several concentrations gives n. The method of initial rates, from the previous chapters, also applies.",
+            "**Stopped-flow** (milliseconds): two solutions are driven by syringes into a mixing chamber and the flow is suddenly stopped, while the absorbance or fluorescence is recorded. It is standard for fast enzyme and protein-folding kinetics.",
+            "**Relaxation methods** (microseconds to milliseconds) perturb an equilibrium suddenly and watch the relaxation, rate = k_f + k_r. In the **temperature-jump** method a capacitor discharge or an infrared pulse heats the solution by a few kelvin in microseconds, and the shift of the equilibrium is followed spectroscopically. Eigen won the 1967 Nobel Prize in Chemistry for this field (with Norrish and Porter), which first measured the rate of H⁺ + OH⁻ → H₂O.",
+            "**Flash photolysis** (nanoseconds to milliseconds): an intense light pulse creates a transient population of excited states or radicals, and a second light source follows their absorption (Norrish and Porter, 1967).",
+            "**Pump–probe femtochemistry** (femtoseconds to picoseconds): an ultrashort laser pulse (the pump) starts the reaction, and a second pulse (the probe), delayed by a controlled time (a path difference of 0.3 µm is 1 fs), measures the state of the system. Zewail (Nobel Prize 1999) used it to watch bonds break and form in ICN → I + CN in about 200 fs and to observe the transition state directly.",
+            "**Molecular beams and crossed-beam experiments**: reactant molecules with defined velocity and quantum state collide in a vacuum, and the angular and energy distributions of the products map the potential energy surface (Herschbach, Lee and Polanyi, Nobel Prize 1986)."
+          ]
+        },
+        {
+          "table": {
+            "head": [
+              "Method",
+              "Timescale"
+            ],
+            "rows": [
+              [
+                "Sampling and analysis",
+                "minutes to days"
+              ],
+              [
+                "Stopped-flow",
+                "1 ms to seconds"
+              ],
+              [
+                "Temperature-jump",
+                "µs to ms"
+              ],
+              [
+                "Flash photolysis (ns lasers)",
+                "ns to ms"
+              ],
+              [
+                "Pump–probe (fs lasers)",
+                "fs to ns"
+              ]
+            ],
+            "caption": "Methods and the timescales they cover."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Which method follows a bond-breaking reaction in about 100 femtoseconds?",
+          "a": "Pump–probe femtochemistry",
+          "wrong": [
+            "Stopped-flow",
+            "Titration of samples",
+            "Temperature-jump"
+          ]
+        },
+        {
+          "q": "In the isolation method, a reaction is made pseudo-first-order by…",
+          "a": "Using a large excess of all reactants but one",
+          "wrong": [
+            "Lowering the temperature",
+            "Adding a catalyst",
+            "Removing the products"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "diffusion",
+      "title": "Diffusion and transport",
+      "terms": [
+        "Fick's law",
+        "Fick's first law",
+        "Fick's second law",
+        "diffusion coefficient",
+        "Einstein–Smoluchowski equation",
+        "random walk",
+        "Stokes–Einstein equation",
+        "diffusion-controlled reaction",
+        "diffusion time",
+        "concentration gradient",
+        "viscosity and diffusion",
+        "thermal conductivity",
+        "transport properties"
+      ],
+      "body": [
+        "Diffusion is the spreading of molecules by random thermal motion. Experiments show that the flux J (the amount crossing a unit area per unit time) is proportional to the concentration gradient: **Fick’s first law**,",
+        {
+          "eq": [
+            "J = −D (∂c/∂x)",
+            "∂c/∂t = D (∂²c/∂x²)     (Fick’s second law)"
+          ]
+        },
+        "The **diffusion coefficient** D (m² s⁻¹) is a property of the molecule and the medium. The second law, which follows from the first by conservation of matter, describes how the concentration profile changes in time: it is the diffusion equation. For molecules starting at one point, the profile is a Gaussian that widens with time. The mean square distance traveled in one dimension is given by the **Einstein–Smoluchowski equation**, the result of a **random walk**:",
+        {
+          "eq": "⟨x²⟩ = 2Dt     (in 3D, ⟨r²⟩ = 6Dt)"
+        },
+        "So the distance grows as √t, which makes diffusion fast over short distances and hopelessly slow over long ones. For a sphere of radius r in a liquid of viscosity η the diffusion coefficient is given by the **Stokes–Einstein equation**:",
+        {
+          "eq": "D = kT / (6πηr)"
+        },
+        {
+          "example": {
+            "title": "Diffusion times in water",
+            "problem": "Estimate D for a protein of radius 3.0 nm and for a small molecule of radius 0.20 nm in water at 298 K (η = 8.9 × 10⁻⁴ Pa s), and the time for the protein to diffuse 10 µm (the size of a cell).",
+            "solution": [
+              {
+                "eq": [
+                  "D(protein) = 4.116 × 10⁻²¹/(6π × 8.9 × 10⁻⁴ × 3.0 × 10⁻⁹) = 8.2 × 10⁻¹¹ m² s⁻¹",
+                  "D(small molecule) = 4.116 × 10⁻²¹/(6π × 8.9 × 10⁻⁴ × 2.0 × 10⁻¹⁰) = 1.2 × 10⁻⁹ m² s⁻¹",
+                  "t = x²/2D = (1.0 × 10⁻⁵)²/(2 × 8.2 × 10⁻¹¹) = 0.61 s"
+                ]
+              },
+              "Diffusion carries a protein across a cell in about a second, but would take months to cross a centimeter (t ∝ x²). This is why larger organisms need circulation."
+            ]
+          }
+        },
+        "In gases, D is about 10⁻⁵ m² s⁻¹, 10,000 times larger, and the molecules travel a **mean free path** λ = kT/(√2 σP) between collisions: 67 nm for N₂ at 1 atm and 298 K (σ = 0.43 nm²), and 70 µm at 10⁻³ atm. Diffusion also underlies **diffusion-controlled reactions** (see the chapter on rate theories), where the rate is limited by the time taken for reactants to meet."
+      ],
+      "check": [
+        {
+          "q": "By the Einstein–Smoluchowski relation, if the time doubles the root-mean-square distance diffused changes by…",
+          "a": "A factor of √2",
+          "wrong": [
+            "A factor of 2",
+            "A factor of 4",
+            "No change"
+          ]
+        },
+        {
+          "q": "According to the Stokes–Einstein equation, D decreases when…",
+          "a": "The solvent viscosity or the molecular radius increases",
+          "wrong": [
+            "The temperature increases",
+            "The molecule is smaller",
+            "The concentration falls"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "adsorption",
+      "title": "Adsorption and heterogeneous catalysis",
+      "terms": [
+        "Langmuir isotherm",
+        "BET isotherm",
+        "adsorption isotherm",
+        "physisorption",
+        "chemisorption",
+        "surface coverage",
+        "heterogeneous catalysis",
+        "Langmuir–Hinshelwood mechanism",
+        "Eley–Rideal mechanism",
+        "Freundlich isotherm",
+        "adsorption",
+        "adsorbate",
+        "adsorbent",
+        "Mars–van Krevelen mechanism",
+        "Sabatier principle",
+        "surface area measurement",
+        "catalyst surface",
+        "active sites"
+      ],
+      "body": [
+        "Adsorption is the attachment of molecules to a surface. In **physisorption** the adsorbate is held by van der Waals forces (ΔH about −20 kJ mol⁻¹), can form multilayers and is reversible, and is important at low temperatures. In **chemisorption** the adsorbate forms chemical bonds with the surface (ΔH of −100 to −400 kJ mol⁻¹), stops at a monolayer, is often activated and is the first step of surface catalysis. The fraction of surface sites occupied is the **surface coverage** θ.",
+        {
+          "h": "The Langmuir isotherm"
+        },
+        "Langmuir assumed a surface with equivalent sites, each holding one molecule, with no interaction between adsorbed molecules. At equilibrium the rate of adsorption, k_a P(1 − θ), equals the rate of desorption, k_d θ, so",
+        {
+          "eq": [
+            "θ = KP/(1 + KP)     K = k_a/k_d",
+            "P/V = P/V_m + 1/(K V_m)     (the linear form)"
+          ]
+        },
+        "At low pressure θ ≈ KP (linear), and at high pressure θ → 1 (saturation), with half coverage at P = 1/K. A plot of P/V against P gives V_m (the monolayer volume) from the slope and K from the intercept. For dissociative adsorption (H₂ → 2H on a metal), θ = (KP)^{1/2}/(1 + (KP)^{1/2}). The empirical **Freundlich isotherm**, θ ∝ P^{1/n}, fits many data over a limited range.",
+        {
+          "example": {
+            "title": "Langmuir coverage",
+            "problem": "A gas adsorbs with K = 0.20 kPa⁻¹. What is θ at 5.0 kPa, and at what pressure is θ = 0.90?",
+            "solution": "θ = (0.20 × 5.0)/(1 + 0.20 × 5.0) = 1.0/2.0 = 0.50. For θ = 0.90: KP = θ/(1 − θ) = 9.0, so P = 9.0/0.20 = 45 kPa."
+          }
+        },
+        {
+          "h": "Multilayers and surface area: BET"
+        },
+        "Brunauer, Emmett and Teller extended the model to multilayers: the first layer binds with the heat of adsorption, and the later ones as liquid. The **BET isotherm**, with z = P/P₀ (P₀ the saturation vapor pressure), is V = V_m c z/[(1 − z)(1 − z + cz)], and plotting z/[V(1 − z)] against z gives a straight line (for z from 0.05 to 0.30) with slope (c − 1)/(V_m c) and intercept 1/(V_m c). V_m converts to a surface area: for N₂ at 77 K each molecule covers σ = 0.162 nm², so the area is V_m N_A σ/V_molar. This is the standard method for the surface area of catalysts, adsorbents and powders.",
+        {
+          "example": {
+            "title": "BET surface area",
+            "problem": "A silica sample adsorbs a monolayer volume of 25.0 cm³ (at STP) of N₂ per gram. Find its specific surface area.",
+            "solution": "n = 25.0/22,414 = 1.115 × 10⁻³ mol g⁻¹ = 6.72 × 10²⁰ molecules g⁻¹. Area = 6.72 × 10²⁰ × 0.162 × 10⁻¹⁸ m² = 109 m² g⁻¹."
+          }
+        },
+        {
+          "h": "Surface-catalyzed reactions"
+        },
+        "In **heterogeneous catalysis** the reaction happens on the **active sites** of a solid. Three mechanisms are usual. In the **Langmuir–Hinshelwood** mechanism both reactants adsorb and react on the surface: rate = kθ_Aθ_B. In the **Eley–Rideal** mechanism, a gas-phase molecule collides with an adsorbed one and reacts directly: rate = kθ_A P_B. In the **Mars–van Krevelen** mechanism, oxide catalysts give up lattice oxygen to the reaction, and the lattice is reoxidized by O₂.",
+        "The rate law reflects the surface coverage. For a unimolecular surface reaction, rate = kθ = kKP/(1 + KP): first order in P at low pressure (few occupied sites) and zero order at high pressure (a saturated surface), so the apparent order falls with pressure. A strongly adsorbed species blocks sites and inhibits the reaction. For two reactants in the Langmuir–Hinshelwood mechanism the rate is kK_AK_BP_AP_B/(1 + K_AP_A + K_BP_B)², which passes through a maximum as the pressure of one reactant is raised, since it crowds out the other. The **Sabatier principle** says that the best catalyst binds reactants neither too weakly (they do not adsorb) nor too strongly (the products do not leave), so activity against binding energy forms a ‘volcano’. In the Haber–Bosch process on iron, the dissociation of N₂ on the surface is the slow step. Ertl (Nobel Prize 2007) established the elementary steps with surface-science methods, in ultrahigh vacuum on single crystals."
+      ],
+      "check": [
+        {
+          "q": "In the Langmuir isotherm, half coverage occurs at a pressure of…",
+          "a": "1/K",
+          "wrong": [
+            "K",
+            "K²",
+            "Infinity"
+          ]
+        },
+        {
+          "q": "A unimolecular surface reaction is zero order in the gas at high pressure because…",
+          "a": "The surface is saturated, so the coverage no longer increases",
+          "wrong": [
+            "The gas is inert",
+            "The reaction stops",
+            "Desorption is infinitely fast"
+          ]
+        },
+        {
+          "q": "What does the BET method measure?",
+          "a": "The surface area of a solid from multilayer gas adsorption",
+          "wrong": [
+            "The diffusion coefficient",
+            "The activation energy",
+            "The viscosity"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Each absorbed photon activates one molecule (Stark–Einstein). Φ = molecules reacted per photon absorbed, and Φ > 1 means a chain. Photon flux = P/(hc/λ).",
+    "Chain reactions have initiation, propagation, branching and termination. H₂ + Br₂ gives the rate law with a ½ order, and the H₂–O₂ system has three explosion limits.",
+    "Methods: stopped-flow (ms), temperature-jump (µs), flash photolysis (ns) and pump–probe (fs). The isolation method gives pseudo-first-order kinetics.",
+    "Fick’s laws: J = −D ∂c/∂x. ⟨x²⟩ = 2Dt. Stokes–Einstein: D = kT/6πηr.",
+    "Langmuir: θ = KP/(1 + KP). BET gives surface areas. Surface reactions are Langmuir–Hinshelwood, Eley–Rideal or Mars–van Krevelen, with an order that falls from 1 to 0 as coverage saturates. The Sabatier principle gives the volcano plot."
+  ],
+  "problems": [
+    {
+      "q": "A reaction has Φ = 0.30. How many photons must a sample absorb to convert 1.0 × 10⁻³ mol of reactant, and what irradiation time with 2.0 × 10⁻⁶ mol s⁻¹ absorbed photon flux is needed?",
+      "solution": "Photons = 1.0 × 10⁻³/0.30 = 3.3 × 10⁻³ mol. t = 3.3 × 10⁻³/2.0 × 10⁻⁶ = 1.67 × 10³ s = 28 min.",
+      "a": "3.3 × 10⁻³ mol of photons; about 28 min."
+    },
+    {
+      "q": "Calculate the rms distance a small molecule (D = 1.0 × 10⁻⁹ m² s⁻¹) diffuses in 1 ms, 1 s and 1 hour.",
+      "solution": "x_rms = √(2Dt) (one dimension). 1 ms: √(2 × 10⁻⁹ × 10⁻³) = 1.4 µm. 1 s: 45 µm. 1 h (3600 s): 2.7 mm.",
+      "a": "1.4 µm, 45 µm and 2.7 mm."
+    },
+    {
+      "q": "The amount of CO adsorbed on charcoal at 273 K follows the Langmuir isotherm: V = 10.0 cm³ g⁻¹ at 100 torr, and V = 14.3 cm³ g⁻¹ at 300 torr. Find V_m and K.",
+      "solution": "Use the linear form P/V = P/V_m + 1/(KV_m). The two points give P/V = 100/10.0 = 10.0 torr g cm⁻³ and 300/14.3 = 20.98 torr g cm⁻³. The slope is (20.98 − 10.0)/(300 − 100) = 0.0549 g cm⁻³, so V_m = 1/0.0549 = 18.2 cm³ g⁻¹. The intercept is 10.0 − 100 × 0.0549 = 4.51 torr g cm⁻³ = 1/(KV_m), so K = 1/(4.51 × 18.2) = 0.0122 torr⁻¹.",
+      "a": "V_m ≈ 18 cm³ g⁻¹; K ≈ 0.012 torr⁻¹."
+    },
+    {
+      "q": "Explain why the rate of a catalytic reaction A → P on a surface, rate = kKP_A/(1 + KP_A), is first order at low pressure and zero order at high pressure.",
+      "solution": "At low pressure KP ≪ 1, so rate ≈ kKP_A: proportional to P_A. At high pressure KP ≫ 1, so rate ≈ k: independent of P_A, since every site is occupied and the rate is limited by the surface reaction.",
+      "a": "The coverage is proportional to P at low P and saturates at high P."
+    }
+  ]
+}

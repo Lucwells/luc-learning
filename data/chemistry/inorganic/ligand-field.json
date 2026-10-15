@@ -1,0 +1,550 @@
+{
+  "id": "ligand-field",
+  "view": "chapter",
+  "title": "Bonding, Color and Magnetism of Complexes",
+  "description": "Crystal field and ligand field theory, spin states, Jahn–Teller distortion, magnetism and electronic spectra.",
+  "overview": [
+    "Why is [Ti(H₂O)₆]³⁺ violet and [Zn(H₂O)₆]²⁺ colorless? Why is [Fe(H₂O)₆]²⁺ paramagnetic with four unpaired electrons, while [Fe(CN)₆]⁴⁻ is diamagnetic? Why are Ni(II) and Pt(II) complexes of the same formula tetrahedral or square planar? The answers lie in how the five d orbitals of the metal respond to the surrounding ligands.",
+    "This chapter develops crystal field theory, then the more complete ligand field theory based on molecular orbitals. It applies them to the splitting of d orbitals in octahedral, tetrahedral and square planar complexes, high-spin and low-spin configurations, Jahn–Teller distortions, magnetic properties and the UV–visible spectra that give complexes their colors."
+  ],
+  "objectives": [
+    "Draw the d-orbital splitting for octahedral, tetrahedral and square planar fields.",
+    "Calculate the ligand field stabilization energy and predict high-spin or low-spin configurations.",
+    "Use the spectrochemical series, and explain it with π-donor and π-acceptor effects.",
+    "Predict Jahn–Teller distortions.",
+    "Calculate spin-only magnetic moments and describe types of magnetic behavior, including spin crossover.",
+    "Interpret d–d and charge-transfer spectra, and relate absorbed wavelength to observed color and Δ."
+  ],
+  "sections": [
+    {
+      "id": "cft",
+      "title": "Crystal field theory for octahedral complexes",
+      "terms": [
+        "crystal field theory",
+        "crystal field splitting",
+        "d-orbital splitting",
+        "crystal field splitting energy",
+        "Δo",
+        "t2g",
+        "eg",
+        "t₂g",
+        "e_g",
+        "ligand field splitting",
+        "octahedral field",
+        "barycenter",
+        "spectrochemical series",
+        "spectrochemical series of ligands"
+      ],
+      "body": [
+        "In **crystal field theory (CFT)** the ligands are treated as point negative charges, and the question is how they repel the metal’s d electrons. In a free ion the five d orbitals have the same energy. In an octahedral field, with ligands on the ±x, ±y, ±z axes, the two orbitals that point at the ligands, d_{z²} and d_{x²−y²} (the **e_g** set), are repelled more and rise in energy, and the three that point between the ligands, d_{xy}, d_{xz} and d_{yz} (the **t₂g** set), are repelled less and fall. The gap is the **crystal field splitting Δₒ**. The average energy (barycenter) is unchanged, so e_g is raised by 0.6Δₒ and t₂g lowered by 0.4Δₒ.",
+        {
+          "svg": "<svg viewBox='0 0 460 260' role='img' aria-label='Octahedral d-orbital splitting' font-family='system-ui, sans-serif' font-size='13'><defs><marker id='ahs' viewBox='0 0 8 8' refX='4' refY='4' markerWidth='6' markerHeight='6' orient='auto-start-reverse'><path d='M0,0 L8,4 L0,8 z' fill='currentColor'/></marker></defs><g fill='none' stroke='currentColor' stroke-width='1' stroke-dasharray='4 3' opacity='.6'><path d='M120,130 L285,50'/><path d='M120,130 L285,200'/><path d='M120,130 H400'/></g><g fill='none' stroke='currentColor' stroke-width='3'><path d='M40,130 H120'/><path d='M300,50 H340 M350,50 H390'/><path d='M290,200 H320 M330,200 H360 M370,200 H400'/></g><g fill='none' stroke='currentColor' stroke-width='1.3'><path d='M425,56 V194' marker-start='url(#ahs)' marker-end='url(#ahs)'/></g><g fill='currentColor'><text x='80' y='155' text-anchor='middle'>free ion</text><text x='345' y='38' text-anchor='middle'>e_g  (+0.6 Δₒ)</text><text x='345' y='226' text-anchor='middle'>t₂g  (−0.4 Δₒ)</text><text x='150' y='124'>barycenter</text><text x='432' y='130'>Δₒ</text><text x='56' y='20'>energy</text></g></svg>",
+          "caption": "Octahedral crystal field splitting. The t₂g set (three orbitals) lies 0.4Δₒ below the barycenter, and the e_g set (two orbitals) lies 0.6Δₒ above it."
+        },
+        "Electrons fill the lower t₂g set first, which lowers the energy of the complex. The **ligand field stabilization energy (LFSE)** is the net lowering: LFSE = (−0.4 n_{t₂g} + 0.6 n_{e_g}) Δₒ, plus the energy cost P for each extra electron pair beyond those in the free ion.",
+        {
+          "h": "High spin and low spin"
+        },
+        "For d⁴ to d⁷ configurations there are two ways to fill the orbitals. A **weak field** (Δₒ < P, the **pairing energy**) leaves electrons unpaired in both sets: **high-spin**. A **strong field** (Δₒ > P) fills the t₂g set completely first: **low-spin**. The d¹–d³ and d⁸–d¹⁰ configurations have only one possible arrangement.",
+        {
+          "table": {
+            "head": [
+              "Configuration",
+              "High spin (unpaired)",
+              "LFSE (high spin)",
+              "Low spin (unpaired)",
+              "LFSE (low spin)"
+            ],
+            "rows": [
+              [
+                "d¹",
+                "t₂g¹ (1)",
+                "−0.4",
+                "—",
+                "—"
+              ],
+              [
+                "d³",
+                "t₂g³ (3)",
+                "−1.2",
+                "—",
+                "—"
+              ],
+              [
+                "d⁴",
+                "t₂g³e_g¹ (4)",
+                "−0.6",
+                "t₂g⁴ (2)",
+                "−1.6 + P"
+              ],
+              [
+                "d⁵",
+                "t₂g³e_g² (5)",
+                "0",
+                "t₂g⁵ (1)",
+                "−2.0 + 2P"
+              ],
+              [
+                "d⁶",
+                "t₂g⁴e_g² (4)",
+                "−0.4",
+                "t₂g⁶ (0)",
+                "−2.4 + 2P"
+              ],
+              [
+                "d⁷",
+                "t₂g⁵e_g² (3)",
+                "−0.8",
+                "t₂g⁶e_g¹ (1)",
+                "−1.8 + P"
+              ],
+              [
+                "d⁸",
+                "t₂g⁶e_g² (2)",
+                "−1.2",
+                "—",
+                "—"
+              ],
+              [
+                "d¹⁰",
+                "t₂g⁶e_g⁴ (0)",
+                "0",
+                "—",
+                "—"
+              ]
+            ],
+            "caption": "LFSE in units of Δₒ for octahedral complexes (P is the extra pairing energy relative to the free ion)."
+          }
+        },
+        {
+          "h": "Spectrochemical series"
+        },
+        "Δₒ depends on both the ligand and the metal. The ligands in order of increasing field strength (the **spectrochemical series**) are:",
+        {
+          "eq": "I⁻ < Br⁻ < S²⁻ < SCN⁻ < Cl⁻ < NO₃⁻ < F⁻ < OH⁻ < C₂O₄²⁻ < H₂O < NCS⁻ < NH₃ < en < bipy < phen < NO₂⁻ < PPh₃ < CN⁻ < CO"
+        },
+        "For metals, Δₒ increases with oxidation state (Fe²⁺ 10,400 cm⁻¹, Fe³⁺ 13,700 cm⁻¹ with water) and down a group (the 4d and 5d metals have a Δ 30–50% larger than 3d), so nearly all 4d and 5d octahedral complexes are low-spin. Weak-field ligands (halides, H₂O) give high-spin 3d complexes, and strong-field ligands (CN⁻, CO, phen) give low-spin ones.",
+        {
+          "example": {
+            "title": "Spin state and LFSE",
+            "problem": "Give the electron configuration, number of unpaired electrons and LFSE of [Fe(H₂O)₆]²⁺ (Δₒ = 10,400 cm⁻¹, P about 17,600 cm⁻¹) and [Fe(CN)₆]⁴⁻ (Δₒ about 33,000 cm⁻¹).",
+            "solution": [
+              "Both contain Fe²⁺ (d⁶). With water, Δₒ < P, so high spin: t₂g⁴e_g² with 4 unpaired electrons, LFSE = −0.4Δₒ = −4,200 cm⁻¹.",
+              "With cyanide, Δₒ > P, so low spin: t₂g⁶, no unpaired electrons (diamagnetic), LFSE = −2.4Δₒ + 2P = −79,200 + 35,200 = −44,000 cm⁻¹."
+            ]
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Which d configuration can be either high-spin or low-spin in an octahedral field?",
+          "a": "d⁶",
+          "wrong": [
+            "d³",
+            "d⁸",
+            "d¹⁰"
+          ]
+        },
+        {
+          "q": "Which ligand gives the largest Δₒ?",
+          "a": "CO",
+          "wrong": [
+            "I⁻",
+            "H₂O",
+            "NH₃"
+          ]
+        },
+        {
+          "q": "What is the LFSE of a high-spin octahedral d⁵ complex?",
+          "a": "0",
+          "wrong": [
+            "−2.0Δₒ",
+            "−0.4Δₒ",
+            "−1.2Δₒ"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "other-geometries",
+      "title": "Tetrahedral and square planar fields, and Jahn–Teller distortion",
+      "terms": [
+        "tetrahedral complexes",
+        "tetrahedral field",
+        "square planar complexes",
+        "square planar field",
+        "Δt",
+        "Jahn–Teller effect",
+        "Jahn–Teller distortion",
+        "Jahn-Teller effect",
+        "tetragonal distortion",
+        "tetragonal elongation",
+        "pairing energy",
+        "ligand field stabilization energy",
+        "LFSE"
+      ],
+      "body": [
+        "In a **tetrahedral** field the splitting is inverted and smaller: the e set (d_{z²}, d_{x²−y²}) lies below the t₂ set (d_{xy}, d_{xz}, d_{yz}), since the ligands point between the axes and approach the t₂ orbitals more closely. With fewer ligands (4 against 6) and a poorer overlap, **Δₜ = (4/9)Δₒ**, which is always smaller than the pairing energy, so tetrahedral complexes are always high spin. They are favored for d⁰, d⁵ (high spin) and d¹⁰ ions, which have no LFSE preference for octahedral geometry, and by bulky ligands: [ZnCl₄]²⁻, [FeCl₄]⁻, [CoCl₄]²⁻ (blue), [NiCl₄]²⁻.",
+        "In a **square planar** field the ligands lie on the x and y axes only, and d_{x²−y²} is raised far above the others. The ordering is d_{x²−y²} ≫ d_{xy} > d_{z²} > d_{xz}, d_{yz}. For d⁸ ions with strong-field ligands, the eight electrons fill the four lower orbitals and leave d_{x²−y²} empty, a large stabilization: [Ni(CN)₄]²⁻, [PtCl₄]²⁻, [PdCl₄]²⁻, Rh(I), Ir(I) (Vaska’s complex), Au(III). The 4d and 5d d⁸ ions are always square planar since their Δ is large, while Ni(II) is tetrahedral with weak ligands ([NiCl₄]²⁻, paramagnetic) and square planar with strong ligands ([Ni(CN)₄]²⁻, diamagnetic).",
+        {
+          "h": "The Jahn–Teller effect"
+        },
+        "The **Jahn–Teller theorem** says that a nonlinear molecule in an electronically degenerate state distorts to remove the degeneracy and lower its energy. In octahedral complexes, uneven occupation of the e_g set produces a large distortion, and uneven occupation of t₂g produces only a small one:",
+        {
+          "table": {
+            "head": [
+              "Configuration",
+              "Degenerate orbitals unevenly filled?",
+              "Distortion",
+              "Examples"
+            ],
+            "rows": [
+              [
+                "d⁹ (t₂g⁶e_g³)",
+                "e_g",
+                "Strong",
+                "[Cu(H₂O)₆]²⁺: four short and two long bonds"
+              ],
+              [
+                "d⁴ high spin (t₂g³e_g¹)",
+                "e_g",
+                "Strong",
+                "Mn(III) complexes, Cr(II)"
+              ],
+              [
+                "d⁷ low spin (t₂g⁶e_g¹)",
+                "e_g",
+                "Strong",
+                "Co(II) with strong ligands"
+              ],
+              [
+                "d¹, d², d⁴ low spin, d⁵ low spin, d⁶ high spin, d⁷ high spin",
+                "t₂g",
+                "Weak",
+                "[Ti(H₂O)₆]³⁺"
+              ]
+            ],
+            "caption": "Jahn–Teller distortions of octahedral complexes."
+          }
+        },
+        "The commonest distortion is **tetragonal elongation**: the two axial bonds lengthen, so d_{z²} drops (and d_{x²−y²} rises), and the extra energy gained by filling d_{z²} twice and d_{x²−y²} once is the stabilization. Copper(II) complexes are almost always elongated, and the distortion contributes to the high stability of Cu(II) in the Irving–Williams series."
+      ],
+      "check": [
+        {
+          "q": "Why are tetrahedral complexes always high-spin?",
+          "a": "Δₜ = (4/9)Δₒ is always less than the pairing energy",
+          "wrong": [
+            "They have no d electrons",
+            "The ligands are weak field",
+            "They are paramagnetic by nature of the geometry"
+          ]
+        },
+        {
+          "q": "Which complex shows a strong Jahn–Teller distortion?",
+          "a": "[Cu(H₂O)₆]²⁺",
+          "wrong": [
+            "[Zn(H₂O)₆]²⁺",
+            "[Cr(H₂O)₆]³⁺",
+            "[Fe(CN)₆]⁴⁻"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lft",
+      "title": "Ligand field theory: σ and π bonding",
+      "terms": [
+        "ligand field theory",
+        "π-donor ligand",
+        "π-acceptor ligand",
+        "π-donor",
+        "π-acceptor",
+        "metal–ligand bonding MO",
+        "σ-donor ligand",
+        "back bonding in complexes"
+      ],
+      "body": [
+        "Crystal field theory explains the splitting but treats bonding as purely electrostatic, so it cannot explain why neutral CO and the anion CN⁻ are strong-field ligands and the anion F⁻ is weak. **Ligand field theory (LFT)** applies molecular orbital theory to the metal–ligand bonds. The σ-donor orbitals of the six ligands form symmetry-adapted combinations of a₁g, e_g and t₁ᵤ symmetry that combine with the metal’s 4s, 3d (e_g) and 4p orbitals, giving six bonding MOs, mostly ligand-based and holding the twelve ligand electrons. The metal’s d_{xy}, d_{xz} and d_{yz} (t₂g) have no σ match and remain nonbonding. The antibonding e_g* orbitals, mostly metal d_{z²} and d_{x²−y²}, lie above. The **ligand field splitting Δₒ is the gap between t₂g and e_g***, which the metal’s d electrons fill.",
+        "Adding π interactions between the ligands and the t₂g orbitals explains the spectrochemical series:",
+        {
+          "list": [
+            "**π-donor ligands** (F⁻, Cl⁻, OH⁻, H₂O, with filled p orbitals) interact with the metal t₂g set, pushing it **up**, and so *reduce* Δₒ. These are weak-field ligands.",
+            "**π-acceptor ligands** (CO, CN⁻, PR₃, bipy, with empty π* or d orbitals) accept electron density from filled metal t₂g orbitals (**back-bonding**), lowering them, and so *increase* Δₒ. These are the strong-field ligands.",
+            "Pure σ-donors (NH₃, en) lie in between."
+          ]
+        },
+        "The back-bonding in a metal carbonyl has a vivid signature in IR spectra: the extent of back-donation into the CO π* orbital weakens the C–O bond, so the CO stretch falls from 2143 cm⁻¹ (free CO) to about 2000 cm⁻¹ in [Cr(CO)₆] and 1850 cm⁻¹ in [V(CO)₆]⁻ (see the chapter on organometallic chemistry)."
+      ],
+      "check": [
+        {
+          "q": "Why is CO a strong-field ligand?",
+          "a": "It is a π-acceptor, and back-donation stabilizes the t₂g set",
+          "wrong": [
+            "It is a π-donor",
+            "It has a negative charge",
+            "It is a poor σ-donor"
+          ]
+        },
+        {
+          "q": "In ligand field theory, Δₒ is the gap between…",
+          "a": "The nonbonding t₂g and the antibonding e_g* orbitals",
+          "wrong": [
+            "The bonding a₁g and t₁ᵤ orbitals",
+            "The ligand and metal s orbitals",
+            "The two e_g orbitals"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "magnetism",
+      "title": "Magnetic properties",
+      "terms": [
+        "spin-only magnetic moment",
+        "spin-only formula",
+        "magnetic moment",
+        "paramagnetism",
+        "diamagnetism",
+        "ferromagnetism",
+        "antiferromagnetism",
+        "ferrimagnetism",
+        "magnetic susceptibility",
+        "Bohr magneton",
+        "orbital contribution",
+        "spin crossover",
+        "Gouy balance",
+        "Evans method",
+        "SQUID",
+        "curie law"
+      ],
+      "body": [
+        "A species with unpaired electrons is attracted into a magnetic field (**paramagnetism**), and one with all electrons paired is weakly repelled (**diamagnetism**). The size of the effect, the **magnetic susceptibility** χ, is measured with a **Gouy balance** (the apparent weight change of a sample in a field), with the Evans NMR method (the shift of a reference signal), or with a **SQUID** magnetometer. It is expressed as the effective magnetic moment, in units of the **Bohr magneton**, μ_B. For a first-row complex whose moment comes from spin alone, the **spin-only formula** gives",
+        {
+          "eq": "μ_so = √(n(n + 2)) μ_B     (n = number of unpaired electrons)"
+        },
+        {
+          "table": {
+            "head": [
+              "Unpaired electrons n",
+              "0",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5"
+            ],
+            "rows": [
+              [
+                "μ_so (μ_B)",
+                "0",
+                "1.73",
+                "2.83",
+                "3.87",
+                "4.90",
+                "5.92"
+              ]
+            ],
+            "caption": "Spin-only magnetic moments."
+          }
+        },
+        "The measured moment tells the number of unpaired electrons, and so distinguishes high- and low-spin complexes: [Fe(H₂O)₆]²⁺ (d⁶ high spin, 4 unpaired, μ ≈ 5.3 μ_B) against [Fe(CN)₆]⁴⁻ (0 unpaired, diamagnetic). Moments of t₂g configurations (d¹, d², d⁶ and d⁷ high spin) are higher than the spin-only value because of an **orbital contribution**, which is quenched in e_g-filled configurations (d³, d⁸ and high-spin d⁵ come close to spin-only).",
+        {
+          "h": "Cooperative magnetism"
+        },
+        "In solids, the unpaired spins of neighboring atoms can interact. In **ferromagnetism** (Fe, Co, Ni, CrO₂) the spins align parallel and give a large permanent magnetization. In **antiferromagnetism** (MnO, Cr₂O₃, many Cu(II) dimers) neighbors align antiparallel and the net moment cancels below the Néel temperature. In **ferrimagnetism** (magnetite, Fe₃O₄, ferrites) antiparallel spins of unequal size leave a net moment.",
+        {
+          "h": "Spin crossover"
+        },
+        "When Δₒ is close to the pairing energy, as for some Fe(II) (d⁶) complexes with N-donor ligands, the complex can switch between low-spin and high-spin states in response to temperature, pressure or light: **spin crossover**. The high-spin state, with its populated e_g* orbitals, has longer metal–ligand bonds (about 0.2 Å) and higher entropy, so it is favored at high temperature, and the switch is accompanied by a change in color and magnetism. It is explored for molecular switches and data storage; hemoglobin undergoes a related change when Fe(II) binds O₂.",
+        {
+          "example": {
+            "title": "Moments and spin states",
+            "problem": "[Co(NH₃)₆]³⁺ is diamagnetic, but [CoF₆]³⁻ has a moment of 5.3 μ_B. Explain.",
+            "solution": "Both contain Co³⁺, d⁶. With strong-field NH₃, Δₒ > P and the complex is low-spin t₂g⁶ with no unpaired electrons (diamagnetic). With weak-field F⁻, Δₒ < P, so high-spin t₂g⁴e_g² with four unpaired electrons (μ_so = 4.90 μ_B, and the observed 5.3 includes an orbital contribution)."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "What is the spin-only magnetic moment of a complex with 3 unpaired electrons?",
+          "a": "3.87 μ_B",
+          "wrong": [
+            "2.83 μ_B",
+            "5.92 μ_B",
+            "3.00 μ_B"
+          ]
+        },
+        {
+          "q": "A spin crossover complex switches state when…",
+          "a": "Δₒ is comparable with the pairing energy, and temperature, pressure or light tips the balance",
+          "wrong": [
+            "It loses a ligand",
+            "It becomes diamagnetic permanently",
+            "It is d¹⁰"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spectra",
+      "title": "Electronic spectra and color",
+      "terms": [
+        "electronic spectra of complexes",
+        "d–d transitions",
+        "d-d transitions",
+        "Tanabe–Sugano diagram",
+        "Tanabe–Sugano diagrams",
+        "Orgel diagram",
+        "Orgel diagrams",
+        "ligand field spectra",
+        "nephelauxetic effect",
+        "Racah parameter",
+        "LMCT",
+        "MLCT",
+        "ligand-to-metal charge transfer",
+        "metal-to-ligand charge transfer",
+        "charge transfer",
+        "charge-transfer transitions",
+        "color of complexes",
+        "complementary color",
+        "Laporte-forbidden",
+        "spin-forbidden"
+      ],
+      "body": [
+        "A complex looks colored when it absorbs part of visible light (400–700 nm) and transmits the rest. The observed color is the complement of the color absorbed.",
+        {
+          "table": {
+            "head": [
+              "Absorbed λ (nm)",
+              "Color absorbed",
+              "Color observed"
+            ],
+            "rows": [
+              [
+                "400",
+                "Violet",
+                "Yellow-green"
+              ],
+              [
+                "450",
+                "Blue",
+                "Yellow"
+              ],
+              [
+                "500",
+                "Blue-green",
+                "Red"
+              ],
+              [
+                "530",
+                "Green",
+                "Purple"
+              ],
+              [
+                "580",
+                "Yellow",
+                "Blue"
+              ],
+              [
+                "620",
+                "Orange",
+                "Blue-green"
+              ],
+              [
+                "700",
+                "Red",
+                "Green"
+              ]
+            ],
+            "caption": "Complementary colors."
+          }
+        },
+        "The absorptions are of two kinds.",
+        {
+          "list": [
+            "**d–d (ligand field) transitions** move an electron from t₂g to e_g, with energy near Δₒ. [Ti(H₂O)₆]³⁺ (d¹) shows one band at 493 nm, corresponding to Δₒ = 20,300 cm⁻¹ = 243 kJ mol⁻¹, and is violet. In centrosymmetric complexes these transitions are **Laporte-forbidden** (g → g), so they are weak (ε about 1–100 M⁻¹ cm⁻¹), and they are even weaker when **spin-forbidden**: high-spin Mn(II) (d⁵, every transition changes the spin) is a very pale pink. Tetrahedral complexes, with no inversion center, are more intense (ε about 100–1000: [CoCl₄]²⁻ is deep blue). A d⁰ or d¹⁰ ion has no d–d transitions, so Zn²⁺ and Sc³⁺ are colorless.",
+            "**Charge-transfer transitions** move an electron between metal and ligand orbitals, and are allowed and very intense (ε of 10³–10⁵). In **LMCT** (ligand-to-metal) an electron goes from the ligand to the metal, as in the deep purple of permanganate MnO₄⁻ (d⁰) and chromate CrO₄²⁻ (yellow) and the red of [Fe(SCN)(H₂O)₅]²⁺. In **MLCT** (metal-to-ligand) an electron goes from a metal d orbital into a ligand π* orbital: [Ru(bipy)₃]²⁺ is orange (λ_max 452 nm, ε about 14,000) and its long-lived excited state is used in solar cells and photocatalysis."
+          ]
+        },
+        {
+          "h": "Interpreting spectra of more than one d electron"
+        },
+        "With two or more d electrons, electron repulsion produces several excited states with the same electron configuration, and multiple bands. **Tanabe–Sugano diagrams** plot the energies of all the states (in units of the Racah repulsion parameter B) against Δₒ/B for each d^n configuration, so the positions of the bands give both Δₒ and B. A simpler **Orgel diagram** covers weak-field cases. For octahedral [V(H₂O)₆]³⁺ (d²) the three allowed spin bands are at 17,200, 25,600 and about 38,000 cm⁻¹. The **nephelauxetic effect** (“cloud-expanding”) is the reduction of B in the complex below its value in the free ion (B/B₀ < 1): electrons delocalize onto the ligands, which reduces repulsion. B/B₀ falls in the order F⁻ > H₂O > NH₃ > en > Cl⁻ > CN⁻ > Br⁻ > I⁻, and the bigger the reduction, the more covalent the bond.",
+        {
+          "example": {
+            "title": "From a spectrum to Δₒ",
+            "problem": "[Ti(H₂O)₆]³⁺ absorbs maximally at 493 nm. Find Δₒ in cm⁻¹ and kJ mol⁻¹, and the color.",
+            "solution": [
+              {
+                "eq": [
+                  "ν̃ = 1/λ = 1/(493 × 10⁻⁷ cm) = 20,300 cm⁻¹",
+                  "Δₒ = 20,300 cm⁻¹ × 11.96 J mol⁻¹ per cm⁻¹ = 243 kJ mol⁻¹"
+                ]
+              },
+              "The complex absorbs blue-green light (493 nm) and transmits red and violet, so it looks violet-purple."
+            ]
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Why are the d–d bands of octahedral complexes weak?",
+          "a": "They are Laporte-forbidden (g → g)",
+          "wrong": [
+            "They are not electronic transitions",
+            "d orbitals do not absorb light",
+            "They are charge transfer"
+          ]
+        },
+        {
+          "q": "Permanganate, MnO₄⁻ (d⁰), is intensely purple because of…",
+          "a": "A ligand-to-metal charge-transfer transition",
+          "wrong": [
+            "A d–d transition",
+            "A vibrational transition",
+            "An f–f transition"
+          ]
+        },
+        {
+          "q": "A complex absorbs at 500 nm. Its color is…",
+          "a": "Red",
+          "wrong": [
+            "Blue-green",
+            "Yellow",
+            "Violet"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "In an octahedral field, d orbitals split into t₂g (−0.4Δₒ) and e_g (+0.6Δₒ). LFSE = (−0.4 n_t₂g + 0.6 n_e_g)Δₒ plus pairing energy. Strong fields (Δₒ > P) give low-spin d⁴–d⁷ complexes.",
+    "Spectrochemical series: halides < H₂O < NH₃ < en < CN⁻ < CO. Δ increases with metal oxidation state and down a group.",
+    "Δₜ = (4/9)Δₒ and tetrahedral complexes are high-spin. d⁸ with strong ligands (and 4d/5d metals) are square planar. d⁹, d⁴ (high-spin) and d⁷ (low-spin) show Jahn–Teller distortion.",
+    "π-donors lower Δ, and π-acceptors (back-bonding) raise it.",
+    "μ_so = √(n(n + 2)) μ_B gives the unpaired electron count. Cooperative magnetism and spin crossover occur in solids.",
+    "d–d bands are weak (Laporte, and spin-forbidden); charge-transfer bands (LMCT, MLCT) are intense. Absorbed λ gives Δ, and the observed color is the complement."
+  ],
+  "problems": [
+    {
+      "q": "Give the d-electron configuration, spin state, unpaired electrons and LFSE (in Δₒ) for (a) [Cr(H₂O)₆]³⁺, (b) [Mn(H₂O)₆]²⁺, (c) [Ni(H₂O)₆]²⁺, (d) [Co(CN)₆]³⁻.",
+      "solution": "(a) d³: t₂g³, 3 unpaired, LFSE −1.2. (b) d⁵ with weak H₂O: t₂g³e_g², 5 unpaired, LFSE 0. (c) d⁸: t₂g⁶e_g², 2 unpaired, LFSE −1.2. (d) d⁶ with strong CN⁻: t₂g⁶, 0 unpaired, LFSE −2.4 + 2P.",
+      "a": "(a) 3, −1.2Δₒ; (b) 5, 0; (c) 2, −1.2Δₒ; (d) 0, −2.4Δₒ + 2P."
+    },
+    {
+      "q": "Why is [NiCl₄]²⁻ tetrahedral and paramagnetic while [Ni(CN)₄]²⁻ is square planar and diamagnetic?",
+      "solution": "Both are Ni(II), d⁸. The weak-field chloride gives a small splitting, so the complex takes the less crowded tetrahedral geometry with two unpaired electrons. Strong-field cyanide gives a large splitting of the d_{x²−y²} orbital in a square planar field, so the eight electrons pair in the lower four orbitals and leave d_{x²−y²} empty: diamagnetic.",
+      "a": "Weak-field Cl⁻ gives tetrahedral and paramagnetic. Strong-field CN⁻ gives square planar and diamagnetic."
+    },
+    {
+      "q": "[Co(NH₃)₆]³⁺ has its first d–d band at 475 nm. Calculate Δₒ in cm⁻¹ and kJ mol⁻¹. For the low-spin d⁶ configuration give the LFSE (omit P).",
+      "solution": "Δₒ = 1/(475 × 10⁻⁷ cm) = 21,050 cm⁻¹ = 21,050 × 11.96 = 252 kJ mol⁻¹. LFSE = −2.4Δₒ = −605 kJ mol⁻¹, before correcting for pairing.",
+      "a": "Δₒ ≈ 21,000 cm⁻¹ = 252 kJ mol⁻¹; LFSE ≈ −2.4Δₒ ≈ −605 kJ mol⁻¹ (before the pairing correction)."
+    },
+    {
+      "q": "A Cu(II) complex has μ = 1.9 μ_B and is blue. Give the number of unpaired electrons, and say why its geometry is probably distorted.",
+      "solution": "The spin-only value for one unpaired electron is 1.73 μ_B, and orbital contribution raises it to about 1.9: d⁹, one unpaired electron. d⁹ in an octahedral field has an e_g³ configuration (degenerate), which gives a strong Jahn–Teller elongation.",
+      "a": "One unpaired electron; Jahn–Teller distortion (tetragonal elongation)."
+    }
+  ]
+}

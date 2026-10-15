@@ -1,0 +1,445 @@
+{
+  "id": "molecular-spectroscopy",
+  "view": "chapter",
+  "title": "Molecular Spectroscopy",
+  "description": "The theory of rotational, vibrational, electronic and magnetic resonance spectroscopy.",
+  "overview": [
+    "Spectroscopy is the main way chemists learn about molecules. Light of the right frequency is absorbed when its photon energy matches the gap between two molecular energy levels. The energy of that gap, and the intensity of the line, reveal bond lengths, bond strengths, geometries and the surroundings of nuclei. The quantum models of the previous chapters give the energy levels, and symmetry gives the selection rules that decide which transitions occur.",
+    "This chapter treats five kinds of spectroscopy in order of increasing photon energy and more briefly, nuclear magnetic resonance: pure rotation (microwave), vibration (infrared and Raman), the combined rotation–vibration spectra of gases, electronic transitions with the Franck–Condon principle and fluorescence, and the principles of NMR."
+  ],
+  "objectives": [
+    "State the gross and specific selection rules for rotational, vibrational (IR and Raman) and electronic transitions.",
+    "Extract bond lengths from rotational spectra, and force constants from vibrational spectra.",
+    "Interpret the P, Q and R branches of rovibrational spectra.",
+    "Apply the Franck–Condon principle and describe fluorescence, phosphorescence and the Jablonski diagram.",
+    "Explain NMR in terms of Zeeman splitting, Larmor frequency, chemical shift, relaxation and pulse methods."
+  ],
+  "sections": [
+    {
+      "id": "principles",
+      "title": "Absorption of light and selection rules",
+      "terms": [
+        "transition dipole moment",
+        "selection rule",
+        "selection rules",
+        "gross selection rule",
+        "specific selection rule",
+        "Beer–Lambert law",
+        "Beer-Lambert law",
+        "molar absorption coefficient",
+        "absorbance",
+        "Boltzmann population of levels",
+        "linewidth",
+        "Doppler broadening",
+        "natural linewidth",
+        "line broadening",
+        "spectroscopic transition"
+      ],
+      "body": [
+        "A molecule absorbs a photon if the photon energy equals the energy difference between two levels, hν = E_f − E_i, **and** the electric field of the light can couple the two states. The coupling is the **transition dipole moment** μ_fi = ∫ψ_f* μ̂ ψ_i dτ, and the intensity of a line is proportional to |μ_fi|². When it is zero, the transition is forbidden. A **gross selection rule** states the general property a molecule must have for a type of spectrum (a permanent dipole for pure rotation, a changing dipole for IR). A **specific selection rule** gives the allowed changes in the quantum numbers (ΔJ = ±1).",
+        "The fraction of light absorbed follows the **Beer–Lambert law**, A = log₁₀(I₀/I) = εcl, where ε is the **molar absorption coefficient** (M⁻¹ cm⁻¹), c the concentration and l the path length. Intensity also depends on the populations of the levels, since only the molecules in the lower level can absorb: at temperature T, the population ratio is the Boltzmann factor, N_j/N_i = exp(−ΔE/kT).",
+        "Lines have a width. **Natural linewidth** (from the lifetime of the excited state, by the uncertainty principle ΔE ≈ ħ/τ), **Doppler broadening** (the motion of molecules toward and away from the source: Δν/ν ≈ 10⁻⁶–10⁻⁵ for gases) and **pressure (collisional) broadening** limit the resolution of spectra, which is why the spectra of gases at low pressure show rotational lines, and liquids do not."
+      ],
+      "check": [
+        {
+          "q": "What does a transition dipole moment of zero imply?",
+          "a": "The transition is forbidden",
+          "wrong": [
+            "The transition is very strong",
+            "The molecule has no dipole",
+            "The levels are degenerate"
+          ]
+        },
+        {
+          "q": "A solution of ε = 5000 M⁻¹ cm⁻¹ and c = 1.0 × 10⁻⁴ M in a 1.0 cm cell has absorbance…",
+          "a": "0.50",
+          "wrong": [
+            "5.0",
+            "0.050",
+            "50"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rotational",
+      "title": "Rotational (microwave) spectroscopy",
+      "terms": [
+        "rotational spectroscopy",
+        "microwave spectroscopy",
+        "pure rotational spectrum",
+        "rotational selection rule",
+        "symmetric top",
+        "spherical top",
+        "asymmetric top",
+        "linear rotor",
+        "rotational line intensities",
+        "isotopic substitution in rotational spectroscopy",
+        "rotational temperature of populations"
+      ],
+      "body": [
+        "Rotational transitions fall in the microwave region (1–100 cm⁻¹). The **gross selection rule** is that the molecule must have a permanent electric dipole moment: a rotating dipole creates an oscillating field that interacts with the radiation. HCl, CO, H₂O and NH₃ show pure rotational spectra, while N₂, O₂, CO₂ and CH₄ do not. The **specific selection rule** for a linear rotor is ΔJ = ±1, so absorption lines occur at",
+        {
+          "eq": [
+            "ν̃(J → J + 1) = 2B(J + 1)     (cm⁻¹)",
+            "spacing between lines = 2B"
+          ]
+        },
+        "The lines are evenly spaced by 2B, and so measuring the spacing gives B, then the moment of inertia I = h/(8π²cB) and, for a diatomic, the bond length r = √(I/μ), to a precision better than 10⁻⁴ Å. The bond length of a polyatomic is found from the moments of inertia of several isotopologues: isotopic substitution leaves the geometry unchanged but changes the masses.",
+        "Real rotors are not quite rigid. The bond stretches at high J, an effect of **centrifugal distortion**, so the energy is E_J = BJ(J + 1) − DJ²(J + 1)², with D small and positive. The intensity of the lines follows the population of the initial level, proportional to the degeneracy times the Boltzmann factor: (2J + 1)exp(−BhcJ(J + 1)/kT). It peaks at",
+        {
+          "eq": "J_max ≈ √(kT / 2Bhc) − ½"
+        },
+        {
+          "example": {
+            "title": "The CO spectrum",
+            "problem": "For CO (B = 1.93 cm⁻¹) at 298 K, find the most intense line and the position of the first three lines.",
+            "solution": [
+              "kT/hc = 207.2 cm⁻¹ at 298 K. J_max = √(207.2/(2 × 1.93)) − ½ = √53.7 − 0.5 = 6.8: the strongest line is the one from J = 7 (the 7 → 8 transition at 2B × 8 = 30.9 cm⁻¹).",
+              "The first lines (J = 0 → 1, 1 → 2, 2 → 3) are at 2B, 4B and 6B = 3.86, 7.72 and 11.58 cm⁻¹ (115.7, 231.4 and 347.1 GHz)."
+            ]
+          }
+        },
+        {
+          "h": "Shapes of rotors"
+        },
+        {
+          "list": [
+            "**Linear** molecules (CO, HCN, OCS): one moment of inertia, levels BJ(J + 1).",
+            "**Spherical tops** (CH₄, SF₆): three equal moments of inertia, but no permanent dipole, so no microwave spectrum.",
+            "**Symmetric tops** (NH₃, CH₃Cl: two equal moments, a unique one along the axis): levels E = BJ(J + 1) + (A − B)K², with K the component of angular momentum along the axis; the rule is ΔJ = ±1, ΔK = 0.",
+            "**Asymmetric tops** (H₂O, most molecules): three different moments of inertia, and the spectrum is a dense pattern of lines, assigned with computer fitting."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "Which molecule has no pure rotational (microwave) spectrum?",
+          "a": "N₂",
+          "wrong": [
+            "HCl",
+            "H₂O",
+            "CO"
+          ]
+        },
+        {
+          "q": "Lines in the rotational spectrum of a rigid diatomic are separated by…",
+          "a": "2B",
+          "wrong": [
+            "B",
+            "4B",
+            "B/2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vibrational",
+      "title": "Vibrational spectroscopy: infrared and Raman",
+      "terms": [
+        "vibrational spectroscopy",
+        "IR selection rule",
+        "Raman selection rule",
+        "normal mode",
+        "overtone",
+        "overtones",
+        "combination band",
+        "combination bands",
+        "mutual exclusion rule",
+        "vibrational degrees of freedom",
+        "Raman scattering",
+        "Stokes line",
+        "anti-Stokes line",
+        "Rayleigh scattering",
+        "Raman shift",
+        "infrared absorption"
+      ],
+      "body": [
+        "Vibrations fall in the infrared (200–4000 cm⁻¹). A molecule of N atoms has 3N − 6 **normal modes** (3N − 5 if linear), motions in which all atoms oscillate with the same frequency and phase. Each normal mode behaves as an independent harmonic oscillator, with levels (v + ½)ħω.",
+        {
+          "list": [
+            "**IR selection rule**: a mode is IR active if the dipole moment changes during the vibration. The specific rule is Δv = ±1 (harmonic), and weaker **overtones** (Δv = ±2, ±3) and **combination bands** (one photon exciting two modes) appear through anharmonicity. Homonuclear diatomics (N₂, O₂) are IR inactive.",
+            "**Raman selection rule**: a mode is Raman active if the **polarizability** (the ease with which the electron cloud is distorted) changes. In Raman scattering a laser photon of frequency ν₀ is scattered inelastically, losing or gaining a vibrational quantum. The strong scattered light with no shift is **Rayleigh** scattering. Light shifted to lower frequency, ν₀ − ν_vib, is the **Stokes line**, and light shifted to higher frequency, ν₀ + ν_vib, is the weaker **anti-Stokes line**, since it needs a molecule initially in v = 1 (the ratio is the Boltzmann factor e^{−hν/kT}). The **Raman shift** (in cm⁻¹) depends only on the molecule, not on the laser wavelength, and homonuclear diatomics are Raman active."
+          ]
+        },
+        "For molecules with an inversion center, IR and Raman are complementary: the **mutual exclusion rule** says no vibration is both active. In CO₂ the symmetric stretch (1388 cm⁻¹) is Raman only, and the antisymmetric stretch (2349 cm⁻¹) and the bend (667 cm⁻¹) are IR only. Group theory (see the chapter on symmetry) predicts the activity of each mode. Water, without an inversion center, has all three modes active in both.",
+        {
+          "example": {
+            "title": "A Raman line",
+            "problem": "A 514.5 nm argon-ion laser excites N₂ (vibration 2331 cm⁻¹). Where does the Stokes line appear?",
+            "solution": "ν̃₀ = 10⁷/514.5 = 19,436 cm⁻¹. Stokes: 19,436 − 2331 = 17,105 cm⁻¹, so λ = 10⁷/17,105 = 584.6 nm. The anti-Stokes line is at 21,767 cm⁻¹, 459.4 nm, with an intensity factor of e^{−hν/kT} = e^{−2331/207} = 1.3 × 10⁻⁵ relative to Stokes."
+          }
+        },
+        "IR is a good probe of functional groups (see the chapter on structure determination), and Raman is good for symmetric bonds (C=C, S–S, M–M), for aqueous solutions (water is a weak scatterer), and for fiber optic and microscope applications."
+      ],
+      "check": [
+        {
+          "q": "Which mode of CO₂ is Raman active but IR inactive?",
+          "a": "The symmetric stretch",
+          "wrong": [
+            "The antisymmetric stretch",
+            "The bending mode",
+            "All of them"
+          ]
+        },
+        {
+          "q": "The Raman shift of a molecule depends on…",
+          "a": "The vibrational frequency only, not the laser wavelength",
+          "wrong": [
+            "The laser wavelength only",
+            "The sample’s color",
+            "The detector"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rovibrational",
+      "title": "Rovibrational spectra",
+      "terms": [
+        "rovibrational spectrum",
+        "rovibrational spectra",
+        "vibration–rotation spectrum",
+        "P branch",
+        "R branch",
+        "Q branch",
+        "band origin",
+        "vibration–rotation coupling",
+        "centrifugal distortion",
+        "combination differences",
+        "gas-phase infrared spectrum",
+        "rotational fine structure"
+      ],
+      "body": [
+        "In the gas phase, a vibrational transition is accompanied by changes in the rotational state, and the IR absorption band has a fine structure of lines. For a diatomic with a ¹Σ ground state (HCl, CO), the selection rule is Δv = +1 and ΔJ = ±1, which gives two **branches**:",
+        {
+          "list": [
+            "**R branch** (ΔJ = +1): ν̃ = ν̃₀ + 2B(J + 1), J = 0, 1, 2…, on the high-frequency side of the band origin.",
+            "**P branch** (ΔJ = −1): ν̃ = ν̃₀ − 2BJ, J = 1, 2, 3…, on the low-frequency side.",
+            "The **band origin** ν̃₀ itself, the pure vibrational frequency (ΔJ = 0, the **Q branch**), is absent in diatomics with no electronic angular momentum, leaving a gap of 4B at the center. The Q branch appears for NO (a ²Π ground state), and for the perpendicular bands of linear and symmetric top polyatomics, where it is a strong central peak."
+          ]
+        },
+        "The molecule rotates in both states, but the bond is longer in v = 1, so B₁ < B₀: **vibration–rotation coupling**, B_v = B_e − α_e(v + ½). As a result the R branch lines converge and the P branch lines spread apart as J grows. Measuring the combination differences between lines that share an upper or lower level gives B₀ and B₁ separately. In HCl each line is a doublet of intensity ratio 3:1 because of the isotopes ³⁵Cl and ³⁷Cl, which have different reduced masses.",
+        {
+          "example": {
+            "title": "HCl rovibrational band",
+            "problem": "The R(0) and P(1) lines of HCl are at 2906.2 and 2865.1 cm⁻¹. Find the band origin and B.",
+            "solution": "R(0) = ν̃₀ + 2B and P(1) = ν̃₀ − 2B, so ν̃₀ = (2906.2 + 2865.1)/2 = 2885.7 cm⁻¹ and 4B = 41.1 cm⁻¹, B ≈ 10.3 cm⁻¹ (the average of B₀ and B₁ for these two lines). The bond length follows from B, as in the rotational spectrum: r = 1.28 Å."
+          }
+        },
+        "The vibrational frequency (ν̃₀) gives the force constant, k = μ(2πcν̃₀)², and the anharmonic overtone positions give the dissociation energy, so the one spectrum yields k, r and (via the overtones) D_e. The method is used to measure atmospheric gases (CO₂, CH₄, O₃) by their rovibrational spectra, in the laboratory and by satellites."
+      ],
+      "check": [
+        {
+          "q": "Why is there a gap at the center of the rovibrational band of HCl?",
+          "a": "ΔJ = 0 (the Q branch) is forbidden for a diatomic with no electronic angular momentum",
+          "wrong": [
+            "The molecule is nonpolar",
+            "The bond has no vibration",
+            "The J = 0 level is empty"
+          ]
+        },
+        {
+          "q": "Why do the R branch lines converge as J increases?",
+          "a": "B₁ < B₀, since the bond is longer in the upper vibrational state",
+          "wrong": [
+            "B₁ > B₀",
+            "Centrifugal distortion makes B negative",
+            "The Boltzmann factor falls"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "electronic",
+      "title": "Electronic spectroscopy and fluorescence",
+      "terms": [
+        "Franck–Condon principle",
+        "Franck-Condon principle",
+        "vibronic transition",
+        "vibronic",
+        "electronic spectroscopy",
+        "internal conversion",
+        "intersystem crossing",
+        "Kasha's rule",
+        "spin selection rule",
+        "charge-transfer transition",
+        "vibrational relaxation",
+        "fluorescence",
+        "phosphorescence",
+        "Jablonski diagram",
+        "Stokes shift",
+        "quantum yield of fluorescence",
+        "singlet state",
+        "triplet state",
+        "UV–visible spectroscopy",
+        "chromophore"
+      ],
+      "body": [
+        "Electronic transitions (UV–visible, 10,000–100,000 cm⁻¹) promote an electron to a higher orbital. Because the energy is large, each electronic transition has vibrational structure: a **vibronic transition** changes both the electronic and vibrational state.",
+        "The **Franck–Condon principle** states that because the electrons move far faster than the nuclei, an electronic transition occurs with the nuclei fixed: it is “vertical” on a diagram of potential energy against internuclear distance. The intensity of each vibronic line is proportional to the square of the overlap of the vibrational wavefunctions of the two states (the Franck–Condon factor). If the excited state has a longer bond, the vertical transition from v = 0 lands in a higher vibrational level of the upper state, and the spectrum shows a progression of lines with the greatest intensity away from the 0–0 transition. When the geometries are the same, the 0–0 line dominates.",
+        "Selection rules apply. The **spin selection rule** is ΔS = 0: singlet–singlet transitions are allowed and singlet–triplet transitions are forbidden (weak). In centrosymmetric molecules the **Laporte rule** requires g ↔ u (see the chapter on complexes). Intense bands include π → π* (ε about 10⁴) and **charge-transfer** transitions, and weak ones include n → π* in carbonyls (ε about 10–100) and d–d. The absorbing group is the **chromophore**.",
+        {
+          "svg": "<svg viewBox='0 0 460 280' role='img' aria-label='Jablonski diagram' font-family='system-ui, sans-serif' font-size='12'><g fill='none' stroke='currentColor' stroke-width='2'><path d='M40,230 H140 M40,222 H140 M40,214 H140'/><path d='M40,100 H140 M40,92 H140 M40,84 H140'/><path d='M230,140 H330 M230,132 H330'/></g><g fill='currentColor'><text x='34' y='234' text-anchor='end'>S₀</text><text x='34' y='104' text-anchor='end'>S₁</text><text x='336' y='144'>T₁</text></g><g fill='none' style='stroke:var(--accent)' stroke-width='2' marker-end='url(#jb)'><path d='M60,228 V86'/></g><g fill='none' stroke='currentColor' stroke-width='1.5' stroke-dasharray='4 3' marker-end='url(#jb2)'><path d='M85,84 V100'/></g><g fill='none' style='stroke:var(--accent)' stroke-width='2' marker-end='url(#jb)'><path d='M110,100 V224'/></g><g fill='none' stroke='currentColor' stroke-width='1.5' stroke-dasharray='4 3' marker-end='url(#jb2)'><path d='M140,95 L228,135'/></g><g fill='none' style='stroke:var(--accent)' stroke-width='2' marker-end='url(#jb)'><path d='M280,140 V224'/></g><defs><marker id='jb' viewBox='0 0 8 8' refX='4' refY='4' markerWidth='6' markerHeight='6' orient='auto'><path d='M0,0 L8,4 L0,8 z' style='fill:var(--accent)'/></marker><marker id='jb2' viewBox='0 0 8 8' refX='4' refY='4' markerWidth='6' markerHeight='6' orient='auto'><path d='M0,0 L8,4 L0,8 z' fill='currentColor'/></marker></defs><g fill='currentColor'><text x='66' y='170'>absorption</text><text x='100' y='70' text-anchor='middle' font-size='11'>vib. relaxation</text><text x='118' y='170'>fluorescence</text><text x='150' y='126' font-size='11'>ISC</text><text x='288' y='190'>phosphorescence</text><text x='46' y='16'>energy</text></g></svg>",
+          "caption": "Jablonski diagram. Straight arrows are radiative (absorption, fluorescence, phosphorescence) and dashed arrows are radiationless (vibrational relaxation, intersystem crossing)."
+        },
+        {
+          "h": "What happens to the excited molecule"
+        },
+        {
+          "list": [
+            "**Vibrational relaxation** (10⁻¹²–10⁻¹⁰ s): the excess vibrational energy passes to the surroundings as heat. By **Kasha’s rule**, emission comes from the lowest excited state of a given multiplicity, whichever level was excited.",
+            "**Internal conversion** (10⁻¹²–10⁻⁶ s) is a radiationless transition between states of the same spin (S₁ → S₀) that turns the electronic energy into vibration.",
+            "**Fluorescence** (10⁻⁹–10⁻⁷ s) is emission S₁ → S₀, spin-allowed and fast. It is at longer wavelength than absorption (the **Stokes shift**), and its spectrum is often a mirror image of the absorption band, since the vibrational spacings of S₀ are seen. The **quantum yield** Φ_F is the fraction of excited molecules that emit.",
+            "**Intersystem crossing** (10⁻¹⁰–10⁻⁸ s) is a radiationless spin flip from S₁ to a triplet T₁, helped by spin–orbit coupling in molecules with heavy atoms.",
+            "**Phosphorescence** (10⁻³–10 s) is T₁ → S₀ emission, which is spin-forbidden and so slow: glow-in-the-dark materials."
+          ]
+        },
+        {
+          "example": {
+            "title": "Stokes shift",
+            "problem": "A dye absorbs at 490 nm and fluoresces at 520 nm. Why is the emission at lower energy?",
+            "solution": "After absorption to a vibrationally excited level of S₁, the molecule relaxes within picoseconds to v = 0 of S₁, losing energy as heat. Fluorescence then starts from v = 0 and ends in a vibrationally excited level of S₀, so the photon energy is less than the absorbed photon’s: 490 nm (20,400 cm⁻¹) against 520 nm (19,200 cm⁻¹)."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "The Franck–Condon principle says that electronic transitions occur…",
+          "a": "With the nuclei fixed, as vertical transitions",
+          "wrong": [
+            "With nuclei moving at the speed of light",
+            "Only between identical geometries",
+            "Only between triplet states"
+          ]
+        },
+        {
+          "q": "Why is phosphorescence much slower than fluorescence?",
+          "a": "It is spin-forbidden (triplet to singlet)",
+          "wrong": [
+            "It involves nuclear motion",
+            "It occurs at a higher temperature",
+            "It requires collisions"
+          ]
+        },
+        {
+          "q": "Fluorescence appears at longer wavelength than absorption because…",
+          "a": "Vibrational relaxation in the excited state loses energy before emission",
+          "wrong": [
+            "The photon loses energy to the solvent during emission only",
+            "Emission is always from a triplet",
+            "Absorption is Laporte-forbidden"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nmr-theory",
+      "title": "NMR theory",
+      "terms": [
+        "Larmor frequency",
+        "nuclear spin",
+        "Zeeman splitting",
+        "shielding constant",
+        "T1 relaxation",
+        "T2 relaxation",
+        "pulse NMR",
+        "free induction decay",
+        "Fourier transform NMR",
+        "nuclear Overhauser effect",
+        "NOE",
+        "magnetogyric ratio",
+        "nuclear magnetic resonance",
+        "MRI",
+        "chemical shift in ppm",
+        "spin-lattice relaxation",
+        "spin-spin relaxation",
+        "gyromagnetic ratio"
+      ],
+      "body": [
+        "Nuclei with a nonzero **nuclear spin** I (¹H, ¹³C, ¹⁵N, ¹⁹F, ³¹P: I = ½) behave as tiny magnets, with magnetic moment μ = γħI, where γ is the **magnetogyric ratio** of the nucleus. In a magnetic field B₀ the spin-½ levels (m_I = ±½) split into two by the **Zeeman** interaction, ΔE = γħB₀. Radio-frequency radiation causes transitions when its frequency equals the **Larmor frequency**:",
+        {
+          "eq": "ν_L = γB₀ / 2π     (¹H: 42.58 MHz T⁻¹; ¹³C: 10.71 MHz T⁻¹)"
+        },
+        "In the 9.4 T magnets of a ‘400 MHz’ spectrometer protons precess at 400 MHz and ¹³C at 100.6 MHz. The energy gap is minute (hν/kT about 6 × 10⁻⁵ at 300 K): the population difference between the levels is only about 3 × 10⁻⁵, which is why NMR is intrinsically less sensitive than optical spectroscopy, and why stronger fields (higher gap and polarization) improve it.",
+        {
+          "h": "Shielding and coupling"
+        },
+        "Electrons shield the nucleus: the field it experiences is B₀(1 − σ) with **shielding constant** σ, so the resonance frequency depends on the chemical environment. The **chemical shift** δ = (ν − ν_ref)/ν_ref × 10⁶ ppm is independent of the field strength (1 ppm is 400 Hz at 400 MHz, but 600 Hz at 600 MHz), and so higher fields spread the lines further apart, which resolves complex spectra. Neighboring nuclei interact through the bonding electrons (**spin–spin coupling**, J in Hz, independent of B₀), splitting each signal into a multiplet (see the chapter on structure determination).",
+        {
+          "h": "Relaxation and pulse methods"
+        },
+        "After excitation, the nuclei return to equilibrium by two processes. **T₁ (spin–lattice) relaxation** is the return of the magnetization along B₀ to its equilibrium value, by exchange of energy with the surroundings (seconds for small molecules). **T₂ (spin–spin) relaxation** is the loss of coherence of the spins precessing in the transverse plane (the lifetime sets the linewidth, Δν = 1/πT₂, so large molecules with short T₂ give broad lines).",
+        "In **pulse (Fourier transform) NMR** a short, intense radiofrequency pulse excites all nuclei at once. A 90° pulse tips the magnetization into the transverse plane, where it precesses at the Larmor frequencies, and induces a signal in a coil that decays as the spins dephase: the **free induction decay (FID)**. The Fourier transform of the FID converts it from the time domain to the frequency domain, the spectrum. Many scans are summed, which improves the signal-to-noise ratio by √n. Ernst received the 1991 Nobel Prize in Chemistry for this method, which also underlies multidimensional NMR.",
+        "The **nuclear Overhauser effect (NOE)** is a change in the intensity of one signal when another is saturated, arising from dipolar relaxation between spins close in space. It decreases as r⁻⁶, so it detects distances up to about 5 Å, and is the basis of NOESY, used to determine protein structures in solution. **Magnetic resonance imaging (MRI)** applies proton NMR with magnetic field gradients that make the Larmor frequency depend on position (Lauterbur and Mansfield, Nobel Prize in Medicine 2003), so that the water in different tissues, with different T₁ and T₂, gives contrast.",
+        {
+          "example": {
+            "title": "Field and frequency",
+            "problem": "Find the ¹H and ¹³C Larmor frequencies at B₀ = 11.74 T, and the Hz separation of two ¹H peaks 2.00 ppm apart.",
+            "solution": "ν(¹H) = 42.58 × 11.74 = 500 MHz; ν(¹³C) = 10.71 × 11.74 = 125.7 MHz. Two peaks 2.00 ppm apart are 2.00 × 500 = 1000 Hz apart."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "What is the Larmor frequency of ¹H at 7.05 T?",
+          "a": "300 MHz",
+          "wrong": [
+            "42.6 MHz",
+            "700 MHz",
+            "100 MHz"
+          ],
+          "why": "42.58 MHz/T × 7.05 T = 300 MHz."
+        },
+        {
+          "q": "Why does a Fourier-transform NMR spectrum offer better sensitivity than a slow field sweep?",
+          "a": "All nuclei are excited at once and many scans can be added quickly",
+          "wrong": [
+            "It uses a stronger magnet",
+            "It cancels relaxation",
+            "It removes spin–spin coupling"
+          ]
+        },
+        {
+          "q": "The NOE depends on internuclear distance as…",
+          "a": "r⁻⁶",
+          "wrong": [
+            "r⁻¹",
+            "r⁻²",
+            "r"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "A transition needs hν = ΔE and a nonzero transition dipole. Gross selection rules: permanent dipole (rotation), changing dipole (IR), changing polarizability (Raman). Beer–Lambert: A = εcl.",
+    "Rotational lines are spaced by 2B (J → J + 1 at 2B(J + 1)). B gives the bond length, and the strongest line is at J_max = √(kT/2Bhc) − ½.",
+    "IR active modes change the dipole, and Raman modes change the polarizability. Mutual exclusion holds in centrosymmetric molecules. Raman shifts are independent of laser wavelength.",
+    "Rovibrational spectra have R (ΔJ = +1) and P (ΔJ = −1) branches around the band origin. B₁ < B₀ makes R lines converge.",
+    "Franck–Condon: vertical transitions with nuclei fixed. The Jablonski diagram shows fluorescence (fast, spin-allowed) and phosphorescence (slow, spin-forbidden), with Stokes shift and Kasha’s rule.",
+    "NMR: ν_L = γB₀/2π. Chemical shift (ppm) is field independent, and coupling J (Hz) is too. T₁ and T₂ describe relaxation. FT-NMR uses a pulse and the FID, NOE gives distances, and MRI uses gradients."
+  ],
+  "problems": [
+    {
+      "q": "The J = 0 → 1 rotational transition of ¹H¹²⁷I is at 12.8 cm⁻¹. Calculate B, I and the bond length (μ = 1.647 × 10⁻²⁷ kg).",
+      "solution": "B = 12.8/2 = 6.40 cm⁻¹. I = h/(8π²cB) = 6.626 × 10⁻³⁴/(78.957 × 2.998 × 10¹⁰ × 6.40) = 4.374 × 10⁻⁴⁷ kg m². r = √(I/μ) = √(4.374 × 10⁻⁴⁷/1.647 × 10⁻²⁷) = 1.63 × 10⁻¹⁰ m.",
+      "a": "B = 6.40 cm⁻¹; I = 4.37 × 10⁻⁴⁷ kg m²; r = 1.63 Å."
+    },
+    {
+      "q": "The fundamental vibration of ¹²C¹⁶O is 2143 cm⁻¹ (μ = 1.1385 × 10⁻²⁶ kg). Calculate the force constant, and the fundamental of ¹³C¹⁶O (μ = 1.1855 × 10⁻²⁶ kg).",
+      "solution": "k = μ(2πcν̃)² = 1.1385 × 10⁻²⁶ × (2π × 2.998 × 10¹⁰ × 2143)² = 1.1385 × 10⁻²⁶ × (4.037 × 10¹⁴)² = 1855 N m⁻¹. For ¹³CO: ν̃ = 2143 × √(1.1385/1.1855) = 2143 × 0.980 = 2100 cm⁻¹.",
+      "a": "k = 1855 N/m; 2100 cm⁻¹ for ¹³CO."
+    },
+    {
+      "q": "A molecule absorbs at 330 nm with ε = 8000 M⁻¹ cm⁻¹. What concentration gives A = 0.40 in a 1.0 cm cell? What fraction of the light is transmitted?",
+      "solution": "c = A/(εl) = 0.40/8000 = 5.0 × 10⁻⁵ M. Transmitted fraction = 10⁻ᴬ = 10⁻⁰·⁴⁰ = 0.40.",
+      "a": "5.0 × 10⁻⁵ M; 40% transmitted."
+    },
+    {
+      "q": "Compare the energies (in J) and populations of the two spin states of ¹H at 9.4 T and 298 K. (ν_L = 400 MHz.)",
+      "solution": "ΔE = hν = 6.626 × 10⁻³⁴ × 4.00 × 10⁸ = 2.65 × 10⁻²⁵ J. kT = 4.11 × 10⁻²¹ J. Ratio N_β/N_α = exp(−2.65 × 10⁻²⁵/4.11 × 10⁻²¹) = exp(−6.4 × 10⁻⁵) = 0.999936: an excess of about 3 per 100,000 in the lower level.",
+      "a": "ΔE = 2.65 × 10⁻²⁵ J; the population difference is about 3 × 10⁻⁵ of the total."
+    }
+  ]
+}

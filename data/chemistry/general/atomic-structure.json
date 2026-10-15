@@ -1,201 +1,629 @@
 {
+  "id": "atomic-structure",
+  "view": "chapter",
   "title": "Atomic Structure and Periodicity",
-  "description": "How the atom was figured out, how electrons behave, and how that explains the trends of the periodic table.",
-  "category": ["Chemistry", "General Chemistry", "Atomic Structure"],
-  "view": "articles",
-  "entries": [
+  "description": "Light, quantization and the quantum mechanical atom, and how electron configurations explain the periodic table.",
+  "overview": [
+    "The nuclear model leaves a puzzle. A negative electron orbiting a positive nucleus should radiate energy and spiral inward in a fraction of a nanosecond, yet atoms are stable and emit light only at sharp, characteristic wavelengths. Resolving this took quantum mechanics, in which energy is exchanged in discrete amounts and electrons behave like waves.",
+    "This chapter builds the modern picture of the atom from the properties of light, through the Bohr model to orbitals and quantum numbers, and then uses electron configurations to explain the periodic trends that organize chemistry."
+  ],
+  "objectives": [
+    "Relate the wavelength, frequency and energy of light, and calculate photon energies.",
+    "Explain the photoelectric effect and the de Broglie relation.",
+    "Use the Bohr model and the Rydberg equation to predict hydrogen spectral lines.",
+    "Assign the four quantum numbers and describe s, p and d orbitals.",
+    "Write electron configurations for atoms and ions using the Aufbau principle, the Pauli exclusion principle and Hund’s rule.",
+    "Explain trends in atomic radius, ionization energy, electron affinity and electronegativity."
+  ],
+  "sections": [
     {
-      "id": "models", "name": "Atomic models through history", "group": "Discovering the atom",
-      "terms": ["Rutherford", "plum pudding model", "gold foil experiment", "Dalton's atomic theory", "Thomson"],
-      "tagline": "From solid spheres to a nucleus surrounded by electron clouds.",
-      "sections": [
-        { "facts": [
-          ["Dalton (1803)", "Atoms are tiny, indivisible spheres. All atoms of an element are identical, and they combine in whole-number ratios."],
-          ["Thomson (1897)", "Discovered the electron using cathode rays. Proposed the plum pudding model: negative electrons embedded in a positive sphere."],
-          ["Rutherford (1909–1911)", "Fired alpha particles at thin gold foil. Most passed straight through, a few bounced back. So the positive charge and nearly all the mass are in a tiny nucleus, with empty space around it."],
-          ["Bohr (1913)", "Electrons orbit the nucleus in fixed energy levels. It explained the hydrogen spectrum."],
-          ["Quantum mechanical model (1920s)", "Electrons are described by wave functions and found in orbitals, regions of probability."]
-        ] },
-        { "h": "Why it matters", "text": "Each model fixed a problem with the one before. Today's quantum model is the one that explains the periodic table and chemical bonding." }
+      "id": "light",
+      "title": "Light and the electromagnetic spectrum",
+      "terms": [
+        "electromagnetic spectrum",
+        "electromagnetic radiation",
+        "wavelength",
+        "frequency",
+        "photon",
+        "photons",
+        "Planck's constant",
+        "speed of light",
+        "visible light",
+        "ultraviolet",
+        "infrared"
       ],
-      "quiz": [
-        { "q": "What did Rutherford's gold foil experiment show?", "a": "Atoms have a tiny, dense, positive nucleus", "wrong": ["Atoms are solid spheres", "Electrons are embedded in a positive sphere", "Atoms have no empty space"] }
+      "body": [
+        "Light is **electromagnetic radiation**: oscillating electric and magnetic fields traveling through vacuum at c = 2.998 × 10⁸ m s⁻¹. A wave is described by its **wavelength** λ, the distance between crests, and its **frequency** ν, the number of crests passing a point per second (hertz, s⁻¹). They are tied together by",
+        {
+          "eq": "c = λν"
+        },
+        "The electromagnetic spectrum runs from radio waves (long wavelength, low frequency) through microwaves, infrared, visible light (about 400 nm violet to 700 nm red), ultraviolet, X-rays and γ rays.",
+        "Light also comes in packets. A **photon** of frequency ν carries energy",
+        {
+          "eq": "E = hν = hc/λ"
+        },
+        "where h = 6.626 × 10⁻³⁴ J s is **Planck’s constant**. Short wavelengths mean high-energy photons, which is why ultraviolet light damages skin and visible light does not.",
+        {
+          "example": {
+            "title": "Energy of a photon",
+            "problem": "Find the energy of a photon of green light, λ = 500 nm, and the energy per mole of such photons.",
+            "solution": [
+              {
+                "eq": [
+                  "E = hc/λ = (6.626 × 10⁻³⁴ J s)(2.998 × 10⁸ m s⁻¹) / (500 × 10⁻⁹ m) = 3.97 × 10⁻¹⁹ J",
+                  "E(mol) = (3.97 × 10⁻¹⁹ J)(6.022 × 10²³ mol⁻¹) = 239 kJ mol⁻¹"
+                ]
+              },
+              "This is comparable to the energy of a chemical bond, which is why visible and ultraviolet light can drive reactions."
+            ]
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Which has the higher energy per photon?",
+          "a": "Blue light, 450 nm",
+          "wrong": [
+            "Red light, 700 nm",
+            "Microwaves",
+            "Radio waves"
+          ]
+        },
+        {
+          "q": "A photon has frequency 6.0 × 10¹⁴ Hz. What is its wavelength?",
+          "a": "500 nm",
+          "wrong": [
+            "200 nm",
+            "2.0 × 10⁻⁶ m",
+            "5.0 × 10⁻⁷ nm"
+          ],
+          "why": "λ = c/ν = 2.998 × 10⁸ / 6.0 × 10¹⁴ = 5.0 × 10⁻⁷ m = 500 nm."
+        }
       ]
     },
     {
-      "id": "light", "name": "Light and the electromagnetic spectrum", "group": "Light and quanta",
-      "terms": ["electromagnetic spectrum", "electromagnetic radiation", "wavelength", "frequency", "photon", "photons", "Planck's constant"],
-      "tagline": "Light behaves as a wave, and its energy comes in packets called photons.",
-      "sections": [
-        { "equations": ["c = λν", "E = hν"], "text": "c is the speed of light, 3.00 × 10⁸ m/s. λ is the wavelength, ν is the frequency, and h is Planck's constant, 6.626 × 10⁻³⁴ J·s. Shorter wavelength means higher frequency and higher energy." },
-        { "h": "The spectrum, from long to short wavelength", "text": "Radio waves, microwaves, infrared, visible light (about 400–700 nm, red to violet), ultraviolet, X-rays, gamma rays." },
-        { "h": "Worked example", "text": "Light of wavelength 500 nm has ν = 3.00 × 10⁸ ÷ 5.00 × 10⁻⁷ = 6.00 × 10¹⁴ Hz, and each photon carries E = 6.626 × 10⁻³⁴ × 6.00 × 10¹⁴ ≈ 3.98 × 10⁻¹⁹ J." }
+      "id": "quanta",
+      "title": "Quantization and wave–particle duality",
+      "terms": [
+        "photoelectric effect",
+        "work function",
+        "wave–particle duality",
+        "wave-particle duality",
+        "de Broglie",
+        "de Broglie wavelength",
+        "blackbody radiation",
+        "quantization",
+        "quantum",
+        "quanta"
       ],
-      "quiz": [
-        { "q": "Which type of light has the highest energy per photon?", "a": "Gamma rays", "wrong": ["Radio waves", "Visible light", "Infrared"] }
+      "body": [
+        "Classical physics predicted that a hot object should emit infinite energy at short wavelengths. In 1900 Max Planck resolved this by assuming that matter can emit or absorb energy only in discrete amounts, E = hν. Energy is **quantized**.",
+        {
+          "h": "The photoelectric effect"
+        },
+        "When light strikes a metal, electrons are ejected only if the frequency exceeds a threshold, no matter how intense the light. Above the threshold, the number of electrons scales with intensity, and their kinetic energy scales with frequency. Classical wave theory cannot explain this. Einstein (1905) proposed that light consists of photons, and that each photon gives all its energy to a single electron. The photon must pay the **work function** Φ, the minimum energy to free an electron from the metal, and the remainder becomes kinetic energy:",
+        {
+          "eq": "KE = hν − Φ"
+        },
+        {
+          "example": {
+            "title": "Photoelectric effect in sodium",
+            "problem": "The work function of sodium is 3.65 × 10⁻¹⁹ J (2.28 eV). (a) What is the longest wavelength that ejects electrons? (b) What is the kinetic energy of electrons ejected by 300 nm light?",
+            "solution": [
+              {
+                "eq": [
+                  "(a) λ₀ = hc/Φ = (1.986 × 10⁻²⁵ J m) / (3.65 × 10⁻¹⁹ J) = 544 nm",
+                  "(b) E(photon) = hc/λ = 6.62 × 10⁻¹⁹ J, so KE = 6.62 × 10⁻¹⁹ − 3.65 × 10⁻¹⁹ = 2.97 × 10⁻¹⁹ J"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "h": "Matter waves"
+        },
+        "If light, a wave, has particle character, perhaps matter has wave character. In 1924 Louis de Broglie proposed that a particle of mass m and speed v has wavelength",
+        {
+          "eq": "λ = h/(mv)"
+        },
+        "Electron diffraction by crystals confirmed this in 1927. A baseball (0.145 kg at 40 m s⁻¹) has λ ≈ 10⁻³⁴ m, far too small to observe. An electron at 1.0 × 10⁶ m s⁻¹ has λ = 6.626 × 10⁻³⁴ / (9.109 × 10⁻³¹ × 1.0 × 10⁶) = 0.73 nm, comparable to atomic dimensions, so wave behavior dominates. This **wave–particle duality** underlies electron microscopy and the quantum description of atoms."
+      ],
+      "check": [
+        {
+          "q": "In the photoelectric effect, increasing light intensity at a fixed frequency below the threshold…",
+          "a": "Still ejects no electrons",
+          "wrong": [
+            "Ejects electrons with more kinetic energy",
+            "Ejects more electrons, eventually",
+            "Ejects electrons after a delay"
+          ]
+        },
+        {
+          "q": "Why do we not observe the wave nature of a thrown baseball?",
+          "a": "Its de Broglie wavelength is far too small",
+          "wrong": [
+            "Baseballs have no wave properties",
+            "Its speed is too low for a wavelength to exist",
+            "Its wavelength is too large"
+          ]
+        }
       ]
     },
     {
-      "id": "photoelectric", "name": "The photoelectric effect and wave–particle duality", "group": "Light and quanta",
-      "terms": ["photoelectric effect", "wave–particle duality", "wave-particle duality", "de Broglie"],
-      "tagline": "Light acts like particles, and particles act like waves.",
-      "sections": [
-        { "h": "The photoelectric effect", "points": [
-          "When light shines on a metal, electrons are knocked out, but only if the frequency is above a threshold. Brighter light of too low a frequency ejects none.",
-          "Einstein (1905) explained this: light comes as photons of energy hν. One photon gives its energy to one electron. If hν is less than the energy holding the electron in the metal, nothing happens.",
-          "The extra energy becomes the kinetic energy of the ejected electron."
-        ] },
-        { "h": "Matter waves", "equations": ["λ = h ÷ mv"], "text": "de Broglie (1924) proposed that moving particles have a wavelength. For electrons it is similar to atomic sizes, and electron diffraction later confirmed it. For everyday objects the wavelength is far too small to notice." }
+      "id": "bohr",
+      "title": "The Bohr model and atomic spectra",
+      "terms": [
+        "Bohr model",
+        "line spectrum",
+        "emission spectrum",
+        "emission spectra",
+        "Balmer series",
+        "Rydberg",
+        "Rydberg equation",
+        "absorption spectrum",
+        "atomic spectra",
+        "ground state",
+        "excited state"
       ],
-      "quiz": [
-        { "q": "In the photoelectric effect, what decides whether electrons are ejected?", "a": "The frequency of the light", "wrong": ["The brightness of the light", "The time the light shines", "The color of the metal"] }
+      "body": [
+        "A heated gas emits light only at discrete wavelengths, a **line spectrum**. Hydrogen’s visible lines (656, 486, 434, 410 nm) obey a simple formula found by Balmer and generalized by Rydberg:",
+        {
+          "eq": "1/λ = R_{∞} (1/n₁² − 1/n₂²)     R_{∞} = 1.097 × 10⁷ m⁻¹"
+        },
+        "Here n₁ and n₂ are integers with n₂ > n₁. In 1913 Bohr explained this with a model: the electron in hydrogen can occupy only certain circular orbits, with energies",
+        {
+          "eq": "E_{n} = −2.178 × 10⁻¹⁸ J / n²     (n = 1, 2, 3, …)"
+        },
+        "The lowest level, n = 1, is the **ground state**. The electron does not radiate in an orbit. It emits a photon only when it drops to a lower level, with hν equal to the energy difference, and absorbs one when it rises. Lines ending on n = 1 are ultraviolet (the Lyman series). Those ending on n = 2 are in the visible (the **Balmer series**), and those ending on n = 3 are in the infrared (Paschen).",
+        {
+          "svg": "<svg viewBox='0 0 460 280' role='img' aria-label='Hydrogen energy levels and Balmer transitions' font-family='system-ui, sans-serif' font-size='12'><g stroke='currentColor' stroke-width='2'><path d='M130,250 H260'/><path d='M130,102 H260'/><path d='M130,73 H260'/><path d='M130,63 H260'/><path d='M130,58 H260'/></g><path d='M130,40 H260' stroke='currentColor' stroke-width='1' stroke-dasharray='4 3' opacity='.6'/><g fill='none' style='stroke:var(--accent)' stroke-width='2' marker-end='url(#bh1)'><path d='M150,73 V98'/><path d='M180,63 V98'/><path d='M210,58 V98'/></g><defs><marker id='bh1' viewBox='0 0 8 8' refX='4' refY='4' markerWidth='6' markerHeight='6' orient='auto'><path d='M0,0 L8,4 L0,8 z' style='fill:var(--accent)'/></marker></defs><g fill='currentColor'><text x='120' y='254' text-anchor='end'>n = 1</text><text x='120' y='106' text-anchor='end'>n = 2</text><text x='120' y='77' text-anchor='end'>3</text><text x='120' y='67' text-anchor='end'>4</text><text x='120' y='56' text-anchor='end'>5</text><text x='120' y='42' text-anchor='end'>∞</text><text x='270' y='254'>−13.6 eV</text><text x='270' y='106'>−3.40 eV</text><text x='270' y='44'>0</text><text x='300' y='88' style='fill:var(--accent)'>Balmer series</text><text x='300' y='104' style='fill:var(--accent)'>656, 486, 434 nm</text><text x='56' y='20'>energy</text></g></svg>",
+          "caption": "Energy levels of hydrogen. Downward transitions to n = 2 produce the visible Balmer lines. Levels converge toward 0, where the electron is free."
+        },
+        {
+          "example": {
+            "title": "The red hydrogen line",
+            "problem": "Calculate the wavelength of the n = 3 → n = 2 transition.",
+            "solution": [
+              {
+                "eq": [
+                  "1/λ = (1.097 × 10⁷ m⁻¹)(1/2² − 1/3²) = 1.097 × 10⁷ × 0.1389 = 1.524 × 10⁶ m⁻¹",
+                  "λ = 656 nm  (red)"
+                ]
+              }
+            ]
+          }
+        },
+        "The Bohr model works only for one-electron species (H, He⁺, Li²⁺), and it wrongly treats the electron as moving on a fixed path. Its lasting contribution is the idea that atoms have discrete energy levels, which the quantum mechanical model keeps."
+      ],
+      "check": [
+        {
+          "q": "When an electron in hydrogen falls from n = 4 to n = 2, the atom…",
+          "a": "Emits a visible photon",
+          "wrong": [
+            "Absorbs a photon",
+            "Emits an ultraviolet photon",
+            "Emits no radiation"
+          ]
+        },
+        {
+          "q": "Which hydrogen series lies in the ultraviolet?",
+          "a": "Lyman (to n = 1)",
+          "wrong": [
+            "Balmer (to n = 2)",
+            "Paschen (to n = 3)",
+            "Brackett (to n = 4)"
+          ]
+        }
       ]
     },
     {
-      "id": "bohr", "name": "The Bohr model and atomic spectra", "group": "Light and quanta",
-      "terms": ["Bohr model", "line spectrum", "emission spectrum", "emission spectra", "Balmer series", "Rydberg"],
-      "tagline": "Why hot hydrogen gives off only a few colors of light.",
-      "sections": [
-        { "text": "Heated gases give off light at only certain wavelengths, a line spectrum, not a continuous rainbow. Bohr explained this for hydrogen by allowing electrons only certain energy levels." },
-        { "equations": ["Eₙ = −2.18 × 10⁻¹⁸ J ÷ n²", "ΔE = hν"], "text": "When an electron falls from a higher level to a lower one, it releases a photon whose energy equals the difference between the levels." },
-        { "h": "Hydrogen series", "facts": [
-          ["Lyman", "Falls to n = 1. Ultraviolet."],
-          ["Balmer", "Falls to n = 2. Visible light."],
-          ["Paschen", "Falls to n = 3. Infrared."]
-        ] },
-        { "h": "Limits", "text": "The Bohr model works only for hydrogen-like atoms with one electron. The quantum mechanical model replaced it, but the idea of quantized energy levels stayed." }
+      "id": "orbitals",
+      "title": "The quantum mechanical atom",
+      "terms": [],
+      "subs": [
+        {
+          "id": "uncertainty",
+          "title": "Uncertainty and the wave function",
+          "terms": [
+            "Heisenberg uncertainty principle",
+            "uncertainty principle",
+            "wave function",
+            "probability density",
+            "radial distribution"
+          ],
+          "body": [
+            "Heisenberg’s **uncertainty principle** states that position and momentum cannot both be known exactly:",
+            {
+              "eq": "Δx · Δp ≥ ħ/2     (ħ = h/2π)"
+            },
+            "An electron confined to an atom therefore cannot follow a definite path. Instead, Schrödinger’s equation gives a **wave function** ψ for each allowed state. By Born’s interpretation, ψ² at a point is the **probability density** of finding the electron there. A region where the electron is likely to be found is an **orbital**. Solving the equation for hydrogen gives exactly the Bohr energies, with no assumptions about orbits."
+          ]
+        },
+        {
+          "id": "quantum-numbers",
+          "title": "Quantum numbers and orbital shapes",
+          "terms": [
+            "quantum number",
+            "quantum numbers",
+            "principal quantum number",
+            "angular momentum quantum number",
+            "magnetic quantum number",
+            "spin quantum number",
+            "orbital",
+            "orbitals",
+            "shell",
+            "shells",
+            "subshell",
+            "subshells",
+            "s orbital",
+            "p orbital",
+            "d orbital",
+            "node",
+            "nodes"
+          ],
+          "body": [
+            "Each orbital is labeled by three quantum numbers, and an electron in it by a fourth:",
+            {
+              "table": {
+                "head": [
+                  "Symbol",
+                  "Name",
+                  "Allowed values",
+                  "Determines"
+                ],
+                "rows": [
+                  [
+                    "n",
+                    "principal",
+                    "1, 2, 3, …",
+                    "Energy and size; defines the **shell**"
+                  ],
+                  [
+                    "l",
+                    "angular momentum",
+                    "0 to n − 1",
+                    "Shape; defines the **subshell** (s, p, d, f for l = 0, 1, 2, 3)"
+                  ],
+                  [
+                    "m_{l}",
+                    "magnetic",
+                    "−l to +l",
+                    "Orientation; 2l + 1 orbitals per subshell"
+                  ],
+                  [
+                    "m_{s}",
+                    "spin",
+                    "+½ or −½",
+                    "Electron spin direction"
+                  ]
+                ]
+              }
+            },
+            "A shell n contains n subshells and n² orbitals, and holds up to 2n² electrons. A subshell holds 2(2l + 1) electrons: 2 for s, 6 for p, 10 for d and 14 for f. The 2p subshell, for example, has n = 2 and l = 1, with three orbitals (m_{l} = −1, 0, +1).",
+            {
+              "list": [
+                "**s orbitals** (l = 0) are spherical.",
+                "**p orbitals** (l = 1) have two lobes along an axis (p_{x}, p_{y}, p_{z}) with a **node**, a plane of zero probability, at the nucleus.",
+                "**d orbitals** (l = 2) mostly have four lobes, five orbitals in all.",
+                "An orbital has n − 1 total nodes: l angular nodes and n − l − 1 radial nodes. A 3s orbital has two radial nodes."
+              ]
+            },
+            {
+              "note": "In hydrogen all subshells of the same n have the same energy. In atoms with several electrons, repulsion splits them, and the order within a shell is s < p < d < f."
+            }
+          ]
+        }
       ],
-      "quiz": [
-        { "q": "In the hydrogen spectrum, which series is visible light?", "a": "Balmer", "wrong": ["Lyman", "Paschen", "Rydberg"] }
+      "check": [
+        {
+          "q": "Which set of quantum numbers is NOT allowed?",
+          "a": "n = 2, l = 2, m_l = 0",
+          "wrong": [
+            "n = 3, l = 2, m_l = −1",
+            "n = 1, l = 0, m_l = 0",
+            "n = 4, l = 3, m_l = 3"
+          ],
+          "why": "l must be less than n, so l = 2 is not allowed when n = 2."
+        },
+        {
+          "q": "How many orbitals are in the n = 3 shell?",
+          "a": "9",
+          "wrong": [
+            "3",
+            "6",
+            "18"
+          ],
+          "why": "n² = 9: one 3s, three 3p and five 3d."
+        },
+        {
+          "q": "How many radial nodes does a 3p orbital have?",
+          "a": "1",
+          "wrong": [
+            "0",
+            "2",
+            "3"
+          ],
+          "why": "n − l − 1 = 3 − 1 − 1 = 1."
+        }
       ]
     },
     {
-      "id": "quantum-numbers", "name": "Quantum numbers", "group": "Electrons in atoms",
-      "terms": ["quantum number", "quantum numbers", "principal quantum number"],
-      "tagline": "Four numbers that describe every electron in an atom.",
-      "sections": [
-        { "facts": [
-          ["n (principal)", "1, 2, 3, … The shell. Larger n means higher energy and a larger orbital."],
-          ["l (angular momentum)", "0 to n − 1. The subshell shape: 0 = s, 1 = p, 2 = d, 3 = f."],
-          ["mₗ (magnetic)", "−l to +l. Which orbital in the subshell, so it gives its orientation."],
-          ["mₛ (spin)", "+½ or −½. The spin of the electron."]
-        ] },
-        { "h": "Things to remember", "points": [
-          "A subshell with quantum number l has 2l + 1 orbitals: 1 for s, 3 for p, 5 for d, 7 for f.",
-          "Shell n contains n² orbitals, and so 2n² electrons.",
-          "An s orbital is a sphere. A p orbital is a dumbbell, and there are three at right angles to each other.",
-          "No two electrons in an atom have the same four quantum numbers (the Pauli exclusion principle)."
-        ] }
+      "id": "configurations",
+      "title": "Electron configurations",
+      "terms": [
+        "electron configuration",
+        "electron configurations",
+        "Aufbau principle",
+        "Pauli exclusion principle",
+        "Hund's rule",
+        "unpaired electrons",
+        "unpaired electron",
+        "paramagnetic",
+        "diamagnetic",
+        "valence electron",
+        "valence electrons",
+        "valence",
+        "outer electrons",
+        "outer electron",
+        "outer shell",
+        "core electrons",
+        "noble gas configuration",
+        "Madelung rule",
+        "isoelectronic"
       ],
-      "quiz": [
-        { "q": "How many orbitals are in a d subshell?", "a": "5", "wrong": ["3", "7", "10"] }
+      "body": [
+        "The **electron configuration** of an atom lists the occupied subshells and the number of electrons in each, for example 1s²2s²2p⁶. Three rules produce the ground-state configuration:",
+        {
+          "list": [
+            "**Aufbau principle:** fill orbitals from lowest energy upward. The order follows the Madelung (n + l) rule: 1s, 2s, 2p, 3s, 3p, 4s, 3d, 4p, 5s, 4d, 5p, 6s, 4f, 5d, 6p, 7s, 5f, 6d, 7p. Subshells with a lower n + l fill first, and for ties the lower n fills first.",
+            "**Pauli exclusion principle:** no two electrons in an atom can have the same four quantum numbers, so an orbital holds at most two electrons, with opposite spins.",
+            "**Hund’s rule:** electrons fill degenerate orbitals singly, with parallel spins, before pairing. This minimizes electron–electron repulsion."
+          ]
+        },
+        "Noble-gas shorthand replaces the core: sulfur is [Ne]3s²3p⁴ and iron is [Ar]3d⁶4s². The outer-shell electrons that take part in bonding are the **valence electrons**. For a main-group element they equal the group number (units digit): sulfur has six. The inner **core electrons** do not usually participate.",
+        {
+          "h": "Exceptions and ions"
+        },
+        "Half-filled and filled d subshells are unusually stable, so chromium is [Ar]3d⁵4s¹ (not 3d⁴4s²) and copper is [Ar]3d¹⁰4s¹. When a transition metal forms a cation, the ns electrons leave before the (n − 1)d electrons, because once d electrons are present they lie lower in energy. Fe²⁺ is [Ar]3d⁶ and Fe³⁺ is [Ar]3d⁵.",
+        "Species with the same number of electrons are **isoelectronic**: N³⁻, O²⁻, F⁻, Ne, Na⁺, Mg²⁺ and Al³⁺ all have 1s²2s²2p⁶.",
+        {
+          "h": "Magnetism"
+        },
+        "A species with unpaired electrons is **paramagnetic** and is drawn into a magnetic field. One with all electrons paired is **diamagnetic** and is weakly repelled.",
+        {
+          "example": {
+            "title": "Configuration and magnetism",
+            "problem": "Write the ground-state configurations of Mn and Mn²⁺, and state how many unpaired electrons each has.",
+            "solution": [
+              "Mn (Z = 25): [Ar]3d⁵4s². The five 3d electrons occupy five orbitals singly, giving five unpaired electrons.",
+              "Mn²⁺ loses the 4s electrons first: [Ar]3d⁵, still with five unpaired electrons. Both are paramagnetic."
+            ]
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "What is the electron configuration of Fe³⁺?",
+          "a": "[Ar]3d⁵",
+          "wrong": [
+            "[Ar]3d³4s²",
+            "[Ar]3d⁶4s²",
+            "[Ar]3d⁴4s¹"
+          ]
+        },
+        {
+          "q": "How many unpaired electrons does a nitrogen atom have?",
+          "a": "3",
+          "wrong": [
+            "1",
+            "2",
+            "0"
+          ],
+          "why": "Nitrogen is 1s²2s²2p³. By Hund’s rule the three 2p electrons occupy separate orbitals."
+        },
+        {
+          "q": "Which of these is diamagnetic?",
+          "a": "Zn",
+          "wrong": [
+            "Cr",
+            "Fe",
+            "V"
+          ],
+          "why": "Zn is [Ar]3d¹⁰4s², with all electrons paired."
+        }
       ]
     },
     {
-      "id": "uncertainty", "name": "Heisenberg uncertainty and orbitals", "group": "Electrons in atoms",
-      "terms": ["Heisenberg uncertainty principle", "uncertainty principle", "Schrödinger equation", "wave function", "probability density"],
-      "tagline": "Why we describe electrons by probabilities and not by paths.",
-      "sections": [
-        { "equations": ["Δx · Δp ≥ h ÷ 4π"], "text": "The more exactly you know the position of a particle, the less exactly you can know its momentum, and the reverse. This is not a flaw in measuring. It is a property of nature, and it is noticeable only for tiny particles such as electrons." },
-        { "h": "What follows", "points": [
-          "An electron cannot follow a definite orbit like a planet. Bohr's neat circles are not real.",
-          "Schrödinger's equation (1926) gives a wave function for the electron. The square of the wave function gives the probability of finding the electron at each point.",
-          "An orbital is a region where the electron is likely to be found, often drawn to contain about 90% of the probability."
-        ] }
+      "id": "periodicity",
+      "title": "Periodic trends",
+      "terms": [
+        "periodic trends",
+        "periodic law",
+        "Mendeleev",
+        "Moseley"
       ],
-      "quiz": [
-        { "q": "What does the Heisenberg uncertainty principle say?", "a": "Position and momentum cannot both be known exactly", "wrong": ["Electrons orbit in fixed circles", "Energy is always conserved", "Light is only a wave"] }
+      "subs": [
+        {
+          "id": "zeff",
+          "title": "Effective nuclear charge and atomic size",
+          "terms": [
+            "effective nuclear charge",
+            "shielding",
+            "screening",
+            "atomic radius",
+            "atomic radii",
+            "ionic radius",
+            "ionic radii",
+            "Slater's rules"
+          ],
+          "body": [
+            "An outer electron feels the nucleus’s charge +Z attenuated by the inner electrons that **shield** it. The net attraction is the **effective nuclear charge**, Z_{eff} = Z − S, where S is the shielding. Across a period, Z rises by one for each element while the added electron goes into the same shell and shields poorly, so Z_{eff} increases. Down a group, new shells are added, so the outer electrons are farther away and well shielded.",
+            "This gives the trend in **atomic radius**: it decreases from left to right across a period and increases down a group. A cation is smaller than its parent atom (fewer electrons, less repulsion, often a lost shell), and an anion is larger. In an isoelectronic series, the radius falls as the nuclear charge increases: O²⁻ (140 pm) > F⁻ (133 pm) > Na⁺ (102 pm) > Mg²⁺ (72 pm) > Al³⁺ (54 pm)."
+          ]
+        },
+        {
+          "id": "ionization",
+          "title": "Ionization energy and electron affinity",
+          "terms": [
+            "ionization energy",
+            "ionisation energy",
+            "first ionization energy",
+            "successive ionization energies",
+            "electron affinity",
+            "ionization energies"
+          ],
+          "body": [
+            "The **first ionization energy**, IE₁, is the energy to remove one electron from a gaseous atom: X(g) → X⁺(g) + e⁻. It increases across a period (rising Z_{eff}, shrinking radius) and decreases down a group. Two dips interrupt the trend in each period: IE₁ of B is lower than Be, because the 2p electron is higher in energy than a 2s electron, and IE₁ of O is lower than N, because the paired 2p electron is repelled by its partner.",
+            {
+              "table": {
+                "head": [
+                  "Period 2",
+                  "Li",
+                  "Be",
+                  "B",
+                  "C",
+                  "N",
+                  "O",
+                  "F",
+                  "Ne"
+                ],
+                "rows": [
+                  [
+                    "IE₁ (kJ mol⁻¹)",
+                    "520",
+                    "900",
+                    "801",
+                    "1086",
+                    "1402",
+                    "1314",
+                    "1681",
+                    "2081"
+                  ]
+                ],
+                "caption": "First ionization energies. Note the dips at B and O."
+              }
+            },
+            "**Successive ionization energies** reveal the electron shells. For Mg (IE₁ 738, IE₂ 1451, IE₃ 7733 kJ mol⁻¹), the large jump after the second electron shows that Mg has two valence electrons and that the third comes from the 2p core.",
+            "The **electron affinity** is the energy released when a gaseous atom gains an electron (more negative values mean stronger attraction). Halogens have the most negative values: Cl, −349 kJ mol⁻¹. Noble gases and Group 2 elements have values near zero or positive, because the added electron must enter a new subshell or shell."
+          ]
+        },
+        {
+          "id": "en",
+          "title": "Electronegativity and the periodic law",
+          "terms": [
+            "electronegativity",
+            "electronegativity trend",
+            "electronegativity trends",
+            "Pauling scale"
+          ],
+          "body": [
+            "**Electronegativity** is the tendency of an atom in a bond to attract the shared electrons. On Pauling’s scale it runs from 0.7 (Cs) to 3.98 (F), and increases across a period and up a group, as ionization energy does. Typical values: F 3.98, O 3.44, N 3.04, Cl 3.16, C 2.55, H 2.20, Na 0.93.",
+            {
+              "table": {
+                "head": [
+                  "Property",
+                  "Across a period →",
+                  "Down a group ↓"
+                ],
+                "rows": [
+                  [
+                    "Effective nuclear charge",
+                    "Increases",
+                    "Roughly constant"
+                  ],
+                  [
+                    "Atomic radius",
+                    "Decreases",
+                    "Increases"
+                  ],
+                  [
+                    "Ionization energy",
+                    "Increases",
+                    "Decreases"
+                  ],
+                  [
+                    "Electron affinity",
+                    "Becomes more negative",
+                    "Becomes less negative"
+                  ],
+                  [
+                    "Electronegativity",
+                    "Increases",
+                    "Decreases"
+                  ],
+                  [
+                    "Metallic character",
+                    "Decreases",
+                    "Increases"
+                  ]
+                ],
+                "caption": "Summary of periodic trends."
+              }
+            },
+            "Mendeleev arranged the elements by atomic mass in 1869 and left gaps for undiscovered elements, predicting the properties of “eka-silicon,” which Winkler found in 1886 as germanium. Moseley’s 1913 X-ray measurements showed that the true ordering variable is atomic number, which fixed the few places where mass order fails (Ar and K, Te and I). The **periodic law**: properties of the elements are periodic functions of their atomic number."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "Which has the largest radius?",
+          "a": "S²⁻",
+          "wrong": [
+            "Cl⁻",
+            "K⁺",
+            "Ca²⁺"
+          ],
+          "why": "All are isoelectronic (18 electrons); the one with the fewest protons is largest."
+        },
+        {
+          "q": "Which element has the highest first ionization energy?",
+          "a": "Neon",
+          "wrong": [
+            "Sodium",
+            "Oxygen",
+            "Fluorine"
+          ]
+        },
+        {
+          "q": "Why is the first ionization energy of oxygen lower than that of nitrogen?",
+          "a": "A paired 2p electron in oxygen is repelled by its partner",
+          "wrong": [
+            "Oxygen has a larger atomic radius",
+            "Oxygen has a lower nuclear charge",
+            "Oxygen’s 2p electrons are shielded by 3s electrons"
+          ]
+        }
       ]
+    }
+  ],
+  "summary": [
+    "c = λν and E = hν. Light is absorbed and emitted as photons.",
+    "The photoelectric effect (KE = hν − Φ) shows light is particulate. Electrons are waves too: λ = h/mv.",
+    "Bohr energies E_{n} = −2.178 × 10⁻¹⁸ J/n² explain hydrogen’s spectrum, but only for one-electron species.",
+    "Orbitals are described by n, l, m_{l} and m_{s}. A shell holds 2n² electrons.",
+    "Configurations follow the Aufbau principle, the Pauli exclusion principle and Hund’s rule. Cations lose ns electrons before (n − 1)d.",
+    "Z_{eff} explains the trends: radius falls, and ionization energy and electronegativity rise, across a period. The reverse holds down a group."
+  ],
+  "problems": [
+    {
+      "q": "A laser emits photons of wavelength 632.8 nm. Find the frequency, the energy per photon, and the number of photons emitted per second by a 1.00 mW laser.",
+      "solution": "ν = c/λ = 2.998 × 10⁸ / 632.8 × 10⁻⁹ = 4.738 × 10¹⁴ Hz. E = hν = 3.139 × 10⁻¹⁹ J. Power 1.00 × 10⁻³ J s⁻¹ ÷ 3.139 × 10⁻¹⁹ J = 3.19 × 10¹⁵ photons s⁻¹.",
+      "a": "4.74 × 10¹⁴ Hz; 3.14 × 10⁻¹⁹ J; 3.19 × 10¹⁵ photons per second."
     },
     {
-      "id": "filling", "name": "Filling orbitals: Aufbau, Pauli and Hund", "group": "Electrons in atoms",
-      "terms": ["Aufbau principle", "Pauli exclusion principle", "Hund's rule", "unpaired electrons", "paramagnetic", "diamagnetic"],
-      "tagline": "Three rules that tell you how to write an electron configuration.",
-      "sections": [
-        { "facts": [
-          ["Aufbau principle", "Fill the lowest-energy orbitals first: 1s, 2s, 2p, 3s, 3p, 4s, 3d, 4p, 5s, 4d, 5p, 6s, 4f, 5d, 6p, 7s, 5f, 6d, 7p."],
-          ["Pauli exclusion principle", "An orbital holds at most two electrons, and they must have opposite spins."],
-          ["Hund's rule", "Electrons spread out over orbitals of equal energy, with parallel spins, before they start pairing up."]
-        ] },
-        { "h": "Example: nitrogen (7 electrons)", "text": "1s² 2s² 2p³. The three 2p electrons sit in three different orbitals, each with its own unpaired electron. An atom with unpaired electrons is paramagnetic and is pulled into a magnetic field. One with all electrons paired is diamagnetic." },
-        { "h": "Things to remember", "points": [
-          "Chromium is [Ar] 3d⁵ 4s¹ and copper is [Ar] 3d¹⁰ 4s¹, because half-filled and filled d subshells are extra stable.",
-          "When a transition metal becomes a cation, it loses its 4s electrons before its 3d electrons. Fe²⁺ is [Ar] 3d⁶."
-        ] }
-      ],
-      "quiz": [
-        { "q": "How many unpaired electrons does a nitrogen atom have?", "a": "3", "wrong": ["0", "1", "2"] }
-      ]
+      "q": "Which transition in the hydrogen atom emits light of longer wavelength: n = 4 → 2 or n = 3 → 2? Calculate both wavelengths.",
+      "solution": "4 → 2: 1/λ = 1.097 × 10⁷ (1/4 − 1/16) = 2.057 × 10⁶ m⁻¹, λ = 486 nm. 3 → 2: λ = 656 nm.",
+      "a": "n = 3 → 2 is longer (656 nm vs 486 nm)."
     },
     {
-      "id": "radius", "name": "Atomic and ionic radius", "group": "Periodic trends",
-      "terms": ["atomic radius", "ionic radius", "effective nuclear charge", "shielding"],
-      "tagline": "Atoms get smaller across a period and bigger down a group.",
-      "sections": [
-        { "facts": [
-          ["Across a period", "The radius decreases. Each step adds a proton, but the added electron goes in the same shell, so the effective nuclear charge pulls the electrons in tighter."],
-          ["Down a group", "The radius increases. Each step adds a whole new shell, and inner electrons shield the outer ones from the nucleus."]
-        ] },
-        { "h": "Effective nuclear charge", "text": "The pull an outer electron actually feels is the nuclear charge minus the shielding by the electrons inside it. It rises across a period and stays about the same down a group." },
-        { "h": "Ions", "points": [
-          "A cation is smaller than its atom, because it loses electrons, often a whole shell, and the remaining ones are pulled in more tightly.",
-          "An anion is larger than its atom, because added electrons repel each other.",
-          "Isoelectronic ions (same number of electrons) get smaller as the nuclear charge rises: O²⁻ > F⁻ > Na⁺ > Mg²⁺."
-        ] }
-      ],
-      "quiz": [
-        { "q": "Which is the largest of these atoms?", "a": "Sodium", "wrong": ["Magnesium", "Chlorine", "Fluorine"] }
-      ]
+      "q": "Write the ground-state electron configurations of Cr, Cu²⁺ and Se²⁻. Give the number of unpaired electrons in each.",
+      "solution": "Cr: [Ar]3d⁵4s¹, 6 unpaired. Cu²⁺: Cu is [Ar]3d¹⁰4s¹, lose 4s¹ and one 3d: [Ar]3d⁹, 1 unpaired. Se²⁻: Se is [Ar]3d¹⁰4s²4p⁴, add two: [Ar]3d¹⁰4s²4p⁶ = [Kr], 0 unpaired.",
+      "a": "Cr 6, Cu²⁺ 1, Se²⁻ 0."
     },
     {
-      "id": "ionization", "name": "Ionization energy", "group": "Periodic trends",
-      "terms": ["ionization energy", "ionisation energy", "first ionization energy", "successive ionization energies"],
-      "tagline": "The energy needed to remove an electron from an atom.",
-      "sections": [
-        { "text": "The first ionization energy is the energy needed to remove the outermost electron from one mole of gaseous atoms. It is always positive." },
-        { "h": "Trends", "points": [
-          "It increases across a period, as the radius shrinks and the electrons are held more tightly.",
-          "It decreases down a group, because the outer electron is farther away and shielded.",
-          "Helium (2372 kJ/mol) has the highest and caesium among the lowest. Sodium is 496 kJ/mol.",
-          "Small dips occur at Be to B (the p electron is higher in energy than the s) and at N to O (pairing up in an orbital adds repulsion)."
-        ] },
-        { "h": "Successive ionization energies", "text": "Each further electron is harder to remove. A huge jump shows that an inner shell has been reached. For magnesium the jump comes after the second electron, which tells you it has two valence electrons." }
-      ],
-      "quiz": [
-        { "q": "A large jump after the second ionization energy suggests how many valence electrons?", "a": "2", "wrong": ["1", "3", "8"] }
-      ]
-    },
-    {
-      "id": "affinity", "name": "Electron affinity and electronegativity trends", "group": "Periodic trends",
-      "terms": ["electron affinity", "electronegativity trend", "electronegativity trends"],
-      "tagline": "How strongly atoms attract extra electrons and bonding electrons.",
-      "sections": [
-        { "h": "Electron affinity", "text": "The energy change when a gaseous atom gains an electron. A large negative value means the atom takes up the electron readily. Chlorine (−349 kJ/mol) has the most negative value of all, slightly more than fluorine, because fluorine's small size makes electrons repel each other in its compact outer shell. Noble gases, with full shells, have no attraction for an extra electron." },
-        { "h": "Electronegativity", "points": [
-          "It rises across a period and falls down a group, so it is highest at the top right, with fluorine (3.98) the highest.",
-          "Metals have low values and nonmetals have high values, which is why they form ionic bonds with each other.",
-          "The difference between two atoms predicts the bond type: more than about 1.7 is mostly ionic, 0.4 to 1.7 is polar covalent, and below 0.4 is nonpolar covalent."
-        ] }
-      ],
-      "quiz": [
-        { "q": "Which element has the highest electronegativity?", "a": "Fluorine", "wrong": ["Oxygen", "Chlorine", "Helium"] }
-      ]
-    },
-    {
-      "id": "periodic-law", "name": "The periodic law", "group": "Periodic trends",
-      "terms": ["periodic law", "Mendeleev", "Moseley"],
-      "tagline": "How the table was found, and why it works.",
-      "sections": [
-        { "points": [
-          "Dmitri Mendeleev (1869) arranged the known elements by atomic mass and saw that properties repeated at regular intervals. He left gaps for undiscovered elements and predicted their properties. Gallium and germanium, found later, matched his predictions closely.",
-          "Henry Moseley (1913) showed that the elements should be ordered by atomic number, not mass. That fixed the few places where the order by mass did not fit, such as argon and potassium.",
-          "The modern periodic law says that properties of elements repeat periodically when ordered by atomic number."
-        ] },
-        { "h": "Why it repeats", "text": "Elements in the same group have the same number of valence electrons. The periods end each time a shell fills up, and then a new shell begins." }
-      ],
-      "quiz": [
-        { "q": "Who showed that elements should be ordered by atomic number?", "a": "Moseley", "wrong": ["Mendeleev", "Dalton", "Bohr"] }
-      ]
+      "q": "Rank by increasing first ionization energy: Na, Mg, Al, Si. Explain the irregularity.",
+      "solution": "Values: Na 496, Al 578, Mg 738, Si 786 kJ mol⁻¹. Al is lower than Mg because the 3p electron it loses is higher in energy and better shielded than Mg’s 3s electron.",
+      "a": "Na < Al < Mg < Si."
     }
   ]
 }

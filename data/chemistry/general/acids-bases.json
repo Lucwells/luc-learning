@@ -1,0 +1,517 @@
+{
+  "id": "acids-bases",
+  "view": "chapter",
+  "title": "Acids and Bases",
+  "description": "Definitions, pH, the strengths of acids and bases, and how to calculate the pH of solutions.",
+  "overview": [
+    "Acids and bases are among the most important classes of compounds. They set the pH of blood and oceans, drive digestion, catalyze countless reactions, and make up a large share of industrial chemical output: sulfuric acid is the most-produced chemical in the world by mass. Behind the variety lies one process, the transfer of a proton.",
+    "This chapter defines acids and bases in three ways, introduces the pH scale, and then treats strong and weak acids and bases quantitatively with equilibrium methods. It closes with the structural features that make one acid stronger than another."
+  ],
+  "objectives": [
+    "Apply the Arrhenius, Brønsted–Lowry and Lewis definitions, and identify conjugate pairs.",
+    "Calculate pH, pOH, [H₃O⁺] and [OH⁻] using K_w.",
+    "Find the pH of solutions of strong acids and strong bases.",
+    "Use K_a and K_b with ICE tables for weak acids and bases, and relate K_a, K_b and pK_a.",
+    "Predict whether a salt solution is acidic, basic or neutral, and calculate its pH.",
+    "Explain trends in acid strength from molecular structure."
+  ],
+  "sections": [
+    {
+      "id": "definitions",
+      "title": "Acid–base definitions",
+      "terms": [
+        "acid",
+        "acids",
+        "base",
+        "bases",
+        "alkali",
+        "alkalis",
+        "Arrhenius acid",
+        "Arrhenius base",
+        "Lewis acid",
+        "Lewis base",
+        "Lewis acids",
+        "Lewis bases",
+        "Brønsted–Lowry",
+        "Brønsted-Lowry",
+        "Brønsted–Lowry acid",
+        "conjugate acid",
+        "conjugate base",
+        "conjugate pair",
+        "conjugate acid–base pair",
+        "amphoteric",
+        "amphiprotic",
+        "hydronium",
+        "proton transfer"
+      ],
+      "body": [
+        "Three definitions are in use, each broader than the one before.",
+        {
+          "list": [
+            "**Arrhenius:** an acid produces H⁺ in water, and a base produces OH⁻. HCl and NaOH are examples. Water-soluble bases are called **alkalis**.",
+            "**Brønsted–Lowry:** an acid is a proton (H⁺) donor and a base is a proton acceptor. An acid–base reaction is a proton transfer, and it does not require water. A bare proton does not exist in water. It attaches to a water molecule to form the **hydronium** ion, H₃O⁺, so the ionization of HCl is HCl + H₂O → H₃O⁺ + Cl⁻.",
+            "**Lewis:** an acid is an electron-pair acceptor and a base is an electron-pair donor. The product is a coordinate covalent bond. This includes reactions without any protons, such as BF₃ + :NH₃ → F₃B–NH₃, and the combination of a metal ion with ligands, Al³⁺ + 6H₂O → [Al(H₂O)₆]³⁺."
+          ]
+        },
+        {
+          "h": "Conjugate pairs"
+        },
+        "When an acid donates a proton, what is left is its **conjugate base**. When a base accepts a proton it becomes its **conjugate acid**. The two differ by one H⁺. In NH₃ + H₂O ⇌ NH₄⁺ + OH⁻, NH₃ is a base with conjugate acid NH₄⁺, and H₂O is an acid with conjugate base OH⁻. **The stronger the acid, the weaker its conjugate base.** Cl⁻, the conjugate base of a strong acid, has no tendency to take a proton back, while CH₃COO⁻, the conjugate base of a weak acid, does.",
+        "A species that can act as either an acid or a base is **amphoteric** (or amphiprotic, if it donates and accepts protons). Water is amphoteric, as are HCO₃⁻ and H₂PO₄⁻.",
+        {
+          "example": {
+            "title": "Identifying conjugate pairs",
+            "problem": "In HCO₃⁻ + H₂O ⇌ H₂CO₃ + OH⁻, identify the acids, bases and conjugate pairs.",
+            "solution": "HCO₃⁻ accepts a proton to become H₂CO₃, so HCO₃⁻ is the base and H₂CO₃ its conjugate acid. H₂O donates a proton to become OH⁻, so H₂O is the acid and OH⁻ its conjugate base."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "What is the conjugate base of H₂PO₄⁻?",
+          "a": "HPO₄²⁻",
+          "wrong": [
+            "H₃PO₄",
+            "PO₄³⁻",
+            "H₂PO₃⁻"
+          ]
+        },
+        {
+          "q": "In BF₃ + NH₃ → F₃B–NH₃, BF₃ acts as a…",
+          "a": "Lewis acid",
+          "wrong": [
+            "Brønsted–Lowry acid",
+            "Lewis base",
+            "Brønsted–Lowry base"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ph",
+      "title": "Water, pH and the pH scale",
+      "terms": [
+        "pH",
+        "pH scale",
+        "pOH",
+        "autoionization of water",
+        "autoionization",
+        "Kw",
+        "K_w",
+        "ion product of water",
+        "neutral solution"
+      ],
+      "body": [
+        "Pure water ionizes slightly, a proton transferring from one molecule to another: 2H₂O ⇌ H₃O⁺ + OH⁻. This is the **autoionization** of water, and its equilibrium constant is the ion product of water:",
+        {
+          "eq": "K_{w} = [H₃O⁺][OH⁻] = 1.0 × 10⁻¹⁴ at 25 °C"
+        },
+        "In pure water [H₃O⁺] = [OH⁻] = 1.0 × 10⁻⁷ M. K_w holds for every aqueous solution, so adding acid raises [H₃O⁺] and lowers [OH⁻]. K_w rises with temperature (5.5 × 10⁻¹⁴ at 50 °C), so neutral water at 50 °C has pH 6.63.",
+        "Because concentrations span many orders of magnitude, we use logarithms:",
+        {
+          "eq": [
+            "pH = −log [H₃O⁺]",
+            "pOH = −log [OH⁻]",
+            "pH + pOH = pK_{w} = 14.00 at 25 °C"
+          ]
+        },
+        "A solution is acidic if pH < 7, neutral if pH = 7 and basic if pH > 7 (at 25 °C). A change of one pH unit is a tenfold change in [H₃O⁺]. For comparison: gastric juice pH 1.5–2, lemon juice 2, coffee 5, blood 7.4, seawater 8.1, household ammonia 11.5. The number of decimal places in a pH equals the number of significant figures in the concentration.",
+        {
+          "example": {
+            "title": "pH and concentration",
+            "problem": "Blood has pH 7.40. Find [H₃O⁺] and [OH⁻].",
+            "solution": [
+              {
+                "eq": [
+                  "[H₃O⁺] = 10^{−7.40} = 4.0 × 10⁻⁸ M",
+                  "[OH⁻] = K_w/[H₃O⁺] = 1.0 × 10⁻¹⁴ / 4.0 × 10⁻⁸ = 2.5 × 10⁻⁷ M"
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "What is the pH of a solution with [H₃O⁺] = 3.2 × 10⁻⁴ M?",
+          "a": "3.49",
+          "wrong": [
+            "4.49",
+            "10.51",
+            "3.2"
+          ]
+        },
+        {
+          "q": "A solution has pH 9.00. What is [OH⁻]?",
+          "a": "1.0 × 10⁻⁵ M",
+          "wrong": [
+            "1.0 × 10⁻⁹ M",
+            "9.0 M",
+            "1.0 × 10⁻¹⁴ M"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "strong",
+      "title": "Strong acids and strong bases",
+      "terms": [
+        "strong acid",
+        "strong acids",
+        "strong base",
+        "strong bases",
+        "leveling effect",
+        "complete dissociation"
+      ],
+      "body": [
+        "A **strong acid** ionizes completely in water. The common strong acids are HCl, HBr, HI, HNO₃, HClO₄, HClO₃ and H₂SO₄ (first proton only). A **strong base** dissociates completely: the hydroxides of Group 1 and of Ca, Sr and Ba. Since ionization is complete, [H₃O⁺] equals the acid’s concentration (times the number of acidic protons that ionize), and the pH follows directly.",
+        "In water no acid stronger than H₃O⁺ or base stronger than OH⁻ can exist, because any stronger one reacts completely with water. This is the **leveling effect**.",
+        {
+          "example": {
+            "title": "pH of strong acids and bases",
+            "problem": "Find the pH of (a) 0.020 M HCl, (b) 0.010 M Ba(OH)₂.",
+            "solution": [
+              "(a) [H₃O⁺] = 0.020 M, pH = −log 0.020 = 1.70.",
+              "(b) Each formula unit gives two OH⁻: [OH⁻] = 0.020 M, pOH = 1.70, pH = 14.00 − 1.70 = 12.30."
+            ]
+          }
+        },
+        {
+          "warn": "At very low concentrations the water’s own H₃O⁺ cannot be ignored. 1.0 × 10⁻⁸ M HCl has pH 6.98, not 8: solving [H₃O⁺] = 10⁻⁸ + K_w/[H₃O⁺] gives [H₃O⁺] = 1.05 × 10⁻⁷ M. An acid never raises the pH above 7."
+        }
+      ],
+      "check": [
+        {
+          "q": "What is the pH of 0.0050 M NaOH?",
+          "a": "11.70",
+          "wrong": [
+            "2.30",
+            "12.30",
+            "9.70"
+          ],
+          "why": "pOH = −log 0.0050 = 2.30, so pH = 11.70."
+        },
+        {
+          "q": "Which is NOT a strong acid?",
+          "a": "HF",
+          "wrong": [
+            "HBr",
+            "HNO₃",
+            "HClO₄"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "weak",
+      "title": "Weak acids and bases",
+      "terms": [
+        "weak acid",
+        "weak acids",
+        "weak base",
+        "weak bases",
+        "acid dissociation constant",
+        "base dissociation constant",
+        "Ka",
+        "Kb",
+        "K_a",
+        "K_b",
+        "pKa",
+        "pK_a",
+        "pKb",
+        "percent ionization",
+        "polyprotic acid",
+        "polyprotic acids",
+        "diprotic",
+        "triprotic"
+      ],
+      "body": [
+        "A **weak acid** HA ionizes only partly: HA + H₂O ⇌ H₃O⁺ + A⁻. The extent is measured by the **acid dissociation constant**:",
+        {
+          "eq": [
+            "K_{a} = [H₃O⁺][A⁻] / [HA]",
+            "pK_{a} = −log K_{a}"
+          ]
+        },
+        "A smaller K_a, a larger pK_a, means a weaker acid. A weak base B has K_b = [BH⁺][OH⁻]/[B]. For any conjugate pair, K_a × K_b = K_w, or pK_a + pK_b = 14.",
+        {
+          "table": {
+            "head": [
+              "Acid",
+              "K_a",
+              "pK_a",
+              "Acid",
+              "K_a",
+              "pK_a"
+            ],
+            "rows": [
+              [
+                "HF",
+                "6.8 × 10⁻⁴",
+                "3.17",
+                "HOCl",
+                "2.9 × 10⁻⁸",
+                "7.54"
+              ],
+              [
+                "HNO₂",
+                "4.5 × 10⁻⁴",
+                "3.35",
+                "NH₄⁺",
+                "5.6 × 10⁻¹⁰",
+                "9.25"
+              ],
+              [
+                "CH₃COOH",
+                "1.8 × 10⁻⁵",
+                "4.74",
+                "HCN",
+                "6.2 × 10⁻¹⁰",
+                "9.21"
+              ],
+              [
+                "H₂CO₃",
+                "4.5 × 10⁻⁷",
+                "6.35",
+                "C₆H₅OH",
+                "1.0 × 10⁻¹⁰",
+                "9.99"
+              ]
+            ],
+            "caption": "Acid dissociation constants at 25 °C."
+          }
+        },
+        {
+          "h": "The weak acid calculation"
+        },
+        "Set up an ICE table with x = [H₃O⁺] from the acid. If x is less than 5% of the initial concentration, K_a ≈ x²/c. Otherwise solve the quadratic. The **percent ionization** is x/c × 100%, and it increases as the solution is diluted.",
+        {
+          "example": {
+            "title": "Acetic acid",
+            "problem": "Find the pH and percent ionization of 0.100 M CH₃COOH (K_a = 1.8 × 10⁻⁵).",
+            "solution": [
+              {
+                "eq": [
+                  "K_a = x² / (0.100 − x) ≈ x²/0.100,   x = √(1.8 × 10⁻⁶) = 1.3 × 10⁻³ M",
+                  "pH = −log(1.3 × 10⁻³) = 2.87",
+                  "percent ionization = 1.3 × 10⁻³ / 0.100 = 1.3%"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "example": {
+            "title": "When the approximation fails",
+            "problem": "Find the pH of 0.0100 M HF (K_a = 6.8 × 10⁻⁴).",
+            "solution": [
+              "x²/(0.0100 − x) = 6.8 × 10⁻⁴ gives x² + 6.8 × 10⁻⁴ x − 6.8 × 10⁻⁶ = 0. The small-x result would be 2.6 × 10⁻³, 26% of the initial concentration, so use the quadratic.",
+              {
+                "eq": "x = [−6.8 × 10⁻⁴ + √(4.6 × 10⁻⁷ + 2.72 × 10⁻⁵)] / 2 = 2.29 × 10⁻³ M,   pH = 2.64   (23% ionized)"
+              }
+            ]
+          }
+        },
+        {
+          "example": {
+            "title": "A weak base",
+            "problem": "Find the pH of 0.100 M NH₃ (K_b = 1.8 × 10⁻⁵).",
+            "solution": [
+              {
+                "eq": [
+                  "x = [OH⁻] = √(1.8 × 10⁻⁵ × 0.100) = 1.3 × 10⁻³ M",
+                  "pOH = 2.87,   pH = 14.00 − 2.87 = 11.13"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "h": "Polyprotic acids"
+        },
+        "A **polyprotic acid** has more than one ionizable proton, and each successive ionization is much weaker: H₃PO₄ (pK_a 2.15, 7.20, 12.35), H₂CO₃ (6.35, 10.33). H₂SO₄ is strong in its first step and weak in the second (K_a2 = 1.2 × 10⁻²). Because the K_a values differ by several orders of magnitude, the pH of a polyprotic acid is set by the first ionization alone, and the second anion concentration is approximately K_a2."
+      ],
+      "check": [
+        {
+          "q": "If the pK_a of a weak acid is 4.74, what is the pK_b of its conjugate base?",
+          "a": "9.26",
+          "wrong": [
+            "4.74",
+            "−4.74",
+            "14.00"
+          ]
+        },
+        {
+          "q": "When a weak acid solution is diluted, its percent ionization…",
+          "a": "Increases",
+          "wrong": [
+            "Decreases",
+            "Stays the same",
+            "Becomes 100%"
+          ]
+        },
+        {
+          "q": "Which is the stronger acid?",
+          "a": "HNO₂ (pK_a 3.35)",
+          "wrong": [
+            "HOCl (pK_a 7.54)",
+            "HCN (pK_a 9.21)",
+            "NH₄⁺ (pK_a 9.25)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "salts",
+      "title": "Acid–base properties of salts",
+      "terms": [
+        "salt hydrolysis",
+        "hydrolysis",
+        "acidic salt",
+        "basic salt",
+        "hydrolysis of salts",
+        "conjugate base of a weak acid"
+      ],
+      "body": [
+        "Dissolving a salt puts its ions in water, and each ion may react with it. The rule follows from the conjugate relationship: an ion that is the conjugate of a strong acid or base is a spectator, and an ion that is the conjugate of a weak acid or base reacts with water (**hydrolysis**).",
+        {
+          "table": {
+            "head": [
+              "Salt of…",
+              "Example",
+              "Solution is"
+            ],
+            "rows": [
+              [
+                "Strong acid + strong base",
+                "NaCl, KNO₃",
+                "Neutral"
+              ],
+              [
+                "Weak acid + strong base",
+                "CH₃COONa, NaCN",
+                "Basic (anion takes H⁺)"
+              ],
+              [
+                "Strong acid + weak base",
+                "NH₄Cl",
+                "Acidic (cation gives H⁺)"
+              ],
+              [
+                "Weak acid + weak base",
+                "NH₄CN",
+                "Depends on K_a vs K_b"
+              ]
+            ]
+          }
+        },
+        "Small, highly charged metal cations such as Al³⁺ and Fe³⁺ are also acidic: they polarize the water molecules in [M(H₂O)₆]ⁿ⁺ so that one releases a proton.",
+        {
+          "example": {
+            "title": "pH of a salt",
+            "problem": "Find the pH of 0.10 M sodium acetate. (K_a of acetic acid is 1.8 × 10⁻⁵.)",
+            "solution": [
+              "Acetate is a weak base: CH₃COO⁻ + H₂O ⇌ CH₃COOH + OH⁻, with K_b = K_w/K_a = 5.6 × 10⁻¹⁰.",
+              {
+                "eq": [
+                  "[OH⁻] = √(5.6 × 10⁻¹⁰ × 0.10) = 7.5 × 10⁻⁶ M",
+                  "pOH = 5.13,   pH = 8.87"
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Which solution is acidic?",
+          "a": "NH₄Cl",
+          "wrong": [
+            "NaCl",
+            "CH₃COONa",
+            "KNO₃"
+          ]
+        },
+        {
+          "q": "Why is a solution of Na₂CO₃ basic?",
+          "a": "CO₃²⁻ is the conjugate base of a weak acid and takes a proton from water",
+          "wrong": [
+            "Na⁺ takes a proton from water",
+            "Na₂CO₃ contains hydroxide",
+            "CO₃²⁻ donates a proton to water"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "structure",
+      "title": "Acid strength and molecular structure",
+      "terms": [
+        "acid strength",
+        "oxyacid strength",
+        "oxoacids",
+        "inductive effect"
+      ],
+      "body": [
+        "Acid strength depends on how easily the H–X bond breaks and how stable the resulting anion is.",
+        {
+          "list": [
+            "**Down a group**, bond strength dominates. H–X bonds weaken as X gets larger, so acidity rises: HF (pK_a 3.2) ≪ HCl (−7) < HBr (−9) < HI (−10). HF is weak despite fluorine’s electronegativity, because the H–F bond is so strong.",
+            "**Across a period**, electronegativity dominates: CH₄ (about 50) < NH₃ (38) < H₂O (15.7) < HF (3.2). The more electronegative the atom, the better it stabilizes the negative charge.",
+            "**Oxoacids** with the same central atom get stronger with more oxygen atoms, since each electron-withdrawing O spreads the charge in the anion: HClO (7.5) < HClO₂ (1.9) < HClO₃ (−1) < HClO₄ (−8). Equivalently, the more resonance structures the anion has, the more stable it is.",
+            "The **inductive effect** of electronegative substituents strengthens acids: CH₃COOH (pK_a 4.76), ClCH₂COOH (2.87), CF₃COOH (0.5). **Carboxylic acids** are far stronger than alcohols (ethanol pK_a 16), because their conjugate base is resonance-stabilized."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "Which is the strongest acid?",
+          "a": "HClO₄",
+          "wrong": [
+            "HClO",
+            "HClO₂",
+            "HClO₃"
+          ]
+        },
+        {
+          "q": "Why is acetic acid much more acidic than ethanol?",
+          "a": "The acetate ion is stabilized by resonance",
+          "wrong": [
+            "Ethanol has no O–H bond",
+            "Acetic acid has a stronger O–H bond",
+            "Ethanol is a Lewis acid"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Brønsted–Lowry acids donate protons and bases accept them. Lewis acids accept electron pairs. A stronger acid has a weaker conjugate base.",
+    "K_w = [H₃O⁺][OH⁻] = 1.0 × 10⁻¹⁴ at 25 °C. pH = −log[H₃O⁺], and pH + pOH = 14.",
+    "Strong acids and bases ionize completely. For weak acids, solve K_a = x²/(c − x), using the quadratic when x exceeds 5% of c.",
+    "K_a × K_b = K_w for a conjugate pair. A salt’s pH follows from the strength of its ions’ parents.",
+    "Acidity increases down a group (weaker H–X bond), across a period (higher electronegativity) and with more oxygen atoms on the central atom."
+  ],
+  "problems": [
+    {
+      "q": "Calculate the pH of (a) 0.15 M HNO₃, (b) 0.050 M HCN (K_a = 6.2 × 10⁻¹⁰), (c) 0.20 M CH₃NH₂ (K_b = 4.4 × 10⁻⁴).",
+      "solution": "(a) pH = −log 0.15 = 0.82. (b) x = √(6.2 × 10⁻¹⁰ × 0.050) = 5.6 × 10⁻⁶ M, pH = 5.25. (c) x² / (0.20 − x) = 4.4 × 10⁻⁴: x ≈ √(8.8 × 10⁻⁵) = 9.4 × 10⁻³ M (4.7% of 0.20, just acceptable; the quadratic gives 9.2 × 10⁻³). pOH = 2.04, pH = 11.96.",
+      "a": "(a) 0.82, (b) 5.25, (c) 11.96."
+    },
+    {
+      "q": "A 0.100 M solution of an unknown weak acid has pH 3.00. Find K_a and pK_a.",
+      "solution": "[H₃O⁺] = [A⁻] = 1.0 × 10⁻³ M, [HA] = 0.100 − 0.001 = 0.099 M. K_a = (1.0 × 10⁻³)² / 0.099 = 1.0 × 10⁻⁵.",
+      "a": "K_a = 1.0 × 10⁻⁵; pK_a = 5.00."
+    },
+    {
+      "q": "Rank by increasing pH, all 0.10 M: NaCl, NH₄Cl, NaCN, HCl, NaOH.",
+      "solution": "HCl (pH 1) < NH₄Cl (about 5.1) < NaCl (7) < NaCN (about 11.1) < NaOH (13).",
+      "a": "HCl < NH₄Cl < NaCl < NaCN < NaOH."
+    },
+    {
+      "q": "Find the pH of 0.100 M H₃PO₄ (K_a1 = 7.5 × 10⁻³), and estimate [HPO₄²⁻] (K_a2 = 6.2 × 10⁻⁸).",
+      "solution": "First ionization dominates: x² / (0.100 − x) = 7.5 × 10⁻³, x = 2.4 × 10⁻² M, pH = 1.62. [H₂PO₄⁻] ≈ [H₃O⁺], so [HPO₄²⁻] ≈ K_a2 = 6.2 × 10⁻⁸ M.",
+      "a": "pH 1.62; [HPO₄²⁻] ≈ 6.2 × 10⁻⁸ M."
+    }
+  ]
+}

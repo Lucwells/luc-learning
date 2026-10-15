@@ -1,0 +1,11 @@
+{
+  "id": "geography",
+  "title": "Geography",
+  "kicker": "Atlas",
+  "color": "#2d6a4f",
+  "subtitle": "An atlas of the countries of the world.",
+  "front": [
+    "geography/countries"
+  ],
+  "parts": []
+}

@@ -1,0 +1,633 @@
+{
+  "id": "stereochemistry",
+  "view": "chapter",
+  "title": "Conformations and Stereochemistry",
+  "description": "The three-dimensional shape of molecules: rotamers, rings, chirality and stereoisomers.",
+  "overview": [
+    "Two molecules can have the same atoms joined in the same order and still be different substances. Thalidomide was sold as a sedative, and one of its mirror-image forms relieves morning sickness while the other causes birth defects. Biological receptors, enzymes and our own sense of smell distinguish the two forms: (R)-carvone smells of spearmint and (S)-carvone of caraway.",
+    "This chapter covers molecular shape at two levels. Conformational analysis describes the shapes a molecule takes by rotating about single bonds, which interconvert rapidly. Stereochemistry deals with configuration, differences that cannot be undone without breaking bonds: chirality, enantiomers, diastereomers and the stereochemical consequences of reactions."
+  ],
+  "objectives": [
+    "Draw and interpret Newman projections and the energy profile of butane.",
+    "Explain ring strain and draw the chair conformation of cyclohexane with axial and equatorial positions.",
+    "Use A-values to find the preferred conformation of a substituted cyclohexane.",
+    "Identify stereocenters and assign R/S and E/Z configurations.",
+    "Distinguish enantiomers, diastereomers and meso compounds, and use Fischer projections.",
+    "Calculate specific rotation and enantiomeric excess.",
+    "Describe the stereochemical outcome of common reaction types."
+  ],
+  "sections": [
+    {
+      "id": "conformations",
+      "title": "Conformations of acyclic molecules",
+      "terms": [
+        "conformation",
+        "conformations",
+        "conformer",
+        "conformers",
+        "conformational analysis",
+        "rotamer",
+        "Newman projection",
+        "Newman projections",
+        "staggered",
+        "eclipsed",
+        "gauche",
+        "anti conformation",
+        "dihedral angle",
+        "torsional angle",
+        "torsional strain in ethane"
+      ],
+      "body": [
+        "Atoms joined by a single bond can rotate about it. The different arrangements that result are **conformations** (conformers or rotamers). They interconvert so rapidly at room temperature that they cannot be isolated, but their relative energies determine the shape most molecules adopt.",
+        "A **Newman projection** looks down one C–C bond: the front carbon is a point where three bonds meet, the rear carbon a circle behind it. The **dihedral angle** is the angle between a substituent on the front carbon and one on the rear. In a **staggered** conformation the bonds are 60° apart, and in an **eclipsed** conformation they line up (0°). Staggered is lower in energy, by about 12 kJ mol⁻¹ in ethane, because of torsional strain: eclipsed C–H bonds repel each other, and in the staggered form C–H bonding orbitals overlap favorably with neighboring C–H antibonding orbitals (hyperconjugation).",
+        "In butane, rotation about C2–C3 gives an energy profile with two distinct staggered forms. In the **anti** conformation the two methyl groups are 180° apart, the lowest-energy arrangement. In the **gauche** conformation they are 60° apart and about 3.8 kJ mol⁻¹ higher in energy, because of steric strain between the methyls. The fully eclipsed form (methyls at 0°) is the maximum, 19 kJ mol⁻¹ above anti.",
+        {
+          "svg": "<svg viewBox='0 0 460 250' role='img' aria-label='Energy of butane as a function of the C2-C3 dihedral angle' font-family='system-ui, sans-serif' font-size='12'><g fill='none' stroke='currentColor' stroke-width='1.5'><path d='M60,20 V215 H430'/></g><path fill='none' style='stroke:var(--accent)' stroke-width='2.5' d='M60,48.5 C90,48.5 90,177.7 120,177.7 C150,177.7 150,74 180,74 C210,74 210,210 240,210 C270,210 270,74 300,74 C330,74 330,177.7 360,177.7 C390,177.7 390,48.5 420,48.5'/><g fill='currentColor'><text x='66' y='14'>energy (kJ mol⁻¹)</text><text x='54' y='52' text-anchor='end'>19</text><text x='54' y='181' text-anchor='end'>3.8</text><text x='54' y='214' text-anchor='end'>0</text><text x='60' y='234' text-anchor='middle'>0°</text><text x='120' y='234' text-anchor='middle'>60°</text><text x='180' y='234' text-anchor='middle'>120°</text><text x='240' y='234' text-anchor='middle'>180°</text><text x='300' y='234' text-anchor='middle'>240°</text><text x='360' y='234' text-anchor='middle'>300°</text><text x='420' y='234' text-anchor='middle'>360°</text><text x='120' y='200' text-anchor='middle' font-size='11'>gauche</text><text x='240' y='200' text-anchor='middle' font-size='11'>anti</text><text x='360' y='200' text-anchor='middle' font-size='11'>gauche</text><text x='60' y='40' font-size='11'>eclipsed</text><text x='430' y='250' text-anchor='end'>CH₃–C–C–CH₃ dihedral angle</text></g></svg>",
+          "caption": "Conformational energy of butane. Minima are staggered (anti, 180°, and two gauche forms at 60° and 300°), and maxima are eclipsed."
+        },
+        "At room temperature, about 70% of butane molecules are anti and 30% gauche, since ΔG = 3.8 kJ mol⁻¹ gives a ratio of e^{−3800/RT} = 0.22 per gauche form. Larger groups are more strongly pushed to the anti arrangement, which is why long hydrocarbon chains adopt zigzag shapes in crystals."
+      ],
+      "check": [
+        {
+          "q": "Which butane conformation is lowest in energy?",
+          "a": "Anti (methyls 180° apart)",
+          "wrong": [
+            "Gauche (methyls 60° apart)",
+            "Fully eclipsed",
+            "Partly eclipsed"
+          ]
+        },
+        {
+          "q": "In a Newman projection, an eclipsed conformation has a dihedral angle between front and back substituents of…",
+          "a": "0°",
+          "wrong": [
+            "60°",
+            "120°",
+            "180°"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rings",
+      "title": "Rings and ring strain",
+      "terms": [
+        "ring strain",
+        "angle strain",
+        "torsional strain",
+        "steric strain",
+        "cyclopropane",
+        "cyclobutane",
+        "cyclopentane",
+        "Baeyer strain theory",
+        "heat of combustion per CH₂"
+      ],
+      "body": [
+        "Small rings are strained, meaning less stable than a comparable strain-free chain. Three kinds of strain add up to the **ring strain**:",
+        {
+          "list": [
+            "**Angle strain**: the bond angles are forced away from the tetrahedral 109.5°. In cyclopropane, the C–C–C angle is 60°.",
+            "**Torsional strain**: bonds on adjacent carbons are eclipsed rather than staggered.",
+            "**Steric strain**: atoms or groups are forced too close together."
+          ]
+        },
+        "Ring strain is measured from the heat of combustion per CH₂ group, compared with 658.6 kJ mol⁻¹ for the strain-free chain unit:",
+        {
+          "table": {
+            "head": [
+              "Ring",
+              "Total ring strain (kJ mol⁻¹)",
+              "Main source"
+            ],
+            "rows": [
+              [
+                "Cyclopropane",
+                "115",
+                "Angle (60°) and torsional (eclipsed)"
+              ],
+              [
+                "Cyclobutane",
+                "110",
+                "Angle (about 88° puckered) and torsional"
+              ],
+              [
+                "Cyclopentane",
+                "26",
+                "Torsional; puckers into an envelope"
+              ],
+              [
+                "Cyclohexane",
+                "0",
+                "None (chair)"
+              ],
+              [
+                "Cycloheptane",
+                "26",
+                "Torsional and transannular"
+              ],
+              [
+                "Cyclooctane",
+                "41",
+                "Transannular"
+              ]
+            ],
+            "caption": "Strain energies of cycloalkanes."
+          }
+        },
+        "The strain explains why cyclopropane and cyclobutane open readily (the strain energy drives the reaction), and why strained rings like epoxides are reactive. Cyclohexane is special: it can adopt a conformation with no strain at all."
+      ],
+      "check": [
+        {
+          "q": "Why is cyclopropane so reactive?",
+          "a": "Its 60° bond angles and eclipsed bonds give it large ring strain",
+          "wrong": [
+            "It has a C=C double bond",
+            "It is aromatic",
+            "Its C–H bonds are weak"
+          ]
+        },
+        {
+          "q": "Which cycloalkane is strain-free?",
+          "a": "Cyclohexane",
+          "wrong": [
+            "Cyclopentane",
+            "Cyclobutane",
+            "Cyclopropane"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cyclohexane",
+      "title": "Cyclohexane and substituted cyclohexanes",
+      "terms": [
+        "chair conformation",
+        "chair",
+        "boat conformation",
+        "twist-boat",
+        "axial",
+        "equatorial",
+        "ring flip",
+        "chair flip",
+        "A-value",
+        "A-values",
+        "decalin",
+        "1,3-diaxial interaction",
+        "cis-decalin",
+        "trans-decalin"
+      ],
+      "body": [
+        "Cyclohexane is not flat. In the **chair conformation** all C–C–C angles are about 111° and all neighboring C–H bonds are staggered, so there is no angle or torsional strain. Each carbon bears one **axial** bond, parallel to the ring’s axis and alternating up and down, and one **equatorial** bond, pointing outward roughly in the plane of the ring.",
+        {
+          "svg": "<svg viewBox='0 0 460 240' role='img' aria-label='Chair cyclohexane with axial and equatorial bonds' font-family='system-ui, sans-serif' font-size='12'><path fill='none' stroke='currentColor' stroke-width='3' stroke-linejoin='round' d='M305.0,109.2 L267.5,116.4 L192.5,84.9 L155.0,140.8 L192.5,133.6 L267.5,165.1 Z'/><g fill='none' style='stroke:var(--accent)' stroke-width='2'><path d='M305.0,109.2 L305.0,75.2'/><path d='M267.5,116.4 L267.5,150.4'/><path d='M192.5,84.9 L192.5,50.9'/><path d='M155.0,140.8 L155.0,174.8'/><path d='M192.5,133.6 L192.5,99.6'/><path d='M267.5,165.1 L267.5,199.1'/></g><g fill='none' stroke='currentColor' stroke-width='1.6' stroke-dasharray='5 3'><path d='M305.0,109.2 L345.0,119.2'/><path d='M267.5,116.4 L287.5,93.5'/><path d='M192.5,84.9 L172.5,81.9'/><path d='M155.0,140.8 L115.0,130.8'/><path d='M192.5,133.6 L172.5,156.5'/><path d='M267.5,165.1 L287.5,168.1'/></g><g fill='currentColor'><text x='314' y='70' style='fill:var(--accent)'>axial</text><text x='350' y='124'>equatorial</text></g></svg>",
+          "caption": "Chair cyclohexane. Axial bonds (solid, vertical) alternate up and down. Equatorial bonds (dashed) point outward."
+        },
+        "A chair undergoes a **ring flip** (chair flip) at room temperature, about 10⁵ times a second. All axial bonds become equatorial and vice versa, through twist-boat and boat intermediates 23–30 kJ mol⁻¹ higher. A **boat** is destabilized by eclipsing and by steric repulsion between the two flagpole hydrogens.",
+        "A substituent is more comfortable equatorial. In the axial position it comes within van der Waals contact of the two axial hydrogens on the same face, two **1,3-diaxial interactions**. The energy cost of putting a group axial is its **A-value**:",
+        {
+          "table": {
+            "head": [
+              "Substituent",
+              "A-value (kJ mol⁻¹)",
+              "% equatorial at 25 °C"
+            ],
+            "rows": [
+              [
+                "–F",
+                "1.0",
+                "60"
+              ],
+              [
+                "–Cl, –Br",
+                "2.1",
+                "70"
+              ],
+              [
+                "–OH",
+                "3.6",
+                "81"
+              ],
+              [
+                "–CH₃",
+                "7.3",
+                "95"
+              ],
+              [
+                "–CH₂CH₃",
+                "7.5",
+                "95"
+              ],
+              [
+                "–CH(CH₃)₂",
+                "9.2",
+                "98"
+              ],
+              [
+                "–C₆H₅",
+                "12",
+                "99"
+              ],
+              [
+                "–C(CH₃)₃",
+                "21",
+                "> 99.9"
+              ]
+            ],
+            "caption": "A-values and equilibrium conformer populations for monosubstituted cyclohexanes."
+          }
+        },
+        "The tert-butyl group is so large that it effectively locks the ring in the conformation with that group equatorial.",
+        {
+          "example": {
+            "title": "Disubstituted cyclohexanes",
+            "problem": "Draw the more stable chair of cis-1-tert-butyl-4-methylcyclohexane and of trans-1-tert-butyl-4-methylcyclohexane, and estimate how much less stable the cis isomer is.",
+            "solution": [
+              "In the 1,4 relationship, trans means diequatorial or diaxial, and cis means one axial and one equatorial (cis-1,4 and trans-1,3 are axial/equatorial; trans-1,4, cis-1,3 and trans-1,2 can be diequatorial).",
+              "The trans isomer sits in the diequatorial chair, with no 1,3-diaxial strain. In the cis isomer the tert-butyl group is equatorial and the methyl is forced axial, costing the A-value of methyl, about 7.3 kJ mol⁻¹. The trans isomer is more stable by this amount."
+            ]
+          }
+        },
+        "Fused rings: **decalin** (two fused cyclohexanes) occurs as cis and trans isomers. In trans-decalin both rings are locked in chairs, and it cannot ring flip. Steroids have this kind of rigid trans-fused framework."
+      ],
+      "check": [
+        {
+          "q": "For the equilibrium between the two chair forms of methylcyclohexane, which is favored?",
+          "a": "The chair with methyl equatorial, by about 7.3 kJ/mol",
+          "wrong": [
+            "The chair with methyl axial",
+            "They are equally populated",
+            "The boat"
+          ]
+        },
+        {
+          "q": "Why is an axial substituent less stable than an equatorial one?",
+          "a": "1,3-Diaxial steric interactions with axial hydrogens",
+          "wrong": [
+            "Axial bonds are weaker",
+            "Axial substituents cause angle strain",
+            "Axial bonds are eclipsed"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "chirality",
+      "title": "Chirality and enantiomers",
+      "terms": [
+        "chirality",
+        "chiral",
+        "achiral",
+        "chiral center",
+        "stereocenter",
+        "stereogenic center",
+        "enantiomer",
+        "enantiomers",
+        "racemic mixture",
+        "racemate",
+        "optical activity",
+        "optically active",
+        "specific rotation",
+        "polarimeter",
+        "enantiomeric excess",
+        "ee",
+        "stereoisomers"
+      ],
+      "body": [
+        "An object is **chiral** if it cannot be superimposed on its mirror image, like a left and a right hand. A molecule is chiral if its mirror image is a different molecule. The usual cause is a **stereocenter**: a carbon bonded to four different groups. The two mirror-image forms are **enantiomers**. A molecule with a stereocenter and a plane of symmetry elsewhere is **achiral**: 2-propanol has two identical methyl groups on its central carbon and is achiral, while 2-butanol is chiral.",
+        "Enantiomers have identical physical properties (melting point, boiling point, solubility, NMR spectrum) in an achiral environment. They differ in two ways: they rotate plane-polarized light in opposite directions (**optical activity**), and they react differently with other chiral molecules, as in the drug and odor examples above.",
+        {
+          "h": "Optical activity"
+        },
+        "A **polarimeter** measures the rotation α of plane-polarized light passing through a sample. The **specific rotation** [α] is the standardized value:",
+        {
+          "eq": "[α] = α / (l · c)     (l in dm, c in g mL⁻¹)"
+        },
+        "The sign (+, dextrorotatory, or −, levorotatory) is measured, and cannot be deduced from the R/S label. A 50:50 mixture of enantiomers, a **racemic mixture** (racemate), is optically inactive. The purity of a mixture is expressed as the **enantiomeric excess**:",
+        {
+          "eq": "ee = |[R] − [S]| / ([R] + [S]) × 100% = (observed [α] / [α] of pure enantiomer) × 100%"
+        },
+        {
+          "example": {
+            "title": "Specific rotation and ee",
+            "problem": "A solution of 0.50 g/mL of a pure chiral compound in a 1.0 dm tube rotates light by +6.0°. A different sample has [α] = +9.0° where the pure compound has +12.0°. Find the specific rotation and the composition of the second sample.",
+            "solution": [
+              {
+                "eq": [
+                  "[α] = +6.0° / (1.0 dm × 0.50 g mL⁻¹) = +12.0°",
+                  "ee = 9.0/12.0 = 75%"
+                ]
+              },
+              "A 75% ee means 87.5% of the major enantiomer and 12.5% of the minor (75% excess plus an equal 25% racemic part)."
+            ]
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Which of these is chiral?",
+          "a": "2-Bromobutane",
+          "wrong": [
+            "2-Bromopropane",
+            "Bromoethane",
+            "3-Bromopentane"
+          ],
+          "why": "Only C2 of 2-bromobutane has four different groups (H, Br, CH₃, CH₂CH₃)."
+        },
+        {
+          "q": "A racemic mixture…",
+          "a": "Has equal amounts of two enantiomers and rotates light by zero",
+          "wrong": [
+            "Consists of a single enantiomer",
+            "Always rotates light to the right",
+            "Contains diastereomers"
+          ]
+        },
+        {
+          "q": "A sample has 80% of the (+) enantiomer and 20% of the (−) enantiomer. Its ee is…",
+          "a": "60%",
+          "wrong": [
+            "80%",
+            "20%",
+            "40%"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cip",
+      "title": "R/S and E/Z nomenclature",
+      "terms": [
+        "Cahn–Ingold–Prelog",
+        "Cahn-Ingold-Prelog",
+        "CIP priority rules",
+        "CIP rules",
+        "R/S configuration",
+        "R configuration",
+        "S configuration",
+        "E/Z nomenclature",
+        "E configuration",
+        "Z configuration",
+        "absolute configuration",
+        "priority rules",
+        "Fischer projection",
+        "Fischer projections"
+      ],
+      "body": [
+        "The **Cahn–Ingold–Prelog (CIP) rules** assign a unique descriptor to each stereocenter.",
+        {
+          "list": [
+            "Rank the four groups on the stereocenter by atomic number of the first atom attached (I > Br > Cl > S > F > O > N > C > H).",
+            "Break ties by moving outward: compare the sets of atoms attached to the tied atoms, in order of decreasing atomic number, until a difference appears. A double bond counts as two single bonds, with the atom duplicated at each end.",
+            "Orient the molecule with the lowest-priority group pointing away from you. Read 1 → 2 → 3. Clockwise is **R** (rectus), counterclockwise is **S** (sinister)."
+          ],
+          "ordered": true
+        },
+        {
+          "example": {
+            "title": "Ranking by CIP rules",
+            "problem": "Rank –CH₂OH, –CH=CH₂, –CH(CH₃)₂ and –CH₃ in priority.",
+            "solution": "All four attach through carbon. The substituent sets on that carbon are {O,H,H} for CH₂OH, {C,C,H} for vinyl (with the duplicate C), {C,C,H} for isopropyl and {H,H,H} for methyl. CH₂OH wins at the first point of difference (O > C), and methyl is last. Vinyl and isopropyl tie, so explore outward: the vinyl CH₂ carries {C(dup),H,H} and the isopropyl CH₃ carries {H,H,H}, so vinyl ranks higher. Order: CH₂OH > CH=CH₂ > CH(CH₃)₂ > CH₃."
+          }
+        },
+        "Natural L-alanine is (S): the priorities are NH₂ > COOH > CH₃ > H. (R)- and (S)- are labels of geometry, not of the sign of rotation. (S)-lactic acid happens to be dextrorotatory (+), but (S)-glyceraldehyde is levorotatory (−): the same label, opposite signs.",
+        {
+          "h": "E/Z for alkenes"
+        },
+        "The same priorities describe double bonds when cis/trans is ambiguous. If the higher-priority groups on each carbon are on the same side, the alkene is **Z** (zusammen); if opposite, **E** (entgegen). Cis-but-2-ene is (Z)-but-2-ene. For 1-bromo-1-chloropropene, cis/trans cannot be assigned but E/Z can.",
+        {
+          "h": "Fischer projections"
+        },
+        "A **Fischer projection** draws a stereocenter as a cross: vertical bonds go back, away from the viewer, and horizontal bonds come forward. The carbon chain runs vertically with the most oxidized carbon at the top. Allowed manipulations: rotate 180° in the plane, or swap two pairs of groups. Swapping a single pair, or rotating 90°, inverts the configuration. Fischer projections are the standard for sugars and amino acids."
+      ],
+      "check": [
+        {
+          "q": "What is the CIP priority order of –OH, –CH₃, –H and –CH₂CH₃?",
+          "a": "OH > CH₂CH₃ > CH₃ > H",
+          "wrong": [
+            "OH > CH₃ > CH₂CH₃ > H",
+            "CH₂CH₃ > OH > CH₃ > H",
+            "H > CH₃ > CH₂CH₃ > OH"
+          ]
+        },
+        {
+          "q": "With the lowest-priority group pointing away, groups 1 → 2 → 3 run clockwise. The configuration is…",
+          "a": "R",
+          "wrong": [
+            "S",
+            "Z",
+            "E"
+          ]
+        },
+        {
+          "q": "In a Fischer projection, interchanging two substituents on a stereocenter…",
+          "a": "Inverts the configuration",
+          "wrong": [
+            "Retains the configuration",
+            "Makes the molecule achiral",
+            "Changes it to a diastereomer of unspecified type"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "diastereomers",
+      "title": "Diastereomers and meso compounds",
+      "terms": [
+        "diastereomer",
+        "diastereomers",
+        "meso compound",
+        "meso compounds",
+        "meso",
+        "epimer",
+        "epimers",
+        "tartaric acid",
+        "plane of symmetry",
+        "resolution of enantiomers",
+        "chiral resolution"
+      ],
+      "body": [
+        "A molecule with n stereocenters can have up to 2ⁿ stereoisomers. Stereoisomers that are not mirror images of each other are **diastereomers**. Unlike enantiomers, diastereomers have different physical properties, so they can be separated by ordinary crystallization or chromatography. This is the basis of **resolution**: a racemic acid is treated with a pure chiral base to make a pair of diastereomeric salts, which are separated and then converted back to the pure enantiomers.",
+        "Tartaric acid, HOOC–CH(OH)–CH(OH)–COOH, has two stereocenters. The isomers are (2R,3R) and (2S,3S), which are enantiomers (mp 171 °C, [α] ±12°), and (2R,3S), which has a plane of symmetry. The last is a **meso compound**: it has stereocenters but is achiral and optically inactive, because the two halves cancel. It is a diastereomer of the other two (mp 140 °C). So tartaric acid has 3 stereoisomers, not 4.",
+        {
+          "table": {
+            "head": [
+              "Relationship",
+              "Same connectivity?",
+              "Mirror images?",
+              "Physical properties"
+            ],
+            "rows": [
+              [
+                "Enantiomers",
+                "Yes",
+                "Yes",
+                "Identical (except rotation sign and chiral interactions)"
+              ],
+              [
+                "Diastereomers",
+                "Yes",
+                "No",
+                "Different"
+              ],
+              [
+                "Constitutional isomers",
+                "No",
+                "No",
+                "Different"
+              ]
+            ],
+            "caption": "Relationships between isomers."
+          }
+        },
+        "Two diastereomers that differ in configuration at only one stereocenter are **epimers**; glucose and galactose are C4 epimers. In a ring, cis and trans disubstituted cycloalkanes are diastereomers: trans-1,2-dimethylcyclopentane is chiral (two enantiomers), but cis-1,2-dimethylcyclopentane is meso."
+      ],
+      "check": [
+        {
+          "q": "How many stereoisomers does 2,3-dibromobutane have?",
+          "a": "3",
+          "wrong": [
+            "2",
+            "4",
+            "1"
+          ],
+          "why": "(2R,3R), (2S,3S) and the meso (2R,3S)."
+        },
+        {
+          "q": "How do diastereomers differ from enantiomers?",
+          "a": "They have different physical properties and are not mirror images",
+          "wrong": [
+            "They have different connectivity",
+            "They have identical physical properties",
+            "They are always meso"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "outcomes",
+      "title": "Stereochemical outcomes of reactions",
+      "terms": [
+        "stereospecific",
+        "stereoselective",
+        "syn addition",
+        "anti addition",
+        "diastereoselective",
+        "enantioselective",
+        "Felkin–Anh",
+        "Cram's rule",
+        "asymmetric synthesis",
+        "chiral auxiliary",
+        "enantioselective catalysis",
+        "inversion of configuration",
+        "racemization",
+        "retention of configuration"
+      ],
+      "body": [
+        "Stereochemistry tells us how a reaction proceeds. A reaction is **stereospecific** if different stereoisomers of the starting material give different stereoisomers of the product, by mechanistic necessity (the SN2 reaction inverts configuration, so (R) gives (S)). It is **stereoselective** if one stereoisomer is formed preferentially over other possibilities, though the mechanism would allow both.",
+        {
+          "table": {
+            "head": [
+              "Reaction",
+              "Stereochemical result"
+            ],
+            "rows": [
+              [
+                "SN2",
+                "Inversion at the carbon (backside attack)"
+              ],
+              [
+                "SN1",
+                "Racemization at the carbon (planar carbocation), usually with some excess of inversion"
+              ],
+              [
+                "E2",
+                "Anti-periplanar H and leaving group; gives a specific alkene geometry"
+              ],
+              [
+                "Hydrogenation (H₂, Pd/C)",
+                "Syn addition of two H atoms to the same face"
+              ],
+              [
+                "Br₂ addition to alkenes",
+                "Anti addition (via a bromonium ion)"
+              ],
+              [
+                "Epoxidation (mCPBA)",
+                "Syn: the two C–O bonds form on one face"
+              ],
+              [
+                "Hydroboration–oxidation",
+                "Syn addition of H and OH"
+              ]
+            ],
+            "caption": "Stereochemical outcomes."
+          }
+        },
+        "A reaction that makes a new stereocenter from an achiral starting material, using achiral reagents, gives a racemic mixture, because the two faces of a planar sp² center are equally accessible. If the substrate already has a stereocenter, the faces are not equivalent (they are diastereotopic), and one diastereomer predominates (**diastereoselective**). For nucleophilic addition to a chiral aldehyde or ketone, the **Felkin–Anh model** predicts the favored face: the nucleophile attacks anti to the largest group on the adjacent stereocenter, at the Bürgi–Dunitz angle (about 107°) to the C=O. The older Cram’s rule gives the same prediction in simple cases.",
+        {
+          "h": "Asymmetric synthesis"
+        },
+        "Making a single enantiomer from achiral starting materials requires a chiral influence. **Asymmetric (enantioselective) synthesis** uses either a **chiral auxiliary**, a removable chiral group attached to the substrate that directs the stereochemistry (Evans oxazolidinones for aldol and alkylation reactions), or a chiral catalyst, such as a metal with a chiral ligand (Sharpless epoxidation, Noyori hydrogenation, both Nobel Prize chemistry, 2001) or an enzyme. A chiral catalyst is the better solution since a small amount makes a large amount of product. The success is measured as the enantiomeric excess."
+      ],
+      "check": [
+        {
+          "q": "An SN2 reaction at a stereocenter…",
+          "a": "Inverts the configuration at that carbon",
+          "wrong": [
+            "Retains the configuration",
+            "Gives a racemic mixture",
+            "Gives an achiral product"
+          ]
+        },
+        {
+          "q": "Hydrogenation of an alkene over Pd/C adds both hydrogens…",
+          "a": "To the same face (syn)",
+          "wrong": [
+            "To opposite faces (anti)",
+            "At random",
+            "Only to one carbon"
+          ]
+        },
+        {
+          "q": "Starting from achiral reagents with no chiral influence, creation of a new stereocenter gives…",
+          "a": "A racemic mixture",
+          "wrong": [
+            "Only the R enantiomer",
+            "Only the S enantiomer",
+            "A single diastereomer"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Staggered conformations are lower in energy than eclipsed. Butane is lowest as anti, with gauche 3.8 kJ/mol higher.",
+    "Ring strain is angle, torsional and steric strain. Cyclohexane in the chair form has none. Substituents prefer equatorial positions by their A-value.",
+    "A stereocenter has four different groups. Enantiomers are non-superimposable mirror images with equal and opposite rotation. A racemic mixture is optically inactive.",
+    "CIP rules assign R/S and E/Z by atomic number priority. A meso compound has stereocenters but is achiral.",
+    "Diastereomers differ in physical properties and can be separated, which is the basis of resolution.",
+    "SN2 inverts, SN1 racemizes, hydrogenation is syn and bromination is anti. Asymmetric synthesis needs a chiral auxiliary or catalyst."
+  ],
+  "problems": [
+    {
+      "q": "Assign R or S to (a) CHBrClF drawn with H pointing away and Br → Cl → F running clockwise, (b) (+)-lactic acid with OH → COOH → CH₃ running counterclockwise when H points away.",
+      "solution": "(a) Priorities Br > Cl > F > H. Clockwise with H away: R. (b) Priorities OH > COOH > CH₃ > H. Counterclockwise: S.",
+      "a": "(a) R; (b) S."
+    },
+    {
+      "q": "trans-1,3-Dimethylcyclohexane and cis-1,3-dimethylcyclohexane: which is more stable, and by how much?",
+      "solution": "In a 1,3 relationship, cis is diequatorial (or diaxial) and trans is axial/equatorial. The cis isomer’s diequatorial chair has no 1,3-diaxial strain. The trans isomer has one axial methyl in either chair: about 7.3 kJ mol⁻¹ less stable.",
+      "a": "cis-1,3 is more stable by about 7.3 kJ/mol."
+    },
+    {
+      "q": "A mixture of enantiomers has an observed specific rotation of −30.0°. The pure (−) enantiomer has [α] = −50.0°. Give the ee and the percentages of each enantiomer.",
+      "solution": "ee = 30.0/50.0 = 60%. Major = 80%, minor = 20% (80 − 20 = 60).",
+      "a": "60% ee: 80% (−) and 20% (+)."
+    },
+    {
+      "q": "How many stereoisomers exist for (a) 2,3,4-trihydroxypentanedioic acid (HOOC–CHOH–CHOH–CHOH–COOH), (b) 2-bromo-3-chlorobutane?",
+      "solution": "(a) Three stereocenters give up to 8, but the molecule has a symmetry that makes some meso: 4 stereoisomers (2 meso, 1 enantiomeric pair). (b) Two different stereocenters, no symmetry: 4.",
+      "a": "(a) 4; (b) 4."
+    }
+  ]
+}

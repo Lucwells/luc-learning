@@ -1,0 +1,203 @@
+{
+  "id": "equilibrium",
+  "view": "chapter",
+  "title": "Chemical Equilibrium",
+  "description": "Reversible reactions, the equilibrium constant, and how a system responds when it is disturbed.",
+  "overview": [
+    "Most reactions do not run to completion. Mix nitrogen and hydrogen, and you get ammonia, but also some leftover nitrogen and hydrogen that never goes away. The mixture settles into a state in which the forward and reverse reactions proceed at the same rate and the composition no longer changes. This is chemical equilibrium, and a single number, the equilibrium constant, describes where it lies.",
+    "This chapter defines the equilibrium constant, uses it to predict the direction of a reaction and to calculate equilibrium compositions, and then shows how pressure, concentration and temperature shift an equilibrium. The same ideas apply to acids, buffers and solubility in the chapters that follow."
+  ],
+  "objectives": [
+    "Describe dynamic equilibrium and write equilibrium-constant expressions.",
+    "Convert between K_c and K_p, and combine equilibrium constants for related reactions.",
+    "Use the reaction quotient to decide which way a reaction proceeds.",
+    "Solve equilibrium problems with ICE tables, including the small-x approximation and the quadratic.",
+    "Predict the effect of changes in concentration, volume, pressure and temperature (Le Chatelier’s principle).",
+    "Use the van ’t Hoff equation to find K at a new temperature."
+  ],
+  "sections": [
+    {
+      "id": "dynamic",
+      "title": "Dynamic equilibrium",
+      "terms": ["equilibrium", "chemical equilibrium", "reversible reaction", "reversible reactions", "reversible", "dynamic equilibrium", "position of equilibrium"],
+      "body": [
+        "A **reversible reaction** can proceed in both directions, shown by ⇌. Consider N₂O₄(g) ⇌ 2NO₂(g). Starting with colorless N₂O₄, the brown color of NO₂ appears and strengthens, then stops changing. Starting with pure NO₂ gives the same final mixture.",
+        "At **equilibrium** the forward and reverse rates are equal. Nothing appears to change, but molecules are still reacting in both directions: it is a **dynamic equilibrium**, not a halt. Observable properties (concentrations, color, pressure) are constant.",
+        { "svg": "<svg viewBox='0 0 460 260' role='img' aria-label='Approach to equilibrium' font-family='system-ui, sans-serif' font-size='12'><g fill='none' stroke='currentColor' stroke-width='1.5'><path d='M50,20 V220 H440'/></g><path fill='none' style='stroke:var(--accent)' stroke-width='2.5' d='M50,40 C110,120 160,150 240,160 L430,160'/><path fill='none' stroke='currentColor' stroke-width='2.5' stroke-dasharray='7 4' d='M50,215 C110,190 170,168 240,160'/><g stroke='currentColor' stroke-width='1' stroke-dasharray='3 3' opacity='.5'><path d='M240,20 V220'/></g><g fill='currentColor'><text x='56' y='14'>concentration</text><text x='440' y='240' text-anchor='end'>time</text><text x='246' y='34'>equilibrium reached</text><text x='70' y='56' style='fill:var(--accent)'>[N₂O₄]</text><text x='80' y='208'>[NO₂]</text></g></svg>", "caption": "Concentrations approach constant values. Equilibrium is reached when the forward and reverse rates match, and it is the same state whichever side the reaction starts from." },
+        "The **position of equilibrium** says whether the mixture is mostly reactants or products. Rates are a matter of kinetics, and the position is a matter of thermodynamics: a catalyst speeds both directions equally, so it gets a reaction to equilibrium sooner but does not change where it lies."
+      ],
+      "check": [
+        { "q": "At equilibrium, the forward and reverse reactions…", "a": "Proceed at equal rates", "wrong": ["Have both stopped", "Have equal rate constants", "Proceed at rates that depend on the starting point"] },
+        { "q": "A catalyst added to a reaction at equilibrium…", "a": "Does not change the equilibrium composition", "wrong": ["Shifts it toward the products", "Shifts it toward the reactants", "Makes the reaction irreversible"] }
+      ]
+    },
+    {
+      "id": "constant",
+      "title": "The equilibrium constant",
+      "terms": ["equilibrium constant", "equilibrium expression", "law of mass action", "mass action expression", "Kc", "Kp", "K_c", "K_p", "heterogeneous equilibrium", "homogeneous equilibrium"],
+      "body": [
+        "For the general reaction aA + bB ⇌ cC + dD, the ratio of concentrations at equilibrium is a constant at a given temperature, whatever the starting amounts. This is the **law of mass action**:",
+        { "eq": "K_{c} = [C]^{c}[D]^{d} / ([A]^{a}[B]^{b})" },
+        "Concentrations are in mol L⁻¹, and each is raised to the power of its coefficient. Strictly, K is defined with activities and is dimensionless; the concentration ratio is its approximation for dilute solutions. For gases, partial pressures (in bar or atm) give K_p, and",
+        { "eq": "K_{p} = K_{c}(RT)^{Δn}     Δn = (moles of gas, products) − (moles of gas, reactants)" },
+        "**Pure solids and pure liquids** do not appear in K, because their concentrations are constant. For CaCO₃(s) ⇌ CaO(s) + CO₂(g), K_p = P(CO₂): at a given temperature the equilibrium pressure of CO₂ is fixed, however much solid is present. For a heterogeneous equilibrium such as this, the solids must be present for equilibrium to exist.",
+        { "h": "What K tells you" },
+        { "list": [
+          "K ≫ 1 (say, above 10³): products dominate at equilibrium. K ≪ 1 (below 10⁻³): reactants dominate. In between, both are present in significant amounts.",
+          "K says nothing about how fast equilibrium is reached.",
+          "K depends only on temperature."
+        ] },
+        { "h": "Manipulating K" },
+        { "table": {
+          "head": ["If you…", "K becomes"],
+          "rows": [["Reverse the reaction", "1/K"], ["Multiply the equation by n", "K^{n}"], ["Add two reactions", "K₁ × K₂"]],
+          "caption": "Rules for equilibrium constants."
+        } },
+        { "example": {
+          "title": "Converting K_c to K_p",
+          "problem": "For N₂(g) + 3H₂(g) ⇌ 2NH₃(g), K_c = 0.50 at 400 °C (673 K). Find K_p.",
+          "solution": [
+            "Δn = 2 − 4 = −2.",
+            { "eq": "K_{p} = K_{c}(RT)^{−2} = 0.50 / (0.082057 × 673)² = 0.50 / 3050 = 1.6 × 10⁻⁴" }
+          ]
+        } },
+        { "example": {
+          "title": "Combining equilibria",
+          "problem": "Given 2NO(g) ⇌ N₂(g) + O₂(g), K₁ = 2.4 × 10³⁰, and N₂(g) + 2O₂(g) ⇌ 2NO₂(g), K₂ = 2.2 × 10⁻¹⁸, find K for 2NO + O₂ ⇌ 2NO₂.",
+          "solution": "Adding the two reactions and canceling N₂ and one O₂ gives the target, so K = K₁ × K₂ = (2.4 × 10³⁰)(2.2 × 10⁻¹⁸) = 5.3 × 10¹²."
+        } }
+      ],
+      "check": [
+        { "q": "What is the K_c expression for 2SO₂(g) + O₂(g) ⇌ 2SO₃(g)?", "a": "[SO₃]² / ([SO₂]²[O₂])", "wrong": ["[SO₃] / ([SO₂][O₂])", "[SO₂]²[O₂] / [SO₃]²", "2[SO₃] / (2[SO₂] + [O₂])"] },
+        { "q": "If K for A ⇌ B is 4.0, what is K for B ⇌ A?", "a": "0.25", "wrong": ["4.0", "−4.0", "16"] },
+        { "q": "Which is omitted from the equilibrium expression?", "a": "A pure solid", "wrong": ["A gas", "A dissolved ion", "A product"] }
+      ]
+    },
+    {
+      "id": "quotient",
+      "title": "The reaction quotient",
+      "terms": ["reaction quotient", "Q"],
+      "body": [
+        "The **reaction quotient** Q has the same form as K but uses the concentrations at any moment, not just at equilibrium. Comparing Q with K shows which way the reaction must go:",
+        { "table": {
+          "head": ["Comparison", "Direction", "Reason"],
+          "rows": [["Q < K", "Forward (toward products)", "Too many reactants"], ["Q = K", "At equilibrium", "No net change"], ["Q > K", "Reverse (toward reactants)", "Too many products"]],
+          "caption": "Using Q to predict direction."
+        } },
+        { "example": {
+          "title": "Which way will it go?",
+          "problem": "For H₂ + I₂ ⇌ 2HI, K_c = 50 at 448 °C. A flask has [H₂] = 0.020 M, [I₂] = 0.020 M and [HI] = 0.10 M. Is it at equilibrium?",
+          "solution": [
+            { "eq": "Q = [HI]² / ([H₂][I₂]) = (0.10)² / (0.020)(0.020) = 25" },
+            "Q < K, so the reaction proceeds forward, making more HI."
+          ]
+        } }
+      ],
+      "check": [
+        { "q": "If Q > K, the reaction mixture…", "a": "Will make more reactants", "wrong": ["Will make more products", "Is at equilibrium", "Will stop"] }
+      ]
+    },
+    {
+      "id": "ice",
+      "title": "Calculating equilibrium concentrations",
+      "terms": ["ICE table", "ICE tables", "small x approximation", "5% rule", "equilibrium calculations"],
+      "body": [
+        "Most problems give initial amounts and K and ask for the equilibrium composition. The method is an **ICE table**: Initial, Change, Equilibrium. Define the change in terms of an unknown x using the stoichiometry, write each equilibrium concentration as initial plus change, substitute into K, and solve.",
+        { "example": {
+          "title": "Exact solution",
+          "problem": "H₂ and I₂, each 0.0200 M, are heated in a closed flask at 448 °C where K_c = 50.0 for H₂ + I₂ ⇌ 2HI. Find the equilibrium concentrations.",
+          "solution": [
+            { "table": {
+              "head": ["", "[H₂]", "[I₂]", "[HI]"],
+              "rows": [["Initial", "0.0200", "0.0200", "0"], ["Change", "−x", "−x", "+2x"], ["Equilibrium", "0.0200 − x", "0.0200 − x", "2x"]]
+            } },
+            "The right side is a perfect square, so take the square root of K: 2x/(0.0200 − x) = √50.0 = 7.07. Then 2x = 0.1414 − 7.07x, giving x = 0.01559.",
+            "[HI] = 0.0312 M and [H₂] = [I₂] = 0.00441 M."
+          ]
+        } },
+        { "example": {
+          "title": "A quadratic",
+          "problem": "N₂O₄(g) ⇌ 2NO₂(g) has K_c = 4.6 × 10⁻³ at 25 °C. Find the equilibrium concentrations starting with 0.100 M N₂O₄.",
+          "solution": [
+            "Equilibrium concentrations: [N₂O₄] = 0.100 − x, [NO₂] = 2x. So (2x)² / (0.100 − x) = 4.6 × 10⁻³, which rearranges to 4x² + 4.6 × 10⁻³ x − 4.6 × 10⁻⁴ = 0.",
+            { "eq": "x = [−4.6 × 10⁻³ + √((4.6 × 10⁻³)² + 16(4.6 × 10⁻⁴))] / 8 = 0.0102" },
+            "[NO₂] = 0.0203 M and [N₂O₄] = 0.0898 M."
+          ]
+        } },
+        { "tip": "When K is small compared with the initial concentration, x is small and 0.100 − x ≈ 0.100, which avoids the quadratic. Check the assumption afterward: it is acceptable if x is less than 5% of the initial value. Above, x = 10% of 0.100 M, so the approximation would not have been valid." }
+      ],
+      "check": [
+        { "q": "A reaction A ⇌ B has K = 4.0. Starting with 1.0 M A and no B, what is [B] at equilibrium?", "a": "0.80 M", "wrong": ["0.50 M", "0.20 M", "4.0 M"], "why": "K = x/(1.0 − x) = 4.0 gives x = 0.80." },
+        { "q": "In an ICE table, the “C” row expresses…", "a": "The change in each species in terms of one unknown, set by stoichiometry", "wrong": ["The charge of each species", "The catalyst concentration", "The equilibrium constants"] }
+      ]
+    },
+    {
+      "id": "le-chatelier",
+      "title": "Le Chatelier’s principle",
+      "terms": ["Le Chatelier's principle", "Le Chatelier", "Le Châtelier's principle", "Le Châtelier", "van 't Hoff equation", "van't Hoff equation", "stress"],
+      "body": [
+        "**Le Chatelier’s principle**: when a system at equilibrium is disturbed, it shifts in the direction that partly counteracts the disturbance. Changes in concentration, volume or pressure move the system along a fixed K, while a change in temperature changes K itself.",
+        { "table": {
+          "head": ["Change", "Effect", "Does K change?"],
+          "rows": [
+            ["Add reactant (or remove product)", "Shifts toward products (Q < K)", "No"],
+            ["Add product (or remove reactant)", "Shifts toward reactants (Q > K)", "No"],
+            ["Decrease volume (raise pressure)", "Shifts toward fewer moles of gas", "No"],
+            ["Add an inert gas at constant volume", "No shift: partial pressures are unchanged", "No"],
+            ["Raise temperature", "Shifts in the endothermic direction", "Yes"],
+            ["Add a catalyst", "No shift, equilibrium reached faster", "No"]
+          ],
+          "caption": "Responses to disturbances."
+        } },
+        "For N₂ + 3H₂ ⇌ 2NH₃, compression favors NH₃ (4 moles of gas to 2), and removing NH₃ as it forms keeps pulling the reaction forward. The reaction is exothermic (ΔH° = −91.8 kJ), so heating shifts it back toward N₂ and H₂.",
+        { "h": "Temperature dependence of K" },
+        "The **van ’t Hoff equation** gives K at a second temperature, assuming ΔH° is constant:",
+        { "eq": "ln(K₂/K₁) = −(ΔH°/R)(1/T₂ − 1/T₁)" },
+        "K rises with temperature for an endothermic reaction (ΔH° > 0) and falls for an exothermic one.",
+        { "example": {
+          "title": "K at a higher temperature",
+          "problem": "For N₂ + 3H₂ ⇌ 2NH₃, ΔH° = −91.8 kJ and K_p = 5 × 10⁵ at 298 K. Estimate K_p at 700 K.",
+          "solution": [
+            { "eq": ["ln(K₂/K₁) = −(−91,800/8.314)(1/700 − 1/298) = 11,041 × (−1.925 × 10⁻³) = −21.3", "K₂ = 5 × 10⁵ × e^{−21.3} = 3 × 10⁻⁴"] },
+            "The equilibrium shifts strongly toward the reactants at 700 K. The industrial process runs at high temperature because the reaction is far too slow at 298 K, and the unfavorable equilibrium is compensated with pressure (about 200 atm) and by removing the product."
+          ]
+        } }
+      ],
+      "check": [
+        { "q": "For 2SO₂ + O₂ ⇌ 2SO₃ (exothermic), which change increases the yield of SO₃?", "a": "Increasing the pressure", "wrong": ["Increasing the temperature", "Adding a catalyst", "Removing O₂"] },
+        { "q": "For an endothermic reaction, raising the temperature…", "a": "Increases K", "wrong": ["Decreases K", "Does not change K", "Makes K equal 1"] },
+        { "q": "N₂O₄ ⇌ 2NO₂ is at equilibrium. The volume of the container is doubled. The mixture…", "a": "Shifts toward NO₂", "wrong": ["Shifts toward N₂O₄", "Does not shift", "Becomes colorless"] }
+      ]
+    }
+  ],
+  "summary": [
+    "At equilibrium the forward and reverse rates are equal and concentrations are constant. A catalyst does not change the position of equilibrium.",
+    "K = [C]^c[D]^d/([A]^a[B]^b). Pure solids and liquids are omitted. K_p = K_c(RT)^Δn.",
+    "Reversing a reaction gives 1/K, scaling by n gives K^n, and adding reactions multiplies the K values.",
+    "Q < K: the reaction goes forward. Q > K: it goes backward.",
+    "Solve equilibrium problems with ICE tables, using the small-x approximation only when x is less than 5% of the initial concentration.",
+    "Le Chatelier’s principle predicts shifts. Only a temperature change alters K, according to ln(K₂/K₁) = −(ΔH°/R)(1/T₂ − 1/T₁)."
+  ],
+  "problems": [
+    {
+      "q": "At 1000 K, 2SO₂ + O₂ ⇌ 2SO₃ has K_c = 280. A flask contains [SO₂] = 0.0200 M, [O₂] = 0.0100 M and [SO₃] = 0.0400 M. Find Q, predict the direction, and give K_p.",
+      "solution": "Q = (0.0400)² / ((0.0200)² (0.0100)) = 0.00160 / 4.00 × 10⁻⁶ = 400. Q > K (280), so the reaction goes in reverse. Δn = −1, so K_p = 280 / (0.082057 × 1000) = 3.41.",
+      "a": "Q = 400, reverse; K_p = 3.4."
+    },
+    {
+      "q": "PCl₅(g) ⇌ PCl₃(g) + Cl₂(g), K_c = 0.0415 at 250 °C. 0.100 mol PCl₅ is placed in a 1.00 L flask. Find the equilibrium concentrations.",
+      "solution": "x²/(0.100 − x) = 0.0415, so x² + 0.0415x − 0.00415 = 0. x = [−0.0415 + √(0.001722 + 0.0166)]/2 = (−0.0415 + 0.1354)/2 = 0.0470.",
+      "a": "[PCl₃] = [Cl₂] = 0.0470 M; [PCl₅] = 0.0530 M."
+    },
+    {
+      "q": "Predict the shift for CO(g) + 2H₂(g) ⇌ CH₃OH(g), ΔH° = −91 kJ, for each change: (a) add H₂, (b) remove CH₃OH, (c) raise T, (d) decrease the volume.",
+      "solution": "(a) toward CH₃OH, (b) toward CH₃OH, (c) toward reactants (exothermic reaction), (d) toward CH₃OH (3 mol gas to 1).",
+      "a": "(a) forward, (b) forward, (c) reverse, (d) forward."
+    },
+    {
+      "q": "K_p for N₂O₄ ⇌ 2NO₂ is 0.14 at 25 °C and 15 at 100 °C. Find ΔH° and say whether the reaction is endothermic.",
+      "solution": "ln(15/0.14) = 4.674 = −(ΔH°/R)(1/373.15 − 1/298.15) = (ΔH°/R)(6.742 × 10⁻⁴). ΔH° = 4.674 × 8.314/6.742 × 10⁻⁴ = 57.6 kJ mol⁻¹.",
+      "a": "ΔH° ≈ +58 kJ/mol: endothermic."
+    }
+  ]
+}

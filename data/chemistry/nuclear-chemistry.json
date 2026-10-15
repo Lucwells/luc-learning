@@ -1,7 +1,7 @@
 {
+  "id": "nuclear",
   "title": "Nuclear Chemistry",
   "description": "Changes in the nucleus: radioactive decay, fission, fusion, and what radiation does.",
-  "category": ["Chemistry", "Nuclear Chemistry"],
   "view": "articles",
   "entries": [
     {

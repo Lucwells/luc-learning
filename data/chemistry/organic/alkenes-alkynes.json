@@ -1,0 +1,571 @@
+{
+  "id": "alkenes-alkynes",
+  "view": "chapter",
+  "title": "Alkenes and Alkynes",
+  "description": "Addition, oxidation and radical reactions of carbon–carbon multiple bonds.",
+  "overview": [
+    "The π bond of an alkene is weaker than a σ bond and its electrons are exposed above and below the molecular plane, so alkenes act as nucleophiles toward electrophiles. Almost every alkene reaction is an addition that converts the π bond and a reagent’s bond into two new σ bonds. By choosing the reagent, a chemist can add H and X, H and OH, two halogens, two hydroxyls, or an oxygen bridge, with control over which carbon gets which group and which face is attacked.",
+    "This chapter organizes the alkene reactions by regiochemistry and stereochemistry, covers radical additions and allylic substitution, and ends with alkynes, whose chemistry extends the same ideas and adds the acidity of the terminal C–H."
+  ],
+  "objectives": [
+    "Rank alkenes by stability using heats of hydrogenation.",
+    "Predict the products of HX addition, hydration, oxymercuration and hydroboration, with regiochemistry and stereochemistry.",
+    "Explain the bromonium-ion mechanism and its anti stereochemistry, and halohydrin formation.",
+    "Predict the products of epoxidation, dihydroxylation, ozonolysis and cyclopropanation.",
+    "Describe radical additions, allylic bromination and the selectivity of radical halogenation.",
+    "Predict the products of alkyne addition, reduction and hydration, and use acetylide alkylation."
+  ],
+  "sections": [
+    {
+      "id": "alkene-structure",
+      "title": "Structure and stability of alkenes",
+      "terms": [
+        "alkene",
+        "alkenes",
+        "unsaturated",
+        "unsaturated hydrocarbon",
+        "heat of hydrogenation",
+        "hydrogenation",
+        "catalytic hydrogenation"
+      ],
+      "body": [
+        "An **alkene** contains a C=C bond, a σ bond plus a π bond formed by sideways overlap of two p orbitals. The two sp² carbons and their four substituents lie in a plane, and rotation about the double bond is blocked unless the π bond is broken (about 260 kJ mol⁻¹). The molecule is **unsaturated**, meaning it can add hydrogen.",
+        "**Catalytic hydrogenation** adds H₂ across the double bond on a metal surface (Pd/C, PtO₂, Raney Ni), with both hydrogens delivered to the same face (syn). The **heat of hydrogenation** measures relative stability, since all give the same alkane: the less heat released, the more stable the alkene.",
+        {
+          "table": {
+            "head": [
+              "Alkene",
+              "Substitution",
+              "ΔH hydrogenation (kJ mol⁻¹)"
+            ],
+            "rows": [
+              [
+                "Ethene",
+                "unsubstituted",
+                "−137"
+              ],
+              [
+                "Propene",
+                "monosubstituted",
+                "−126"
+              ],
+              [
+                "cis-But-2-ene",
+                "disubstituted (cis)",
+                "−120"
+              ],
+              [
+                "trans-But-2-ene",
+                "disubstituted (trans)",
+                "−116"
+              ],
+              [
+                "2-Methylbut-2-ene",
+                "trisubstituted",
+                "−113"
+              ],
+              [
+                "2,3-Dimethylbut-2-ene",
+                "tetrasubstituted",
+                "−111"
+              ]
+            ],
+            "caption": "Alkene stability increases with the number of alkyl substituents, and trans is more stable than cis."
+          }
+        },
+        "More substituted alkenes are more stable because alkyl groups donate electrons to the sp² carbons, and through hyperconjugation. Trans alkenes are more stable than cis because the substituents are farther apart. This stability order is the basis of Zaitsev’s rule for eliminations."
+      ],
+      "check": [
+        {
+          "q": "Which alkene is most stable?",
+          "a": "2,3-Dimethylbut-2-ene",
+          "wrong": [
+            "But-1-ene",
+            "cis-But-2-ene",
+            "Propene"
+          ]
+        },
+        {
+          "q": "Catalytic hydrogenation of an alkene adds the two H atoms…",
+          "a": "To the same face (syn)",
+          "wrong": [
+            "To opposite faces (anti)",
+            "To a single carbon",
+            "In a random way"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hx",
+      "title": "Addition of HX and hydration",
+      "terms": [
+        "addition reaction",
+        "addition reactions",
+        "electrophilic addition",
+        "Markovnikov's rule",
+        "Markovnikov",
+        "Markovnikov addition",
+        "acid-catalyzed hydration",
+        "hydration of alkenes",
+        "oxymercuration",
+        "oxymercuration–demercuration",
+        "mercurinium ion"
+      ],
+      "body": [
+        "In **electrophilic addition** the alkene’s π electrons attack an electrophile (H⁺), forming a carbocation, which is captured by the nucleophile. For HBr:",
+        {
+          "eq": "CH₃CH=CH₂ + HBr → CH₃CHBrCH₃"
+        },
+        "With an unsymmetrical alkene, the proton goes to the carbon that gives the more stable carbocation. This is **Markovnikov’s rule**: H adds to the carbon with more hydrogens, and the X goes to the more substituted carbon. The first step, forming the carbocation, is rate-determining, and the Hammond postulate explains why the more stable cation is favored.",
+        "Because a carbocation intermediate is involved, rearrangements are possible. 3-Methylbut-1-ene with HCl gives 2-chloro-2-methylbutane (the product of a hydride shift) as the major product, in addition to the unrearranged 2-chloro-3-methylbutane. Addition is not stereoselective, since the carbocation is planar.",
+        {
+          "h": "Hydration"
+        },
+        "In **acid-catalyzed hydration** an alkene reacts with dilute aqueous acid to give an alcohol, by Markovnikov addition of H and OH. It is the reverse of alcohol dehydration and is controlled by Le Chatelier’s principle: excess water favors the alcohol, and high temperature without water favors the alkene. It is used industrially to make ethanol and 2-propanol from ethene and propene.",
+        {
+          "h": "Oxymercuration–demercuration"
+        },
+        "To hydrate an alkene in the Markovnikov sense without rearrangement, treat it with Hg(OAc)₂ in water, then NaBH₄. The mercury(II) adds to the alkene to form a bridged **mercurinium ion** (which cannot rearrange), water attacks the more substituted carbon, and borohydride then replaces the C–Hg bond with C–H.",
+        {
+          "example": {
+            "title": "Avoiding a rearrangement",
+            "problem": "Compare the hydration of 3,3-dimethylbut-1-ene by H₃O⁺ and by Hg(OAc)₂/H₂O then NaBH₄.",
+            "solution": [
+              "With acid, protonation gives a secondary cation next to a quaternary carbon. A methyl shift gives a tertiary cation, and the product is 2,3-dimethylbutan-2-ol.",
+              "With oxymercuration, there is no free cation. Water adds to the more substituted carbon: 3,3-dimethylbutan-2-ol, with no rearrangement."
+            ]
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "What is the major product of HBr + propene?",
+          "a": "2-Bromopropane",
+          "wrong": [
+            "1-Bromopropane",
+            "A 1:1 mixture",
+            "Propane"
+          ]
+        },
+        {
+          "q": "Why does oxymercuration avoid carbocation rearrangements?",
+          "a": "A bridged mercurinium ion forms, not a free carbocation",
+          "wrong": [
+            "Mercury stabilizes primary carbocations",
+            "The reaction is radical",
+            "It adds to the less substituted carbon"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hydroboration",
+      "title": "Hydroboration–oxidation",
+      "terms": [
+        "hydroboration–oxidation",
+        "hydroboration",
+        "hydroboration-oxidation",
+        "anti-Markovnikov hydration",
+        "9-BBN",
+        "organoborane"
+      ],
+      "body": [
+        "Hydroboration–oxidation converts an alkene into an alcohol with the opposite regiochemistry to acid-catalyzed hydration: **anti-Markovnikov**, with the OH on the less substituted carbon. Borane (BH₃, as BH₃·THF) adds across the double bond in a single concerted step, with boron going to the less hindered carbon and hydrogen to the other, both on the same face (**syn**). The resulting trialkylborane is oxidized with H₂O₂ and NaOH, which replaces boron by OH with retention of configuration.",
+        {
+          "eq": [
+            "CH₃CH=CH₂ + BH₃ → (CH₃CH₂CH₂)₃B",
+            "(CH₃CH₂CH₂)₃B + H₂O₂, NaOH → 3 CH₃CH₂CH₂OH"
+          ]
+        },
+        "No carbocation forms, so there are no rearrangements. The regiochemistry has both steric and electronic origins: boron (electrophilic, δ⁺ in the transition state) adds to the less hindered carbon, and the more substituted carbon develops the partial positive charge. Bulky boranes such as 9-BBN or disiamylborane increase the selectivity and are used for alkynes.",
+        {
+          "example": {
+            "title": "Syn stereochemistry",
+            "problem": "What product forms from 1-methylcyclopentene with BH₃·THF, then H₂O₂/NaOH?",
+            "solution": "H adds to the more substituted carbon (C1), B to C2, from the same face. Oxidation replaces B with OH with retention, so OH and H add on the same face: the product is trans-2-methylcyclopentanol (racemic), with the OH and CH₃ on opposite faces of the ring."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Hydroboration–oxidation of 1-hexene gives mainly…",
+          "a": "Hexan-1-ol",
+          "wrong": [
+            "Hexan-2-ol",
+            "Hexane",
+            "A 1:1 mixture of the alcohols"
+          ]
+        },
+        {
+          "q": "Hydroboration adds H and B to the alkene…",
+          "a": "On the same face, in one step",
+          "wrong": [
+            "On opposite faces",
+            "Through a carbocation",
+            "Through a free radical"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "halogenation",
+      "title": "Halogenation and halohydrins",
+      "terms": [
+        "bromonium ion",
+        "halonium ion",
+        "halohydrin",
+        "halohydrins",
+        "bromination of alkenes",
+        "anti addition of halogens",
+        "dihalide"
+      ],
+      "body": [
+        "Br₂ and Cl₂ add to alkenes at room temperature, in an inert solvent such as CH₂Cl₂. The alkene attacks Br₂ as it polarizes, forming a cyclic **bromonium ion** in which the bromine bridges both carbons, and no free carbocation. Bromide then attacks from the back face, opening the ring:",
+        {
+          "eq": "Alkene + Br₂ → vicinal (1,2) dibromide, anti addition"
+        },
+        "The bridged ion explains the **anti** stereochemistry. Bromination of cyclohexene gives trans-1,2-dibromocyclohexane (as a racemic mixture) and cis-but-2-ene gives racemic (2R,3R)/(2S,3S)-2,3-dibromobutane, whereas trans-but-2-ene gives the meso isomer. The reaction is stereospecific. It serves as a qualitative test for unsaturation: the red-brown color of bromine disappears.",
+        "When the reaction is run in water (or an alcohol), the solvent is a much more concentrated nucleophile than bromide, and attacks the bromonium ion at the more substituted carbon, the one with more positive character. The product is a **halohydrin** (a bromo alcohol) with anti stereochemistry and Markovnikov regiochemistry, with OH on the more substituted carbon. N-Bromosuccinimide in aqueous DMSO provides a convenient source of Br⁺.",
+        {
+          "example": {
+            "title": "Halohydrin",
+            "problem": "What is the product of propene with Br₂ in H₂O?",
+            "solution": "The bromonium ion is opened by water at the secondary carbon, giving 1-bromopropan-2-ol (CH₃CH(OH)CH₂Br), not the isomer with OH on the primary carbon."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Br₂ addition to cyclohexene gives…",
+          "a": "trans-1,2-Dibromocyclohexane",
+          "wrong": [
+            "cis-1,2-Dibromocyclohexane",
+            "1,1-Dibromocyclohexane",
+            "Bromocyclohexane"
+          ]
+        },
+        {
+          "q": "In the halohydrin reaction, water attacks the bromonium ion at…",
+          "a": "The more substituted carbon",
+          "wrong": [
+            "The less substituted carbon",
+            "The bromine",
+            "Either carbon equally"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "oxidation",
+      "title": "Epoxidation, dihydroxylation and cleavage",
+      "terms": [
+        "epoxidation",
+        "mCPBA",
+        "meta-chloroperoxybenzoic acid",
+        "peroxyacid",
+        "dihydroxylation",
+        "osmium tetroxide",
+        "syn dihydroxylation",
+        "ozonolysis",
+        "ozonide",
+        "oxidative cleavage",
+        "Simmons–Smith",
+        "Simmons-Smith reaction",
+        "cyclopropanation",
+        "carbene",
+        "diol",
+        "vicinal diol",
+        "glycol"
+      ],
+      "body": [
+        {
+          "h": "Epoxidation"
+        },
+        "A peroxyacid such as **mCPBA** (meta-chloroperoxybenzoic acid) transfers an oxygen atom to an alkene in one concerted step, giving an epoxide (oxirane) with retention of the alkene geometry: cis alkene gives a cis-disubstituted epoxide. This is **epoxidation**. Epoxides are strained and open with nucleophiles (see the chapter on alcohols and ethers).",
+        {
+          "h": "Dihydroxylation"
+        },
+        "A **vicinal diol** (glycol) forms by adding two OH groups. With **osmium tetroxide** (OsO₄, catalytic, with NMO as the reoxidant) or cold, dilute, basic KMnO₄, both oxygens add to the same face through a cyclic osmate (or manganate) ester: **syn dihydroxylation**. The anti diol is made in two steps, by epoxidation and acid-catalyzed ring opening with water. OsO₄ is expensive and highly toxic, so it is used in catalytic amounts.",
+        {
+          "h": "Oxidative cleavage"
+        },
+        "**Ozonolysis** breaks the C=C bond completely. Ozone adds to give a molozonide, which rearranges to an **ozonide**; a reductive workup (Me₂S or Zn/H₂O) gives aldehydes and ketones, and an oxidative one (H₂O₂) gives carboxylic acids from any aldehyde fragments. Hot, concentrated KMnO₄ also cleaves alkenes to carboxylic acids and ketones. Ozonolysis was once the main tool for finding the position of a double bond in an unknown structure.",
+        {
+          "example": {
+            "title": "Ozonolysis product",
+            "problem": "What does 2-methylbut-2-ene give on ozonolysis with a reductive workup?",
+            "solution": "Each carbon of the C=C becomes a C=O. One carbon carries two methyls, giving acetone (propanone). The other carries a methyl and a hydrogen, giving acetaldehyde (ethanal)."
+          }
+        },
+        {
+          "h": "Cyclopropanation"
+        },
+        "A carbene (a divalent carbon, :CH₂) adds to an alkene to make a cyclopropane. The **Simmons–Smith reaction** uses CH₂I₂ and a zinc–copper couple to make a zinc carbenoid (ICH₂ZnI), which transfers CH₂ in a concerted syn addition, so the alkene geometry is retained in the ring.",
+        {
+          "table": {
+            "head": [
+              "Reagent",
+              "Product from an alkene",
+              "Stereochemistry"
+            ],
+            "rows": [
+              [
+                "H₂, Pd/C",
+                "Alkane",
+                "syn"
+              ],
+              [
+                "mCPBA",
+                "Epoxide",
+                "syn (retention of alkene geometry)"
+              ],
+              [
+                "OsO₄ then NaHSO₃; or cold KMnO₄",
+                "1,2-Diol",
+                "syn"
+              ],
+              [
+                "mCPBA, then H₃O⁺",
+                "1,2-Diol",
+                "anti"
+              ],
+              [
+                "O₃, then Me₂S",
+                "Two carbonyl compounds",
+                "—"
+              ],
+              [
+                "CH₂I₂, Zn(Cu)",
+                "Cyclopropane",
+                "syn"
+              ]
+            ],
+            "caption": "Summary of alkene oxidation and addition reagents."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "OsO₄ converts cyclohexene into…",
+          "a": "cis-Cyclohexane-1,2-diol",
+          "wrong": [
+            "trans-Cyclohexane-1,2-diol",
+            "Adipic acid",
+            "Cyclohexene oxide"
+          ]
+        },
+        {
+          "q": "Ozonolysis (reductive workup) of cyclohexene gives…",
+          "a": "Hexanedial",
+          "wrong": [
+            "Cyclohexanone",
+            "Hexane-1,6-diol",
+            "Cyclohexanol"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "radicals",
+      "title": "Radical reactions",
+      "terms": [
+        "radical chain reaction",
+        "radical halogenation",
+        "anti-Markovnikov addition",
+        "peroxide effect",
+        "radical addition of HBr",
+        "allylic bromination",
+        "N-bromosuccinimide",
+        "NBS",
+        "radical stability",
+        "radical substitution",
+        "autoxidation",
+        "antioxidant",
+        "antioxidants",
+        "AIBN",
+        "radical initiator",
+        "BHT"
+      ],
+      "body": [
+        "A **radical chain reaction** has three kinds of step. **Initiation** creates radicals by homolysis (heat or light on Br₂, or decomposition of a peroxide or AIBN). **Propagation** steps each consume one radical and produce another, so a single initiation can convert thousands of molecules. **Termination** steps combine two radicals and end the chain.",
+        {
+          "h": "Radical halogenation of alkanes"
+        },
+        "Alkanes react with Cl₂ or Br₂ under light by radical substitution: R–H + X₂ → R–X + HX. The hydrogen abstracted is the one that gives the most stable radical (3° > 2° > 1°). Bromination is highly selective (relative reactivity per hydrogen 3° : 2° : 1° = 1600 : 82 : 1) because the hydrogen abstraction is endothermic and the transition state resembles the radical (Hammond postulate), whereas chlorination is unselective (5 : 3.8 : 1). Bromination of propane gives 2-bromopropane in 97% yield. Chlorination gives roughly equal amounts of 1- and 2-chloropropane (45 : 55).",
+        {
+          "h": "Anti-Markovnikov addition of HBr"
+        },
+        "In the presence of peroxides (ROOR), HBr adds to alkenes by a radical chain. Br• adds first, to the less substituted carbon, giving the more stable carbon radical. That radical abstracts H from HBr, regenerating Br•. The result is **anti-Markovnikov addition**, the “peroxide effect”. It occurs for HBr only, not for HCl (the H–Cl abstraction is too endothermic) or HI (the I• addition is too slow).",
+        {
+          "h": "Allylic bromination"
+        },
+        "An allylic C–H bond is weak (about 360 kJ mol⁻¹, against 410 for a normal secondary C–H), because the allyl radical is resonance-stabilized. **N-Bromosuccinimide** (NBS), with light or AIBN, brominates the allylic position and not the double bond. NBS supplies a very low, steady concentration of Br₂, which favors radical substitution over ionic addition across the double bond. Cyclohexene gives 3-bromocyclohexene. Unsymmetrical allylic radicals can give mixtures of isomers.",
+        {
+          "h": "Autoxidation and antioxidants"
+        },
+        "Oxygen is a diradical, and it adds to carbon radicals in a slow chain, **autoxidation**, that turns ethers into explosive peroxides, makes fats and oils rancid, and damages cell membranes. **Antioxidants** such as BHT (butylated hydroxytoluene) and vitamin E (tocopherol) interrupt the chain by donating a hydrogen atom to a peroxy radical and forming a stable, resonance-delocalized phenoxy radical that does not propagate."
+      ],
+      "check": [
+        {
+          "q": "HBr adds to 1-butene in the presence of peroxides to give…",
+          "a": "1-Bromobutane",
+          "wrong": [
+            "2-Bromobutane",
+            "1,2-Dibromobutane",
+            "Butane"
+          ]
+        },
+        {
+          "q": "Why is bromination more selective than chlorination?",
+          "a": "Hydrogen abstraction by Br• is endothermic, so the late transition state strongly favors the most stable radical",
+          "wrong": [
+            "Br₂ is a stronger oxidant",
+            "Bromine is smaller than chlorine",
+            "Bromination is ionic"
+          ]
+        },
+        {
+          "q": "What is NBS used for?",
+          "a": "Allylic bromination",
+          "wrong": [
+            "Epoxidation",
+            "Hydroboration",
+            "Ozonolysis"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "alkynes",
+      "title": "Alkynes",
+      "terms": [
+        "terminal alkyne",
+        "terminal alkynes",
+        "acetylide",
+        "acetylide ion",
+        "Lindlar catalyst",
+        "dissolving metal reduction",
+        "alkyne hydration",
+        "enol",
+        "enols",
+        "keto–enol tautomerism",
+        "keto-enol tautomerism",
+        "tautomerism",
+        "tautomer",
+        "alkylation of alkynes",
+        "sodium amide",
+        "alkyne",
+        "alkynes"
+      ],
+      "body": [
+        "An alkyne has a C≡C bond, one σ and two π bonds, with sp carbons and a linear geometry (180°). The sp C–H is unusually acidic (pK_a 25) because the sp orbital is 50% s character, so a **terminal alkyne** is deprotonated by NaNH₂ (but not by hydroxide) to form an **acetylide** ion, a strong nucleophile. Acetylides react with primary alkyl halides by SN2 to make longer alkynes, a carbon–carbon bond-forming reaction:",
+        {
+          "eq": "HC≡C–R + NaNH₂ → Na⁺ ⁻C≡C–R;  then R′–Br → R–C≡C–R′"
+        },
+        {
+          "h": "Additions"
+        },
+        "Alkynes add HX, X₂ and H₂O like alkenes, though somewhat more slowly, and can add twice (the second molecule giving a geminal dihalide with HX, or a tetrahalide with X₂). With one equivalent of HBr the Markovnikov product is formed, and with peroxides the anti-Markovnikov product.",
+        "**Hydration** of an alkyne with H₂O, H₂SO₄ and HgSO₄ (Markovnikov) gives an **enol**, a compound with OH on a C=C, which rapidly **tautomerizes** to the isomeric carbonyl compound. A terminal alkyne gives a methyl ketone, and an internal alkyne gives a ketone (or a mixture of ketones if unsymmetrical). Hydroboration–oxidation (with a hindered borane such as 9-BBN or disiamylborane, then H₂O₂/NaOH) gives the anti-Markovnikov enol, so terminal alkynes give aldehydes.",
+        "**Keto–enol tautomerism** is the equilibrium between a carbonyl compound and its enol, catalyzed by acid or base. The keto form is usually far more stable (acetone is about 10⁸ times more stable than its enol), since C=O is stronger than C=C. It matters because enols and enolates are the reactive forms in carbonyl chemistry.",
+        {
+          "h": "Reductions"
+        },
+        {
+          "table": {
+            "head": [
+              "Reagent",
+              "Product from R–C≡C–R′",
+              "Stereochemistry"
+            ],
+            "rows": [
+              [
+                "H₂ (excess), Pd/C",
+                "Alkane",
+                "—"
+              ],
+              [
+                "H₂, **Lindlar catalyst** (Pd/CaCO₃, poisoned with Pb and quinoline)",
+                "cis-Alkene",
+                "syn addition"
+              ],
+              [
+                "Na or Li, liquid NH₃ (**dissolving metal reduction**)",
+                "trans-Alkene",
+                "anti: radical anion pathway"
+              ]
+            ],
+            "caption": "Partial reduction of alkynes gives either alkene geometry."
+          }
+        },
+        {
+          "example": {
+            "title": "Planning a synthesis",
+            "problem": "Prepare (Z)-hept-3-ene from 1-butyne and any alkyl halide.",
+            "solution": "Deprotonate 1-butyne with NaNH₂ and alkylate with 1-bromopropane: hept-3-yne (CH₃CH₂C≡CCH₂CH₂CH₃). Then reduce with H₂ over Lindlar catalyst for the cis alkene, (Z)-hept-3-ene. Na/NH₃ would give the E isomer."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "What converts hex-3-yne to (E)-hex-3-ene?",
+          "a": "Na, NH₃(l)",
+          "wrong": [
+            "H₂, Lindlar catalyst",
+            "H₂, Pd/C",
+            "BH₃ then H₂O₂"
+          ]
+        },
+        {
+          "q": "Hydration of propyne (H₂SO₄, HgSO₄, H₂O) gives…",
+          "a": "Acetone",
+          "wrong": [
+            "Propanal",
+            "Propan-2-ol",
+            "Propene"
+          ]
+        },
+        {
+          "q": "Why can NaNH₂ but not NaOH deprotonate a terminal alkyne?",
+          "a": "NH₂⁻ is a much stronger base than OH⁻, and the alkyne pK_a (25) lies between those of H₂O (15.7) and NH₃ (38)",
+          "wrong": [
+            "NaOH is insoluble",
+            "Hydroxide adds to the triple bond",
+            "NaNH₂ is a weaker base"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "More substituted alkenes are more stable (lower heat of hydrogenation), and trans is more stable than cis.",
+    "HX and H₃O⁺ add by Markovnikov’s rule through carbocations, so rearrangements are possible. Oxymercuration is Markovnikov without rearrangement. Hydroboration–oxidation is anti-Markovnikov and syn.",
+    "Halogens add anti through a bromonium ion. In water the product is a halohydrin with OH on the more substituted carbon.",
+    "mCPBA gives epoxides, OsO₄ gives syn diols, ozonolysis cleaves C=C, and Simmons–Smith gives cyclopropanes.",
+    "Radical reactions: HBr + peroxides adds anti-Markovnikov, bromination is selective for the most stable radical, and NBS brominates allylic positions.",
+    "Terminal alkynes (pK_a 25) form acetylides for SN2 alkylation. Alkyne hydration gives ketones (or aldehydes by hydroboration), Lindlar gives cis, and Na/NH₃ gives trans alkenes."
+  ],
+  "problems": [
+    {
+      "q": "Give the major product and stereochemistry: (a) 1-methylcyclohexene + HBr; (b) 1-methylcyclohexene + BH₃ then H₂O₂/NaOH; (c) cis-but-2-ene + OsO₄; (d) trans-but-2-ene + Br₂.",
+      "solution": "(a) 1-Bromo-1-methylcyclohexane (Markovnikov). (b) trans-2-Methylcyclohexanol (anti-Markovnikov, syn addition). (c) meso-Butane-2,3-diol (syn addition to a cis alkene). (d) meso-2,3-Dibromobutane (anti addition to a trans alkene).",
+      "a": "(a) tertiary bromide; (b) trans-2-methylcyclohexanol; (c) meso diol; (d) meso dibromide."
+    },
+    {
+      "q": "Starting from acetylene and alkyl halides of up to four carbons, synthesize (a) hex-2-yne, (b) (E)-hex-2-ene, (c) hexan-2-one.",
+      "solution": "(a) HC≡CH, NaNH₂, CH₃Br gives propyne; NaNH₂, then 1-bromopropane gives hex-2-yne. (b) Na, NH₃(l) reduces it to (E)-hex-2-ene. (c) Hydration of hex-2-yne would give two ketones; instead alkylate acetylene to give hex-1-yne (NaNH₂ then 1-bromobutane), then H₂SO₄, HgSO₄, H₂O gives hexan-2-one.",
+      "a": "See the solution."
+    },
+    {
+      "q": "An alkene of formula C₆H₁₀ gives only hexane-2,5-dione, CH₃COCH₂CH₂COCH₃, on ozonolysis with reductive workup. Identify it.",
+      "solution": "C₆H₁₀ has two degrees of unsaturation. Ozonolysis broke one C=C and gave a single six-carbon chain, so the other degree is a ring and the C=C is inside it. The two carbonyl carbons carry methyl groups and are joined by CH₂CH₂, so the alkene carbons each carry a methyl, and the ring is four-membered.",
+      "a": "1,2-Dimethylcyclobutene."
+    },
+    {
+      "q": "Explain why NBS and not Br₂ is used to convert cyclohexene to 3-bromocyclohexene.",
+      "solution": "Br₂ at normal concentrations adds across the C=C (to give trans-1,2-dibromide). NBS keeps [Br₂] very low, so ionic addition is slow and the radical chain (abstraction of the weak allylic H by Br•) wins.",
+      "a": "NBS keeps Br₂ low, favoring radical allylic substitution over addition."
+    }
+  ]
+}

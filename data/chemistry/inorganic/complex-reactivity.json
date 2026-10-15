@@ -1,0 +1,323 @@
+{
+  "id": "complex-reactivity",
+  "view": "chapter",
+  "title": "Reactivity of Coordination Compounds",
+  "description": "Ligand substitution mechanisms, lability and inertness, the trans effect, and electron-transfer reactions.",
+  "overview": [
+    "Stability and reactivity are different questions. A complex that is thermodynamically very stable can still exchange its ligands in microseconds, and one that is thermodynamically unstable can persist for years. The cobalt(III) ammines that Werner studied were hardly known to react, and that inertness is why their isomers could be separated. How fast a complex changes depends on its d-electron count, geometry and the pathway it follows.",
+    "This chapter deals with the rates and mechanisms of ligand substitution in octahedral and square planar complexes, the trans effect that guides the synthesis of platinum drugs, and the electron-transfer reactions between complexes, including Marcus theory."
+  ],
+  "objectives": [
+    "Distinguish labile from inert complexes, and relate lability to d-electron configuration.",
+    "Describe the dissociative, associative and interchange mechanisms, and how experiments tell them apart.",
+    "Write the Eigen–Wilkins mechanism and the SN1CB mechanism of base hydrolysis.",
+    "Explain substitution in square planar complexes and apply the trans effect to synthesize cis- and trans-[Pt(NH₃)₂Cl₂].",
+    "Distinguish inner-sphere from outer-sphere electron transfer, and apply the Marcus cross relation."
+  ],
+  "sections": [
+    {
+      "id": "lability",
+      "title": "Labile and inert complexes",
+      "terms": [
+        "ligand substitution",
+        "labile complex",
+        "labile complexes",
+        "inert complex",
+        "inert complexes",
+        "lability",
+        "inertness",
+        "water exchange rate",
+        "kinetic inertness",
+        "ligand field activation energy",
+        "thermodynamic stability versus kinetic stability"
+      ],
+      "body": [
+        "A **ligand substitution** replaces one ligand with another: [ML₅X] + Y → [ML₅Y] + X. Taube’s classification calls a complex **labile** if substitution is complete within about a minute at 25 °C (0.1 M solutions), and **inert** if it is slower. These are kinetic terms that must not be confused with thermodynamic stability: [Co(NH₃)₆]³⁺ is thermodynamically unstable toward aqueous acid (K for the hydrolysis is about 10²⁵) but survives for days because the reaction is so slow, whereas the very stable [Ni(CN)₄]²⁻ exchanges its cyanide quickly.",
+        "The rate of water exchange in [M(H₂O)₆]ⁿ⁺ is a convenient measure, and the d-electron count explains the pattern:",
+        {
+          "table": {
+            "head": [
+              "Aqua ion",
+              "d electrons",
+              "k (water exchange, s⁻¹)",
+              "Comment"
+            ],
+            "rows": [
+              [
+                "[Cu(H₂O)₆]²⁺",
+                "d⁹ (Jahn–Teller)",
+                "about 10⁹",
+                "Labile: elongated axial bonds"
+              ],
+              [
+                "[Fe(H₂O)₆]²⁺",
+                "d⁶ high spin",
+                "4 × 10⁶",
+                "Labile"
+              ],
+              [
+                "[Ni(H₂O)₆]²⁺",
+                "d⁸",
+                "3 × 10⁴",
+                "Labile but slower: large LFSE"
+              ],
+              [
+                "[V(H₂O)₆]³⁺",
+                "d²",
+                "about 10³",
+                "Moderately labile"
+              ],
+              [
+                "[Cr(H₂O)₆]³⁺",
+                "d³",
+                "2.4 × 10⁻⁶",
+                "**Inert** (half-life of days)"
+              ],
+              [
+                "[Co(H₂O)₆]³⁺ (and Co(III) ammines)",
+                "d⁶ low spin",
+                "very slow",
+                "**Inert**"
+              ],
+              [
+                "[Rh(H₂O)₆]³⁺",
+                "d⁶ low spin, 4d",
+                "about 10⁻⁹",
+                "Extremely inert"
+              ],
+              [
+                "[Ir(H₂O)₆]³⁺",
+                "d⁶ low spin, 5d",
+                "about 10⁻¹⁰",
+                "Extremely inert"
+              ]
+            ],
+            "caption": "Water exchange rates at 25 °C (approximate)."
+          }
+        },
+        "The pattern is explained by the **ligand field activation energy**, the loss of LFSE when the complex moves to the transition state, a five-coordinate square pyramid (dissociative) or a seven-coordinate pentagonal bipyramid (associative). Complexes with large LFSE in the octahedral ground state lose more on activation and are inert: **d³ (Cr³⁺, V²⁺) and low-spin d⁶ (Co³⁺, Rh³⁺, Ir³⁺, Fe(II) with CN⁻) are inert**, and so are low-spin d⁴, d⁵ and, with strong fields, d⁸. High-spin d⁴ and d⁹ complexes (Jahn–Teller distortion gives weak axial bonds), and d⁰, d¹, d², d⁵ (high spin) and d¹⁰ ions, are labile. Heavier metals (4d, 5d) are more inert than 3d metals because of their larger Δ and stronger bonds."
+      ],
+      "check": [
+        {
+          "q": "Which complex is inert?",
+          "a": "[Co(NH₃)₆]³⁺ (low-spin d⁶)",
+          "wrong": [
+            "[Cu(H₂O)₆]²⁺",
+            "[Fe(H₂O)₆]²⁺",
+            "[Zn(H₂O)₆]²⁺"
+          ]
+        },
+        {
+          "q": "Can a thermodynamically unstable complex be inert?",
+          "a": "Yes, if the reaction is kinetically slow",
+          "wrong": [
+            "No, instability means a fast reaction",
+            "Only if it is d¹⁰",
+            "Only in the solid state"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mechanisms",
+      "title": "Substitution mechanisms in octahedral complexes",
+      "terms": [
+        "associative mechanism",
+        "dissociative mechanism",
+        "interchange mechanism",
+        "Eigen–Wilkins mechanism",
+        "Eigen-Wilkins mechanism",
+        "SN1CB",
+        "base hydrolysis",
+        "activation volume",
+        "outer-sphere complex",
+        "dissociative interchange",
+        "associative interchange",
+        "Id mechanism",
+        "Ia mechanism"
+      ],
+      "body": [
+        "Substitution mechanisms are classified by the transition state.",
+        {
+          "list": [
+            "**Dissociative (D)**: the leaving group departs first, giving a five-coordinate intermediate of lower coordination number, which then captures the entering group (like SN1).",
+            "**Associative (A)**: the entering group attaches first, giving a seven-coordinate intermediate (like SN2). It is uncommon for octahedral complexes of the first row, but more common for large 4d and 5d metals.",
+            "**Interchange (I)**: no detectable intermediate. The entering and leaving groups exchange in a single step within an outer-sphere complex. If bond breaking dominates it is **Iₐ** (associative interchange) when bond making matters and **I_d** (dissociative interchange) when bond breaking leads. Most octahedral substitutions are **I_d**."
+          ]
+        },
+        "For octahedral complexes in water, the **Eigen–Wilkins mechanism** is the general model. The entering ligand Y first forms an outer-sphere ion pair with the complex in a rapid equilibrium (constant K_os, which depends on charges and size, about 0.1–10 M⁻¹), and the interchange step (rate constant k) then occurs within the pair:",
+        {
+          "eq": [
+            "[ML₅X] + Y ⇌ {[ML₅X]···Y}   (K_os)",
+            "{[ML₅X]···Y} → [ML₅Y] + X   (k)",
+            "k_obs = k K_os [Y] / (1 + K_os [Y])"
+          ]
+        },
+        "At low [Y] the rate is first order in Y, and at high [Y] it levels off (saturation), when all the complex is in the ion pair. In the saturated limit the rate no longer depends on the nature of Y, which is evidence for a dissociative interchange: the rate depends on how easily the leaving group departs. The **activation volume** ΔV‡ also distinguishes: positive for dissociative pathways (the transition state is larger than the reactants, as the leaving group moves away), negative for associative.",
+        {
+          "h": "Base hydrolysis"
+        },
+        "Ammine complexes of Co(III) hydrolyze in base according to rate = k[complex][OH⁻], though OH⁻ does not attack the metal directly. The **SN1CB** (substitution, nucleophilic, unimolecular, conjugate base) mechanism accounts for this: hydroxide first deprotonates a coordinated NH₃ in a fast equilibrium to give the amido complex [Co(NH₃)₄(NH₂)Cl]⁺. The amido ligand is a strong π-donor and labilizes the loss of chloride, giving a five-coordinate intermediate captured by water. The reaction is 10⁶ times faster than in neutral solution, and it only occurs for complexes with N–H groups."
+      ],
+      "check": [
+        {
+          "q": "In the Eigen–Wilkins mechanism, at high concentration of the entering ligand the rate…",
+          "a": "Reaches a limit independent of [Y]",
+          "wrong": [
+            "Increases without limit",
+            "Falls to zero",
+            "Becomes second order in Y"
+          ]
+        },
+        {
+          "q": "A positive activation volume suggests…",
+          "a": "A dissociative transition state",
+          "wrong": [
+            "An associative transition state",
+            "An electron transfer",
+            "No reaction"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "square-planar",
+      "title": "Square planar substitution and the trans effect",
+      "terms": [
+        "trans effect",
+        "trans influence",
+        "square planar substitution",
+        "synthesis of cisplatin",
+        "cisplatin synthesis",
+        "Chernyaev",
+        "trans effect series",
+        "associative substitution in square planar complexes"
+      ],
+      "body": [
+        "Square planar d⁸ complexes (Pt(II), Pd(II), Au(III), Ni(II) with strong ligands) are open to attack from above and below the plane, so they react by an **associative** mechanism through a five-coordinate trigonal bipyramidal intermediate. The rate law has two terms, rate = (k₁ + k₂[Y])[complex]: k₂ for direct attack by Y, and k₁ for a path in which solvent attacks first and Y then displaces the solvent. The rate depends strongly on the entering group (soft nucleophiles such as I⁻ and PR₃ are fast). Negative activation entropies and volumes support associative attack. Pt(II) complexes are about 10⁵ times less labile than Pd(II) ones, which is why the Pt drug cisplatin reacts slowly enough to be given intact.",
+        "A ligand in a square planar complex directs the substitution of the ligand trans to it. This **trans effect** gives the order:",
+        {
+          "eq": "CN⁻, CO, C₂H₄ > PR₃, H⁻ > CH₃⁻, SC(NH₂)₂ > C₆H₅⁻, SCN⁻, I⁻ > Br⁻ > Cl⁻ > py, NH₃ > OH⁻ > H₂O"
+        },
+        "Two effects contribute. A strong σ-donor (H⁻, CH₃⁻) weakens the bond trans to it in the ground state; this is the **trans influence** (a thermodynamic property, seen in bond lengths and IR and NMR coupling constants). A good π-acceptor (CO, C₂H₄, CN⁻) stabilizes the five-coordinate transition state by withdrawing electron density from the metal; this effect is kinetic. The trans effect is the basis of the selective synthesis of isomers:",
+        {
+          "example": {
+            "title": "Cisplatin and transplatin",
+            "problem": "Synthesize cis- and trans-[Pt(NH₃)₂Cl₂].",
+            "solution": [
+              "**Cis**: start from [PtCl₄]²⁻ and add NH₃. The first NH₃ replaces a chloride to give [Pt(NH₃)Cl₃]⁻. In this complex, the chloride trans to Cl is more labile than the chloride trans to NH₃, since Cl⁻ has a higher trans effect than NH₃, so the second NH₃ replaces a chloride trans to a chloride and ends up cis to the first NH₃: cis-[Pt(NH₃)₂Cl₂].",
+              "**Trans**: start from [Pt(NH₃)₄]²⁺ and add Cl⁻. The first Cl⁻ gives [Pt(NH₃)₃Cl]⁺. Now the NH₃ trans to Cl⁻ is the most labile, so the second Cl⁻ enters trans to the first: trans-[Pt(NH₃)₂Cl₂]."
+            ]
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Which ligand has the stronger trans effect?",
+          "a": "Cl⁻",
+          "wrong": [
+            "NH₃",
+            "H₂O",
+            "OH⁻"
+          ]
+        },
+        {
+          "q": "Substitution at a square planar d⁸ center is usually…",
+          "a": "Associative",
+          "wrong": [
+            "Dissociative",
+            "A radical chain",
+            "Not possible"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "electron-transfer",
+      "title": "Electron-transfer reactions",
+      "terms": [
+        "electron transfer",
+        "electron-transfer reactions",
+        "inner-sphere electron transfer",
+        "outer-sphere electron transfer",
+        "inner-sphere mechanism",
+        "outer-sphere mechanism",
+        "Marcus theory",
+        "Marcus cross relation",
+        "self-exchange",
+        "reorganization energy",
+        "bridging ligand",
+        "Taube",
+        "inverted region"
+      ],
+      "body": [
+        "Electron transfer between two complexes can occur by two mechanisms.",
+        {
+          "list": [
+            "**Outer-sphere**: the coordination spheres of the two complexes stay intact, and the electron tunnels from one to the other as they collide. It dominates when both partners are substitution-inert, as in [Fe(CN)₆]⁴⁻ + [IrCl₆]²⁻ → [Fe(CN)₆]³⁻ + [IrCl₆]³⁻.",
+            "**Inner-sphere**: a ligand bridges the two metal centers in the transition state, and electron transfer occurs through it. Taube’s classic experiment (Nobel Prize 1983) used [Co(NH₃)₅Cl]²⁺ (inert Co(III)) and [Cr(H₂O)₆]²⁺ (labile Cr(II)). The chloride bridges the two metals, the electron moves, and the products are [Co(H₂O)₆]²⁺ and [Cr(H₂O)₅Cl]²⁺, in which the chloride has transferred to Cr. This is inert Cr(III), so the transfer of Cl is proof of the bridge."
+          ]
+        },
+        {
+          "h": "Marcus theory"
+        },
+        "The rate depends on how much the nuclei must rearrange before the electron can jump, since the electron moves much faster than the nuclei (Franck–Condon principle). Marcus theory (Nobel Prize 1992) gives the activation energy in terms of the **reorganization energy** λ, the energy to distort the reactants and solvent into the geometry of the products without electron transfer. Reactions are slow when the bond lengths differ widely between oxidation states: the Co(III)/Co(II) self-exchange between low-spin t₂g⁶ and high-spin t₂g⁵e_g² is very slow because Co–N lengthens by 0.18 Å (k ≈ 10⁻⁹ M⁻¹ s⁻¹), but [Ru(NH₃)₆]³⁺/²⁺ (both t₂g, 0.04 Å change) exchanges at 10⁴ M⁻¹ s⁻¹.",
+        "The **Marcus cross relation** predicts the rate of a cross reaction from the self-exchange rate constants k₁₁ and k₂₂ of the two couples and the equilibrium constant K₁₂ of the cross reaction:",
+        {
+          "eq": "k₁₂ = √(k₁₁ k₂₂ K₁₂ f₁₂)     (f₁₂ ≈ 1 when K₁₂ is not too large)"
+        },
+        "A surprise of the theory is the **inverted region**: when the reaction is so exergonic that −ΔG° exceeds λ, the rate falls with increasing driving force. It was confirmed experimentally in 1984 and is important for photosynthesis and solar-energy conversion, since it keeps back-electron transfer slow.",
+        {
+          "example": {
+            "title": "Marcus cross relation",
+            "problem": "Two couples have self-exchange rate constants k₁₁ = 10² and k₂₂ = 10⁴ M⁻¹ s⁻¹, and the cross reaction has K₁₂ = 10⁶. Estimate k₁₂.",
+            "solution": "k₁₂ = (10² × 10⁴ × 10⁶)^{1/2} = (10¹²)^{1/2} = 10⁶ M⁻¹ s⁻¹ (taking f₁₂ = 1)."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "What was the evidence for the inner-sphere mechanism in Taube’s experiment?",
+          "a": "Chloride was transferred to the inert Cr(III) product",
+          "wrong": [
+            "The reaction was fast",
+            "Co(II) formed",
+            "The solution changed color"
+          ]
+        },
+        {
+          "q": "Why is the Co(III)/Co(II) self-exchange so slow?",
+          "a": "A large change in Co–N bond length between low-spin Co(III) and high-spin Co(II)",
+          "wrong": [
+            "Cobalt cannot change oxidation state",
+            "Co(II) is diamagnetic",
+            "The ligands are inert"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Labile complexes react in under a minute; inert ones are slower. d³ and low-spin d⁶ octahedral complexes, and 4d and 5d metals, are inert. High-spin d⁴ and d⁹ are labile.",
+    "Octahedral substitution is usually dissociative interchange, described by the Eigen–Wilkins mechanism. Base hydrolysis of Co(III) ammines follows SN1CB.",
+    "Square planar d⁸ complexes react associatively. The trans effect (CN⁻, CO > PR₃ > I⁻ > Cl⁻ > NH₃ > H₂O) controls which isomer forms, as in the syntheses of cis- and transplatin.",
+    "Electron transfer is outer-sphere (intact spheres) or inner-sphere (a bridging ligand). Marcus theory links the rate to reorganization energy: k₁₂ = √(k₁₁k₂₂K₁₂f₁₂)."
+  ],
+  "problems": [
+    {
+      "q": "Explain why [Cr(H₂O)₆]³⁺ exchanges water over days while [Cr(H₂O)₆]²⁺ exchanges almost instantly.",
+      "solution": "Cr(III) is d³: t₂g³ gives a large LFSE (−1.2Δₒ) that is lost in the transition state, so substitution is slow. Cr(II) is high-spin d⁴ with an e_g electron, so it is Jahn–Teller distorted, with weak axial bonds, and has little LFSE (−0.6Δₒ) to lose: labile.",
+      "a": "Cr(III) d³ has a large ligand field activation energy; Cr(II) is Jahn–Teller distorted."
+    },
+    {
+      "q": "How would you prepare cis-[PtCl₂(NH₃)(py)] from [PtCl₄]²⁻, and why do NH₃ and pyridine end up cis?",
+      "solution": "Add one equivalent of NH₃ to [PtCl₄]²⁻ to give [Pt(NH₃)Cl₃]⁻. In this complex the chloride trans to another chloride is more labile than the chloride trans to NH₃, because Cl⁻ has a larger trans effect than NH₃. Pyridine therefore replaces a chloride that is trans to chloride, and it ends up cis to the NH₃.",
+      "a": "Add NH₃ first, then pyridine; the trans effect of Cl⁻ directs the pyridine cis to NH₃."
+    },
+    {
+      "q": "A substitution of X by Y in an octahedral complex shows the rate = k_obs[complex], with k_obs the same for three different entering groups Y. What mechanism is suggested?",
+      "solution": "The rate does not depend on the entering group, so bond breaking to the leaving group controls the rate: a dissociative (D) or dissociative interchange (I_d) mechanism.",
+      "a": "Dissociative (D or I_d)."
+    }
+  ]
+}

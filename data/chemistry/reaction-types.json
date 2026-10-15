@@ -1,145 +1,768 @@
 {
-  "title": "Types of Reactions",
-  "description": "The main ways chemical reactions are classified, with the general form, how to recognize each, and worked examples.",
-  "category": ["Chemistry", "Types of Reactions"],
-  "view": "reaction-types",
-  "idField": "equation",
-  "modes": [
-    { "id": "equation-type", "label": "Equation → Reaction type", "question": "What type of reaction is this? {equation}", "answer": "type", "mcOnly": true },
-    { "id": "form-type", "label": "General form → Reaction type", "question": "Which type of reaction follows the pattern {form}?", "answer": "type", "mcOnly": true }
+  "id": "reactions",
+  "view": "chapter",
+  "title": "Types of Chemical Reactions",
+  "description": "Patterns of reactivity: classifying reactions, reactions in water, redox and the activity series.",
+  "overview": [
+    "There are millions of chemical reactions, but a short list of patterns covers most of them. Recognizing the pattern lets a chemist predict the products of a reaction never seen before, which is the practical skill of inorganic and general chemistry.",
+    "This chapter starts with the five classic types, then looks at reactions in water, where ions in solution give three recurring outcomes: a precipitate forms, an acid neutralizes a base, or electrons are transferred. It ends with the half-reaction method for balancing redox equations and the activity series."
   ],
-  "types": [
+  "objectives": [
+    "Classify a reaction as synthesis, decomposition, single replacement, double replacement or combustion.",
+    "Use solubility rules to predict precipitates, and write molecular, complete ionic and net ionic equations.",
+    "Recognize acid–base neutralization and gas-forming reactions.",
+    "Assign oxidation states, identify what is oxidized and reduced, and name the oxidizing and reducing agents.",
+    "Balance redox equations by the half-reaction method in acid and in base.",
+    "Use the activity series to predict displacement reactions."
+  ],
+  "sections": [
     {
-      "id": "synthesis", "name": "Synthesis", "aka": "Combination", "form": "A + B → AB",
-      "summary": "Two or more simple substances combine to form one more complex product.",
-      "recognize": [
-        "Several reactants, one product.",
-        "Often two elements forming a compound, or a compound adding to another to make a bigger one.",
-        "Usually releases energy."
+      "id": "classes",
+      "title": "Five classic reaction types",
+      "terms": [],
+      "subs": [
+        {
+          "id": "synthesis",
+          "title": "Synthesis reactions",
+          "terms": [
+            "synthesis reaction",
+            "synthesis reactions",
+            "combination reaction"
+          ],
+          "body": [
+            {
+              "eq": "A + B → AB"
+            },
+            "Two or more simple substances combine into one more complex product. Look for several reactants and one product. These reactions usually release energy.",
+            {
+              "eqs": [
+                [
+                  "2Na + Cl₂ → 2NaCl",
+                  "two elements make a salt"
+                ],
+                [
+                  "N₂ + 3H₂ → 2NH₃",
+                  "the Haber process"
+                ],
+                [
+                  "CaO + H₂O → Ca(OH)₂",
+                  "slaking lime"
+                ],
+                [
+                  "SO₃ + H₂O → H₂SO₄",
+                  "acid rain formation"
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "id": "decomposition",
+          "title": "Decomposition reactions",
+          "terms": [
+            "decomposition reaction",
+            "thermal decomposition"
+          ],
+          "body": [
+            {
+              "eq": "AB → A + B"
+            },
+            "One compound breaks into two or more simpler substances. It is the reverse of synthesis and usually needs heat, light or electricity.",
+            {
+              "eqs": [
+                [
+                  "2H₂O₂ → 2H₂O + O₂",
+                  "catalyzed by MnO₂ or an enzyme"
+                ],
+                [
+                  "CaCO₃ → CaO + CO₂",
+                  "heating limestone to make cement"
+                ],
+                [
+                  "2KClO₃ → 2KCl + 3O₂",
+                  "oxygen generation"
+                ],
+                [
+                  "2HgO → 2Hg + O₂",
+                  "Priestley’s oxygen"
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "id": "single",
+          "title": "Single replacement",
+          "terms": [
+            "single replacement",
+            "single displacement",
+            "single-replacement reaction",
+            "displacement reaction"
+          ],
+          "body": [
+            {
+              "eq": "A + BC → AC + B"
+            },
+            "One element takes the place of another in a compound. A metal replaces another metal, or hydrogen, only if it is more reactive. A halogen replaces a less reactive halogen. The activity series, below, predicts which reactions go.",
+            {
+              "eqs": [
+                [
+                  "Zn + CuSO₄ → ZnSO₄ + Cu",
+                  "zinc displaces copper"
+                ],
+                [
+                  "Mg + 2HCl → MgCl₂ + H₂",
+                  "a metal displaces hydrogen from an acid"
+                ],
+                [
+                  "Cl₂ + 2NaBr → 2NaCl + Br₂",
+                  "chlorine displaces bromine"
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "id": "double",
+          "title": "Double replacement",
+          "terms": [
+            "double replacement",
+            "double displacement",
+            "metathesis",
+            "double-replacement reaction",
+            "exchange reaction"
+          ],
+          "body": [
+            {
+              "eq": "AB + CD → AD + CB"
+            },
+            "Two compounds swap partners. These reactions typically occur between ionic compounds in water and are driven by one product leaving the solution: an insoluble solid, a gas, or a weak electrolyte such as water. No electrons are transferred.",
+            {
+              "eqs": [
+                [
+                  "AgNO₃ + NaCl → AgCl + NaNO₃",
+                  "AgCl is a white precipitate"
+                ],
+                [
+                  "BaCl₂ + Na₂SO₄ → BaSO₄ + 2NaCl",
+                  "a test for sulfate"
+                ],
+                [
+                  "Pb(NO₃)₂ + 2KI → PbI₂ + 2KNO₃",
+                  "PbI₂ is a yellow precipitate"
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "id": "combustion",
+          "title": "Combustion",
+          "terms": [
+            "combustion",
+            "combustion reaction",
+            "complete combustion",
+            "incomplete combustion"
+          ],
+          "body": [
+            {
+              "eq": "fuel + O₂ → oxides"
+            },
+            "A substance reacts rapidly with oxygen, releasing heat and often light. Complete combustion of a hydrocarbon or an alcohol gives CO₂ and H₂O. With limited oxygen, incomplete combustion also produces carbon monoxide and soot.",
+            {
+              "eqs": [
+                [
+                  "CH₄ + 2O₂ → CO₂ + 2H₂O",
+                  "natural gas"
+                ],
+                [
+                  "C₃H₈ + 5O₂ → 3CO₂ + 4H₂O",
+                  "propane"
+                ],
+                [
+                  "C₂H₅OH + 3O₂ → 2CO₂ + 3H₂O",
+                  "ethanol"
+                ],
+                [
+                  "2C₄H₁₀ + 13O₂ → 8CO₂ + 10H₂O",
+                  "butane"
+                ]
+              ]
+            },
+            {
+              "note": "These categories overlap. Combustion of a metal, like 2Mg + O₂ → 2MgO, is also a synthesis, and single replacement is also a redox reaction. Classes are guides to prediction, not exclusive boxes."
+            }
+          ]
+        }
       ],
-      "realWorld": [
-        "The Haber process joins nitrogen and hydrogen to make ammonia for fertilizer.",
-        "Quicklime (CaO) reacts with water to form slaked lime, Ca(OH)₂, used in mortar.",
-        "Iron rusting: 4Fe + 3O₂ → 2Fe₂O₃."
+      "check": [
+        {
+          "q": "Fe + CuCl₂ → FeCl₂ + Cu is a…",
+          "a": "Single replacement",
+          "wrong": [
+            "Double replacement",
+            "Synthesis",
+            "Decomposition"
+          ]
+        },
+        {
+          "q": "Heating CaCO₃ gives CaO and CO₂. This is a…",
+          "a": "Decomposition",
+          "wrong": [
+            "Synthesis",
+            "Combustion",
+            "Single replacement"
+          ]
+        }
       ]
     },
     {
-      "id": "decomposition", "name": "Decomposition", "form": "AB → A + B",
-      "summary": "One compound breaks down into two or more simpler substances.",
-      "recognize": [
-        "One reactant, several products.",
-        "Needs an input of energy: heat, light or electricity.",
-        "It is the opposite of synthesis."
+      "id": "aqueous",
+      "title": "Reactions in aqueous solution",
+      "terms": [
+        "electrolyte",
+        "electrolytes",
+        "strong electrolyte",
+        "weak electrolyte",
+        "nonelectrolyte",
+        "net ionic equation",
+        "net ionic equations",
+        "complete ionic equation",
+        "spectator ions",
+        "spectator ion",
+        "precipitate",
+        "precipitates",
+        "precipitating",
+        "precipitation",
+        "precipitation reaction",
+        "solubility rules",
+        "solubility",
+        "insoluble"
       ],
-      "realWorld": [
-        "Electrolysis splits water into hydrogen and oxygen.",
-        "Heating limestone (CaCO₃) gives lime and carbon dioxide, a step in making cement.",
-        "Sodium azide in a car airbag decomposes to nitrogen gas in milliseconds."
+      "body": [
+        "Water dissolves many ionic compounds by separating them into ions. A solute that produces ions and conducts electricity is an **electrolyte**. A **strong electrolyte** is fully dissociated: soluble ionic compounds, strong acids and strong bases. A **weak electrolyte** (acetic acid, ammonia) is only partly ionized. A **nonelectrolyte** (sugar, ethanol) stays as molecules.",
+        "A **precipitate** is an insoluble solid that forms when ions combine in solution. Whether a compound is soluble follows empirical **solubility rules**:",
+        {
+          "table": {
+            "head": [
+              "Compounds containing…",
+              "Soluble?",
+              "Exceptions"
+            ],
+            "rows": [
+              [
+                "Group 1 cations (Na⁺, K⁺…), NH₄⁺",
+                "Soluble",
+                "None"
+              ],
+              [
+                "NO₃⁻, CH₃COO⁻, ClO₃⁻, ClO₄⁻",
+                "Soluble",
+                "None (AgCH₃COO is slightly soluble)"
+              ],
+              [
+                "Cl⁻, Br⁻, I⁻",
+                "Soluble",
+                "Ag⁺, Pb²⁺, Hg₂²⁺"
+              ],
+              [
+                "SO₄²⁻",
+                "Soluble",
+                "Ba²⁺, Sr²⁺, Pb²⁺; Ca²⁺ and Ag⁺ slightly"
+              ],
+              [
+                "OH⁻",
+                "Insoluble",
+                "Group 1, Ba²⁺, Sr²⁺; Ca²⁺ slightly"
+              ],
+              [
+                "CO₃²⁻, PO₄³⁻, S²⁻, CrO₄²⁻",
+                "Insoluble",
+                "Group 1 and NH₄⁺ (sulfides also of Group 2)"
+              ]
+            ],
+            "caption": "Solubility rules for ionic compounds in water."
+          }
+        },
+        "Three kinds of equation describe the same reaction. For silver nitrate and sodium chloride:",
+        {
+          "eq": [
+            "Molecular:  AgNO₃(aq) + NaCl(aq) → AgCl(s) + NaNO₃(aq)",
+            "Complete ionic:  Ag⁺ + NO₃⁻ + Na⁺ + Cl⁻ → AgCl(s) + Na⁺ + NO₃⁻",
+            "Net ionic:  Ag⁺(aq) + Cl⁻(aq) → AgCl(s)"
+          ]
+        },
+        "**Spectator ions** (Na⁺, NO₃⁻) appear unchanged on both sides and are removed to give the **net ionic equation**, which shows only what actually reacts. Write soluble strong electrolytes as ions. Write solids, liquids, gases and weak electrolytes in molecular form.",
+        {
+          "example": {
+            "title": "Predicting a precipitate",
+            "problem": "Will a precipitate form when solutions of Na₂CO₃ and CaCl₂ are mixed? Write the net ionic equation.",
+            "solution": [
+              "Swapping partners gives CaCO₃ and NaCl. By the rules, carbonates are insoluble (Ca²⁺ is not an exception) and chlorides are soluble. CaCO₃ precipitates.",
+              {
+                "eq": "Ca²⁺(aq) + CO₃²⁻(aq) → CaCO₃(s)"
+              }
+            ]
+          }
+        },
+        {
+          "tip": "Solubility is quantified by the solubility product, Ksp. See the chapter on aqueous equilibria."
+        }
+      ],
+      "check": [
+        {
+          "q": "Which compound is insoluble in water?",
+          "a": "BaSO₄",
+          "wrong": [
+            "NaNO₃",
+            "(NH₄)₂CO₃",
+            "CaCl₂"
+          ]
+        },
+        {
+          "q": "What are the spectator ions when KOH and HNO₃ react?",
+          "a": "K⁺ and NO₃⁻",
+          "wrong": [
+            "H⁺ and OH⁻",
+            "K⁺ and OH⁻",
+            "There are none"
+          ]
+        }
       ]
     },
     {
-      "id": "single", "name": "Single replacement", "aka": "Single displacement", "form": "A + BC → AC + B",
-      "summary": "One element takes the place of another element in a compound.",
-      "recognize": [
-        "An element and a compound on the left, a different element and a different compound on the right.",
-        "A metal replaces another metal (or hydrogen) only if it is more reactive. A halogen replaces a less reactive halogen.",
-        "The activity series predicts whether the reaction will happen."
+      "id": "acid-base",
+      "title": "Acid–base and gas-forming reactions",
+      "terms": [
+        "neutralization",
+        "neutralisation",
+        "acid–base reaction",
+        "acid-base reaction",
+        "acid–base reactions",
+        "gas-forming reaction",
+        "strong acids and bases"
       ],
-      "realWorld": [
-        "An iron nail dropped in copper sulfate solution becomes coated with copper.",
-        "Zinc dissolving in acid gives off hydrogen gas.",
-        "A zinc coating protects steel because zinc is more reactive than iron."
+      "body": [
+        "In a **neutralization** an acid reacts with a base to give a salt and water. The common strong acids are HCl, HBr, HI, HNO₃, H₂SO₄ (first proton), HClO₄ and HClO₃. The common strong bases are the hydroxides of Group 1 and of Ca, Sr and Ba. Strong acids and bases are fully dissociated, so for any of them the net ionic equation is the same:",
+        {
+          "eq": [
+            "HCl + NaOH → NaCl + H₂O",
+            "H⁺(aq) + OH⁻(aq) → H₂O(l)"
+          ]
+        },
+        "A weak acid or base appears in molecular form: CH₃COOH + OH⁻ → CH₃COO⁻ + H₂O. A neutralization releases about 56 kJ per mole of water formed for strong acid with strong base.",
+        {
+          "h": "Gas-forming reactions"
+        },
+        "Some double replacements remove a product as a gas. Carbonates and bicarbonates react with acids to give CO₂, sulfites give SO₂, and sulfides give H₂S. The intermediate acids H₂CO₃ and H₂SO₃ decompose:",
+        {
+          "eq": [
+            "CaCO₃(s) + 2HCl(aq) → CaCl₂(aq) + H₂O(l) + CO₂(g)",
+            "NH₄⁺ + OH⁻ → NH₃(g) + H₂O"
+          ]
+        },
+        "The definitions of acids and bases, and the quantitative treatment of pH, are in the chapter on acids and bases."
+      ],
+      "check": [
+        {
+          "q": "What is the net ionic equation for HNO₃ + KOH?",
+          "a": "H⁺ + OH⁻ → H₂O",
+          "wrong": [
+            "HNO₃ + KOH → KNO₃ + H₂O",
+            "K⁺ + NO₃⁻ → KNO₃",
+            "H⁺ + NO₃⁻ → HNO₃"
+          ]
+        },
+        {
+          "q": "What gas is released when limestone reacts with vinegar?",
+          "a": "CO₂",
+          "wrong": [
+            "H₂",
+            "O₂",
+            "SO₂"
+          ]
+        }
       ]
     },
     {
-      "id": "double", "name": "Double replacement", "aka": "Double displacement, metathesis", "form": "AB + CD → AD + CB",
-      "summary": "Two compounds swap partners to form two new compounds.",
-      "recognize": [
-        "Two compounds on each side, usually ionic compounds dissolved in water.",
-        "It goes forward when a product leaves the solution: an insoluble solid (a precipitate), a gas, or water.",
-        "No electrons are transferred, so it is not a redox reaction."
+      "id": "redox",
+      "title": "Oxidation–reduction reactions",
+      "terms": [
+        "oxidation state",
+        "oxidation states",
+        "oxidation number",
+        "oxidation numbers",
+        "oxidation",
+        "reduction",
+        "oxidized",
+        "oxidised",
+        "oxidizing agent",
+        "reducing agent",
+        "oxidant",
+        "reductant",
+        "OIL RIG",
+        "redox",
+        "redox reaction",
+        "redox reactions",
+        "disproportionation",
+        "oxidation–reduction"
       ],
-      "realWorld": [
-        "Adding silver nitrate to a solution that contains chloride makes a white precipitate of AgCl, a classic test.",
-        "Hard water forms scale (CaCO₃) when calcium and carbonate ions meet.",
-        "Water treatment can remove dissolved metals by precipitating them."
+      "body": [
+        "In a **redox** reaction, electrons are transferred. **Oxidation** is the loss of electrons and **reduction** is the gain of electrons (“OIL RIG”: oxidation is loss, reduction is gain). The two always occur together. The species oxidized is the **reducing agent**, since it supplies the electrons. The species reduced is the **oxidizing agent**.",
+        "To follow electrons in covalent compounds, chemists assign **oxidation states**, the charge an atom would have if all bonds were ionic, with shared electrons given to the more electronegative atom.",
+        {
+          "list": [
+            "An atom in an element has oxidation state 0 (Na, O₂, S₈).",
+            "A monatomic ion has an oxidation state equal to its charge.",
+            "The oxidation states in a species add up to its total charge.",
+            "Group 1 is +1 and Group 2 is +2 in compounds. F is −1.",
+            "H is +1 (−1 in metal hydrides such as NaH). O is −2 (−1 in peroxides such as H₂O₂).",
+            "Other halogens are −1, except in compounds with O or F."
+          ]
+        },
+        "A rise in oxidation state is oxidation, and a drop is reduction.",
+        {
+          "example": {
+            "title": "Assigning oxidation states",
+            "problem": "Find the oxidation state of (a) Cr in Cr₂O₇²⁻, (b) N in NO₃⁻ and in NH₄⁺, (c) Mn in MnO₄⁻.",
+            "solution": [
+              "(a) 2x + 7(−2) = −2, so x = +6. (b) x + 3(−2) = −1 gives +5 for N in NO₃⁻; x + 4(+1) = +1 gives −3 for N in NH₄⁺. (c) x + 4(−2) = −1, so Mn is +7."
+            ]
+          }
+        },
+        {
+          "example": {
+            "title": "Identifying the agents",
+            "problem": "In 2Al + Fe₂O₃ → Al₂O₃ + 2Fe, what is oxidized and what is reduced?",
+            "solution": "Al goes from 0 to +3: oxidized, so Al is the reducing agent. Fe goes from +3 to 0: reduced, so Fe₂O₃ is the oxidizing agent. This is the thermite reaction."
+          }
+        },
+        "In **disproportionation** a single species is both oxidized and reduced. For example, chlorine in cold dilute base: Cl₂ + 2OH⁻ → Cl⁻ + ClO⁻ + H₂O (Cl goes from 0 to −1 and to +1)."
+      ],
+      "check": [
+        {
+          "q": "In MnO₄⁻ + 8H⁺ + 5Fe²⁺ → Mn²⁺ + 4H₂O + 5Fe³⁺, the oxidizing agent is…",
+          "a": "MnO₄⁻",
+          "wrong": [
+            "Fe²⁺",
+            "H⁺",
+            "Mn²⁺"
+          ],
+          "why": "Mn goes from +7 to +2, so it is reduced; its species is the oxidizing agent."
+        },
+        {
+          "q": "What is the oxidation state of sulfur in H₂SO₄?",
+          "a": "+6",
+          "wrong": [
+            "+4",
+            "+2",
+            "−2"
+          ]
+        }
       ]
     },
     {
-      "id": "combustion", "name": "Combustion", "form": "fuel + O₂ → CO₂ + H₂O",
-      "summary": "A substance reacts quickly with oxygen and releases heat and light. For a hydrocarbon fuel the products are carbon dioxide and water.",
-      "recognize": [
-        "Oxygen is a reactant.",
-        "A hydrocarbon or alcohol on the left, CO₂ and H₂O on the right.",
-        "Strongly exothermic.",
-        "With too little oxygen, combustion is incomplete and gives carbon monoxide or soot instead."
+      "id": "half-reactions",
+      "title": "Balancing redox equations",
+      "terms": [
+        "half-reaction",
+        "half-reactions",
+        "half-reaction method",
+        "balancing redox equations"
       ],
-      "realWorld": [
-        "Gas stoves, furnaces and car engines.",
-        "A burning candle.",
-        "Cellular respiration is a slow, controlled form of the same reaction with glucose."
+      "body": [
+        "Redox equations must balance atoms and charge, so electrons lost must equal electrons gained. The **half-reaction method** splits the reaction into an oxidation and a reduction, balances each, then combines them.",
+        {
+          "list": [
+            "Write and balance each half-reaction for all elements except O and H.",
+            "Balance O by adding H₂O. Balance H by adding H⁺.",
+            "Balance charge by adding electrons.",
+            "Multiply the half-reactions so that the electrons cancel, and add them.",
+            "In basic solution, add OH⁻ to both sides equal to the number of H⁺, combine H⁺ and OH⁻ into H₂O, and cancel duplicate water."
+          ],
+          "ordered": true
+        },
+        {
+          "example": {
+            "title": "In acid: permanganate and iron(II)",
+            "problem": "Balance MnO₄⁻ + Fe²⁺ → Mn²⁺ + Fe³⁺ in acidic solution.",
+            "solution": [
+              {
+                "eq": [
+                  "Reduction:  MnO₄⁻ + 8H⁺ + 5e⁻ → Mn²⁺ + 4H₂O",
+                  "Oxidation:  Fe²⁺ → Fe³⁺ + e⁻   (×5)"
+                ]
+              },
+              {
+                "eq": "MnO₄⁻ + 8H⁺ + 5Fe²⁺ → Mn²⁺ + 4H₂O + 5Fe³⁺"
+              },
+              "Check the charge: left −1 + 8 + 10 = +17, right +2 + 15 = +17."
+            ]
+          }
+        },
+        {
+          "example": {
+            "title": "In base: permanganate and iodide",
+            "problem": "Balance MnO₄⁻ + I⁻ → MnO₂ + I₂ in basic solution.",
+            "solution": [
+              {
+                "eq": [
+                  "Reduction:  MnO₄⁻ + 2H₂O + 3e⁻ → MnO₂ + 4OH⁻   (×2)",
+                  "Oxidation:  2I⁻ → I₂ + 2e⁻   (×3)"
+                ]
+              },
+              {
+                "eq": "2MnO₄⁻ + 6I⁻ + 4H₂O → 2MnO₂ + 3I₂ + 8OH⁻"
+              },
+              "Each half-reaction was balanced in acid first (MnO₄⁻ + 4H⁺ + 3e⁻ → MnO₂ + 2H₂O), then 4OH⁻ was added to both sides to neutralize the H⁺."
+            ]
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "In the half-reaction MnO₄⁻ → Mn²⁺ in acid, how many electrons are on the left?",
+          "a": "5",
+          "wrong": [
+            "7",
+            "2",
+            "8"
+          ],
+          "why": "Mn changes from +7 to +2."
+        },
+        {
+          "q": "In the half-reaction method for a basic solution, you first balance as if in acid, then…",
+          "a": "Add OH⁻ to both sides to turn H⁺ into water",
+          "wrong": [
+            "Remove all the water",
+            "Replace e⁻ with OH⁻",
+            "Multiply by 2"
+          ]
+        }
       ]
     },
     {
-      "id": "acid-base", "name": "Acid–base", "aka": "Neutralization", "form": "HA + BOH → BA + H₂O",
-      "summary": "An acid reacts with a base to form a salt and water.",
-      "recognize": [
-        "An acid (a source of H⁺) and a base (a source of OH⁻) are the reactants.",
-        "The products are an ionic salt and water.",
-        "It is a special case of double replacement.",
-        "The net ionic equation is H⁺ + OH⁻ → H₂O."
+      "id": "activity",
+      "title": "The activity series",
+      "terms": [
+        "activity series",
+        "reactivity series",
+        "metal activity series"
       ],
-      "realWorld": [
-        "Antacids neutralize excess stomach acid.",
-        "Farmers add lime to acidic soil.",
-        "Baking soda is used to neutralize an acid spill."
-      ]
-    },
-    {
-      "id": "redox", "name": "Redox", "aka": "Oxidation–reduction", "form": "electrons transferred between species", "quiz": false,
-      "summary": "A reaction in which electrons move from one species to another. The species that loses electrons is oxidized, and the one that gains them is reduced.",
-      "recognize": [
-        "Oxidation numbers change.",
-        "OIL RIG: Oxidation Is Loss, Reduction Is Gain, of electrons.",
-        "It overlaps the other types. Many synthesis, decomposition, single replacement and combustion reactions are redox. Double replacement and acid–base reactions are not.",
-        "The oxidizing agent is the species that gets reduced, and the reducing agent is the species that gets oxidized."
+      "body": [
+        "The **activity series** ranks metals by how easily they are oxidized. A metal displaces any ion below it in the series from solution, and a metal above hydrogen displaces H₂ from acid.",
+        {
+          "eq": "Li > K > Ba > Ca > Na > Mg > Al > Zn > Fe > Ni > Sn > Pb > (H) > Cu > Ag > Au"
+        },
+        {
+          "list": [
+            "Li, K, Ba, Ca and Na react with cold water to give H₂ and the hydroxide.",
+            "Mg reacts with steam; Al, Zn and Fe react with acids but not with cold water.",
+            "Metals below hydrogen (Cu, Ag, Au) do not react with ordinary acids. Cu dissolves in oxidizing HNO₃, which reacts through nitrate, not H⁺.",
+            "For the halogens the order is F₂ > Cl₂ > Br₂ > I₂, so Cl₂ oxidizes Br⁻ but not F⁻."
+          ]
+        },
+        "The series follows from standard reduction potentials, as explained in the chapter on electrochemistry. It also explains galvanized steel: zinc is above iron, so it is oxidized first and protects the steel beneath.",
+        {
+          "example": {
+            "title": "Predicting a displacement",
+            "problem": "Will a reaction occur? (a) Cu + ZnSO₄, (b) Zn + CuSO₄, (c) Br₂ + NaCl.",
+            "solution": "(a) No: Cu is below Zn. (b) Yes: Zn is above Cu, giving ZnSO₄ + Cu. (c) No: Br₂ is less reactive than Cl₂."
+          }
+        }
       ],
-      "realWorld": [
-        "Batteries turn a redox reaction into electric current.",
-        "Rusting of iron.",
-        "Bleach works by oxidizing stains."
+      "check": [
+        {
+          "q": "Which metal will react with dilute HCl to give hydrogen?",
+          "a": "Zn",
+          "wrong": [
+            "Cu",
+            "Ag",
+            "Au"
+          ]
+        },
+        {
+          "q": "Why does a zinc coating protect steel?",
+          "a": "Zinc is more easily oxidized than iron, so it corrodes first",
+          "wrong": [
+            "Zinc is less reactive than iron",
+            "Zinc reacts with water to form a seal",
+            "Zinc is harder than iron"
+          ]
+        }
       ]
     }
   ],
+  "summary": [
+    "Five classic types: synthesis, decomposition, single replacement, double replacement and combustion. The classes overlap, and they are guides to predict products.",
+    "In water, strong electrolytes dissociate. Solubility rules predict precipitates. A net ionic equation drops spectator ions.",
+    "Neutralization is H⁺ + OH⁻ → H₂O for strong acids and bases. Carbonates and sulfides react with acids to give gases.",
+    "Oxidation is loss of electrons, with a rise in oxidation state. The reducing agent is oxidized and the oxidizing agent is reduced.",
+    "The half-reaction method balances atoms and charge. In base, convert H⁺ to water with OH⁻.",
+    "More active metals displace less active ones from solution."
+  ],
+  "problems": [
+    {
+      "q": "Write the molecular, complete ionic and net ionic equations for the reaction of aqueous Pb(NO₃)₂ with aqueous Na₂SO₄.",
+      "solution": "Molecular: Pb(NO₃)₂(aq) + Na₂SO₄(aq) → PbSO₄(s) + 2NaNO₃(aq). Complete ionic: Pb²⁺ + 2NO₃⁻ + 2Na⁺ + SO₄²⁻ → PbSO₄(s) + 2Na⁺ + 2NO₃⁻. Spectators Na⁺ and NO₃⁻ cancel.",
+      "a": "Pb²⁺(aq) + SO₄²⁻(aq) → PbSO₄(s)"
+    },
+    {
+      "q": "Balance in acidic solution: Cr₂O₇²⁻ + C₂H₅OH → Cr³⁺ + CH₃COOH.",
+      "solution": "Reduction: Cr₂O₇²⁻ + 14H⁺ + 6e⁻ → 2Cr³⁺ + 7H₂O. Oxidation: C₂H₅OH + H₂O → CH₃COOH + 4H⁺ + 4e⁻. Multiply reduction by 2 and oxidation by 3 (12 electrons) and add: 2Cr₂O₇²⁻ + 28H⁺ + 3C₂H₅OH + 3H₂O → 4Cr³⁺ + 14H₂O + 3CH₃COOH + 12H⁺. Cancel: 2Cr₂O₇²⁻ + 16H⁺ + 3C₂H₅OH → 4Cr³⁺ + 11H₂O + 3CH₃COOH.",
+      "a": "2Cr₂O₇²⁻ + 16H⁺ + 3C₂H₅OH → 4Cr³⁺ + 11H₂O + 3CH₃COOH"
+    },
+    {
+      "q": "Find the oxidation state of each element: (a) S in S₂O₃²⁻, (b) C in CH₃OH, (c) Cl in HClO₃, (d) Fe in Fe₃O₄.",
+      "solution": "(a) 2x + 3(−2) = −2, x = +2 (average). (b) x + 4(+1) + (−2) = 0, x = −2. (c) 1 + x + 3(−2) = 0, x = +5. (d) 3x + 4(−2) = 0, x = +8/3 (average; it contains Fe²⁺ and Fe³⁺).",
+      "a": "(a) +2, (b) −2, (c) +5, (d) +8/3."
+    },
+    {
+      "q": "Predict the products, or write no reaction: (a) Mg + Zn(NO₃)₂, (b) Ag + HCl, (c) I₂ + NaBr.",
+      "solution": "(a) Mg is above Zn: Mg(NO₃)₂ + Zn. (b) Ag is below H: no reaction. (c) I₂ is less reactive than Br₂: no reaction.",
+      "a": "(a) Mg(NO₃)₂ + Zn; (b) none; (c) none."
+    }
+  ],
+  "idField": "equation",
+  "modes": [
+    {
+      "id": "equation-type",
+      "label": "Equation → Reaction type",
+      "question": "What type of reaction is this? {equation}",
+      "answer": "type",
+      "mcOnly": true
+    }
+  ],
   "items": [
-    { "equation": "2Na + Cl₂ → 2NaCl", "type": "Synthesis", "form": "A + B → AB" },
-    { "equation": "N₂ + 3H₂ → 2NH₃", "type": "Synthesis", "form": "A + B → AB", "note": "The Haber process." },
-    { "equation": "CaO + H₂O → Ca(OH)₂", "type": "Synthesis", "form": "A + B → AB" },
-    { "equation": "SO₃ + H₂O → H₂SO₄", "type": "Synthesis", "form": "A + B → AB" },
-
-    { "equation": "2H₂O₂ → 2H₂O + O₂", "type": "Decomposition", "form": "AB → A + B" },
-    { "equation": "CaCO₃ → CaO + CO₂", "type": "Decomposition", "form": "AB → A + B", "note": "Heating limestone." },
-    { "equation": "2KClO₃ → 2KCl + 3O₂", "type": "Decomposition", "form": "AB → A + B" },
-    { "equation": "2HgO → 2Hg + O₂", "type": "Decomposition", "form": "AB → A + B" },
-
-    { "equation": "Zn + CuSO₄ → ZnSO₄ + Cu", "type": "Single replacement", "form": "A + BC → AC + B" },
-    { "equation": "Mg + 2HCl → MgCl₂ + H₂", "type": "Single replacement", "form": "A + BC → AC + B" },
-    { "equation": "Cl₂ + 2NaBr → 2NaCl + Br₂", "type": "Single replacement", "form": "A + BC → AC + B", "note": "A halogen replaces a less reactive halogen." },
-    { "equation": "Fe + CuCl₂ → FeCl₂ + Cu", "type": "Single replacement", "form": "A + BC → AC + B" },
-
-    { "equation": "AgNO₃ + NaCl → AgCl + NaNO₃", "type": "Double replacement", "form": "AB + CD → AD + CB", "note": "AgCl is the precipitate." },
-    { "equation": "BaCl₂ + Na₂SO₄ → BaSO₄ + 2NaCl", "type": "Double replacement", "form": "AB + CD → AD + CB", "note": "BaSO₄ is the precipitate." },
-    { "equation": "Pb(NO₃)₂ + 2KI → PbI₂ + 2KNO₃", "type": "Double replacement", "form": "AB + CD → AD + CB", "note": "PbI₂ is a yellow precipitate." },
-    { "equation": "CuSO₄ + 2NaOH → Cu(OH)₂ + Na₂SO₄", "type": "Double replacement", "form": "AB + CD → AD + CB" },
-
-    { "equation": "CH₄ + 2O₂ → CO₂ + 2H₂O", "type": "Combustion", "form": "fuel + O₂ → CO₂ + H₂O", "note": "Burning natural gas." },
-    { "equation": "C₃H₈ + 5O₂ → 3CO₂ + 4H₂O", "type": "Combustion", "form": "fuel + O₂ → CO₂ + H₂O", "note": "Burning propane." },
-    { "equation": "C₂H₅OH + 3O₂ → 2CO₂ + 3H₂O", "type": "Combustion", "form": "fuel + O₂ → CO₂ + H₂O", "note": "Burning ethanol." },
-    { "equation": "2C₄H₁₀ + 13O₂ → 8CO₂ + 10H₂O", "type": "Combustion", "form": "fuel + O₂ → CO₂ + H₂O", "note": "Burning butane." },
-
-    { "equation": "HCl + NaOH → NaCl + H₂O", "type": "Acid–base", "form": "HA + BOH → BA + H₂O" },
-    { "equation": "H₂SO₄ + 2KOH → K₂SO₄ + 2H₂O", "type": "Acid–base", "form": "HA + BOH → BA + H₂O" },
-    { "equation": "HNO₃ + KOH → KNO₃ + H₂O", "type": "Acid–base", "form": "HA + BOH → BA + H₂O" },
-    { "equation": "2HCl + Ca(OH)₂ → CaCl₂ + 2H₂O", "type": "Acid–base", "form": "HA + BOH → BA + H₂O" }
+    {
+      "equation": "2Na + Cl₂ → 2NaCl",
+      "type": "Synthesis",
+      "form": "A + B → AB"
+    },
+    {
+      "equation": "N₂ + 3H₂ → 2NH₃",
+      "type": "Synthesis",
+      "form": "A + B → AB",
+      "note": "The Haber process."
+    },
+    {
+      "equation": "CaO + H₂O → Ca(OH)₂",
+      "type": "Synthesis",
+      "form": "A + B → AB"
+    },
+    {
+      "equation": "SO₃ + H₂O → H₂SO₄",
+      "type": "Synthesis",
+      "form": "A + B → AB"
+    },
+    {
+      "equation": "2H₂O₂ → 2H₂O + O₂",
+      "type": "Decomposition",
+      "form": "AB → A + B"
+    },
+    {
+      "equation": "CaCO₃ → CaO + CO₂",
+      "type": "Decomposition",
+      "form": "AB → A + B",
+      "note": "Heating limestone."
+    },
+    {
+      "equation": "2KClO₃ → 2KCl + 3O₂",
+      "type": "Decomposition",
+      "form": "AB → A + B"
+    },
+    {
+      "equation": "2HgO → 2Hg + O₂",
+      "type": "Decomposition",
+      "form": "AB → A + B"
+    },
+    {
+      "equation": "Zn + CuSO₄ → ZnSO₄ + Cu",
+      "type": "Single replacement",
+      "form": "A + BC → AC + B"
+    },
+    {
+      "equation": "Mg + 2HCl → MgCl₂ + H₂",
+      "type": "Single replacement",
+      "form": "A + BC → AC + B"
+    },
+    {
+      "equation": "Cl₂ + 2NaBr → 2NaCl + Br₂",
+      "type": "Single replacement",
+      "form": "A + BC → AC + B",
+      "note": "A halogen replaces a less reactive halogen."
+    },
+    {
+      "equation": "Fe + CuCl₂ → FeCl₂ + Cu",
+      "type": "Single replacement",
+      "form": "A + BC → AC + B"
+    },
+    {
+      "equation": "AgNO₃ + NaCl → AgCl + NaNO₃",
+      "type": "Double replacement",
+      "form": "AB + CD → AD + CB",
+      "note": "AgCl is the precipitate."
+    },
+    {
+      "equation": "BaCl₂ + Na₂SO₄ → BaSO₄ + 2NaCl",
+      "type": "Double replacement",
+      "form": "AB + CD → AD + CB",
+      "note": "BaSO₄ is the precipitate."
+    },
+    {
+      "equation": "Pb(NO₃)₂ + 2KI → PbI₂ + 2KNO₃",
+      "type": "Double replacement",
+      "form": "AB + CD → AD + CB",
+      "note": "PbI₂ is a yellow precipitate."
+    },
+    {
+      "equation": "CuSO₄ + 2NaOH → Cu(OH)₂ + Na₂SO₄",
+      "type": "Double replacement",
+      "form": "AB + CD → AD + CB"
+    },
+    {
+      "equation": "CH₄ + 2O₂ → CO₂ + 2H₂O",
+      "type": "Combustion",
+      "form": "fuel + O₂ → CO₂ + H₂O",
+      "note": "Burning natural gas."
+    },
+    {
+      "equation": "C₃H₈ + 5O₂ → 3CO₂ + 4H₂O",
+      "type": "Combustion",
+      "form": "fuel + O₂ → CO₂ + H₂O",
+      "note": "Burning propane."
+    },
+    {
+      "equation": "C₂H₅OH + 3O₂ → 2CO₂ + 3H₂O",
+      "type": "Combustion",
+      "form": "fuel + O₂ → CO₂ + H₂O",
+      "note": "Burning ethanol."
+    },
+    {
+      "equation": "2C₄H₁₀ + 13O₂ → 8CO₂ + 10H₂O",
+      "type": "Combustion",
+      "form": "fuel + O₂ → CO₂ + H₂O",
+      "note": "Burning butane."
+    },
+    {
+      "equation": "HCl + NaOH → NaCl + H₂O",
+      "type": "Acid–base",
+      "form": "HA + BOH → BA + H₂O"
+    },
+    {
+      "equation": "H₂SO₄ + 2KOH → K₂SO₄ + 2H₂O",
+      "type": "Acid–base",
+      "form": "HA + BOH → BA + H₂O"
+    },
+    {
+      "equation": "HNO₃ + KOH → KNO₃ + H₂O",
+      "type": "Acid–base",
+      "form": "HA + BOH → BA + H₂O"
+    },
+    {
+      "equation": "2HCl + Ca(OH)₂ → CaCl₂ + 2H₂O",
+      "type": "Acid–base",
+      "form": "HA + BOH → BA + H₂O"
+    }
   ]
 }
