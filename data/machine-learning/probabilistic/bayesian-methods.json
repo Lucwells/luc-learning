@@ -31,6 +31,7 @@
         "bayesian methods"
       ],
       "body": [
+        "Suppose a friend hands you a coin. Before flipping it, you believe it is probably close to fair, but you are not certain. That belief is the prior. You flip it ten times and see 8 heads. The data push your belief toward a heads-heavy coin, and the result is a new belief: still centered somewhere between 0.5 and 0.8, but more concentrated than before. That is the posterior. The more flips you see, the more the data dominate and the less the starting belief matters. Bayesian inference is this updating, done exactly with probability.",
         "Start with a **prior** p(θ) over the parameters θ and a model of the data, the **likelihood** p(D | θ). Bayes' rule gives the **posterior**:",
         {
           "eq": "p(θ | D) = p(D | θ) p(θ) / p(D),    p(D) = ∫ p(D | θ) p(θ) dθ"
@@ -183,7 +184,7 @@
         "bayesian optimization"
       ],
       "body": [
-        "A **Gaussian process** (GP) is a distribution over functions. It is defined by a mean function (usually 0) and a **covariance function** k(x, x′) such that the function values at any finite set of inputs are jointly Gaussian with covariance matrix K_ij = k(x_i, x_j). The kernel states what kind of function to expect: with the RBF kernel k(x, x′) = exp(−(x − x′)²/(2ℓ²)), nearby inputs have strongly correlated outputs, so functions are smooth, with length scale ℓ.",
+        "Imagine all the smooth curves you could draw through a scatter of points. Before seeing data, many different curves are plausible. Each observed point rules out the curves that miss it, so the cloud of plausible curves narrows around the data: it is tight where there are points and fans out where there are none. A Gaussian process describes this cloud directly: for any input it gives a best-guess value and an error bar that grows with distance from the data. A **Gaussian process** (GP) is a distribution over functions. It is defined by a mean function (usually 0) and a **covariance function** k(x, x′) such that the function values at any finite set of inputs are jointly Gaussian with covariance matrix K_ij = k(x_i, x_j). The kernel states what kind of function to expect: with the RBF kernel k(x, x′) = exp(−(x − x′)²/(2ℓ²)), nearby inputs have strongly correlated outputs, so functions are smooth, with length scale ℓ.",
         "Given training data (X, y) with noise variance σ², the posterior at test points is again Gaussian (conditioning one part of a multivariate Gaussian on another, see Multivariate Probability):",
         {
           "eq": [
@@ -254,7 +255,7 @@
         "type-ii maximum likelihood"
       ],
       "body": [
-        "The denominator of Bayes' rule, p(D | M) = ∫ p(D | θ, M) p(θ | M) dθ, is the **marginal likelihood** or model **evidence**: the probability the model assigns to the data, averaged over its prior. It compares models directly. The **Bayes factor** of two models is the ratio of their evidences.",
+        "Suppose two weather forecasters are judged on how well they predicted what happened. One always says \"sunny, 100%\". The other hedges across many outcomes. If it turns out to be sunny, the first looks better, but if it rains the first is ruined. The hedger is never badly wrong but is never as sharply right. The marginal likelihood scores a model in the same way: how much probability did it put on the data we actually saw? The denominator of Bayes' rule, p(D | M) = ∫ p(D | θ, M) p(θ | M) dθ, is the **marginal likelihood** or model **evidence**: the probability the model assigns to the data, averaged over its prior. It compares models directly. The **Bayes factor** of two models is the ratio of their evidences.",
         "The evidence automatically embodies Occam's razor. A flexible model can fit many data sets, so it spreads its probability thinly over all of them and gives any one data set a low probability. A simple model concentrates probability on a few data sets. If the data are of the kind that the simple model predicts, its evidence is higher. Complexity is penalized without a validation set, because the average over the prior includes the many parameter settings that fit the data badly.",
         {
           "example": {

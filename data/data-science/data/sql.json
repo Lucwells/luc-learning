@@ -29,7 +29,7 @@
         "relation"
       ],
       "body": [
-        "A **relational database** organizes data in **tables** (relations). A table has a fixed **schema**: named columns with types. Each row is a record. A **primary key** is a column (or set of columns) whose value uniquely identifies a row. A **foreign key** is a column that refers to the primary key of another table, which links the tables and lets the database enforce that, for example, every order refers to an existing customer.",
+        "Think of a company's records as several spreadsheets: one for customers, one for products, one for orders. An order row does not repeat the customer's name and address; it holds only the customer's ID, which points to the customers sheet. That keeps each fact stored in exactly one place, so correcting an address means changing a single row. A relational database is a set of such linked tables, and SQL is the language for asking questions across them. A **relational database** organizes data in **tables** (relations). A table has a fixed **schema**: named columns with types. Each row is a record. A **primary key** is a column (or set of columns) whose value uniquely identifies a row. A **foreign key** is a column that refers to the primary key of another table, which links the tables and lets the database enforce that, for example, every order refers to an existing customer.",
         "The examples below use two small tables.",
         {
           "table": {
@@ -287,7 +287,7 @@
         "union"
       ],
       "body": [
-        "A **join** combines rows of two tables that match on a condition (the same operation as merge in pandas).",
+        "To answer \"which customers bought which products\" you need to combine the orders sheet with the customers sheet by matching customer IDs, the way you would line up two lists on a common column. That matching is a join. Which rows survive when there is no match, in the left list or the right list, is what distinguishes the types of join. A **join** combines rows of two tables that match on a condition (the same operation as merge in pandas).",
         {
           "code": [
             "SELECT c.name, o.order_id, o.amount",

@@ -29,6 +29,7 @@
         "reconstruction error"
       ],
       "body": [
+        "Imagine a cloud of points shaped like a long cigar floating in 3D space, and you must photograph it with a flat 2D camera. Photographing it end-on makes it look like a small blob and loses most of its shape. Photographing it from the side shows its full length. PCA finds the best viewing direction: the one that keeps the points as spread out as possible, because spread is where the information is. If the cigar is long and thin, one direction along its length already captures most of what matters, and one number per point (the position along the cigar) can stand in for three.",
         "Let the data x^{(1)}, …, x^{(m)} ∈ ℝⁿ be centered, so that the mean is zero (subtract the mean from every point first). Their **covariance matrix** is Σ = (1/m) Σ_i x^{(i)} x^{(i)ᵀ} = XᵀX/m, a symmetric positive semidefinite n × n matrix.",
         "**PCA** looks for a direction u (a unit vector) along which the data vary the most. The projection of a point onto u is uᵀx, and the variance of the projections is",
         {

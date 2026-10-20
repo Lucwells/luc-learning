@@ -33,7 +33,7 @@
         "historical bias"
       ],
       "body": [
-        "A model learns the patterns of the data it is given, including the patterns of past discrimination. Bias can enter at every stage.",
+        "Imagine a hiring model trained on ten years of past hiring decisions. If those decisions favored certain groups, the model will learn that preference as if it were a sign of quality, and will repeat it at scale, with the appearance of objectivity. The model did nothing malicious; it faithfully copied the pattern in its data. Fairness work is about noticing and addressing such patterns. A model learns the patterns of the data it is given, including the patterns of past discrimination. Bias can enter at every stage.",
         {
           "list": [
             "**Historical bias**: the world that generated the data was unfair. A model trained on past hiring decisions learns to reproduce them.",

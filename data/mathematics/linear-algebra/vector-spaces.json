@@ -29,7 +29,7 @@
         "vector spaces"
       ],
       "body": [
-        "A **vector space** is a set of objects that can be added and multiplied by scalars, with the usual rules of arithmetic. ℝⁿ is the basic example; the polynomials of degree at most d and the continuous functions on an interval are others. A **subspace** is a subset of a vector space that is itself a vector space: it contains 0 and is closed under addition and scalar multiplication. In ℝ³ the subspaces are the origin, the lines through the origin, the planes through the origin, and ℝ³ itself.",
+        "Start with a picture. Stand at the origin of 3D space with two directions you are allowed to walk along, say east and north. By walking any amount along each (including backward), you can reach every point on the flat ground, but never a point above it. The ground is the set of everything reachable from those two directions, and it is a plane through the origin. A subspace is exactly this kind of set: closed under walking more or less along its directions and combining them. A **vector space** is a set of objects that can be added and multiplied by scalars, with the usual rules of arithmetic. ℝⁿ is the basic example; the polynomials of degree at most d and the continuous functions on an interval are others. A **subspace** is a subset of a vector space that is itself a vector space: it contains 0 and is closed under addition and scalar multiplication. In ℝ³ the subspaces are the origin, the lines through the origin, the planes through the origin, and ℝ³ itself.",
         "The **span** of vectors v₁, …, v_k is the set of all their linear combinations, c₁v₁ + … + c_kv_k. It is the smallest subspace that contains them. The span of one non-zero vector is a line, and of two vectors that do not lie on a common line is a plane.",
         {
           "example": {
@@ -111,7 +111,7 @@
         "free variables"
       ],
       "body": [
-        "Every m × n matrix A has four subspaces attached to it.",
+        "Think of the matrix A as a machine that turns an input vector with n entries into an output vector with m entries. Two questions describe what the machine does. Which outputs can it produce at all? That set is the column space. Which inputs does it destroy, mapping them to zero? That set is the null space. The row space and left null space are the same two questions asked about Aᵀ. Every m × n matrix A has four subspaces attached to it.",
         {
           "table": {
             "head": [
@@ -278,7 +278,7 @@
         "image of a linear map"
       ],
       "body": [
-        "A vector has coordinates only relative to a chosen basis. Let the columns of an invertible matrix P be a new basis b₁, …, b_n. If a vector has coordinates c in this basis, its standard coordinates are x = Pc, and conversely c = P⁻¹x.",
+        "A vector is an arrow, and its coordinates are a description of the arrow in some language. Using east and north as the reference directions, the arrow (3, 1) means \"3 east, 1 north.\" Using northeast and northwest instead, the same arrow gets different numbers. Changing the basis changes the description, not the arrow, in the same way that translating a sentence changes the words but not the meaning. A vector has coordinates only relative to a chosen basis. Let the columns of an invertible matrix P be a new basis b₁, …, b_n. If a vector has coordinates c in this basis, its standard coordinates are x = Pc, and conversely c = P⁻¹x.",
         "A linear map that acts on standard coordinates as x ↦ Ax acts on coordinates in the new basis as c ↦ P⁻¹AP c. The matrices A and B = P⁻¹AP represent the same map in different bases and are called **similar**. They have the same determinant, trace, rank and eigenvalues. Choosing a basis in which B is as simple as possible is the idea behind diagonalization and the SVD.",
         {
           "example": {

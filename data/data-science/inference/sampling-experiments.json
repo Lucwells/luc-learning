@@ -30,7 +30,7 @@
         "sampling and experiments"
       ],
       "body": [
-        "The **population** is the entire group we want to learn about (all adult residents of a country, all transactions of next year). A **parameter** is a numerical feature of the population: its mean μ, a proportion p. We seldom observe the whole population, so we study a **sample**, a subset, and compute a **statistic** (the sample mean x̄, the sample proportion p̂) as an estimate of the parameter.",
+        "To judge a pot of soup, you taste one spoonful. The spoonful is the sample, and the pot is the population. If the soup is well stirred, the spoonful tells you about the pot. If you only ever taste the top, where the salt has not mixed in, you will be misled however large the spoonful. How the sample is taken matters more than how big it is. The **population** is the entire group we want to learn about (all adult residents of a country, all transactions of next year). A **parameter** is a numerical feature of the population: its mean μ, a proportion p. We seldom observe the whole population, so we study a **sample**, a subset, and compute a **statistic** (the sample mean x̄, the sample proportion p̂) as an estimate of the parameter.",
         "A **simple random sample** (SRS) of size n gives every possible subset of size n the same chance of being chosen. Different samples give different statistics, so the statistic is itself a random variable. Its distribution over repeated samples is the **sampling distribution**, which describes how much an estimate varies from sample to sample, and so how far it is likely to be from the truth.",
         {
           "example": {
@@ -246,7 +246,7 @@
         "observational study"
       ],
       "body": [
-        "To learn the effect of a treatment (a drug, a price, a web page design), compare outcomes of units that received it with those that did not. In an **observational study** the units choose or are assigned treatments by some process outside the investigator's control, and the groups usually differ in other ways, so the comparison is **confounded** (see Simpson's paradox). People who take vitamins are healthier for many reasons other than the vitamins.",
+        "Suppose people who take vitamins are healthier than people who do not. Did the vitamins help, or do people who take vitamins also tend to exercise and eat well? Random assignment settles it: if a coin flip decides who gets the vitamin, the two groups will be alike in everything else on average, so any remaining difference in health can be credited to the vitamin. That is why randomized experiments are the strongest evidence for cause and effect. To learn the effect of a treatment (a drug, a price, a web page design), compare outcomes of units that received it with those that did not. In an **observational study** the units choose or are assigned treatments by some process outside the investigator's control, and the groups usually differ in other ways, so the comparison is **confounded** (see Simpson's paradox). People who take vitamins are healthier for many reasons other than the vitamins.",
         {
           "key": "In a **randomized controlled trial**, the investigator assigns units to treatment or control by a random mechanism (a coin flip, a random number). Randomization makes the groups comparable on average in every respect, those that are measured and those that are not, so any systematic difference in outcome can be attributed to the treatment."
         },

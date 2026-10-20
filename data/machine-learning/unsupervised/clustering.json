@@ -30,7 +30,7 @@
         "inertia"
       ],
       "body": [
-        "**k-means** partitions m points into k clusters, each represented by its mean, the **centroid** μ_j. It minimizes the **within-cluster sum of squares** (the inertia):",
+        "Imagine placing k post offices in a town so that every house is close to its nearest one. You can do it by trial: guess locations, send each house to its nearest post office, then move each post office to the middle of the houses it serves. Moving changes which house is nearest to which office, so repeat until nothing changes. That is k-means. **k-means** partitions m points into k clusters, each represented by its mean, the **centroid** μ_j. It minimizes the **within-cluster sum of squares** (the inertia):",
         {
           "eq": "J(c, μ) = Σ_{i=1}^{m} ‖ x^{(i)} − μ_{c^{(i)}} ‖²"
         },

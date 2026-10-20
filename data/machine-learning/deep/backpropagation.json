@@ -27,6 +27,7 @@
         "local gradient"
       ],
       "body": [
+        "The goal is to find, for every weight, how much the loss would change if that weight were nudged up by a tiny amount. That number is the weight's share of the blame for the error. A weight deep inside the network affects the loss only through a long chain: it changes one unit, which changes the next layer, and so on until the output. The chain rule says how to combine effects along a chain: multiply them. If nudging x by 1 changes q by 1, and nudging q by 1 changes f by −4, then nudging x by 1 changes f by 1 × (−4) = −4. Backpropagation does this multiplication for every weight, starting at the output and moving backward so that shared pieces are computed once instead of once per weight.",
         "Write the computation as a **computational graph**: each node is one simple operation (add, multiply, apply an activation) and each edge carries a value. The chain rule says that the derivative of the output with respect to any node is the sum, over the nodes it feeds, of the derivative of the output with respect to that node times the local derivative of that node with respect to this one:",
         {
           "eq": "∂f/∂u = Σ_{v : u → v} (∂f/∂v)(∂v/∂u)"
@@ -74,6 +75,7 @@
         "gradient of weights"
       ],
       "body": [
+        "The idea in words: at the output, the error is how far the prediction is from the label. Each hidden unit then gets blamed in proportion to how strongly it was connected to the units that made errors (the weights, used in reverse), and only to the extent that it was able to affect them (the activation's slope). This blame is called the error signal, and each weight's gradient is its error signal times the input that weight was applied to: a big input and a big blame mean a big gradient.",
         "Consider the L-layer network of the previous chapter, z^{[l]} = W^{[l]}a^{[l−1]} + b^{[l]} and a^{[l]} = g(z^{[l]}), with loss J on the output. Define the **error signal** of layer l as the gradient of the loss with respect to its pre-activation:",
         {
           "eq": "δ^{[l]} = ∂J/∂z^{[l]}"

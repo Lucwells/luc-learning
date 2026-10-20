@@ -229,7 +229,7 @@
         "itertools"
       ],
       "body": [
-        "An **iterable** is anything a for loop can go through (lists, strings, files, ranges). An **iterator** produces the items one at a time and remembers its position. A **generator** is the easiest way to write an iterator: a function that uses yield instead of return. It computes each value only when asked, and so it is **lazy**: it can represent a huge or even infinite sequence in constant memory.",
+        "Suppose you need the squares of the first billion numbers, one at a time, to feed into a calculation. Building a list of a billion squares would fill the computer's memory. A generator is like a machine that hands you the next square only when you ask, remembering where it left off, so memory use stays tiny. The price is that you can only go forward, one item at a time. An **iterable** is anything a for loop can go through (lists, strings, files, ranges). An **iterator** produces the items one at a time and remembers its position. A **generator** is the easiest way to write an iterator: a function that uses yield instead of return. It computes each value only when asked, and so it is **lazy**: it can represent a huge or even infinite sequence in constant memory.",
         {
           "code": [
             "def batches(xs, ys, size):",

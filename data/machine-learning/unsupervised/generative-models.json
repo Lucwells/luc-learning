@@ -136,7 +136,7 @@
         "denoising autoencoder"
       ],
       "body": [
-        "A **variational autoencoder** (VAE; Kingma and Welling, 2013) is a latent variable model, p(x) = ∫ p(z) p_θ(x | z) dz, with a simple prior p(z) = N(0, I) and a neural network decoder p_θ(x | z). The integral cannot be computed, so the exact posterior p(z | x) is intractable too. Instead, train a second network, the encoder q_φ(z | x) = N(μ_φ(x), diag σ_φ²(x)), to approximate it.",
+        "Picture a machine that squeezes each image into a short list of numbers (a code) and another machine that expands a code back into an image. If the codes are arranged so that nearby codes give similar images and the codes fill a simple region (a bell-shaped cloud around the origin), then picking a random code from that cloud and expanding it gives a new, plausible image. A VAE trains both machines so that this works. A **variational autoencoder** (VAE; Kingma and Welling, 2013) is a latent variable model, p(x) = ∫ p(z) p_θ(x | z) dz, with a simple prior p(z) = N(0, I) and a neural network decoder p_θ(x | z). The integral cannot be computed, so the exact posterior p(z | x) is intractable too. Instead, train a second network, the encoder q_φ(z | x) = N(μ_φ(x), diag σ_φ²(x)), to approximate it.",
         "The evidence lower bound from the EM chapter becomes the training objective:",
         {
           "eq": "ln p_θ(x) ≥ E_{z ~ q_φ(z|x)} [ ln p_θ(x | z) ] − KL( q_φ(z | x) ‖ p(z) )"
@@ -199,7 +199,7 @@
         "wasserstein gan"
       ],
       "body": [
-        "A **GAN** (Goodfellow et al., 2014) trains two networks against each other. The **generator** G maps noise z ~ p(z) to a fake sample G(z). The **discriminator** D outputs the probability that its input is real. D is trained to tell real from fake, and G is trained to fool D:",
+        "Think of a counterfeiter and a detective. The counterfeiter makes fake banknotes, and the detective tries to tell fakes from real ones. Each improves by competing: as the detective gets sharper, the counterfeiter must make better fakes, and when the fakes are so good that the detective can only guess, the counterfeiter has learned to produce notes that look real. A **GAN** (Goodfellow et al., 2014) trains two networks against each other. The **generator** G maps noise z ~ p(z) to a fake sample G(z). The **discriminator** D outputs the probability that its input is real. D is trained to tell real from fake, and G is trained to fool D:",
         {
           "eq": "min_G max_D  V(D, G) = E_{x ~ p_data}[ ln D(x) ] + E_{z ~ p(z)}[ ln(1 − D(G(z))) ]"
         },
@@ -265,7 +265,7 @@
         "noise prediction"
       ],
       "body": [
-        "A **diffusion model** (Sohl-Dickstein et al., 2015; Ho et al., 2020) builds data by learning to remove noise. The **forward process** gradually destroys a data point x₀ by adding a little Gaussian noise at each of T steps, until nothing but noise is left:",
+        "Think of a drop of ink spreading in water until the water is uniformly cloudy. That is easy to do and hard to undo, but if you could learn the undoing in tiny steps, you could start from cloudy water and watch an image of the ink drop appear. A diffusion model learns each tiny step of the undoing. A **diffusion model** (Sohl-Dickstein et al., 2015; Ho et al., 2020) builds data by learning to remove noise. The **forward process** gradually destroys a data point x₀ by adding a little Gaussian noise at each of T steps, until nothing but noise is left:",
         {
           "eq": "q(x_t | x_{t−1}) = N( √(1 − β_t) x_{t−1}, β_t I )"
         },

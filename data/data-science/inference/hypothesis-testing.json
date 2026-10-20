@@ -36,7 +36,7 @@
         "hypothesis tests"
       ],
       "body": [
-        "A test compares a claim of 'no effect' with the data.",
+        "A test works like a trial. You start by assuming the defendant is innocent (the new drug does nothing). You then ask how surprising the evidence would be if that assumption were true. If the evidence would be very unlikely under innocence, you doubt the assumption. The p-value is the measure of how surprising the evidence is, and a small p-value is evidence against \"nothing is going on\", not proof that a particular alternative is true. A test compares a claim of 'no effect' with the data.",
         {
           "list": [
             "The **null hypothesis** H₀ is the default claim: the coin is fair, the new page has the same conversion rate as the old, the drug has no effect. The **alternative** H₁ is what we suspect instead (the coin is biased; the rates differ). A **one-sided** alternative (rate B > rate A) looks in one direction only, a **two-sided** one in both.",
@@ -191,7 +191,7 @@
         "monte carlo p-value"
       ],
       "body": [
-        "A **permutation test** builds the null distribution directly from the data, with no assumptions about normality. Under H₀ (the treatment has no effect) the group labels are arbitrary: the observed values would have occurred whichever group each unit was in. So re-assign the labels at random many times, recompute the test statistic each time, and see how often a value as extreme as the observed one occurs.",
+        "Suppose two groups of people tried different diets and you want to know if the average weight loss differs. If the diet really made no difference, then the labels \"diet A\" and \"diet B\" are meaningless, and you could shuffle them randomly among the same people and get a similar-looking result. So shuffle the labels many times, compute the difference each time, and see how often a shuffle produces a difference as large as the one you actually observed. If that almost never happens, the real difference is unlikely to be luck. A **permutation test** builds the null distribution directly from the data, with no assumptions about normality. Under H₀ (the treatment has no effect) the group labels are arbitrary: the observed values would have occurred whichever group each unit was in. So re-assign the labels at random many times, recompute the test statistic each time, and see how often a value as extreme as the observed one occurs.",
         {
           "example": {
             "title": "An exact permutation test",
@@ -305,7 +305,7 @@
         "family-wise error rate"
       ],
       "body": [
-        "Each test at α = 0.05 has a 5% chance of a false positive. Run m independent tests of true null hypotheses, and the chance of at least one false positive is 1 − 0.95^m: 64% for m = 20 and 99.4% for m = 100. If you test 20 features for association with an outcome and report the one that is significant, you have probably reported noise. This is the **multiple comparisons problem**.",
+        "If you buy one lottery ticket you are unlikely to win, but if you buy a hundred you probably will. In the same way, if you test a hundred hypotheses that are all false, about five will look significant at the 5% level purely by chance. Reporting only the \"significant\" ones then makes noise look like discovery. Each test at α = 0.05 has a 5% chance of a false positive. Run m independent tests of true null hypotheses, and the chance of at least one false positive is 1 − 0.95^m: 64% for m = 20 and 99.4% for m = 100. If you test 20 features for association with an outcome and report the one that is significant, you have probably reported noise. This is the **multiple comparisons problem**.",
         {
           "list": [
             "**Bonferroni correction**: to keep the probability of any false positive (the **family-wise error rate**) at most α, test each hypothesis at α/m. With 20 tests, use 0.0025. It is simple and conservative; power falls as m grows.",

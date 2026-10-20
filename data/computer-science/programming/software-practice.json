@@ -25,7 +25,7 @@
         "software practice"
       ],
       "body": [
-        "**Version control** records the history of a project as a series of snapshots, called **commits**, each with a message, an author and a pointer to its parent. It lets you undo mistakes, compare versions, try ideas on **branches** without breaking working code, and collaborate. **Git** is the standard tool. A **repository** is the project folder plus its history.",
+        "Anyone who has saved files as report_final.doc, report_final2.doc and report_FINAL_really.doc has felt the problem version control solves. It keeps one clean history of a project, so every earlier state can be recovered, and several people (or several experiments) can work on separate copies and merge the results later without confusion. **Version control** records the history of a project as a series of snapshots, called **commits**, each with a message, an author and a pointer to its parent. It lets you undo mistakes, compare versions, try ideas on **branches** without breaking working code, and collaborate. **Git** is the standard tool. A **repository** is the project folder plus its history.",
         {
           "code": [
             "git init                          # start a repository in this folder",
@@ -80,7 +80,7 @@
         "property-based testing"
       ],
       "body": [
-        "A **unit test** is a small program that calls one piece of code with known inputs and checks the output with **assertions**. Tests document how the code should behave, catch mistakes the moment they are introduced, and let you change the code later without fear. The **pytest** framework finds functions named test_* and reports which fail.",
+        "A test is a question to which you already know the answer. If your function should add 2 and 3 to give 5, run it and check that it does. Doing this for a handful of cases, automatically, means that when you change the code next month you find out in seconds whether you broke something, rather than weeks later when a result looks strange. A **unit test** is a small program that calls one piece of code with known inputs and checks the output with **assertions**. Tests document how the code should behave, catch mistakes the moment they are introduced, and let you change the code later without fear. The **pytest** framework finds functions named test_* and reports which fail.",
         {
           "code": [
             "# test_stats.py",

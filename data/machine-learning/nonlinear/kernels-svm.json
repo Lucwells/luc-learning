@@ -30,7 +30,8 @@
         "kernels and support vector machines"
       ],
       "body": [
-        "In this chapter labels are y ∈ {−1, +1} and the classifier is f(x) = wᵀx + b, predicting the sign of f. The intercept b is written separately. The hyperplane is wᵀx + b = 0.",
+        "Picture two groups of points on a sheet of paper, with a gap between them. You may lay a straight road through the gap to separate the groups, and many roads fit. A road squeezed close to one group is risky: a new point from that group could easily land on the wrong side. The safest road is the widest one, with the largest clear strip on both sides. The SVM finds that road. The two groups' nearest points set its width.",
+        "In this chapter labels are y ∈ {−1, +1} and the classifier is f(x) = wᵀx + b, predicting the sign of f. The intercept b is written separately. The hyperplane (the road's center line) is wᵀx + b = 0.",
         "The **functional margin** of an example is y f(x). It is positive exactly when the example is classified correctly, and larger values signal more confidence. But multiplying (w, b) by 10 multiplies all functional margins by 10 without changing the classifier. The **geometric margin** removes that freedom by dividing by ‖w‖:",
         {
           "eq": "γ_i = y^{(i)} (wᵀx^{(i)} + b) / ‖w‖"
@@ -86,6 +87,7 @@
         "kkt conditions"
       ],
       "body": [
+        "The dual problem is another way of writing the same optimization that gives more insight. The idea of a Lagrange multiplier is to turn a hard constraint into a price: instead of forbidding a point from crossing its margin, we charge a price α_i for each unit of violation, and then choose the prices so that the constraints end up satisfied. A price of zero means the constraint never mattered. A positive price means the constraint is actively holding the solution in place. The points with positive prices will turn out to be exactly the points touching the margin.",
         "Introduce a Lagrange multiplier α_i ≥ 0 for each constraint (see Constrained Optimization in the Mathematics book). The Lagrangian is",
         {
           "eq": "L(w, b, α) = ½‖w‖² − Σ α_i [ y^{(i)}(wᵀx^{(i)} + b) − 1 ]"
@@ -246,7 +248,18 @@
         "feature space"
       ],
       "body": [
-        "A linear classifier cannot separate two concentric rings. After mapping each point to a feature vector φ(x), including terms such as x₁² and x₂², a linear classifier in feature space can. The cost is computing in a high-dimensional space. The dual SVM avoids it. Everything depends on the data through ⟨x^{(i)}, x^{(j)}⟩, so replace this with ⟨φ(x^{(i)}), φ(x^{(j)})⟩ = K(x^{(i)}, x^{(j)}). If K can be evaluated directly, φ never has to be computed.",
+        "A linear classifier cannot separate two concentric rings. After mapping each point to a feature vector φ(x), including terms such as x₁² and x₂², a linear classifier in feature space can. The next example makes this concrete.",
+        {
+          "example": {
+            "title": "Separating a ring from its center by adding a feature",
+            "problem": "Class −1 points are (0.5, 0) and (0, −0.5) near the origin. Class +1 points are (2, 0) and (0, −2) farther out. No straight line in the plane separates them. Add a third feature r² = x₁² + x₂² and find a separating rule.",
+            "solution": [
+              "The new feature values are r² = 0.25 for both class −1 points and r² = 4 for both class +1 points. In the three-dimensional space (x₁, x₂, r²) the groups sit at different heights.",
+              "A flat plane at height r² = 1 separates them: predict +1 when r² > 1 and −1 otherwise. That rule is linear in the new coordinates, and in the original plane it is a circle of radius 1. A linear classifier in feature space has produced a curved boundary in the original space."
+            ]
+          }
+        },
+        "The catch is the cost of computing in a high-dimensional space. The dual SVM avoids it. Everything depends on the data through ⟨x^{(i)}, x^{(j)}⟩, so replace this with ⟨φ(x^{(i)}), φ(x^{(j)})⟩ = K(x^{(i)}, x^{(j)}). If K can be evaluated directly, φ never has to be computed.",
         {
           "eq": [
             "Dual:  maximize  Σ α_i − ½ΣΣ α_i α_j y_i y_j K(x_i, x_j)",

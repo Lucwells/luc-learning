@@ -28,7 +28,7 @@
         "contour"
       ],
       "body": [
-        "For a function f(x₁, …, x_n) of several variables, the **partial derivative** ∂f/∂x_i is the ordinary derivative with respect to x_i, treating all the other variables as constants. The **gradient** collects them into a vector:",
+        "Think of f(x, y) as the height of a hillside at the point (x, y). Standing at a spot, you can ask how steep it is if you walk due east (change x only), and separately how steep it is walking due north (change y only). Those two slopes are the partial derivatives. Bundled together as a vector they form the gradient, which points straight up the steepest part of the hill. To go downhill fastest, walk the opposite way. For a function f(x₁, …, x_n) of several variables, the **partial derivative** ∂f/∂x_i is the ordinary derivative with respect to x_i, treating all the other variables as constants. The **gradient** collects them into a vector:",
         {
           "eq": "∇f(x) = ( ∂f/∂x₁, …, ∂f/∂x_n )ᵀ"
         },
@@ -92,7 +92,7 @@
         "softmax jacobian"
       ],
       "body": [
-        "For a function f : ℝⁿ → ℝᵐ with components f₁, …, f_m, the **Jacobian matrix** is the m × n matrix of all partial derivatives, J_ij = ∂f_i/∂x_j. It is the best linear approximation to f near a point: f(x + d) ≈ f(x) + J d. For m = 1 the Jacobian is the transpose of the gradient.",
+        "The gradient handles a function with many inputs and one output. When there are many outputs too, as in a layer of a network, we need one slope for every (output, input) pair: how much does output i change if input j is nudged? Arranged in a table, these slopes form the Jacobian. For a function f : ℝⁿ → ℝᵐ with components f₁, …, f_m, the **Jacobian matrix** is the m × n matrix of all partial derivatives, J_ij = ∂f_i/∂x_j. It is the best linear approximation to f near a point: f(x + d) ≈ f(x) + J d. For m = 1 the Jacobian is the transpose of the gradient.",
         {
           "example": {
             "title": "A Jacobian",
@@ -161,7 +161,7 @@
         "second-order condition"
       ],
       "body": [
-        "The **Hessian** of a scalar function is the symmetric matrix of second partial derivatives, H_ij = ∂²f/∂x_i∂x_j. (Mixed partials are equal when they are continuous.) It describes curvature in every direction: the second derivative along a unit direction u is uᵀHu.",
+        "The gradient tells you the slope. The Hessian tells you how the slope itself changes, that is, the curvature. On a bowl, the ground curves upward in every direction, and at the bottom the slope is zero in all directions. On a saddle (like a horse's saddle), the ground curves up in one direction and down in another, so a flat spot is not a minimum. The Hessian records the curvature in every direction and so lets us tell these cases apart. The **Hessian** of a scalar function is the symmetric matrix of second partial derivatives, H_ij = ∂²f/∂x_i∂x_j. (Mixed partials are equal when they are continuous.) It describes curvature in every direction: the second derivative along a unit direction u is uᵀHu.",
         "The second-order Taylor approximation near x is",
         {
           "eq": "f(x + d) ≈ f(x) + ∇f(x)ᵀ d + ½ dᵀ H(x) d"

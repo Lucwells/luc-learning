@@ -147,6 +147,7 @@
         "optimal value function"
       ],
       "body": [
+        "The value of a state answers the question: how good is it to be here, if I behave a certain way from now on? Think of standing at a spot on a map: the value is the total reward you can expect to collect from that spot onward. The value of a state-and-action pair answers a slightly different question: how good is it to be here, take this particular first step, and behave as planned afterward? The first is a rating for a place, and the second is a rating for a move from that place.",
         "The **state value function** of a policy π is the expected return when starting in s and following π; the **action-value function** (Q-function) is the expected return after taking action a in s and following π afterward:",
         {
           "eq": [
@@ -154,7 +155,7 @@
             "Q^π(s, a) = E_π [ G_t | s_t = s, a_t = a ]"
           ]
         },
-        "The return satisfies G_t = r_{t+1} + γG_{t+1}, which gives a recursion, the **Bellman expectation equation**:",
+        "The key observation behind everything that follows is that the value of where you are equals the reward you get right now plus the discounted value of where you end up. A state worth 18 that gives 0 reward now and leads to a state worth 20 (with γ = 0.9) checks out: 0 + 0.9 × 20 = 18. This one-step relation ties each state's value to its neighbors' values, and it lets us compute values by solving equations or iterating, instead of simulating every possible future. The return satisfies G_t = r_{t+1} + γG_{t+1}, which gives the recursion called the **Bellman expectation equation**:",
         {
           "eq": [
             "V^π(s) = Σ_a π(a | s) [ R(s, a) + γ Σ_{s′} P(s′ | s, a) V^π(s′) ]",

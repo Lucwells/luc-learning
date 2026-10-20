@@ -103,7 +103,7 @@
             "solution": "Use the complement. The probability that all 23 birthdays differ is (365/365)(364/365)⋯(343/365) = Π_{k=0}^{22}(1 − k/365) ≈ 0.4927. So P(shared) ≈ 0.507, a little over one half. The number of pairs, C(23, 2) = 253, is large: that is why the result seems surprising. The same collision effect governs hashing and the 'birthday attack' on short hashes."
           }
         },
-        "Counting appears throughout machine learning: the number of Boolean functions on n bits is 2^{2ⁿ}, the number of ways to choose k features from n is C(n, k), and the number of polynomial features is a binomial coefficient (see Linear Regression). The binomial coefficients also give the coefficients of (a + b)ⁿ = Σ C(n, k)a^k bⁿ⁻ᵏ."
+        "Counting appears throughout machine learning: the number of Boolean functions on n bits is 2^{2ⁿ} (there are 2ⁿ possible inputs, and each independently gets one of 2 outputs), the number of ways to choose k features from n is C(n, k), and the number of polynomial features is a binomial coefficient (see Linear Regression). The binomial coefficients also give the coefficients of (a + b)ⁿ = Σ C(n, k)a^k bⁿ⁻ᵏ."
       ],
       "check": [
         {
@@ -139,7 +139,7 @@
         "multiplication rule of probability"
       ],
       "body": [
-        "The **conditional probability** of A given that B has occurred is",
+        "Probability changes when you learn something. Out of 100 people at a party, 40 are students and 20 of those students wear glasses, while 10 of the 60 non-students wear glasses. Picking a random person, the chance of glasses is 30/100. But if you are told the person is a student, you only look at the 40 students, and the chance becomes 20/40 = 0.5. Conditioning means shrinking the pool to the cases where the new fact is true, and then taking the share. The **conditional probability** of A given that B has occurred is",
         {
           "eq": "P(A | B) = P(A ∩ B) / P(B),    P(B) > 0"
         },
@@ -217,7 +217,7 @@
         "monty hall problem"
       ],
       "body": [
-        "Conditioning is not symmetric: P(A | B) ≠ P(B | A) in general. **Bayes' rule** converts one into the other. From P(A ∩ B) = P(A | B)P(B) = P(B | A)P(A),",
+        "The easiest way to understand Bayes' rule is with counts instead of fractions. Imagine 1000 people, where 10 have a disease. A test catches 9 of those 10, and wrongly flags 5% of the 990 healthy people, about 50. So 59 people test positive, and only 9 of them are sick: 9/59 ≈ 15%. The rule below is that same count, written with probabilities. Conditioning is not symmetric: P(A | B) ≠ P(B | A) in general. **Bayes' rule** converts one into the other. From P(A ∩ B) = P(A | B)P(B) = P(B | A)P(A),",
         {
           "eq": "P(H | E) = P(E | H) P(H) / P(E),    P(E) = Σ_j P(E | H_j) P(H_j)"
         },

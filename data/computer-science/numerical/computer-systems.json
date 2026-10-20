@@ -35,7 +35,7 @@
         "computer systems"
       ],
       "body": [
-        "A processor can do billions of operations per second, but fetching data from main memory takes hundreds of cycles. Computers therefore keep data in a **hierarchy** of memories: small and fast near the processor, large and slow far from it.",
+        "Think of a chef working in a kitchen. The chef can chop incredibly fast, but if every ingredient has to be fetched from a warehouse across town, most of the time is spent waiting. A sensible chef keeps the ingredients in use on the counter, the next few in the fridge, and everything else in the warehouse. A computer does the same with data, and the programs that run fast are those that keep reusing the data near the processor. A processor can do billions of operations per second, but fetching data from main memory takes hundreds of cycles. Computers therefore keep data in a **hierarchy** of memories: small and fast near the processor, large and slow far from it.",
         {
           "table": {
             "head": [
@@ -171,7 +171,7 @@
         "operational intensity"
       ],
       "body": [
-        "Whether an operation is limited by the processor's arithmetic or by the speed of memory depends on its **arithmetic intensity**: the number of floating-point operations (FLOPs) performed per byte moved between memory and the processor.",
+        "A factory line can be slow for two different reasons: the workers are too slow, or the conveyor belt that brings parts is too slow. Speeding up the workers does nothing if the belt is the bottleneck. The same is true of computation: an operation that does little arithmetic per byte it reads is limited by memory, and one that does a lot is limited by the arithmetic units. Whether an operation is limited by the processor's arithmetic or by the speed of memory depends on its **arithmetic intensity**: the number of floating-point operations (FLOPs) performed per byte moved between memory and the processor.",
         {
           "eq": "intensity = FLOPs / bytes moved"
         },
@@ -313,7 +313,7 @@
         "zero optimizer sharding"
       ],
       "body": [
-        "A CPU is built to run one thread fast: a few powerful cores with large caches and sophisticated control. A **GPU** (graphics processing unit) is built for throughput: thousands of simple arithmetic units that execute the same instruction on many data elements at once (SIMT), with very high memory bandwidth (1 to 3 TB/s from high-bandwidth memory, against 50 to 100 GB/s for CPU memory). Deep learning is dominated by large matrix multiplications that map ideally onto this design, and **tensor cores** and TPUs go further by implementing small matrix products directly in hardware, in 16-bit or 8-bit arithmetic (see Mixed-precision training).",
+        "A CPU is like a few brilliant specialists who can each do any task quickly. A GPU is like a stadium full of workers who can each do only simple tasks but all at once. If the job is to add two huge lists of numbers, the stadium finishes far sooner. Training neural networks is mostly that kind of job, which is why GPUs transformed the field. A CPU is built to run one thread fast: a few powerful cores with large caches and sophisticated control. A **GPU** (graphics processing unit) is built for throughput: thousands of simple arithmetic units that execute the same instruction on many data elements at once (SIMT), with very high memory bandwidth (1 to 3 TB/s from high-bandwidth memory, against 50 to 100 GB/s for CPU memory). Deep learning is dominated by large matrix multiplications that map ideally onto this design, and **tensor cores** and TPUs go further by implementing small matrix products directly in hardware, in 16-bit or 8-bit arithmetic (see Mixed-precision training).",
         {
           "list": [
             "**Launch overhead and transfers**: a GPU kernel takes some microseconds to launch, and moving data between CPU and GPU over PCIe (about 16 to 64 GB/s) is far slower than the GPU's own memory. Keep data on the GPU, batch work into large kernels, and overlap data loading with computation.",

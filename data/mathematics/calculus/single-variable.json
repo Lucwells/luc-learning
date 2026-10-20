@@ -64,7 +64,7 @@
         "differentiable"
       ],
       "body": [
-        "The **derivative** of f at x is the instantaneous rate of change, the limit of the slope of secant lines:",
+        "If you drive 150 km in 2 hours, your average speed is 75 km/h. The speedometer shows something sharper: your speed at one instant. To estimate it, compare your position now with your position a tiny moment later and divide the distance by the time. The smaller the moment, the better the estimate, and the value it settles on is the derivative. For a loss function, the derivative with respect to a weight says how much the loss rises per unit increase of the weight, which tells us which way to move it. The **derivative** of f at x is the instantaneous rate of change, the limit of the slope of secant lines:",
         {
           "eq": "f′(x) = lim_{h→0} ( f(x + h) − f(x) ) / h"
         },
@@ -260,7 +260,7 @@
         "riemann sum"
       ],
       "body": [
-        "The **definite integral** ∫_a^b f(x) dx is the signed area under the graph of f between a and b, the limit of **Riemann sums** Σ f(x_i)Δx. The **fundamental theorem of calculus** links it to derivatives: if F′ = f (F is an **antiderivative**), then",
+        "The integral is accumulation. If f(t) is the speed of a car at time t, the distance traveled is the sum of speed × tiny time step over all the steps, and that sum is the area under the speed curve. If f is a probability density, the area under it between a and b is the probability that the value lands in that range. The derivative and the integral undo each other, which is the content of the fundamental theorem below. The **definite integral** ∫_a^b f(x) dx is the signed area under the graph of f between a and b, the limit of **Riemann sums** Σ f(x_i)Δx. The **fundamental theorem of calculus** links it to derivatives: if F′ = f (F is an **antiderivative**), then",
         {
           "eq": "∫_a^b f(x) dx = F(b) − F(a)"
         },
@@ -370,7 +370,7 @@
         {
           "h": "Taylor series"
         },
-        "A smooth function near a point a is approximated by a polynomial whose derivatives match those of f at a:",
+        "Zoom in far enough on any smooth curve and it looks like a straight line. Zoom in a little less and it looks like a gentle parabola. The Taylor series makes this precise: near a point, a complicated function can be replaced by a polynomial that matches its value, its slope, its curvature and so on at that point, and each extra term makes the replacement good over a wider range. A smooth function near a point a is approximated by a polynomial whose derivatives match those of f at a:",
         {
           "eq": "f(x) = f(a) + f′(a)(x − a) + f″(a)(x − a)²/2! + f‴(a)(x − a)³/3! + …"
         },

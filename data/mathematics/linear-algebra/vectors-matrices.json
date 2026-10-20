@@ -36,6 +36,7 @@
       ],
       "body": [
         "A **vector** in ℝⁿ is an ordered list of n real numbers, x = (x₁, …, x_n). It can be viewed as a point, or as an arrow from the origin. Vectors are added and scaled component by component, and a **linear combination** is a sum c₁v₁ + … + c_kv_k. In machine learning a vector holds the features of an example, or the weights of a model.",
+        "Here is a concrete use. A house with 120 square meters and 3 bedrooms is the vector (120, 3). A pricing rule that charges 2 per square meter and 10 per bedroom is the vector (2, 10). The price is 120 · 2 + 3 · 10 = 270, the sum of the products of matching entries. That sum is the dot product, and it is large when the features are big where the weights are big, which is why it measures how well two vectors line up.",
         "The **dot product** (inner product) of x and y is",
         {
           "eq": "x · y = xᵀy = Σ_i x_i y_i = ‖x‖ ‖y‖ cos θ"
@@ -117,7 +118,7 @@
         "outer product"
       ],
       "body": [
-        "An m × n **matrix** A is a rectangular array with m rows and n columns. It can be read in two ways: as a table of data (rows are examples, columns are features), or as a **linear map** x ↦ Ax from ℝⁿ to ℝᵐ. The map is linear: A(cx + dy) = cAx + dAy. Every linear map between finite-dimensional spaces is a matrix.",
+        "Think of a matrix as a machine: a vector goes in, another vector comes out. For example, the matrix [[0, −1], [1, 0]] takes the arrow (1, 0) to (0, 1) and (0, 1) to (−1, 0), so it rotates every arrow by 90° counterclockwise. A different matrix might stretch, flip or squash the plane. Multiplying two matrices means running one machine after the other. An m × n **matrix** A is a rectangular array with m rows and n columns. It can be read in two ways: as a table of data (rows are examples, columns are features), or as a **linear map** x ↦ Ax from ℝⁿ to ℝᵐ. The map is linear: A(cx + dy) = cAx + dAy. Every linear map between finite-dimensional spaces is a matrix.",
         "The **product** AB of an m × k matrix and a k × n matrix is the m × n matrix whose entries are dot products of rows of A with columns of B:",
         {
           "eq": "(AB)_ij = Σ_{l=1}^{k} A_il B_lj"
@@ -268,7 +269,7 @@
             "solution": "ad − bc = 6 − 5 = 1, so A⁻¹ = [[3, −1], [−5, 2]]. Check: A A⁻¹ = [[6 − 5, −2 + 2], [15 − 15, −5 + 6]] = I. Then x = A⁻¹(1, 2) = (3 − 2, −5 + 4) = (1, −1)."
           }
         },
-        "The **determinant** det A is a number that tests invertibility and measures volume change. For 2 × 2 it is ad − bc. For larger matrices, it is computed by elimination: det A is the product of the pivots, up to the sign changes caused by row swaps.",
+        "Geometrically, the matrix [[2, 0], [0, 3]] stretches the plane by 2 horizontally and 3 vertically, so the unit square becomes a 2 by 3 rectangle: area is multiplied by 6, and the determinant is 6. A matrix like [[1, 2], [2, 4]] squashes the whole plane onto a single line, so area becomes 0, the determinant is 0, and the squashing cannot be undone. The **determinant** det A is a number that tests invertibility and measures volume change. For 2 × 2 it is ad − bc. For larger matrices, it is computed by elimination: det A is the product of the pivots, up to the sign changes caused by row swaps.",
         {
           "list": [
             "**A is invertible if and only if det A ≠ 0.**",

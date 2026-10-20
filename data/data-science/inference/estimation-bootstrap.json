@@ -32,7 +32,7 @@
         "estimation and bootstrap"
       ],
       "body": [
-        "A **point estimate** (x̄, p̂) is one number. A **confidence interval** (CI) adds a range. By the central limit theorem the sample mean is approximately normal around μ with standard deviation σ/√n (see Limit Theorems), so the probability that x̄ lies within 1.96 standard errors of μ is 95%. Turning this around, the interval x̄ ± 1.96 σ/√n contains μ in 95% of repeated samples.",
+        "A poll says 52% of voters support a measure, plus or minus 3 points. The 52% is the best single guess, and the plus or minus tells you how much that guess could be off because only a sample was asked. If another sample were drawn, it would give a slightly different number, and the interval is a way of saying how different. A wider interval means the data say less. A **point estimate** (x̄, p̂) is one number. A **confidence interval** (CI) adds a range. By the central limit theorem the sample mean is approximately normal around μ with standard deviation σ/√n (see Limit Theorems), so the probability that x̄ lies within 1.96 standard errors of μ is 95%. Turning this around, the interval x̄ ± 1.96 σ/√n contains μ in 95% of repeated samples.",
         "The standard deviation σ is usually unknown and is replaced by the sample standard deviation s. This extra uncertainty makes the standardized statistic (x̄ − μ)/(s/√n) follow a **t distribution** with n − 1 **degrees of freedom**, which has heavier tails than the normal for small n. The interval is",
         {
           "eq": "x̄ ± t* · s/√n"
@@ -102,7 +102,7 @@
         "bca interval"
       ],
       "body": [
-        "To know how a statistic varies from sample to sample we would like to draw many new samples from the population, which we cannot. The **bootstrap** (Efron, 1979) uses the sample itself as a stand-in for the population: draw new samples //from the data// by resampling **with replacement**, compute the statistic on each, and use the spread of these values as the sampling distribution. This is the **plug-in principle**: the empirical distribution of the data estimates the population distribution.",
+        "Imagine you have 100 measurements and want to know how much their average would vary if you could repeat the whole study. You cannot repeat it, but you can do the next best thing: treat your 100 measurements as a small model of the whole population, draw 100 values from them with replacement (so some values repeat and some are left out), compute the average, and repeat this thousands of times. The spread of those averages shows how much the statistic is likely to vary. To know how a statistic varies from sample to sample we would like to draw many new samples from the population, which we cannot. The **bootstrap** (Efron, 1979) uses the sample itself as a stand-in for the population: draw new samples //from the data// by resampling **with replacement**, compute the statistic on each, and use the spread of these values as the sampling distribution. This is the **plug-in principle**: the empirical distribution of the data estimates the population distribution.",
         {
           "list": [
             "Draw B bootstrap samples (typically B = 1000 to 10,000), each of the same size n as the data, by choosing n observations with replacement.",

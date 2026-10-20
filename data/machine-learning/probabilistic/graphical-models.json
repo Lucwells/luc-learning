@@ -30,7 +30,7 @@
         "parents"
       ],
       "body": [
-        "A **Bayesian network** is a directed acyclic graph with one node per random variable. Each node has a conditional distribution given its **parents** in the graph, and the joint distribution is the product:",
+        "Consider why grass is wet: it may have rained, or the sprinkler may have run, and the sprinkler is less likely to run if it rained. Draw an arrow from each cause to each effect: Rain → Sprinkler, Rain → Wet, Sprinkler → Wet. The picture records which things influence which directly, and the probabilities need only describe each variable given its direct causes, such as P(wet | rain, sprinkler). A **Bayesian network** is a directed acyclic graph with one node per random variable. Each node has a conditional distribution given its **parents** in the graph, and the joint distribution is the product:",
         {
           "eq": "P(x₁, …, x_n) = Π_i P( x_i | parents(x_i) )"
         },
@@ -173,7 +173,7 @@
         "speech recognition"
       ],
       "body": [
-        "A **hidden Markov model** (HMM) describes a sequence in which an unobserved state s_t evolves as a Markov chain (the next state depends only on the current state), and each state emits an observation x_t. It is parameterized by",
+        "Imagine you work in a windowless room and want to know the weather outside, but all you see is whether each colleague arrives with an umbrella. The weather (the hidden state) changes from day to day with some persistence, and the umbrellas (the observations) depend on the weather. From the umbrella sightings alone you reason about the hidden weather sequence. That is an HMM. A **hidden Markov model** (HMM) describes a sequence in which an unobserved state s_t evolves as a Markov chain (the next state depends only on the current state), and each state emits an observation x_t. It is parameterized by",
         {
           "list": [
             "the initial distribution π_i = P(s₁ = i),",

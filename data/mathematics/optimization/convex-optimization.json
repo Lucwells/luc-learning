@@ -30,7 +30,7 @@
         "convex combination"
       ],
       "body": [
-        "A set C is **convex** if the segment between any two of its points lies in C: for x, y ∈ C and 0 ≤ t ≤ 1, tx + (1 − t)y ∈ C. A disc is convex, and a ring is not. Intersections of convex sets are convex: a half-space {x : aᵀx ≤ b}, a norm ball {‖x‖ ≤ r} and the set of PSD matrices are convex, so a polyhedron (an intersection of half-spaces) is too.",
+        "Imagine a landscape. A bowl has one lowest point, and a marble placed anywhere rolls to it. A mountain range with many valleys has many low points, and where the marble ends up depends on where it started. Convex functions are the bowls. Their shape guarantees that downhill leads to the best answer, which is why convex problems can be solved reliably. A set C is **convex** if the segment between any two of its points lies in C: for x, y ∈ C and 0 ≤ t ≤ 1, tx + (1 − t)y ∈ C. A disc is convex, and a ring is not. Intersections of convex sets are convex: a half-space {x : aᵀx ≤ b}, a norm ball {‖x‖ ≤ r} and the set of PSD matrices are convex, so a polyhedron (an intersection of half-spaces) is too.",
         "A function f is **convex** if, for all x, y and t ∈ [0, 1],",
         {
           "eq": "f( t x + (1 − t) y ) ≤ t f(x) + (1 − t) f(y)"
@@ -193,7 +193,7 @@
         "hinge loss subgradient"
       ],
       "body": [
-        "Some of the most useful objectives have kinks: the absolute value of the lasso, the hinge loss of the SVM, ReLU. A **subgradient** of a convex f at x is any vector g such that f(y) ≥ f(x) + gᵀ(y − x) for all y: the slope of a line that touches the graph at x and stays below it. The set of all subgradients is the **subdifferential** ∂f(x). At a point where f is differentiable it contains only the gradient. At a kink it contains a whole interval of slopes.",
+        "At the bottom of a V-shaped function like |x| there is no single tangent line: many lines touch the corner and stay below the graph. Any of those slopes can play the role of the derivative there, and the set of them is the subdifferential. Because the corner at 0 allows slopes from −1 to 1, and 0 is among them, we can tell that x = 0 is the minimum even though the function is not differentiable. Some of the most useful objectives have kinks: the absolute value of the lasso, the hinge loss of the SVM, ReLU. A **subgradient** of a convex f at x is any vector g such that f(y) ≥ f(x) + gᵀ(y − x) for all y: the slope of a line that touches the graph at x and stays below it. The set of all subgradients is the **subdifferential** ∂f(x). At a point where f is differentiable it contains only the gradient. At a kink it contains a whole interval of slopes.",
         {
           "list": [
             "f(x) = |x|: ∂f(x) = {−1} for x < 0, {+1} for x > 0 and the interval [−1, 1] at 0.",

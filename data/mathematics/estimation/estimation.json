@@ -30,7 +30,7 @@
         "sampling distribution of an estimator"
       ],
       "body": [
-        "An **estimator** θ̂ = θ̂(X₁, …, X_n) is a function of the sample that is used to guess a parameter θ. Its value for a particular sample is an **estimate**. Since the sample is random, θ̂ is a random variable with its own distribution, the sampling distribution. Three summaries describe its quality:",
+        "Suppose you want the average height of all adults in a city, but you can only measure 50 of them. The average of your 50 is your best guess. A different group of 50 would give a slightly different guess. An estimator is the recipe (here, \"average the sample\"), and the quality of the recipe is judged by how its answers behave across many possible samples: do they center on the truth (low bias), and how widely do they scatter (variance)? An **estimator** θ̂ = θ̂(X₁, …, X_n) is a function of the sample that is used to guess a parameter θ. Its value for a particular sample is an **estimate**. Since the sample is random, θ̂ is a random variable with its own distribution, the sampling distribution. Three summaries describe its quality:",
         {
           "eqs": [
             [
@@ -105,7 +105,7 @@
         "method of moments"
       ],
       "body": [
-        "Given data x₁, …, x_n assumed i.i.d. from a model p(x; θ), the **likelihood** of θ is the probability (density) of the observed data viewed as a function of θ:",
+        "You flip a coin 10 times and get 7 heads. Which bias p of the coin makes that result most likely? If p = 0.5, seeing 7 heads is plausible but not common. If p = 0.7, it is the most typical thing to see. If p = 0.1, it would be extremely unlikely. Maximum likelihood chooses the value of p that makes the data you actually saw as probable as possible, here p = 0.7. Given data x₁, …, x_n assumed i.i.d. from a model p(x; θ), the **likelihood** of θ is the probability (density) of the observed data viewed as a function of θ:",
         {
           "eq": "L(θ) = Π_i p(x_i; θ),    ℓ(θ) = ln L(θ) = Σ_i ln p(x_i; θ)"
         },
@@ -183,7 +183,7 @@
         "standard error of the mle"
       ],
       "body": [
-        "How accurately can a parameter be estimated? The answer depends on how sharply the log-likelihood peaks. The **score** is the derivative of the log-likelihood of one observation, ∂ ln p(x; θ)/∂θ. Its mean is zero, and its variance is the **Fisher information**:",
+        "Picture the log-likelihood as a hill whose top is the best estimate. If the hill is a sharp peak, nearby values of θ are much less likely, so the data pin the parameter down tightly. If the hill is a broad, flat dome, many values of θ fit the data about equally well, and the estimate is uncertain. Fisher information is the number that measures how sharp the peak is. How accurately can a parameter be estimated? The answer depends on how sharply the log-likelihood peaks. The **score** is the derivative of the log-likelihood of one observation, ∂ ln p(x; θ)/∂θ. Its mean is zero, and its variance is the **Fisher information**:",
         {
           "eq": "I(θ) = E[ (∂ ln p(X; θ)/∂θ)² ] = −E[ ∂² ln p(X; θ)/∂θ² ]"
         },

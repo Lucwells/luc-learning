@@ -103,7 +103,7 @@
         "loop-free code"
       ],
       "body": [
-        "**Vectorization** means expressing a computation as operations on whole arrays instead of loops over elements. Arithmetic operators and mathematical functions (np.exp, np.log, np.sqrt) are **universal functions** that act elementwise. **Reductions** (sum, mean, max, argmax, std) collapse an axis.",
+        "Imagine adding 1 to each of a million numbers in two ways. In the first, a person reads each number, adds 1, and writes it back, a million times. In the second, you tell a machine \"add 1 to this whole row\" and it does the entire row in one go in fast compiled code. Python loops are the first way, and NumPy operations are the second. Vectorizing means rewriting the loop as one instruction over the whole array. **Vectorization** means expressing a computation as operations on whole arrays instead of loops over elements. Arithmetic operators and mathematical functions (np.exp, np.log, np.sqrt) are **universal functions** that act elementwise. **Reductions** (sum, mean, max, argmax, std) collapse an axis.",
         {
           "code": [
             "a = np.array([1.0, 2.0, 3.0])",
@@ -171,7 +171,7 @@
         "pairwise distances"
       ],
       "body": [
-        "**Broadcasting** lets arrays of different shapes be combined elementwise, by virtually stretching the smaller one. The rule: align the shapes from the right; two dimensions are compatible if they are equal or one of them is 1 (a missing dimension counts as 1). A dimension of size 1 is repeated to match the other.",
+        "Suppose you have a table of 100 students' scores in 3 subjects and you want to subtract each subject's average. You have 100 × 3 numbers and only 3 averages. Broadcasting lets you write the subtraction directly: the 3 averages are treated as if copied down all 100 rows, without actually making the copies. The rule for when this works is mechanical, and is stated below. **Broadcasting** lets arrays of different shapes be combined elementwise, by virtually stretching the smaller one. The rule: align the shapes from the right; two dimensions are compatible if they are equal or one of them is 1 (a missing dimension counts as 1). A dimension of size 1 is repeated to match the other.",
         {
           "table": {
             "head": [

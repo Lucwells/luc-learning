@@ -32,7 +32,7 @@
         "regression for inference"
       ],
       "body": [
-        "The linear model is y_i = β₀ + β₁x_i + ε_i with errors ε_i independent, mean zero and variance σ². The least squares estimates (see Linear Regression in the Machine Learning book) are",
+        "Suppose you want to know how much a house's price rises per extra square meter. Fitting a line through a scatter of (size, price) points gives a slope, and that slope is the estimate. But a different set of houses would give a slightly different slope, so the slope has an uncertainty. Regression for inference attaches an interval to the slope that says how far from the truth it could plausibly be. The linear model is y_i = β₀ + β₁x_i + ε_i with errors ε_i independent, mean zero and variance σ². The least squares estimates (see Linear Regression in the Machine Learning book) are",
         {
           "eq": [
             "β̂₁ = S_xy / S_xx,    β̂₀ = ȳ − β̂₁ x̄",
@@ -170,7 +170,7 @@
         "condition index"
       ],
       "body": [
-        "When predictors are strongly correlated with each other, their separate effects are hard to disentangle: the data contain little independent variation in each. The standard errors of their coefficients become large, the estimates unstable and signs may flip with small changes in the data, even though the model's predictions may remain good. This is **multicollinearity**.",
+        "Imagine trying to separate the effect of a person's height in centimeters from their height in inches. The two always move together, so the data can never show what happens when one changes and the other does not. The same trouble arises, in milder form, whenever two predictors are strongly related. The model can still predict well, but it cannot tell you how much of the credit each deserves. When predictors are strongly correlated with each other, their separate effects are hard to disentangle: the data contain little independent variation in each. The standard errors of their coefficients become large, the estimates unstable and signs may flip with small changes in the data, even though the model's predictions may remain good. This is **multicollinearity**.",
         "The **variance inflation factor** of predictor j is",
         {
           "eq": "VIF_j = 1 / (1 − R_j²)"

@@ -27,6 +27,7 @@
         "ensembles"
       ],
       "body": [
+        "Ask 100 people to guess the number of beans in a jar. Each guess is wild, but the average of the guesses is usually close, because the individual errors point in different directions and cancel. That works only if the guessers are independent. If everybody copies the first person's answer, the average is no better than one guess. An ensemble of models works the same way, and the formula below makes the dependence on the correlation between members exact.",
         "Suppose B predictors each have prediction variance σ² at a point x, and any two are correlated with coefficient ρ. The variance of their average is",
         {
           "eq": [
@@ -73,7 +74,8 @@
         "oob error"
       ],
       "body": [
-        "We cannot draw new training sets from the population, but the **bootstrap** imitates it: draw m examples //with replacement// from the training set. **Bagging** (bootstrap aggregating, Breiman 1996) trains one model on each of B bootstrap samples and averages their predictions (for regression) or takes a majority vote (for classification):",
+        "To average models that differ, we would like many different training sets, but we have only one. We cannot draw new training sets from the population, but the **bootstrap** imitates it: draw m examples //with replacement// from the training set. \"With replacement\" means each draw puts the example back, so the same example can appear twice. For a training set {a, b, c, d, e}, one bootstrap sample might be {b, b, d, e, e}: it has the same size, some examples repeated and some (a and c) missing.",
+        "**Bagging** (bootstrap aggregating, Breiman 1996) trains one model on each of B bootstrap samples and averages their predictions (for regression) or takes a majority vote (for classification):",
         {
           "eq": "f̂_bag(x) = (1/B) Σ_{b=1}^{B} f̂_b(x)"
         },
@@ -163,7 +165,7 @@
         "sample weights"
       ],
       "body": [
-        "**Boosting** builds an ensemble sequentially. Each new model concentrates on the examples that the current ensemble gets wrong. A **weak learner** is any model slightly better than guessing; boosting turns weak learners into a strong one, often with decision stumps (one-split trees) as the learners.",
+        "Bagging trains its models independently and averages them. Boosting takes the opposite approach, like a student who takes a practice test, studies only the questions they missed, takes another test weighted toward those, and repeats. **Boosting** builds an ensemble sequentially. Each new model concentrates on the examples that the current ensemble gets wrong. A **weak learner** is any model slightly better than guessing; boosting turns weak learners into a strong one, often with decision stumps (one-split trees) as the learners.",
         "**AdaBoost** (adaptive boosting, Freund and Schapire) for labels y ∈ {−1, +1}:",
         {
           "list": [

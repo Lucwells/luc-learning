@@ -34,7 +34,7 @@
         "exploratory data analysis and visualization"
       ],
       "body": [
-        "A single variable is summarized by its **center**, **spread** and **shape**.",
+        "Suppose someone hands you a column of a thousand numbers. Reading them all is hopeless, so you ask three questions: where are they centered, how spread out are they, and what is the shape (symmetric, lopsided, with a long tail)? Each question has a summary number, and each can mislead on its own. For example, the average income in a town of 99 teachers and one billionaire says very little about the typical resident. A single variable is summarized by its **center**, **spread** and **shape**.",
         {
           "eqs": [
             [
@@ -176,7 +176,7 @@
         "lurking variable"
       ],
       "body": [
-        "The basic picture of two numeric variables is a **scatter plot**: look for the direction (positive or negative), the form (linear, curved, clustered), the strength, and outliers. For large data, points overlap (**overplotting**), which hides the density: use transparency, small markers, 2D histograms or hexbin plots.",
+        "To see whether two things are related, plot one against the other, with one dot per observation. If the dots form a rising band, the variables rise together. If they form a cloud with no pattern, there is no visible relationship. A single number, the correlation, can summarize a straight-line pattern, but it can be fooled by curves and outliers, which is why the picture comes first. The basic picture of two numeric variables is a **scatter plot**: look for the direction (positive or negative), the form (linear, curved, clustered), the strength, and outliers. For large data, points overlap (**overplotting**), which hides the density: use transparency, small markers, 2D histograms or hexbin plots.",
         {
           "h": "Correlation"
         },

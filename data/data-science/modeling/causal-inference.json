@@ -30,7 +30,7 @@
         "selection bias in causal inference"
       ],
       "body": [
-        "Let T = 1 if a unit receives the treatment and T = 0 otherwise. Each unit has two **potential outcomes**: Y(1), what would happen under treatment, and Y(0), what would happen without it. The causal effect for the unit is Y(1) − Y(0). The **fundamental problem of causal inference** is that we observe only one of the two: the outcome under the treatment actually received. The other is a **counterfactual**, never seen.",
+        "Suppose you take an aspirin and your headache goes away. Did the aspirin work? To know, you would need to see what would have happened if you had not taken it, but you cannot go back and live the same moment twice. Only one of the two possible outcomes is ever observed. Causal inference is the set of methods for answering such questions anyway, by finding or creating comparison groups that stand in for the missing outcome. Let T = 1 if a unit receives the treatment and T = 0 otherwise. Each unit has two **potential outcomes**: Y(1), what would happen under treatment, and Y(0), what would happen without it. The causal effect for the unit is Y(1) − Y(0). The **fundamental problem of causal inference** is that we observe only one of the two: the outcome under the treatment actually received. The other is a **counterfactual**, never seen.",
         "We can still hope to learn averages. The **average treatment effect** (ATE) is E[Y(1) − Y(0)]. The obvious estimate is the difference in observed means between the treated and untreated, E[Y | T = 1] − E[Y | T = 0]. It equals the ATE only if the two groups would have had the same outcomes absent treatment. In general",
         {
           "eq": "E[Y | T=1] − E[Y | T=0] = ATT + ( E[Y(0) | T=1] − E[Y(0) | T=0] )"
@@ -160,7 +160,7 @@
         "directed acyclic graph for causation"
       ],
       "body": [
-        "A **causal diagram** is a directed acyclic graph in which an arrow X → Y says that X is a direct cause of Y (see d-separation in Graphical Models). It encodes the analyst's assumptions about the data-generating process, and tells us what to adjust for. Three basic patterns on the path between a treatment T and an outcome Y:",
+        "Ice cream sales and drownings both rise in summer, so they are correlated, but ice cream does not cause drowning. Hot weather causes both. A causal diagram draws this as arrows: weather → ice cream and weather → drowning. The diagram makes the reasoning visible and tells you what to account for: here you would compare days of similar temperature before concluding anything. A **causal diagram** is a directed acyclic graph in which an arrow X → Y says that X is a direct cause of Y (see d-separation in Graphical Models). It encodes the analyst's assumptions about the data-generating process, and tells us what to adjust for. Three basic patterns on the path between a treatment T and an outcome Y:",
         {
           "table": {
             "head": [

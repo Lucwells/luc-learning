@@ -39,6 +39,25 @@
         {
           "eq": "O[i, j] = Σ_{u=0}^{K−1} Σ_{v=0}^{K−1} W[u, v] · I[i + u, j + v] + b"
         },
+        "Think of the filter as a small template for a pattern, held up to each part of the image in turn. Where the patch under it resembles the template the dot product is large, and where it does not the output is small or negative. The output is a map of where the pattern occurs.",
+        {
+          "example": {
+            "title": "A convolution step by step",
+            "problem": "Slide the 2×2 filter with rows (1, 0) and (0, −1) over the 3×3 input with rows (1, 2, 0), (0, 1, 3), (2, 1, 1), with stride 1 and no padding.",
+            "solution": [
+              "The output is 2×2, one value for each position of the filter. At each position, multiply the four filter entries by the four pixels beneath them and add.",
+              {
+                "eq": [
+                  "top-left:  1·1 + 0·2 + 0·0 + (−1)·1 = 0",
+                  "top-right:  1·2 + 0·0 + 0·1 + (−1)·3 = −1",
+                  "bottom-left:  1·0 + 0·1 + 0·2 + (−1)·1 = −1",
+                  "bottom-right:  1·1 + 0·3 + 0·1 + (−1)·1 = 0"
+                ]
+              },
+              "The output is [[0, −1], [−1, 0]]. This filter compares each pixel with the one diagonally below and to its right, so its output is positive where the image gets darker along that diagonal and negative where it gets brighter."
+            ]
+          }
+        },
         {
           "example": {
             "title": "A vertical edge detector",

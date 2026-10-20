@@ -32,7 +32,7 @@
         "information theory"
       ],
       "body": [
-        "The **information** (surprise) of an event with probability p is −log p: rare events are surprising and carry much information, and certain events carry none. With logarithms to base 2 the unit is the **bit**, and with natural logarithms the **nat** (1 nat = 1.443 bits). The **entropy** of a discrete random variable is its expected surprise:",
+        "How surprised are you when you learn that it rained today? If you live in a rainforest, hardly at all. If you live in a desert, a lot. The rarer an event, the more surprising, and the more information it carries. Now average that surprise over all the possible outcomes, weighted by how often each occurs: that average is the entropy, a measure of how unpredictable the source is. A fair coin is as unpredictable as a two-outcome source can be, and a coin that nearly always lands heads is quite predictable. The **information** (surprise) of an event with probability p is −log p: rare events are surprising and carry much information, and certain events carry none. With logarithms to base 2 the unit is the **bit**, and with natural logarithms the **nat** (1 nat = 1.443 bits). The **entropy** of a discrete random variable is its expected surprise:",
         {
           "eq": "H(X) = −Σ_x p(x) log p(x) = E[ −log p(X) ]"
         },
@@ -165,7 +165,7 @@
         "jensen–shannon divergence"
       ],
       "body": [
-        "How well does a model distribution q describe data that actually follow p? If we encode symbols drawn from p using a code designed for q, the average length is the **cross-entropy**",
+        "Suppose a language really uses the letter E 12% of the time but you design your shorthand assuming all 26 letters are equally likely. Your shorthand gives E a long code, so your messages come out longer than necessary. The extra length is the price of using the wrong model. Cross-entropy is the total average length with the wrong model, and the KL divergence is the extra part, the waste. If your assumed model is perfect, the waste is zero. How well does a model distribution q describe data that actually follow p? If we encode symbols drawn from p using a code designed for q, the average length is the **cross-entropy**",
         {
           "eq": "H(p, q) = −Σ_x p(x) log q(x) = H(p) + KL(p ‖ q)"
         },

@@ -30,7 +30,7 @@
         "compact svd"
       ],
       "body": [
-        "Every m × n real matrix A can be factored as",
+        "Imagine the matrix as a machine that takes a perfectly round ball of inputs and outputs a squashed, tilted ellipse. The ellipse has a longest axis, a next longest, and so on. The SVD reads off exactly those: the lengths of the axes (the singular values), the directions of the axes in the output (the left singular vectors), and the input directions that produce them (the right singular vectors). A long axis means the matrix amplifies that direction a lot, and a very short axis means almost nothing from that direction survives. Every m × n real matrix A can be factored as",
         {
           "eq": "A = U Σ Vᵀ"
         },
@@ -183,7 +183,7 @@
         "lora"
       ],
       "body": [
-        "Keep only the k largest terms of the sum A = Σσ_iu_iv_iᵀ to get the **truncated SVD**",
+        "The SVD writes a matrix as a sum of simple layers, each one a rank-one matrix, ordered from most important to least. A photograph, for example, is mostly captured by the first few layers (broad shapes and lighting), while later layers add fine detail and noise. Keeping only the first k layers gives a smaller description that looks almost the same. Keep only the k largest terms of the sum A = Σσ_iu_iv_iᵀ to get the **truncated SVD**",
         {
           "eq": "A_k = Σ_{i=1}^{k} σ_i u_i v_iᵀ"
         },

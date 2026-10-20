@@ -28,7 +28,7 @@
         "autograd"
       ],
       "body": [
-        "To get the derivative of a function written as a program there are three approaches.",
+        "Suppose you have a program that computes a loss from a thousand parameters, and you need to know how the loss changes when each parameter is nudged. You could nudge each one and rerun the program (slow), derive formulas by hand (error-prone), or have the computer apply the rules of calculus mechanically to the very steps of the program. The last is automatic differentiation, and it is what makes training large models practical. To get the derivative of a function written as a program there are three approaches.",
         {
           "table": {
             "head": [
@@ -172,7 +172,7 @@
         "tangent propagation"
       ],
       "body": [
-        "**Forward mode** carries a derivative along with each value. Choose an input direction (for the partial derivative with respect to x₁, seed ẋ₁ = 1 and ẋ₂ = 0) and propagate the **tangent** v̇_i = ∂v_i/∂(seed) forward, applying the local derivative rule at each step.",
+        "Forward mode answers the question: if I nudge one input, how does every later quantity respond? Imagine pushing on one domino and watching the effect travel down the line. Each value carries along a second number, how fast it is changing, and every operation updates both together. The cost is one pass per input you nudge, which is cheap when there are few inputs and expensive when there are millions. **Forward mode** carries a derivative along with each value. Choose an input direction (for the partial derivative with respect to x₁, seed ẋ₁ = 1 and ẋ₂ = 0) and propagate the **tangent** v̇_i = ∂v_i/∂(seed) forward, applying the local derivative rule at each step.",
         {
           "example": {
             "title": "Forward mode for ∂f/∂x₁",
@@ -244,7 +244,7 @@
         "cheap gradient principle"
       ],
       "body": [
-        "**Reverse mode** goes the other way. It first runs the program forward, recording the trace. Then it propagates **adjoints** v̄_i = ∂f/∂v_i, the sensitivity of the final output to each intermediate variable, from the output backward. At each step, the adjoint of a variable is the sum over the operations that used it of (adjoint of the result) × (local derivative).",
+        "Reverse mode asks the opposite question: for the final output, how much does each earlier quantity matter? Imagine finding out who is responsible for a mistake by tracing back from the result, one step at a time. A single backward pass gives the effect of every input on the one output, which is exactly the situation for a loss with millions of parameters. **Reverse mode** goes the other way. It first runs the program forward, recording the trace. Then it propagates **adjoints** v̄_i = ∂f/∂v_i, the sensitivity of the final output to each intermediate variable, from the output backward. At each step, the adjoint of a variable is the sum over the operations that used it of (adjoint of the result) × (local derivative).",
         {
           "example": {
             "title": "Reverse mode for the whole gradient",

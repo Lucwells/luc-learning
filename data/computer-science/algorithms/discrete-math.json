@@ -27,7 +27,7 @@
         "existential quantifier"
       ],
       "body": [
-        "A **proposition** is a statement that is either true or false. Propositions are combined with **connectives**: not (¬), and (∧), or (∨), implies (→) and if and only if (↔). A **truth table** lists the value of a formula for every assignment of truth values to its variables.",
+        "Logic is the discipline of saying exactly what a statement means. In everyday speech \"if you finish your homework, you may play\" leaves open what happens if you do not finish. In logic an implication p → q makes a promise only about the case where p is true: it is broken only if p is true and q is false. Precision of this kind is what lets us specify what a program must do and prove that it does it. A **proposition** is a statement that is either true or false. Propositions are combined with **connectives**: not (¬), and (∧), or (∨), implies (→) and if and only if (↔). A **truth table** lists the value of a formula for every assignment of truth values to its variables.",
         {
           "table": {
             "head": [
@@ -268,7 +268,7 @@
             "**bijective** if both. A bijection has an inverse and shows that two sets have the same size."
           ]
         },
-        "Counting functions: there are |B|^{|A|} functions from A to B, since each of the |A| inputs independently has |B| choices of output. An injective function from A to B requires |A| ≤ |B|, and a surjective one |A| ≥ |B|. A hash function maps a huge set of keys to a small set of table slots, so it cannot be injective, and collisions are unavoidable (the pigeonhole principle, below).",
+        "Think of a function as a complete lookup table: one row for each input in A, and in each row one chosen output from B. Two functions are different if their tables differ in at least one row. For A = {x, y} and B = {0, 1} the four functions are: (x → 0, y → 0), (x → 0, y → 1), (x → 1, y → 0) and (x → 1, y → 1). Each row has |B| = 2 choices and there are |A| = 2 rows, so the choices multiply to 2 × 2 = 4. Counting functions: there are |B|^{|A|} functions from A to B, since each of the |A| inputs independently has |B| choices of output. The number of options per row is the base, and the number of rows is the exponent. An injective function from A to B requires |A| ≤ |B|, and a surjective one |A| ≥ |B|. A hash function maps a huge set of keys to a small set of table slots, so it cannot be injective, and collisions are unavoidable (the pigeonhole principle, below).",
         {
           "h": "Relations"
         },
@@ -396,7 +396,7 @@
         "bipartite graph"
       ],
       "body": [
-        "A **graph** G = (V, E) consists of a set V of **vertices** (nodes) and a set E of **edges**, each joining two vertices. In a **directed graph** the edges have a direction (u → v). Graphs model networks of every kind: social ties, road maps, web links, molecules, neural networks and the dependencies between tasks.",
+        "Draw dots for people and a line between every pair of friends. The picture is a graph, and questions such as \"is everyone connected to everyone through chains of friends?\" or \"who has the most friends?\" become questions about the picture. The same drawing works for cities and roads, web pages and links, or tasks and their dependencies. A **graph** G = (V, E) consists of a set V of **vertices** (nodes) and a set E of **edges**, each joining two vertices. In a **directed graph** the edges have a direction (u → v). Graphs model networks of every kind: social ties, road maps, web links, molecules, neural networks and the dependencies between tasks.",
         {
           "list": [
             "The **degree** of a vertex is the number of edges at it (in a directed graph, in-degree and out-degree).",

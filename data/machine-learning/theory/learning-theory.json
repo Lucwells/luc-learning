@@ -30,6 +30,7 @@
         "excess risk"
       ],
       "body": [
+        "Start with the question in plain terms: how many training examples do you need before you can trust a rule that fits them? Imagine the learner is choosing among a list of candidate rules. Some are truly good and some are bad, but a bad rule can still get lucky on a small sample and match every training example. The more candidate rules there are, the more chances that one bad rule gets lucky. The more examples you have, the less likely any bad rule is to survive all of them. The theory turns this into numbers. Here the size |ℋ| of the class is the number of candidate functions, counted exactly as in the Introduction: with 3-bit inputs and yes/no labels the class of all functions has 2⁸ = 256 members.",
         "Fix a hypothesis class ℋ, a distribution P over inputs and labels, and the risk R(h) = P(h(x) ≠ y) with R̂(h) its average on the m training examples (see the Introduction). In the **realizable** setting some h* ∈ ℋ has zero risk. A learner is **probably approximately correct** (PAC) if, for any accuracy ε > 0 and confidence δ > 0, with probability at least 1 − δ over the sample it returns a hypothesis with risk at most ε, using a number of examples (the **sample complexity**) that is polynomial in 1/ε and 1/δ.",
         {
           "key": "Finite class, realizable case. Any hypothesis consistent with m examples has risk at most ε with probability ≥ 1 − δ if m ≥ (1/ε)(ln|ℋ| + ln(1/δ))."
@@ -126,7 +127,8 @@
         "sauer–shelah lemma"
       ],
       "body": [
-        "Most useful classes are infinite (every linear classifier), so ln|ℋ| is infinite and the previous bound is vacuous. What matters is not how many hypotheses there are, but how many different ways they can label a finite sample. A class **shatters** a set of m points if, for every one of the 2^m labelings of the points, some hypothesis in the class realizes it. The **VC dimension** d_VC(ℋ) is the size of the largest set that ℋ can shatter.",
+        "Most useful classes are infinite (every linear classifier), so ln|ℋ| is infinite and the previous bound is vacuous. Here is the idea that replaces counting hypotheses. Pick a few sample points. Even an infinite class can only produce a limited number of different label patterns on them. For example, on 3 points a line can produce at most 8 patterns of + and −, however many lines exist. What matters is how many distinct patterns the class can produce, not how many functions it contains. A class is complex when it can produce every pattern, because then it can fit any labels and says nothing about the truth.",
+        "Formally, a class **shatters** a set of m points if, for every one of the 2^m labelings of the points, some hypothesis in the class realizes it. The **VC dimension** d_VC(ℋ) is the size of the largest set that ℋ can shatter.",
         {
           "list": [
             "Intervals on the line, h(x) = 1 if a ≤ x ≤ b: VC dimension 2. Two points can be labeled in every way, but for three points a < b < c the labeling (+, −, +) is impossible.",

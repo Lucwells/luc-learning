@@ -29,6 +29,7 @@
         "sequence models"
       ],
       "body": [
+        "Read a sentence one word at a time and keep a short note in your head about what it has said so far. After each new word you update the note using the old note and the new word. That is an RNN. The note is the hidden state, a vector of numbers, and the update rule is the same at every word. Because the note is rewritten at each step, it can only hold so much, and details from many words ago tend to be overwritten, which is the weakness the rest of the chapter addresses.",
         "Given inputs x₁, …, x_T, a **recurrent neural network** keeps a **hidden state** h_t that is updated at every step from the new input and the previous state, and may emit an output:",
         {
           "eq": [
@@ -132,7 +133,7 @@
         "gating"
       ],
       "body": [
-        "The **long short-term memory** network (Hochreiter and Schmidhuber, 1997) adds a separate **cell state** c_t that acts as a conveyor belt for information. Learned gates, each a sigmoid between 0 (block) and 1 (pass), control what is written to, kept in and read from the cell. With input x_t and previous state (h_{t−1}, c_{t−1}):",
+        "A plain RNN rewrites its whole note at every step. The LSTM instead keeps a notebook (the cell state) and decides at every step, with three learned dials between 0 and 1, what to do with it: how much of the old content to keep (forget gate), how much of the new candidate to write in (input gate), and how much of the notebook to show to the rest of the network (output gate). A dial at 1 passes everything through, and a dial at 0 blocks it. Because the notebook can be carried forward almost unchanged, information survives many steps. The **long short-term memory** network (Hochreiter and Schmidhuber, 1997) adds a separate **cell state** c_t that acts as a conveyor belt for information. Learned gates, each a sigmoid between 0 (block) and 1 (pass), control what is written to, kept in and read from the cell. With input x_t and previous state (h_{t−1}, c_{t−1}):",
         {
           "eq": [
             "f_t = σ(W_f [h_{t−1}, x_t] + b_f)    forget gate",

@@ -72,7 +72,7 @@
         "projection onto a subspace"
       ],
       "body": [
-        "The **projection** of b onto the line spanned by a is the point p = x̂a on the line closest to b. The error e = b − p must be perpendicular to a: aᵀ(b − x̂a) = 0, so",
+        "Picture a stick pointing in direction b and a flat wall (or a line drawn on the floor). With the sun directly overhead, the stick casts a shadow. The shadow is the part of the stick that lies along the line, and the missing part, from the shadow's tip up to the stick's tip, is perpendicular to the line. That shadow is the projection. It is the point on the line closest to the stick's tip, because any other point would be farther away. The **projection** of b onto the line spanned by a is the point p = x̂a on the line closest to b. The error e = b − p must be perpendicular to a: aᵀ(b − x̂a) = 0, so",
         {
           "eq": [
             "x̂ = aᵀb / aᵀa",
@@ -126,7 +126,7 @@
         "orthogonality principle"
       ],
       "body": [
-        "When Ax = b has no solution because b is not in the column space of A, the closest we can get is to the point of the column space nearest to b. That is the projection p = Ax̂, and the minimizer of ‖Ax − b‖² satisfies the normal equations AᵀAx̂ = Aᵀb. The **residual** r = b − Ax̂ is orthogonal to the column space (Aᵀr = 0): the fit has extracted everything the features can explain. This is the **orthogonality principle**.",
+        "In practice data never fit a model exactly. Suppose three points do not lie on any line. Then no choice of slope and intercept reproduces all three outputs, which means the target vector b is not in the column space of A (the set of outputs a line can produce). Least squares gives up on an exact match and asks for the closest achievable output, which by the shadow picture is the projection of b onto that set. When Ax = b has no solution because b is not in the column space of A, the closest we can get is to the point of the column space nearest to b. That is the projection p = Ax̂, and the minimizer of ‖Ax − b‖² satisfies the normal equations AᵀAx̂ = Aᵀb. The **residual** r = b − Ax̂ is orthogonal to the column space (Aᵀr = 0): the fit has extracted everything the features can explain. This is the **orthogonality principle**.",
         "Calculus gives the same equations: the gradient of ‖Ax − b‖² is 2Aᵀ(Ax − b) (see Matrix Calculus). The geometry explains them.",
         {
           "example": {
@@ -172,7 +172,7 @@
         "condition number of least squares"
       ],
       "body": [
-        "Given independent vectors a₁, …, a_n, the **Gram–Schmidt process** builds orthonormal vectors q₁, …, q_n with the same spans. Take the first vector and normalize it. For each next vector, subtract its components along the earlier q's and normalize what remains:",
+        "The idea is to make a set of directions that do not overlap. Take the first vector as is. For the second, remove the part that points along the first (its shadow on it), and keep what is left, which is perpendicular to the first. For the third, remove its shadows on both earlier directions. Finally scale each leftover to length 1. Given independent vectors a₁, …, a_n, the **Gram–Schmidt process** builds orthonormal vectors q₁, …, q_n with the same spans. Take the first vector and normalize it. For each next vector, subtract its components along the earlier q's and normalize what remains:",
         {
           "eq": [
             "q₁ = a₁/‖a₁‖",

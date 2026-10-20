@@ -30,10 +30,12 @@
         "generative classifiers"
       ],
       "body": [
+        "Suppose you want to tell cats from dogs in photos. One approach is to learn what separates them directly: \"photos with this ear shape and snout length are dogs.\" Another is to learn what a typical cat photo looks like, and what a typical dog photo looks like, and then label a new photo by asking which description it matches better. The first approach is discriminative and the second is generative.",
         "A **discriminative** model learns P(y | x) or a decision rule directly. Logistic regression and support vector machines are discriminative. A **generative** model learns the joint distribution through two pieces, the **class prior** P(y) and the class-conditional density P(x | y). Bayes' rule then gives the **posterior**:",
         {
           "eq": "P(y | x) = P(x | y) P(y) / P(x),    P(x) = Σ_y P(x | y) P(y)"
         },
+        "Bayes' rule just reverses the direction of a conditional probability. Example: 1% of emails are spam (the prior). If an email is spam, the word \"prize\" appears in 40% of cases, and if it is not spam, in 2%. For an email containing \"prize\", spam contributes 0.01 × 0.40 = 0.004 and non-spam contributes 0.99 × 0.02 = 0.0198, so P(spam | prize) = 0.004/(0.004 + 0.0198) = 0.17. The word is strong evidence (20 times more likely under spam), but the low prior keeps the posterior modest. The prior and the evidence are both needed.",
         "For classification the denominator is the same for all classes and can be ignored:",
         {
           "eq": "ŷ = argmax_y P(x | y) P(y)"
@@ -81,6 +83,7 @@
         "covariance matrix estimate"
       ],
       "body": [
+        "Picture the data as two clouds of points, one per class, each shaped like a blob that is dense in the middle and thins out toward the edges. GDA describes each blob by its center (the mean) and its shape (the covariance), then classifies a new point by asking which blob it more plausibly came from. In one dimension, with equal priors and equal spreads, this reduces to a simple rule: choose the class whose mean is closer.",
         "For continuous x ∈ ℝⁿ, **Gaussian discriminant analysis** (GDA) assumes each class has a multivariate normal density (see the Gaussian in Multivariate Probability), with a shared covariance Σ:",
         {
           "eqs": [

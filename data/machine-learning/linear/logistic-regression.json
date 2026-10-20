@@ -29,11 +29,11 @@
       ],
       "body": [
         "Let y ∈ {0, 1}. Fitting a line to 0/1 labels by least squares is a poor idea: predictions fall outside [0, 1], and a few distant points tilt the line and change the classification of unrelated points. We want a model of the probability P(y = 1 | x).",
-        "The **odds** of an event with probability p are p/(1 − p), and the **log-odds** (**logit**) is ln(p/(1 − p)), which takes any real value. Assume the log-odds are linear in the features:",
+        "The trouble is that a weighted sum θᵀx can be any real number, while a probability must lie between 0 and 1. We need a bridge between the two. The bridge goes through odds. The **odds** of an event with probability p are p/(1 − p). A probability of 0.8 means odds of 0.8/0.2 = 4, or \"4 to 1 for\". A probability of 0.5 gives odds of 1, and a probability of 0.2 gives odds of 0.25. Odds take any positive value, and taking the logarithm turns them into any real value, positive or negative. The **log-odds** (**logit**) is ln(p/(1 − p)). Now the weighted sum can safely be set equal to it. Assume the log-odds are linear in the features:",
         {
           "eq": "ln( p / (1 − p) ) = θᵀx"
         },
-        "Solving for p gives the **sigmoid** (logistic function) of θᵀx:",
+        "Solving for p gives the **sigmoid** (logistic function) of θᵀx. It works as a squashing function: large positive scores become probabilities near 1, large negative scores become probabilities near 0, and a score of exactly 0 gives 0.5.",
         {
           "eq": [
             "P(y = 1 | x; θ) = h_θ(x) = σ(θᵀx),    σ(z) = 1 / (1 + e^{−z})",
@@ -89,6 +89,7 @@
         "iteratively reweighted least squares"
       ],
       "body": [
+        "How do we choose θ? Ask which θ makes the labels we actually saw most probable. For a single example with label 1, the model assigns probability h to it, so we want h large. For a label 0 the model assigns 1 − h, so we want h small. For example, with labels (1, 0, 1) and predicted probabilities (0.9, 0.2, 0.7), the probability of seeing exactly these labels is 0.9 × 0.8 × 0.7 = 0.504. Another θ giving (0.6, 0.5, 0.5) scores 0.6 × 0.5 × 0.5 = 0.15, which is worse. Maximum likelihood picks the θ with the highest such product. Products of many small numbers are awkward, so we take logarithms, which turn the product into a sum without changing which θ is best.",
         "Assuming independent examples, the likelihood of the training labels is the product of the individual probabilities, and the log-likelihood is",
         {
           "eq": "ℓ(θ) = Σ_{i=1}^{m} [ y^{(i)} ln h_θ(x^{(i)}) + (1 − y^{(i)}) ln(1 − h_θ(x^{(i)})) ]"
@@ -160,7 +161,7 @@
         "irls"
       ],
       "body": [
-        "Gradient descent uses the slope only. **Newton's method** also uses the curvature, by minimizing the second-order Taylor approximation of J at each step:",
+        "Gradient descent uses the slope only, so it knows which way is downhill but not how far to go. **Newton's method** also uses the curvature (how quickly the slope itself changes). At each step it replaces J near the current point by the parabola (or its higher-dimensional version) that matches the value, slope and curvature there, then jumps straight to the bottom of that parabola. When J really is close to a parabola, one jump lands very near the minimum. Formally, it minimizes the second-order Taylor approximation of J at each step:",
         {
           "eq": "θ ← θ − H⁻¹ ∇J(θ),    H = ∇²J(θ)"
         },
@@ -296,7 +297,7 @@
         "one-hot"
       ],
       "body": [
-        "With K classes, give each class its own weight vector θ_k and score s_k = θ_kᵀx. The **softmax** turns the scores into a probability distribution:",
+        "With K classes, give each class its own weight vector θ_k and score s_k = θ_kᵀx, like K separate judges each rating how well x fits their class. The raw scores can be negative and do not add up to 1, so they are not yet probabilities. The **softmax** fixes this in two steps: exponentiate each score so that it becomes positive, then divide by the total so that they sum to 1. A higher score still means a higher probability, and the exponential makes the leader stand out more:",
         {
           "eq": "P(y = k | x) = exp(s_k) / Σ_{j=1}^{K} exp(s_j)"
         },

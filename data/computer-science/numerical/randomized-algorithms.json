@@ -31,7 +31,7 @@
         "randomness in computation"
       ],
       "body": [
-        "A **pseudorandom number generator** (PRNG) is a deterministic algorithm that expands a short **seed** into a long sequence of numbers that pass statistical tests for randomness. The simplest is the **linear congruential generator** (LCG):",
+        "Computers are deterministic, so they cannot truly roll dice. A pseudorandom generator fakes it with a rule like \"take the previous number, multiply, add, and keep the remainder,\" which produces a sequence that looks random but is completely determined by its starting value. Start from the same value, called the seed, and you get exactly the same sequence again, which is very useful for reproducing experiments. A **pseudorandom number generator** (PRNG) is a deterministic algorithm that expands a short **seed** into a long sequence of numbers that pass statistical tests for randomness. The simplest is the **linear congruential generator** (LCG):",
         {
           "eq": "x_{n+1} = (a·x_n + c) mod m,    u_n = x_n / m"
         },
@@ -182,7 +182,7 @@
         "control variate"
       ],
       "body": [
-        "**Monte Carlo** estimates an expectation E[g(X)] by the average of g over random samples, with standard error σ/√n (see Limit Theorems). The error shrinks slowly, but independently of the dimension. **Variance reduction** lowers σ for the same n. In **antithetic variates**, pair each sample u with its mirror 1 − u: the two estimates are negatively correlated, and their average has smaller variance.",
+        "To estimate the area of an odd-shaped lake on a map, you could throw darts at random at the map and count the fraction that land in the lake: that fraction times the map's area is your estimate. More darts give a better estimate, and the method works however complicated the lake's shape. That is Monte Carlo: answer a hard calculation by random sampling. **Monte Carlo** estimates an expectation E[g(X)] by the average of g over random samples, with standard error σ/√n (see Limit Theorems). The error shrinks slowly, but independently of the dimension. **Variance reduction** lowers σ for the same n. In **antithetic variates**, pair each sample u with its mirror 1 − u: the two estimates are negatively correlated, and their average has smaller variance.",
         {
           "example": {
             "title": "Antithetic variates",

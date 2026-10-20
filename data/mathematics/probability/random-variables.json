@@ -32,7 +32,7 @@
         "random variables and distributions"
       ],
       "body": [
-        "A **random variable** X is a function from outcomes to numbers. It is **discrete** if it takes countably many values and **continuous** if it takes values in an interval.",
+        "Roll two dice and record the sum. The experiment's outcome is the pair of faces, but we care about one number computed from it, the sum. That number is a random variable: its value is determined by chance, and we describe it by listing how likely each value is. Rolling a sum of 7 has probability 6/36, and a sum of 2 has 1/36. A **random variable** X is a function from outcomes to numbers. It is **discrete** if it takes countably many values and **continuous** if it takes values in an interval.",
         "A discrete variable is described by its **probability mass function** (PMF) p(x) = P(X = x), with p(x) ≥ 0 and Σ_x p(x) = 1. A continuous variable has probability zero at every single point. Instead it has a **probability density function** (PDF) f(x) ≥ 0 with ∫f(x)dx = 1, and probabilities are areas under the density:",
         {
           "eq": "P(a ≤ X ≤ b) = ∫_a^b f(x) dx"
@@ -79,7 +79,7 @@
         "skewness"
       ],
       "body": [
-        "The **expectation** (mean) of X is the probability-weighted average of its values:",
+        "The expectation is the long-run average. If you play a game many times, the average payoff per play settles at the expectation. A game that pays 10 with probability 0.1 and 0 otherwise has expectation 0.1 × 10 = 1 per play, even though no single play ever pays exactly 1. The variance then tells how much individual plays scatter around that average. The **expectation** (mean) of X is the probability-weighted average of its values:",
         {
           "eq": [
             "E[X] = Σ_x x p(x)    (discrete)",
@@ -297,7 +297,7 @@
         {
           "h": "The Gaussian distribution"
         },
-        "The **Gaussian** (normal) distribution N(μ, σ²) is the most important distribution in statistics and machine learning. The reasons are the central limit theorem (see Limit Theorems): sums and averages of many independent contributions are approximately Gaussian, whatever the individual distribution; it is the maximum entropy distribution for a given mean and variance; and it is mathematically convenient: linear transformations and sums of Gaussians are Gaussian.",
+        "The Gaussian is the bell curve: values cluster near the center μ and become rarer symmetrically as you move away, at a rate set by the spread σ. Heights, measurement errors and many sums of small independent effects follow it closely. The **Gaussian** (normal) distribution N(μ, σ²) is the most important distribution in statistics and machine learning. The reasons are the central limit theorem (see Limit Theorems): sums and averages of many independent contributions are approximately Gaussian, whatever the individual distribution; it is the maximum entropy distribution for a given mean and variance; and it is mathematically convenient: linear transformations and sums of Gaussians are Gaussian.",
         {
           "svg": "<svg viewBox='0 0 440 230' role='img' aria-label='Normal density with the region within one standard deviation shaded' font-family='system-ui, sans-serif' font-size='12'><path d='M170,200 L170,103 L182,80 L195,58.8 L207,46 L220,40 L232,46 L245,58.8 L258,80 L270,103 L270,200 Z' style='fill:var(--accent)' fill-opacity='.25' stroke='none'/><path fill='none' stroke='currentColor' stroke-width='2.5' d='M70,198 L95,193 L120,178 L145,148 L170,103 L195,58.8 L220,40 L245,58.8 L270,103 L295,148 L320,178 L345,193 L370,198'/><path d='M40,200 H400' fill='none' stroke='currentColor' stroke-width='1.5'/><g fill='currentColor' text-anchor='middle'><text x='220' y='218'>μ</text><text x='170' y='218'>μ − σ</text><text x='270' y='218'>μ + σ</text><text x='120' y='218'>μ − 2σ</text><text x='320' y='218'>μ + 2σ</text><text x='220' y='130'>68%</text></g></svg>",
           "caption": "The normal density. About 68% of the probability lies within one standard deviation of the mean, 95% within two and 99.7% within three."

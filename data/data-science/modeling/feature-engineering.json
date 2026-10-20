@@ -31,7 +31,7 @@
         "winsorizing"
       ],
       "body": [
-        "Different features have different scales and shapes, and many models care.",
+        "If one feature is a person's age (20 to 70) and another is their income (20,000 to 200,000), a method that measures distances will pay almost no attention to age, simply because income's numbers are so much bigger. Putting features on a common scale lets each contribute fairly. Similarly, a feature with a long tail, such as income, often becomes better behaved after taking a logarithm. Different features have different scales and shapes, and many models care.",
         {
           "list": [
             "**Standardization** subtracts the mean and divides by the standard deviation: z = (x − μ)/σ. The result has mean 0 and variance 1. Use it for models that depend on distances or gradients: k-nearest neighbors, k-means, SVMs, linear and logistic regression with regularization, neural networks, PCA.",
@@ -87,7 +87,7 @@
         "embedding for categories"
       ],
       "body": [
-        "Models need numbers, and how a category is turned into numbers determines what the model can learn.",
+        "Suppose a column holds the cities Paris, Tokyo and Lima. Coding them as 1, 2 and 3 would tell the model that Tokyo is \"between\" Paris and Lima and that Lima is three times Paris, which means nothing. One-hot encoding instead gives each city its own yes/no column, so no false order is implied. How you turn categories into numbers decides what the model can and cannot learn. Models need numbers, and how a category is turned into numbers determines what the model can learn.",
         {
           "table": {
             "head": ["Encoding", "How", "Good for", "Watch out"],
@@ -231,7 +231,7 @@
         "feature store"
       ],
       "body": [
-        "Every transformation that learns something from the data (a mean, a vocabulary, a category mapping, an imputation value, a selected feature set) must be **fit on the training data only** and then applied unchanged to validation and test data. In cross-validation this means refitting the transformation inside each training fold. The standard way is a **pipeline** that bundles the preprocessing and the model into one object, which is then fit and evaluated as a whole.",
+        "Imagine a student who sees the exam answers before the exam and then scores 100%. The score says nothing about what the student can do on new questions. If you compute averages or other statistics over your entire data set before splitting it, information from the test portion leaks into training, and your reported accuracy becomes inflated in the same way. A pipeline prevents this by learning every transformation from the training data only. Every transformation that learns something from the data (a mean, a vocabulary, a category mapping, an imputation value, a selected feature set) must be **fit on the training data only** and then applied unchanged to validation and test data. In cross-validation this means refitting the transformation inside each training fold. The standard way is a **pipeline** that bundles the preprocessing and the model into one object, which is then fit and evaluated as a whole.",
         {
           "code": [
             "from sklearn.pipeline import Pipeline",

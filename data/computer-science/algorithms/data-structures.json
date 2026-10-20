@@ -23,7 +23,7 @@
       ],
       "body": [
         "An **abstract data type** (ADT) defines a collection by the operations it supports (insert, delete, find) without saying how it is stored. A **data structure** is a concrete implementation with costs.",
-        "An **array** stores items contiguously in memory, so the i-th item is found by arithmetic on its address: **random access** is O(1). Insertion or deletion in the middle requires shifting everything after it, O(n). Appending at the end is O(1) amortized for a dynamic array (see Algorithm Analysis). Arrays are cache-friendly, since neighboring items are adjacent in memory, which makes them far faster in practice than their operation counts suggest. NumPy arrays and tensors are arrays.",
+        "Picture two ways of storing a row of letters. In the first, they sit in numbered lockers side by side. To get locker 500 you walk straight to it. But to insert a new locker in the middle, every locker after it must shift over. In the second, each letter is a clue that tells you where the next one is hidden, like a treasure hunt. Adding a new clue is easy, because you only change one pointer, but to reach the 500th you must follow 499 clues first. The first is an array and the second is a linked list. An **array** stores items contiguously in memory, so the i-th item is found by arithmetic on its address: **random access** is O(1). Insertion or deletion in the middle requires shifting everything after it, O(n). Appending at the end is O(1) amortized for a dynamic array (see Algorithm Analysis). Arrays are cache-friendly, since neighboring items are adjacent in memory, which makes them far faster in practice than their operation counts suggest. NumPy arrays and tensors are arrays.",
         "A **linked list** stores each item in a **node** with a **pointer** (reference) to the next node. Inserting or removing after a known node is O(1), with no shifting, but reaching the i-th item requires following i pointers, O(i), and the nodes are scattered in memory.",
         {
           "table": {
@@ -190,7 +190,7 @@
         "bloom filter"
       ],
       "body": [
-        "A **hash table** stores key–value pairs and finds a value by its key in O(1) on average, by computing where to look instead of searching. A **hash function** h maps a key to an integer, and the key is stored in slot h(key) mod M of an array with M slots. Python's dict and set are hash tables.",
+        "Imagine a coat check with 100 numbered hooks. Instead of searching all the hooks for your coat, the attendant turns your name into a number by a fixed rule (say, add up the letters and take the remainder after dividing by 100) and hangs the coat on that hook. To retrieve it, the same rule gives the same hook immediately. Occasionally two names give the same number, and the attendant needs a plan for that, but most of the time the lookup is a single step. A **hash table** stores key–value pairs and finds a value by its key in O(1) on average, by computing where to look instead of searching. A **hash function** h maps a key to an integer, and the key is stored in slot h(key) mod M of an array with M slots. Python's dict and set are hash tables.",
         "Because the number of possible keys exceeds the number of slots, two keys can land in the same slot: a **collision** (unavoidable by the pigeonhole principle, and common by the birthday paradox). Two standard remedies:",
         {
           "list": [
@@ -341,7 +341,7 @@
         {
           "h": "The binary heap and priority queues"
         },
-        "A **binary heap** is a complete binary tree stored in an array, in which every node is no larger than its children (a min-heap). The smallest item is always at the root. The children of the item at index i are at 2i + 1 and 2i + 2, and its parent at (i − 1)//2, so no pointers are needed.",
+        "A heap is built for one job: always being able to hand you the smallest item quickly. Picture a family tree in which every parent is younger than their children. The youngest person overall is always at the top. When someone new joins at the bottom, they climb up past any older parents until the rule holds again. When the top person leaves, the last person takes the top seat and sinks down past any younger children. A **binary heap** is a complete binary tree stored in an array, in which every node is no larger than its children (a min-heap). The smallest item is always at the root. The children of the item at index i are at 2i + 1 and 2i + 2, and its parent at (i − 1)//2, so no pointers are needed.",
         {
           "list": [
             "**Insert**: put the item at the end and **sift up** (swap with its parent while it is smaller): O(log n).",

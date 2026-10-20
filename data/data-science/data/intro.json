@@ -27,7 +27,7 @@
         "data pipeline in data science"
       ],
       "body": [
-        "A data project goes through a cycle, usually many times.",
+        "A data project is less like a straight road and more like a loop. You start with a question, collect and clean data, look at it, build a model, test it, and discover that the question was not quite right or the data were not quite what you thought, so you go around again. Expect to go around many times, and expect most of the time to go into the data and the question, not the model. A data project goes through a cycle, usually many times.",
         {
           "list": [
             "**Question**: what decision or understanding is wanted, and how would we know we had it? What would be done differently depending on the answer?",
@@ -167,7 +167,7 @@
         "data dictionary"
       ],
       "body": [
-        "The **unit of observation** (or **granularity**) of a table says what one row represents: one transaction, one customer, one customer-month, one patient visit. The granularity must be known before any analysis, because it decides what the columns mean and which comparisons are valid. A table with one row per transaction has an 'amount' column that can be summed; the same column in a table with one row per customer might be an average or a total. Aggregating to a coarser grain loses information and can change conclusions (see Simpson's paradox below).",
+        "Suppose a table has the columns customer, date, and amount. Does each row mean one purchase, one customer, or one customer per month? If you average the amount column without knowing, you may be averaging purchases when you meant customers, and the answer will be wrong. Before doing anything else, decide what one row stands for. The **unit of observation** (or **granularity**) of a table says what one row represents: one transaction, one customer, one customer-month, one patient visit. The granularity must be known before any analysis, because it decides what the columns mean and which comparisons are valid. A table with one row per transaction has an 'amount' column that can be summed; the same column in a table with one row per customer might be an average or a total. Aggregating to a coarser grain loses information and can change conclusions (see Simpson's paradox below).",
         "**Tidy data** (Wickham) organizes a table so that",
         {
           "list": [

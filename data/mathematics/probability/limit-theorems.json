@@ -29,7 +29,7 @@
         "limit theorems"
       ],
       "body": [
-        "How likely is a random variable to be far from its mean? Without knowing the distribution, simple bounds still hold.",
+        "Suppose the average height in a room is 170 cm. Could a randomly chosen person be 340 cm? Not likely, because heights cannot be that far above the average for many people at once: if even a tenth of people were that tall, the average would be pushed well above 170. Tail bounds turn this common sense into numbers. They say that a variable cannot often be far from its mean, using only a little knowledge of its distribution. How likely is a random variable to be far from its mean? Without knowing the distribution, simple bounds still hold.",
         {
           "key": "Markov's inequality. If X ≥ 0 and t > 0, then P(X ≥ t) ≤ E[X]/t."
         },
@@ -93,7 +93,7 @@
         "monte carlo method"
       ],
       "body": [
-        "Let X₁, X₂, … be independent and identically distributed with mean μ and variance σ², and let X̄_n be the average of the first n. The **law of large numbers** says that the sample mean converges to the true mean as n grows.",
+        "Flip a fair coin 10 times and you might get 7 heads (70%). Flip it 10,000 times and the fraction of heads will be very close to 50%. The more you average, the more the random ups and downs cancel, and what is left is the true underlying rate. That is the law of large numbers. Let X₁, X₂, … be independent and identically distributed with mean μ and variance σ², and let X̄_n be the average of the first n. The **law of large numbers** says that the sample mean converges to the true mean as n grows.",
         {
           "list": [
             "**Weak law**: X̄_n → μ **in probability**: for every ε > 0, P(|X̄_n − μ| > ε) → 0.",
@@ -160,7 +160,7 @@
         "berry–esseen"
       ],
       "body": [
-        "The law of large numbers says the average settles at μ. The **central limit theorem** (CLT) describes the fluctuations around μ.",
+        "The law of large numbers says where the average ends up. The CLT says what the leftover error looks like: the shape of the scatter of averages around μ. Take any distribution at all, lopsided or flat or lumpy, draw many samples and average them, and repeat this many times. A histogram of those averages will look like a bell curve, narrower the more samples each average uses. The **central limit theorem** (CLT) describes the fluctuations around μ.",
         {
           "key": "Central limit theorem. If X₁, …, X_n are i.i.d. with mean μ and finite variance σ², then the standardized average √n (X̄_n − μ)/σ converges in distribution to the standard normal N(0, 1) as n → ∞. So for large n, X̄_n ≈ N(μ, σ²/n) and the sum ΣX_i ≈ N(nμ, nσ²)."
         },

@@ -30,6 +30,7 @@
         "pre-activation"
       ],
       "body": [
+        "A neuron is a tiny decision-maker. It looks at several numbers, decides how much each one matters (the weights), adds them up, and reports how strongly it \"fires.\" For example, a unit that detects \"good weather for a picnic\" might take temperature and cloud cover as inputs, with a positive weight on temperature, a negative weight on cloud cover and a bias that sets how easily it fires. If the weighted sum is large and positive, the unit outputs a high value. If it is negative, it stays quiet. The nonlinear step at the end is what lets many such units together do more than a single weighted sum could.",
         "An **artificial neuron** (or unit) computes a weighted sum of its inputs plus a bias and passes the result through a nonlinear **activation function** g:",
         {
           "eq": "a = g(z),    z = wᵀx + b"
@@ -120,7 +121,7 @@
         "weight matrix"
       ],
       "body": [
-        "A **multilayer perceptron** (feedforward network) arranges neurons in layers. Every neuron in one layer feeds every neuron in the next, which makes it a **fully connected** layer. Layers between the input and the output are **hidden layers**. Number the layers l = 1, …, L, write a^{[0]} = x for the input, and let n_l be the number of units in layer l. Then",
+        "One neuron can detect one simple pattern. A layer of neurons detects many patterns at once. A second layer then looks at which patterns the first layer found and detects patterns of patterns. In an image network, the first layer might respond to edges, the next to corners and curves built from edges, and the next to shapes such as eyes or wheels. Each layer builds on the previous one. A **multilayer perceptron** (feedforward network) arranges neurons in layers. Every neuron in one layer feeds every neuron in the next, which makes it a **fully connected** layer. Layers between the input and the output are **hidden layers**. Number the layers l = 1, …, L, write a^{[0]} = x for the input, and let n_l be the number of units in layer l. Then",
         {
           "eq": [
             "z^{[l]} = W^{[l]} a^{[l−1]} + b^{[l]}",

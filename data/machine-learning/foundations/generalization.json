@@ -29,7 +29,7 @@
         "generalization and bias-variance"
       ],
       "body": [
-        "Fit polynomials of increasing degree d to the same noisy data. At d = 1 the curve is a line that misses the bend in the data. At d = 3 it follows the trend. At d = 15 it threads through every training point and oscillates between them.",
+        "A polynomial of degree d has the form y = w₀ + w₁x + w₂x² + … + w_d x^d, so d = 1 is a straight line, d = 2 a parabola, and higher d allows more bends. Larger d means a more flexible curve. Fit polynomials of increasing degree d to the same noisy data. At d = 1 the curve is a line that misses the bend in the data. At d = 3 it follows the trend. At d = 15 it threads through every training point and oscillates between them.",
         "A model **underfits** when it is too simple to capture the pattern, so error is high on both training and new data. A model **overfits** when it fits noise specific to the training sample, so training error is low and error on new data is much higher. The difference between test and training error is the **generalization gap**.",
         {
           "svg": "<svg viewBox='0 0 440 260' role='img' aria-label='Training error falls with model complexity while validation error falls then rises' font-family='system-ui, sans-serif' font-size='12'><g fill='none' stroke='currentColor' stroke-width='1.5'><path d='M50,20 V220 H410'/></g><path fill='none' stroke='currentColor' stroke-width='2.5' stroke-dasharray='6 3' d='M55,70 C120,130 200,185 405,208'/><path fill='none' style='stroke:var(--accent)' stroke-width='2.5' d='M55,60 C110,120 170,150 230,152 C300,154 350,120 405,60'/><path fill='none' stroke='currentColor' stroke-width='1' stroke-dasharray='3 3' opacity='.55' d='M230,220 V40'/><g fill='currentColor'><text x='56' y='14'>error</text><text x='408' y='238' text-anchor='end'>model complexity</text><text x='100' y='198'>underfitting</text><text x='318' y='198'>overfitting</text><text x='238' y='36'>best complexity</text><text x='300' y='214' >training</text><text x='356' y='88' style='fill:var(--accent)'>validation</text></g></svg>",
@@ -73,7 +73,8 @@
         "irreducible error"
       ],
       "body": [
-        "Suppose labels are generated as y = f(x) + ε, where f is the true function and ε is noise with E[ε] = 0 and Var(ε) = σ², independent of everything else. We fit a model to a random training set D and obtain a predictor f̂.Because D is random, f̂(x) at a fixed point x is a random variable. We measure the expected squared error at x over both the draw of D and the noise in a new label y:",
+        "Start with the idea, then the algebra. Imagine collecting a training set, fitting a model and recording its prediction at one fixed point x. Now throw that data away, collect a fresh training set of the same size, fit again, and record the new prediction. Repeat many times. The predictions scatter, like darts thrown at a board. Two things can be wrong with the throws. They can be centered away from the bullseye, which is **bias**: the model is systematically off. Or they can be spread out widely, which is **variance**: the answer depends heavily on which sample happened to be drawn. On top of both, the true label at x is itself noisy, so even a perfect prediction misses a new label by some amount. That is the **noise**.",
+        "Now the same thing in symbols. Suppose labels are generated as y = f(x) + ε, where f is the true function and ε is noise with E[ε] = 0 and Var(ε) = σ², independent of everything else. We fit a model to a random training set D and obtain a predictor f̂. Because D is random, f̂(x) at a fixed point x is a random variable. We measure the expected squared error at x over both the draw of D and the noise in a new label y:",
         {
           "eq": "E[(y − f̂(x))²]"
         },
@@ -96,6 +97,18 @@
         },
         {
           "key": "Expected error = noise + bias² + variance. Making a model more flexible lowers bias and raises variance. The best model sits at the sum's minimum, which is the bias–variance tradeoff."
+        },
+        {
+          "example": {
+            "title": "Three predictors at one point",
+            "problem": "The true value at a point is f(x) = 4, and labels there have noise with σ = 1.5, so σ² = 2.25. Three rules predict the label at x. Rule A ignores the data and always answers 3. Rule B copies the label of one randomly chosen training example at x. Rule C averages the labels of 9 training examples at x. Find the bias², variance and expected squared error of each.",
+            "solution": [
+              "Rule A never changes, so its variance is 0. Its average prediction is 3, so the bias is 3 − 4 = −1 and bias² = 1. Error = 2.25 + 1 + 0 = 3.25.",
+              "Rule B has an average prediction of 4, so the bias is 0. But each single label wanders with the noise, so its variance is σ² = 2.25. Error = 2.25 + 0 + 2.25 = 4.5.",
+              "Rule C also has bias 0. Averaging 9 labels divides the variance by 9: 2.25/9 = 0.25. Error = 2.25 + 0 + 0.25 = 2.5.",
+              "Rule A is stable but systematically wrong. Rule B is right on average but jumpy. Rule C is right on average and steadier, so it wins here. If rule A had guessed 3.9 instead of 3, its bias² would be 0.01 and it would beat C with an error of 2.26. The best predictor depends on how much bias and variance each rule carries, and none of them can remove the 2.25 of noise."
+            ]
+          }
         },
         {
           "h": "Why the validation curve has a U shape"

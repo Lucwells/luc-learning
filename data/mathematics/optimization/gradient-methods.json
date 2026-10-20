@@ -31,7 +31,7 @@
         "gradient methods"
       ],
       "body": [
-        "To minimize a differentiable f, start at x₀ and iterate",
+        "Gradient descent is a hiker's strategy in thick fog. You cannot see the valley, but you can feel the slope under your feet. Each step goes a little way downhill. Two things decide whether you reach the bottom quickly: how long each step is, and how the terrain is shaped. Steps that are too long overshoot and bounce across the valley, and steps that are too short take forever. A long, narrow valley is slow because the slope mostly points across it, not along it. To minimize a differentiable f, start at x₀ and iterate",
         {
           "eq": "x_{k+1} = x_k − α ∇f(x_k)"
         },
@@ -260,7 +260,7 @@
         "proximal gradient method"
       ],
       "body": [
-        "A machine learning objective is an average over m examples, f(x) = (1/m)Σf_i(x). The full gradient costs O(m) per step. **Stochastic gradient descent** uses the gradient of one example (or a mini-batch of b examples), chosen at random:",
+        "Suppose you want the average opinion of a million people. You could ask all of them for an exact answer, or ask 32 people and use their average as a rough but unbiased estimate, and then repeat with fresh people. Stochastic gradient descent does the second: it estimates the gradient from a small random batch, which is far cheaper and good enough to head in a useful direction, even though each estimate is noisy. A machine learning objective is an average over m examples, f(x) = (1/m)Σf_i(x). The full gradient costs O(m) per step. **Stochastic gradient descent** uses the gradient of one example (or a mini-batch of b examples), chosen at random:",
         {
           "eq": "x_{k+1} = x_k − α_k g_k,    E[g_k | x_k] = ∇f(x_k)"
         },

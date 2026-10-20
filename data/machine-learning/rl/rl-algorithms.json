@@ -30,6 +30,7 @@
         "prediction problem"
       ],
       "body": [
+        "Suppose you drive home from work and predict the trip time at each landmark. At the office you guess 30 minutes. After 5 minutes you reach the highway, where traffic is heavy, and now you think the remaining time is 30 minutes, for a total of 35. You can correct your office-time guess right now: it was too optimistic. You do not have to wait until you get home. That is the idea of temporal-difference learning: update an estimate using the next estimate plus the reward just observed, instead of waiting for the final outcome. Waiting for the final outcome is the Monte Carlo alternative.",
         "Consider the prediction problem: estimate V^π for a fixed policy from episodes of experience. There are two basic ideas.",
         {
           "list": [
@@ -193,7 +194,7 @@
         "policy network"
       ],
       "body": [
-        "Instead of learning values and acting greedily, **policy gradient** methods parameterize the policy π_θ(a | s) (a softmax for discrete actions, a Gaussian for continuous ones) and ascend the gradient of the expected return J(θ) = E_{τ ~ π_θ}[G(τ)], where τ is a trajectory. This handles continuous actions, stochastic policies and directly optimizes what we care about.",
+        "The simplest way to say what a policy gradient does is: try things, and do more of whatever led to good outcomes and less of whatever led to bad ones. If an action was followed by a high return, nudge the policy to make that action more likely in that state next time. If it was followed by a low return, make it less likely. The math below makes \"nudge\" precise. Instead of learning values and acting greedily, **policy gradient** methods parameterize the policy π_θ(a | s) (a softmax for discrete actions, a Gaussian for continuous ones) and ascend the gradient of the expected return J(θ) = E_{τ ~ π_θ}[G(τ)], where τ is a trajectory. This handles continuous actions, stochastic policies and directly optimizes what we care about.",
         "**Deriving the gradient.** Using the log-derivative trick ∇π = π ∇ln π,",
         {
           "eq": [

@@ -88,6 +88,7 @@
         "maximization step"
       ],
       "body": [
+        "EM breaks a chicken-and-egg problem. If we knew which component produced each point, we could estimate each component's mean and spread by simple averaging. If we knew each component's mean and spread, we could work out how likely each component is to have produced each point. We know neither, so we start with a guess for one and alternate: use the guessed parameters to estimate the memberships, then use the memberships to improve the parameters. Each round is a little better than the last.",
         "Starting from initial parameters, repeat two steps until convergence.",
         {
           "list": [
@@ -192,6 +193,7 @@
         "free energy"
       ],
       "body": [
+        "The intuition for why the two steps work: the true log-likelihood is hard to maximize directly because of the sum inside the logarithm. EM builds an easier function that always lies below it and touches it at the current parameters, climbs to the top of that easier function, and then builds a new one at the new point. Each climb moves the true likelihood up as well, since the easier function never exceeds it. The details follow.",
         "For a general latent variable model p(x, z; θ) with observed x and hidden z, we want to maximize the log-likelihood of the data, ℓ(θ) = Σ_i ln Σ_z p(x^{(i)}, z; θ). EM maximizes it by repeatedly maximizing a lower bound.",
         {
           "h": "Jensen's inequality"

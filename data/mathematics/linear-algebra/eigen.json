@@ -29,7 +29,7 @@
         "eigenvalues, eigenvectors and positive definite matrices"
       ],
       "body": [
-        "A non-zero vector v is an **eigenvector** of the square matrix A with **eigenvalue** λ if",
+        "Most matrices rotate and stretch vectors in complicated ways. But often there are special directions along which the matrix does something very simple: it only stretches or shrinks, and the vector stays on the same line. For A = [[2, 1], [1, 2]], the vector (1, 1) becomes (3, 3): same direction, three times as long. The direction (1, 1) is an eigenvector, and the stretch factor 3 is its eigenvalue. A non-zero vector v is an **eigenvector** of the square matrix A with **eigenvalue** λ if",
         {
           "eq": "A v = λ v"
         },
@@ -95,7 +95,7 @@
         "spectral radius"
       ],
       "body": [
-        "If A has n linearly independent eigenvectors, put them in the columns of P and the eigenvalues on the diagonal of D. Then AP = PD, so",
+        "Why bother? Because applying a matrix many times is easy along its special directions: an eigenvector with eigenvalue 3 is multiplied by 3, then 9, then 27, while one with eigenvalue 0.5 shrinks to half, a quarter and an eighth. Any vector can be split into its pieces along the eigenvectors, and each piece grows or shrinks on its own. After many steps the piece with the largest eigenvalue dominates. If A has n linearly independent eigenvectors, put them in the columns of P and the eigenvalues on the diagonal of D. Then AP = PD, so",
         {
           "eq": "A = P D P⁻¹"
         },
@@ -199,7 +199,7 @@
         "gram matrix"
       ],
       "body": [
-        "A **quadratic form** is the scalar xᵀAx for a symmetric A. It is how the curvature of a loss, the variance of a projection and the squared length in a weighted norm are written. A symmetric matrix is **positive definite** (PD) if xᵀAx > 0 for every x ≠ 0, and **positive semidefinite** (PSD) if xᵀAx ≥ 0.",
+        "The simplest bowl is f(x, y) = x² + y²: it curves upward in every direction and has one lowest point. By contrast f(x, y) = x² − y² curves up along x but down along y, like a saddle. Positive definite matrices are exactly the ones whose quadratic form is a bowl. That matters for optimization: a bowl has a single minimum that gradient descent finds. A **quadratic form** is the scalar xᵀAx for a symmetric A. It is how the curvature of a loss, the variance of a projection and the squared length in a weighted norm are written. A symmetric matrix is **positive definite** (PD) if xᵀAx > 0 for every x ≠ 0, and **positive semidefinite** (PSD) if xᵀAx ≥ 0.",
         {
           "list": [
             "**Eigenvalue test**: A is PD iff all eigenvalues are > 0, and PSD iff all are ≥ 0. (In the eigenbasis, xᵀAx = Σλ_ic_i².)",

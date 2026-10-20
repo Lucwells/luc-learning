@@ -161,7 +161,7 @@
         "group statistics"
       ],
       "body": [
-        "Many questions are about groups: the average sales per city, the number of orders per customer, the fraction of positive labels per class. The pattern is **split–apply–combine**: split the rows into groups by the values of a key, apply a function to each group, and combine the results.",
+        "To find the average sales per city from a table of individual sales, you would sort the sales into piles by city, compute an average for each pile, and then put the averages together in a new small table. Split into groups, apply a calculation to each, combine the results. Nearly every summary of data by category follows this three-step shape. Many questions are about groups: the average sales per city, the number of orders per customer, the fraction of positive labels per class. The pattern is **split–apply–combine**: split the rows into groups by the values of a key, apply a function to each group, and combine the results.",
         {
           "code": [
             "df.groupby('city')['sales'].mean()",

@@ -29,7 +29,8 @@
         "cart"
       ],
       "body": [
-        "A **decision tree** is a binary tree. Each internal node tests one feature against a threshold (x_j ≤ t for numeric features, or membership in a set for categorical ones) and sends the example left or right. Each **leaf** holds a prediction: the majority class of the training examples that reach it, or their mean for regression. Equivalently, the tree cuts the feature space into axis-aligned boxes and predicts a constant in each box.",
+        "A decision tree works like the game of twenty questions. To decide whether a bank should approve a loan, ask \"Is income above 40,000?\" If no, ask \"Does the applicant have a past default?\" and answer from that. If yes, ask a different question, such as \"Is the debt ratio below 0.3?\" Each answer narrows the group of applicants, and when a group is nearly all approved or nearly all rejected, you stop and answer. Training a tree means choosing which questions to ask, and in what order, from the data.",
+        "More precisely, a **decision tree** is a binary tree. Each internal node tests one feature against a threshold (x_j ≤ t for numeric features, or membership in a set for categorical ones) and sends the example left or right. Each **leaf** holds a prediction: the majority class of the training examples that reach it, or their mean for regression. Equivalently, the tree cuts the feature space into axis-aligned boxes and predicts a constant in each box.",
         {
           "svg": "<svg viewBox='0 0 400 210' role='img' aria-label='A small decision tree with a root test and two further nodes' font-family='system-ui, sans-serif' font-size='12'><g fill='none' stroke='currentColor' stroke-width='1.5'><path d='M200,48 L110,95 M200,48 L290,95 M110,130 L60,170 M110,130 L160,170'/></g><g fill='none' style='stroke:var(--accent)' stroke-width='2'><rect x='150' y='20' width='100' height='28' rx='4'/><rect x='60' y='95' width='100' height='35' rx='4'/></g><g fill='none' stroke='currentColor' stroke-width='1.5'><rect x='245' y='95' width='90' height='35' rx='4'/><rect x='20' y='170' width='80' height='28' rx='4'/><rect x='120' y='170' width='80' height='28' rx='4'/></g><g fill='currentColor' text-anchor='middle'><text x='200' y='38'>x₂ ≤ 3 ?</text><text x='110' y='117'>x₁ ≤ 2 ?</text><text x='290' y='117'>predict B</text><text x='60' y='188'>predict A</text><text x='160' y='188'>predict B</text><text x='140' y='72'>yes</text><text x='265' y='72'>no</text><text x='72' y='154'>yes</text><text x='150' y='154'>no</text></g></svg>",
           "caption": "A depth-2 tree. Each path from the root to a leaf is a rule, such as: if x₂ ≤ 3 and x₁ ≤ 2 then A."
@@ -60,7 +61,7 @@
         "misclassification error"
       ],
       "body": [
-        "Training chooses the splits. A good split makes the two resulting groups **purer**, with each group dominated by one class. For a node whose examples have class proportions p₁, …, p_K, three impurity measures are in use:",
+        "Training chooses the splits. A good split makes the two resulting groups **purer**, with each group dominated by one class. A group of 10 examples that are all positive is perfectly pure: we can answer without doubt. A group split 5 positive and 5 negative is as impure as possible: guessing is a coin flip. We need a number that is 0 for the first group and largest for the second. For a node whose examples have class proportions p₁, …, p_K, three impurity measures are in use:",
         {
           "eqs": [
             ["Entropy:  H = −Σ p_k log₂ p_k", "0 for a pure node, log₂ K when all classes are equally likely"],
@@ -68,6 +69,7 @@
             ["Misclassification:  E = 1 − max_k p_k", "too coarse to guide the search"]
           ]
         },
+        "For two classes, here are the values at a few proportions of the positive class: p = 0 or 1 gives entropy 0 and Gini 0 (pure); p = 0.1 gives entropy 0.47 and Gini 0.18; p = 0.3 gives 0.88 and 0.42; p = 0.5 gives 1 and 0.5 (the most mixed). Entropy can be read as the average number of yes/no questions you would still need to ask to learn an example's class.",
         "Entropy and Gini are smooth, strictly concave functions of the proportions, so they reward partial progress that the error rate ignores. They give nearly identical trees in practice.",
         "For a split that sends N_L of the N examples left and N_R right, the **information gain** is the drop in impurity, with each child weighted by its size:",
         {
@@ -205,7 +207,7 @@
             "**Post-pruning**: grow a large tree, then remove branches that do not pay for themselves."
           ]
         },
-        "In **cost-complexity pruning**, for a penalty α ≥ 0 define",
+        "The idea of cost-complexity pruning is to charge a fee for every leaf. A branch with several leaves is kept only if the training error it removes is worth the fees. Raising the fee prunes more of the tree. In **cost-complexity pruning**, for a penalty α ≥ 0 define",
         {
           "eq": "R_α(T) = R(T) + α |T|"
         },

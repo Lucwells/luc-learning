@@ -29,7 +29,8 @@
         "effective degrees of freedom"
       ],
       "body": [
-        "**Ridge regression** adds the squared L2 norm of the weights to the least squares objective:",
+        "Why would large weights be a problem? A model that overfits typically needs enormous weights: to bend a curve through every noisy point it uses large positive and negative terms that nearly cancel. For example, fitting 10 points with a degree-9 polynomial can produce weights in the thousands, while the underlying trend needs weights near 1. So a simple remedy is to make large weights expensive. Fitting the data still lowers the cost, but every unit of weight size raises it, and the optimizer must find a compromise. That is what a penalty does.",
+        "**Ridge regression** adds the squared L2 norm of the weights (the sum of their squares, ‖θ‖² = θ₁² + θ₂² + …) to the least squares objective:",
         {
           "eq": "J_ridge(θ) = ‖Xθ − y‖² + λ‖θ‖²,    λ ≥ 0"
         },
@@ -44,6 +45,7 @@
         {
           "h": "What ridge does: the SVD view"
         },
+        "In plain terms: the data determine some combinations of the features very well and others hardly at all. Ridge leaves the well-determined combinations almost alone and shrinks the poorly determined ones hard, because those are where noise would otherwise be mistaken for signal. The formulas below say this exactly.",
         "Write X = UΣVᵀ with singular values σ₁ ≥ σ₂ ≥ …. The least squares fit is Xθ̂ = Σ_j u_j (u_jᵀy). The ridge fit is",
         {
           "eq": "Xθ̂_ridge = Σ_j u_j · σ_j²/(σ_j² + λ) · (u_jᵀy)"
@@ -114,6 +116,7 @@
         {
           "eq": "J_lasso(θ) = ½‖Xθ − y‖² + λ‖θ‖₁ = ½‖Xθ − y‖² + λ Σ_j |θ_j|"
         },
+        "Think of the penalty as a budget. The total absolute size of all weights, |θ₁| + |θ₂| + …, may not exceed some amount. With a tight budget, spending on a weak feature is not worth it: the weight is more valuable on a strong feature, so the weak feature gets exactly zero. Ridge, whose cost is squared, behaves differently: the cost of a tiny weight is negligible, so it keeps every feature a little.",
         "The L1 penalty has a corner at zero, so the lasso sets many coefficients //exactly// to zero. The solution is **sparse**, which makes the model interpretable and performs **feature selection** automatically. There is no closed form in general, but the problem is convex and is solved by **coordinate descent** (update one coefficient at a time with the others fixed) or proximal gradient methods.",
         {
           "h": "Why L1 gives zeros: geometry"
@@ -191,7 +194,8 @@
         "weight decay"
       ],
       "body": [
-        "The penalty has a Bayesian reading. Treat θ as a random vector with a **prior** distribution p(θ) that expresses beliefs before seeing data. Bayes' rule gives the posterior p(θ | data) ∝ p(data | θ) p(θ). The **maximum a posteriori** (MAP) estimate maximizes the posterior, which is the same as maximizing log-likelihood plus log-prior:",
+        "The penalty has a second reading that explains where it comes from. Before seeing any data you probably believe that most weights are small, and that huge weights are unlikely. A **prior** writes that belief down as a probability distribution over the weights. The data then pull the estimate toward the values that fit, and the prior pulls it toward the values you thought likely beforehand. The compromise is the penalized solution.",
+        "Formally, treat θ as a random vector with a **prior** distribution p(θ) that expresses beliefs before seeing data. Bayes' rule gives the posterior p(θ | data) ∝ p(data | θ) p(θ). The **maximum a posteriori** (MAP) estimate maximizes the posterior, which is the same as maximizing log-likelihood plus log-prior:",
         {
           "eq": "θ̂_MAP = argmax_θ [ log p(y | X, θ) + log p(θ) ]"
         },

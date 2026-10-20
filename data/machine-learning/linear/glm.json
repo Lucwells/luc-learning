@@ -27,7 +27,8 @@
         "exponential family distribution"
       ],
       "body": [
-        "A distribution belongs to the **exponential family** if it can be written as",
+        "Different kinds of data call for different noise models. A house price is a real number, so Gaussian noise suits it. A yes/no outcome is 0 or 1, so a Bernoulli distribution suits it. The number of customers arriving in an hour is a count 0, 1, 2, …, so a Poisson distribution suits it. It would be tedious to rederive the fitting method for each. The **exponential family** is a common template that many of these distributions fit into, so that one derivation covers all of them. The template looks abstract, but each piece has a simple job, and the three examples below show them filled in.",
+        "A distribution belongs to the exponential family if it can be written as",
         {
           "eq": "p(y; η) = b(y) exp( ηᵀT(y) − a(η) )"
         },
@@ -101,6 +102,7 @@
         "response function"
       ],
       "body": [
+        "To see the idea in one example, suppose you want to predict how many customers enter a shop in an hour from the weather and the day of the week. A count cannot be negative, so a plain linear model that might output −2 is a poor fit. Instead: (1) decide that the count follows a Poisson distribution, (2) predict its average, and (3) let the weighted sum of the features control one natural parameter of that distribution (here the log of the average), so that the average itself is always positive. Changing the data type means changing only step 1. That is the whole recipe, stated in general form below.",
         "A **generalized linear model** predicts y given x with three assumptions.",
         {
           "list": [

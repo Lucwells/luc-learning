@@ -39,7 +39,7 @@
         {
           "h": "Momentum"
         },
-        "Momentum keeps a running average of past gradients, v ← βv + g_t, and steps along it:",
+        "Picture a heavy ball rolling down the valley. It does not change direction at every bump, because its velocity carries it forward, and the steady downhill slope along the valley floor keeps speeding it up while the back-and-forth pushes from the steep walls cancel out. **Momentum** gives the update this memory: it keeps a running average of past gradients, v ← βv + g_t, and steps along it:",
         {
           "eq": [
             "v_t = β v_{t−1} + g_t",
@@ -154,6 +154,7 @@
         "symmetry breaking"
       ],
       "body": [
+        "Think of the signal passing through the network as a voice passing through a chain of microphones and speakers. If each stage amplifies slightly too much, the sound grows into a screech after many stages. If each stage attenuates a little, it fades to silence. Initialization sets the amplification of each layer, and the goal is for it to be about 1, so the signal and the gradients arrive at the other end at a usable size.",
         "Initial weights must be random, because if all the weights in a layer were equal, every unit in it would compute the same value and receive the same gradient, and they would never differ (**symmetry breaking**). They must also have the right scale. If the weights are too large the activations and gradients explode with depth, and if too small they vanish.",
         "Consider a layer z = Σ_{j=1}^{n_in} w_j x_j with independent weights of mean 0 and variance Var(w), and inputs with mean 0. Then",
         {
@@ -216,6 +217,7 @@
         {
           "h": "Batch normalization"
         },
+        "Each layer's inputs are the outputs of the layer before, and those keep changing as the earlier weights are updated, so each layer is chasing a moving target. Normalization pins the scale of what each layer receives. It is the same standardization used on raw features earlier in the book (subtract the mean, divide by the standard deviation), applied inside the network at every layer.",
         "For one feature, compute the mean μ_B and variance σ_B² over the current mini-batch, standardize, and then apply a learned scale γ and shift β so that the layer can still represent any mean and variance it needs:",
         {
           "eq": [
@@ -276,7 +278,7 @@
         {
           "h": "Dropout"
         },
-        "During training, **dropout** sets each hidden activation to zero independently with probability p and rescales the survivors by 1/(1 − p) (inverted dropout), so that the expected activation is unchanged. At test time the layer does nothing. Each step trains a different random sub-network, which prevents units from co-adapting and relying on specific partners; the full network at test time acts like an average of exponentially many sub-networks.",
+        "Think of a sports team where, in each practice, a random half of the players are sent home. No one can rely on a single star, so every player must learn to contribute. In a network, dropout forces each unit to be useful on its own instead of depending on particular partners. During training, **dropout** sets each hidden activation to zero independently with probability p and rescales the survivors by 1/(1 − p) (inverted dropout), so that the expected activation is unchanged. At test time the layer does nothing. Each step trains a different random sub-network, which prevents units from co-adapting and relying on specific partners; the full network at test time acts like an average of exponentially many sub-networks.",
         {
           "example": {
             "title": "Inverted dropout",

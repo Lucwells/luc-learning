@@ -29,7 +29,7 @@
         "unweighted shortest path"
       ],
       "body": [
-        "A graph is stored as an adjacency list (a dictionary from each vertex to the list of its neighbors) so that scanning the neighbors of a vertex costs its degree. A **traversal** visits every vertex reachable from a start vertex, each exactly once, using a **visited** set to avoid looping on cycles. Total cost: O(V + E), since each vertex is processed once and each edge examined once (twice in an undirected graph).",
+        "To explore a graph, imagine two ways of searching a building. In the first, you check every room within one door of the entrance, then every room within two doors, and so on, spreading out like ripples in a pond. That is breadth-first search, and it finds the nearest room first. In the second, you pick one corridor and follow it as far as it goes, and only when you hit a dead end do you back up and try another. That is depth-first search. A graph is stored as an adjacency list (a dictionary from each vertex to the list of its neighbors) so that scanning the neighbors of a vertex costs its degree. A **traversal** visits every vertex reachable from a start vertex, each exactly once, using a **visited** set to avoid looping on cycles. Total cost: O(V + E), since each vertex is processed once and each edge examined once (twice in an undirected graph).",
         {
           "h": "Breadth-first search"
         },
@@ -128,7 +128,7 @@
         "relaxation"
       ],
       "body": [
-        "In a graph with edge weights (distances, costs, travel times), the length of a path is the sum of its edge weights. **Dijkstra's algorithm** finds the shortest paths from one source to all vertices when all weights are non-negative. It is greedy: repeatedly settle the unsettled vertex with the smallest tentative distance, since no other route can reach it more cheaply, and then **relax** its outgoing edges (replace dist[v] by dist[u] + w(u, v) if that is smaller).",
+        "A GPS finds the fastest route even though some roads are long and some are short. One way to think about it is to spread out from your starting point and always finalize the closest place not yet settled: once you have the shortest time to a nearby town, you know the shortest time to places reached through it. Dijkstra's algorithm does this, using a heap to pick the next closest place. In a graph with edge weights (distances, costs, travel times), the length of a path is the sum of its edge weights. **Dijkstra's algorithm** finds the shortest paths from one source to all vertices when all weights are non-negative. It is greedy: repeatedly settle the unsettled vertex with the smallest tentative distance, since no other route can reach it more cheaply, and then **relax** its outgoing edges (replace dist[v] by dist[u] + w(u, v) if that is smaller).",
         {
           "code": [
             "import heapq",
@@ -278,7 +278,7 @@
         "union-find structure"
       ],
       "body": [
-        "A **spanning tree** of a connected graph is a tree that includes all the vertices (V − 1 edges). A **minimum spanning tree** (MST) is the spanning tree of least total edge weight: the cheapest way to connect everything (cabling a network, for instance).",
+        "Suppose you must lay cable to connect a set of villages so that every village can reach every other, and each possible cable has a cost. You want the cheapest total cable. You would never close a loop, because the last cable in a loop is wasted, so the answer has no cycles and is a tree. A greedy approach is to keep adding the cheapest cable that does not close a loop. A **spanning tree** of a connected graph is a tree that includes all the vertices (V − 1 edges). A **minimum spanning tree** (MST) is the spanning tree of least total edge weight: the cheapest way to connect everything (cabling a network, for instance).",
         {
           "key": "Cut property: for any partition of the vertices into two groups, the lightest edge crossing between the groups belongs to some MST. Every greedy MST algorithm is an application of this fact."
         },
@@ -322,7 +322,7 @@
         "computational graph order"
       ],
       "body": [
-        "A **topological order** of a directed acyclic graph lists the vertices so that every edge u → v has u before v. It exists exactly when there is no directed cycle, and it is the order in which dependent tasks can be carried out: compile a library after the libraries it needs, run a course after its prerequisites, evaluate a node of a computation after its inputs.",
+        "Getting dressed has an order: socks before shoes, shirt before jacket. Those rules are arrows between tasks, and a topological order is any sequence of tasks that respects all the arrows. It exists only if the rules do not contradict each other, that is, if there is no loop of tasks each waiting for the next. A **topological order** of a directed acyclic graph lists the vertices so that every edge u → v has u before v. It exists exactly when there is no directed cycle, and it is the order in which dependent tasks can be carried out: compile a library after the libraries it needs, run a course after its prerequisites, evaluate a node of a computation after its inputs.",
         "**Kahn's algorithm**: compute each vertex's in-degree. Repeatedly remove a vertex of in-degree zero, output it, and decrease the in-degree of its successors. If vertices remain at the end, there is a cycle. Time O(V + E). (A DFS that outputs vertices in reverse finishing order also works.)",
         {
           "code": [

@@ -27,7 +27,7 @@
         "binary search on the answer"
       ],
       "body": [
-        "Finding a value in an unsorted list requires checking items one by one: O(n). If the list is **sorted**, **binary search** does far better. Compare the target with the middle item: if equal, done; if the target is smaller, search the left half, otherwise the right half. Each comparison halves the range, so at most ⌊log₂ n⌋ + 1 comparisons are needed: 20 for a million items, 30 for a billion.",
+        "Play the game of guessing a number between 1 and 100. A good player starts with 50. If told \"higher\", the number must lie in 51 to 100, so the next guess is 75, and so on. Every guess cuts the remaining range in half, so seven guesses are always enough. Binary search is exactly this strategy, applied to a sorted list. Finding a value in an unsorted list requires checking items one by one: O(n). If the list is **sorted**, **binary search** does far better. Compare the target with the middle item: if equal, done; if the target is smaller, search the left half, otherwise the right half. Each comparison halves the range, so at most ⌊log₂ n⌋ + 1 comparisons are needed: 20 for a million items, 30 for a billion.",
         {
           "code": [
             "def binary_search(xs, target):",
@@ -155,7 +155,7 @@
         {
           "h": "Merge sort"
         },
-        "Split the list in half, sort each half recursively, and **merge** the two sorted halves by repeatedly taking the smaller of the two front items.",
+        "Imagine two sorted piles of cards, face up. To combine them into one sorted pile you only ever need to look at the top card of each pile: take the smaller one, and repeat. That merging step is fast. Merge sort uses it by splitting the deck in half again and again until each pile has one card (which is trivially sorted), then merging back up. Split the list in half, sort each half recursively, and **merge** the two sorted halves by repeatedly taking the smaller of the two front items.",
         {
           "code": [
             "def merge_sort(xs):",
@@ -179,7 +179,7 @@
         {
           "h": "Quicksort"
         },
-        "Choose a **pivot**, **partition** the items into those smaller than the pivot and those larger, and sort the two parts recursively. No merging is needed.",
+        "Quicksort works like sorting a class by height: pick one student as the reference, send everyone shorter to the left and everyone taller to the right, and then repeat inside each group. The reference student is already in the right place after one pass. The method is fast when the reference splits the class roughly in half, and slow when the reference is always the shortest or tallest person. Choose a **pivot**, **partition** the items into those smaller than the pivot and those larger, and sort the two parts recursively. No merging is needed.",
         {
           "code": [
             "import random",

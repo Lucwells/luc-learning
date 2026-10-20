@@ -73,7 +73,7 @@
         "exponential time"
       ],
       "body": [
-        "Asymptotic notation describes the growth of a function for large n, ignoring constant factors and lower-order terms.",
+        "Suppose you must find a name in a phone book. You can read every entry from the start (the work grows in step with the size of the book), or open to the middle and decide which half to continue in, repeating (the work grows only by one step each time the book doubles). When the book has a million entries, the first takes about a million steps and the second about twenty. Big-O notation captures this difference in growth, and deliberately ignores details such as whether one step takes a microsecond or a millisecond, because those details change from machine to machine while the growth pattern does not. Asymptotic notation describes the growth of a function for large n, ignoring constant factors and lower-order terms.",
         {
           "list": [
             "**f(n) = O(g(n))** (an upper bound): there are constants c > 0 and n₀ such that f(n) ≤ c·g(n) for all n ≥ n₀.",
@@ -215,7 +215,7 @@
         {
           "h": "Recurrences"
         },
-        "A recursive algorithm's running time satisfies a **recurrence** that describes the cost on size n in terms of the cost on smaller sizes. Merge sort splits the input in two, sorts each half recursively and merges them in linear time:",
+        "Recursion solves a problem by splitting it into smaller copies of itself. To sort a deck of cards you could split it into two halves, sort each half, and then merge the two sorted halves. The cost is then the cost of sorting two half-size decks plus the cost of merging. Writing that sentence as an equation gives a recurrence. A recursive algorithm's running time satisfies a **recurrence** that describes the cost on size n in terms of the cost on smaller sizes. Merge sort splits the input in two, sorts each half recursively and merges them in linear time:",
         {
           "eq": "T(n) = 2 T(n/2) + cn,    T(1) = c"
         },
@@ -348,7 +348,7 @@
         "approximation algorithm"
       ],
       "body": [
-        "Some problems have efficient algorithms, and for others none is known. Complexity theory classifies them by the best possible running time.",
+        "A jigsaw puzzle is a good picture of the idea. Checking that a completed puzzle is correct takes a glance: every piece fits. Solving the puzzle from a pile of pieces can take a very long time. Problems where a proposed answer is quick to check but finding the answer seems to require huge searching are the ones at the heart of the P versus NP question. Some problems have efficient algorithms, and for others none is known. Complexity theory classifies them by the best possible running time.",
         {
           "list": [
             "**P** is the class of decision problems (yes/no questions) solvable in polynomial time. Sorting, shortest paths, linear programming and matrix multiplication are in P.",

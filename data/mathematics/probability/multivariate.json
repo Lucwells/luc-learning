@@ -29,7 +29,7 @@
         "multivariate probability"
       ],
       "body": [
-        "The **joint distribution** of two random variables X and Y gives the probability of every combination: p(x, y) = P(X = x, Y = y) for discrete variables, or a joint density f(x, y) with P((X, Y) ∈ A) = ∬_A f dx dy. The **marginal** distribution of X is obtained by summing (or integrating) out Y, which is the law of total probability:",
+        "Think of a table of counts for people, with a person's height class in the rows and weight class in the columns. The table as a whole is the joint distribution. Adding across a row (ignoring weight) gives the marginal distribution of height. Looking only at one column (people of a given weight) and rescaling it to sum to 1 gives the conditional distribution of height given that weight. The **joint distribution** of two random variables X and Y gives the probability of every combination: p(x, y) = P(X = x, Y = y) for discrete variables, or a joint density f(x, y) with P((X, Y) ∈ A) = ∬_A f dx dy. The **marginal** distribution of X is obtained by summing (or integrating) out Y, which is the law of total probability:",
         {
           "eq": [
             "p_X(x) = Σ_y p(x, y)    (or  f_X(x) = ∫ f(x, y) dy)"
@@ -74,7 +74,7 @@
         "variance of a sum"
       ],
       "body": [
-        "The **covariance** of X and Y measures whether they vary together:",
+        "Height and weight tend to rise together: tall people are usually heavier. Hours of TV and exam score may move in opposite directions. Covariance captures this tendency with a single number: positive when the two move the same way, negative when they move oppositely, and near zero when there is no linear relationship. The **covariance** of X and Y measures whether they vary together:",
         {
           "eq": "Cov(X, Y) = E[(X − μ_X)(Y − μ_Y)] = E[XY] − E[X]E[Y]"
         },
@@ -143,7 +143,7 @@
         "gaussian marginal"
       ],
       "body": [
-        "A random vector X ∈ ℝⁿ has a **multivariate Gaussian** distribution N(μ, Σ), with mean vector μ and a symmetric positive definite covariance matrix Σ, if its density is",
+        "Picture a cloud of points like a swarm of bees: dense at the center μ and thinning out in all directions. If the two coordinates are unrelated, the cloud is round. If they are positively correlated, the cloud is stretched into a tilted ellipse along the diagonal. The mean says where the swarm is centered, and the covariance matrix says its shape and tilt. A random vector X ∈ ℝⁿ has a **multivariate Gaussian** distribution N(μ, Σ), with mean vector μ and a symmetric positive definite covariance matrix Σ, if its density is",
         {
           "eq": "p(x) = (2π)^{−n/2} |Σ|^{−1/2} exp( −½ (x − μ)ᵀ Σ⁻¹ (x − μ) )"
         },

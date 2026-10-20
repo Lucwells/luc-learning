@@ -132,7 +132,7 @@
         {
           "eq": "R* ≤ R_{1NN} ≤ 2R*(1 − R*) ≤ 2R*"
         },
-        "Without any model assumptions, the simplest rule is never more than twice as bad as the best possible classifier. The intuition: as m grows the nearest neighbor of x becomes arbitrarily close to x, so its label is a draw from the same conditional distribution P(y | x). It errs when the neighbor's label differs from the query's, with probability 2p(1 − p), where p = P(y = 1 | x), compared with the Bayes rule's min(p, 1 − p).",
+        "Without any model assumptions, the simplest rule is never more than twice as bad as the best possible classifier. The intuition: as m grows the nearest neighbor of x becomes arbitrarily close to x, so its label is a draw from the same conditional distribution P(y | x). It errs when the neighbor's label differs from the query's, with probability 2p(1 − p), where p = P(y = 1 | x), compared with the Bayes rule's min(p, 1 − p). A concrete case: at a spot where 90% of points are class 1 (p = 0.9), the best rule always says class 1 and errs 10% of the time. The 1-NN rule copies a random neighbor's label. It errs when query and neighbor disagree: query 1 and neighbor 0 (0.9 × 0.1) or query 0 and neighbor 1 (0.1 × 0.9), for a total of 0.18. That is under twice the Bayes error.",
         {
           "example": {
             "title": "The bound in numbers",
@@ -165,7 +165,7 @@
         {
           "h": "Neighborhoods are not local"
         },
-        "Suppose data are uniform in the unit cube [0, 1]ⁿ. To capture a fraction r of the data with a cube centered at the query, the cube's side must be r^{1/n}.",
+        "Suppose data are uniform in the unit cube [0, 1]ⁿ. To capture a fraction r of the data with a cube centered at the query, the cube's side must be r^{1/n}. The reason: a cube with side s has volume sⁿ, and for uniform data the fraction of points inside equals the volume. Setting sⁿ = r gives s = r^{1/n}. In 2 dimensions, a square holding 1% of the data has side √0.01 = 0.1. In 10 dimensions the same share needs 0.01^{0.1} = 0.63.",
         {
           "table": {
             "head": ["Dimension n", "Side needed for 1% of the data", "Side needed for 10%"],

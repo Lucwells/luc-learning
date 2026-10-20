@@ -237,11 +237,11 @@
         {
           "h": "Risk and empirical risk"
         },
-        "The quantity we care about is the **risk** (also called the generalization error or true error): the expected loss on a fresh example,",
+        "The quantity we care about is the **risk** (also called the generalization error or true error). In words: imagine every future example the model could ever meet, each counted as often as it really occurs, and average the loss over all of them. In symbols, the expected loss on a fresh example,",
         {
           "eq": "R(h) = E_{(x,y)~P} [ ℓ(h(x), y) ]"
         },
-        "We cannot compute R(h), since P is unknown. We can compute its average over the training set, the **empirical risk**:",
+        "We cannot compute R(h), since P is unknown: we never see every future example, only a sample. What we can compute is the same average taken over the m training examples we do have, the **empirical risk**. Here Σ means \"add up the terms for i = 1 up to m\", so the formula is simply the mean loss on the training set:",
         {
           "eq": "R̂(h) = (1/m) Σ_{i=1}^{m} ℓ(h(x^{(i)}), y^{(i)})"
         },
@@ -328,14 +328,67 @@
         "hypothesis class restriction"
       ],
       "body": [
-        "Why should a rule found on training data hold on new data at all? Because the learner brings assumptions. These assumptions are its **inductive bias**.",
+        "Why should a rule found on training data hold on new data at all? Because the learner brings assumptions. These assumptions are its **inductive bias**. To see why they are unavoidable, we first need to count how many rules are possible, and for that we need a precise picture of what a rule is.",
+        {
+          "h": "What counts as a function"
+        },
+        "A **function** is a rule that gives exactly one output for each possible input. When the set of possible inputs is small and finite, a function is nothing more than a complete lookup table: one row per input, and in each row one chosen output. Two functions are different if their tables differ in at least one row.",
+        "A function is //not// an input and it is not a single row. It is the whole table. Different functions are different ways of filling in the output column for the //same// inputs.",
+        {
+          "example": {
+            "title": "Counting functions on two inputs",
+            "problem": "There are two possible inputs, A and B, and each output must be 0 or 1. List every function.",
+            "solution": [
+              "Row A can be filled in 2 ways, and for each of those, row B can be filled in 2 ways. That gives 2 × 2 = 4 complete tables:",
+              {
+                "table": {
+                  "head": [
+                    "Input",
+                    "Function 1",
+                    "Function 2",
+                    "Function 3",
+                    "Function 4"
+                  ],
+                  "rows": [
+                    [
+                      "A",
+                      "0",
+                      "0",
+                      "1",
+                      "1"
+                    ],
+                    [
+                      "B",
+                      "0",
+                      "1",
+                      "0",
+                      "1"
+                    ]
+                  ],
+                  "caption": "Each column is one function. Reading down a column gives its output on every input."
+                }
+              },
+              "Function 1 always answers 0. Function 4 always answers 1. Function 2 copies the input if we read A as 0 and B as 1. Function 3 flips it."
+            ]
+          }
+        },
+        {
+          "key": "The number of functions is (number of possible outputs) raised to the power (number of possible inputs). Each input independently chooses one output, so the choices multiply. The base counts the options per input. The exponent counts how many inputs must choose."
+        },
+        "Check the rule on the example above: 2 outputs and 2 inputs gives 2² = 4. If the outputs were 0, 1 or 2 on the same two inputs, each row would have 3 options and there would be 3² = 9 functions. If there were 3 inputs and 2 outputs, there would be 2³ = 8. Notice that the //values// of the inputs never matter, only how many there are.",
+        {
+          "h": "Why this matters for learning"
+        },
+        "Now suppose the inputs are 3-bit strings such as 010 and 111. There are 2³ = 8 of them, so the table has 8 rows. The outputs are still 0 or 1, so the number of functions is 2⁸ = 256, not 8⁸. The 8 is the number of rows, so it is the exponent. The base is 2 because each row can only hold a 0 or a 1.",
+        "The target the learner is trying to find is one of those 256 tables, and it is unknown. Each labeled training example reveals one row of the true table. The learner must guess the rest.",
         {
           "example": {
             "title": "A learner with no assumptions",
             "problem": "Inputs are 3-bit strings, so there are 8 possible inputs. The target is some unknown function from the 8 inputs to {0, 1}. You are shown the correct labels for 5 inputs. How many functions agree with those 5 labels, and what does that say about the other 3?",
             "solution": [
-              "There are 2⁸ = 256 functions in all. A function that agrees with the 5 labeled inputs may do anything on the remaining 3, giving 2³ = 8 consistent functions.",
-              "Every labeling of the 3 unseen inputs is equally consistent with the data. Half of the 8 consistent functions say 1 on each unseen input, and half say 0, so any prediction is right for exactly half of them. The data alone cannot decide."
+              "There are 2⁸ = 256 functions in all (2 output choices for each of 8 rows). Seeing 5 labels fixes 5 rows of the table. The other 3 rows are still free, and each can be 0 or 1, so 2 × 2 × 2 = 2³ = 8 functions agree with everything you have seen. All 8 of them match the data perfectly. They differ only on the 3 unseen inputs.",
+              "Take one unseen input, say 101. Of the 8 consistent functions, 4 output 1 on it and 4 output 0. Whichever answer you predict, 4 of the 8 candidate functions say you are right and 4 say you are wrong. The same is true for each of the other unseen inputs. The data alone cannot decide, because nothing in the 5 labels favors one table over another.",
+              "To predict anything at all, the learner must prefer some of the 8 tables for a reason that is not in the data, such as \"similar inputs usually have the same label.\" That preference is the inductive bias."
             ]
           }
         },

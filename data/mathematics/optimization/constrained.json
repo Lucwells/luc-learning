@@ -29,7 +29,7 @@
         "constrained optimization"
       ],
       "body": [
-        "Minimize f(x) subject to h(x) = 0. At a constrained minimum, the gradient of f must be perpendicular to the constraint surface (otherwise we could slide along the surface and lower f), so it is parallel to the gradient of h, which is also perpendicular to the surface:",
+        "Suppose you want to reach the lowest point of a hillside, but you must stay on a particular hiking trail. On the trail, you can walk until the ground along the trail stops going down. At that spot the trail is tangent to a contour line of the hill: moving along the trail no longer changes your height, and the only direction of steeper descent points off the trail, which you are not allowed to take. Lagrange multipliers turn this picture into an equation. Minimize f(x) subject to h(x) = 0. At a constrained minimum, the gradient of f must be perpendicular to the constraint surface (otherwise we could slide along the surface and lower f), so it is parallel to the gradient of h, which is also perpendicular to the surface:",
         {
           "eq": "∇f(x) = ν ∇h(x)"
         },
@@ -89,7 +89,7 @@
         "dual feasibility"
       ],
       "body": [
-        "Consider the general problem",
+        "Now let the trail become a region you must stay within, such as a fenced field. If the lowest point of the hill is inside the field, the fence does not matter. If it is outside, the best you can do is stand against the fence, and the fence is then actively holding you back. The KKT conditions say exactly this: a constraint that is not touched has no effect (its multiplier is zero), and a constraint that you are pressed against pushes back with a force equal to its multiplier. Consider the general problem",
         {
           "eq": [
             "minimize f(x)",

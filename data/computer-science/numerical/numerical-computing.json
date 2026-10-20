@@ -37,7 +37,7 @@
         "numerical computing"
       ],
       "body": [
-        "A real number is stored in a fixed number of bits as a sign, an exponent and a **significand** (mantissa), in the manner of scientific notation: ±1.f × 2^e. The IEEE 754 standard fixes the formats used by essentially all hardware.",
+        "Try writing 1/3 as a decimal with a fixed number of digits: 0.3333333. It is close, but not exact, and no amount of fixed digits will make it exact. Computers have the same problem with binary fractions, and even 0.1 cannot be stored exactly. Each stored number is a close approximation, and each arithmetic operation introduces a tiny rounding error. Usually this is harmless, and occasionally it is not, which is why this chapter exists. A real number is stored in a fixed number of bits as a sign, an exponent and a **significand** (mantissa), in the manner of scientific notation: ±1.f × 2^e. The IEEE 754 standard fixes the formats used by essentially all hardware.",
         {
           "table": {
             "head": [
@@ -151,7 +151,7 @@
         "numerically stable variance"
       ],
       "body": [
-        "Rounding errors are small, but subtracting two nearly equal numbers can promote them to the leading digits. This is **catastrophic cancellation**. The subtraction itself is exact; what is lost is the information in the digits that were already rounded off before the subtraction, and when the leading digits cancel, the garbage that was in the trailing digits becomes the result.",
+        "Suppose you measure two heights, 1.7342 m and 1.7339 m, each accurate only to the last digit shown, and subtract them to find a difference of 0.0003 m. The leading digits cancel, and what remains is made entirely of the least reliable digits, so the answer may be mostly noise. That is cancellation: subtracting nearly equal numbers throws away the good digits and keeps the bad ones. Rounding errors are small, but subtracting two nearly equal numbers can promote them to the leading digits. This is **catastrophic cancellation**. The subtraction itself is exact; what is lost is the information in the digits that were already rounded off before the subtraction, and when the leading digits cancel, the garbage that was in the trailing digits becomes the result.",
         {
           "example": {
             "title": "A formula that loses everything",
