@@ -1,0 +1,498 @@
+{
+  "id": "organic-lab-2",
+  "view": "chapter",
+  "title": "Organic Laboratory II: Substitution, Addition and Condensation Experiments",
+  "description": "Fischer esterification, the Grignard reaction, nucleophilic substitution, alcohol dehydration, the aldol condensation, the Diels–Alder reaction, nitration, and Friedel–Crafts acylation.",
+  "overview": [
+    "The experiments of the second-year organic laboratory illustrate the main reaction types of the lecture course in a form that can be done in a three-hour session. Each one has a specific purpose besides making a compound: shifting an equilibrium (esterification), keeping water out (Grignard), comparing mechanisms through rates (SN1 against SN2), exploiting kinetic control (Diels–Alder endo product), controlling the temperature to control selectivity (nitration), or understanding why a catalyst is needed in more than catalytic amounts (Friedel–Crafts).",
+    "Each section gives the reaction and the idea behind it, a procedure with typical quantities, the theoretical-yield calculation, the characterization expected, and the usual sources of low yield. The techniques (reflux, extraction, drying, distillation, recrystallization, TLC) are those of the previous chapter. All procedures require a hood, goggles, and the reading of the SDS of every chemical beforehand; quantities are typical and have to be confirmed against the course manual."
+  ],
+  "objectives": [
+    "Shift an equilibrium by using an excess of a reagent or removing a product, and calculate the equilibrium conversion.",
+    "Prepare a Grignard reagent under anhydrous conditions and identify the by-product biphenyl.",
+    "Compare SN1 and SN2 reactivity by qualitative tests, and explain the trends.",
+    "Distinguish thermodynamic from kinetic control in the Diels–Alder reaction (endo rule).",
+    "Control the regiochemistry and extent of electrophilic aromatic substitution through temperature and the nature of the substituent.",
+    "Calculate theoretical and percent yields and interpret IR, NMR and mp data to verify each product."
+  ],
+  "sections": [
+    {
+      "id": "esterification",
+      "title": "Experiment: Fischer esterification (isopentyl acetate)",
+      "terms": [
+        "isopentyl acetate",
+        "banana oil",
+        "isoamyl acetate",
+        "Fischer esterification experiment",
+        "Le Chatelier esterification",
+        "excess acetic acid",
+        "acid-catalyzed esterification equilibrium",
+        "esterification equilibrium constant",
+        "alarm pheromone of the honeybee",
+        "ester odor"
+      ],
+      "body": [
+        "**Reaction**: (CH₃)₂CHCH₂CH₂OH + CH₃COOH ⇌ CH₃COOCH₂CH₂CH(CH₃)₂ + H₂O (H₂SO₄ catalyst). The product, **isopentyl (isoamyl) acetate**, is the principal odor of bananas, and the alarm pheromone of the honeybee. The reaction is a **Fischer esterification**: acid-catalyzed addition–elimination at the carbonyl carbon, with protonation of the carbonyl oxygen, attack by the alcohol, proton transfer, and loss of water. All the steps are reversible and K_eq ≈ 4 for acetic acid with a primary alcohol, close to unity, so the equilibrium must be pushed to the product (**Le Chatelier**): by an excess of the cheaper reagent (acetic acid), or by removing water (Dean–Stark; the sulfuric acid also binds water).",
+        {
+          "example": {
+            "title": "Equilibrium conversion",
+            "problem": "With K = 4, what fraction of the alcohol is converted at equilibrium when (a) the acid and alcohol are equimolar, (b) 3.5 mol acid per mol alcohol is used?",
+            "solution": "Let x = mol of ester per mol of alcohol. (a) K = x²/(1 − x)² = 4 → x/(1 − x) = 2 → x = 0.67. (b) K = x²/[(1 − x)(3.5 − x)] = 4 → 3x² − 18x + 14 = 0 → x = [18 − (324 − 168)^{1/2}]/6 = (18 − 12.49)/6 = 0.92. The excess of acetic acid raises the conversion from 67% to 92%."
+          }
+        },
+        "**Procedure**: isopentyl alcohol (6.0 mL, 55 mmol), glacial acetic acid (11 mL, 192 mmol, 3.5 equivalents) and 1 mL of concentrated H₂SO₄ are placed in a round-bottom flask with a stir bar and boiling chips, and heated under reflux for 60–75 min. After cooling, the mixture is diluted with water (30 mL) in a separatory funnel and the layers separated; the organic layer is washed with saturated NaHCO₃ (several times, venting; the aqueous layer must test basic: this removes acetic acid and the catalyst) and with brine, dried over Na₂SO₄, and distilled (bp 142 °C) or simply evaporated. **Theoretical yield**: 55 mmol × 130.19 g mol⁻¹ = 7.2 g; typical yield 60–75%. The loss comes from the equilibrium, solubility of the ester in water and the transfer.",
+        "**Characterization**: IR: strong C=O at 1740 cm⁻¹ (ester), strong C–O at 1240, and absence of broad O–H at 3300 (alcohol) and 2500–3300 (acid). ¹H NMR (CDCl₃): δ 4.10 (t, 2H, OCH₂), 2.04 (s, 3H, COCH₃), 1.68 (m, 1H, CH), 1.52 (q, 2H, CH₂), 0.92 (d, 6H, 2 CH₃). GC: one peak. A smell test (banana) is not a proof of purity."
+      ],
+      "check": [
+        {
+          "q": "Why is acetic acid used in excess?",
+          "a": "To push the equilibrium toward the ester (Le Chatelier)",
+          "wrong": [
+            "To neutralize the catalyst",
+            "To dissolve the ester",
+            "To lower the boiling point"
+          ]
+        },
+        {
+          "q": "Which IR band is expected to disappear when the alcohol is consumed?",
+          "a": "The broad O–H stretch near 3300 cm⁻¹",
+          "wrong": [
+            "The C=O at 1740",
+            "The C–H at 2900",
+            "The C–O at 1240"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "grignard-lab",
+      "title": "Experiment: Grignard synthesis of triphenylmethanol",
+      "terms": [
+        "triphenylmethanol",
+        "phenylmagnesium bromide",
+        "benzophenone Grignard",
+        "Grignard synthesis experiment",
+        "biphenyl byproduct",
+        "magnesium turnings activation",
+        "anhydrous ether",
+        "trityl cation",
+        "Wurtz-type coupling",
+        "initiation of a Grignard reaction",
+        "iodine crystal activation",
+        "trituration"
+      ],
+      "body": [
+        "**Reaction**: PhBr + Mg → PhMgBr (in dry diethyl ether); PhMgBr + Ph₂C=O → Ph₃C–OMgBr; H₃O⁺ → Ph₃COH. The Grignard reagent is a carbanion equivalent (δ⁻ carbon) and a strong base, so it is destroyed by water, alcohols, CO₂ and O₂: PhMgBr + H₂O → PhH + Mg(OH)Br. The whole apparatus is therefore oven-dried and fitted with CaCl₂ drying tubes, and the ether is anhydrous.",
+        "**Procedure**: Mg turnings (0.5 g, 21 mmol) are placed in a dry three-neck flask with a reflux condenser and an addition funnel; a crystal of **iodine** (to activate the surface by removing the oxide layer) and a few drops of a solution of bromobenzene (2.0 mL, 19 mmol, 3.0 g) in 15 mL anhydrous ether are added without stirring. **Initiation** is signaled by the disappearance of the iodine color, the formation of bubbles and cloudiness, and the spontaneous boiling of the ether (the reaction is exothermic). If it does not start: crush a turning with a glass rod, warm gently, or add a drop of 1,2-dibromoethane. The remaining bromobenzene solution is added at a rate to maintain a gentle reflux, then the mixture is refluxed 15–30 min until most of the Mg has gone. Benzophenone (3.0 g, 16.5 mmol) in 10 mL ether is added dropwise (a red color appears; the alkoxide forms), stirred for 15 min, and quenched with cold 10% H₂SO₄ or saturated NH₄Cl. The ether layer is washed, dried and evaporated.",
+        "**By-product**: **biphenyl** (mp 69 °C, from the coupling of PhMgBr with unreacted PhBr, favored by high local concentration of PhBr and high temperature). The crude product is **triturated** (washed in a flask with) cold petroleum ether or hexane, in which the biphenyl dissolves and the triphenylmethanol does not, and recrystallized from isopropanol or hexane–ethyl acetate. **Theoretical yield** (benzophenone limiting): 16.5 mmol × 260.33 = 4.30 g; typical 50–70%. mp 160–163 °C. **Characterization**: IR: broad O–H at 3400 cm⁻¹ and no C=O (benzophenone 1660); ¹H NMR: 7.2–7.4 (m, 15H), 2.8 (s, 1H, OH, variable). A drop of conc. H₂SO₄ on a few crystals gives the intense red-yellow color of the **trityl cation** Ph₃C⁺ (a stabilized carbocation, delocalized across three rings), a qualitative test.",
+        {
+          "example": {
+            "title": "Which reagent is limiting?",
+            "problem": "Bromobenzene (3.0 g, 157.01 g mol⁻¹), Mg (0.5 g, 24.31) and benzophenone (3.0 g, 182.22) are used. What is the maximum yield of triphenylmethanol, assuming 100% conversion to PhMgBr?",
+            "solution": "PhBr: 19.1 mmol; Mg: 20.6 mmol (excess); so PhMgBr ≤ 19.1 mmol. Benzophenone: 16.5 mmol (limiting). Maximum Ph₃COH = 16.5 mmol × 260.33 = 4.29 g. If the Grignard formation is only 80% complete (15.3 mmol), the yield drops to 15.3 mmol and the benzophenone left over contaminates the product."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Why must the glassware and ether be dry?",
+          "a": "Grignard reagents are strong bases and are protonated (destroyed) by water",
+          "wrong": [
+            "Water is a catalyst",
+            "Magnesium dissolves in water to give H₂ only",
+            "Water raises the boiling point"
+          ]
+        },
+        {
+          "q": "What is the main non-polar by-product?",
+          "a": "Biphenyl",
+          "wrong": [
+            "Benzene only",
+            "Benzophenone",
+            "Triphenylmethane"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "substitution-lab",
+      "title": "Experiment: nucleophilic substitution (1-bromobutane, tert-butyl chloride, relative rates)",
+      "terms": [
+        "1-bromobutane synthesis",
+        "tert-butyl chloride synthesis",
+        "SN1 SN2 relative rates experiment",
+        "sodium iodide in acetone",
+        "silver nitrate in ethanol",
+        "NaI acetone test",
+        "AgNO3 test",
+        "leaving group ability experiment",
+        "rate of substitution of alkyl halides",
+        "carbocation stability evidence",
+        "Finkelstein"
+      ],
+      "body": [
+        {
+          "h": "Synthesis of 1-bromobutane (SN2)"
+        },
+        "A primary alcohol reacts with HBr (generated in situ from NaBr and H₂SO₄) by protonation of the –OH (a poor leaving group becomes H₂O) followed by backside attack of Br⁻: CH₃CH₂CH₂CH₂OH + NaBr + H₂SO₄ → CH₃CH₂CH₂CH₂Br + NaHSO₄ + H₂O. 1-Butanol (7.4 g, 0.10 mol) is refluxed for 45 min with NaBr (13 g) in dilute H₂SO₄. The product is distilled out of the mixture (bp 101 °C); the distillate is washed with water, cold concentrated H₂SO₄ (removes unreacted butanol and the by-product dibutyl ether and 1-butene by protonation and extraction), saturated NaHCO₃, dried over CaCl₂ and redistilled. **Theoretical yield** = 0.100 mol × 137.02 = 13.7 g; typical 60–75% (9.6 g = 70%). By-products: dibutyl ether (SN2 of the alcohol), 1-butene (E2), and elimination are minimized by the moderate temperature and the dilute acid.",
+        {
+          "h": "Synthesis of tert-butyl chloride (SN1)"
+        },
+        "A tertiary alcohol reacts with concentrated HCl at room temperature by an SN1 mechanism: protonation of –OH, loss of water to give the tert-butyl cation (the rate-determining step), and capture by Cl⁻. tert-Butyl alcohol (10 mL, 0.105 mol) is shaken with cold concentrated HCl (25 mL) in a separatory funnel for about 20 min (with venting; no heating, which would favor elimination to isobutene). The upper layer of alkyl chloride is separated, washed with water and NaHCO₃, dried (CaCl₂), and distilled (bp 51 °C). The reaction is the principle of the Lucas test: tertiary alcohols give cloudiness immediately in HCl/ZnCl₂, secondary in minutes, primary not at room temperature.",
+        {
+          "h": "Relative rates of alkyl halides"
+        },
+        "Test tubes with 1 mL of 15% NaI in acetone or 1% AgNO₃ in ethanol receive 2–3 drops of an alkyl halide; the time to the first precipitate is noted.",
+        {
+          "table": {
+            "head": [
+              "Test",
+              "Mechanism probed",
+              "Reagent behavior",
+              "Observed order"
+            ],
+            "rows": [
+              [
+                "**NaI in acetone**",
+                "SN2 (strong nucleophile, polar aprotic solvent)",
+                "Iodide displaces Cl or Br; NaCl and NaBr are insoluble in acetone and precipitate",
+                "1° > 2° >> 3° (neopentyl, very slow: steric hindrance); R–Br > R–Cl"
+              ],
+              [
+                "**AgNO₃ in ethanol**",
+                "SN1 (polar protic solvent, weak nucleophile; Ag⁺ pulls the halide)",
+                "AgCl or AgBr precipitates as the carbocation forms",
+                "3° > 2° >> 1°; R–I > R–Br > R–Cl; benzylic and allylic fast"
+              ]
+            ],
+            "caption": "Qualitative substitution tests."
+          }
+        },
+        "The trends in the two tests are mirror images: bulky substrates are slow in SN2 (steric hindrance of the backside approach) and fast in SN1 (stable carbocations), which is the evidence for the two mechanisms. In both, the better leaving group (I⁻ > Br⁻ > Cl⁻, the weaker bases) reacts faster.",
+        {
+          "example": {
+            "title": "Percent yield",
+            "problem": "7.4 g of 1-butanol (74.12 g mol⁻¹) gives 9.6 g of distilled 1-bromobutane (137.02 g mol⁻¹). Calculate the percent yield.",
+            "solution": "n(butanol) = 7.4/74.12 = 0.0998 mol → theoretical 0.0998 × 137.02 = 13.7 g. 9.6/13.7 = 70%."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Which substrate reacts fastest with NaI in acetone?",
+          "a": "A primary alkyl bromide (e.g. 1-bromobutane)",
+          "wrong": [
+            "tert-Butyl chloride",
+            "Neopentyl chloride",
+            "Chlorobenzene"
+          ]
+        },
+        {
+          "q": "Why is concentrated H₂SO₄ used to wash crude 1-bromobutane?",
+          "a": "It extracts unreacted alcohol, ether and alkene by protonation, leaving the alkyl bromide",
+          "wrong": [
+            "It dries the product",
+            "It brominates the product",
+            "It oxidizes the bromide"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dehydration-lab",
+      "title": "Experiment: dehydration of cyclohexanol (E1)",
+      "terms": [
+        "cyclohexene synthesis",
+        "dehydration of cyclohexanol",
+        "phosphoric acid dehydration",
+        "bromine test for alkene",
+        "Baeyer test",
+        "cyclohexanol to cyclohexene",
+        "E1 elimination experiment",
+        "distillation of the product as it forms",
+        "Zaitsev product experiment"
+      ],
+      "body": [
+        "**Reaction**: cyclohexanol → cyclohexene + H₂O (85% H₃PO₄, heat). The mechanism is E1: protonation of the OH, loss of water to form the secondary carbocation (slow), and loss of a β-proton to the alkene. Phosphoric acid is chosen over sulfuric because it is a weaker oxidant and does not char the organics. The reaction is an equilibrium with a small K at low temperature, but is driven by entropy (one molecule becomes two) at high temperature, and by **distilling the product as it forms**: cyclohexene (bp 83 °C) and water (as an azeotrope at 70.8 °C) distill out of the mixture while the alcohol (bp 161 °C) stays in the flask.",
+        "**Procedure**: cyclohexanol (10.0 mL, 9.62 g, 96 mmol), 85% H₃PO₄ (3 mL) and a stir bar are heated in a flask arranged for simple (or fractional) distillation, with the receiver in an ice bath. The mixture is heated so that the distillate comes over slowly and the head temperature does not exceed 85–90 °C; stop when little remains (do not distil to dryness). The distillate is saturated with NaCl, washed with saturated NaHCO₃ (to remove traces of acid), dried over CaCl₂ or Na₂SO₄, and redistilled (bp 82–83 °C). **Theoretical yield** = 96 mmol × 82.14 = 7.9 g (about 9.8 mL, d = 0.811); typical 50–70% (volatile; loss in transfers). The side-product is dicyclohexyl ether.",
+        {
+          "list": [
+            "**Bromine test**: a few drops of Br₂ in CH₂Cl₂ (red-brown) are added to the product: instant decolorization (electrophilic addition to C=C giving the colorless trans-1,2-dibromocyclohexane) shows unsaturation (the alcohol and alkanes do not decolorize).",
+            "**Baeyer test**: aqueous KMnO₄ (purple) is added to the product: the purple color fades and a brown precipitate of MnO₂ forms (syn dihydroxylation of the alkene, oxidation of Mn(VII) to Mn(IV)). Both tests also give positives with impurities such as aldehydes, and alcohols (KMnO₄ oxidizes them slowly).",
+            "**IR**: appearance of =C–H at 3020 cm⁻¹ and C=C at 1650 cm⁻¹, disappearance of the broad O–H at 3300 cm⁻¹. ¹H NMR: δ 5.66 (m, 2H, vinyl), 1.97 (m, 4H, allylic), 1.60 (m, 4H)."
+          ]
+        },
+        {
+          "example": {
+            "title": "Why distill the product?",
+            "problem": "Explain how the continuous removal of cyclohexene raises the yield, and what sets the maximum temperature of the head.",
+            "solution": "Removal of a product reduces Q below K, so the reaction goes on converting alcohol (Le Chatelier), until the alcohol is consumed. The head temperature stays at the boiling point of the cyclohexene–water azeotrope (≈ 70 °C); if it rises to 100 °C or above, cyclohexanol (bp 161 °C), water and acid are carried over, which signals that the elimination is finished or that the heating is too fast."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "What does decolorization of Br₂/CH₂Cl₂ show?",
+          "a": "The presence of a C=C double bond (addition of Br₂)",
+          "wrong": [
+            "An alcohol",
+            "A carboxylic acid",
+            "An aromatic ring"
+          ]
+        },
+        {
+          "q": "Why is H₃PO₄ preferred over H₂SO₄ for this dehydration?",
+          "a": "It is less oxidizing, with less charring and SO₂ formation",
+          "wrong": [
+            "It is stronger",
+            "It is cheaper by far",
+            "It boils lower"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "aldol-lab",
+      "title": "Experiment: crossed aldol (Claisen–Schmidt) condensation, dibenzalacetone",
+      "terms": [
+        "dibenzalacetone",
+        "benzaldehyde acetone aldol",
+        "crossed aldol experiment",
+        "aldol experiment",
+        "dibenzylideneacetone",
+        "chalcone synthesis",
+        "enolate of acetone",
+        "conjugated enone product",
+        "dehydration driving force",
+        "Cannizzaro side reaction"
+      ],
+      "body": [
+        "**Reaction**: 2 PhCHO + CH₃COCH₃ → PhCH=CH–CO–CH=CHPh + 2 H₂O (NaOH, aqueous ethanol). Benzaldehyde has no α-hydrogens and cannot form an enolate, so it acts only as the electrophile; acetone (pK_a 19.2) is deprotonated by hydroxide in small equilibrium concentration to give the enolate, which adds to benzaldehyde. The β-hydroxy ketone dehydrates (E1cB) to the enone because the new C=C is conjugated with the phenyl ring and the carbonyl. The cycle occurs twice (both methyl groups of acetone). The dehydration is effectively irreversible and the poorly soluble yellow product precipitates, driving the otherwise unfavorable aldol equilibrium to completion. Because the electrophile cannot enolize and is more reactive than acetone toward the enolate, the **crossed aldol** gives a single product instead of a mixture. Acetone self-condensation is suppressed by adding it to an excess of benzaldehyde.",
+        "**Procedure**: benzaldehyde (2.1 mL, 2.19 g, 20.7 mmol) and acetone (0.75 mL, 0.59 g, 10.2 mmol) are mixed in 10 mL of 95% ethanol; 10 mL of 10% aqueous NaOH is added with stirring at room temperature. Within minutes a yellow precipitate forms; stir 20–30 min, collect by vacuum filtration, wash thoroughly with water until the washings are neutral (to remove NaOH), and recrystallize from hot ethanol or ethyl acetate. **Theoretical yield** (acetone limiting) = 10.2 mmol × 234.29 = 2.39 g; typical 70–90%. mp (pure, trans,trans) 110–112 °C. A mixture of the mono-adduct (benzalacetone, mp 42 °C) and the di-adduct is possible if the benzaldehyde is not in excess; the mp and TLC distinguish them.",
+        {
+          "list": [
+            "**Characterization**: IR: C=O of the conjugated ketone at 1650 cm⁻¹ (lower than the 1715 of acetone because of conjugation), C=C at 1600, trans =C–H out-of-plane at 980 cm⁻¹. ¹H NMR: δ 7.75 (d, J = 16 Hz, 2H, β-H) and 7.10 (d, J = 16 Hz, 2H, α-H): the large coupling constant shows the E (trans) configuration; 7.4–7.7 (m, 10H, aromatic). UV: λ_max ≈ 330 nm (extended conjugation; also used in sunscreens).",
+            "**Side reactions**: the **Cannizzaro reaction** of benzaldehyde in strong base (2 PhCHO + OH⁻ → PhCH₂OH + PhCOO⁻) is slow at this concentration; and the Michael addition of acetone enolate to the product. Old benzaldehyde contains benzoic acid (neutralizes base): use freshly distilled aldehyde."
+          ]
+        },
+        {
+          "example": {
+            "title": "Limiting reagent",
+            "problem": "What is the theoretical yield from 2.19 g benzaldehyde and 0.59 g acetone, and which reagent is limiting?",
+            "solution": "PhCHO: 20.6 mmol, requiring 2 per acetone → 10.3 mmol product possible; acetone: 10.2 mmol → 10.2 mmol possible. Acetone is just limiting; theoretical = 10.2 × 234.29 = 2.39 g."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Why does the crossed aldol with benzaldehyde and acetone give one main product?",
+          "a": "Benzaldehyde cannot enolize, so it is only the electrophile",
+          "wrong": [
+            "Acetone cannot form an enolate",
+            "Both are electrophiles",
+            "Water traps the other products"
+          ]
+        },
+        {
+          "q": "A large J (≈ 16 Hz) between vinyl protons shows…",
+          "a": "A trans (E) double bond",
+          "wrong": [
+            "A cis double bond",
+            "No double bond",
+            "An aromatic ring"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "diels-alder-lab",
+      "title": "Experiment: the Diels–Alder reaction",
+      "terms": [
+        "cyclopentadiene cracking",
+        "dicyclopentadiene",
+        "maleic anhydride Diels–Alder",
+        "anthracene maleic anhydride",
+        "endo adduct",
+        "norbornene anhydride",
+        "Diels–Alder experiment",
+        "kinetic control in Diels–Alder",
+        "s-cis diene",
+        "xylene reflux",
+        "9,10-dihydroanthracene-9,10-endo-succinic anhydride"
+      ],
+      "body": [
+        "The Diels–Alder reaction is a concerted [4+2] cycloaddition of a diene (s-cis conformation) and a dienophile (here, maleic anhydride, with two electron-withdrawing carbonyls). It forms two C–C σ bonds and a six-membered ring in one step, with stereospecific syn addition.",
+        {
+          "h": "Cyclopentadiene + maleic anhydride"
+        },
+        "Cyclopentadiene is a locked s-cis diene and is highly reactive, but at room temperature it dimerizes to dicyclopentadiene (itself a Diels–Alder adduct, one molecule acting as the diene and one as the dienophile) within hours. So it is prepared fresh by **cracking** the dimer: dicyclopentadiene is heated to its boiling point (170 °C) in a fractional distillation setup, the **retro-Diels–Alder** reaction takes place, and the monomer (bp 41 °C) distills out and is collected in an ice bath and used within the hour (the retro reaction is driven by entropy at high temperature and by the removal of the low-boiling monomer). Maleic anhydride (2.0 g, 20.4 mmol) is dissolved in ethyl acetate (8 mL), hexane (8 mL) is added, and cooled in ice; cyclopentadiene (2 mL, 24 mmol) is added with swirling. The exothermic reaction gives a white precipitate within minutes; it is recrystallized from the ethyl acetate/hexane mixture. The product is **cis-5-norbornene-2,3-endo-dicarboxylic anhydride**, mp 164–165 °C. **Theoretical yield** = 20.4 mmol × 164.16 = 3.35 g; typical 70–85%.",
+        "The **endo** product (the anhydride ring under the new C=C bridge) is formed predominantly, even though the exo isomer is more stable thermodynamically (less steric hindrance). The reaction is under kinetic control at room temperature: the endo transition state is stabilized by secondary orbital interactions between the carbonyl π orbitals of the dienophile and the diene’s C2–C3 π orbitals (the **endo rule**). On heating, the reaction becomes reversible and the exo isomer accumulates (thermodynamic control).",
+        {
+          "h": "Anthracene + maleic anhydride"
+        },
+        "Anthracene reacts as a diene across the central ring (C9 and C10), the only position that retains two aromatic benzene rings in the product (the loss of aromaticity of the central ring costs little). Anthracene (1.0 g, 5.6 mmol) and maleic anhydride (0.55 g, 5.6 mmol) are refluxed in xylene (10 mL, bp 138–144 °C) for 30 min. The yellow color of the anthracene–maleic anhydride charge-transfer complex fades to give a colorless solution; on cooling, the adduct (9,10-dihydroanthracene-9,10-endo-α,β-succinic anhydride, mp 262–264 °C) crystallizes. **Theoretical yield** = 5.6 mmol × 276.29 = 1.55 g. A moisture-free apparatus is needed: water hydrolyzes the anhydride to the diacid (mp 260–270 °C, different IR: broad O–H).",
+        {
+          "example": {
+            "title": "Characterizing the adduct",
+            "problem": "What IR and NMR features prove the formation of the norbornene anhydride?",
+            "solution": "IR: two C=O stretching bands of the cyclic anhydride at 1860 and 1780 cm⁻¹ (symmetric and asymmetric; the higher one is weaker), C–O at 1230–1090; no band for a free diene. ¹H NMR (CDCl₃): δ 6.30 (2H, vinyl, CH=CH), 3.55 (2H, bridgehead), 3.50 (2H, CH–C=O), 1.8 and 1.6 (AB pair, 2H, bridge CH₂). The symmetric spectrum shows that the compound is a single stereoisomer."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Why must cyclopentadiene be freshly prepared?",
+          "a": "It dimerizes to dicyclopentadiene at room temperature within hours",
+          "wrong": [
+            "It oxidizes in air to a ketone",
+            "It polymerizes in the cold only",
+            "It evaporates at 41 °C"
+          ]
+        },
+        {
+          "q": "Why is the endo adduct favored?",
+          "a": "Secondary orbital interactions stabilize the endo transition state (kinetic control)",
+          "wrong": [
+            "It is the more stable isomer",
+            "The exo isomer cannot form",
+            "Sterics favor endo"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nitration-lab",
+      "title": "Experiment: nitration of methyl benzoate",
+      "terms": [
+        "methyl 3-nitrobenzoate",
+        "nitration of methyl benzoate",
+        "nitrating mixture",
+        "meta substitution experiment",
+        "ice bath nitration",
+        "electrophilic aromatic substitution experiment",
+        "dinitration",
+        "temperature control in nitration"
+      ],
+      "body": [
+        "**Reaction**: methyl benzoate + HNO₃/H₂SO₄ → methyl 3-nitrobenzoate. Sulfuric acid protonates nitric acid, which loses water to give the electrophile, the **nitronium ion**: HNO₃ + 2 H₂SO₄ → NO₂⁺ + H₃O⁺ + 2 HSO₄⁻. The nitronium ion attacks the ring to give the arenium (Wheland) intermediate, which loses H⁺ (restoring aromaticity). The ester group is an electron-withdrawing, deactivating group: the arenium ions from ortho and para attack place a positive charge on the carbon bearing the carbonyl (a destabilized resonance form), whereas meta attack never does. The reaction is therefore slower than that of benzene and gives mainly the **meta** product (≈ 90% meta, 5–10% ortho, trace para).",
+        "**Procedure**: methyl benzoate (2.0 g, 14.7 mmol) is dissolved in conc. H₂SO₄ (4 mL) in a flask in an **ice bath** (0 °C). A cooled mixture of conc. HNO₃ (1.5 mL) and conc. H₂SO₄ (1.5 mL) is added dropwise with swirling over 15 min, keeping the temperature at 5–15 °C. After a further 15 min at room temperature, the mixture is poured onto 20 g of crushed ice; the solid is collected by vacuum filtration, washed with cold water and cold methanol (to remove the ortho isomer and unreacted ester, which are more soluble), and recrystallized from methanol. **Theoretical yield** = 14.7 mmol × 181.15 = 2.66 g; typical 60–80%. mp 77–79 °C (ortho isomer 46 °C).",
+        {
+          "list": [
+            "**Temperature control**: nitration is highly exothermic. At higher temperature more of the ortho isomer, and dinitration (methyl 3,5-dinitrobenzoate) and oxidation to tars form; the temperature in the ice bath and a slow dropwise addition are therefore essential. Water formed dilutes the acid and slows the reaction, and the pouring on ice is the quench.",
+            "**Characterization**: IR: NO₂ asymmetric and symmetric stretches at 1530 and 1350 cm⁻¹, ester C=O at 1725. ¹H NMR: four aromatic signals typical of a 1,3-disubstituted ring: δ 8.76 (t, 1H, H-2, between the two groups), 8.37 (d, 1H), 8.31 (d, 1H), 7.64 (t, 1H); OCH₃ 3.97 (s, 3H). Para-disubstituted would show two doublets only."
+          ]
+        },
+        {
+          "example": {
+            "title": "Why meta?",
+            "problem": "Draw the resonance forms for attack at the para position of methyl benzoate and show why it is disfavored.",
+            "solution": "Para attack gives an arenium ion with the + charge delocalized to the ortho and para positions relative to the sp³ carbon, i.e. on C1 (bearing the CO₂Me group), C3 and C5. The form with + on C1 puts positive charge adjacent to the electron-poor carbonyl carbon (δ+), which is strongly destabilizing. For meta attack, + is on C2, C4 and C6 and never on C1. The meta intermediate is therefore lower in energy (transition state stabilized), and the meta product forms faster."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "What is the electrophile in the nitrating mixture?",
+          "a": "The nitronium ion, NO₂⁺",
+          "wrong": [
+            "HNO₃",
+            "NO₃⁻",
+            "H₂SO₄"
+          ]
+        },
+        {
+          "q": "Why must the temperature be kept low?",
+          "a": "To avoid dinitration, ortho products and oxidation (the reaction is exothermic)",
+          "wrong": [
+            "To keep the HNO₃ from freezing",
+            "To increase the rate",
+            "To dissolve the ester"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fc-lab",
+      "title": "Experiment: Friedel–Crafts acylation",
+      "terms": [
+        "Friedel–Crafts acylation experiment",
+        "acetylferrocene",
+        "4-methylacetophenone",
+        "aluminum chloride handling",
+        "acylation of toluene",
+        "acylation of ferrocene",
+        "stoichiometric Lewis acid",
+        "no rearrangement in acylation",
+        "para selectivity of toluene acylation",
+        "HCl gas trap"
+      ],
+      "body": [
+        "**Reaction**: toluene + CH₃COCl → 4-methylacetophenone + HCl (AlCl₃). The Lewis acid abstracts chloride from the acid chloride to form the **acylium ion** CH₃–C≡O⁺ (resonance stabilized, which does not rearrange), the electrophile that attacks the ring in the usual EAS mechanism. The methyl group (activating, ortho/para director) gives the para product almost exclusively (>95%) because the acylium ion with its complex is bulky. Acylation has advantages over alkylation: no carbocation rearrangement, and the acyl product is deactivated (the C=O withdraws electrons), so the reaction stops at monoacylation, whereas alkylated products are more reactive than the starting material and polyalkylate.",
+        "**Aluminum chloride** is used in more than one equivalent (1.1 equiv.), not catalytic, because the ketone product is a Lewis base and forms a strong 1:1 complex with AlCl₃, which removes it from the cycle. It reacts violently with water (AlCl₃ + 3 H₂O → Al(OH)₃ + 3 HCl) and has to be weighed quickly, in a dry container; the reaction needs dry glassware and a **gas trap** (an inverted funnel just above the surface of water, or a tube to dilute NaOH) to absorb the HCl evolved.",
+        "**Procedure**: AlCl₃ (7.5 g, 56 mmol) is suspended in dry CH₂Cl₂ (25 mL) in an ice bath in a flask equipped with a drying tube and an addition funnel. Acetyl chloride (3.5 mL, 3.86 g, 49 mmol) is added dropwise, then toluene (5.0 mL, 4.33 g, 47 mmol) in CH₂Cl₂, keeping the temperature at 0–10 °C; stir 15 min at room temperature. The mixture is poured onto 25 g of ice with 10 mL of conc. HCl (decomposes the complex); the layers are separated, the aqueous layer extracted with CH₂Cl₂, and the combined organic layers washed with NaHCO₃, dried (MgSO₄), evaporated and the residue distilled (bp 226 °C) or analyzed directly. **Theoretical yield** (toluene limiting) = 47 mmol × 134.18 = 6.3 g; typical 70–85%.",
+        {
+          "list": [
+            "**Characterization**: IR: C=O at 1680 cm⁻¹ (conjugated aryl ketone), para-substitution pattern at 815 cm⁻¹. ¹H NMR: δ 7.85 (d, 2H), 7.25 (d, 2H) (AA′BB′ pattern of the para ring), 2.57 (s, 3H, COCH₃), 2.41 (s, 3H, ArCH₃).",
+            "**Variant: acetylferrocene**. Ferrocene (1.0 g, 5.4 mmol), acetic anhydride (3.3 mL) and 85% H₃PO₄ (0.7 mL) are heated for 10 min at 70 °C (ferrocene is a very electron-rich aromatic, 10⁶ times more reactive than benzene, and does not need AlCl₃). After neutralization with NaHCO₃, the product mixture is separated on a column of alumina or silica: ferrocene (yellow, elutes first with hexane), acetylferrocene (orange, with hexane/ether), 1,1′-diacetylferrocene (red, more polar). The second acylation goes preferentially to the other ring, since the acetyl group deactivates the substituted ring."
+          ]
+        },
+        {
+          "example": {
+            "title": "Stoichiometry of the Lewis acid",
+            "problem": "Why would a Friedel–Crafts acylation with 0.1 equivalent of AlCl₃ stop at about 10% conversion?",
+            "solution": "The ketone product binds AlCl₃ in a 1:1 complex (Lewis acid–Lewis base through the carbonyl oxygen), so every molecule of product formed removes one molecule of catalyst from the cycle. After 0.1 equiv. of product, all the AlCl₃ is bound and the reaction stops. At least one equivalent (practically 1.1–1.2) is therefore required; the complex is hydrolyzed in the aqueous workup to release the ketone."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Why can’t Friedel–Crafts acylation give polyacylation?",
+          "a": "The acyl group deactivates the ring toward further electrophilic attack",
+          "wrong": [
+            "The acylium ion is too small",
+            "AlCl₃ blocks the ring",
+            "The ketone is a nucleophile"
+          ]
+        },
+        {
+          "q": "Why is more than one equivalent of AlCl₃ needed?",
+          "a": "The ketone product complexes the AlCl₃ stoichiometrically",
+          "wrong": [
+            "AlCl₃ is consumed by toluene",
+            "It evaporates",
+            "Water destroys half of it only"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Esterification: K ≈ 4, so use 3.5 equiv. of acid (92% conversion) or remove water. IR: ester C=O 1740, no O–H.",
+    "Grignard: oven-dried glassware, I₂ activation, initiation by exotherm, slow addition; biphenyl removed by trituration; Ph₃COH mp 162 °C.",
+    "Substitution: 1-bromobutane by SN2; tert-butyl chloride by SN1. NaI/acetone: 1° > 2° >> 3°; AgNO₃/EtOH: 3° > 2° >> 1°; I > Br > Cl.",
+    "Dehydration of cyclohexanol: E1, H₃PO₄, distill the alkene as formed; Br₂ and KMnO₄ tests. Aldol: Claisen–Schmidt, one electrophile that cannot enolize; J = 16 Hz means E.",
+    "Diels–Alder: cracking dicyclopentadiene; endo (kinetic) adduct; anhydride IR 1860/1780. Nitration: NO₂⁺; ester is meta-directing; keep at 5–15 °C. Friedel–Crafts acylation: acylium ion, ≥ 1 equiv. AlCl₃, no rearrangement or polyacylation."
+  ],
+  "problems": [
+    {
+      "q": "In the Grignard synthesis, a student obtains 2.15 g of triphenylmethanol (260.33 g mol⁻¹) from 3.0 g of benzophenone (182.22 g mol⁻¹). Calculate the percent yield. The student also isolates 0.22 g of biphenyl (154.21): how many mmol of bromobenzene were lost to the coupling?",
+      "solution": "n(benzophenone) = 16.46 mmol → theoretical 4.29 g; yield = 2.15/4.29 = 50%. Biphenyl: 0.22/154.21 = 1.43 mmol. Each biphenyl forms from one PhMgBr and one PhBr (PhMgBr + PhBr → Ph–Ph + MgBr₂), so it consumes two bromobenzene-derived units: 2 × 1.43 = 2.9 mmol of bromobenzene, about 15% of the 19.1 mmol used.",
+      "a": "50%; about 2.9 mmol of PhBr"
+    },
+    {
+      "q": "A reaction of cyclopentadiene (from cracking 5.0 g of dicyclopentadiene) with excess maleic anhydride gives 6.8 g of the adduct. Calculate the percent yield (dicyclopentadiene 132.20; adduct 164.16).",
+      "solution": "Dicyclopentadiene gives 2 cyclopentadiene: 5.0/132.20 = 37.8 mmol → 75.6 mmol monomer (assuming complete cracking). Theoretical adduct = 75.6 × 164.16 = 12.4 g. Yield = 6.8/12.4 = 55%.",
+      "a": "55% (based on complete cracking)"
+    },
+    {
+      "q": "Which of these will give a precipitate first with AgNO₃ in ethanol: 1-chlorobutane, 2-chlorobutane, 2-bromo-2-methylpropane, or bromobenzene? Order them.",
+      "solution": "SN1 reactivity: 2-bromo-2-methylpropane (tertiary, bromide, fastest, immediate AgBr) > 2-chlorobutane (secondary chloride, slow) > 1-chlorobutane (primary, very slow, needs heating) >> bromobenzene (aryl, no reaction: the sp² C–Br bond is strong and the phenyl cation is very unstable).",
+      "a": "2-bromo-2-methylpropane > 2-chlorobutane > 1-chlorobutane >> bromobenzene"
+    },
+    {
+      "q": "Explain how you would prove, using only IR and a melting point, that a product from the nitration of methyl benzoate is the nitro compound and not unreacted starting material (a liquid, bp 199 °C).",
+      "solution": "Methyl benzoate is a liquid at room temperature, so a solid with mp 77–79 °C already shows a new compound. IR shows two new strong bands at 1530 and 1350 cm⁻¹ (NO₂) and a shifted C=O (1725 cm⁻¹); a mixed mp with an authentic sample of methyl 3-nitrobenzoate shows no depression. The ortho isomer (mp 46 °C) would depress and broaden the melting range.",
+      "a": "Solid with mp ≈ 78 °C; NO₂ bands at 1530 and 1350 cm⁻¹."
+    }
+  ]
+}

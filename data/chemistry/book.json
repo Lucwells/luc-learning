@@ -100,18 +100,26 @@
       "title": "Applied and Interdisciplinary Chemistry",
       "blurb": "Chemistry of living systems, the nucleus, the environment and industry.",
       "chapters": [
-        "chemistry/biochemistry",
-        "chemistry/nuclear-chemistry",
-        "chemistry/environmental-chemistry",
-        "chemistry/industrial-processes"
+        "chemistry/applied/proteins-enzymes",
+        "chemistry/applied/nucleic-acids",
+        "chemistry/applied/lipids-membranes",
+        "chemistry/applied/metabolism",
+        "chemistry/applied/nuclear-chemistry",
+        "chemistry/applied/atmospheric-chemistry",
+        "chemistry/applied/water-green-chemistry",
+        "chemistry/applied/industrial-inorganic",
+        "chemistry/applied/metallurgy-petrochemicals"
       ]
     },
     {
       "title": "Laboratory",
       "blurb": "Techniques and experiments from the undergraduate organic and physical chemistry laboratories.",
       "chapters": [
-        "chemistry/labs/physical-chemistry-lab",
-        "chemistry/labs/organic-chemistry-lab"
+        "chemistry/labs/physical-lab-1",
+        "chemistry/labs/physical-lab-2",
+        "chemistry/labs/organic-lab-1",
+        "chemistry/labs/organic-lab-2",
+        "chemistry/labs/organic-lab-3"
       ]
     }
   ]

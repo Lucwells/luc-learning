@@ -1,0 +1,396 @@
+{
+  "id": "metallurgy-petrochemicals",
+  "view": "chapter",
+  "title": "Metallurgy and Petrochemicals",
+  "description": "Extracting iron, steel and aluminum with the Ellingham diagram, and refining and cracking petroleum.",
+  "overview": [
+    "Most metals occur as oxides or sulfides, and extracting them means reversing the thermodynamics that made them. The method depends on how stable the compound is: iron oxide is reduced by carbon monoxide at 1500 °C; alumina, with an oxide too stable for carbon at any practical temperature, is reduced electrolytically. The other great industrial feedstock, petroleum, is a mixture of thousands of hydrocarbons that is separated by boiling point and then chemically reshaped, by cracking and reforming, into fuels and into the building blocks of plastics.",
+    "This chapter uses a thermodynamic tool, the Ellingham diagram, to understand which reductant works for which metal, describes the iron and steel and aluminum industries, and then treats refining and cracking, the catalytic chemistry (carbocations on solid acids) that turns crude oil into gasoline and ethylene."
+  ],
+  "objectives": [
+    "Use the Ellingham diagram (ΔG° versus T for oxide formation) to decide which reducing agent can extract a given metal.",
+    "Write the reactions in the blast furnace, including the role of limestone, and the principle of the basic oxygen furnace.",
+    "Describe the Bayer process for alumina and the Hall–Héroult cell, and calculate the electrolysis charge and energy for aluminum.",
+    "Describe the fractions of crude oil and the principles of distillation, cracking, reforming and hydrotreating.",
+    "Explain catalytic cracking on zeolites as carbocation chemistry and steam cracking as a radical chain.",
+    "Relate octane number to molecular structure."
+  ],
+  "sections": [
+    {
+      "id": "ellingham",
+      "title": "Thermodynamics of metal extraction",
+      "terms": [
+        "Ellingham diagram",
+        "metallurgy",
+        "ore",
+        "ores",
+        "roasting",
+        "smelting",
+        "carbothermic reduction",
+        "reducing agent in metallurgy",
+        "slag",
+        "thermite reaction",
+        "electrolytic reduction",
+        "pyrometallurgy",
+        "hydrometallurgy",
+        "Boudouard reaction",
+        "extractive metallurgy",
+        "froth flotation",
+        "gangue",
+        "concentration of ore",
+        "leaching"
+      ],
+      "body": [
+        "Extracting a metal from its **ore** (the mineral deposit, mostly oxides, sulfides and carbonates, mixed with worthless **gangue**) involves concentrating the ore (**froth flotation**: sulfide particles are made hydrophobic with collectors and are carried to the surface by air bubbles; magnetic separation), converting it to the oxide (**roasting** in air: 2 ZnS + 3 O₂ → 2 ZnO + 2 SO₂, the SO₂ is turned into sulfuric acid; calcining carbonates), and **reducing** the oxide to the metal. The process by heat is **pyrometallurgy** (smelting), and extraction from aqueous solution (leaching with acid or cyanide, then electrodeposition) is **hydrometallurgy**.",
+        "The question “can carbon reduce this oxide?” is answered by comparing the free energies of two oxidation reactions written for one mole of O₂: 2M + O₂ → 2MO and 2C + O₂ → 2CO. The plot of ΔG° against temperature for these reactions is the **Ellingham diagram**. Since ΔG° = ΔH° − TΔS°, each line is approximately straight, with slope −ΔS°. For metal oxides, a gas (O₂) is consumed, so ΔS° is negative (≈ −200 J K⁻¹ per mol O₂) and the lines slope upward: the oxides become less stable at higher temperature, with a kink at the melting and boiling points of the metal. For 2C + O₂ → 2CO, the number of gas moles increases (1 → 2), ΔS° ≈ +179 J K⁻¹, and the line slopes **downward**. The reduction of an oxide MO by carbon, MO + C → M + CO, is favorable when the C → CO line lies below the M → MO line, and the temperature at which they cross is the minimum temperature for the smelting.",
+        {
+          "example": {
+            "title": "Carbon reduction of FeO",
+            "problem": "Use ΔG°(2C + O₂ → 2CO) = −221 − 0.179T kJ and ΔG°(2Fe + O₂ → 2FeO) = −528 + 0.131T kJ (T in K). At what temperature can carbon reduce FeO?",
+            "solution": "FeO + C → Fe + CO has ΔG° = ½[(−221 − 0.179T) − (−528 + 0.131T)] = ½(307 − 0.310T) kJ. It is negative when T > 307/0.310 = 990 K, about 717 °C. In practice the blast furnace runs far hotter (1500–2000 °C) for rate reasons and because the iron must be molten."
+          }
+        },
+        "This analysis shows why different metals need different methods. Metals whose oxide lines lie far below the carbon line (Al, Mg, Ca, Ti) cannot be reduced by C at temperatures practical in a furnace: they are made by **electrolytic reduction** (Al, Na, Mg) or by a more reactive metal (Ti by Mg or Na in the Kroll process; the **thermite reaction**, Fe₂O₃ + 2 Al → 2 Fe + Al₂O₃, ΔH = −852 kJ, used to weld rails). Metals whose oxides are less stable than CO (Zn, Fe, Sn, Pb, Cu) are smelted with carbon, and the noble metals (Ag, Au, Hg) decompose on heating or are extracted by hydrometallurgy. Because CO and CO₂ lines have different slopes, the reducing agent in the iron furnace is essentially CO; at high temperature the **Boudouard reaction**, CO₂ + C ⇌ 2 CO (ΔH = +172 kJ), converts CO₂ back to the reductant."
+      ],
+      "check": [
+        {
+          "q": "On an Ellingham diagram, why does the line for 2C + O₂ → 2CO slope downward?",
+          "a": "ΔS° is positive because the number of gas molecules increases",
+          "wrong": [
+            "The reaction is endothermic",
+            "Carbon melts",
+            "CO is unstable"
+          ]
+        },
+        {
+          "q": "Why is aluminum not produced by carbon reduction?",
+          "a": "Al₂O₃ is so stable that carbon can reduce it only at impractically high temperatures",
+          "wrong": [
+            "Aluminum reacts with carbon to explode",
+            "Alumina is a gas",
+            "Carbon is too expensive"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "iron-steel",
+      "title": "Iron and steel",
+      "terms": [
+        "blast furnace",
+        "basic oxygen steelmaking",
+        "steelmaking",
+        "Bessemer process",
+        "pig iron",
+        "steel",
+        "electric arc furnace",
+        "cast iron",
+        "slag formation",
+        "coke",
+        "carbon steel",
+        "alloy steel",
+        "stainless steel",
+        "hot blast",
+        "direct reduced iron",
+        "tempering",
+        "austenite",
+        "cementite",
+        "iron ore",
+        "hematite",
+        "magnetite",
+        "wrought iron",
+        "iron–carbon phase diagram",
+        "limestone flux"
+      ],
+      "body": [
+        "Iron is produced from **iron ore** (hematite Fe₂O₃, magnetite Fe₃O₄) in the **blast furnace**, a steel shaft ≈ 30 m high, lined with refractory brick, charged from the top with ore (sintered or pelletized), **coke** (carbon from coal heated without air, strong enough to support the burden and permeable to gas) and limestone, while preheated air (**hot blast**, 1000–1200 °C) is blown in through nozzles at the bottom. The reactions, from the bottom up:",
+        {
+          "list": [
+            "Combustion (≈ 2000 °C at the nozzles): C + O₂ → CO₂ (ΔH = −394 kJ); and, with excess hot carbon, CO₂ + C → 2 CO (Boudouard, endothermic). Net: 2 C + O₂ → 2 CO. This gives the heat and the reducing gas.",
+            "Reduction in the shaft, as the CO rises (stepwise, at falling temperature): 3 Fe₂O₃ + CO → 2 Fe₃O₄ + CO₂ (≈ 500 °C); Fe₃O₄ + CO → 3 FeO + CO₂ (≈ 600 °C); FeO + CO → Fe + CO₂ (≈ 800 °C). Overall: Fe₂O₃ + 3 CO → 2 Fe + 3 CO₂ (indirect reduction). Direct reduction by carbon, FeO + C → Fe + CO, occurs in the hot zone.",
+            "The iron melts and flows to the hearth (1500 °C), dissolving 4–4.5% C, and is tapped as **pig iron** (together with Si, Mn, P and S).",
+            "**Slag**: limestone calcines, CaCO₃ → CaO + CO₂ (≈ 800 °C), and the CaO (a basic flux) combines with the acidic gangue to give a molten calcium silicate/aluminosilicate: CaO + SiO₂ → CaSiO₃. The slag floats on the iron, protects it from oxidation, and removes sulfur (CaO + FeS → CaS + FeO). It is used in cement and road building."
+          ]
+        },
+        "The furnace runs continuously for 10–15 years, producing 10,000 t of iron per day. A tonne of pig iron takes about 1.6 t of ore, 0.45 t of coke, 0.2 t of injected coal and 0.25 t of limestone, and emits ≈ 1.5–1.8 t of CO₂. Steelmaking from ore is the largest industrial source of CO₂ (7% of the world), which is why direct reduction by hydrogen (H₂ in place of CO: Fe₂O₃ + 3 H₂ → 2 Fe + 3 H₂O) is being developed.",
+        {
+          "h": "Steel"
+        },
+        "Pig iron is hard and brittle (4% C, with P, S, Si). **Steel** is iron with 0.02–2% carbon, strong and ductile. In the **basic oxygen furnace** (BOF, which replaced the Bessemer converter and the open hearth), 250–300 t of molten pig iron and up to 25% scrap steel are charged into a refractory-lined vessel; a water-cooled lance blows pure oxygen at supersonic speed on to the bath for 15–20 minutes, oxidizing the impurities, in an exothermic process that needs no external fuel: C + ½O₂ → CO (burns off as gas), Si + O₂ → SiO₂, 2 Mn + O₂ → 2 MnO, and 4 P + 5 O₂ → P₄O₁₀ (phosphorus). Lime is added to the slag; the basic CaO combines with the acidic oxides, SiO₂ and P₄O₁₀, forming calcium silicate and calcium phosphate (the reason why the refractory lining is basic, magnesia). The **electric arc furnace (EAF)** melts scrap steel (or direct-reduced iron) with graphite electrodes, with ≈ 400 kWh per tonne and low CO₂ emissions: the route of recycling, with 70% of the steel in the USA.",
+        "Alloying elements adjust the properties: Cr (≥ 10.5%, a passive Cr₂O₃ film) gives **stainless steel**; Mn, Ni, V, Mo add toughness and strength; heat treatment (quenching and **tempering**) changes the microstructure: the iron–carbon phase diagram shows the austenite (fcc γ-iron, dissolves up to 2% C) cooled to ferrite (bcc) and cementite (Fe₃C); rapid quenching traps carbon in martensite, which is very hard and brittle, and tempering reduces the brittleness.",
+        {
+          "example": {
+            "title": "Iron and CO",
+            "problem": "How much carbon monoxide is needed (ideal) to reduce 1.00 t of Fe₂O₃ (159.69 g mol⁻¹) to iron, and how much carbon is needed to make that CO?",
+            "solution": "1.00 × 10⁶/159.69 = 6.262 × 10³ mol Fe₂O₃; Fe₂O₃ + 3 CO → 2 Fe + 3 CO₂ requires 3 × 6.262 × 10³ = 1.879 × 10⁴ mol CO = 526 kg CO; the Fe produced is 12,524 mol = 699 kg. Carbon: 1.879 × 10⁴ mol × 12.01 = 226 kg (as 2 C + O₂ → 2 CO). In practice, because CO₂ in the exit gas must remain below an equilibrium level, about twice that amount of CO passes the shaft, and the real coke rate is ≈ 450 kg per tonne of iron."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "What is the purpose of limestone in a blast furnace?",
+          "a": "It forms CaO that combines with silica to make a molten slag, removing impurities",
+          "wrong": [
+            "It reduces iron oxide",
+            "It is the fuel",
+            "It oxidizes the carbon"
+          ]
+        },
+        {
+          "q": "In the basic oxygen furnace, what happens to the carbon in pig iron?",
+          "a": "It is oxidized by the O₂ jet and leaves as CO/CO₂",
+          "wrong": [
+            "It is added to the slag as carbonate",
+            "It is increased",
+            "It forms a protective coating"
+          ]
+        },
+        {
+          "q": "What reduces the iron oxide in the upper part of the blast furnace?",
+          "a": "Carbon monoxide",
+          "wrong": [
+            "Oxygen",
+            "Hydrogen only",
+            "Calcium oxide"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "aluminum",
+      "title": "Aluminum: the Bayer and Hall–Héroult processes",
+      "terms": [
+        "Hall–Héroult process",
+        "Hall-Héroult process",
+        "Hall–Héroult",
+        "Bayer process",
+        "bauxite",
+        "red mud",
+        "alumina",
+        "cryolite",
+        "aluminum production",
+        "Faraday's laws in industry",
+        "anode effect",
+        "aluminum recycling",
+        "carbon anode",
+        "sodium aluminate",
+        "gibbsite",
+        "boehmite",
+        "electrolytic cell for aluminum",
+        "Soderberg anode",
+        "inert anode",
+        "Kroll process"
+      ],
+      "body": [
+        "Aluminum is the most abundant metal in the crust (8%), but all as stable silicates and oxides. The ore is **bauxite**, a mixture of aluminum hydroxides (gibbsite Al(OH)₃, boehmite AlO(OH)) with iron oxides and silica. Two processes are combined, one chemical (purification) and one electrolytic (reduction).",
+        {
+          "h": "The Bayer process (purifying the alumina)"
+        },
+        "Crushed bauxite is digested in hot concentrated NaOH solution (150–250 °C under pressure). Alumina is amphoteric and dissolves as the aluminate: Al(OH)₃ + NaOH → Na[Al(OH)₄] (or Al₂O₃·xH₂O + 2 NaOH + (3−x) H₂O → 2 Na[Al(OH)₄]). Iron oxide and most of the TiO₂ do not dissolve, and form the insoluble residue called **red mud** (colored by Fe₂O₃, alkaline, pH > 12, a major disposal problem: 1–1.5 t per t alumina). The filtered solution is cooled and seeded with Al(OH)₃ crystals, reversing the reaction: Na[Al(OH)₄] → Al(OH)₃↓ + NaOH, and the NaOH solution is recycled. The hydroxide is calcined at about 1000–1100 °C: 2 Al(OH)₃ → Al₂O₃ + 3 H₂O, giving pure white **alumina**. Typically 1.9–2.0 t of alumina are needed per tonne of aluminum.",
+        {
+          "h": "The Hall–Héroult process (reduction)"
+        },
+        "Alumina melts at 2072 °C, too high to be electrolyzed as such. In 1886 Hall and Héroult found that it dissolves (2–6%) in molten **cryolite** (Na₃AlF₆, with AlF₃ and CaF₂ added), which lowers the operating temperature to 950–970 °C, and the melt conducts. The cell is a carbon-lined steel box (the cathode) with prebaked carbon anodes dipping from above, run at 4–5 V and 300–600 kA. At the cathode Al³⁺ is reduced (the molten aluminum, denser than the electrolyte, collects at the bottom): Al³⁺ + 3 e⁻ → Al. At the anode the oxide ions are oxidized, and react with the carbon: C + 2 O²⁻ → CO₂ + 4 e⁻. Overall: 2 Al₂O₃ + 3 C → 4 Al + 3 CO₂. The anodes are consumed (0.4–0.45 t of carbon per t of Al) and replaced; the cell emits CO₂ and, in an “anode effect” when the alumina is depleted, perfluorocarbons CF₄ and C₂F₆, which are powerful greenhouse gases.",
+        {
+          "example": {
+            "title": "Electrolysis of alumina",
+            "problem": "How much charge and energy (at 4.2 V and 94% current efficiency) are needed to make 1.00 kg of Al?",
+            "solution": "n(Al) = 1000 g/26.98 = 37.06 mol; Al³⁺ + 3 e⁻ → Al, so 111.2 mol e⁻ × 96,485 C = 1.073 × 10⁷ C = 2980 A h. At 94% efficiency the charge is 1.141 × 10⁷ C. Energy = QV = 1.141 × 10⁷ × 4.2 = 4.79 × 10⁷ J = 13.3 kWh kg⁻¹ (the industry figure is 13–15 kWh kg⁻¹). Electricity costs make up 30–40% of the production cost, so smelters are located near cheap hydroelectric power. Recycling aluminum requires only 5% of this energy, which is why scrap is so valuable."
+          }
+        },
+        {
+          "example": {
+            "title": "Carbon consumption",
+            "problem": "What mass of carbon anode (as CO₂) is consumed theoretically per tonne of Al?",
+            "solution": "4 Al : 3 C. n(Al) = 1.00 × 10⁶/26.98 = 3.706 × 10⁴ mol → C = 0.75 × 3.706 × 10⁴ = 2.78 × 10⁴ mol = 334 kg; CO₂ emitted = 1.22 t per t Al (the actual anode consumption of 400–450 kg per tonne is higher because of air burning and side reactions)."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Why is alumina dissolved in cryolite for the electrolysis?",
+          "a": "To lower the operating temperature from 2072 °C to about 960 °C and to give a conducting melt",
+          "wrong": [
+            "Cryolite is the reducing agent",
+            "Cryolite prevents oxidation of Al only",
+            "Alumina is insoluble in everything else"
+          ]
+        },
+        {
+          "q": "In the Bayer process, what remains undissolved as red mud?",
+          "a": "Iron oxide (and other impurities)",
+          "wrong": [
+            "Alumina",
+            "Sodium aluminate",
+            "Cryolite"
+          ]
+        },
+        {
+          "q": "Why are the carbon anodes consumed?",
+          "a": "Oxygen from the oxide ions reacts with carbon to give CO₂",
+          "wrong": [
+            "They dissolve in cryolite",
+            "They react with Al",
+            "They evaporate"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "petroleum",
+      "title": "Petroleum refining and cracking",
+      "terms": [
+        "steam cracking",
+        "fractional distillation of crude oil",
+        "catalytic reforming",
+        "hydrotreating",
+        "hydrodesulfurization",
+        "alkylation",
+        "isomerization of alkanes",
+        "fluid catalytic cracking",
+        "naphtha",
+        "kerosene",
+        "diesel",
+        "gasoline",
+        "refinery",
+        "cetane number",
+        "petrochemicals",
+        "ethylene production",
+        "Fischer–Tropsch synthesis",
+        "hydrocracking",
+        "bitumen",
+        "coking"
+      ],
+      "body": [
+        "**Crude oil** is a mixture of thousands of hydrocarbons (alkanes, cycloalkanes, aromatics) with small amounts of S, N and O compounds and metals. In a refinery it is first heated to ~400 °C and fed into a distillation column; **fractional distillation** separates it by boiling range, with the lighter fractions rising higher in the tower:",
+        {
+          "table": {
+            "head": [
+              "Fraction",
+              "Carbons",
+              "Boiling range (°C)",
+              "Use"
+            ],
+            "rows": [
+              [
+                "Refinery gas / LPG",
+                "C₁–C₄",
+                "< 30",
+                "Fuel, feedstock"
+              ],
+              [
+                "Naphtha / gasoline",
+                "C₅–C₁₂",
+                "30–200",
+                "Gasoline; petrochemical feed"
+              ],
+              [
+                "Kerosene",
+                "C₁₀–C₁₆",
+                "170–270",
+                "Jet fuel"
+              ],
+              [
+                "Diesel / gas oil",
+                "C₁₄–C₂₀",
+                "250–350",
+                "Diesel, heating oil, cracker feed"
+              ],
+              [
+                "Residue (vacuum distilled)",
+                "> C₂₀",
+                "> 350",
+                "Lubricants, wax, bitumen, fuel oil"
+              ]
+            ],
+            "caption": "Crude oil fractions."
+          }
+        },
+        "The natural yield of gasoline is only 20–30% of crude, and demand is higher. The refinery changes the molecules with catalytic processes: cracking (breaking large molecules into small ones), reforming and isomerization (raising the octane number), alkylation (combining small ones), and hydrotreating (removing heteroatoms).",
+        {
+          "h": "Catalytic cracking"
+        },
+        "In **fluid catalytic cracking (FCC)**, heavy gas oil is contacted at 500–550 °C and 1–3 atm for a few seconds with a finely divided solid acid catalyst, a **zeolite** Y in a silica–alumina matrix, which fluidizes in the stream. The mechanism is carbocation chemistry on the Brønsted acid sites (Si–OH–Al): an alkane loses a hydride to a Lewis acid site or an alkene is protonated to give a carbenium ion; this undergoes β-scission (cleavage of the C–C bond β to the cation, giving an alkene and a smaller cation), hydride shift and isomerization to more stable branched cations, and hydride transfer from another alkane, which continues the chain. The products are branched and aromatic, giving a high octane number. Coke (carbon) deposits on the catalyst, which is carried to the regenerator and burned in air at 700 °C (the heat of combustion supplies the heat of the endothermic cracking): the catalyst circulates between the two vessels. **Hydrocracking** is similar but with hydrogen and a bifunctional metal–acid catalyst for heavier feed, giving diesel and jet fuel.",
+        {
+          "h": "Steam cracking"
+        },
+        "**Steam cracking** produces ethylene, propylene and butadiene, the building blocks of petrochemicals, from ethane, propane or naphtha. The hydrocarbon is diluted with steam (to lower the partial pressure, which favors the dehydrogenation equilibrium, and to reduce coking) and passes through furnace tubes at 800–900 °C for 0.1–0.5 s. The chemistry is a radical chain: initiation by homolysis of a C–C bond (CH₃CH₃ → 2 CH₃•); propagation by hydrogen abstraction (CH₃• + C₂H₆ → CH₄ + C₂H₅•) and β-scission (C₂H₅• → C₂H₄ + H•; H• + C₂H₆ → H₂ + C₂H₅•); termination by radical recombination. Net: C₂H₆ → C₂H₄ + H₂ (ΔH = +137 kJ mol⁻¹, strongly endothermic and entropically driven, so high temperature is essential). Ethane gives 80% ethylene; naphtha gives a mixture (30% ethylene, 15% propylene, aromatics). Ethylene is the most produced organic chemical (≈ 2 × 10⁸ t y⁻¹): polyethylene, ethylene oxide (antifreeze), vinyl chloride (PVC), styrene.",
+        {
+          "example": {
+            "title": "Equilibrium in the dehydrogenation of ethane",
+            "problem": "For C₂H₆ ⇌ C₂H₄ + H₂, ΔH° = +137 kJ and ΔS° = +120 J K⁻¹. What is K at 1100 K, and what temperature is needed for K = 1?",
+            "solution": "ΔG° = 137 − 1100 × 0.120 = 137 − 132 = +5 kJ → K = exp(−5000/(8.314 × 1100)) = 0.58. K = 1 when ΔG° = 0: T = ΔH°/ΔS° = 137,000/120 = 1142 K = 869 °C. At 1 bar and the lower pressure of the steam dilution the conversion is helped (the number of moles increases)."
+          }
+        },
+        {
+          "h": "Upgrading: reforming, alkylation and hydrotreating"
+        },
+        {
+          "list": [
+            "**Octane number**: the resistance to engine knock, defined by the fuel’s behavior against a mixture of isooctane (2,2,4-trimethylpentane, 100) and n-heptane (0). Branched alkanes, alkenes and aromatics have high octane numbers; straight chains have low. The “knock” is auto-ignition by radical chain branching in the unburned mixture; branched radicals are more stable and chain branching is slower. **Cetane number** is the opposite for diesel (the ease of auto-ignition of long straight chains).",
+            "**Catalytic reforming** converts naphtha (low octane) into aromatics and isoalkanes over Pt (with Re or Sn) on chlorided alumina, at 450–520 °C and 10–30 atm: dehydrogenation of cyclohexanes to arenes (C₆H₁₂ → C₆H₆ + 3 H₂), dehydrocyclization of alkanes (n-C₇H₁₆ → toluene + 4 H₂), and isomerization. A by-product is hydrogen, used for hydrotreating.",
+            "**Alkylation** combines isobutane with butenes under strong acid catalysis (H₂SO₄ or HF) to give highly branched C₈ alkylate (2,2,4-trimethylpentane, 2,3,4-trimethylpentane) with a high octane number and no aromatics or sulfur, via carbocations (the tert-butyl cation adds to an alkene).",
+            "**Hydrodesulfurization** removes sulfur to meet regulations (< 10 ppm in fuels): a Co–Mo or Ni–Mo/Al₂O₃ catalyst at 350 °C and 30–100 atm with H₂ converts thiophenes and thiols to H₂S and hydrocarbons (C₄H₄S + 4 H₂ → C₄H₁₀ + H₂S); the H₂S is converted to sulfur in the Claus process. Sulfur is removed to protect the reforming catalyst and for air quality (SO₂)."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "What is the intermediate in catalytic cracking over zeolites?",
+          "a": "A carbocation (carbenium ion)",
+          "wrong": [
+            "A free radical",
+            "A carbanion",
+            "A carbene"
+          ]
+        },
+        {
+          "q": "What does steam do in steam cracking?",
+          "a": "Lowers the hydrocarbon partial pressure (favoring dehydrogenation) and reduces coking",
+          "wrong": [
+            "Acts as the catalyst",
+            "Adds oxygen for combustion",
+            "Reacts to give ethanol"
+          ]
+        },
+        {
+          "q": "Which hydrocarbons have the highest octane numbers?",
+          "a": "Branched alkanes and aromatics",
+          "wrong": [
+            "Straight-chain alkanes",
+            "Long waxes",
+            "Alkanes with sulfur"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Ellingham diagrams plot ΔG° of oxide formation vs T; a reductant works when its line lies below the metal’s. C → CO slopes downward, so carbon reduces many oxides at high T (FeO above ≈ 720 °C). Al, Mg, Na oxides need electrolysis.",
+    "Blast furnace: coke → CO; Fe₂O₃ + 3 CO → 2 Fe + 3 CO₂; limestone → CaO → CaSiO₃ slag; pig iron 4% C. BOF blows O₂ to oxidize C, Si, Mn, P to give steel; EAF recycles scrap.",
+    "Bayer: bauxite + hot NaOH → Na[Al(OH)₄] (red mud left), reprecipitated as Al(OH)₃ and calcined to Al₂O₃. Hall–Héroult: Al₂O₃ in molten cryolite at 960 °C, C anodes consumed; ≈ 13–15 kWh per kg Al (3 F per mol).",
+    "Crude oil is fractionated, then FCC (zeolite, carbocations), reforming (Pt, aromatics), alkylation (branched C₈) and hydrodesulfurization upgrade it. Steam cracking (radical chain, 850 °C) makes ethylene from ethane/naphtha. Octane number rises with branching and aromatic content."
+  ],
+  "problems": [
+    {
+      "q": "Zinc oxide has ΔG°(2Zn + O₂ → 2ZnO) ≈ −700 + 0.20T kJ (T in K, below the boiling point). Compare it with the carbon line −221 − 0.179T. At what temperature can ZnO be reduced by carbon? Why is zinc smelted as vapor?",
+      "solution": "ZnO + C → Zn + CO: ΔG° = ½[(−221 − 0.179T) − (−700 + 0.20T)] = ½(479 − 0.379T), negative above T = 1264 K (991 °C). Zinc boils at 907 °C, so at this temperature the metal leaves as a vapor, which has a favorable entropy contribution (above the boiling point the line for 2Zn(g) + O₂ steepens, so the practical temperature is somewhat lower, about 950 °C), and it is condensed to liquid in a separate condenser. Zn vapor must be kept from reoxidizing by CO₂.",
+      "a": "T > 1264 K (≈ 990 °C); zinc leaves the furnace as a vapor."
+    },
+    {
+      "q": "Calculate the mass of pure Al₂O₃ and of carbon anode (assuming CO₂ is formed) needed for 1.00 t of Al. Compare with the typical alumina consumption of 1.93 t per tonne Al.",
+      "solution": "2 Al₂O₃ → 4 Al: n(Al) = 3.706 × 10⁴ mol → Al₂O₃ = 1.853 × 10⁴ mol × 101.96 = 1.89 t (theory). The practical figure of 1.93 t reflects ~2% losses. Carbon: 0.75 × 3.706 × 10⁴ × 12.01 = 334 kg.",
+      "a": "1.89 t Al₂O₃ and 334 kg C"
+    },
+    {
+      "q": "Explain what β-scission is, and give the products of β-scission of the secondary 2-hexyl cation CH₃–CH⁺–CH₂–CH₂–CH₂–CH₃.",
+      "solution": "β-scission breaks the C–C bond one position removed from the cationic carbon, forming a C=C bond to the cationic carbon and a new, smaller cation. For CH₃–CH⁺–CH₂–CH₂–CH₂–CH₃ (the 2-hexyl cation): the β bond is the one between C3 and C4, giving CH₃–CH=CH₂ (propene) and the primary cation ⁺CH₂CH₂CH₃, which isomerizes to the 2-propyl cation. Cleavage to give tertiary cations is preferred when possible, which is why cracking produces mostly branched C₃–C₄ products (isobutene, propene). Scission of a secondary cation to a primary one, as here, is slow, so the cation first isomerizes by hydride and methyl shifts.",
+      "a": "Propene + a propyl cation (isomerized to isopropyl)."
+    },
+    {
+      "q": "Estimate the hydrogen consumption of hydrodesulfurization for a diesel containing 1.0 wt% sulfur as dibenzothiophene (C₁₂H₈S, 184.26 g mol⁻¹) converted to biphenyl and H₂S (C₁₂H₈S + 2 H₂ → C₁₂H₁₀ + H₂S). How much H₂ per tonne of diesel?",
+      "solution": "1.0% S = 10 kg S per tonne = 0.312 kmol S = 0.312 kmol dibenzothiophene. H₂ required: 2 × 0.312 = 0.624 kmol = 1.26 kg of H₂ per tonne of diesel (≈ 14 m³ at STP), a quantity that steam reforming supplies from about 2.5 kg of methane (4 H₂ per CH₄). Additional hydrogen is used for the saturation of aromatics.",
+      "a": "≈ 1.3 kg H₂ per tonne of diesel"
+    }
+  ]
+}

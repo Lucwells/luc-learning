@@ -1,0 +1,502 @@
+{
+  "id": "physical-lab-1",
+  "view": "chapter",
+  "title": "Physical Chemistry Laboratory I: Data Analysis, Thermodynamics, Equilibrium and Kinetics",
+  "description": "Error propagation and regression, bomb calorimetry, vapor pressure, freezing point depression, phase diagrams, an equilibrium constant by spectrophotometry, kinetics experiments and the heat capacity ratio.",
+  "overview": [
+    "A physical chemistry laboratory course teaches how to measure a thermodynamic or kinetic quantity and to say how well it is known. Each experiment follows the same pattern: a model equation from theory is linearized, the data are plotted and fitted, the parameter that is wanted comes from the slope or the intercept, and the uncertainty is propagated to the final value, which is compared with the literature.",
+    "This chapter starts with the data analysis that every experiment uses, then describes seven experiments: bomb calorimetry, vapor pressure, freezing point depression, binary phase diagrams, an equilibrium constant by spectrophotometry, two kinetics experiments, and the heat capacity ratio of gases. Each section gives the theory in outline, the procedure, a worked calculation with realistic numbers, and the main sources of error. The second laboratory chapter covers transport, surfaces, electrochemistry and spectroscopy."
+  ],
+  "objectives": [
+    "Propagate uncertainties through a calculation and report a result with the right significant figures.",
+    "Fit a straight line by least squares, calculate the standard error and confidence interval of the slope, and examine the residuals.",
+    "Carry out the calibration and corrections of a bomb calorimeter experiment.",
+    "Determine ΔH_vap from the Clausius–Clapeyron equation and a molar mass from freezing point depression.",
+    "Read a eutectic phase diagram from cooling curves and apply the lever rule.",
+    "Determine K by spectrophotometry (FeSCN²⁺), and k and E_a from kinetic data.",
+    "Calculate γ = C_p/C_V from a Clément–Desormes or Rüchardt experiment."
+  ],
+  "sections": [
+    {
+      "id": "data-analysis",
+      "title": "Data analysis, error propagation and curve fitting",
+      "terms": [
+        "error propagation",
+        "propagation of uncertainty",
+        "least-squares fit",
+        "standard error",
+        "random error",
+        "systematic error",
+        "residual plot",
+        "linearization",
+        "weighted least squares",
+        "outlier",
+        "Q test",
+        "uncertainty of the slope",
+        "coefficient of determination",
+        "R²",
+        "reporting uncertainties",
+        "nonlinear least squares",
+        "linearizing a rate law",
+        "standard deviation"
+      ],
+      "body": [
+        "Every measurement has an uncertainty. **Random errors** scatter the results about the mean and are reduced by averaging; **systematic errors** shift all the results in one direction (a miscalibrated thermometer, a heat leak) and are not reduced by repetition, and have to be found by calibration or by comparing methods. A result is reported as value ± uncertainty, with the uncertainty to one or two significant figures and the value rounded to the same decimal place.",
+        {
+          "h": "Propagation of uncertainty"
+        },
+        "If the result f is calculated from independent measured quantities x, y, … with uncertainties σ_x, σ_y, …, the uncertainties combine in quadrature:",
+        {
+          "eq": "σ_f² = (∂f/∂x)² σ_x² + (∂f/∂y)² σ_y² + …"
+        },
+        {
+          "list": [
+            "Sums and differences: σ_f² = σ_x² + σ_y² (absolute uncertainties add in quadrature).",
+            "Products and quotients, f = xy or x/y: (σ_f/f)² = (σ_x/x)² + (σ_y/y)² (relative uncertainties add in quadrature). For f = xⁿ: σ_f/f = |n| σ_x/x.",
+            "Logarithm: f = ln x gives σ_f = σ_x/x. Exponential: f = e^x gives σ_f/f = σ_x."
+          ]
+        },
+        "A difference of two nearly equal numbers loses precision: in a calorimeter experiment ΔT = T_f − T_i = 2.512 K from readings with σ = 0.005 K each has σ_ΔT = 0.007 K (0.3%), the dominant uncertainty.",
+        {
+          "h": "Least-squares fitting"
+        },
+        "A straight line y = mx + b is fitted by minimizing the sum of squared vertical residuals. For n points:",
+        {
+          "eq": "m = (nΣxy − ΣxΣy) / (nΣx² − (Σx)²),    b = (Σy − mΣx)/n"
+        },
+        "The residual standard deviation is s_y = [Σ(yᵢ − mxᵢ − b)²/(n − 2)]^{1/2} (n − 2 degrees of freedom), and the standard error of the slope is s_m = s_y [n/(nΣx² − (Σx)²)]^{1/2}. The confidence interval is m ± t s_m, with Student’s t for n − 2 degrees of freedom (3.18 for 95%, n = 5). A **residual plot** (residual against x) is the test of the model: a random scatter about zero means a good fit; a curve means the model (or the linearization) is wrong. A high R² alone does not show that the line is right. When the uncertainty of y varies, as after a logarithmic transformation, use weighted least squares; a nonlinear fit directly to the data is preferable to a linearization, which distorts the errors.",
+        {
+          "example": {
+            "title": "A least-squares line with uncertainty",
+            "problem": "Fit the data (x, y): (0, 1.1), (1, 2.9), (2, 5.2), (3, 7.1), (4, 8.8). Give the slope with a 95% confidence interval.",
+            "solution": "n = 5; Σx = 10; Σy = 25.1; Σxy = 69.8; Σx² = 30. m = (5 × 69.8 − 10 × 25.1)/(5 × 30 − 100) = 98/50 = 1.96; b = (25.1 − 19.6)/5 = 1.10. Residuals: 0.00, −0.16, +0.18, +0.12, −0.14 (sum 0). Σ(res)² = 0.092, s_y = (0.092/3)^{1/2} = 0.175. s_m = 0.175 × (5/50)^{1/2} = 0.0554. 95% CI: t = 3.18, so m = 1.96 ± 0.18."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "A result is the product of two measurements with relative uncertainties 3% and 4%. What is the relative uncertainty of the product?",
+          "a": "5%",
+          "wrong": [
+            "7%",
+            "1%",
+            "12%"
+          ]
+        },
+        {
+          "q": "What does a curved pattern in a residual plot show?",
+          "a": "The model (or linearization) does not describe the data",
+          "wrong": [
+            "The measurements are precise",
+            "The slope is zero",
+            "A random error"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bomb",
+      "title": "Experiment: heat of combustion by bomb calorimetry",
+      "terms": [
+        "heat of combustion experiment",
+        "benzoic acid calibration",
+        "adiabatic correction",
+        "fuse wire correction",
+        "Regnault–Pfaundler",
+        "temperature-rise correction",
+        "nitric acid correction",
+        "isoperibol calorimeter"
+      ],
+      "body": [
+        "**Aim**: to measure the internal energy and enthalpy of combustion of a solid (sucrose, naphthalene), using a constant-volume bomb calorimeter calibrated with benzoic acid. The principles and the apparatus are described in the chapter on thermal methods; the experiment is about the corrections.",
+        {
+          "list": [
+            "**Calibration** with benzoic acid, a pellet of ≈ 1 g (certified ΔcU = −26.434 kJ g⁻¹). The **calorimeter constant** (heat capacity of the bomb, bucket, water and thermometer) is C_cal = q/ΔT.",
+            "**Procedure**: weigh the pellet and a nickel–chromium fuse wire, attach the wire so that it touches the pellet, add 1 mL of water to the bomb (to saturate the gas with water vapor so the water formed is liquid), fill with O₂ to 25–30 atm, immerse in a weighed mass of water in the bucket (2.000 kg). Record the temperature each 30 s for 5 min (initial period), fire, record each 30 s through the rise (main period), and for 5 min after the maximum (final period).",
+            "**Temperature correction**: heat exchange with the surroundings during the run means that the observed rise is not the adiabatic rise. Extrapolate the initial and final drifts linearly to the time of firing (or use the Regnault–Pfaundler analysis), the corrected ΔT being the vertical distance between the two lines at the time at which the main period is half complete.",
+            "**Other corrections**: the energy of combustion of the fuse wire (the burned mass times its ΔcU, e.g. 6.0 kJ g⁻¹ for Ni–Cr wire, known), and the formation of nitric acid from traces of N₂ in the bomb (titrate the washings with NaOH; each mmol of HNO₃ contributes 59 J)."
+          ]
+        },
+        {
+          "example": {
+            "title": "Calibration and unknown",
+            "problem": "Benzoic acid, 1.0122 g, gave a corrected rise of 2.512 K, with a fuse wire correction of 50 J. Sucrose, 1.5000 g, gave a rise of 2.328 K with the same correction. Calculate C_cal, then ΔcU and ΔcH of sucrose (C₁₂H₂₂O₁₁, 342.30 g mol⁻¹) at 298 K.",
+            "solution": "q(benzoic) = 26.434 kJ g⁻¹ × 1.0122 g = 26.756 kJ; less the fuse 0.050 kJ → 26.706 kJ. C_cal = 26,706 J/2.512 K = 10,631 J K⁻¹. For sucrose: q = 10,631 × 2.328 = 24,749 J; minus 50 J = 24,699 J → 16.466 kJ g⁻¹ → ΔcU = −16.466 × 342.30 = −5636 kJ mol⁻¹. The reaction C₁₂H₂₂O₁₁(s) + 12 O₂(g) → 12 CO₂(g) + 11 H₂O(l) has Δn_g = 12 − 12 = 0, so ΔcH = ΔcU = −5636 kJ mol⁻¹, to be compared with the literature value of −5645 kJ mol⁻¹ (0.2% deviation). The error of the heat capacity enters as the relative errors in ΔT (0.3%) and in the masses."
+          }
+        },
+        "Common errors: incomplete combustion (soot in the bomb: repeat the run); leaks of oxygen; ΔT taken without extrapolation (error up to 2%); neglecting the fuse correction (0.2–0.5%)."
+      ],
+      "check": [
+        {
+          "q": "Why is the temperature rise extrapolated rather than read directly?",
+          "a": "Heat is exchanged with the surroundings during the run",
+          "wrong": [
+            "The thermometer is nonlinear",
+            "The bomb is adiabatic",
+            "To compensate for the pellet mass"
+          ]
+        },
+        {
+          "q": "For which reaction does ΔcH equal ΔcU?",
+          "a": "One with no change in the moles of gas (Δn_g = 0), such as the combustion of sucrose",
+          "wrong": [
+            "Any combustion",
+            "None",
+            "One with a large change in gas moles"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vapor-pressure",
+      "title": "Experiment: vapor pressure and enthalpy of vaporization",
+      "terms": [
+        "isoteniscope",
+        "vapor pressure experiment",
+        "static method for vapor pressure",
+        "Trouton's rule",
+        "enthalpy of vaporization measurement",
+        "Clausius–Clapeyron plot",
+        "Antoine equation",
+        "manometric method",
+        "degassing the sample",
+        "normal boiling point determination"
+      ],
+      "body": [
+        "**Theory**: the Clausius–Clapeyron equation for a liquid–vapor equilibrium, assuming ideal vapor and negligible liquid volume, and a constant ΔH_vap: d ln P/dT = ΔH_vap/(RT²), which integrates to ln P = −ΔH_vap/(RT) + C. A plot of ln P against 1/T is a straight line of slope −ΔH_vap/R.",
+        "**Procedure** (the **isoteniscope**, a static method): the sample is held in a bulb connected to a U-tube whose liquid acts as a null manometer. The sample is degassed by boiling for a minute, since dissolved air would add to the pressure. The system is evacuated to a chosen pressure with a pump and a manostat, the bath is heated, and the temperature at which the levels of the U-tube are equal is recorded (the vapor pressure of the sample then equals the pressure read on the external gauge). Readings are taken for 6–8 pressures between 20 and 100 kPa.",
+        {
+          "example": {
+            "title": "ΔH_vap from two points, and Trouton’s rule",
+            "problem": "For water the measured vapor pressures are 19.9 kPa at 60.0 °C and 47.4 kPa at 80.0 °C. Find ΔH_vap, and the ratio ΔH_vap/T_b with T_b = 373.15 K.",
+            "solution": "ln(47.4/19.9) = 0.868; 1/333.15 − 1/353.15 = 1.701 × 10⁻⁴ K⁻¹. ΔH_vap = 8.314 × 0.868/1.701 × 10⁻⁴ = 42.4 kJ mol⁻¹ (literature 42.5 at 70 °C). With ΔH_vap(373 K) = 40.7 kJ: ΔS_vap = 40,700/373.15 = 109 J K⁻¹ mol⁻¹."
+          }
+        },
+        "**Trouton’s rule**: for many non-associated liquids ΔS_vap = ΔH_vap/T_b ≈ 85–88 J K⁻¹ mol⁻¹ (the vapor has a similar entropy of order, with the liquid having comparable disorder). Liquids with hydrogen bonding (water, ethanol: 110 J K⁻¹ mol⁻¹) have a larger value because the liquid is more ordered; the helium-like liquids (H₂, CH₄) are lower. The constant-ΔH assumption fails over a wide range, and the Antoine equation, log P = A − B/(C + T), fits better. Errors: air left in the sample, and thermal lag between bath and bulb.",
+        "The assumption of a constant ΔH_vap gives a curvature in the plot over a large range of T that shows up in the residuals."
+      ],
+      "check": [
+        {
+          "q": "Why must the sample be degassed in the isoteniscope?",
+          "a": "Dissolved air would add to the measured pressure",
+          "wrong": [
+            "Air catalyzes boiling",
+            "Air lowers the temperature",
+            "Air dissolves the U-tube liquid"
+          ]
+        },
+        {
+          "q": "Why does water have a Trouton constant greater than 88 J K⁻¹ mol⁻¹?",
+          "a": "Hydrogen bonding makes the liquid more ordered than a typical liquid",
+          "wrong": [
+            "Water is a gas",
+            "Its vapor is dissociated",
+            "It has high molar mass"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "freezing-point",
+      "title": "Experiment: freezing point depression and molar mass",
+      "terms": [
+        "cryoscopy",
+        "cooling curve",
+        "supercooling",
+        "molar mass by freezing point depression",
+        "freezing point depression experiment",
+        "van 't Hoff factor in cryoscopy",
+        "extrapolation of cooling curve",
+        "Beckmann thermometer"
+      ],
+      "body": [
+        "**Theory**: for a dilute solution of a nonvolatile, non-dissociating solute, the freezing point is lowered by ΔT_f = K_f m, where K_f = RT_f²M₁/ΔH_fus is the **cryoscopic constant** (K_f = 1.86 K kg mol⁻¹ for water, 20.2 for cyclohexane, 5.12 for benzene, 39.7 for camphor). The molar mass of the solute follows from the mass w₂ dissolved in a mass w₁ (in kg) of solvent: M₂ = K_f w₂/(ΔT_f w₁).",
+        "**Procedure**: measure the temperature of 20.00 g of the pure solvent (cyclohexane) each 15 s while it is cooled in an ice–salt bath with stirring, to obtain the **cooling curve**. Repeat for the solution after adding a weighed amount of solute (0.3–0.8 g). A pure liquid shows a plateau at the freezing point; a solution shows a gradual decline after the first crystals, since the freezing of the solvent concentrates the solution. The liquid often cools below the freezing point before crystals appear (**supercooling**), then warms back as crystallization releases heat. The freezing point is found by extrapolating the cooling line of the solid-forming portion back to the time of supercooling onset, and not by reading the lowest value.",
+        {
+          "example": {
+            "title": "Molar mass from ΔT_f",
+            "problem": "0.500 g of an unknown nonelectrolyte dissolved in 20.00 g of cyclohexane (K_f = 20.2 K kg mol⁻¹) lowers the freezing point by 1.65 K. Find the molar mass, with the uncertainty if σ(ΔT_f) = 0.03 K and the masses are known to 0.1%.",
+            "solution": "M₂ = 20.2 × 0.500/(1.65 × 0.02000) = 10.1/0.0330 = 306 g mol⁻¹. Relative uncertainty: ΔT_f 0.03/1.65 = 1.8%, masses 0.1% each; total ≈ 1.8%; M = 306 ± 6 g mol⁻¹. If the solute dissociates (an electrolyte, factor i > 1) or associates (carboxylic acid dimers in cyclohexane, i = 0.5), the apparent molar mass is wrong by i."
+          }
+        },
+        "Errors: supercooling (cooling too fast); solute not dilute enough (use molality below 0.2 m); solvent loss by evaporation; impure solvent."
+      ],
+      "check": [
+        {
+          "q": "What happens to the molar mass found if the solute dimerizes in the solvent?",
+          "a": "The apparent molar mass is about twice the true value",
+          "wrong": [
+            "It is half the true value",
+            "It is unchanged",
+            "It becomes zero"
+          ]
+        },
+        {
+          "q": "How should the freezing point be found from a supercooled curve?",
+          "a": "Extrapolate the post-nucleation cooling line back to the start of supercooling",
+          "wrong": [
+            "Take the lowest temperature",
+            "Take the highest temperature",
+            "Take the mean of all readings"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-diagrams",
+      "title": "Experiment: binary phase diagrams",
+      "terms": [
+        "eutectic point",
+        "eutectic composition",
+        "solid–liquid phase diagram",
+        "liquid–liquid phase diagram",
+        "critical solution temperature",
+        "cooling curves of mixtures",
+        "Tammann plot",
+        "lever rule experiment",
+        "upper critical solution temperature",
+        "phenol–water system",
+        "thermal analysis of alloys",
+        "liquidus",
+        "solidus"
+      ],
+      "body": [
+        "**Aim**: to construct the solid–liquid phase diagram of a two-component system with a simple eutectic (naphthalene–biphenyl, Bi–Cd, or Sn–Pb) from cooling curves, and optionally a liquid–liquid diagram (phenol–water).",
+        "**Procedure**: a series of mixtures of different compositions (0, 20, 40, …, 100 mass% B) is melted in test tubes, stirred, and allowed to cool slowly while the temperature is recorded each 15 s. The shape of the cooling curve of each mixture shows:",
+        {
+          "list": [
+            "For a **pure component**: a flat plateau at the melting point (one component and two phases, so F = C − P + 1 = 1 − 2 + 1 = 0 at constant pressure: the temperature cannot change).",
+            "For a **general mixture**: a break when the first solid (the pure component in excess) appears, on the **liquidus** (the cooling rate decreases, since the freezing releases heat), then a steady fall as the liquid becomes richer in the other component, down to a horizontal arrest at the **eutectic temperature** (the liquid, solid A and solid B coexist, F = 0) until all is solid.",
+            "For the **eutectic composition**: no break until the eutectic temperature, then one plateau, like a pure substance. The **Tammann plot** (the duration of the eutectic arrest against composition) is a triangle whose apex gives the eutectic composition."
+          ]
+        },
+        "The break temperatures are plotted against composition to give the liquidus curves, which meet at the **eutectic point**. For the Sn–Pb system the eutectic composition is 61.9 wt% Sn at 183 °C. The **lever rule** gives the amounts of the two phases in a two-phase region: with the overall composition x, the liquid composition x_L and the solid composition x_S on the tie line, the fraction of liquid is (x − x_S)/(x_L − x_S).",
+        {
+          "example": {
+            "title": "Lever rule",
+            "problem": "A mixture of overall composition 30 wt% B lies in the region where pure solid A is in equilibrium with a liquid of 45 wt% B. What fraction of the mass is liquid?",
+            "solution": "Solid A has x_S = 0 wt% B. Fraction liquid = (30 − 0)/(45 − 0) = 0.67, and the solid is 0.33."
+          }
+        },
+        "For the liquid–liquid system phenol–water, the mutual solubility increases with temperature up to the **upper critical solution temperature** (66 °C at 34 wt% phenol), above which the two liquids are miscible in all proportions. It is found by observing the temperatures at which the cloudiness of a mixture disappears (on heating) and reappears (on cooling) for samples of different composition. The curve of solubility is a dome; inside it, two liquid phases coexist.",
+        "Errors: too fast cooling (supercooling causes the break to be missed or displaced); poor stirring; oxidation of metals; sample inhomogeneity."
+      ],
+      "check": [
+        {
+          "q": "What is the number of degrees of freedom at the eutectic point (constant pressure, two components, three phases)?",
+          "a": "Zero",
+          "wrong": [
+            "One",
+            "Two",
+            "Three"
+          ]
+        },
+        {
+          "q": "How is the eutectic composition found from a Tammann plot?",
+          "a": "From the composition at which the duration of the eutectic arrest is greatest",
+          "wrong": [
+            "From the lowest cooling rate",
+            "From the highest melting point",
+            "From the average of all breaks"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fescn",
+      "title": "Experiment: an equilibrium constant by spectrophotometry (FeSCN²⁺)",
+      "terms": [
+        "iron thiocyanate equilibrium",
+        "FeSCN²⁺ equilibrium",
+        "Job's method",
+        "method of continuous variations",
+        "mole ratio method",
+        "complex formation equilibrium",
+        "equilibrium constant determination",
+        "ICE table experiment",
+        "ionic strength effect on K",
+        "stoichiometry of a complex"
+      ],
+      "body": [
+        "**Aim**: to determine the equilibrium constant of Fe³⁺ + SCN⁻ ⇌ FeSCN²⁺, K_c = [FeSCN²⁺]/([Fe³⁺][SCN⁻]), from the absorbance of the deep red complex (λ_max = 447 nm). The solutions are in 0.5 M HNO₃ (to suppress hydrolysis of Fe³⁺, and to keep a constant ionic strength).",
+        "**Calibration**: if a large excess of Fe³⁺ (0.200 M) is added to a small amount of SCN⁻ (2.00 × 10⁻⁴ M), the equilibrium is pushed far to the right (the complex then contains essentially all the thiocyanate), so [FeSCN²⁺] = [SCN⁻]₀. A series of such standards gives a Beer’s-law plot, A = εb[FeSCN²⁺], with ε ≈ 4.7 × 10³ L mol⁻¹ cm⁻¹ for the 1 cm cell.",
+        "**Equilibrium solutions**: mixtures with comparable concentrations of the reagents (e.g. 2.00 × 10⁻³ M Fe³⁺, 2.00 × 10⁻⁴ M SCN⁻ after dilution) are measured, and [FeSCN²⁺]ₑq = A/(εb). The others follow from the stoichiometry (an ICE table): [Fe³⁺]ₑq = [Fe³⁺]₀ − [FeSCN²⁺], [SCN⁻]ₑq = [SCN⁻]₀ − [FeSCN²⁺].",
+        {
+          "example": {
+            "title": "Calculating K",
+            "problem": "A mixture has initial [Fe³⁺] = 2.00 × 10⁻³ M and [SCN⁻] = 2.00 × 10⁻⁴ M, and a measured A = 0.423 at 447 nm in a 1.00 cm cell (ε = 4.70 × 10³). Calculate K_c.",
+            "solution": "[FeSCN²⁺] = 0.423/4.70 × 10³ = 9.0 × 10⁻⁵ M. [Fe³⁺]ₑq = 2.00 × 10⁻³ − 0.09 × 10⁻³ = 1.91 × 10⁻³ M; [SCN⁻]ₑq = 2.00 × 10⁻⁴ − 0.90 × 10⁻⁴ = 1.10 × 10⁻⁴ M. K_c = 9.0 × 10⁻⁵/(1.91 × 10⁻³ × 1.10 × 10⁻⁴) = 4.3 × 10² M⁻¹. The values from different mixtures should agree; a trend suggests the formation of Fe(SCN)₂⁺ at high SCN⁻."
+          }
+        },
+        "**Job’s method** (continuous variations) determines the stoichiometry of a complex M_aL_b: solutions of the same total concentration but different mole fractions of the two reagents are prepared, and the absorbance of the complex is plotted against the mole fraction of the ligand. The maximum occurs at x_L = b/(a + b), here 0.5 for 1:1. In the **mole ratio method**, the metal is held constant while the ligand is varied, and the absorbance breaks at the stoichiometric ratio. When two species absorb, measure at the isosbestic point. Errors: the temperature (K changes with T), the ionic strength, and the stability of the complex (light, slow oxidation of SCN⁻)."
+      ],
+      "check": [
+        {
+          "q": "Why is a large excess of Fe³⁺ used in the calibration solutions?",
+          "a": "It drives the reaction essentially to completion, so [FeSCN²⁺] = initial [SCN⁻]",
+          "wrong": [
+            "It raises the pH",
+            "It reduces the absorbance",
+            "It acts as a buffer for color"
+          ]
+        },
+        {
+          "q": "In Job’s method for a 1:2 complex, the absorbance maximum is at ligand mole fraction…",
+          "a": "0.67",
+          "wrong": [
+            "0.50",
+            "0.33",
+            "1.00"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "kinetics-expt",
+      "title": "Experiments: reaction kinetics (crystal violet and the iodine clock)",
+      "terms": [
+        "iodine clock reaction",
+        "crystal violet kinetics",
+        "crystal violet fading",
+        "clock reaction",
+        "pseudo-first-order experiment",
+        "ester hydrolysis kinetics",
+        "method of initial rates experiment",
+        "activation energy experiment",
+        "persulfate–iodide reaction",
+        "thiosulfate clock",
+        "integrated rate law plot",
+        "kinetic salt effect",
+        "Arrhenius plot experiment"
+      ],
+      "body": [
+        {
+          "h": "Crystal violet fading (pseudo-first-order)"
+        },
+        "Crystal violet (CV⁺, deep violet, ε ≈ 8.7 × 10⁴ L mol⁻¹ cm⁻¹ at 590 nm) reacts with hydroxide to give a colorless carbinol: CV⁺ + OH⁻ → CVOH. The rate law is rate = k[CV⁺][OH⁻]. With OH⁻ in large excess (0.050 M against 5 × 10⁻⁶ M CV⁺), [OH⁻] is constant and the reaction is **pseudo-first-order** (the isolation method): rate = k′[CV⁺] with k′ = k[OH⁻]. By Beer’s law A ∝ [CV⁺], so a plot of ln A against t is a straight line with slope −k′. The experiment is repeated at several [OH⁻] to show that k′ is proportional to [OH⁻] (order 1 in hydroxide) and at several temperatures for E_a.",
+        {
+          "example": {
+            "title": "From the slope to k",
+            "problem": "ln A against t has a slope of −6.5 × 10⁻³ s⁻¹ in 0.050 M NaOH. Find k′, k, and the half-life.",
+            "solution": "k′ = 6.5 × 10⁻³ s⁻¹; k = k′/[OH⁻] = 6.5 × 10⁻³/0.050 = 0.13 L mol⁻¹ s⁻¹. t½ = ln 2/k′ = 107 s."
+          }
+        },
+        {
+          "h": "The iodine clock reaction (method of initial rates)"
+        },
+        "In the persulfate–iodide reaction, S₂O₈²⁻ + 3 I⁻ → 2 SO₄²⁻ + I₃⁻, a known small amount of thiosulfate and starch are added. Thiosulfate immediately reduces the triiodide as it forms (I₃⁻ + 2 S₂O₃²⁻ → 3 I⁻ + S₄O₆²⁻), so no color appears until all the thiosulfate is used, when I₃⁻ forms the deep blue complex with starch: the “clock”. In the time Δt, the persulfate that reacted is [S₂O₃²⁻]₀/2, so the initial rate is Δ[S₂O₈²⁻]/Δt = [S₂O₃²⁻]₀/(2Δt) as long as the extent of reaction is small (the initial-rates method). Varying the initial concentrations of S₂O₈²⁻ and I⁻ one at a time and comparing the rates give the orders m and n in rate = k[S₂O₈²⁻]^m[I⁻]^n (both 1). A series at several temperatures gives E_a from the Arrhenius equation, ln k = ln A − E_a/RT.",
+        {
+          "example": {
+            "title": "Initial rate and activation energy",
+            "problem": "For [S₂O₃²⁻]₀ = 2.0 × 10⁻⁴ M in the mixture, the blue color appears at Δt = 40 s at 25 °C and at 22 s at 35 °C. Find the initial rate at 25 °C and E_a.",
+            "solution": "Rate = 2.0 × 10⁻⁴/(2 × 40) = 2.5 × 10⁻⁶ M s⁻¹. The rate is proportional to 1/Δt for the same composition, so k₃₅/k₂₅ = 40/22 = 1.82. E_a = R ln(1.82)/(1/298.15 − 1/308.15) = 8.314 × 0.598/1.088 × 10⁻⁴ = 45.7 kJ mol⁻¹. With more than two temperatures a plot of ln(1/Δt) against 1/T gives a straight line with slope −E_a/R (and the confidence interval from the fit)."
+          }
+        },
+        "Other pseudo-first-order experiments: the acid-catalyzed hydrolysis of ethyl acetate, followed by titration of the acetic acid formed with NaOH at intervals, with the acid catalyst in large excess. Errors: temperature control (a 1 K error is 6–8% in k); mixing time compared with Δt; the clock method assumes the rate is constant over the interval."
+      ],
+      "check": [
+        {
+          "q": "Why does a large excess of OH⁻ make the crystal violet reaction pseudo-first-order?",
+          "a": "[OH⁻] is effectively constant, so the rate depends only on [CV⁺]",
+          "wrong": [
+            "OH⁻ is not involved",
+            "The reaction becomes zero-order",
+            "CV⁺ is a catalyst"
+          ]
+        },
+        {
+          "q": "In the iodine clock, what is the time Δt the time for?",
+          "a": "For consumption of the thiosulfate added, after which I₃⁻ appears with starch",
+          "wrong": [
+            "Formation of all the persulfate",
+            "Decomposition of starch",
+            "Complete reaction of iodide"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gamma",
+      "title": "Experiment: heat capacity ratio of gases",
+      "terms": [
+        "heat capacity ratio",
+        "Clément–Desormes method",
+        "Rüchardt",
+        "gamma of gases",
+        "speed of sound in gases",
+        "adiabatic expansion experiment",
+        "Rüchardt oscillating piston",
+        "equipartition and gamma",
+        "degrees of freedom of gases",
+        "resonance tube"
+      ],
+      "body": [
+        "The **heat capacity ratio** γ = C_p/C_V of an ideal gas depends on the number of degrees of freedom: C_V = (f/2)R, so γ = 1 + 2/f = 5/3 (monatomic, f = 3), 7/5 (diatomic at room temperature, f = 5: translation and rotation), 4/3 (nonlinear polyatomic, rigid, f = 6). Vibrations contribute at higher temperature or for heavy molecules (CO₂: γ = 1.30). The measurement tests the equipartition theorem.",
+        {
+          "list": [
+            "**Clément–Desormes**: a large flask is filled with the gas to a pressure slightly above the atmospheric pressure (excess height h₁ on a manometer). A stopcock is briefly opened, so the gas expands adiabatically and reversibly to the atmospheric pressure and cools. The valve is closed and the gas warms at constant volume to the room temperature, raising the pressure to a new excess h₂. For small h, γ = h₁/(h₁ − h₂).",
+            "**Rüchardt**: a steel ball (or piston) of mass m and cross-section A oscillates in a precision-bore tube above a gas volume V. The gas acts as an adiabatic spring, and the period is T = 2π[mV/(γpA²)]^{1/2}, so γ = 4π²mV/(pA²T²).",
+            "**Speed of sound** in a resonance tube: c = (γRT/M)^{1/2}, so γ = Mc²/(RT), with c = fλ from the resonances."
+          ]
+        },
+        {
+          "example": {
+            "title": "γ from Clément–Desormes and Rüchardt",
+            "problem": "(a) With air, h₁ = 24.0 cm and h₂ = 6.8 cm. (b) A 21.0 g ball oscillates in a tube of radius 5.00 mm attached to a 1.00 L vessel at 101.3 kPa with a period of 0.97 s. Find γ in each.",
+            "solution": "(a) γ = 24.0/(24.0 − 6.8) = 1.395. (b) A = π(5.00 × 10⁻³)² = 7.854 × 10⁻⁵ m². The numerator is 4π²(0.0210)(1.00 × 10⁻³) = 8.29 × 10⁻⁴; the denominator is (7.854 × 10⁻⁵)²(1.013 × 10⁵)(0.97)² = 6.169 × 10⁻⁹ × 1.013 × 10⁵ × 0.941 = 5.88 × 10⁻⁴. So γ = 8.29 × 10⁻⁴/5.88 × 10⁻⁴ = 1.41. The expected value for air is 1.40."
+          }
+        },
+        "Sources of error: heat transfer to the walls (slow valve operation in the Clément–Desormes experiment, which makes the expansion non-adiabatic), friction and leaks in the Rüchardt method, gas impurity, the temperature of the flask not reaching equilibrium."
+      ],
+      "check": [
+        {
+          "q": "What is γ for a monatomic ideal gas?",
+          "a": "5/3",
+          "wrong": [
+            "7/5",
+            "4/3",
+            "1"
+          ]
+        },
+        {
+          "q": "Why must the stopcock in the Clément–Desormes experiment be opened only briefly?",
+          "a": "The expansion has to be adiabatic, before heat flows in from the walls",
+          "wrong": [
+            "To keep the gas dry",
+            "To raise the pressure",
+            "To avoid contamination"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Uncertainties add in quadrature: absolute for sums, relative for products. Least-squares slope m = (nΣxy − ΣxΣy)/(nΣx² − (Σx)²), s_m from the residual standard deviation, CI = ± t·s_m. A residual plot tests the model.",
+    "Bomb calorimetry: calibrate with benzoic acid, correct for heat exchange (extrapolation), fuse wire and acid formation; ΔcH = ΔcU + Δn_g RT.",
+    "Vapor pressure: ln P against 1/T has slope −ΔH_vap/R; Trouton ΔS_vap ≈ 88 J K⁻¹ mol⁻¹. Freezing point depression: M = K_f w₂/(ΔT_f w₁), extrapolate the cooling curve past supercooling.",
+    "Phase diagrams from cooling curves: plateau for pure components, break at the liquidus, arrest at the eutectic (F = 0); lever rule for phase fractions. FeSCN²⁺: K from ICE table with ε calibrated; Job’s method for stoichiometry.",
+    "Kinetics: pseudo-first-order (ln A vs t), initial rates (clock), Arrhenius plot for E_a. γ = 1 + 2/f, from Clément–Desormes (h₁/(h₁ − h₂)) or Rüchardt oscillations."
+  ],
+  "problems": [
+    {
+      "q": "A calorimeter constant is determined as C = 10,631 J K⁻¹ ± 25 J K⁻¹. A combustion gives ΔT = 2.328 ± 0.007 K. Calculate q and its relative and absolute uncertainty.",
+      "solution": "q = CΔT = 10,631 × 2.328 = 24,749 J. Relative uncertainties: 25/10,631 = 0.235%; 0.007/2.328 = 0.30%. Combined: (0.235² + 0.30²)^{1/2} = 0.38%. σ_q = 0.0038 × 24,749 = 94 J. q = 24,750 ± 90 J (24.75 ± 0.09 kJ).",
+      "a": "q = (24.75 ± 0.09) kJ"
+    },
+    {
+      "q": "A vapor pressure experiment on a liquid gives ln(P/kPa) = 17.30 − 4280/T. Find ΔH_vap, the normal boiling point (101.3 kPa), and ΔS_vap. Does the liquid obey Trouton’s rule?",
+      "solution": "ΔH_vap = 4280 × 8.314 = 35.6 kJ mol⁻¹. At 101.3 kPa: ln 101.3 = 4.618; T_b = 4280/(17.30 − 4.618) = 4280/12.68 = 337.5 K (64 °C; methanol-like). ΔS_vap = 35,600/337.5 = 105 J K⁻¹ mol⁻¹, larger than 88: the liquid is associated (hydrogen bonded), as methanol (ΔS_vap = 104).",
+      "a": "35.6 kJ mol⁻¹; 337.5 K; 105 J K⁻¹ mol⁻¹, hydrogen-bonded liquid"
+    },
+    {
+      "q": "A student prepares 0.10 g of solute in 10.0 g benzene (K_f = 5.12 K kg mol⁻¹) and measures ΔT_f = 0.213 K. Find M. The solute is known to be benzoic acid (122.1 g mol⁻¹). What is the degree of association?",
+      "solution": "M_apparent = 5.12 × 0.10/(0.213 × 0.0100) = 0.512/0.00213 = 240 g mol⁻¹, which is 1.97 × 122.1: benzoic acid exists as hydrogen-bonded dimers in benzene (i ≈ 0.5), so the effective number of solute particles is half the formula units.",
+      "a": "M ≈ 240 g mol⁻¹: the acid is a dimer in benzene."
+    },
+    {
+      "q": "In the clock reaction, doubling [I⁻] while holding [S₂O₈²⁻] constant changes Δt from 80 s to 40 s, and doubling [S₂O₈²⁻] with [I⁻] constant also halves Δt. What is the rate law and the overall order? What happens to Δt if both are doubled?",
+      "solution": "Rate ∝ 1/Δt, so doubling either reactant doubles the rate: first order in each, rate = k[S₂O₈²⁻][I⁻], overall second order. Doubling both multiplies the rate by 4, so Δt = 20 s.",
+      "a": "rate = k[S₂O₈²⁻][I⁻]; second order; Δt = 20 s"
+    }
+  ]
+}

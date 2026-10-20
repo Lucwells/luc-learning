@@ -1,0 +1,511 @@
+{
+  "id": "organic-lab-1",
+  "view": "chapter",
+  "title": "Organic Laboratory I: Safety, Setup and Techniques",
+  "description": "Safety and record keeping, glassware and reaction setups, workup and drying, TLC, flash chromatography, distillation, recrystallization, spectroscopic sample preparation, polarimetry and refractometry.",
+  "overview": [
+    "The organic laboratory is where reactions are carried out, isolated and proven. A good experiment depends on a repertoire of techniques that are used repeatedly: setting up apparatus safely, following a reaction by TLC, separating the product from the mixture by extraction, chromatography, distillation or crystallization, and showing by melting point, spectroscopy and rotation that the compound is the one expected and is pure. This chapter describes how each of these is done in practice and the numerical reasoning that goes with them.",
+    "The theory behind the separations (partition, vapor–liquid equilibrium, solubility) is in the chapters on laboratory techniques and on instrumental chromatography; here the emphasis is on the practical decisions: which solvent, what quantity, how to avoid the common failures. The following chapters describe the experiments themselves."
+  ],
+  "objectives": [
+    "Read an SDS and GHS pictograms, choose PPE, and segregate waste correctly.",
+    "Keep a laboratory notebook and write a report; calculate theoretical and percent yields.",
+    "Assemble reflux, distillation, addition and filtration setups with standard-taper glassware safely.",
+    "Plan an aqueous workup, choose a drying agent, and use a rotary evaporator.",
+    "Choose a TLC solvent system from Rf values and scale up to flash chromatography.",
+    "Choose distillation, recrystallization or sublimation, and interpret melting ranges.",
+    "Prepare NMR, IR and GC samples, and use polarimetry and refractive index to characterize a compound."
+  ],
+  "sections": [
+    {
+      "id": "safety",
+      "title": "Safety, laboratory notebooks and reports",
+      "terms": [
+        "lab notebook",
+        "laboratory notebook",
+        "safety data sheet",
+        "SDS",
+        "personal protective equipment",
+        "PPE",
+        "waste disposal",
+        "fume hood",
+        "eyewash",
+        "lab report",
+        "GHS pictograms",
+        "halogenated waste",
+        "flash point",
+        "material safety",
+        "chemical hygiene plan",
+        "fire extinguisher",
+        "safety shower",
+        "spill cleanup",
+        "limiting reagent in the lab",
+        "peroxide-forming solvents",
+        "incompatible chemicals",
+        "hazard statements"
+      ],
+      "body": [
+        "Safety is part of the experiment’s design. Before any experiment, read the **safety data sheet (SDS)** of every chemical: the 16 sections give the identification, hazards (GHS **pictograms**: flame, flame over circle (oxidizer), corrosion, skull and crossbones, exclamation mark, health hazard, environment), first aid, firefighting, handling and storage, exposure limits, and disposal. Hazard statements (H225 highly flammable liquid, H314 causes severe burns…) and precautionary statements follow. The **flash point** (the lowest temperature at which vapor ignites with a flame) says how dangerous a solvent is: diethyl ether −45 °C, hexane −22 °C, acetone −20 °C, ethanol 13 °C, toluene 4 °C, ethyl acetate −4 °C; any such solvent must be heated with a mantle, steam or hot plate with no open flame, and never in a closed system.",
+        {
+          "list": [
+            "**Personal protective equipment (PPE)**: splash-proof goggles at all times (not safety glasses), a lab coat (cotton or flame-resistant), closed shoes, long trousers, gloves chosen for the chemical (nitrile for most; no glove resists all solvents: nitrile degrades quickly in dichloromethane and acetone), hair tied back.",
+            "**Engineering controls**: work with volatile, toxic or malodorous chemicals in a **fume hood** (face velocity 0.4–0.5 m s⁻¹, sash at the marked height). Know where the **eyewash** (flush for 15 min), safety shower, fire extinguisher and fire blanket are, and how to use them.",
+            "**Waste disposal**: never pour organic liquids down the drain. Separate **halogenated** waste (CH₂Cl₂, CHCl₃: incineration needs special scrubbing) from non-halogenated organic waste, aqueous acidic/basic waste, heavy-metal waste, and solid waste. Label every container with contents. Peroxide-forming solvents (ether, THF) must be dated and tested before distillation, and never distilled to dryness.",
+            "Do not mix incompatible chemicals: acids with cyanides or sulfides, oxidizers (nitric acid, peroxides) with organic solvents, and bleach with ammonia or acids (toxic chloramines, Cl₂)."
+          ]
+        },
+        {
+          "h": "Notebook and report"
+        },
+        "The **laboratory notebook** is a permanent, bound, dated record in ink, with entries made at the time. Before the lab: title, purpose, balanced equation, a table of reagents (amount, M, mol, density, bp/mp, hazards) and a brief procedure. During the lab: observations (colors, temperatures, times), amounts actually weighed, and deviations. After: yield, mp, spectra, and conclusions. The **lab report** (abstract, introduction, experimental, results, discussion, references) states what was done, with spectra assigned, and is judged on interpretation: yield and purity, sources of loss, and whether the data prove the structure.",
+        {
+          "example": {
+            "title": "Theoretical and percent yield with a limiting reagent",
+            "problem": "Isopentyl alcohol (6.0 mL, d = 0.810 g mL⁻¹, 88.15 g mol⁻¹) is heated with excess acetic acid (11 mL) and H₂SO₄ catalyst to give isopentyl acetate (130.19 g mol⁻¹). The distilled product weighs 5.2 g. Find the percent yield.",
+            "solution": "n(alcohol) = 6.0 × 0.810/88.15 = 0.0551 mol (limiting; acetic acid is in excess: 11 × 1.049/60.05 = 0.192 mol). Theoretical yield = 0.0551 × 130.19 = 7.18 g. Percent yield = 5.2/7.18 × 100 = 72%. A yield above 100% would mean the product is wet or contaminated with solvent."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Which waste stream must dichloromethane be placed in?",
+          "a": "Halogenated organic waste",
+          "wrong": [
+            "Non-halogenated organic waste",
+            "The drain",
+            "Aqueous waste"
+          ]
+        },
+        {
+          "q": "How long should the eyes be flushed at the eyewash after a chemical splash?",
+          "a": "At least 15 minutes",
+          "wrong": [
+            "30 seconds",
+            "2 minutes",
+            "Until the stinging stops"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "glassware",
+      "title": "Glassware and setting up reactions",
+      "terms": [
+        "ground glass joint",
+        "standard taper joint",
+        "round-bottom flask",
+        "Erlenmeyer flask",
+        "Claisen adapter",
+        "Keck clip",
+        "Büchner flask",
+        "Hirsch funnel",
+        "three-neck flask",
+        "addition funnel",
+        "drying tube",
+        "heating mantle",
+        "stir bar",
+        "reflux condenser",
+        "reflux setup",
+        "inert atmosphere in the lab",
+        "septum",
+        "balloon of nitrogen",
+        "Schlenk line and glovebox",
+        "ice bath",
+        "dry ice–acetone bath",
+        "oil bath",
+        "thermowell",
+        "vacuum adapter",
+        "Hickman still"
+      ],
+      "body": [
+        "Modern organic glassware has **ground glass (standard taper) joints**, so that pieces assemble reliably: a 24/40 joint has a diameter of 24 mm at the wide end and a ground length of 40 mm; 14/20 is used at the microscale. A thin coat of grease (for vacuum or strong base) or none (for ordinary use) prevents the joints from freezing; they are held with **Keck clips**. The reaction vessel is a **round-bottom flask**, strong and without corners, filled to no more than half; **Erlenmeyer flasks** are for storing and recrystallizing (never for vacuum filtration or heating under reduced pressure other than a thick-walled filter flask).",
+        {
+          "list": [
+            "**Heating under reflux**: a flask with a stir bar sits in a heating mantle, oil bath or sand bath, with a **reflux condenser** (water in at the bottom, out at the top so the jacket stays full) vertically above. Heat until the solvent condenses in the lower third of the condenser. The system must never be closed (use a drying tube of CaCl₂ or a nitrogen line with an oil bubbler if moisture is excluded). The temperature of the bath is 10–20 °C above the boiling point of the solvent.",
+            "**Addition**: a pressure-equalizing **addition funnel** on a **three-neck flask** lets a reagent be added dropwise to a stirred, cooled solution (essential for exothermic reactions: Grignard, nitration). A **Claisen adapter** gives two openings in a single-neck flask.",
+            "**Cooling**: ice–water (0 °C), ice–salt (−10 to −20 °C), dry ice–acetone (−78 °C), liquid nitrogen with solvent slush baths for intermediate temperatures. Heating: oil baths (to 200 °C) with a thermometer, never with a flame.",
+            "**Water removal**: a **Dean–Stark trap** collects the water from a reflux of toluene or benzene (azeotrope) while the solvent returns to the flask; the volume of water collected indicates the extent of the reaction (esterification, acetal formation).",
+            "**Inert atmosphere**: for air- or moisture-sensitive reagents (organolithiums, Grignard reagents), the flask is oven-dried (120 °C), cooled under nitrogen or argon, and closed with rubber **septa**; reagents are transferred by syringe or cannula, with a nitrogen balloon or a **Schlenk line** (double manifold: vacuum and inert gas) or a glovebox.",
+            "**Filtration**: gravity filtration (fluted paper) for hot filtrations; vacuum filtration with a **Büchner funnel** (or the small **Hirsch funnel** for under 1 g) on a thick-walled **Büchner flask**, with a trap for the water aspirator."
+          ]
+        },
+        "Practical rules: clamp the apparatus to a rigid support at the neck; all condensers and flasks are held by clamps, not resting on joints; check for star cracks before using under vacuum; turn on the stirrer before heating (to avoid bumping and hot spots); stir bars: a magnet 1–2 cm long, one third of the flask’s diameter."
+      ],
+      "check": [
+        {
+          "q": "Why must the condenser water enter at the bottom?",
+          "a": "So that the jacket fills completely and cools efficiently",
+          "wrong": [
+            "It saves water",
+            "To avoid freezing",
+            "To heat the vapor"
+          ]
+        },
+        {
+          "q": "What does a Dean–Stark trap do?",
+          "a": "Removes water from a refluxing reaction by azeotropic distillation and collects it",
+          "wrong": [
+            "Adds water",
+            "Cools the flask",
+            "Filters the product"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "workup",
+      "title": "Workup and drying agents",
+      "terms": [
+        "workup",
+        "aqueous workup",
+        "quenching a reaction",
+        "brine wash",
+        "drying agents",
+        "anhydrous sodium sulfate",
+        "anhydrous magnesium sulfate",
+        "rotary evaporator",
+        "rotovap",
+        "bicarbonate wash",
+        "separatory funnel technique",
+        "venting",
+        "acid wash",
+        "base wash",
+        "Celite filtration",
+        "decanting",
+        "water capacity of drying agents",
+        "Delta 20 rule",
+        "solvent removal"
+      ],
+      "body": [
+        "The **workup** is the series of steps that takes the product from the reaction mixture to the crude isolated material. A typical sequence is: **quench** (destroy excess reactive reagent, carefully, often with ice-cold water or saturated NH₄Cl for organometallics, NaHSO₃ for oxidants), dilute with an organic solvent (diethyl ether, ethyl acetate or CH₂Cl₂) and water, and separate the layers in a separatory funnel. Which layer is which depends on density (ether, ethyl acetate and hexane are lighter than water; CH₂Cl₂ and CHCl₃ are heavier); if in doubt, add a few drops of water and see which layer it joins, and never discard a layer before the product is isolated.",
+        {
+          "list": [
+            "**Acid wash** (1 M HCl): converts amines and pyridines into water-soluble ammonium salts, which are removed. **Base wash** (saturated NaHCO₃): removes carboxylic acids and neutralizes acid catalysts as the water-soluble carboxylate; **vent** the funnel frequently since CO₂ is evolved. 1–2 M NaOH removes phenols (and acids), but may hydrolyze esters. Washing with water removes salts and polar solvents (DMF, DMSO, acetic acid).",
+            "**Brine wash** (saturated NaCl): pulls dissolved water from the organic layer, as the salt reduces the solubility of water in the organic phase, and reduces the solubility of the organic compounds in the aqueous phase (salting out).",
+            "An **emulsion** (a suspension of droplets that does not separate) is broken by adding brine, by filtering through a pad of **Celite**, by gentle swirling and waiting, or by adding more of either solvent. Shaking vigorously is not needed: invert the funnel 10 times and vent."
+          ]
+        },
+        {
+          "h": "Drying"
+        },
+        "The organic solution still contains dissolved water (ether holds about 1.2% w/w at room temperature), which is removed with an anhydrous inorganic salt that forms hydrates:",
+        {
+          "table": {
+            "head": [
+              "Drying agent",
+              "Capacity",
+              "Speed",
+              "Notes"
+            ],
+            "rows": [
+              [
+                "Na₂SO₄ (sulfate, → decahydrate)",
+                "High: 10 H₂O per 142 g = 1.27 g H₂O per g",
+                "Slow (10–15 min)",
+                "Neutral, mild, inexpensive; the most common. Granular; add until some remains free-flowing."
+              ],
+              [
+                "MgSO₄ (→ heptahydrate)",
+                "7 H₂O per 120 g = 1.05 g/g",
+                "Fast",
+                "Fine powder (filter off); slightly acidic Lewis acid; good general choice."
+              ],
+              [
+                "CaCl₂",
+                "High",
+                "Medium",
+                "Forms complexes with alcohols, amines, and some carbonyls; not for these."
+              ],
+              [
+                "K₂CO₃",
+                "Moderate",
+                "Medium",
+                "Basic: for amines; not for acids or phenols."
+              ],
+              [
+                "Molecular sieves 3 Å/4 Å",
+                "~0.2 g/g",
+                "Slow",
+                "For solvents; reach ppm of water."
+              ]
+            ],
+            "caption": "Common drying agents."
+          }
+        },
+        "Add the drying agent in portions to the solution and swirl; the solution clears and the solid flows freely (“snow globe”) when enough has been added; then filter or decant. The solvent is removed in a **rotary evaporator** (**rotovap**): the flask rotates in a warm bath (40–50 °C) under a reduced pressure so that the solvent boils at low temperature, while a condenser (cooled to 0–10 °C) collects it. The **“Delta 20” rule**: bath 20 °C above the vapor temperature, which is 20 °C above the condenser; for a given solvent the vacuum is set so that its boiling point is ≈ 30–40 °C (CH₂Cl₂ at 600–700 mbar; ethyl acetate at 240 mbar; hexanes 280 mbar at 45 °C bath). Do not fill the flask above half, use a bump trap, and remove traces of solvent with a vacuum pump; products that are volatile (bp < 150 °C) may be lost.",
+        {
+          "example": {
+            "title": "Water content",
+            "problem": "How much Na₂SO₄ (anhydrous) is needed in theory to dry 100 mL of ether saturated with water (about 0.9 g of water per 100 mL at 20 °C)? How much is used in practice?",
+            "solution": "Capacity 1.27 g water per g Na₂SO₄ → 0.9/1.27 = 0.7 g, at 100% efficiency. In practice, a 5–10-fold excess (3.5–7 g) is used because the rate and the equilibrium capacity are lower than the theoretical value, and the first portions clump while the last are free-flowing. Washing with brine first removes most of the water (so ≈ 1 g is often enough)."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Why must the separatory funnel be vented during a NaHCO₃ wash of an acidic solution?",
+          "a": "CO₂ is evolved and pressure builds up",
+          "wrong": [
+            "Water evaporates",
+            "Ether is flammable",
+            "To remove the stopper"
+          ]
+        },
+        {
+          "q": "What is the purpose of the brine wash?",
+          "a": "To remove water from the organic layer and reduce emulsions and product loss to the aqueous layer",
+          "wrong": [
+            "To neutralize acid",
+            "To extract amines",
+            "To oxidize impurities"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tlc-column",
+      "title": "Thin-layer and flash column chromatography in practice",
+      "terms": [
+        "TLC plate",
+        "TLC visualization",
+        "UV lamp visualization",
+        "iodine chamber",
+        "potassium permanganate stain",
+        "p-anisaldehyde stain",
+        "ninhydrin stain",
+        "co-spot",
+        "solvent front",
+        "TLC solvent system",
+        "hexanes and ethyl acetate",
+        "wet packing",
+        "dry loading",
+        "silica gel column",
+        "flash column",
+        "gradient column",
+        "eluent polarity",
+        "column chromatography technique",
+        "retardation factor",
+        "monitoring a reaction by TLC",
+        "tailing on silica",
+        "triethylamine in the eluent",
+        "column volume"
+      ],
+      "body": [
+        "**Thin-layer chromatography** is the chemist’s eyes: in minutes it shows how many compounds are in a sample and whether a reaction is complete. A glass- or aluminum-backed silica gel plate (with a fluorescent indicator F₂₅₄) is spotted with a capillary, in a pencil line 1 cm from the bottom, and developed in a covered chamber with ≈ 0.5 cm of solvent below the spots. When the **solvent front** is 1 cm from the top, the plate is removed, the front marked, and the plate dried. The retardation factor is R_f = (distance traveled by the spot)/(distance traveled by the solvent front). Silica is polar: the more polar the compound, the lower its R_f; the more polar the eluent, the higher the R_f of all the compounds.",
+        {
+          "list": [
+            "**Eluent**: mixtures of hexanes (nonpolar) and ethyl acetate (polar): 10% EtOAc/hexanes for low-polarity compounds (esters, ethers), 30–50% for alcohols and ketones, with CH₂Cl₂/methanol (95:5) for very polar ones. Polarity increases in the sequence hexane < toluene < CH₂Cl₂ < ether < ethyl acetate < acetone < ethanol < methanol (the eluotropic series). Add 1% Et₃N for amines, which would streak on acidic silica, or 1% acetic acid for carboxylic acids.",
+            "**Visualization**: **UV lamp** at 254 nm (conjugated and aromatic compounds quench the fluorescence of the plate: dark spots); **iodine chamber** (reversible brown spots on many organics); **KMnO₄ stain** (alkenes, alcohols, aldehydes, anything oxidizable: yellow on purple); **p-anisaldehyde** (colored spots for many functional groups on heating); **ninhydrin** (amines and amino acids: purple).",
+            "**Monitoring a reaction**: spot the starting material (SM), the reaction mixture (RM), and a **co-spot** (SM and RM on the same spot) side by side. The co-spot shows whether two spots with similar R_f are the same compound. The reaction is complete when the SM spot has disappeared from RM."
+          ]
+        },
+        "For a **flash column**, the conditions are taken from the TLC: choose the eluent in which the desired compound has R_f = 0.25–0.35 and the nearest impurity differs by at least ΔR_f ≈ 0.15. The compound elutes at a volume of approximately 1/R_f column volumes (a **column volume** is the void volume of the packed column, ≈ 0.6 of the geometric volume), so R_f = 0.25 means about 4 column volumes. Silica (230–400 mesh, 40–63 µm) is used at 30–100 g per g of crude. The column is **wet packed** (slurry of silica in the eluent poured into the column, tapped and pressurized, top protected with a layer of sand) and the sample is applied in a minimum of solvent, or by **dry loading** (the sample is dissolved, adsorbed on a little silica, evaporated to a powder and placed on the top), which is better for poorly soluble samples. Air pressure (0.5 bar) pushes the eluent at about 5 cm min⁻¹. Fractions (test tubes, about 1/10 of the column volume) are checked by TLC and combined. A **gradient** (from 5% to 30% EtOAc in steps) saves time when the compounds differ greatly in polarity.",
+        {
+          "example": {
+            "title": "R_f and column planning",
+            "problem": "On a plate developed in 20% EtOAc/hexanes, the solvent front traveled 6.4 cm and the product 3.2 cm, with an impurity at 4.5 cm. Find the R_f values, and say how many column volumes are expected for the product, and if the eluent should be changed.",
+            "solution": "R_f (product) = 3.2/6.4 = 0.50; R_f (impurity) = 4.5/6.4 = 0.70. ΔR_f = 0.20, good, but the R_f of the product is too high for a column (it would elute in 2 column volumes, too fast for a good separation). Reduce the polarity to 10% EtOAc/hexanes, where the product will have R_f ≈ 0.3 and the impurity ≈ 0.5; the product then elutes at ≈ 3 column volumes."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "What is the purpose of the co-spot on a TLC plate?",
+          "a": "To show whether the reaction spot and the starting material are the same compound",
+          "wrong": [
+            "To increase the sensitivity",
+            "To neutralize the plate",
+            "To mark the solvent front"
+          ]
+        },
+        {
+          "q": "Which R_f is best for a compound to be purified by flash chromatography?",
+          "a": "About 0.25–0.35",
+          "wrong": [
+            "0.9",
+            "0.05",
+            "1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "distillation-practice",
+      "title": "Distillation, recrystallization and melting points in practice",
+      "terms": [
+        "simple distillation setup",
+        "fractional distillation setup",
+        "reduced pressure distillation",
+        "bumping",
+        "boiling stone",
+        "nomograph",
+        "thermometer placement",
+        "mixed solvent recrystallization",
+        "vacuum sublimation",
+        "charcoal decolorization",
+        "Mel-Temp apparatus",
+        "boiling point at reduced pressure",
+        "Hempel column",
+        "azeotropic distillation in the lab",
+        "recovery in recrystallization",
+        "scratching the flask"
+      ],
+      "body": [
+        {
+          "h": "Distillation"
+        },
+        "Distillation separates liquids by boiling point. In a **simple distillation setup** (flask, still head, thermometer, condenser, receiver), the thermometer bulb must sit just below the side-arm so that it is bathed by the vapor that condenses; its reading gives the boiling point of the distillate. Liquids with boiling points differing by more than 70 °C can be separated this way; below that, a **fractional distillation** column (Vigreux or packed with steel wool or glass beads, adding theoretical plates; see the theory in the chapter on laboratory techniques) is used, run slowly (1 drop per second), with the column insulated. **Bumping** (violent superheated boiling) is prevented by a stir bar or **boiling stones** added to the cold liquid (never to hot liquid). Never distil to dryness, and never in a closed system.",
+        "Compounds that boil above 150 °C or decompose are distilled under **reduced pressure** (vacuum distillation), The boiling point at reduced pressure can be estimated from the Clausius–Clapeyron equation with Trouton’s rule (ΔH_vap ≈ 88 T_b J mol⁻¹). A pressure–temperature **nomograph** converts the observed boiling point at a measured pressure to the normal boiling point. A stir bar is used (stones do not work under vacuum), and the vacuum is applied before heating. Small amounts are distilled in a bulb-to-bulb **Kugelrohr** apparatus. **Steam distillation** (see the laboratory techniques chapter) recovers volatile, water-immiscible compounds (limonene, eugenol) below 100 °C.",
+        {
+          "example": {
+            "title": "Boiling point under vacuum",
+            "problem": "A liquid boils at 200 °C at 760 torr. Estimate its boiling point at 20 torr, using Trouton’s rule.",
+            "solution": "T₁ = 473 K; ΔH_vap ≈ 88 × 473 = 41.6 kJ mol⁻¹. 1/T₂ = 1/T₁ − R ln(P₂/P₁)/ΔH = 0.002114 − (8.314 × ln(20/760))/41,624 = 0.002114 + 0.000727 = 0.002841 K⁻¹; T₂ = 352 K = 79 °C. The boiling point drops by 120 °C."
+          }
+        },
+        {
+          "h": "Recrystallization"
+        },
+        "A solid is purified by dissolving it in the minimum volume of hot solvent, and cooling, so that the compound crystallizes while the impurities stay in solution. The right solvent dissolves the compound well when hot and poorly when cold, does not react with it, and boils below its melting point. Procedure: add the solvent in small portions to the boiling mixture until the solid just dissolves; remove colored impurities by adding a spatula tip of activated carbon (**charcoal decolorization**; not into a boiling solution, as it foams); remove insoluble material by **hot filtration** through fluted paper (a preheated funnel to prevent premature crystallization); let the filtrate cool slowly to room temperature (large, pure crystals), then in ice; collect the crystals by vacuum filtration on a Büchner funnel, washing with a little cold solvent; dry. If crystals do not form, scratch the flask or add a **seed crystal**. If the compound separates as an oil (**oiling out**: the solution is saturated above the compound’s melting point), reheat, add more solvent, or change solvent. In a **mixed solvent** recrystallization (ethanol–water), the solid is dissolved in the hot “good” solvent and the “poor” solvent is added dropwise until cloudiness persists, then a drop of the good solvent clears it.",
+        {
+          "example": {
+            "title": "Maximum recovery",
+            "problem": "A compound has solubility 5.0 g per 100 mL at 100 °C and 0.50 g per 100 mL at 0 °C. 2.0 g of crude material is dissolved in the minimum volume of hot solvent and cooled to 0 °C. What is the maximum recovery?",
+            "solution": "Minimum volume: 2.0 g/(5.0 g per 100 mL) = 40 mL. At 0 °C, 40 mL holds 0.50 × 40/100 = 0.20 g in solution. Recovery ≤ (2.0 − 0.20)/2.0 = 90%. Using extra solvent loses more: 60 mL would leave 0.30 g (85%). Recrystallization always sacrifices yield for purity."
+          }
+        },
+        {
+          "h": "Sublimation and melting points"
+        },
+        "Solids with a high vapor pressure below their melting point (caffeine, camphor, naphthalene, benzoic acid, ferrocene) can be purified by **vacuum sublimation**: heating under vacuum on a cold finger. The **melting point** is measured in a capillary tube in a **Mel-Temp apparatus** (heating rate 1–2 °C per minute near the melting point). A pure compound melts over a narrow **melting range** (0.5–1 °C); impurities depress and broaden it (the colligative effect). In a **mixed melting point**, the sample is mixed with an authentic sample of the suspected compound: no depression means they are identical; a depression means they are different."
+      ],
+      "check": [
+        {
+          "q": "Where must the thermometer bulb be placed in a simple distillation?",
+          "a": "Just below the side-arm opening of the still head",
+          "wrong": [
+            "In the boiling liquid",
+            "At the top of the condenser",
+            "Beside the flask"
+          ]
+        },
+        {
+          "q": "What does it mean if a crystallizing compound ‘oils out’?",
+          "a": "It separates as a liquid because the solution is saturated above its melting point",
+          "wrong": [
+            "It has formed an oxide",
+            "It is insoluble in all solvents",
+            "It is pure"
+          ]
+        },
+        {
+          "q": "A sample melts at 118–124 °C but the literature value is 122–123 °C. What does the range show?",
+          "a": "It is impure (broad and depressed)",
+          "wrong": [
+            "It is pure",
+            "The thermometer is correct",
+            "It is a different compound for sure"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spectra-physical",
+      "title": "Spectroscopy samples, polarimetry and refractive index",
+      "terms": [
+        "NMR sample preparation",
+        "deuterated chloroform",
+        "CDCl₃",
+        "IR of a neat liquid",
+        "ATR-IR sample",
+        "salt plates",
+        "NMR tube",
+        "solvent peak",
+        "residual solvent peaks",
+        "GC analysis of a reaction mixture",
+        "impurity peaks in NMR",
+        "refractive index",
+        "Abbe refractometer",
+        "optical rotation measurement",
+        "enantiomeric excess by polarimetry",
+        "sodium D line",
+        "tetramethylsilane",
+        "shimming",
+        "integration ratio from NMR",
+        "area percent in GC",
+        "response factor",
+        "Nujol mull"
+      ],
+      "body": [
+        {
+          "h": "NMR, IR and GC samples"
+        },
+        "For ¹H NMR, dissolve 5–20 mg of the compound (50–100 mg for ¹³C) in ≈ 0.6 mL of a deuterated solvent (**CDCl₃** for most organic compounds; D₂O, DMSO-d₆, acetone-d₆, C₆D₆ for others) in a clean, dry 5 mm **NMR tube** to a height of 4–5 cm (the volume matters for **shimming**). Filter through a glass-wool plug in a Pasteur pipette if there are solids, since particles broaden the lines. The solvent provides the deuterium lock; the residual protons give the **solvent peaks**: CHCl₃ at 7.26 ppm (¹³C: 77.16 triplet), DMSO-d₅ 2.50, acetone-d₅ 2.05, HOD 4.79 in D₂O; a trace of tetramethylsilane (TMS, 0.00 ppm) is the internal reference. Learn to recognize the **residual solvent and impurity peaks**: water in CDCl₃ ≈ 1.56 ppm, acetone 2.17, ethyl acetate 2.05 (s), 4.12 (q) and 1.26 (t), dichloromethane 5.30, diethyl ether 3.48 (q) and 1.21 (t), hexanes 0.88 and 1.26, silicone grease 0.07 (s), toluene 2.36 and 7.2. Peaks that are not the product are identified by their chemical shifts and by their integrals, which are proportional to the number of hydrogens.",
+        "The ratio of two compounds in a mixture follows from integrals normalized to the same number of hydrogens (area/n): for example, a mixture of product (a 3H singlet at 2.1 ppm, integral 3.00) and starting material (a 2H singlet at 4.6, integral 0.40) has a molar ratio of 3.00/3 : 0.40/2 = 1.00 : 0.20, i.e. 83% conversion.",
+        "For IR: a drop of a **neat liquid** is pressed between two NaCl or KBr **salt plates** (water-soluble: keep dry, handle by the edges), or placed on the crystal of an ATR accessory (solids and liquids directly, with pressure applied for solids); solids can be ground to a KBr pellet or a **Nujol mull**. Record a background first. For **GC**, dilute 1 drop of the mixture in 1 mL of a volatile solvent (ethyl acetate, CH₂Cl₂) and inject 1 µL: the percent composition by peak area (**area percent**) is only approximate because the detector response (FID) differs between compounds; use a response factor and an internal standard for accurate work.",
+        {
+          "h": "Polarimetry and refractive index"
+        },
+        "Chiral compounds rotate the plane of polarized light. A **polarimeter** measures the observed rotation α (degrees) of a solution in a tube of length l (dm) at concentration c (g mL⁻¹), at the **sodium D line** (589 nm) and a fixed temperature. The **specific rotation** is the intrinsic property: [α]_D^T = α/(l·c). The **enantiomeric excess** of a mixture is ee = [α]_obs/[α]_max × 100%, when the rotation of the pure enantiomer is known (it is not valid if the rotation is not linear with concentration, or if the compound has a strong concentration dependence).",
+        {
+          "example": {
+            "title": "Specific rotation and ee",
+            "problem": "A solution of 0.500 g of a sample of 2-butanol in 5.00 mL of ethanol gives α = +1.35° in a 1.00 dm tube. (a) Calculate [α]. (b) If the pure (S)-enantiomer has [α] = +13.5° under these conditions, what is the ee?",
+            "solution": "c = 0.500/5.00 = 0.100 g mL⁻¹. (a) [α] = 1.35/(1.00 × 0.100) = +13.5°. (b) ee = 13.5/13.5 = 100% (the pure enantiomer). If the observed [α] were +8.1°, ee = 8.1/13.5 = 60%, i.e. 80% (S) and 20% (R)."
+          }
+        },
+        "The **refractive index** n_D²⁰ (the ratio of the speed of light in vacuum to that in the liquid, at 20 °C and 589 nm) is measured in an **Abbe refractometer** with a drop of liquid; it is a quick check of identity and purity of liquids (cyclohexane 1.4262, toluene 1.4961, water 1.3330, ethyl acetate 1.3723). It decreases by ≈ 0.0004 per °C, so the temperature has to be controlled or corrected."
+      ],
+      "check": [
+        {
+          "q": "Where does residual CHCl₃ appear in a ¹H NMR spectrum in CDCl₃?",
+          "a": "7.26 ppm",
+          "wrong": [
+            "0.00 ppm",
+            "2.50 ppm",
+            "4.79 ppm"
+          ]
+        },
+        {
+          "q": "How is specific rotation defined?",
+          "a": "[α] = α/(l·c) with l in dm and c in g mL⁻¹",
+          "wrong": [
+            "[α] = α × l × c",
+            "[α] = α/(l + c)",
+            "[α] = α/c only"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Read the SDS, wear goggles, work in a hood, segregate halogenated waste, never heat a closed system. Keep an ink notebook; percent yield = actual/theoretical (limiting reagent) × 100.",
+    "Standard-taper glassware; reflux condenser water in at the bottom; addition funnel for exotherms; Dean–Stark for water; Schlenk line/septa for air-sensitive reagents.",
+    "Workup: quench, partition, acid/base washes (vent NaHCO₃), brine, dry (Na₂SO₄ 1.27 g H₂O/g; MgSO₄), rotovap (Delta 20).",
+    "TLC: Rf = d_spot/d_front; choose eluent so Rf ≈ 0.3 for the column; elution ≈ 1/Rf column volumes; co-spot.",
+    "Distillation (thermometer at the side-arm; reduced pressure by Clausius–Clapeyron), recrystallization (minimum hot solvent, slow cooling, recovery limited by solubility), sublimation, melting range (sharp = pure).",
+    "NMR: ≈ 0.6 mL CDCl₃, residual peaks (7.26 ppm); area ratios from integrals. [α] = α/(l·c); ee = [α]obs/[α]max; refractive index n_D²⁰."
+  ],
+  "problems": [
+    {
+      "q": "Benzaldehyde (2.00 g, 106.12 g mol⁻¹) is reduced with 1.20 mol of NaBH₄ (37.83 g mol⁻¹) per mole of aldehyde. Calculate the mass of NaBH₄, the theoretical yield of benzyl alcohol (108.14 g mol⁻¹), and the percent yield if 1.78 g is isolated.",
+      "solution": "n(PhCHO) = 2.00/106.12 = 0.01885 mol. NaBH₄ at 1.20 equiv.: 0.02262 mol × 37.83 = 0.856 g (a large excess, since each NaBH₄ can in principle deliver four hydrides, but in practice excess reagent is used to ensure complete reaction). Theoretical benzyl alcohol = 0.01885 × 108.14 = 2.038 g. Percent yield = 1.78/2.038 = 87%.",
+      "a": "0.856 g NaBH₄; 2.04 g theoretical; 87% yield"
+    },
+    {
+      "q": "A mixture of an amine (R–NH₂), a carboxylic acid (RCOOH) and a neutral compound is in ether. Design an extraction scheme to separate all three, and give what is in each layer.",
+      "solution": "(1) Extract the ether solution with 1 M HCl: the amine goes into the aqueous layer as RNH₃⁺Cl⁻; the acid and the neutral stay in ether. Basify that aqueous layer with NaOH and extract with ether to recover the amine. (2) Extract the remaining ether with saturated NaHCO₃: the acid moves into water as RCOO⁻Na⁺ (vent CO₂); acidify the aqueous layer with HCl and extract (or filter the precipitate) to recover the acid. (3) The ether layer now contains the neutral compound: wash with brine, dry (Na₂SO₄), evaporate.",
+      "a": "Acid wash → amine; bicarbonate wash → carboxylic acid; the neutral remains in ether."
+    },
+    {
+      "q": "Two compounds on silica have R_f = 0.45 and 0.30 in 30% EtOAc/hexanes. Is a flash column feasible? What would you change?",
+      "solution": "ΔR_f = 0.15, borderline. The upper compound is too fast (R_f 0.45). Reduce the eluent polarity (e.g. 15–20% EtOAc) to bring the lower spot to R_f ≈ 0.2 and the upper to ≈ 0.3, which increases ΔR_f in terms of column volumes (1/0.2 = 5 vs 1/0.3 = 3.3). Use a higher silica ratio (100:1) and a narrow, long column with a gentle gradient.",
+      "a": "Feasible with a less polar eluent and a higher silica-to-sample ratio."
+    },
+    {
+      "q": "A 2.0 g sample of crude acetanilide is recrystallized from water. Solubility: 5.5 g/100 mL at 100 °C and 0.53 g/100 mL at 0 °C. Calculate the minimum water and the maximum recovery.",
+      "solution": "Minimum volume at 100 °C: 2.0/5.5 × 100 = 36 mL. Dissolved at 0 °C: 0.53 × 36/100 = 0.19 g. Maximum recovery = (2.0 − 0.19)/2.0 = 90%. (A real recovery of 70–80% is typical because of transfer losses and impurities.)",
+      "a": "36 mL; 90% maximum"
+    }
+  ]
+}

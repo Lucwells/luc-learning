@@ -1,0 +1,579 @@
+{
+  "id": "nuclear-chemistry",
+  "view": "chapter",
+  "title": "Nuclear Chemistry",
+  "description": "Nuclear stability and binding energy, radioactive decay and dating, fission, fusion, and radiation in medicine and safety.",
+  "overview": [
+    "Chemical reactions rearrange electrons and leave nuclei untouched. Nuclear reactions change the nuclei themselves, transmute one element into another, and release a million times more energy per atom: about 200 MeV for the fission of one uranium-235 nucleus, against a few eV for the combustion of a carbon atom. The principles are those of any chemistry course (conservation laws, first-order kinetics, thermodynamics) but the quantities are different: mass is converted to energy through E = mc², and the rates of decay are independent of temperature, pressure and chemical form.",
+    "This chapter covers nuclear stability and binding energy, the modes of radioactive decay and how to balance nuclear equations, the kinetics of decay and radiometric dating, fission and fusion, and the interaction of radiation with matter, its measurement, doses and uses."
+  ],
+  "objectives": [
+    "Write and balance nuclear equations for α, β⁻, β⁺, electron capture and γ processes.",
+    "Explain nuclear stability using the neutron-to-proton ratio, magic numbers and the binding energy per nucleon curve.",
+    "Calculate mass defect and binding energy, and the energy of a nuclear reaction.",
+    "Apply first-order kinetics to activity, half-life and radiometric dating.",
+    "Describe the fission chain reaction and the components of a reactor, and the conditions for fusion.",
+    "Use the units of radioactivity and dose (Bq, Ci, Gy, Sv), and explain medical imaging and therapy with radionuclides."
+  ],
+  "sections": [
+    {
+      "id": "stability",
+      "title": "Nuclear stability and binding energy",
+      "terms": [
+        "nucleon",
+        "nucleons",
+        "nuclides",
+        "strong nuclear force",
+        "binding energy",
+        "mass defect",
+        "band of stability",
+        "magic numbers",
+        "nuclear stability",
+        "neutron-to-proton ratio",
+        "binding energy per nucleon",
+        "mass–energy equivalence",
+        "nuclear shell model",
+        "radionuclide",
+        "even–odd rule",
+        "valley of stability"
+      ],
+      "body": [
+        "A **nuclide** is a nucleus with specified numbers of protons (Z) and neutrons (N); the mass number is A = Z + N, written ᴬ_ZX. **Isotopes** have the same Z and different N. The protons repel each other electrostatically (a few hundred MeV in total for a heavy nucleus), and the nucleus is held together by the **strong nuclear force**, which is attractive between all nucleons, but acts over only ~2–3 fm (10⁻¹⁵ m), so each nucleon feels only its neighbors, while the Coulomb repulsion has long range and grows with Z². This is why the large nuclei need more neutrons than protons to dilute the repulsion.",
+        "Of the ≈ 3000 known nuclides only 250 or so are stable. On a plot of N against Z the stable ones lie in a narrow **band of stability**, close to N = Z for the light elements (up to Ca) and with N/Z rising to ≈ 1.5 for lead. There are no stable nuclides beyond Bi-209 (Z = 83). Empirical rules: nuclei with an even number of protons and an even number of neutrons are the most stable (about 150 stable nuclides), those with odd–odd are rare (only ²H, ⁶Li, ¹⁰B, ¹⁴N are stable); and nuclei with a **magic number** of protons or neutrons (2, 8, 20, 28, 50, 82, 126), corresponding to closed shells in the nuclear shell model, are unusually stable (⁴He, ¹⁶O, ⁴⁰Ca, ²⁰⁸Pb). Nuclei outside the band decay toward it: those with too many neutrons (above the band) convert n → p (β⁻ decay), those with too few (below) convert p → n (β⁺ or electron capture), and the heaviest emit α particles.",
+        {
+          "h": "Binding energy"
+        },
+        "The mass of a nucleus is always less than the sum of the masses of its separate nucleons. The difference is the **mass defect** Δm, and by Einstein’s relation the corresponding energy is the **binding energy**, the energy that would be needed to separate the nucleus into free nucleons:",
+        {
+          "eq": "E_b = Δm c²,   1 u = 931.494 MeV c⁻²"
+        },
+        "In practice, atomic masses are used (the masses of the electrons cancel if the hydrogen atom mass, not the proton mass, is used for Z of the nucleons). The binding energy per nucleon rises steeply from ²H (1.1 MeV) to ⁴He (7.07 MeV), reaches a maximum at ⁵⁶Fe/⁶²Ni (≈ 8.8 MeV) and decreases slowly to 7.6 MeV for uranium. This curve explains the two sources of nuclear energy: heavy nuclei (A > 56) release energy when they split (**fission**), and light nuclei release energy when they combine (**fusion**), both moving toward the maximum.",
+        {
+          "example": {
+            "title": "Binding energy of helium-4",
+            "problem": "Calculate the binding energy of ⁴He and per nucleon. Atomic masses: ¹H 1.007825 u, n 1.008665 u, ⁴He 4.002603 u.",
+            "solution": "Δm = 2(1.007825) + 2(1.008665) − 4.002603 = 2.015650 + 2.017330 − 4.002603 = 0.030377 u. E_b = 0.030377 × 931.494 = 28.30 MeV, or 7.07 MeV per nucleon. In joules per mole of ⁴He: 28.30 MeV × 1.602 × 10⁻¹³ J MeV⁻¹ × 6.022 × 10²³ = 2.73 × 10¹² J mol⁻¹, which is why the fusion of hydrogen to helium (6 × 10¹¹ J per gram of H) is millions of times more energetic than the combustion."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Which nucleus has the highest binding energy per nucleon?",
+          "a": "Iron-56 (and nickel-62), near the maximum of the curve",
+          "wrong": [
+            "Hydrogen-1",
+            "Uranium-238",
+            "Helium-4"
+          ]
+        },
+        {
+          "q": "A nucleus with too many neutrons will usually undergo…",
+          "a": "β⁻ decay (n → p)",
+          "wrong": [
+            "β⁺ decay",
+            "Electron capture",
+            "Fusion"
+          ]
+        },
+        {
+          "q": "Why do heavy nuclei need N/Z > 1?",
+          "a": "Extra neutrons add strong-force attraction without adding Coulomb repulsion",
+          "wrong": [
+            "Neutrons are heavier than protons",
+            "Neutrons carry negative charge",
+            "Magic numbers require it"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decay-modes",
+      "title": "Radioactive decay and nuclear equations",
+      "terms": [
+        "radioactive",
+        "radioactivity",
+        "radioactive decay",
+        "alpha decay",
+        "beta decay",
+        "gamma radiation",
+        "gamma rays",
+        "alpha particle",
+        "alpha particles",
+        "beta particle",
+        "beta particles",
+        "positron emission",
+        "electron capture",
+        "nuclear equation",
+        "nuclear equations",
+        "neutrino",
+        "antineutrino",
+        "positron",
+        "spontaneous fission",
+        "decay series",
+        "transmutation",
+        "Q value",
+        "isomeric transition",
+        "metastable state",
+        "natural radioactivity"
+      ],
+      "body": [
+        "Unstable nuclei change spontaneously, emitting radiation: **radioactivity**. In a **nuclear equation** both the mass number A and the charge Z (the sum of atomic numbers) are conserved. The modes of **radioactive decay** are:",
+        {
+          "table": {
+            "head": [
+              "Mode",
+              "Change",
+              "Example",
+              "Occurs for"
+            ],
+            "rows": [
+              [
+                "**α decay** (⁴₂He nucleus)",
+                "Z − 2, A − 4",
+                "²³⁸₉₂U → ²³⁴₉₀Th + ⁴₂He",
+                "Heavy nuclei (Z > 82)"
+              ],
+              [
+                "**β⁻ decay** (electron + antineutrino)",
+                "Z + 1, A same (n → p + e⁻ + ν̄)",
+                "¹⁴₆C → ¹⁴₇N + ⁰₋₁e + ν̄",
+                "Neutron-rich"
+              ],
+              [
+                "**β⁺ decay** (**positron emission**)",
+                "Z − 1, A same (p → n + e⁺ + ν)",
+                "¹⁸₉F → ¹⁸₈O + ⁰₊₁e + ν",
+                "Proton-rich (Q must exceed 1.022 MeV)"
+              ],
+              [
+                "**Electron capture**",
+                "Z − 1, A same (p + e⁻ → n + ν); X-rays follow",
+                "⁷₄Be + e⁻ → ⁷₃Li + ν",
+                "Proton-rich, light nuclei with Q < 1.022 MeV"
+              ],
+              [
+                "**γ emission**",
+                "Z, A same: an excited nucleus drops to a lower level",
+                "⁹⁹ᵐ₄₃Tc → ⁹⁹₄₃Tc + γ (140 keV)",
+                "After other decays; isomeric transitions"
+              ],
+              [
+                "**Spontaneous fission**",
+                "A heavy nucleus splits into two",
+                "²⁵²Cf (3%)",
+                "Very heavy nuclei"
+              ]
+            ],
+            "caption": "Decay modes."
+          }
+        },
+        "The energy released in a decay, the **Q value**, equals the mass difference between the reactant and the products times c². An α particle has a discrete energy (4–9 MeV), since there are two bodies in the final state; in β decay the energy is shared with a neutrino, so the electron energy is a continuous spectrum up to Q. Positrons annihilate with electrons within nanoseconds, giving two 511 keV γ photons at 180°, the basis of PET imaging. A heavy radionuclide often decays by a chain of α and β steps to a stable lead isotope (the **decay series**: U-238 → Pb-206 in 14 steps; Th-232 → Pb-208; U-235 → Pb-207), and includes ²²²Rn, the radioactive gas that is the largest natural source of human exposure. Artificial **transmutation** is done by bombarding nuclei with particles (Rutherford, 1919: ¹⁴N + ⁴He → ¹⁷O + ¹H), and the elements beyond uranium are made in reactors and accelerators.",
+        {
+          "example": {
+            "title": "Balancing a decay chain",
+            "problem": "²³⁸U undergoes α decay, then two successive β⁻ decays. Give the nuclides formed.",
+            "solution": "²³⁸₉₂U → ²³⁴₉₀Th + ⁴₂He. ²³⁴₉₀Th → ²³⁴₉₁Pa + ⁰₋₁e (+ ν̄). ²³⁴₉₁Pa → ²³⁴₉₂U + ⁰₋₁e (+ ν̄). The result is ²³⁴U (Z back to 92, with A reduced by 4)."
+          }
+        },
+        {
+          "example": {
+            "title": "Energy of an α decay",
+            "problem": "Compute Q for ²¹⁰Po → ²⁰⁶Pb + ⁴He with masses 209.982874, 205.974465 and 4.002603 u.",
+            "solution": "Δm = 209.982874 − (205.974465 + 4.002603) = 0.005806 u → Q = 0.005806 × 931.494 = 5.41 MeV (the alpha particle receives 5.30 MeV, the recoil nucleus the rest)."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Complete: ²³⁸U → ²³⁴Th + ?",
+          "a": "⁴₂He (an α particle)",
+          "wrong": [
+            "⁰₋₁e",
+            "¹₀n",
+            "γ"
+          ]
+        },
+        {
+          "q": "In β⁻ decay of ¹⁴C the daughter nucleus is…",
+          "a": "¹⁴N",
+          "wrong": [
+            "¹⁴B",
+            "¹³C",
+            "¹⁰Be"
+          ]
+        },
+        {
+          "q": "A positron emitter must have a Q value of at least…",
+          "a": "1.022 MeV (two electron masses)",
+          "wrong": [
+            "0.511 MeV",
+            "0 MeV",
+            "10 MeV"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "kinetics",
+      "title": "Decay kinetics and radiometric dating",
+      "terms": [
+        "radiometric dating",
+        "carbon dating",
+        "radiocarbon dating",
+        "decay constant",
+        "becquerel",
+        "radioactive half-life",
+        "specific activity",
+        "curie",
+        "secular equilibrium",
+        "uranium–lead dating",
+        "potassium–argon dating",
+        "isochron",
+        "first-order decay",
+        "mean lifetime",
+        "dendrochronology",
+        "tritium dating",
+        "geochronology",
+        "age of the Earth"
+      ],
+      "body": [
+        "Radioactive decay of each nucleus is a random event, with a fixed probability per unit time λ, the **decay constant**. Therefore the rate of decay is first order in the number of nuclei N, dN/dt = −λN, and N = N₀e^{−λt}. The half-life t½ = ln 2/λ is the time for half of the nuclei to decay (it is the **radioactive half-life**); the mean lifetime is τ = 1/λ = 1.443 t½. Unlike a chemical reaction, the rate does not depend on temperature, pressure, or the chemical state of the atom (apart from rare exceptions such as electron capture in Be-7).",
+        "The **activity** A = λN = −dN/dt is the number of disintegrations per second, measured in **becquerel** (Bq = 1 s⁻¹, the SI unit) or **curie** (Ci = 3.7 × 10¹⁰ Bq, the activity of 1 g of Ra-226). The activity decays with the same law as N: A = A₀e^{−λt}. The half-lives range from 10⁻²¹ s to 10²⁴ years, and a nuclide with a short half-life has a high specific activity (activity per gram).",
+        {
+          "table": {
+            "head": [
+              "Nuclide",
+              "Half-life",
+              "Use"
+            ],
+            "rows": [
+              [
+                "¹⁸F",
+                "109.8 min",
+                "PET imaging (FDG)"
+              ],
+              [
+                "⁹⁹ᵐTc",
+                "6.01 h",
+                "SPECT imaging"
+              ],
+              [
+                "¹³¹I",
+                "8.02 d",
+                "Thyroid therapy"
+              ],
+              [
+                "⁶⁰Co",
+                "5.27 y",
+                "Radiotherapy, sterilization"
+              ],
+              [
+                "¹⁴C",
+                "5730 y",
+                "Radiocarbon dating"
+              ],
+              [
+                "²³⁹Pu",
+                "24,100 y",
+                "Reactor fuel/weapons"
+              ],
+              [
+                "⁴⁰K",
+                "1.25 × 10⁹ y",
+                "K–Ar dating"
+              ],
+              [
+                "²³⁸U",
+                "4.47 × 10⁹ y",
+                "U–Pb dating"
+              ]
+            ],
+            "caption": "Half-lives of useful radionuclides."
+          }
+        },
+        {
+          "h": "Radiometric dating"
+        },
+        "**Radiocarbon dating** exploits the continuous production of ¹⁴C in the upper atmosphere by cosmic-ray neutrons (¹⁴N + n → ¹⁴C + p). The ¹⁴C is oxidized to CO₂, and living organisms exchange carbon with the atmosphere, so the ¹⁴C/¹²C ratio in a living organism is constant (about 1.2 × 10⁻¹², an activity of ≈ 0.23 Bq per gram of carbon). At death the exchange stops and the ¹⁴C decays. The age follows from t = (1/λ) ln(A₀/A), valid to about 50,000 years (about 9 half-lives); calibration with tree rings corrects the variations of the atmospheric ¹⁴C. For older objects, longer-lived pairs are used: **K–Ar** (⁴⁰K → ⁴⁰Ar, the argon trapped in a volcanic rock after solidification), **U–Pb** (²³⁸U → ²⁰⁶Pb, with t½ = 4.47 × 10⁹ y, which gave the age of the Earth, 4.54 × 10⁹ y, from meteorites and zircons) and Rb–Sr; for these, the ratio of daughter to parent gives the age if no daughter was present initially (or isochron plots deal with the initial amount).",
+        {
+          "example": {
+            "title": "Radiocarbon age",
+            "problem": "A wooden artifact has a ¹⁴C activity of 0.140 Bq per gram of carbon, against 0.230 Bq g⁻¹ for living wood. How old is it? (t½ = 5730 y)",
+            "solution": "λ = ln 2/5730 y = 1.210 × 10⁻⁴ y⁻¹. t = (1/λ) ln(0.230/0.140) = 8264 y × ln(1.643) = 8264 × 0.4967 = 4.10 × 10³ y, about 4100 years."
+          }
+        },
+        {
+          "example": {
+            "title": "Decay of a medical isotope",
+            "problem": "A dose of ¹⁸F-FDG (t½ = 109.8 min) is prepared at 400 MBq. What is its activity after 4.0 h, and what mass of ¹⁸F does 400 MBq represent?",
+            "solution": "After 240 min: A = 400 × 2^{−240/109.8} = 400 × 2^{−2.186} = 400 × 0.220 = 88 MBq. Mass: λ = ln 2/(109.8 × 60 s) = 1.052 × 10⁻⁴ s⁻¹; N = A/λ = 4.00 × 10⁸/1.052 × 10⁻⁴ = 3.80 × 10¹² atoms = 6.3 × 10⁻¹² mol = 1.1 × 10⁻¹⁰ g (0.11 ng). A trace amount, which is why a radiotracer does not perturb the system."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "After 3 half-lives, what fraction of a radionuclide remains?",
+          "a": "1/8",
+          "wrong": [
+            "1/3",
+            "1/6",
+            "1/4"
+          ]
+        },
+        {
+          "q": "Why can radiocarbon dating not be used on a 200-million-year-old fossil?",
+          "a": "After ~10 half-lives (50,000 y) too little ¹⁴C remains to measure",
+          "wrong": [
+            "¹⁴C is only made in living things",
+            "Carbon fossilizes completely",
+            "The half-life changes with age"
+          ]
+        },
+        {
+          "q": "Does temperature change the rate of radioactive decay?",
+          "a": "No; it is a property of the nucleus",
+          "wrong": [
+            "Yes, it doubles every 10 °C",
+            "Yes, it follows Arrhenius",
+            "Only above 1000 K"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fission-fusion",
+      "title": "Nuclear fission and fusion",
+      "terms": [
+        "nuclear fission",
+        "fission",
+        "critical mass",
+        "nuclear reactor",
+        "nuclear reactors",
+        "control rods",
+        "moderator",
+        "enriched uranium",
+        "nuclear fusion",
+        "fusion",
+        "tokamak",
+        "thermonuclear",
+        "deuterium",
+        "tritium",
+        "Lawson criterion",
+        "breeder reactor",
+        "neutron multiplication factor",
+        "uranium enrichment",
+        "nuclear waste",
+        "plutonium-239",
+        "proton–proton chain",
+        "stellar nucleosynthesis",
+        "inertial confinement",
+        "plasma",
+        "nuclear chain reaction"
+      ],
+      "body": [
+        "In **nuclear fission** a heavy nucleus absorbs a neutron and splits into two medium-mass fragments plus 2–3 neutrons, for example:",
+        {
+          "eq": "²³⁵₉₂U + ¹₀n → ¹⁴¹₅₆Ba + ⁹²₃₆Kr + 3 ¹₀n   (≈ 200 MeV)"
+        },
+        "The products are neutron-rich and radioactive (the fission products and their decay chains are the nuclear waste). The energy comes from the increase of the binding energy per nucleon, from ≈ 7.6 to ≈ 8.5 MeV: 236 nucleons × 0.9 MeV ≈ 200 MeV, mostly the kinetic energy of the fragments. Per gram, ²³⁵U gives 200 MeV × 6.022 × 10²³/235 = 8.2 × 10¹⁰ J (8.2 × 10⁷ kJ g⁻¹), compared with ≈ 30 kJ g⁻¹ for coal: a factor of 2.7 million.",
+        "The neutrons released can induce more fissions: a **chain reaction**. The **multiplication factor** k is the ratio of fissions in successive generations: k < 1 is subcritical, k = 1 critical (steady), k > 1 supercritical (exponential growth, the bomb). The **critical mass** is the amount of fissile material (for ²³⁵U, about 50 kg for a bare sphere) in which on average one neutron per fission causes another fission, with the others escaping or being absorbed.",
+        {
+          "h": "The reactor"
+        },
+        {
+          "list": [
+            "**Fuel**: natural uranium is 99.3% ²³⁸U and 0.72% ²³⁵U. Light-water reactors use **enriched uranium** (3–5% ²³⁵U, as UO₂ pellets in zirconium tubes), made by increasing the ²³⁵U fraction using gas centrifuges on UF₆ (the mass difference of the molecules, 349 against 352 u, is only 0.85%, so many stages are needed). Weapons need >90%.",
+            "**Moderator**: fission neutrons are fast (~2 MeV) while ²³⁵U fissions most readily with slow (thermal, 0.025 eV) neutrons. A moderator of light nuclei (water, heavy water D₂O, graphite) slows them down by collisions.",
+            "**Control rods** of neutron absorbers (boron carbide, cadmium, hafnium) are inserted to hold k at 1 or to shut down. About 0.65% of the neutrons are delayed (emitted seconds after fission by fission products), which makes the reactor controllable.",
+            "**Coolant** (water under pressure) carries heat to steam generators. ²³⁸U absorbs neutrons to form ²³⁹Pu (²³⁸U + n → ²³⁹U → ²³⁹Np → ²³⁹Pu by two β⁻ decays), a fissile fuel produced in the reactor and used in breeder reactors and MOX fuel."
+          ]
+        },
+        "The long-lived waste (actinides, ⁹⁹Tc, ¹²⁹I, ¹³⁵Cs) requires isolation for ~10⁵ years in geological repositories, and the high-activity short-lived fission products (⁹⁰Sr, ¹³⁷Cs, t½ ≈ 30 y) dominate for the first centuries.",
+        {
+          "h": "Fusion"
+        },
+        "**Nuclear fusion** joins light nuclei, and is the source of the energy of the stars (in the Sun, the proton–proton chain, 4 ¹H → ⁴He + 2 e⁺ + 2 ν + 26.7 MeV). On Earth the most accessible reaction is deuterium–tritium: ²H + ³H → ⁴He + n + 17.6 MeV. The nuclei have to approach to within ~1 fm against the Coulomb repulsion (≈ 0.4 MeV, although tunneling lowers the requirement), so the fuel must be heated to ≈ 10⁸ K, forming a **plasma**. Ignition needs the **Lawson criterion**: a product of density, confinement time and temperature n·τ·T above about 3 × 10²¹ keV s m⁻³. A **tokamak** confines the plasma in a toroidal magnetic field; inertial confinement compresses pellets with lasers (the National Ignition Facility achieved net energy gain on the target in 2022). Deuterium is abundant in seawater (1 in 6400 H atoms), and tritium is bred from lithium; the products are not long-lived waste, but the neutrons activate the structure.",
+        {
+          "example": {
+            "title": "Energy of D–T fusion",
+            "problem": "Masses: ²H 2.014102 u, ³H 3.016049 u, ⁴He 4.002603 u, n 1.008665 u. Find Q, and the fraction of the energy carried by the neutron.",
+            "solution": "Δm = (2.014102 + 3.016049) − (4.002603 + 1.008665) = 5.030151 − 5.011268 = 0.018883 u → Q = 17.59 MeV. Momentum conservation splits it inversely with the mass: the neutron (m = 1) gets 4/5 of the energy, i.e. 14.1 MeV, and the α particle 3.5 MeV."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "What is the function of a moderator in a reactor?",
+          "a": "To slow fast neutrons to thermal energies, where ²³⁵U fissions readily",
+          "wrong": [
+            "To absorb neutrons",
+            "To cool the fuel only",
+            "To enrich the uranium"
+          ]
+        },
+        {
+          "q": "Why does the fusion of light nuclei release energy?",
+          "a": "The products have a higher binding energy per nucleon",
+          "wrong": [
+            "Light nuclei are radioactive",
+            "Coulomb repulsion is released",
+            "Fusion converts neutrons to protons"
+          ]
+        },
+        {
+          "q": "A reactor with k = 1.00 is…",
+          "a": "Critical (steady power)",
+          "wrong": [
+            "Subcritical",
+            "Supercritical",
+            "Shut down"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "radiation-use",
+      "title": "Radiation, dose and applications",
+      "terms": [
+        "ionizing radiation",
+        "sievert",
+        "gray",
+        "Geiger counter",
+        "radiotracer",
+        "radiotracers",
+        "PET scan",
+        "radiation dose",
+        "radiotherapy",
+        "technetium-99m",
+        "absorbed dose",
+        "equivalent dose",
+        "radiation weighting factor",
+        "scintillation counter",
+        "background radiation",
+        "rem",
+        "penetrating power",
+        "radiation shielding",
+        "neutron activation analysis",
+        "smoke detector",
+        "food irradiation",
+        "tracer",
+        "positron emission tomography",
+        "SPECT",
+        "half-value layer",
+        "linear energy transfer",
+        "radon",
+        "sterilization by radiation"
+      ],
+      "body": [
+        "**Ionizing radiation** has enough energy (> 10 eV) to ionize atoms and break chemical bonds. The types differ in how they lose energy. **α particles** (+2 charge, heavy) ionize densely and stop in a few cm of air or in the outer layer of the skin: harmless outside the body, but very damaging when an α-emitter is inhaled or ingested. **β particles** penetrate millimeters of tissue and are stopped by a few mm of aluminum. **γ rays** and X-rays are photons that penetrate deeply, and are attenuated exponentially by dense material (I = I₀e^{−μx}; the **half-value layer** of lead for 1 MeV γ is ≈ 1 cm). Neutrons are penetrating, and are absorbed best by hydrogen-rich material (water, polyethylene).",
+        {
+          "h": "Units of dose"
+        },
+        {
+          "table": {
+            "head": [
+              "Quantity",
+              "Unit",
+              "Meaning"
+            ],
+            "rows": [
+              [
+                "Activity",
+                "becquerel (Bq) = 1 decay s⁻¹; 1 Ci = 3.7 × 10¹⁰ Bq",
+                "Rate of decay of the source"
+              ],
+              [
+                "Absorbed dose",
+                "**gray** (Gy) = 1 J kg⁻¹; 1 rad = 0.01 Gy",
+                "Energy deposited per unit mass"
+              ],
+              [
+                "Equivalent dose",
+                "**sievert** (Sv) = Gy × w_R; 1 rem = 0.01 Sv",
+                "Biological damage; w_R = 1 (β, γ, X), 20 (α), 2–20 (neutrons, by energy)"
+              ]
+            ],
+            "caption": "Radiation units."
+          }
+        },
+        "The background dose averages about 3 mSv per year (half from radon), a chest X-ray gives 0.1 mSv, a CT scan 5–10 mSv, and an acute whole-body dose of 4–5 Sv is lethal for 50% of people without treatment (LD₅₀). Radiation damages DNA directly or through radicals from water (OH•). Low-dose risks are estimated by the linear no-threshold model (about 5% increase of lifetime cancer risk per Sv), and protection is based on time, distance (the dose of a point source falls as 1/r²) and shielding. Detectors: the **Geiger counter** (a gas-filled tube in which an ionizing particle triggers an avalanche discharge, one pulse per particle), scintillation counters (a crystal such as NaI(Tl) emits light, proportional to the energy deposited, which a photomultiplier detects, giving the γ spectrum), and semiconductor (Ge) detectors with the best energy resolution.",
+        {
+          "h": "Applications"
+        },
+        {
+          "list": [
+            "**Medical imaging**: in **positron emission tomography (PET)** a positron emitter such as ¹⁸F (as fluorodeoxyglucose, which accumulates in tissues with high glucose use) is injected; each positron annihilates with an electron to give two 511 keV photons in opposite directions, detected in coincidence to locate the source. In SPECT and gamma imaging, **technetium-99m** (t½ = 6.0 h, a pure 140 keV γ emitter, no β particle so low dose, made from ⁹⁹Mo generators) labels agents for bones, heart and kidneys; it is used in tens of millions of procedures each year.",
+            "**Radiotherapy**: external beams (⁶⁰Co, linear accelerators) or implanted/ingested sources (¹³¹I for thyroid cancer, ²²³Ra for bone metastases) deliver a high dose to tumor cells, which are more sensitive because they divide rapidly.",
+            "**Radiotracers**: a trace of a radioactive isotope follows a chemical or biological path (³²P in DNA labeling, ¹⁴C in metabolic pathways and the mechanism of photosynthesis, ³H, ¹³¹I, leak detection in pipes). **Neutron activation analysis** irradiates a sample with neutrons and identifies trace elements from the γ rays of the radionuclides formed (ppb sensitivity, non-destructive).",
+            "Others: smoke detectors (²⁴¹Am ionizes air; smoke reduces the current), sterilization of medical equipment and food irradiation (⁶⁰Co, e-beams), thickness gauges and industrial radiography."
+          ]
+        },
+        {
+          "example": {
+            "title": "Dose from an internal α emitter",
+            "problem": "An α particle of 5.3 MeV is absorbed in 1 µg of lung tissue (1 × 10⁻⁹ kg). What are the absorbed dose and equivalent dose (w_R = 20) per particle?",
+            "solution": "E = 5.3 MeV × 1.602 × 10⁻¹³ J MeV⁻¹ = 8.49 × 10⁻¹³ J. Dose = 8.49 × 10⁻¹³/1 × 10⁻⁹ = 8.5 × 10⁻⁴ Gy (0.85 mGy) per particle in that mass. Equivalent dose = 20 × 8.5 × 10⁻⁴ = 1.7 × 10⁻² Sv, i.e. 17 mSv. One particle absorbed in a microgram of tissue is a large local dose, which is why α emitters inside the body are hazardous."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "What is the SI unit of absorbed dose?",
+          "a": "Gray (J kg⁻¹)",
+          "wrong": [
+            "Sievert",
+            "Becquerel",
+            "Curie"
+          ]
+        },
+        {
+          "q": "Why is technetium-99m a good imaging isotope?",
+          "a": "It emits a pure 140 keV γ ray and has a 6 h half-life, so the dose is low",
+          "wrong": [
+            "It is a positron emitter",
+            "It is stable",
+            "It emits α particles"
+          ]
+        },
+        {
+          "q": "In PET, the detected photons come from…",
+          "a": "Positron–electron annihilation (two 511 keV photons)",
+          "wrong": [
+            "Neutron capture",
+            "α decay",
+            "Fission"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "The strong force binds nucleons over ~2 fm; stable nuclei lie in a band with N/Z rising from 1 to 1.5. Magic numbers (2, 8, 20, 28, 50, 82, 126) and even–even composition add stability. E_b = Δm·c² with 1 u = 931.5 MeV; the binding energy per nucleon peaks at ⁵⁶Fe.",
+    "Decay modes: α (Z−2, A−4), β⁻ (Z+1), β⁺ and electron capture (Z−1), γ. Balance A and Z. Q = Δm·c².",
+    "First-order decay: N = N₀e^{−λt}, t½ = ln 2/λ, A = λN (Bq, Ci). Radiocarbon dating up to ~50,000 y; U–Pb and K–Ar for geological time.",
+    "Fission of ²³⁵U gives ≈ 200 MeV and neutrons for a chain reaction (k = 1 in a reactor with moderator and control rods). Fusion (D–T, 17.6 MeV) needs ≈ 10⁸ K plasma and the Lawson criterion.",
+    "Dose: Gy = J kg⁻¹, Sv = Gy × w_R. Alpha is the most damaging if internal. Uses: PET (¹⁸F), SPECT (⁹⁹ᵐTc), radiotherapy, tracers, activation analysis."
+  ],
+  "problems": [
+    {
+      "q": "Write balanced equations for (a) α decay of ²²⁶Ra, (b) β⁻ decay of ⁹⁰Sr, (c) positron emission of ¹¹C, (d) electron capture by ⁴⁰K (to Ar).",
+      "solution": "(a) ²²⁶₈₈Ra → ²²²₈₆Rn + ⁴₂He. (b) ⁹⁰₃₈Sr → ⁹⁰₃₉Y + ⁰₋₁e + ν̄. (c) ¹¹₆C → ¹¹₅B + ⁰₊₁e + ν. (d) ⁴⁰₁₉K + ⁰₋₁e → ⁴⁰₁₈Ar + ν.",
+      "a": "See the equations."
+    },
+    {
+      "q": "A radioactive sample has 3.0 × 10¹⁵ atoms of ¹³¹I (t½ = 8.02 d). What is its activity in Bq and mCi, and how much is left after 30 days?",
+      "solution": "λ = ln 2/(8.02 × 86400 s) = 1.0003 × 10⁻⁶ s⁻¹. A = λN = 3.0 × 10⁹ Bq = 3.0 GBq = 81 mCi. After 30 d: fraction = 2^{−30/8.02} = 2^{−3.74} = 0.075 → A = 0.23 GBq (6.1 mCi).",
+      "a": "3.0 GBq (81 mCi); 0.23 GBq after 30 d"
+    },
+    {
+      "q": "A rock contains 1.00 mg of ²³⁸U and 0.40 mg of ²⁰⁶Pb (assume all lead came from the uranium). Find the age (t½ = 4.47 × 10⁹ y).",
+      "solution": "Moles: U = 1.00 × 10⁻³/238.0 = 4.20 × 10⁻⁶ mol; Pb = 0.40 × 10⁻³/206.0 = 1.94 × 10⁻⁶ mol. Original U = 4.20 + 1.94 = 6.14 × 10⁻⁶ mol. N/N₀ = 0.684. t = (t½/ln 2) ln(N₀/N) = (4.47 × 10⁹/0.6931) ln(1.462) = 6.45 × 10⁹ × 0.380 = 2.45 × 10⁹ y.",
+      "a": "≈ 2.5 × 10⁹ years"
+    },
+    {
+      "q": "Calculate the energy (in MeV and kJ mol⁻¹) released when ²H and ³H fuse, and compare the energy per gram of D–T fuel with that of the combustion of methane (−890 kJ mol⁻¹, 16.04 g mol⁻¹).",
+      "solution": "Q = 17.59 MeV per reaction = 17.59 × 1.602 × 10⁻¹³ × 6.022 × 10²³ = 1.697 × 10⁹ kJ mol⁻¹ of reactions. Per gram of fuel (5.03 g per mole of pairs): 3.37 × 10⁸ kJ g⁻¹. Methane: 890/16.04 = 55.5 kJ g⁻¹. The ratio is 6 × 10⁶.",
+      "a": "17.6 MeV; 3.4 × 10⁸ kJ g⁻¹ — six million times methane"
+    }
+  ]
+}

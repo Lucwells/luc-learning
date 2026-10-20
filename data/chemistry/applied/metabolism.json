@@ -1,0 +1,492 @@
+{
+  "id": "metabolism",
+  "view": "chapter",
+  "title": "Bioenergetics and Metabolism",
+  "description": "ATP and free-energy coupling, glycolysis, the citric acid cycle, oxidative phosphorylation, and photosynthesis.",
+  "overview": [
+    "Living cells are open systems far from equilibrium, and they stay there by continuously converting energy. Metabolism is the web of enzyme-catalyzed reactions that does this: catabolic pathways oxidize fuels (glucose, fats) and capture the free energy in ATP and reduced coenzymes, and anabolic pathways use ATP and reducing power to build molecules. The same few currencies, ATP, NADH/NADPH and FADH₂, link them all.",
+    "This chapter treats the thermodynamics of coupling, the oxidation of glucose through glycolysis, the citric acid cycle and the respiratory chain, and the reverse process, photosynthesis, which drives the electrons uphill with light. The emphasis is on the chemistry and on quantitative bookkeeping of free energy and ATP."
+  ],
+  "objectives": [
+    "Use ΔG°′, concentrations and coupling to decide whether a biochemical reaction goes, and explain why ATP is the energy currency.",
+    "Calculate ΔG°′ of electron transfer from reduction potentials.",
+    "Write the stages of glycolysis with net products, the fate of pyruvate, and the regulation at phosphofructokinase.",
+    "Account for the products of the pyruvate dehydrogenase complex and the citric acid cycle.",
+    "Describe the electron transport chain, the proton-motive force and ATP synthase, and the ATP yield.",
+    "Outline the light reactions and the Calvin cycle, and calculate the efficiency of photosynthesis."
+  ],
+  "sections": [
+    {
+      "id": "energetics",
+      "title": "Free energy, ATP and coupled reactions",
+      "terms": [
+        "ATP",
+        "adenosine triphosphate",
+        "metabolism",
+        "catabolism",
+        "anabolism",
+        "coupled reactions",
+        "reaction coupling",
+        "NADH",
+        "NAD⁺",
+        "FADH₂",
+        "NADPH",
+        "ADP",
+        "high-energy phosphate bond",
+        "phosphoryl group transfer",
+        "standard free energy in biochemistry",
+        "ΔG°′",
+        "phosphocreatine",
+        "thioester",
+        "coenzyme A",
+        "reducing equivalents",
+        "energy charge",
+        "substrate-level phosphorylation",
+        "FAD",
+        "biochemical standard state"
+      ],
+      "body": [
+        "In biochemistry the standard state is pH 7, so the standard free energy change is written ΔG°′ (with [H⁺] = 10⁻⁷ M and water at unit activity). The actual free energy depends on the cellular concentrations: ΔG = ΔG°′ + RT ln Q. A reaction with a positive ΔG°′ can proceed if Q is small enough, and an unfavorable reaction can be driven by **coupling** to a favorable one that shares an intermediate, because free energies add. The combined reaction is favorable if the sum of ΔG values is negative.",
+        {
+          "h": "ATP: the energy currency"
+        },
+        "**Adenosine triphosphate (ATP)** carries three phosphate groups. The hydrolysis ATP + H₂O → ADP + Pᵢ has ΔG°′ = −30.5 kJ mol⁻¹. In a cell, where [ATP]/[ADP] is high (the ratio is kept at ~10 or more, far from equilibrium) and [Pᵢ] is low, the actual ΔG is −50 to −65 kJ mol⁻¹. The reasons for the large negative free energy are: relief of electrostatic repulsion between the negatively charged phosphates, better solvation of the products, resonance stabilization of the released phosphate (Pᵢ has four equivalent resonance forms), and ionization of the products at pH 7. ATP is an intermediate in the scale of phosphoryl-transfer potential: compounds higher on the scale (phosphoenolpyruvate −61.9, 1,3-bisphosphoglycerate −49.4, phosphocreatine −43.1 kJ mol⁻¹) can phosphorylate ADP, and ATP can phosphorylate those lower (glucose 6-phosphate, −13.8). ATP is kinetically stable (it does not hydrolyze spontaneously, with a barrier removed only by enzymes), so it is both a source of energy and a controllable one. Thioesters (acetyl-CoA, −31.4 kJ mol⁻¹) are another type of activated group donor.",
+        {
+          "example": {
+            "title": "Coupling: phosphorylation of glucose",
+            "problem": "Glucose + Pᵢ → glucose 6-phosphate + H₂O has ΔG°′ = +13.8 kJ mol⁻¹. Show how the coupling to ATP hydrolysis (−30.5 kJ mol⁻¹) makes it work, and estimate K′eq.",
+            "solution": "Glucose + ATP → glucose 6-phosphate + ADP: ΔG°′ = +13.8 − 30.5 = −16.7 kJ mol⁻¹. K′eq = exp(16,700/(8.314 × 298)) = exp(6.74) = 8.4 × 10². The reaction (hexokinase) is practically irreversible, whereas the uncoupled one has K′eq = exp(−5.57) = 3.8 × 10⁻³."
+          }
+        },
+        {
+          "h": "Redox coenzymes"
+        },
+        "Most of the energy of food is released in oxidations, with electrons passed to **NAD⁺** (nicotinamide adenine dinucleotide), which accepts a hydride ion (H⁻) at C4 of the nicotinamide ring to give **NADH**: the catabolic carrier, with E°′ = −0.320 V. **NADPH** (with an extra phosphate) has the same potential but is the reductant for anabolism (fatty acid synthesis, photosynthesis). **FAD** (flavin adenine dinucleotide) accepts two electrons and two protons to give **FADH₂** (E°′ about −0.22 V when bound to proteins), used when the oxidation is of C–C single bonds (succinate to fumarate). The free energy of electron transfer follows from the reduction potentials:",
+        {
+          "eq": "ΔG°′ = −nFΔE°′   (F = 96.485 kJ V⁻¹ mol⁻¹)"
+        },
+        {
+          "example": {
+            "title": "Oxidation of NADH by oxygen",
+            "problem": "Using E°′(NAD⁺/NADH) = −0.320 V and E°′(½O₂/H₂O) = +0.816 V, calculate ΔG°′ for NADH + H⁺ + ½O₂ → NAD⁺ + H₂O. How many ATP (−30.5 kJ mol⁻¹) could this support at 100% efficiency?",
+            "solution": "ΔE°′ = 0.816 − (−0.320) = 1.136 V; n = 2. ΔG°′ = −2 × 96.485 × 1.136 = −219 kJ mol⁻¹. At 100% efficiency 219/30.5 = 7.2 ATP; in reality about 2.5 ATP are made per NADH (≈ 35% efficiency under standard conditions, about 50–60% at cellular concentrations), the remainder is released as heat."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Why is ATP hydrolysis so exergonic?",
+          "a": "Charge repulsion relief, resonance stabilization and solvation of the products",
+          "wrong": [
+            "The P–O bond is unusually weak",
+            "ATP is unstable in water",
+            "ADP is a better acid"
+          ]
+        },
+        {
+          "q": "A reaction has ΔG°′ = +20 kJ mol⁻¹. It can still proceed in the cell if…",
+          "a": "It is coupled to a sufficiently exergonic reaction, or Q is kept low",
+          "wrong": [
+            "It is run at pH 10",
+            "ΔG°′ does not matter",
+            "It is a catabolic reaction"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "glycolysis",
+      "title": "Glycolysis and fermentation",
+      "terms": [
+        "glycolysis",
+        "pyruvate",
+        "fermentation",
+        "lactate fermentation",
+        "alcoholic fermentation",
+        "hexokinase",
+        "phosphofructokinase",
+        "glyceraldehyde 3-phosphate",
+        "Pasteur effect",
+        "lactate dehydrogenase",
+        "anaerobic respiration",
+        "gluconeogenesis",
+        "fructose 1,6-bisphosphate",
+        "phosphoenolpyruvate",
+        "pyruvate kinase",
+        "Warburg effect",
+        "substrate-level"
+      ],
+      "body": [
+        "**Glycolysis** (Greek, “sugar splitting”) oxidizes one glucose (C₆) to two pyruvate (C₃) in the cytosol in ten steps, with no oxygen required. It has two phases.",
+        {
+          "list": [
+            "**Investment phase** (steps 1–5): glucose is phosphorylated by **hexokinase** (ATP → ADP; irreversible), isomerized to fructose 6-phosphate, and phosphorylated again by **phosphofructokinase-1 (PFK-1)** (ATP → ADP) to fructose 1,6-bisphosphate, then cleaved by aldolase into two triose phosphates (dihydroxyacetone phosphate, isomerized to glyceraldehyde 3-phosphate, G3P). Two ATP are spent per glucose.",
+            "**Payoff phase** (steps 6–10, twice per glucose): G3P is oxidized and phosphorylated by G3P dehydrogenase with NAD⁺ and Pᵢ, giving 1,3-bisphosphoglycerate (a high-energy acyl phosphate) and NADH. Phosphoglycerate kinase transfers that phosphate to ADP (**substrate-level phosphorylation**), the intermediate is rearranged and dehydrated to **phosphoenolpyruvate (PEP)**, and **pyruvate kinase** transfers the phosphate of PEP to ADP to give pyruvate. Four ATP are produced."
+          ]
+        },
+        "Net reaction: glucose + 2 NAD⁺ + 2 ADP + 2 Pᵢ → 2 pyruvate + 2 NADH + 2 ATP + 2 H⁺ + 2 H₂O, with ΔG°′ ≈ −85 kJ mol⁻¹ (the sum of ≈ −146 kJ for the oxidation and +61 for the 2 ATP synthesized). Three steps (hexokinase, PFK-1, pyruvate kinase) have large negative ΔG and are irreversible in the cell; these are the control points and have to be bypassed in gluconeogenesis. The main control is at **PFK-1**: it is inhibited by ATP and citrate (high energy supply) and activated by AMP and fructose 2,6-bisphosphate, so the flux follows the energy state of the cell.",
+        {
+          "h": "The fate of pyruvate"
+        },
+        "NAD⁺ is the limiting resource: the NADH produced must be reoxidized or glycolysis stops. With oxygen, the electrons are passed to the respiratory chain (and pyruvate enters the mitochondrion). Without oxygen, **fermentation** regenerates NAD⁺ by reducing pyruvate. In **lactate fermentation** (muscle under strenuous exercise, many bacteria) **lactate dehydrogenase** reduces pyruvate to lactate. In **alcoholic fermentation** (yeast), pyruvate decarboxylase (thiamine pyrophosphate) releases CO₂ to give acetaldehyde, which alcohol dehydrogenase reduces to ethanol. Fermentation extracts only 2 ATP per glucose (≈ 5% of the energy of the full oxidation). Many tumors ferment glucose even with oxygen present (the Warburg effect).",
+        {
+          "example": {
+            "title": "Why PFK-1 is regulated by ATP",
+            "problem": "Explain in terms of the energetic needs why high ATP inhibits PFK-1 but high AMP activates it.",
+            "solution": "When ATP is abundant, the cell needs no more; stopping the committed step of glycolysis saves glucose. When ATP is consumed, ADP is converted into ATP and AMP by adenylate kinase (2 ADP ⇌ ATP + AMP), and because the AMP level is small, a 10% fall of ATP gives a large relative rise of AMP, a sensitive signal that activates PFK-1 to restore ATP."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "What is the net ATP yield of glycolysis per glucose (anaerobic)?",
+          "a": "2 ATP",
+          "wrong": [
+            "4 ATP",
+            "36 ATP",
+            "0 ATP"
+          ]
+        },
+        {
+          "q": "Why does fermentation convert pyruvate to lactate or ethanol?",
+          "a": "To regenerate NAD⁺ so that glycolysis can continue",
+          "wrong": [
+            "To make more ATP",
+            "To produce CO₂",
+            "To oxidize NADPH"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tca",
+      "title": "The citric acid cycle",
+      "terms": [
+        "Krebs cycle",
+        "citric acid cycle",
+        "tricarboxylic acid cycle",
+        "TCA cycle",
+        "pyruvate dehydrogenase complex",
+        "acetyl-CoA",
+        "citrate",
+        "oxaloacetate",
+        "isocitrate dehydrogenase",
+        "α-ketoglutarate dehydrogenase",
+        "succinate dehydrogenase",
+        "mitochondria",
+        "mitochondrion",
+        "mitochondrial matrix",
+        "cellular respiration",
+        "thiamine pyrophosphate",
+        "lipoic acid",
+        "anaplerotic reactions",
+        "β-oxidation"
+      ],
+      "body": [
+        "In the aerobic pathway pyruvate enters the **mitochondrion** (a double-membrane organelle whose inner membrane is folded into cristae; the enclosed space is the **mitochondrial matrix**), where the **pyruvate dehydrogenase complex** converts it to **acetyl-CoA**: pyruvate + CoA + NAD⁺ → acetyl-CoA + CO₂ + NADH. The reaction needs five cofactors (thiamine pyrophosphate, lipoamide, FAD, NAD⁺, coenzyme A) in three enzymes, and is irreversible: animals cannot convert acetyl-CoA back to glucose. Fatty acids are also degraded to acetyl-CoA, two carbons at a time, by β-oxidation, which makes fats an efficient fuel (palmitate gives 106 ATP, from 7 FADH₂, 7 NADH and 8 acetyl-CoA).",
+        "The **citric acid cycle** (Krebs cycle, TCA cycle) oxidizes the two carbons of the acetyl group completely to CO₂. It is a cycle: the four-carbon **oxaloacetate** is regenerated at the end, so the intermediates act as catalysts. The eight steps are:",
+        {
+          "table": {
+            "head": [
+              "Step",
+              "Reaction",
+              "Product"
+            ],
+            "rows": [
+              [
+                "1",
+                "Citrate synthase: acetyl-CoA + oxaloacetate (C₄) → **citrate** (C₆)",
+                "Thioester hydrolysis drives it (ΔG°′ ≈ −32 kJ mol⁻¹)"
+              ],
+              [
+                "2–3",
+                "Aconitase: citrate → isocitrate (isomerization)",
+                "—"
+              ],
+              [
+                "4",
+                "**Isocitrate dehydrogenase**: oxidative decarboxylation to α-ketoglutarate (C₅)",
+                "NADH + CO₂"
+              ],
+              [
+                "5",
+                "**α-Ketoglutarate dehydrogenase** (like pyruvate DH): → succinyl-CoA (C₄)",
+                "NADH + CO₂"
+              ],
+              [
+                "6",
+                "Succinyl-CoA synthetase: → succinate",
+                "GTP (or ATP), substrate-level"
+              ],
+              [
+                "7",
+                "**Succinate dehydrogenase**: succinate → fumarate (membrane-bound; Complex II)",
+                "FADH₂"
+              ],
+              [
+                "8–9",
+                "Fumarase (hydration), malate dehydrogenase: → oxaloacetate",
+                "NADH"
+              ]
+            ],
+            "caption": "The citric acid cycle."
+          }
+        },
+        "Per turn (per acetyl-CoA): 3 NADH, 1 FADH₂, 1 GTP and 2 CO₂. The cycle makes little ATP directly; its function is to produce the reduced coenzymes that feed the respiratory chain. Regulation: pyruvate dehydrogenase, citrate synthase, isocitrate dehydrogenase and α-ketoglutarate dehydrogenase are inhibited by NADH and ATP and activated by ADP and Ca²⁺, so the rate follows the demand. Intermediates are also drawn off for biosynthesis (citrate for fatty acids, α-ketoglutarate for amino acids), so the cycle is refilled by **anaplerotic reactions** (pyruvate carboxylase makes oxaloacetate)."
+      ],
+      "check": [
+        {
+          "q": "How many NADH, FADH₂ and GTP are produced per turn of the citric acid cycle?",
+          "a": "3 NADH, 1 FADH₂, 1 GTP",
+          "wrong": [
+            "1 NADH, 3 FADH₂, 3 GTP",
+            "2 NADH, 2 FADH₂, 2 GTP",
+            "4 NADH, 0 FADH₂, 1 GTP"
+          ]
+        },
+        {
+          "q": "Which steps of the citric acid cycle release CO₂?",
+          "a": "Isocitrate dehydrogenase and α-ketoglutarate dehydrogenase",
+          "wrong": [
+            "Citrate synthase and aconitase",
+            "Succinate dehydrogenase and fumarase",
+            "Malate dehydrogenase only"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "oxphos",
+      "title": "Oxidative phosphorylation",
+      "terms": [
+        "oxidative phosphorylation",
+        "electron transport chain",
+        "ATP synthase",
+        "respiratory chain",
+        "chemiosmotic theory",
+        "proton-motive force",
+        "proton motive force",
+        "cytochrome c oxidase",
+        "ubiquinone",
+        "coenzyme Q",
+        "Complex I",
+        "P/O ratio",
+        "uncoupler",
+        "2,4-dinitrophenol",
+        "respiratory control",
+        "ATP yield",
+        "cyanide",
+        "F₁F₀ ATP synthase",
+        "binding change mechanism",
+        "inner mitochondrial membrane"
+      ],
+      "body": [
+        "The electrons of NADH and FADH₂ pass through a chain of carriers in the **inner mitochondrial membrane** down a potential from −0.32 V to +0.82 V, the **electron transport chain**. The sequence is: **Complex I** (NADH dehydrogenase: NADH → FMN → Fe–S clusters → **ubiquinone**, Q; 4 H⁺ pumped); **Complex II** (succinate dehydrogenase, which feeds electrons from FADH₂ to Q; no pumping); **Complex III** (cytochrome bc₁: QH₂ → cytochrome c; 4 H⁺ by the Q-cycle); **Complex IV** (**cytochrome c oxidase**: 4 cytochrome c + O₂ + 4 H⁺ → 2 H₂O; 2–4 H⁺ pumped), where O₂ is reduced completely, with no release of partially reduced, toxic species. Cyanide, azide and CO bind the heme iron of Complex IV and stop respiration.",
+        "The energy released drives the pumping of protons from the matrix to the intermembrane space, creating an electrochemical gradient. This is **Mitchell’s chemiosmotic theory**: the gradient, not a chemical intermediate, couples electron transfer to ATP synthesis. The free energy stored is the **proton-motive force**:",
+        {
+          "eq": "Δp = Δψ − (2.303RT/F) ΔpH     ΔG (per mol H⁺) = −F·Δp"
+        },
+        "with Δψ ≈ 150–180 mV (matrix negative) and ΔpH ≈ 0.5–1 (matrix alkaline). The **ATP synthase** (F₁F₀) is a rotary motor. Protons flow through the membrane-embedded F₀ part, turning a ring of c subunits (8–15 per ring), which rotates the central γ stalk inside the F₁ head. The rotation (120° steps) drives conformational changes in the three catalytic β subunits (the **binding change mechanism**: loose, tight, open), which bind ADP + Pᵢ, form ATP in the tight state, and release it. With a c-ring of 10 subunits, each ATP needs 10/3 = 3.3 H⁺, and about 1 more H⁺ to import Pᵢ and exchange ATP for ADP across the membrane.",
+        {
+          "example": {
+            "title": "Energy in the proton gradient",
+            "problem": "Δψ = 160 mV and ΔpH = 0.75 at 37 °C. Find Δp and the energy available per proton. Is ~4 H⁺ per ATP enough to make ATP at ΔG = +55 kJ mol⁻¹?",
+            "solution": "Δp = 160 mV + 61.5 × 0.75 mV = 160 + 46 = 206 mV. Energy per mole of H⁺ = 96.485 × 0.206 = 19.9 kJ. Four protons give 79.5 kJ, more than the 55 kJ needed: efficiency 55/80 = 69%. (Three protons would give 60 kJ, barely enough, so the actual stoichiometry of ~4 H⁺ per ATP gives a margin.)"
+          }
+        },
+        {
+          "h": "Yield"
+        },
+        "The proton pumping per NADH is ~10 H⁺ (Complexes I, III, IV) and per FADH₂ ~6 H⁺ (III and IV only); dividing by ~4 H⁺ per ATP gives P/O ratios of ≈ 2.5 ATP per NADH and ≈ 1.5 ATP per FADH₂. Cytosolic NADH from glycolysis enters via shuttles (malate–aspartate, ≈ 2.5 ATP, or glycerol phosphate, ≈ 1.5). The bookkeeping for one glucose:",
+        {
+          "table": {
+            "head": [
+              "Stage",
+              "Direct ATP/GTP",
+              "NADH",
+              "FADH₂",
+              "ATP equivalents"
+            ],
+            "rows": [
+              [
+                "Glycolysis",
+                "2",
+                "2",
+                "—",
+                "2 + 5 = 7"
+              ],
+              [
+                "Pyruvate dehydrogenase (×2)",
+                "—",
+                "2",
+                "—",
+                "5"
+              ],
+              [
+                "Citric acid cycle (×2)",
+                "2",
+                "6",
+                "2",
+                "2 + 15 + 3 = 20"
+              ],
+              [
+                "**Total**",
+                "",
+                "",
+                "",
+                "**≈ 32**"
+              ]
+            ],
+            "caption": "ATP yield from complete oxidation of glucose (older textbooks give 36–38)."
+          }
+        },
+        "The oxidation of glucose has ΔG°′ = −2840 kJ mol⁻¹, and 32 ATP store 32 × 30.5 = 976 kJ: an efficiency of 34% under standard conditions (more at actual concentrations). **Respiratory control** couples the rate of respiration to the demand: with no ADP, the proton gradient builds up and slows the chain. **Uncouplers** (2,4-dinitrophenol, a protonophore that carries H⁺ back across the membrane) dissipate the gradient: respiration speeds up but no ATP is made, and the energy is released as heat. Brown fat uses a natural uncoupling protein (UCP1) for thermogenesis."
+      ],
+      "check": [
+        {
+          "q": "What does the proton-motive force drive?",
+          "a": "ATP synthesis by ATP synthase (and other transport)",
+          "wrong": [
+            "The electron flow",
+            "The citric acid cycle",
+            "Glycolysis"
+          ]
+        },
+        {
+          "q": "Why does 2,4-dinitrophenol raise the oxygen consumption but lower ATP production?",
+          "a": "It carries protons across the membrane, dissipating the gradient, so respiration runs unchecked without ATP synthesis",
+          "wrong": [
+            "It inhibits Complex IV",
+            "It blocks glycolysis",
+            "It destroys ATP synthase"
+          ]
+        },
+        {
+          "q": "How many ATP are formed per NADH by oxidative phosphorylation (modern estimate)?",
+          "a": "About 2.5",
+          "wrong": [
+            "About 1",
+            "About 7",
+            "About 36"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "photosynthesis",
+      "title": "Photosynthesis",
+      "terms": [
+        "photosynthesis",
+        "chloroplast",
+        "chloroplasts",
+        "Calvin cycle",
+        "light reactions",
+        "Rubisco",
+        "thylakoid",
+        "photosystem II",
+        "photosystem I",
+        "Z-scheme",
+        "oxygen-evolving complex",
+        "photophosphorylation",
+        "carbon fixation",
+        "photorespiration",
+        "C4 photosynthesis",
+        "stroma",
+        "light-harvesting complex",
+        "plastoquinone",
+        "ribulose 1,5-bisphosphate",
+        "3-phosphoglycerate",
+        "reaction center",
+        "quantum yield of photosynthesis",
+        "light-dependent reactions",
+        "dark reactions"
+      ],
+      "body": [
+        "**Photosynthesis** uses light to drive the reverse of respiration: 6 CO₂ + 6 H₂O → C₆H₁₂O₆ + 6 O₂, ΔG°′ = +2870 kJ mol⁻¹. It takes place in the **chloroplast** (a double-membrane organelle). The **thylakoid** membranes, flattened sacs stacked in grana, hold the light-capturing machinery, and the surrounding **stroma** holds the enzymes of CO₂ fixation. The process has two parts: the **light reactions** (in the thylakoid), which make ATP and NADPH and release O₂; and the **Calvin cycle** (in the stroma), which uses them to reduce CO₂.",
+        {
+          "h": "Light reactions"
+        },
+        "Light is absorbed by chlorophylls and carotenoids in **light-harvesting complexes** and the excitation energy is passed (by resonance energy transfer) to a **reaction center**, where the special pair of chlorophyll (P680 in photosystem II, P700 in photosystem I) loses an electron. The two photosystems operate in series, the **Z-scheme**:",
+        {
+          "list": [
+            "**Photosystem II**: P680* (E°′ ≈ −0.8 V) donates an electron to pheophytin and on to plastoquinone. The electron lost is replaced by the **oxygen-evolving complex** (a Mn₄CaO₅ cluster), which oxidizes water: 2 H₂O → O₂ + 4 H⁺ + 4 e⁻ (four photons per O₂, with the protons released into the thylakoid lumen).",
+            "**Cytochrome b₆f** passes electrons from plastoquinol to plastocyanin and pumps protons into the lumen.",
+            "**Photosystem I**: P700 absorbs a second photon, and the electron is passed to **ferredoxin** and then by ferredoxin–NADP⁺ reductase to NADP⁺, forming NADPH.",
+            "The proton gradient made by water oxidation and by cytochrome b₆f drives the chloroplast ATP synthase (**photophosphorylation**), exactly as in mitochondria but with the orientation reversed. Cyclic electron flow around PSI makes ATP only."
+          ]
+        },
+        "The linear electron flow from H₂O to NADP⁺ (ΔE°′ = −0.32 − 0.82 = −1.14 V, uphill by +220 kJ per 2 e⁻) requires two photons per electron, so 8 photons per O₂ (and per CO₂ fixed).",
+        {
+          "h": "The Calvin cycle"
+        },
+        "In the Calvin–Benson cycle, **Rubisco** (ribulose-1,5-bisphosphate carboxylase/oxygenase, the most abundant protein on Earth, slow at ~3 s⁻¹ per site) adds CO₂ to the five-carbon **ribulose 1,5-bisphosphate (RuBP)**, giving two molecules of 3-phosphoglycerate (**carbon fixation**). ATP and NADPH then reduce 3-phosphoglycerate to glyceraldehyde 3-phosphate (G3P), by reactions that are the reverse of glycolysis. Of every 6 G3P formed from 3 CO₂, one leaves as product and 5 are rearranged, using one more ATP each cycle, to regenerate 3 RuBP. Overall, to fix 3 CO₂ into one G3P the cycle uses 9 ATP and 6 NADPH, and for one glucose, 18 ATP and 12 NADPH. The enzymes are regulated by light (through ferredoxin–thioredoxin), so the “dark reactions” run in the light.",
+        "Rubisco also reacts with O₂ (**photorespiration**) at a rate that increases with temperature, wasting carbon and energy. C₄ plants (maize, sugarcane) avoid it by first fixing CO₂ into a four-carbon acid in mesophyll cells and releasing it at a high concentration around Rubisco in bundle-sheath cells, at a cost of 2 more ATP per CO₂.",
+        {
+          "example": {
+            "title": "Efficiency of photosynthesis",
+            "problem": "Making one glucose needs 12 NADPH and 18 ATP, and 48 photons of red light at 680 nm are the theoretical requirement (8 per CO₂). What fraction of the energy of the photons is stored in glucose (ΔG°′ = 2870 kJ mol⁻¹)?",
+            "solution": "Energy of one mole of 680 nm photons = N_A hc/λ = 119,627 kJ nm mol⁻¹/680 nm = 176 kJ. For 48 mol: 48 × 176 = 8450 kJ. Efficiency = 2870/8450 = 34%. In the field, with losses (reflection, saturation, respiration, photorespiration, white light), the efficiency of crops over the season is 1–3%."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Where does the O₂ released in photosynthesis come from?",
+          "a": "The oxidation of water in photosystem II",
+          "wrong": [
+            "CO₂",
+            "Glucose",
+            "NADPH"
+          ]
+        },
+        {
+          "q": "What are the products of the light reactions used by the Calvin cycle?",
+          "a": "ATP and NADPH",
+          "wrong": [
+            "Glucose and O₂",
+            "CO₂ and H₂O",
+            "ADP and NADP⁺"
+          ]
+        },
+        {
+          "q": "What is Rubisco’s role?",
+          "a": "It adds CO₂ to ribulose 1,5-bisphosphate (carbon fixation)",
+          "wrong": [
+            "It splits water",
+            "It makes ATP",
+            "It reduces NADP⁺"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "ΔG = ΔG°′ + RT ln Q. Coupling to ATP hydrolysis (−30.5 kJ mol⁻¹ standard, −50 to −65 in cells) drives unfavorable reactions. ΔG°′ = −nFΔE°′ links redox potentials to free energy; NADH → O₂ releases 219 kJ mol⁻¹.",
+    "Glycolysis: glucose → 2 pyruvate, net 2 ATP + 2 NADH, regulated at PFK-1; fermentation regenerates NAD⁺ (lactate or ethanol).",
+    "Pyruvate dehydrogenase gives acetyl-CoA; each turn of the citric acid cycle yields 3 NADH, 1 FADH₂, 1 GTP, 2 CO₂.",
+    "The respiratory chain pumps protons to build Δp = Δψ − 61.5 ΔpH (mV); ATP synthase (rotary, ~3.3 H⁺ per ATP plus transport) gives ≈ 2.5 ATP per NADH, 1.5 per FADH₂, ≈ 32 ATP per glucose.",
+    "Photosynthesis: PSII (water oxidation) and PSI in series (Z-scheme) make ATP and NADPH; the Calvin cycle (Rubisco) fixes 3 CO₂ with 9 ATP and 6 NADPH per G3P. Maximum efficiency ≈ 34%."
+  ],
+  "problems": [
+    {
+      "q": "In a muscle cell [ATP] = 5.0 mM, [ADP] = 0.50 mM and [Pᵢ] = 5.0 mM at 310 K. Calculate ΔG for ATP hydrolysis (ΔG°′ = −30.5 kJ mol⁻¹).",
+      "solution": "Q = [ADP][Pᵢ]/[ATP] = (0.50 × 10⁻³)(5.0 × 10⁻³)/(5.0 × 10⁻³) = 5.0 × 10⁻⁴ (water omitted). ΔG = −30.5 + (8.314 × 10⁻³)(310) ln(5.0 × 10⁻⁴) = −30.5 + 2.577 × (−7.60) = −30.5 − 19.6 = −50.1 kJ mol⁻¹.",
+      "a": "ΔG ≈ −50 kJ mol⁻¹"
+    },
+    {
+      "q": "The reaction malate + NAD⁺ → oxaloacetate + NADH has ΔG°′ = +29.7 kJ mol⁻¹ (K′ = 6 × 10⁻⁶), yet it proceeds in the citric acid cycle. How?",
+      "solution": "In the matrix, the next step of the cycle (citrate synthase, ΔG°′ ≈ −32 kJ mol⁻¹) removes oxaloacetate at once, so [oxaloacetate] is kept very low (~10⁻⁷ M), and NADH is reoxidized by the respiratory chain, keeping NADH/NAD⁺ low. With Q very small, ΔG = ΔG°′ + RT ln Q becomes ≈ 0 or negative. This is the principle of a metabolic pathway: the sum of the steps is strongly favorable and pulls each unfavorable step.",
+      "a": "Product removal by the next, strongly exergonic step keeps Q small."
+    },
+    {
+      "q": "Calculate the ATP yield from the complete oxidation of one molecule of palmitic acid (C₁₆) to CO₂: β-oxidation produces 7 FADH₂, 7 NADH and 8 acetyl-CoA, and 2 ATP equivalents are used to activate the fatty acid.",
+      "solution": "7 FADH₂ × 1.5 = 10.5; 7 NADH × 2.5 = 17.5; 8 acetyl-CoA × 10 (3 NADH × 2.5 + 1 FADH₂ × 1.5 + 1 GTP) = 80. Total = 108 − 2 (activation) = 106 ATP.",
+      "a": "106 ATP"
+    },
+    {
+      "q": "A chloroplast thylakoid lumen has pH 4.5 and the stroma pH 7.5. Taking Δψ ≈ 0, find the proton-motive force at 25 °C, and the minimal number of protons per ATP if ΔG for ATP synthesis in the chloroplast is +50 kJ mol⁻¹.",
+      "solution": "ΔpH = 3.0; Δp = 59.2 × 3.0 = 178 mV. Energy per proton = 96.485 × 0.178 = 17.2 kJ mol⁻¹. Protons per ATP ≥ 50/17.2 = 2.9, so at least 3; the chloroplast ATP synthase (c₁₄ ring, 14/3 = 4.7 H⁺ per ATP) works with a large margin.",
+      "a": "Δp = 178 mV; at least 3 H⁺ per ATP."
+    }
+  ]
+}

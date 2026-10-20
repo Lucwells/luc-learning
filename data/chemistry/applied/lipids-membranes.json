@@ -1,0 +1,312 @@
+{
+  "id": "lipids-membranes",
+  "view": "chapter",
+  "title": "Lipids and Biological Membranes",
+  "description": "Fatty acids, triglycerides, phospholipids and steroids; the bilayer; membrane transport and membrane potential.",
+  "overview": [
+    "Lipids are the biomolecules defined by their solubility: they dissolve in organic solvents and not in water. Their hydrocarbon chains store energy more densely than carbohydrates (about 37 kJ g⁻¹ against 17 kJ g⁻¹), and the amphipathic ones, with a polar head and a nonpolar tail, assemble spontaneously in water into the bilayers that enclose every cell. The membrane is a barrier, and a landscape in which proteins transport ions and molecules, with energy stored as concentration and electrical gradients.",
+    "This chapter covers the structure and chemistry of the major lipid classes, the physical chemistry of bilayers, and the thermodynamics of passive and active transport, ending with the origin of the membrane potential."
+  ],
+  "objectives": [
+    "Name fatty acids by the shorthand and explain how chain length, unsaturation and cis/trans geometry change the melting point.",
+    "Describe the structure of triglycerides, glycerophospholipids, sphingolipids and cholesterol, and the chemistry of saponification and hydrogenation.",
+    "Explain why amphiphiles form micelles and bilayers, and the fluid mosaic model.",
+    "Distinguish simple diffusion, facilitated diffusion, primary and secondary active transport.",
+    "Calculate ΔG of transport for neutral and charged solutes and the Nernst potential.",
+    "Explain the energetics of the Na⁺/K⁺-ATPase and the resting membrane potential."
+  ],
+  "sections": [
+    {
+      "id": "lipid-classes",
+      "title": "Lipid structures and chemistry",
+      "terms": [
+        "lipid",
+        "lipids",
+        "triglyceride",
+        "triglycerides",
+        "triacylglycerol",
+        "phospholipid",
+        "phospholipids",
+        "glycerophospholipid",
+        "phosphatidylcholine",
+        "sphingolipid",
+        "sphingomyelin",
+        "cholesterol",
+        "saturated fat",
+        "unsaturated fat",
+        "trans fat",
+        "steroid",
+        "steroids",
+        "steroid hormones",
+        "wax",
+        "fats and oils",
+        "omega-3 fatty acid",
+        "polyunsaturated fatty acid",
+        "saponification of fats",
+        "iodine number",
+        "hydrogenation of oils",
+        "lipid oxidation",
+        "rancidity",
+        "fatty acid shorthand",
+        "essential fatty acids",
+        "glycolipid",
+        "terpene",
+        "eicosanoid",
+        "prostaglandin"
+      ],
+      "body": [
+        "Fatty acids are the building blocks of most lipids. They are long, unbranched carboxylic acids with an even number of carbons (typically 12–24), shown in shorthand as C:D, the number of carbons and double bonds: palmitic acid 16:0, stearic acid 18:0, oleic acid 18:1 (Δ⁹), linoleic acid 18:2 (Δ⁹,¹²), α-linolenic acid 18:3. The ω (omega) number is the position of the first double bond from the methyl end: α-linolenic acid is an omega-3 (**polyunsaturated**) fatty acid and linoleic an omega-6. Humans cannot make linoleic or α-linolenic acids and must obtain them in the diet (the **essential fatty acids**), as precursors of the signalling **eicosanoids** (prostaglandins, leukotrienes).",
+        "Double bonds in natural fatty acids are almost always cis, which puts a 30° kink in the chain. Kinked chains cannot pack as tightly, so the van der Waals forces are weaker and the melting point is lower:",
+        {
+          "table": {
+            "head": [
+              "Fatty acid",
+              "Formula",
+              "m.p. (°C)"
+            ],
+            "rows": [
+              [
+                "Stearic acid (18:0)",
+                "C₁₇H₃₅COOH",
+                "69.6"
+              ],
+              [
+                "Elaidic acid (18:1 trans)",
+                "C₁₇H₃₃COOH",
+                "44"
+              ],
+              [
+                "Oleic acid (18:1 cis)",
+                "C₁₇H₃₃COOH",
+                "13.4"
+              ],
+              [
+                "Linoleic acid (18:2 cis,cis)",
+                "C₁₇H₃₁COOH",
+                "−5"
+              ]
+            ],
+            "caption": "Melting points of C₁₈ fatty acids. The trans isomer is straight, packs like a saturated chain, and has a much higher melting point than the cis isomer."
+          }
+        },
+        "This is the reason why a **saturated fat** (butter, lard) is solid at room temperature and an **unsaturated fat** (olive oil) is liquid. Partial catalytic hydrogenation of vegetable oils (H₂, Ni) raises their melting point to make margarine, but it also isomerizes some of the cis double bonds into straight **trans fats**, which raise LDL cholesterol and are now largely banned.",
+        {
+          "h": "Triglycerides"
+        },
+        "A **triglyceride** (triacylglycerol) is a triester of glycerol with three fatty acids, the form in which fat is stored (in adipose tissue, as anhydrous droplets). Hydrolysis with base, **saponification**, gives glycerol and the fatty acid salts (soap): (RCOO)₃C₃H₅ + 3 NaOH → C₃H₅(OH)₃ + 3 RCOONa. The **saponification number** (mg KOH per g of fat) measures the average chain length (the smaller the chain, the more moles per gram), and the **iodine number** (g of I₂ added per 100 g) measures the unsaturation. Unsaturated chains also undergo **autoxidation**: the doubly allylic hydrogen of linoleic acid (C–H bond energy ≈ 340 kJ mol⁻¹, against ≈ 410 for a normal CH₂) is easily abstracted by a radical, and the chain reaction with O₂ forms hydroperoxides that break down into smelly aldehydes (**rancidity**). Antioxidants (tocopherol, BHT) trap the radicals.",
+        {
+          "example": {
+            "title": "Saponification number",
+            "problem": "Tristearin (M = 891.5 g mol⁻¹) is saponified. How many mg of KOH (56.1 g mol⁻¹) are needed per gram of fat?",
+            "solution": "1 g = 1/891.5 = 1.122 × 10⁻³ mol; 3 mol KOH per mol of fat → 3.365 × 10⁻³ mol KOH = 189 mg. A fat with shorter chains (coconut oil, M ≈ 650) has a higher number (≈ 255), which is how the average chain length is found."
+          }
+        },
+        {
+          "h": "Phospholipids, sphingolipids and steroids"
+        },
+        "**Glycerophospholipids** replace one fatty acid of the triglyceride with a phosphate esterified to a polar head group (choline in **phosphatidylcholine**, ethanolamine, serine, inositol). They are amphipathic: a charged or polar head, two hydrocarbon tails (one is often unsaturated), the molecule with a cylinder shape that makes bilayers. **Sphingolipids** are based on the amino alcohol sphingosine with a fatty acid attached by an amide link (ceramide); **sphingomyelin** and the glycolipids (with sugar heads) are enriched in the outer leaflet of the plasma membrane and in nerve sheaths.",
+        "**Steroids** are built on a fused four-ring system (three six-membered rings and one five-membered ring), and are not esters. **Cholesterol** (27 carbons) has a rigid ring system, a small polar –OH head and a flexible hydrocarbon tail; it is a membrane component (up to 30–50 mol% in animal plasma membranes) and the precursor of the bile acids and the **steroid hormones** (cortisol, aldosterone, estradiol, testosterone), which diffuse across membranes and act on intracellular receptors. Waxes (long-chain esters of fatty acids and long-chain alcohols) form water-repellent coatings."
+      ],
+      "check": [
+        {
+          "q": "Why does oleic acid (cis) melt at a lower temperature than stearic acid?",
+          "a": "The cis double bond kinks the chain, weakening the packing and the van der Waals forces",
+          "wrong": [
+            "Oleic acid is shorter",
+            "Oleic acid has more hydrogen bonds",
+            "Stearic acid is ionized"
+          ]
+        },
+        {
+          "q": "What does saponification of a triglyceride produce?",
+          "a": "Glycerol and three fatty acid salts (soap)",
+          "wrong": [
+            "Three alcohols and CO₂",
+            "A phospholipid",
+            "Glycerol and three amines"
+          ]
+        },
+        {
+          "q": "What is the main structural feature of a steroid?",
+          "a": "Four fused rings (three six-membered and one five-membered)",
+          "wrong": [
+            "A glycerol backbone",
+            "Two long hydrocarbon tails",
+            "A peptide chain"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bilayer",
+      "title": "The lipid bilayer",
+      "terms": [
+        "lipid bilayer",
+        "cell membrane",
+        "cell membranes",
+        "membrane",
+        "plasma membrane",
+        "amphipathic",
+        "amphiphile",
+        "micelle",
+        "critical micelle concentration",
+        "liposome",
+        "fluid mosaic model",
+        "lateral diffusion",
+        "flip-flop",
+        "phase transition of membranes",
+        "membrane fluidity",
+        "integral membrane protein",
+        "peripheral membrane protein",
+        "detergent",
+        "hydrophobic effect in membranes",
+        "transmembrane helix",
+        "lipid raft",
+        "bilayer thickness"
+      ],
+      "body": [
+        "An **amphipathic** molecule has a polar (hydrophilic) head and a nonpolar (hydrophobic) tail. In water, the hydrophobic tails would force the neighboring water into an ordered cage; to avoid this loss of entropy they cluster together and the heads face the water (the hydrophobic effect again, as in protein folding). The shape of the molecule determines the aggregate. A molecule with a large head and one tail (soap, detergents, lysophospholipids) has a cone shape and forms spherical **micelles**, above a **critical micelle concentration** (CMC; for SDS ≈ 8 mM). A phospholipid with two tails has a cylindrical shape, too wide for a micelle, and forms a **lipid bilayer**: two sheets, tails in the interior, heads on the two outer faces, ≈ 4–5 nm thick. The edges are sealed by curving into closed vesicles (**liposomes**, used for drug delivery). The bilayer forms spontaneously and heals itself, since an exposed edge is unfavorable. The CMC of phospholipids is extremely low (≈ 10⁻¹⁰ M), so bilayers are stable.",
+        "The **fluid mosaic model** (Singer and Nicolson, 1972) describes the membrane as a two-dimensional fluid in which proteins float. Lipids diffuse rapidly within their own leaflet (**lateral diffusion**, D ≈ 1 µm² s⁻¹, so a lipid travels across a bacterial cell, 2 µm, in ≈ 1 s) but rarely cross to the other leaflet (**flip-flop**: hours to days without an enzyme, **flippase**), so the two faces of the membrane differ in composition (phosphatidylserine inside, sphingomyelin and glycolipids outside). **Integral membrane proteins** span the bilayer, typically with a hydrophobic α-helix of ~20 residues (≈ 3 nm) for each crossing (**transmembrane helix**) or β-barrels; **peripheral proteins** bind to the surface.",
+        "The fluidity depends on temperature and composition. Below a transition temperature T_m, the bilayer is a gel with ordered, all-trans chains; above it, it is a liquid-crystalline fluid with disordered chains. Cells adapt (**homeoviscous adaptation**): bacteria increase the proportion of unsaturated lipids at low temperature. **Cholesterol** is a fluidity buffer: it stiffens a fluid membrane (by ordering the chains next to its rigid ring), and fluidizes a gel (by preventing close packing), abolishing the sharp transition. Ordered, cholesterol-rich microdomains (**lipid rafts**) may concentrate signalling proteins."
+      ],
+      "check": [
+        {
+          "q": "Why do phospholipids form bilayers rather than micelles?",
+          "a": "Two bulky hydrocarbon tails give a cylindrical shape that cannot pack into a sphere",
+          "wrong": [
+            "They are too large to dissolve",
+            "They have no head group",
+            "They have a single tail"
+          ]
+        },
+        {
+          "q": "What does cholesterol do to a fluid membrane?",
+          "a": "Makes it less fluid (stiffer), and broadens the gel-to-fluid transition",
+          "wrong": [
+            "Makes it more fluid at all temperatures",
+            "Dissolves it",
+            "Has no effect on fluidity"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "transport",
+      "title": "Membrane transport",
+      "terms": [
+        "passive transport",
+        "active transport",
+        "facilitated diffusion",
+        "sodium–potassium pump",
+        "sodium-potassium pump",
+        "Na⁺/K⁺-ATPase",
+        "primary active transport",
+        "secondary active transport",
+        "symport",
+        "antiport",
+        "uniport",
+        "ion channel",
+        "aquaporin",
+        "carrier protein",
+        "GLUT1",
+        "simple diffusion",
+        "permeability coefficient",
+        "electrochemical gradient",
+        "ionophore",
+        "gated channel",
+        "ABC transporter",
+        "resting potential",
+        "Nernst potential",
+        "Goldman equation",
+        "action potential"
+      ],
+      "body": [
+        "A bilayer is permeable to small nonpolar molecules (O₂, CO₂, steroids), slowly to small polar uncharged ones (water, urea, ethanol), and almost impermeable to ions and large polar molecules (permeability of Na⁺ ≈ 10⁻¹⁴ cm s⁻¹ against 10⁻² cm s⁻¹ for small hydrophobic molecules). Passage through the nonpolar interior needs the solute to shed its water: the permeability is correlated with its oil/water partition coefficient. All other transport needs proteins.",
+        {
+          "list": [
+            "**Simple diffusion** through the lipid: down the gradient, flux J = P·Δc (Fick’s law, with P the permeability coefficient), linear in concentration, not saturable.",
+            "**Facilitated diffusion** (passive transport) uses channel or carrier proteins and still goes down the electrochemical gradient, with no energy input. It is specific and saturable. Examples: **ion channels** (K⁺ channels select K⁺ over Na⁺ by 10⁴ with carbonyl oxygens that replace the water of hydration of K⁺ but not of the smaller Na⁺), **aquaporins** (10⁹ water molecules per second per channel), and the **GLUT1** glucose carrier (K_m ≈ 1.5 mM, which cycles through two conformations).",
+            "**Active transport** moves solutes against their gradient and is coupled to a source of free energy. In **primary active transport** it is ATP hydrolysis (P-type ATPases, the Na⁺/K⁺ pump, Ca²⁺ pumps; ABC transporters). In **secondary active transport**, the gradient of one ion drives the uphill movement of another: a **symporter** moves both in the same direction (intestinal Na⁺–glucose cotransporter), an **antiporter** in opposite directions (Na⁺/Ca²⁺ exchanger)."
+          ]
+        },
+        {
+          "h": "Energetics of transport"
+        },
+        "The free energy to move a solute from side 1 (concentration c₁) to side 2 (c₂), for a solute of charge z across a potential difference Δψ = ψ₂ − ψ₁, is the **electrochemical potential** difference:",
+        {
+          "eq": "ΔG = RT ln(c₂/c₁) + zFΔψ"
+        },
+        "For an uncharged solute the second term vanishes. Moving glucose into a cell against a 100-fold gradient at 37 °C costs ΔG = (8.314 × 310 K) ln 100 = 11.9 kJ mol⁻¹, an amount that the hydrolysis of one ATP (about −50 kJ mol⁻¹ in cells) can pay with energy to spare.",
+        {
+          "h": "Membrane potential"
+        },
+        "If the membrane is permeable to only one ion, it diffuses until the electrical potential balances the chemical gradient (ΔG = 0), giving the **Nernst potential**:",
+        {
+          "eq": "E_ion = (RT/zF) ln([ion]_out/[ion]_in) = (61.5 mV/z) log([ion]_out/[ion]_in)   (37 °C)"
+        },
+        "A typical neuron has [K⁺] = 140 mM inside and 5 mM outside, [Na⁺] = 12 mM inside and 145 mM outside. Then E_K = 61.5 × log(5/140) = −89 mV and E_Na = 61.5 × log(145/12) = +66 mV. The **resting potential** is −60 to −70 mV, close to E_K because at rest the membrane is far more permeable to K⁺ (through leak channels) than to Na⁺, as the Goldman equation expresses by weighting each ion’s Nernst term by its permeability. On stimulation, voltage-gated Na⁺ channels open and the potential swings toward E_Na (the upstroke of the **action potential**); K⁺ channels then restore it.",
+        "The gradients are maintained by the **sodium–potassium pump** (Na⁺/K⁺-ATPase), which uses one ATP per cycle to export 3 Na⁺ and import 2 K⁺ (electrogenic: net +1 charge out). A resting neuron spends 20–40% of its ATP on it (in the brain, ~25% of the resting energy).",
+        {
+          "example": {
+            "title": "Energy cost of one pump cycle",
+            "problem": "Calculate ΔG for the export of 3 Na⁺ and the import of 2 K⁺ per ATP at 37 °C with the concentrations above and a membrane potential ψ_in − ψ_out = −70 mV. Compare it with the free energy of ATP hydrolysis (about −55 kJ mol⁻¹ in the cell).",
+            "solution": "RT = 8.314 × 310 = 2.58 kJ mol⁻¹. Na⁺ out (in → out): ΔG = RT ln(145/12) + FΔψ(out − in = +0.070 V) = 2.58 × 2.49 + 96.5 × 0.070 = 6.43 + 6.75 = 13.2 kJ per mole of Na⁺, so 39.5 kJ for 3. K⁺ in (out → in): ΔG = RT ln(140/5) + F(−0.070) = 2.58 × 3.33 − 6.75 = 8.59 − 6.75 = 1.8 kJ per mole, so 3.7 kJ for 2. Total +43 kJ per cycle, supplied by ATP hydrolysis (−55 kJ), an efficiency of ≈ 80%."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "What distinguishes facilitated diffusion from active transport?",
+          "a": "Facilitated diffusion goes down the electrochemical gradient and needs no energy input",
+          "wrong": [
+            "It does not use proteins",
+            "It always requires ATP",
+            "It moves solutes against the gradient"
+          ]
+        },
+        {
+          "q": "What is E_K for [K⁺]out = 5 mM and [K⁺]in = 140 mM at 37 °C?",
+          "a": "About −89 mV",
+          "wrong": [
+            "+89 mV",
+            "−61.5 mV",
+            "0 mV"
+          ]
+        },
+        {
+          "q": "The Na⁺/K⁺-ATPase moves per ATP…",
+          "a": "3 Na⁺ out and 2 K⁺ in",
+          "wrong": [
+            "2 Na⁺ out and 3 K⁺ in",
+            "1 Na⁺ out and 1 K⁺ in",
+            "3 Na⁺ in and 2 K⁺ out"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Fatty acids: chain length and cis unsaturation set the melting point (stearic 70 °C, oleic 13 °C). Trans fats pack like saturated ones. Triglycerides are saponified by base; unsaturated chains autoxidize.",
+    "Phospholipids and sphingolipids are amphipathic and assemble into bilayers (two tails → cylinder). Steroids have a four-ring skeleton; cholesterol buffers fluidity and is the precursor of steroid hormones.",
+    "Fluid mosaic membranes: rapid lateral diffusion, rare flip-flop, integral proteins with transmembrane helices.",
+    "Transport: simple diffusion, facilitated diffusion (channels, carriers), primary active (ATPases) and secondary active (symport, antiport). ΔG = RT ln(c₂/c₁) + zFΔψ.",
+    "Nernst: E = (61.5/z) log(out/in) at 37 °C; resting potential near E_K. The Na⁺/K⁺ pump uses 1 ATP for 3 Na⁺ out and 2 K⁺ in."
+  ],
+  "problems": [
+    {
+      "q": "A triglyceride has two oleic acid chains (18:1) and one palmitic acid chain (16:0). Calculate its molar mass (glycerol C₃H₈O₃ = 92.09; oleic acid = 282.47; palmitic acid = 256.43; water = 18.02), and the mass of I₂ (253.8 g mol⁻¹) that adds to 100 g (iodine number).",
+      "solution": "M = 92.09 + 2(282.47) + 256.43 − 3(18.02) = 92.09 + 564.94 + 256.43 − 54.06 = 859.4 g mol⁻¹. Two C=C per molecule: 100 g = 0.1164 mol of fat → 0.2327 mol I₂ = 59.1 g. Iodine number ≈ 59.",
+      "a": "M = 859 g mol⁻¹; iodine number ≈ 59"
+    },
+    {
+      "q": "The concentration of Ca²⁺ is 1 × 10⁻⁷ M in the cytosol and 2 mM outside. What is the Nernst potential for Ca²⁺ at 37 °C, and what is ΔG for pumping one mole of Ca²⁺ out of a cell with ψ_in − ψ_out = −70 mV?",
+      "solution": "E_Ca = (61.5/2) log(2 × 10⁻³/1 × 10⁻⁷) = 30.75 × log(2 × 10⁴) = 30.75 × 4.301 = +132 mV. ΔG(out) = RT ln(c_out/c_in) + zF(ψ_out − ψ_in) = 2.58 × ln(2 × 10⁴) + 2 × 96.5 × 0.070 = 2.58 × 9.90 + 13.5 = 25.5 + 13.5 = 39.0 kJ mol⁻¹.",
+      "a": "E_Ca = +132 mV; ΔG = +39 kJ mol⁻¹"
+    },
+    {
+      "q": "Explain why a membrane rich in saturated lipids becomes more rigid at 10 °C, and how a bacterium would respond.",
+      "solution": "Saturated chains are straight, so they pack closely and cross the gel transition (T_m) at a higher temperature; at 10 °C the membrane is a gel of low fluidity, in which protein function and transport suffer. The bacterium increases the proportion of unsaturated (cis) fatty acids by desaturase enzymes (homeoviscous adaptation) to lower T_m.",
+      "a": "Gel-phase transition; synthesis of more unsaturated lipids."
+    }
+  ]
+}

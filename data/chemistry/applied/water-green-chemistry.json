@@ -1,0 +1,361 @@
+{
+  "id": "water-green-chemistry",
+  "view": "chapter",
+  "title": "Water Chemistry, Biogeochemical Cycles and Green Chemistry",
+  "description": "Water quality and treatment, the carbon and nitrogen cycles, and the principles and metrics of green chemistry.",
+  "overview": [
+    "Water is both the medium of life and the main carrier of pollutants. Its quality is described by a handful of measurable properties: hardness, alkalinity, dissolved oxygen, oxygen demand and the content of pathogens and toxic compounds, and treatment plants use acid–base, precipitation and redox chemistry to meet the standards for drinking water. The elements that make up living matter circulate between the atmosphere, ocean, soil and organisms in biogeochemical cycles, which human activity has strongly perturbed (fossil carbon, industrial nitrogen fixation).",
+    "The chapter ends with green chemistry: the design of chemical products and processes that reduce or eliminate hazardous substances, with the quantitative metrics (atom economy, E-factor) that make the comparison of processes objective."
+  ],
+  "objectives": [
+    "Calculate water hardness in mg L⁻¹ as CaCO₃ and describe softening methods.",
+    "Describe coagulation, flocculation, filtration and chlorination, including the pH dependence of disinfection by HOCl.",
+    "Explain dissolved oxygen, BOD and COD, and use first-order BOD kinetics.",
+    "Describe the carbon and nitrogen cycles, the main reservoirs and fluxes, and the human perturbations.",
+    "State the twelve principles of green chemistry and calculate atom economy and E-factor.",
+    "Compare synthetic routes by their green metrics."
+  ],
+  "sections": [
+    {
+      "id": "water-quality",
+      "title": "Water quality and treatment",
+      "terms": [
+        "water treatment",
+        "coagulation",
+        "flocculation",
+        "chlorination",
+        "water hardness",
+        "hard water",
+        "dissolved oxygen",
+        "biochemical oxygen demand",
+        "water softening",
+        "alkalinity",
+        "chemical oxygen demand",
+        "BOD",
+        "COD",
+        "eutrophication",
+        "alum",
+        "hypochlorous acid",
+        "trihalomethanes",
+        "disinfection by-products",
+        "lime–soda softening",
+        "ion-exchange softening",
+        "reverse osmosis",
+        "sedimentation",
+        "filtration of water",
+        "total dissolved solids",
+        "turbidity",
+        "Henry's law and oxygen solubility",
+        "oxygen sag",
+        "potable water",
+        "wastewater treatment",
+        "activated sludge",
+        "ozonation of water",
+        "UV disinfection"
+      ],
+      "body": [
+        {
+          "h": "Hardness and alkalinity"
+        },
+        "**Water hardness** is the concentration of dissolved divalent cations, mainly Ca²⁺ and Mg²⁺ (from dissolution of limestone and dolomite), expressed as the equivalent mass of CaCO₃ per liter. Hard water forms scale (CaCO₃, on heating: Ca²⁺ + 2 HCO₃⁻ → CaCO₃ + CO₂ + H₂O) and reacts with soap to give insoluble precipitates (2 C₁₇H₃₅COO⁻ + Ca²⁺ → Ca(C₁₇H₃₅COO)₂). Water above 180 mg L⁻¹ is “very hard”. **Alkalinity** (the capacity to neutralize acid, mainly HCO₃⁻ and CO₃²⁻) is a buffer and is measured by titration with strong acid. **Water softening** removes Ca²⁺ and Mg²⁺: **lime–soda** (Ca(OH)₂ removes the temporary hardness, HCO₃⁻, by precipitating CaCO₃ and Mg(OH)₂, and Na₂CO₃ removes the permanent hardness), or **ion exchange** (a resin of sulfonated polystyrene in the Na⁺ form: 2 R–SO₃Na + Ca²⁺ → (R–SO₃)₂Ca + 2 Na⁺, regenerated with concentrated NaCl).",
+        {
+          "example": {
+            "title": "Hardness",
+            "problem": "A groundwater has 80.0 mg L⁻¹ Ca²⁺ and 24.0 mg L⁻¹ Mg²⁺. Calculate the hardness as mg L⁻¹ CaCO₃.",
+            "solution": "Convert each to the CaCO₃ equivalent with the molar mass ratio (since each M²⁺ is equivalent to one CaCO₃): Ca: 80.0 × 100.09/40.08 = 199.8; Mg: 24.0 × 100.09/24.31 = 98.8. Total = 298.6 ≈ 299 mg L⁻¹ as CaCO₃: very hard water."
+          }
+        },
+        {
+          "h": "Treatment of drinking water"
+        },
+        {
+          "list": [
+            "**Coagulation and flocculation**: suspended colloids carry a negative surface charge that keeps them apart. Adding **alum**, Al₂(SO₄)₃, hydrolyzes to the gelatinous Al(OH)₃: Al₂(SO₄)₃ + 6 HCO₃⁻ → 2 Al(OH)₃↓ + 3 SO₄²⁻ + 6 CO₂ (the alkalinity of the water is consumed). The Al³⁺ and the polymeric hydroxide neutralize the charge (coagulation), and slow stirring with polymer aids lets the particles collide and grow into flocs (flocculation) that settle out (sedimentation) and are removed by sand filtration. Iron(III) chloride is used in the same way.",
+            "**Disinfection**: **chlorination** adds Cl₂ (or hypochlorite): Cl₂ + H₂O ⇌ HOCl + H⁺ + Cl⁻ and HOCl ⇌ H⁺ + OCl⁻ (pK_a = 7.54). Hypochlorous acid is the more effective disinfectant (a neutral molecule that penetrates cells; ~100 times more effective than OCl⁻), so the pH must be below ~8. A residual of free chlorine (0.2–1 mg L⁻¹) protects the distribution system. Chlorine reacts with natural organic matter to give **trihalomethanes** (CHCl₃ and others), carcinogenic **disinfection by-products** that are regulated (80 µg L⁻¹ in the US), so ozone, UV light or chloramine (NH₂Cl, more persistent, fewer by-products) is used as an alternative.",
+            "**Membranes**: reverse osmosis forces water through a semipermeable membrane against the osmotic pressure (≈ 27 atm for seawater, 35 g L⁻¹ NaCl, with operating pressures of 55–70 bar) for desalination."
+          ]
+        },
+        {
+          "example": {
+            "title": "Disinfection and pH",
+            "problem": "What fraction of free chlorine is HOCl at pH 7.0 and at pH 8.5 (pK_a = 7.54)?",
+            "solution": "Fraction HOCl = 1/(1 + 10^{pH − pK_a}). At pH 7.0: 1/(1 + 10^{−0.54}) = 1/(1 + 0.288) = 0.776. At pH 8.5: 1/(1 + 10^{0.96}) = 1/(1 + 9.12) = 0.099. At the higher pH only about 10% of the chlorine is in the active form, and the disinfection must be increased accordingly."
+          }
+        },
+        {
+          "h": "Oxygen in natural waters"
+        },
+        "Fish and aerobic bacteria need **dissolved oxygen** (DO). Its saturation concentration, by Henry’s law with p(O₂) = 0.21 atm, is 14.6 mg L⁻¹ at 0 °C and 8.3 mg L⁻¹ at 25 °C, decreasing as the temperature rises (the gas solubility falls, since dissolution is exothermic); fish need > 5 mg L⁻¹. Organic pollution consumes oxygen when microorganisms oxidize it. The **biochemical oxygen demand (BOD)** is the oxygen consumed by microorganisms in a sample incubated in the dark at 20 °C, usually for 5 days (BOD₅). The oxidation is first order in the oxidizable organic matter L: the oxygen consumed by time t is BOD_t = L₀(1 − e^{−kt}), with k ≈ 0.1–0.3 d⁻¹. The **chemical oxygen demand (COD)** uses a strong oxidant (dichromate in hot acid) and gives the total oxidizable material in 2 hours; COD ≥ BOD. The theoretical demand follows from the stoichiometry, such as C₆H₁₂O₆ + 6 O₂ → 6 CO₂ + 6 H₂O, i.e. 192/180.16 = 1.07 g of O₂ per g of glucose.",
+        {
+          "example": {
+            "title": "BOD kinetics",
+            "problem": "A wastewater sample has BOD₅ = 200 mg L⁻¹ with k = 0.23 d⁻¹. What is the ultimate BOD (L₀), and how much oxygen is consumed in the first 2 days?",
+            "solution": "BOD₅ = L₀(1 − e^{−0.23 × 5}) = L₀(1 − 0.317) = 0.683 L₀, so L₀ = 200/0.683 = 293 mg L⁻¹. After 2 days: 293 × (1 − e^{−0.46}) = 293 × 0.369 = 108 mg L⁻¹."
+          }
+        },
+        "When nutrients (phosphate, nitrate) from fertilizer and sewage enter a lake, algae bloom (**eutrophication**); on death they are decomposed by bacteria which consume the oxygen of deeper water, and fish die. In wastewater treatment, the **activated sludge** process aerates the water with a suspension of microorganisms that oxidize organic matter (reducing BOD by 90%), followed by settling and disinfection."
+      ],
+      "check": [
+        {
+          "q": "Why is chlorination less effective at high pH?",
+          "a": "HOCl (pK_a 7.54) is deprotonated to the less active OCl⁻",
+          "wrong": [
+            "Chlorine gas evaporates",
+            "OH⁻ precipitates chlorine",
+            "Bacteria become resistant above pH 7"
+          ]
+        },
+        {
+          "q": "Why does dissolved oxygen fall in warm water?",
+          "a": "Gas solubility decreases with temperature",
+          "wrong": [
+            "Warm water contains more organisms only",
+            "Oxygen reacts with water",
+            "Henry’s constant increases"
+          ]
+        },
+        {
+          "q": "What does alum do in water treatment?",
+          "a": "Forms Al(OH)₃ flocs that neutralize colloid charge and trap particles",
+          "wrong": [
+            "It kills bacteria",
+            "It removes Ca²⁺ by ion exchange",
+            "It raises the pH"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cycles",
+      "title": "The carbon and nitrogen cycles",
+      "terms": [
+        "carbon cycle",
+        "nitrogen cycle",
+        "nitrogen fixation",
+        "nitrification",
+        "denitrification",
+        "biogeochemical cycle",
+        "reservoir",
+        "flux",
+        "residence time",
+        "ammonification",
+        "anammox",
+        "airborne fraction",
+        "carbon sink",
+        "fossil fuel emissions",
+        "biological carbon pump",
+        "fertilizer runoff",
+        "nitrate pollution",
+        "methemoglobinemia",
+        "Haber–Bosch and the nitrogen cycle",
+        "assimilation"
+      ],
+      "body": [
+        "In a **biogeochemical cycle** an element moves among **reservoirs** (atmosphere, ocean, land, living matter, rocks) at rates called **fluxes**. The **residence time** of an element in a reservoir is the amount in the reservoir divided by the flux out; if the inflow equals the outflow the reservoir is at steady state.",
+        {
+          "h": "Carbon"
+        },
+        "The reservoirs (in PgC, 1 Pg = 10¹⁵ g): atmosphere ≈ 880 (CO₂, now 420 ppm), surface ocean ≈ 900, deep ocean ≈ 37,000 (as dissolved bicarbonate), soils ≈ 1500–2400, terrestrial biomass ≈ 550, and fossil fuel reserves ≈ 4000+ in the ground. The big natural fluxes are photosynthesis and respiration (≈ 120 PgC y⁻¹ each on land) and the ocean–atmosphere exchange (≈ 90 PgC y⁻¹ each way), giving a residence time of CO₂ in the atmosphere of about 4 years. Human emissions of ≈ 10 PgC y⁻¹ (fossil fuels and cement ≈ 9.5, land use ≈ 1) are small compared with these but they are not balanced by any return flux in the short term: about 45% stays in the atmosphere (the **airborne fraction**), the rest enters the ocean (≈ 25%) and the land biosphere (≈ 30%) (the **carbon sinks**). In the long term (millennia) silicate weathering (CaSiO₃ + 2 CO₂ + 3 H₂O → Ca²⁺ + 2 HCO₃⁻ + H₄SiO₄) and burial of carbonate shells in sediments remove the excess.",
+        {
+          "example": {
+            "title": "Atmospheric CO₂ growth",
+            "problem": "Emissions are 10 PgC y⁻¹ with an airborne fraction of 0.45. Convert to ppm per year (1 ppm CO₂ ≈ 2.13 PgC).",
+            "solution": "Retained in the air: 0.45 × 10 = 4.5 PgC y⁻¹. 4.5/2.13 = 2.1 ppm y⁻¹, close to the observed growth rate of 2.3–2.5 ppm y⁻¹ in recent years."
+          }
+        },
+        {
+          "h": "Nitrogen"
+        },
+        "N₂ is 78% of the air, but it is inert (the triple bond has a dissociation energy of 945 kJ mol⁻¹); most organisms can use only “fixed” nitrogen. The processes:",
+        {
+          "list": [
+            "**Nitrogen fixation**: conversion of N₂ to NH₃. Biological fixation by *Rhizobium* in legume root nodules and cyanobacteria, using the enzyme **nitrogenase** (Fe–Mo cofactor; N₂ + 8 H⁺ + 8 e⁻ + 16 ATP → 2 NH₃ + H₂ + 16 ADP + 16 Pᵢ). Lightning (N₂ + O₂ → 2 NO). Industrially, the Haber–Bosch process (see the chapter on industrial processes).",
+            "**Ammonification**: decomposition of organic nitrogen to NH₄⁺. **Nitrification**: aerobic bacteria oxidize NH₄⁺ → NO₂⁻ (*Nitrosomonas*) → NO₃⁻ (*Nitrobacter*), with the release of acid: NH₄⁺ + 2 O₂ → NO₃⁻ + 2 H⁺ + H₂O.",
+            "**Assimilation**: uptake of NH₄⁺ and NO₃⁻ by plants and microbes into amino acids.",
+            "**Denitrification**: anaerobic bacteria use nitrate as the electron acceptor in place of oxygen: 2 NO₃⁻ + 10 e⁻ + 12 H⁺ → N₂ + 6 H₂O (with the intermediate N₂O, a greenhouse gas and ozone-depleting substance). **Anammox** converts NH₄⁺ and NO₂⁻ directly into N₂."
+          ]
+        },
+        "Human industrial fixation (≈ 120 Tg N y⁻¹, mainly fertilizer) now exceeds the natural terrestrial fixation (≈ 60 Tg N y⁻¹) and supports about half of the world population. The excess reactive nitrogen runs off to waters (nitrate in drinking water causes methemoglobinemia in infants, limit 10 mg L⁻¹ as N; eutrophication; dead zones in the Gulf of Mexico), and enters the air as NO_x (smog, acid rain) and N₂O (GWP 265)."
+      ],
+      "check": [
+        {
+          "q": "Why is N₂ hard to fix?",
+          "a": "The N≡N triple bond is very strong (945 kJ mol⁻¹) and nonpolar",
+          "wrong": [
+            "N₂ is not abundant",
+            "N₂ is insoluble in cells only",
+            "N₂ is radioactive"
+          ]
+        },
+        {
+          "q": "What is denitrification?",
+          "a": "Anaerobic reduction of nitrate to N₂ (or N₂O)",
+          "wrong": [
+            "Oxidation of ammonia to nitrate",
+            "Conversion of N₂ to NH₃",
+            "Uptake of nitrate by plants"
+          ]
+        },
+        {
+          "q": "The airborne fraction of CO₂ emissions is about…",
+          "a": "45%",
+          "wrong": [
+            "100%",
+            "5%",
+            "0%"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "green-chemistry",
+      "title": "Green chemistry and its metrics",
+      "terms": [
+        "green chemistry",
+        "atom economy",
+        "E-factor",
+        "process mass intensity",
+        "twelve principles of green chemistry",
+        "waste prevention",
+        "renewable feedstocks",
+        "green solvents",
+        "supercritical CO₂",
+        "ionic liquids",
+        "biocatalysis",
+        "catalysis in green chemistry",
+        "BHC ibuprofen process",
+        "Boots process",
+        "reaction mass efficiency",
+        "life-cycle assessment",
+        "inherently safer chemistry",
+        "design for degradation",
+        "solvent-free reactions",
+        "microwave synthesis",
+        "Anastas and Warner"
+      ],
+      "body": [
+        "**Green chemistry** (Anastas and Warner, 1998) is the design of chemical products and processes that reduce or eliminate the use and generation of hazardous substances. It prevents pollution at the source, rather than treating the waste. The twelve principles can be grouped:",
+        {
+          "list": [
+            "**Prevent waste** rather than treat it, and **maximize atom economy** so that most atoms of the reagents end up in the product.",
+            "**Less hazardous syntheses**, safer chemicals and products designed to degrade after use; **safer solvents and auxiliaries** (water, supercritical CO₂, ionic liquids, or none); **energy efficiency** (ambient temperature and pressure).",
+            "Use **renewable feedstocks** (biomass in place of petroleum), **reduce derivatives** (protecting groups add steps and waste), and prefer **catalytic** over stoichiometric reagents (catalysts are used in small amounts and repeated, and enzymes work in water at 25 °C).",
+            "**Real-time analysis** to prevent pollution, and **inherently safer chemistry** to minimize accidents (explosions, releases)."
+          ]
+        },
+        {
+          "h": "Metrics"
+        },
+        "**Atom economy** (Trost) is the fraction of the mass of the reactants that is incorporated into the desired product, calculated from the balanced equation (it ignores yield and solvents):",
+        {
+          "eq": "Atom economy = (M of desired product / Σ M of all reactants) × 100%"
+        },
+        "Additions and rearrangements are 100% atom economical (Diels–Alder, hydrogenation); substitutions, eliminations and Wittig reactions generate by-products. The **E-factor** (Sheldon) is the mass ratio of waste to product (E = kg waste / kg product, including solvent and everything that is not the product, except water): it depends strongly on the industry, and **process mass intensity** (PMI = total mass in / mass of product = E + 1) is similar.",
+        {
+          "table": {
+            "head": [
+              "Industry",
+              "Production (t y⁻¹)",
+              "E-factor (kg waste per kg product)"
+            ],
+            "rows": [
+              [
+                "Oil refining",
+                "10⁶–10⁸",
+                "< 0.1"
+              ],
+              [
+                "Bulk chemicals",
+                "10⁴–10⁶",
+                "< 1–5"
+              ],
+              [
+                "Fine chemicals",
+                "10²–10⁴",
+                "5–50"
+              ],
+              [
+                "Pharmaceuticals",
+                "10–10³",
+                "25–100+"
+              ]
+            ],
+            "caption": "E-factors by industry. Smaller scales and multistep syntheses produce more waste per kilogram."
+          }
+        },
+        {
+          "example": {
+            "title": "Ibuprofen: Boots vs BHC",
+            "problem": "The BHC (green) route to ibuprofen (C₁₃H₁₈O₂, 206.28 g mol⁻¹) takes isobutylbenzene (134.22) + acetic anhydride (102.09) → 4′-isobutylacetophenone + acetic acid; ketone + H₂ (2.016) → alcohol (Raney Ni); alcohol + CO (28.01) → ibuprofen (Pd catalyst). Calculate the atom economy. The older Boots process, with six steps, has an atom economy of 40%.",
+            "solution": "Reactants: 134.22 + 102.09 + 2.016 + 28.01 = 266.34 g mol⁻¹. Atom economy = 206.28/266.34 = 77.4%. If the acetic acid by-product is recovered and sold, the effective atom economy approaches 99%. The BHC process has three steps against six, uses catalytic hydrogenation and carbonylation in place of stoichiometric aluminum chloride and other reagents, and generates a small fraction of the waste of the Boots route."
+          }
+        },
+        {
+          "example": {
+            "title": "E-factor",
+            "problem": "A drug synthesis produces 2.0 kg of product and consumes 140 kg of solvent (90% recovered by distillation, 10% lost) and 20 kg of reagents, of which 18 kg end up in by-products and 2 kg as dissolved salts in an aqueous waste stream. Estimate the E-factor, ignoring water.",
+            "solution": "Waste = unrecovered solvent (0.10 × 140 = 14 kg) + by-products (18 kg) + dissolved salts in the aqueous waste (2 kg, water itself is not counted) = 34 kg. E = 34/2.0 = 17 kg per kg. Without solvent recycling the waste would be 140 + 18 + 2 = 160 kg and E = 80, so recycling the solvent is the most effective measure."
+          }
+        },
+        "Examples of success: supercritical CO₂ (above 31 °C and 74 bar) replaced perchloroethylene in dry cleaning and methylene chloride in decaffeination; polylactic acid (PLA) is made from fermented corn sugar; biocatalytic routes to sitagliptin (an engineered transaminase replaced a rhodium-catalyzed high-pressure hydrogenation); water-based Suzuki couplings (see the organic laboratory chapter). Metrics have to be used carefully: atom economy ignores toxicity, solvents and yield, so life-cycle assessment gives the complete picture."
+      ],
+      "check": [
+        {
+          "q": "Which reaction type has 100% atom economy?",
+          "a": "Addition (e.g. Diels–Alder, hydrogenation)",
+          "wrong": [
+            "Substitution",
+            "Elimination",
+            "Wittig reaction"
+          ]
+        },
+        {
+          "q": "A process makes 1 kg of product and 25 kg of waste. Its E-factor is…",
+          "a": "25",
+          "wrong": [
+            "26",
+            "0.04",
+            "1"
+          ]
+        },
+        {
+          "q": "Why are catalytic reagents preferred in green chemistry?",
+          "a": "They are used in small amounts and regenerated, avoiding stoichiometric waste",
+          "wrong": [
+            "They are always cheaper",
+            "They are consumed completely",
+            "They make reactions slower"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Hardness (mg L⁻¹ as CaCO₃) = Σ [M²⁺] × 100.09/M_M; softened by lime–soda or ion exchange. Treatment: coagulation with alum, flocculation, filtration, chlorination (HOCl pK_a 7.54).",
+    "DO saturation 8.3 mg L⁻¹ at 25 °C. BOD_t = L₀(1 − e^{−kt}); COD uses dichromate. Excess nutrients cause eutrophication.",
+    "Carbon cycle: large natural fluxes; human emissions ≈ 10 PgC y⁻¹ with an airborne fraction ≈ 0.45. Nitrogen: fixation (nitrogenase, Haber–Bosch), nitrification, denitrification, assimilation; industrial fixation now exceeds natural.",
+    "Green chemistry: prevent waste, atom economy, safer solvents, catalysis, renewable feedstocks. Atom economy = M(product)/ΣM(reactants); E-factor = kg waste / kg product (pharma 25–100+). BHC ibuprofen: 77% atom economy vs 40% for the Boots route."
+  ],
+  "problems": [
+    {
+      "q": "A sample of water contains 150 mg L⁻¹ HCO₃⁻ as alkalinity and 60 mg L⁻¹ Ca²⁺ (no Mg²⁺). Alum (Al₂(SO₄)₃·14H₂O, 594.4 g mol⁻¹) is added at 30 mg L⁻¹. How much alkalinity (as mg L⁻¹ HCO₃⁻, 61.02) is consumed?",
+      "solution": "Al₂(SO₄)₃ + 6 HCO₃⁻ → 2 Al(OH)₃ + 3 SO₄²⁻ + 6 CO₂. Alum = 30 × 10⁻³/594.4 = 5.05 × 10⁻⁵ mol L⁻¹; HCO₃⁻ consumed = 6 × 5.05 × 10⁻⁵ = 3.03 × 10⁻⁴ mol L⁻¹ = 18.5 mg L⁻¹. Remaining alkalinity ≈ 131 mg L⁻¹, still sufficient to buffer.",
+      "a": "18.5 mg L⁻¹ of HCO₃⁻"
+    },
+    {
+      "q": "A river at 25 °C is saturated with oxygen (8.3 mg L⁻¹). A discharge raises the temperature to 35 °C where the saturation is 7.0 mg L⁻¹. If the BOD consumes 4.0 mg L⁻¹ of oxygen, what DO remains, and is it adequate for fish (> 5 mg L⁻¹)?",
+      "solution": "The effluent reduces the saturation to 7.0 mg L⁻¹; if the BOD takes 4.0 mg L⁻¹, DO = 7.0 − 4.0 = 3.0 mg L⁻¹ (before re-aeration), which is below 5 mg L⁻¹: stress or fish kill. At 25 °C the same BOD would leave 4.3 mg L⁻¹ — a warm discharge makes the problem worse in two ways.",
+      "a": "3.0 mg L⁻¹: inadequate"
+    },
+    {
+      "q": "Calculate the atom economy of the Diels–Alder reaction of butadiene (C₄H₆, 54.09) with maleic anhydride (C₄H₂O₃, 98.06) and of the Wittig reaction of benzaldehyde (106.12) with Ph₃P=CH₂ (276.31) to give styrene (104.15) and Ph₃P=O (278.28).",
+      "solution": "Diels–Alder: the two reactants combine in a single product (152.15): 152.15/(54.09 + 98.06) = 100%. Wittig: 104.15/(106.12 + 276.31) = 104.15/382.43 = 27.2%; the phosphine oxide is the by-product (72.8% of the mass).",
+      "a": "100% vs 27.2%"
+    },
+    {
+      "q": "The Haber–Bosch-derived fertilizer N applied to a field is 150 kg N ha⁻¹ y⁻¹, and the crop removes 90 kg N. If half of the excess runs off as nitrate, what concentration results in the 300 mm of annual drainage water (3 × 10⁶ L ha⁻¹)? Compare it with the limit of 10 mg L⁻¹ as N.",
+      "solution": "Excess = 60 kg N; runoff = 30 kg = 3.0 × 10⁷ mg. Concentration = 3.0 × 10⁷ mg/3 × 10⁶ L = 10 mg L⁻¹ as N — right at the drinking water limit.",
+      "a": "10 mg L⁻¹ N, at the limit"
+    }
+  ]
+}

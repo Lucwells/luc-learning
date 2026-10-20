@@ -1,0 +1,367 @@
+{
+  "id": "atmospheric-chemistry",
+  "view": "chapter",
+  "title": "Atmospheric Chemistry and Climate",
+  "description": "The greenhouse effect and climate, stratospheric ozone, photochemical smog, acid rain and the chemistry of air pollution control.",
+  "overview": [
+    "The atmosphere is a thin, reactive layer. Its composition, 78% N₂, 21% O₂, 0.93% Ar and a few hundred parts per million of CO₂, is maintained by balances of sources and sinks that human activity has begun to change. Most of the chemistry is driven by sunlight and carried by radicals: ozone in the stratosphere shields the surface from ultraviolet light; the hydroxyl radical OH• in the troposphere cleans the air; and the trace gases CO₂, CH₄ and N₂O trap infrared radiation and set the temperature of the planet.",
+    "This chapter treats the energy balance of the Earth and the greenhouse effect, the chemistry of the ozone layer and its depletion, and the chemistry of the lower atmosphere: photochemical smog, acid rain, and the engineered solutions of catalytic converters and flue-gas scrubbing."
+  ],
+  "objectives": [
+    "Calculate the effective temperature of the Earth and explain the greenhouse effect in terms of molecular vibrations.",
+    "Compare greenhouse gases by radiative forcing, lifetime and global warming potential, and relate CO₂ to ocean acidification.",
+    "Write the Chapman mechanism and the catalytic cycles of Cl and NO_x, and explain the Antarctic ozone hole.",
+    "Describe photochemical smog formation from NO_x and volatile organic compounds, and the role of OH.",
+    "Write the reactions that form acid rain and calculate the pH of natural rain.",
+    "Explain the three-way catalytic converter and flue-gas desulfurization, with stoichiometric calculations."
+  ],
+  "sections": [
+    {
+      "id": "greenhouse",
+      "title": "The greenhouse effect and climate",
+      "terms": [
+        "greenhouse effect",
+        "greenhouse gas",
+        "greenhouse gases",
+        "global warming",
+        "climate change",
+        "ocean acidification",
+        "radiative forcing",
+        "global warming potential",
+        "effective temperature",
+        "albedo",
+        "infrared absorption by gases",
+        "carbon dioxide",
+        "methane",
+        "nitrous oxide",
+        "climate sensitivity",
+        "atmospheric lifetime",
+        "Keeling curve",
+        "stratosphere",
+        "troposphere",
+        "atmospheric structure",
+        "Beer's law in the atmosphere",
+        "blackbody radiation of the Earth",
+        "Stefan–Boltzmann law",
+        "carbonate buffer of the ocean"
+      ],
+      "body": [
+        "The atmosphere is divided by the temperature profile: the **troposphere** (0–12 km, where the temperature falls with altitude by ≈ 6.5 K km⁻¹ and nearly all weather and 80% of the mass reside), the **stratosphere** (12–50 km, temperature rising to 270 K because of absorption of UV by ozone), then the mesosphere and thermosphere.",
+        {
+          "h": "Energy balance"
+        },
+        "The Earth absorbs sunlight and radiates infrared. At equilibrium, absorbed solar power equals emitted power. The solar constant is S = 1361 W m⁻², the Earth intercepts it over a disk (πR²) and radiates from a sphere (4πR²), and a fraction **albedo** A = 0.30 is reflected. The **Stefan–Boltzmann law** gives the emission σT⁴ (σ = 5.670 × 10⁻⁸ W m⁻² K⁻⁴), so the effective temperature is:",
+        {
+          "eq": "T_e = [ S(1 − A) / (4σ) ]^{1/4}"
+        },
+        {
+          "example": {
+            "title": "Effective temperature of the Earth",
+            "problem": "Compute T_e and compare it with the observed mean surface temperature of 288 K.",
+            "solution": "S(1 − A)/4 = 1361 × 0.70/4 = 238.2 W m⁻². T_e = (238.2/5.670 × 10⁻⁸)^{1/4} = (4.201 × 10⁹)^{1/4} = 255 K (−18 °C). The surface is 33 K warmer than T_e: this is the natural **greenhouse effect**, without which the oceans would be frozen. The emission to space comes from a layer high in the atmosphere (≈ 5 km) which is at 255 K, and the temperature increases toward the surface at the lapse rate."
+          }
+        },
+        {
+          "h": "Why some gases absorb infrared"
+        },
+        "Sunlight is mostly visible, passing through the atmosphere. The Earth radiates at about 255–288 K, with a peak near 10 µm (≈ 1000 cm⁻¹). A molecule absorbs this radiation if it has a vibration that changes its dipole moment (as in the IR selection rule): CO₂ (the asymmetric stretch at 2349 cm⁻¹ and the bend at 667 cm⁻¹, which lies in the middle of the Earth’s emission band), H₂O, CH₄ (1306 cm⁻¹), N₂O (1285 cm⁻¹), O₃ (1042 cm⁻¹) and the halocarbons (strong C–F and C–Cl stretches at 8–12 µm, the “atmospheric window” in which water and CO₂ are transparent). N₂ and O₂ are homonuclear diatomics with no dipole change and do not absorb. The gases absorb and re-emit in all directions, which returns part of the radiation to the surface.",
+        "The influence of a gas on the energy balance is the **radiative forcing**, in W m⁻². For CO₂ the dependence on concentration is logarithmic (as the central bands saturate): ΔF = 5.35 ln(C/C₀). The relative influence of different gases is compared by the **global warming potential** (GWP), the integrated forcing over 100 years of 1 kg of the gas relative to 1 kg of CO₂, which combines its absorption strength (per molecule, CH₄ is ≈ 30 times more effective than CO₂) and its **atmospheric lifetime**:",
+        {
+          "table": {
+            "head": [
+              "Gas",
+              "Lifetime",
+              "GWP (100 y)",
+              "Main sources"
+            ],
+            "rows": [
+              [
+                "CO₂",
+                "Hundreds of years (complex)",
+                "1",
+                "Fossil fuels, cement, land use"
+              ],
+              [
+                "CH₄",
+                "≈ 12 y",
+                "≈ 28",
+                "Livestock, rice, landfill, gas leaks"
+              ],
+              [
+                "N₂O",
+                "≈ 120 y",
+                "≈ 265",
+                "Fertilized soils, industry"
+              ],
+              [
+                "CFC-12",
+                "≈ 100 y",
+                "≈ 10,200",
+                "Refrigerants (banned)"
+              ],
+              [
+                "SF₆",
+                "≈ 3200 y",
+                "≈ 23,500",
+                "Electrical insulation"
+              ]
+            ],
+            "caption": "Properties of long-lived greenhouse gases (IPCC AR5 values)."
+          }
+        },
+        {
+          "example": {
+            "title": "Radiative forcing by CO₂",
+            "problem": "CO₂ rose from 280 ppm (pre-industrial) to 420 ppm. Calculate the forcing, and for a doubling.",
+            "solution": "ΔF = 5.35 ln(420/280) = 5.35 × 0.405 = 2.17 W m⁻². For a doubling: 5.35 ln 2 = 3.71 W m⁻². With a climate sensitivity of about 0.8 K per W m⁻² (including feedbacks), a doubling would warm the surface by ≈ 3 K."
+          }
+        },
+        {
+          "h": "CO₂ and the ocean"
+        },
+        "About a quarter of the CO₂ emitted dissolves in the ocean: CO₂(g) ⇌ CO₂(aq); CO₂ + H₂O ⇌ H₂CO₃ ⇌ H⁺ + HCO₃⁻ ⇌ 2H⁺ + CO₃²⁻. The extra H⁺ consumes carbonate (CO₂ + CO₃²⁻ + H₂O → 2 HCO₃⁻), so the pH of the surface ocean has fallen from 8.2 to 8.1 since 1750: **ocean acidification**, an increase of [H⁺] by ≈ 26% (10^{0.1} = 1.26). The lower carbonate concentration makes it harder for corals and shellfish to form CaCO₃ shells (the saturation state Ω = [Ca²⁺][CO₃²⁻]/K_sp must be above 1)."
+      ],
+      "check": [
+        {
+          "q": "Why do CO₂ and H₂O absorb infrared but N₂ and O₂ do not?",
+          "a": "Their vibrations change the dipole moment; homonuclear diatomics have none",
+          "wrong": [
+            "N₂ and O₂ are too light",
+            "CO₂ and H₂O are polar solids",
+            "N₂ and O₂ absorb only UV, never IR"
+          ]
+        },
+        {
+          "q": "What does GWP compare?",
+          "a": "The integrated radiative forcing of a gas to that of CO₂ over a time horizon",
+          "wrong": [
+            "The concentration of gases",
+            "Their boiling points",
+            "Their atmospheric pressure"
+          ]
+        },
+        {
+          "q": "Why does CO₂ uptake acidify the oceans?",
+          "a": "Dissolved CO₂ forms carbonic acid, releasing H⁺",
+          "wrong": [
+            "CO₂ reacts with salt to give HCl",
+            "It dissolves calcium",
+            "It evaporates water"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ozone",
+      "title": "Stratospheric ozone",
+      "terms": [
+        "ozone layer",
+        "ozone depletion",
+        "ozone hole",
+        "CFCs",
+        "chlorofluorocarbons",
+        "Montreal Protocol",
+        "ozone",
+        "Chapman cycle",
+        "catalytic ozone destruction",
+        "polar stratospheric clouds",
+        "hydrochlorofluorocarbons",
+        "halons",
+        "ultraviolet radiation",
+        "UV-B",
+        "ozone photolysis",
+        "Dobson unit",
+        "chlorine monoxide",
+        "ClO dimer",
+        "heterogeneous chemistry"
+      ],
+      "body": [
+        "About 90% of atmospheric **ozone** is in the stratosphere (maximum at 20–30 km), where it absorbs the UV-B and UV-C radiation (200–320 nm) that damages DNA. The steady state is described by the **Chapman cycle** (1930):",
+        {
+          "list": [
+            "O₂ + hν (λ < 242 nm) → 2 O•   (the bond energy of O₂ is 498 kJ mol⁻¹, which corresponds to 240 nm)",
+            "O• + O₂ + M → O₃ + M   (M is a third body, N₂ or O₂, that removes the excess energy)",
+            "O₃ + hν (λ < 320 nm) → O₂ + O•   (this step is rapid and does not destroy odd oxygen, because O reforms O₃)",
+            "O• + O₃ → 2 O₂   (net loss of odd oxygen, Ox = O + O₃, slow)"
+          ]
+        },
+        "The Chapman scheme alone overestimates the ozone. The difference is due to **catalytic cycles** in which a radical X (X = NO, OH, Cl, Br) reacts with ozone and is regenerated:",
+        {
+          "eq": "X + O₃ → XO + O₂   ;   XO + O → X + O₂   ;   net: O₃ + O → 2 O₂"
+        },
+        "Natural sources of X exist (N₂O oxidation gives NO; water gives OH). The **chlorofluorocarbons (CFCs)**, such as CFCl₃ (CFC-11) and CF₂Cl₂ (CFC-12), were developed as inert, nontoxic refrigerants and propellants. Inert in the troposphere (no photolysis above 230 nm, no reaction with OH, insoluble in water, lifetimes of 50–100 years), they diffuse slowly into the stratosphere, where short-wavelength UV photolyzes them: CFCl₃ + hν → CFCl₂• + Cl•. The chlorine atom starts the catalytic cycle Cl• + O₃ → ClO• + O₂; ClO• + O → Cl• + O₂. One Cl atom destroys ~10⁵ ozone molecules before it is removed by forming HCl (Cl + CH₄ → HCl + CH₃) or ClONO₂ (ClO + NO₂ + M → ClONO₂ + M), the reservoir species. Bromine from halons (fire extinguishers) and methyl bromide is 50 times more effective per atom.",
+        {
+          "example": {
+            "title": "Wavelength for photolysis",
+            "problem": "The C–Cl bond energy in CFCl₃ is about 339 kJ mol⁻¹. What is the longest wavelength that can break it? Why do CFCs survive in the troposphere?",
+            "solution": "λ = N_A hc/E = 119,627 kJ nm mol⁻¹/339 kJ mol⁻¹ = 353 nm. Energetically, near-UV light would be sufficient, but CFCs absorb only at λ < 230 nm (the absorption cross-section is negligible at longer wavelengths), and this light is removed by O₂ and O₃ above the troposphere. Only in the stratosphere are such photons present."
+          }
+        },
+        {
+          "h": "The Antarctic ozone hole"
+        },
+        "Each Antarctic spring (September–October) the column of ozone over the pole falls to less than 220 Dobson units (a normal column is 300; 1 DU = 0.01 mm of ozone at 0 °C and 1 atm), a loss of 60% or more, discovered by Farman, Gardiner and Shanklin in 1985. The chemistry needs the special conditions of the polar winter. In the cold (< 195 K) of the polar vortex, **polar stratospheric clouds** form, and on their surface the **heterogeneous** reaction ClONO₂ + HCl → Cl₂ + HNO₃ converts the inactive reservoirs into Cl₂, and HNO₃ is removed in the particles. When the sun returns in spring, Cl₂ + hν → 2 Cl•, and since there are few oxygen atoms at the low altitude, the main cycle is that of the ClO dimer: 2 (Cl + O₃ → ClO + O₂); ClO + ClO + M → Cl₂O₂ + M; Cl₂O₂ + hν → Cl + ClOO; ClOO + M → Cl + O₂ + M. Net: 2 O₃ → 3 O₂.",
+        "The **Montreal Protocol** (1987, with later amendments) phased out CFCs, halons and other ozone-depleting substances; the replacement HCFCs (shorter lifetimes) and then HFCs (no chlorine, but potent greenhouse gases, limited by the Kigali Amendment) are in turn being replaced. Stratospheric chlorine has been falling since the late 1990s, and the ozone layer is on track to recover to 1980 levels around 2066 over Antarctica. It is considered the most successful international environmental agreement."
+      ],
+      "check": [
+        {
+          "q": "What is the role of M in O + O₂ + M → O₃ + M?",
+          "a": "A third body that carries away the excess energy so the O₃ is stable",
+          "wrong": [
+            "A catalyst that is consumed",
+            "A reactant that forms ozone",
+            "A photon"
+          ]
+        },
+        {
+          "q": "Why can one Cl atom destroy thousands of ozone molecules?",
+          "a": "It is regenerated in a catalytic cycle",
+          "wrong": [
+            "It is a chain terminator",
+            "It reacts only once",
+            "It is converted into O₂"
+          ]
+        },
+        {
+          "q": "Why does the ozone hole form over Antarctica in the spring?",
+          "a": "Polar stratospheric clouds convert reservoir chlorine to active forms in winter; sunlight then starts the catalytic destruction",
+          "wrong": [
+            "More CFCs are emitted there",
+            "Volcanoes in the Antarctic",
+            "The ozone is blown away by wind"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smog-acid",
+      "title": "Smog, acid rain and air pollution control",
+      "terms": [
+        "acid rain",
+        "smog",
+        "photochemical smog",
+        "NOx",
+        "catalytic converters",
+        "particulates",
+        "flue gas desulfurization",
+        "hydroxyl radical",
+        "volatile organic compounds",
+        "VOCs",
+        "tropospheric ozone",
+        "peroxyacetyl nitrate",
+        "PAN",
+        "three-way catalyst",
+        "PM2.5",
+        "scrubber",
+        "sulfuric acid in the atmosphere",
+        "air quality index",
+        "thermal NOx",
+        "selective catalytic reduction",
+        "air-to-fuel ratio",
+        "acid deposition",
+        "nitric acid formation",
+        "London smog"
+      ],
+      "body": [
+        "In the troposphere the key oxidant is the **hydroxyl radical**, OH•, formed when ozone is photolyzed (O₃ + hν (λ < 320 nm) → O₂ + O(¹D)) and the excited oxygen atom reacts with water (O(¹D) + H₂O → 2 OH•). OH• is present at only ≈ 10⁶ molecules cm⁻³ but is very reactive and “detergent of the atmosphere”: it removes CH₄, CO, and most pollutants, and converts SO₂ and NO₂ to acids.",
+        {
+          "h": "Photochemical smog"
+        },
+        "Vehicle exhaust and combustion at high temperature produce **nitrogen oxides** (NO_x = NO + NO₂): **thermal NO_x**, from N₂ + O₂ → 2 NO in the hot engine (above 1500 °C, endothermic, ΔH = +180 kJ mol⁻¹, so favored by the temperature). Unburned hydrocarbons and other **volatile organic compounds (VOCs)** are also released. Sunlight drives the reactions of **photochemical smog** (Los Angeles type):",
+        {
+          "list": [
+            "NO₂ + hν (λ < 400 nm) → NO + O•;   O• + O₂ + M → O₃ + M   (formation of ozone)",
+            "NO + O₃ → NO₂ + O₂   (the reverse, so with only NO_x the ozone would reach a steady state: NO₂/NO and O₃ are in a photostationary state)",
+            "VOCs are oxidized by OH• to peroxy radicals, RO₂• (R–H + OH• → R• + H₂O; R• + O₂ → RO₂•). RO₂• + NO → RO• + NO₂ converts NO to NO₂ **without consuming ozone**, which breaks the photostationary balance and lets ozone accumulate to harmful levels (> 100 ppb).",
+            "Further products include aldehydes, and **peroxyacetyl nitrate (PAN)**, CH₃C(O)OONO₂, an eye irritant, formed from NO₂ and the acetylperoxy radical."
+          ]
+        },
+        "Ground-level ozone damages lungs and plants. Control: reduce VOC and NO_x. London-type (“classic”) smog was different: SO₂ and smoke particles from coal in cold, damp air (the 1952 episode killed about 4000 people). **Particulates** (PM10, PM2.5: particles under 2.5 µm penetrate deep into the lungs) come from combustion, and as secondary aerosol from SO₂, NO_x and ammonia (ammonium sulfate and nitrate).",
+        {
+          "h": "Acid rain"
+        },
+        "Pure rain is slightly acidic because of dissolved CO₂. With Henry’s constant K_H = 3.4 × 10⁻² M atm⁻¹ and p(CO₂) = 4.2 × 10⁻⁴ atm, [CO₂(aq)] = 1.4 × 10⁻⁵ M and for CO₂ + H₂O ⇌ H⁺ + HCO₃⁻ with K_a1 = 4.3 × 10⁻⁷: [H⁺] = (4.3 × 10⁻⁷ × 1.4 × 10⁻⁵)^{1/2} = 2.5 × 10⁻⁶ M, pH = 5.6. **Acid rain** is rain with pH < 5.6, caused mainly by sulfur and nitrogen oxides. SO₂ comes from the burning of sulfur-containing coal and oil and from smelting (S + O₂ → SO₂). In the gas phase, SO₂ + OH• → HOSO₂•; HOSO₂• + O₂ → SO₃ + HO₂•; SO₃ + H₂O → H₂SO₄. In cloud droplets the main route is oxidation of dissolved SO₂ by H₂O₂ or O₃ (rapid at higher pH). NO₂ + OH• + M → HNO₃. The rain with pH 4–4.5 acidifies lakes (Al³⁺ is mobilized from soils and kills fish), damages forests, and dissolves limestone and marble (CaCO₃ + H₂SO₄ → CaSO₄ + H₂O + CO₂).",
+        {
+          "example": {
+            "title": "pH of rain",
+            "problem": "Rain has a sulfuric acid concentration of 5.0 × 10⁻⁵ M (assume complete dissociation to 2 H⁺). What is the pH, and how many times larger is [H⁺] than in natural rain (pH 5.6)?",
+            "solution": "[H⁺] = 2 × 5.0 × 10⁻⁵ = 1.0 × 10⁻⁴ M → pH = 4.0 (the contribution of CO₂ is negligible at this acidity). [H⁺] ratio = 10^{5.6−4.0} = 10^{1.6} = 40 times larger."
+          }
+        },
+        {
+          "h": "Pollution control"
+        },
+        {
+          "list": [
+            "**Three-way catalytic converter** (Pt, Pd and Rh on alumina and ceria): simultaneously oxidizes CO and hydrocarbons and reduces NO. 2 CO + O₂ → 2 CO₂; C₃H₈ + 5 O₂ → 3 CO₂ + 4 H₂O; 2 CO + 2 NO → 2 CO₂ + N₂ (Rh). It works only if the air-to-fuel ratio is held at the stoichiometric 14.7:1 (λ = 1) by an oxygen sensor (zirconia): with excess oxygen NO is not reduced, and with too little CO and hydrocarbons are not oxidized. Leaded fuel poisons the catalyst. Diesel engines (lean) use **selective catalytic reduction**: 4 NO + 4 NH₃ + O₂ → 4 N₂ + 6 H₂O (urea solution as source of NH₃; V₂O₅/TiO₂ or zeolite catalysts).",
+            "**Flue gas desulfurization**: a slurry of limestone sprays through the exhaust: SO₂ + CaCO₃ → CaSO₃ + CO₂; the CaSO₃ is oxidized to CaSO₄ and crystallizes as gypsum (CaSO₄·2H₂O, sold for wallboard). Net: SO₂ + CaCO₃ + ½O₂ + 2 H₂O → CaSO₄·2H₂O + CO₂. Removal efficiency >95%."
+          ]
+        },
+        {
+          "example": {
+            "title": "Limestone for a power plant",
+            "problem": "A coal plant emits 100 t SO₂ per day uncontrolled. How much limestone (CaCO₃) is needed to remove 95%, and how much gypsum is made?",
+            "solution": "SO₂ removed = 95 t = 95 × 10⁶/64.06 = 1.483 × 10⁶ mol. CaCO₃ = 1.483 × 10⁶ mol × 100.09 = 148 t. Gypsum (172.17 g mol⁻¹) = 1.483 × 10⁶ × 172.17 = 255 t per day. (Limestone is typically used at 1.05 times the stoichiometric amount.)"
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Why does NO₂ photolysis alone not lead to high ozone levels, and what does VOC add?",
+          "a": "NO consumes ozone; peroxy radicals from VOCs convert NO to NO₂ without using O₃, so ozone accumulates",
+          "wrong": [
+            "VOCs photolyze to make ozone directly",
+            "VOCs absorb the NO",
+            "NO is not formed in engines"
+          ]
+        },
+        {
+          "q": "What is the pH of unpolluted rain and why?",
+          "a": "About 5.6, from dissolved CO₂ (carbonic acid)",
+          "wrong": [
+            "7.0, as water is neutral",
+            "About 3, from natural sulfur",
+            "About 9, from ammonia"
+          ]
+        },
+        {
+          "q": "A three-way catalyst needs the air-to-fuel ratio near…",
+          "a": "Stoichiometric (14.7:1)",
+          "wrong": [
+            "Very rich",
+            "Very lean",
+            "Any ratio"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "T_e = [S(1−A)/4σ]^{1/4} = 255 K; the observed 288 K shows a 33 K greenhouse effect. Gases with a dipole-changing vibration (CO₂, H₂O, CH₄, N₂O) absorb IR. ΔF(CO₂) = 5.35 ln(C/C₀); GWP combines absorption strength and lifetime. CO₂ uptake acidifies the ocean.",
+    "Chapman cycle forms and destroys ozone; catalytic cycles (NO, OH, Cl, Br) lower it. CFCs release Cl in the stratosphere; polar stratospheric clouds activate chlorine, causing the ozone hole. The Montreal Protocol has reversed the trend.",
+    "Smog: NO₂ photolysis makes O₃; VOC-derived peroxy radicals convert NO to NO₂ without consuming O₃. OH• oxidizes SO₂ and NO₂ to H₂SO₄ and HNO₃; acid rain has pH < 5.6.",
+    "Controls: three-way catalytic converter (λ = 1: CO, HC oxidation, NO reduction), selective catalytic reduction for diesel, limestone scrubbing of SO₂ to gypsum."
+  ],
+  "problems": [
+    {
+      "q": "For a planet with albedo 0.30 at 1.52 AU from the Sun (Mars-like), the solar constant is 1361/1.52² = 589 W m⁻². Compute T_e. If the albedo were 0.60, what would T_e be?",
+      "solution": "T_e = [589 × 0.70/(4 × 5.670 × 10⁻⁸)]^{1/4} = (1.818 × 10⁹)^{1/4} = 206.5 K. With A = 0.60: 589 × 0.40/(2.268 × 10⁻⁷) = 1.039 × 10⁹ → T_e = 179.5 K. A change of the albedo by 0.30 lowers T_e by 27 K.",
+      "a": "206 K; 180 K"
+    },
+    {
+      "q": "Methane has a concentration of 1.9 ppm and a lifetime of 12 years, with OH as the main sink. If OH is doubled, what would be the new lifetime, and by what factor does the steady-state concentration change at the same emission rate?",
+      "solution": "The loss rate is first order in OH: k[OH][CH₄], so the lifetime is τ = 1/(k[OH]). Doubling [OH] halves τ to 6 years. At steady state [CH₄] = emission × τ, so the concentration halves, to ≈ 0.95 ppm.",
+      "a": "6 years; half the concentration"
+    },
+    {
+      "q": "Show that the catalytic cycle Cl• + O₃ → ClO• + O₂, ClO• + O• → Cl• + O₂ has the net reaction O₃ + O• → 2 O₂. Why is the cycle fast at 30–40 km but not at 15 km?",
+      "solution": "Adding: Cl + O₃ + ClO + O → ClO + O₂ + Cl + O₂; cancel Cl and ClO: O₃ + O → 2 O₂. At 30–40 km the concentration of O atoms is high (photolysis of O₂ and O₃ by short UV) so the second step is fast; at 15 km, O atoms are rare, and the cycle needs the ClO dimer route or other species, which operate in the Antarctic vortex.",
+      "a": "O₃ + O → 2 O₂; O-atom concentration controls the cycle."
+    },
+    {
+      "q": "A gasoline engine burns octane. Write the equation for complete combustion and calculate the stoichiometric mass air-to-fuel ratio (air is 23.2% O₂ by mass; octane C₈H₁₈ = 114.2 g mol⁻¹, O₂ = 32.00).",
+      "solution": "C₈H₁₈ + 12.5 O₂ → 8 CO₂ + 9 H₂O. O₂ required per mole of fuel = 12.5 × 32.00 = 400.0 g per 114.2 g of fuel = 3.502 g O₂ per g of fuel. Air = 3.502/0.232 = 15.1 g air per g fuel, close to the 14.7:1 used in engines (the value for gasoline mixtures).",
+      "a": "≈ 15:1 by mass"
+    }
+  ]
+}

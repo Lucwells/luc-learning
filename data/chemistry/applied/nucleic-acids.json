@@ -1,0 +1,457 @@
+{
+  "id": "nucleic-acids",
+  "view": "chapter",
+  "title": "Nucleic Acids and the Flow of Genetic Information",
+  "description": "Nucleotide chemistry, DNA and RNA structure, replication, transcription, translation, mutation, and the main molecular biology techniques.",
+  "overview": [
+    "Genetic information is stored in the sequence of nucleotides of DNA, copied by replication, read out as RNA by transcription, and decoded into protein by translation. This flow, the central dogma, is carried out by enzymes that use the chemistry of phosphate esters and the specificity of hydrogen-bonded base pairs. The fidelity is high: DNA replication makes about one error per 10⁹–10¹⁰ bases copied, which is achieved only by the combination of base-pairing energetics, shape selection by the polymerase and proofreading.",
+    "This chapter starts from the structure of nucleotides and the double helix, then follows the information through replication, transcription and translation, and ends with mutation and the techniques (PCR, sequencing, electrophoresis) that exploit this chemistry."
+  ],
+  "objectives": [
+    "Draw the components of a nucleotide, name the bases, and describe the phosphodiester linkage and chain direction.",
+    "Describe B-DNA geometry, base pairing and stacking, and the melting of DNA (T_m, hyperchromicity).",
+    "Compare DNA and RNA in structure and stability, and the roles of mRNA, tRNA and rRNA.",
+    "Explain semiconservative replication, leading and lagging strands, and proofreading.",
+    "Explain transcription and RNA processing, the genetic code, and the steps and energy cost of translation.",
+    "Classify point mutations and calculate PCR amplification and DNA quantities."
+  ],
+  "sections": [
+    {
+      "id": "nucleotides",
+      "title": "Nucleotides and nucleic acid chains",
+      "terms": [
+        "nucleotide",
+        "nucleotides",
+        "nucleic acid",
+        "nucleic acids",
+        "nucleoside",
+        "adenine",
+        "thymine",
+        "guanine",
+        "cytosine",
+        "uracil",
+        "phosphodiester",
+        "phosphodiester bond",
+        "deoxyribose",
+        "N-glycosidic bond",
+        "5′ end",
+        "3′ end",
+        "Chargaff's rules",
+        "DNA",
+        "RNA",
+        "deoxyribonucleic acid",
+        "ribonucleic acid"
+      ],
+      "body": [
+        "A **nucleotide** has three parts: a nitrogenous base, a five-carbon sugar and one to three phosphate groups. The sugar is **ribose** in RNA and **deoxyribose** (no 2′-OH) in DNA. A base joined to the sugar (without phosphate) is a nucleoside; the base is attached at C1′ of the sugar by an **N-glycosidic bond** (to N9 of purines, N1 of pyrimidines). The five bases are two purines, **adenine** (A) and **guanine** (G), with fused two-ring systems, and three pyrimidines, **cytosine** (C), **thymine** (T, DNA only) and **uracil** (U, RNA only), with one ring. Thymine is 5-methyluracil.",
+        "Nucleotides are joined into a chain by **phosphodiester bonds**: the 3′-OH of one nucleotide is linked, through a phosphate, to the 5′-OH of the next. The chain has a sugar–phosphate backbone with the bases projecting from it, and a direction, from the free 5′ end (a phosphate) to the free 3′ end (an OH). Sequences are written 5′ → 3′. At pH 7 each phosphate is ionized (pKa ≈ 1), so nucleic acids are polyanions, which explains their binding to Mg²⁺ and to the positively charged histones, and their migration to the anode in electrophoresis. Phosphodiesters are chemically stable (the half-life of a phosphodiester bond in DNA at neutral pH is on the order of 10⁷ years), which suits DNA to be a storage molecule.",
+        "In 1950 Chargaff found for DNA from any species that the amount of A equals that of T, and G equals C (so purines = pyrimidines), but the ratio (A + T)/(G + C) varies between species: **Chargaff’s rules**, explained by base pairing. In RNA the 2′-OH can attack the adjacent phosphorus, forming a 2′,3′-cyclic phosphate and cleaving the chain, which is the reason for the instability of RNA in base (and of its ease of degradation by RNases), while DNA has no 2′-OH and resists alkali.",
+        {
+          "example": {
+            "title": "Chargaff’s rule",
+            "problem": "A double-stranded DNA is 30.0% adenine. Give the percentages of the other bases.",
+            "solution": "A = T = 30.0%, so A + T = 60.0%. G + C = 40.0%, and G = C = 20.0%."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "What distinguishes the sugar in DNA from that in RNA?",
+          "a": "DNA lacks the 2′-OH group",
+          "wrong": [
+            "DNA has a six-membered ring",
+            "DNA has an extra phosphate",
+            "RNA lacks the 3′-OH"
+          ]
+        },
+        {
+          "q": "Which bond joins nucleotides in a strand?",
+          "a": "A phosphodiester bond between 3′-OH and 5′-phosphate",
+          "wrong": [
+            "A hydrogen bond between bases",
+            "A peptide bond",
+            "A disulfide bond"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "double-helix",
+      "title": "The double helix",
+      "terms": [
+        "double helix",
+        "base pair",
+        "base pairs",
+        "base pairing",
+        "Watson–Crick base pairs",
+        "B-DNA",
+        "A-DNA",
+        "Z-DNA",
+        "major groove",
+        "minor groove",
+        "base stacking",
+        "melting temperature of DNA",
+        "DNA melting",
+        "hyperchromic effect",
+        "hyperchromicity",
+        "annealing",
+        "denaturation of DNA",
+        "supercoiling",
+        "topoisomerase",
+        "chromatin",
+        "histone",
+        "nucleosome",
+        "Wallace rule",
+        "mRNA",
+        "tRNA",
+        "rRNA",
+        "messenger RNA",
+        "transfer RNA",
+        "ribosomal RNA",
+        "hairpin",
+        "ribozyme"
+      ],
+      "body": [
+        "In the **double helix** of Watson and Crick, two antiparallel strands wind around a common axis, with the sugar–phosphate backbones outside and the bases stacked inside. The bases pair by hydrogen bonds: **A–T** by two and **G–C** by three. The pairs have the same width (a purine opposite a pyrimidine), so the backbone has a constant diameter, and the complementarity means each strand specifies the other. The usual form, **B-DNA**, is right-handed with 10.5 base pairs per turn, a rise of 3.4 Å per base pair (a pitch of 35.7 Å) and a diameter of 20 Å. The sugar–phosphate backbones are not diametrically opposite, so there are two grooves of different size: the wide **major groove** and the narrow **minor groove**, where proteins read the sequence through the pattern of hydrogen-bond donors and acceptors of the bases. Dehydrated DNA adopts the wider, shorter A form (11 bp per turn), also taken by RNA duplexes; alternating purine–pyrimidine sequences in high salt can form the left-handed **Z-DNA**.",
+        "The stability of the duplex comes mainly from **base stacking** (van der Waals and dispersion interactions between the flat aromatic bases of adjacent pairs, and the hydrophobic effect), not from the hydrogen bonds alone: the stacking of a G–C step is worth ≈ −8 to −15 kJ mol⁻¹. The charge of the phosphates opposes the packing, which is why salt (Na⁺, Mg²⁺) stabilizes the helix.",
+        {
+          "h": "Melting"
+        },
+        "Heating a DNA solution breaks the hydrogen bonds and unstacks the bases, and the strands separate (**denaturation**; the reverse, **annealing** or **hybridization**, occurs on cooling). Stacked bases absorb less UV light at 260 nm than free ones, so melting raises the absorbance by about 37%, the **hyperchromic effect**, which is used to follow the transition. The **melting temperature** T_m is the midpoint. It rises with the GC content (3 hydrogen bonds and better stacking) and with the salt concentration, and falls with mismatches and with denaturants (formamide). For short oligonucleotides (<14 nt) the **Wallace rule** estimates T_m ≈ 2(A + T) + 4(G + C) °C. The same principle sets the temperatures of PCR annealing steps. Concentration is measured by A₂₆₀: A₂₆₀ = 1.0 corresponds to about 50 µg mL⁻¹ of double-stranded DNA, 40 µg mL⁻¹ of RNA and 33 µg mL⁻¹ of single-stranded DNA. A ratio A₂₆₀/A₂₈₀ of ≈ 1.8 (DNA) or 2.0 (RNA) indicates no protein contamination (proteins absorb at 280 nm).",
+        {
+          "example": {
+            "title": "Quantity of DNA and genome length",
+            "problem": "(a) A solution of dsDNA has A₂₆₀ = 0.35 in a 1 cm cuvette after a 1:20 dilution. What is the concentration? (b) A haploid human genome has 3.1 × 10⁹ base pairs. What is its contour length, and its mass (average bp mass 650 g mol⁻¹)?",
+            "solution": "(a) c = 0.35 × 50 µg mL⁻¹ × 20 = 350 µg mL⁻¹. (b) Length = 3.1 × 10⁹ × 0.34 nm = 1.05 × 10⁹ nm ≈ 1.05 m per haploid genome (about 2 m for a diploid cell, packed into a nucleus ≈ 6 µm across). Mass = 3.1 × 10⁹ × 650/6.022 × 10²³ = 3.3 × 10⁻¹² g = 3.3 pg."
+          }
+        },
+        {
+          "h": "Packaging and RNA structure"
+        },
+        "Eukaryotic DNA wraps (1.65 turns, 147 bp) around an octamer of **histone** proteins (rich in Lys and Arg, which neutralize the phosphates) to form the **nucleosome**, the repeating unit of **chromatin**. Torsional stress is relieved by **topoisomerases**, which cut and rejoin the strands to change the supercoiling. RNA is usually single-stranded but folds by intramolecular pairing into **hairpins** and complex tertiary structures, stabilized by A-form stacking, which gives RNA catalytic ability (**ribozymes**; the ribosome’s peptidyl transferase). The three main classes are **messenger RNA (mRNA)**, which carries the code from gene to ribosome; **transfer RNA (tRNA)**, the 76-nucleotide adaptors, folded as a cloverleaf and an L, that carry the amino acids; and **ribosomal RNA (rRNA)**, the structural and catalytic core of the ribosome and 80% of cellular RNA."
+      ],
+      "check": [
+        {
+          "q": "A DNA with higher GC content has…",
+          "a": "A higher T_m",
+          "wrong": [
+            "A lower T_m",
+            "The same T_m",
+            "No hyperchromic effect"
+          ]
+        },
+        {
+          "q": "What is the main stabilizing interaction of the double helix?",
+          "a": "Base stacking (with hydrogen bonds giving specificity)",
+          "wrong": [
+            "Covalent bonds between the strands",
+            "Phosphate–phosphate attraction",
+            "Disulfide bonds"
+          ]
+        },
+        {
+          "q": "Why does the absorbance at 260 nm increase when DNA melts?",
+          "a": "Unstacked bases absorb more (hyperchromic effect)",
+          "wrong": [
+            "Water absorbs more",
+            "The sugars become ionized",
+            "Proteins are released"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "replication",
+      "title": "DNA replication",
+      "terms": [
+        "replication",
+        "DNA replication",
+        "semiconservative replication",
+        "DNA polymerase",
+        "primase",
+        "helicase",
+        "ligase",
+        "DNA ligase",
+        "leading strand",
+        "lagging strand",
+        "Okazaki fragments",
+        "replication fork",
+        "proofreading",
+        "Meselson–Stahl experiment",
+        "origin of replication",
+        "primer",
+        "telomere",
+        "telomerase",
+        "mismatch repair",
+        "dNTP",
+        "polymerase chain reaction",
+        "PCR",
+        "Taq polymerase",
+        "thermal cycler",
+        "amplification",
+        "Sanger sequencing",
+        "dideoxynucleotide",
+        "restriction enzyme",
+        "restriction enzymes",
+        "CRISPR",
+        "gel electrophoresis of DNA"
+      ],
+      "body": [
+        "Replication is **semiconservative**: each daughter duplex contains one old strand and one new strand, shown by Meselson and Stahl by growing bacteria in ¹⁵N medium and following the density of the DNA in a CsCl gradient (the first generation after transfer to ¹⁴N gave a single band of intermediate density). The process begins at an **origin of replication**, where a **helicase** unwinds the duplex using ATP hydrolysis, and single-strand binding proteins and topoisomerase prevent re-annealing and relieve the strain. The Y-shaped junction is the **replication fork**.",
+        "**DNA polymerase** adds a deoxynucleotide to the 3′-OH of a growing chain, using the template strand: the 3′-OH attacks the α-phosphate of an incoming dNTP, releasing pyrophosphate (PPᵢ); the subsequent hydrolysis of PPᵢ by pyrophosphatase makes the polymerization effectively irreversible. Two consequences follow from the chemistry. Polymerases only extend chains in the 5′ → 3′ direction, and cannot start a chain, so they need a **primer** with a free 3′-OH, made by the RNA polymerase **primase**. Because the strands are antiparallel, only one of them, the **leading strand**, is synthesized continuously in the direction of the fork. The other, the **lagging strand**, is made discontinuously in short segments (**Okazaki fragments**, 1000–2000 nt in bacteria, 100–200 in eukaryotes), each started by a new primer; the primers are replaced with DNA and the nicks sealed by **DNA ligase**.",
+        {
+          "h": "Fidelity"
+        },
+        "Free-energy differences between correct and incorrect pairs (a few kJ mol⁻¹) would allow errors of 10⁻² to 10⁻³. The polymerase active site improves selection by rejecting the shape of a wrong pair (≈ 10⁻⁵ error rate), and its 3′ → 5′ exonuclease activity then **proofreads**: a mismatched terminal nucleotide is removed (to ≈ 10⁻⁷), and post-replicative **mismatch repair** (≈ 10⁻² more) leads to the overall rate of about 10⁻⁹–10⁻¹⁰ per base. In eukaryotes the ends of linear chromosomes (**telomeres**) are shortened by the incomplete replication of the lagging strand, and are extended by **telomerase**, a ribonucleoprotein reverse transcriptase.",
+        {
+          "h": "Techniques that use the chemistry"
+        },
+        {
+          "list": [
+            "**Polymerase chain reaction (PCR)** amplifies a chosen segment exponentially in a **thermal cycler**: (1) denature at 95 °C, (2) anneal two primers at 50–65 °C (near their T_m), (3) extend at 72 °C with a heat-stable polymerase (**Taq polymerase** from *Thermus aquaticus*). After n cycles the number of copies is up to N₀ × 2ⁿ (in practice < 2 per cycle, as reagents become limiting).",
+            "**Sanger sequencing** includes a small amount of **dideoxynucleotides** (ddNTPs, lacking the 3′-OH), which terminate the chain when incorporated; fragments of all lengths, each ending in a fluorescently labeled ddNTP, are separated by capillary electrophoresis and the sequence is read from the order of the colors. Modern sequencers read millions of fragments in parallel.",
+            "**Restriction enzymes** cut DNA at specific palindromic sequences (EcoRI: G^AATTC), giving fragments that are separated by **gel electrophoresis** according to length (DNA has a constant charge-to-mass ratio, so the log of the length is linear in the distance migrated) and visualized with an intercalating dye. The fragments are joined by DNA ligase, enabling recombinant DNA. **CRISPR–Cas9** uses a guide RNA, which pairs with the target DNA, to direct a nuclease to cut at a chosen site."
+          ]
+        },
+        {
+          "example": {
+            "title": "PCR amplification",
+            "problem": "Starting from 100 copies of a target, how many copies exist after 30 cycles at ideal efficiency, and at 90% efficiency per cycle?",
+            "solution": "Ideal: 100 × 2³⁰ = 1.07 × 10¹¹ copies. At 90% efficiency: 100 × (1.9)³⁰ = 100 × 2.3 × 10⁸ = 2.3 × 10¹⁰ — a factor of 5 lower. Small differences in efficiency are strongly amplified by the exponent, which is why quantitative PCR measures the cycle threshold during the exponential phase."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Why is the lagging strand made in fragments?",
+          "a": "Polymerase only extends 5′ → 3′, and the strands are antiparallel",
+          "wrong": [
+            "Primase is too slow",
+            "Ligase cuts it",
+            "The helicase blocks it"
+          ]
+        },
+        {
+          "q": "Which proofreading activity corrects a wrong nucleotide?",
+          "a": "The 3′ → 5′ exonuclease of DNA polymerase",
+          "wrong": [
+            "The 5′ → 3′ polymerase",
+            "Helicase",
+            "Topoisomerase"
+          ]
+        },
+        {
+          "q": "A dideoxynucleotide terminates chain growth because…",
+          "a": "It has no 3′-OH for the next phosphodiester bond",
+          "wrong": [
+            "It has no base",
+            "It has an extra phosphate",
+            "It cannot pair with the template"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "expression",
+      "title": "Transcription and translation",
+      "terms": [
+        "central dogma",
+        "transcription",
+        "translation",
+        "RNA polymerase",
+        "promoter",
+        "template strand",
+        "coding strand",
+        "RNA splicing",
+        "intron",
+        "exon",
+        "spliceosome",
+        "5′ cap",
+        "poly-A tail",
+        "codon",
+        "codons",
+        "genetic code",
+        "anticodon",
+        "wobble",
+        "start codon",
+        "stop codon",
+        "ribosome",
+        "ribosomes",
+        "aminoacyl-tRNA synthetase",
+        "peptidyl transferase",
+        "elongation factor",
+        "reading frame",
+        "open reading frame",
+        "polysome",
+        "reverse transcriptase",
+        "gene expression",
+        "operon",
+        "lac operon",
+        "transcription factor"
+      ],
+      "body": [
+        "The **central dogma** states that information flows from DNA to RNA to protein. **Transcription** copies one strand of a gene into RNA, catalyzed by **RNA polymerase**, which needs no primer. The enzyme binds a **promoter** (in bacteria, sequences at −10 and −35 upstream of the start site recognized by the σ factor), unwinds about 17 bp, and synthesizes RNA 5′ → 3′ using the **template strand** (3′ → 5′); the RNA has the same sequence as the other, **coding strand**, with U in place of T. Energy comes from the nucleoside triphosphates (ATP, GTP, CTP, UTP), with release of PPᵢ. Transcription ends at a terminator sequence (a GC-rich hairpin followed by a U-run in bacteria).",
+        "Bacterial mRNA is translated as it is made. In eukaryotes the primary transcript is **processed** in the nucleus: a 7-methylguanosine **5′ cap** is added, a **poly-A tail** (~200 A) is added at the 3′ end, and the non-coding **introns** are cut out and the coding **exons** are joined, by the **spliceosome** (snRNA–protein) in two transesterifications. Alternative splicing gives several proteins from one gene. Regulation of transcription by **transcription factors** and, in bacteria, repressors binding the operator (the **lac operon**, induced by allolactose) controls which genes are expressed.",
+        {
+          "h": "The genetic code"
+        },
+        "Translation converts the mRNA nucleotide sequence into the amino acid sequence. A **codon** is a triplet of nucleotides: 4³ = 64 codons specify 20 amino acids and signals. **AUG** is the **start codon** (Met), and **UAA, UAG and UGA** are the **stop codons**; the other 61 are sense codons. The code is degenerate (most amino acids have 2–6 codons; Met and Trp have one), nonoverlapping, and almost universal. Degeneracy is mostly in the third position, which tolerates mutations. The **reading frame** is set by the start codon, so an insertion or deletion not a multiple of three shifts the frame of everything downstream.",
+        {
+          "h": "The machinery"
+        },
+        {
+          "list": [
+            "**tRNA** carries an amino acid on its 3′ end (CCA) and an **anticodon** of three nucleotides that pairs antiparallel with the codon. **Aminoacyl-tRNA synthetases** attach the correct amino acid to the correct tRNA in two steps (aminoacyl-AMP formation, using ATP and releasing PPᵢ, then transfer), so the cost is 2 high-energy phosphate bonds per amino acid, and the synthetase proofreads for fidelity (the “second genetic code”). The 3rd codon–anticodon position permits non-standard pairing (**wobble**; e.g. inosine in the anticodon pairs with U, C or A), so 61 codons are read by fewer than 61 tRNAs.",
+            "The **ribosome** (bacterial 70S: 30S + 50S subunits, eukaryotic 80S: 40S + 60S) has three tRNA sites (A, P, E). The **peptidyl transferase** activity is in the 23S rRNA: the ribosome is a ribozyme, and the proteins have a supporting role.",
+            "**Initiation**: the small subunit finds the start codon (in bacteria by pairing of the Shine–Dalgarno sequence with 16S rRNA), and the initiator Met-tRNA joins, then the large subunit (GTP-dependent). **Elongation**: an aminoacyl-tRNA enters the A site (EF-Tu·GTP), the peptidyl transferase moves the growing chain from the P-site tRNA to the amino group of the A-site aminoacyl-tRNA (peptide bond formation), and EF-G·GTP translocates the ribosome by one codon, moving the tRNAs to the next sites. **Termination**: a stop codon is recognized by release factors, which cause hydrolysis of the bond between the chain and the tRNA. Several ribosomes read one mRNA (a **polysome**)."
+          ]
+        },
+        "The energy cost is about four high-energy phosphate bonds per peptide bond: two for aminoacyl-tRNA formation, one GTP for EF-Tu delivery and one GTP for EF-G translocation. At about 30.5 kJ mol⁻¹ each, a 300-residue protein costs roughly 1200 phosphate bonds, or 37 MJ per mole of protein (1200 × 30.5 kJ mol⁻¹), the price paid for the specificity of the process.",
+        {
+          "example": {
+            "title": "From gene to peptide",
+            "problem": "The template strand of a gene reads 3′-TAC CGA ATG ACT-5′. Write the mRNA, the peptide, and the effect of a mutation of the first base of the third codon (ATG → TTG on the template).",
+            "solution": "mRNA is complementary to the template, written 5′ → 3′: 5′-AUG GCU UAC UGA-3′. Reading: AUG = Met, GCU = Ala, UAC = Tyr, UGA = stop. The peptide is Met–Ala–Tyr. If the template codon ATG becomes TTG, the mRNA codon UAC becomes AAC (Asn): a missense mutation, giving Met–Ala–Asn. (A mutation of the stop codon UGA to UGG, which codes for Trp, would extend the chain: readthrough.)"
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Which codon is the start codon?",
+          "a": "AUG",
+          "wrong": [
+            "UAA",
+            "GCU",
+            "UGA"
+          ]
+        },
+        {
+          "q": "What does RNA polymerase need that DNA polymerase needs but RNA polymerase does not?",
+          "a": "A primer — RNA polymerase can start a chain de novo",
+          "wrong": [
+            "A template",
+            "NTP substrates",
+            "Mg²⁺"
+          ]
+        },
+        {
+          "q": "The catalytic activity of peptide bond formation in the ribosome resides in…",
+          "a": "rRNA",
+          "wrong": [
+            "tRNA",
+            "EF-Tu",
+            "mRNA"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mutation",
+      "title": "Mutation and damage",
+      "terms": [
+        "mutation",
+        "mutations",
+        "point mutation",
+        "silent mutation",
+        "missense mutation",
+        "nonsense mutation",
+        "frameshift mutation",
+        "sickle-cell anemia",
+        "depurination",
+        "deamination of cytosine",
+        "thymine dimer",
+        "mutagen",
+        "DNA repair",
+        "excision repair",
+        "transition mutation",
+        "transversion",
+        "Ames test"
+      ],
+      "body": [
+        "A **mutation** is a heritable change in the DNA sequence. A **point mutation** substitutes one base. A **transition** exchanges purine for purine or pyrimidine for pyrimidine (A ↔ G, C ↔ T), and a **transversion** exchanges one class for the other. The consequence for the protein depends on the codon change:",
+        {
+          "table": {
+            "head": [
+              "Type",
+              "Effect",
+              "Example"
+            ],
+            "rows": [
+              [
+                "**Silent**",
+                "Same amino acid (degeneracy of the third position)",
+                "GAA → GAG (Glu → Glu)"
+              ],
+              [
+                "**Missense**",
+                "Different amino acid; effect depends on the position and the chemistry of the change",
+                "Sickle-cell: GAG → GTG, Glu6 → Val in β-globin; the hydrophobic Val creates a sticky patch, so deoxy-Hb S polymerizes"
+              ],
+              [
+                "**Nonsense**",
+                "Sense codon → stop; truncated protein",
+                "UAC → UAA"
+              ],
+              [
+                "**Frameshift**",
+                "Insertion or deletion of 1 or 2 nucleotides; all downstream codons change",
+                "Deleting one base from AUG GAA CCC UUU gives AUG AAC CCU UU…: every codon downstream changes. A deletion of three bases (as in the common cystic fibrosis mutation ΔF508, which removes one Phe) stays in frame."
+              ]
+            ],
+            "caption": "Classes of point mutations and indels."
+          }
+        },
+        "The sources are errors in replication (rare tautomeric forms of the bases give wrong pairing: the imino form of A pairs with C), chemical damage and radiation. **Depurination** (hydrolysis of the N-glycosidic bond of purines, ≈ 10,000 per cell per day in humans) leaves an abasic site; **deamination** of cytosine to uracil (≈ 100–500 per cell per day) would give a C → T transition if not repaired, which is why DNA has thymine instead of uracil: a uracil found in DNA must have come from cytosine, and is removed by uracil-DNA glycosylase. UV light joins adjacent thymines in a cyclobutane **thymine dimer**, repaired by **excision repair** (removal of a ~30-nt segment and resynthesis); defective excision repair causes xeroderma pigmentosum. **Mutagens** include alkylating agents, intercalators and base analogs (5-bromouracil); the **Ames test** detects potential carcinogens by their ability to revert histidine-requiring *Salmonella* mutants."
+      ],
+      "check": [
+        {
+          "q": "A mutation that changes GAA to GAG (both Glu) is…",
+          "a": "Silent",
+          "wrong": [
+            "Missense",
+            "Nonsense",
+            "Frameshift"
+          ]
+        },
+        {
+          "q": "Why does DNA contain thymine rather than uracil?",
+          "a": "Deaminated cytosine (uracil) can be recognized as damage and repaired",
+          "wrong": [
+            "Uracil cannot pair with adenine",
+            "Thymine binds histones",
+            "Uracil is too large"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Nucleotides = base + sugar + phosphate, joined 3′→5′ by phosphodiesters into a polyanionic chain. DNA has deoxyribose and T; RNA has ribose (2′-OH makes it labile) and U.",
+    "B-DNA: antiparallel double helix, 10.5 bp per turn, 3.4 Å rise, A–T (2 H-bonds) and G–C (3). Stacking provides most stability. T_m rises with GC content and salt; melting is followed by hyperchromicity at 260 nm.",
+    "Replication is semiconservative: helicase, primase, DNA polymerase (5′→3′, needs a primer), leading and lagging strands (Okazaki fragments), ligase. Fidelity ≈ 10⁻⁹–10⁻¹⁰ through selection, proofreading and mismatch repair.",
+    "Transcription: RNA polymerase makes RNA from the template strand; eukaryotic RNA is capped, polyadenylated and spliced. Translation: 64 codons, AUG start, 3 stops, degenerate code; tRNA/aminoacyl-tRNA synthetase pairing; rRNA catalyzes peptide bond formation; ~4 phosphate bonds per peptide bond.",
+    "Mutations: silent, missense, nonsense, frameshift. PCR doubles the target each cycle; Sanger sequencing uses chain-terminating ddNTPs; electrophoresis separates by length."
+  ],
+  "problems": [
+    {
+      "q": "A DNA fragment is 2000 bp long and 42% G + C. How many hydrogen bonds hold the duplex together, and what is its mass (650 g mol⁻¹ per bp)?",
+      "solution": "G + C = 840 bp (3 H-bonds each) = 2520; A + T = 1160 bp (2 H-bonds each) = 2320. Total = 4840 hydrogen bonds. Mass = 2000 × 650 = 1.30 × 10⁶ g mol⁻¹ (1.3 MDa).",
+      "a": "4840 hydrogen bonds; 1.3 × 10⁶ g mol⁻¹"
+    },
+    {
+      "q": "A primer is 5′-ATGCGCATTAGCGCCGTA-3′ (18 nt). Estimate T_m with the Wallace rule and write the sequence of its complementary strand.",
+      "solution": "Count the bases of ATGCGCATTAGCGCCGTA: A = 4, T = 4, G = 5, C = 5, so A + T = 8 and G + C = 10. Wallace rule (intended for oligonucleotides under 14 nt, so only a rough guide here): T_m ≈ 2(8) + 4(10) = 56 °C. The complementary strand, written 5′→3′, is the reverse complement: 5′-TACGGCGCTAATGCGCAT-3′.",
+      "a": "T_m ≈ 56 °C (rough); complement 5′-TACGGCGCTAATGCGCAT-3′"
+    },
+    {
+      "q": "The mRNA 5′-GCC AUG GAA CCC UAG GUU-3′ is translated. Give the peptide and the number of high-energy phosphate bonds used by the elongation reactions (aminoacyl-tRNA formation, delivery, translocation; ignore initiation).",
+      "solution": "Translation starts at the first AUG: AUG GAA CCC UAG → Met–Glu–Pro–stop. The peptide is Met-Glu-Pro (3 residues; the GCC before AUG is not translated, and the GUU after the stop is not translated). Activation costs 2 bonds per amino acid (3 × 2 = 6), and 2 peptide bonds are formed with 1 GTP (EF-Tu) and 1 GTP (EF-G) each = 4. Total = 10 high-energy phosphate bonds for elongation, plus 1 GTP for initiation and 1 for termination, if counted.",
+      "a": "Met–Glu–Pro; 10 phosphate bonds in elongation."
+    },
+    {
+      "q": "A sample of 5.0 µL of PCR product is run on an agarose gel next to a ladder. Fragments of 1000, 500 and 250 bp migrate 2.0, 3.0 and 4.0 cm. Estimate the length of an unknown that migrated 3.5 cm.",
+      "solution": "Plot log₁₀(bp) against distance: 3.000 (2.0 cm), 2.699 (3.0 cm), 2.398 (4.0 cm); the slope is −0.301 per cm (linear). At 3.5 cm: log bp = 2.699 − 0.301 × 0.5 = 2.549, so the length is 10^{2.549} = 354 bp.",
+      "a": "≈ 350 bp"
+    }
+  ]
+}

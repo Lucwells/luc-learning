@@ -1,0 +1,464 @@
+{
+  "id": "proteins-enzymes",
+  "view": "chapter",
+  "title": "Amino Acids, Proteins and Enzymes",
+  "description": "Amino acid acid–base chemistry, the peptide bond, protein structure and folding, oxygen binding, enzyme catalysis and inhibition.",
+  "overview": [
+    "Proteins do most of the work in a cell: they catalyze reactions, transport molecules, build structures and carry signals. All are linear polymers of the same 20 amino acids, and each folds into a defined three-dimensional shape set by its sequence. Understanding proteins is applied organic and physical chemistry: acid–base equilibria set their charge, the planar peptide bond limits their geometry, non-covalent forces fold them, and transition-state theory explains how enzymes speed up reactions by factors of 10⁶ to 10¹⁷.",
+    "This chapter covers amino acids and peptides, the four levels of protein structure, hemoglobin as the model of cooperative binding, and enzyme mechanism and inhibition. The derivation of Michaelis–Menten kinetics is in the kinetics chapter and is used here without repeating it."
+  ],
+  "objectives": [
+    "Draw the ionization states of an amino acid and calculate its isoelectric point from pKa values.",
+    "Describe the peptide bond, the φ/ψ angles, and the geometry of the α helix and β sheet.",
+    "Explain the forces that stabilize tertiary structure, the hydrophobic effect, and how proteins are denatured.",
+    "Compare myoglobin and hemoglobin oxygen binding, the Bohr effect, and cooperativity.",
+    "Describe the catalytic strategies of enzymes and the chymotrypsin mechanism.",
+    "Distinguish competitive, uncompetitive and noncompetitive inhibition from their effects on K_m and V_max."
+  ],
+  "sections": [
+    {
+      "id": "amino-acids",
+      "title": "Amino acids and peptides",
+      "terms": [
+        "amino acid",
+        "amino acids",
+        "peptide",
+        "peptides",
+        "polypeptide",
+        "zwitterion",
+        "isoelectric point",
+        "pI",
+        "α-amino acid",
+        "side chain",
+        "residue",
+        "N-terminus",
+        "C-terminus",
+        "Edman degradation",
+        "Sanger",
+        "essential amino acids",
+        "hydrophobic amino acids",
+        "polar amino acids"
+      ],
+      "body": [
+        "An α-amino acid has a central (α) carbon bearing an amino group, a carboxyl group, a hydrogen and a variable side chain R. Of the 20 standard amino acids, 19 are chiral at the α carbon and all have the L (S, except cysteine, which is R because of sulfur’s priority) configuration in proteins. The side chains divide the amino acids into groups that determine where they sit in a folded protein:",
+        {
+          "table": {
+            "head": [
+              "Class",
+              "Amino acids",
+              "Character"
+            ],
+            "rows": [
+              [
+                "Nonpolar, aliphatic",
+                "Gly, Ala, Val, Leu, Ile, Met, Pro",
+                "Hydrophobic; buried in the core. Gly (no side chain) is flexible; Pro (ring to the N) is rigid and breaks helices."
+              ],
+              [
+                "Aromatic",
+                "Phe, Tyr, Trp",
+                "Hydrophobic; absorb UV (Trp, Tyr at 280 nm), used to measure protein concentration."
+              ],
+              [
+                "Polar, uncharged",
+                "Ser, Thr, Cys, Asn, Gln",
+                "Hydrogen bond with water. Cys forms disulfides."
+              ],
+              [
+                "Acidic (negative at pH 7)",
+                "Asp, Glu",
+                "Carboxylate side chains, pKa ≈ 3.9–4.3"
+              ],
+              [
+                "Basic (positive at pH 7)",
+                "Lys, Arg, His",
+                "Amine/guanidinium side chains. His, pKa ≈ 6.0, is the only one near neutral pH, so it acts as an acid/base catalyst in enzymes."
+              ]
+            ],
+            "caption": "The amino acids by side-chain character."
+          }
+        },
+        {
+          "h": "Acid–base behavior"
+        },
+        "Every amino acid has at least two ionizable groups, α-COOH (pKa₁ ≈ 2.0–2.4) and α-NH₃⁺ (pKa₂ ≈ 9.0–10.0). At low pH it is a cation (⁺H₃N–CHR–COOH); at intermediate pH it is a **zwitterion** (⁺H₃N–CHR–COO⁻), net neutral, which is the reason for the high melting points and the water solubility of amino acids; at high pH it is an anion. The pH at which the net charge is zero is the **isoelectric point (pI)**, the average of the two pKa values that bracket the neutral species:",
+        {
+          "eq": "pI = ½(pKa_i + pKa_{i+1})"
+        },
+        "For an amino acid without an ionizable side chain, pI = ½(pKa₁ + pKa₂) (glycine 5.97; alanine ½(2.34 + 9.69) = 6.01). For acidic amino acids the two pKa values around the neutral form are the two carboxyl groups (Glu: ½(2.19 + 4.25) = 3.22), and for basic amino acids the two amine pKa values (Lys: ½(8.95 + 10.53) = 9.74). Near the pI the molecule has minimal solubility and zero electrophoretic mobility, the basis of isoelectric focusing.",
+        {
+          "example": {
+            "title": "Charge of histidine at pH 7.4",
+            "problem": "Histidine has pKa values of 1.82 (α-COOH), 6.00 (imidazolium) and 9.17 (α-NH₃⁺). What fraction of the imidazole is protonated at pH 7.4, and what is the pI?",
+            "solution": "Henderson–Hasselbalch: pH = pKa + log([base]/[acid]) → log([base]/[acid]) = 7.4 − 6.00 = 1.40 → ratio = 25, so the protonated fraction is 1/26 = 3.8%. The pI lies between the pKa values of the cationic and the anionic forms of the neutral species: pI = ½(6.00 + 9.17) = 7.59."
+          }
+        },
+        {
+          "h": "The peptide bond"
+        },
+        "Two amino acids join by an amide (**peptide**) bond, formed by loss of water between the carboxyl group of one and the amino group of the next. A chain of a few residues is an oligopeptide; a chain of 50 or more is a **polypeptide** or protein. The chain has direction: the free amino group is the N-terminus (residue 1), the free carboxyl the C-terminus, and sequences are written N → C. Each unit in the chain is a **residue**. The nitrogen lone pair is delocalized into the carbonyl, so the C–N bond has about 40% double-bond character (1.33 Å, between the single 1.45 and the double 1.25 Å), rotation is restricted (barrier ≈ 75–90 kJ mol⁻¹), and the six atoms Cα–C(=O)–N(H)–Cα lie in one plane, almost always trans (ω = 180°; cis only for ~5% of X–Pro bonds). The only free rotations are about the N–Cα bond (φ) and the Cα–C bond (ψ).",
+        "Sequencing in the classical **Edman degradation** labels the N-terminal residue with phenyl isothiocyanate, cleaves it from the chain with acid, and identifies it, one residue per cycle without destroying the rest. Today the sequence is nearly always obtained by tandem mass spectrometry of peptides from a protease digest (trypsin cleaves after Lys and Arg), as described in the chapter on mass spectrometry."
+      ],
+      "check": [
+        {
+          "q": "What is the pI of aspartate (pKa 1.99, 3.90, 9.90)?",
+          "a": "2.95",
+          "wrong": [
+            "5.94",
+            "6.90",
+            "2.00"
+          ]
+        },
+        {
+          "q": "Why is the peptide bond planar?",
+          "a": "Resonance gives the C–N bond partial double-bond character",
+          "wrong": [
+            "Hydrogen bonds hold it flat",
+            "Proline forces planarity",
+            "Steric hindrance from the side chains"
+          ]
+        },
+        {
+          "q": "Which standard amino acid has a side chain with pKa near physiological pH?",
+          "a": "Histidine",
+          "wrong": [
+            "Lysine",
+            "Aspartate",
+            "Serine"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "structure",
+      "title": "Protein structure and folding",
+      "terms": [
+        "protein structure",
+        "primary structure",
+        "secondary structure",
+        "tertiary structure",
+        "quaternary structure",
+        "alpha helix",
+        "α-helix",
+        "beta sheet",
+        "β-sheet",
+        "denaturation",
+        "denatured",
+        "protein",
+        "proteins",
+        "Ramachandran plot",
+        "β-turn",
+        "hydrophobic effect",
+        "protein folding",
+        "Anfinsen",
+        "chaperone",
+        "molecular chaperones",
+        "domain",
+        "motif",
+        "native state",
+        "folding funnel",
+        "molten globule",
+        "prion",
+        "amyloid",
+        "chaotropic agent",
+        "urea denaturation"
+      ],
+      "body": [
+        "Structure is described at four levels. The **primary structure** is the amino acid sequence. **Secondary structure** is the regular local backbone conformation, held by hydrogen bonds between backbone N–H and C=O groups. **Tertiary structure** is the three-dimensional fold of the whole chain, held by side-chain interactions. **Quaternary structure** is the assembly of several chains (subunits).",
+        {
+          "h": "Secondary structure and the Ramachandran plot"
+        },
+        "Steric clashes limit the combinations of φ and ψ. A **Ramachandran plot** shows the allowed regions: a large region for right-handed α-helices (φ ≈ −57°, ψ ≈ −47°), a large region for β-strands (φ ≈ −120°, ψ ≈ +130°), a small region for left-handed helices (mainly Gly), and little else. Glycine has a much wider allowed region; proline has φ fixed near −65° by its ring.",
+        {
+          "list": [
+            "**α-helix**: a right-handed coil with 3.6 residues per turn, a rise of 1.5 Å per residue (pitch 5.4 Å), and a hydrogen bond from each C=O (residue i) to the N–H of residue i+4, forming a 13-atom ring. The side chains point outward. Amphipathic helices have a hydrophobic face and a polar face. Pro and Gly destabilize helices.",
+            "**β-sheet**: extended strands (rise 3.3–3.5 Å per residue, side chains alternating above and below the sheet) joined side by side by hydrogen bonds between strands. In antiparallel sheets the N–H···O=C bonds are straight and strong; in parallel sheets they are angled and the bonding is slightly weaker.",
+            "**β-turns and loops** reverse the chain direction, usually with Gly or Pro at the turn, and connect helices and strands on the surface."
+          ]
+        },
+        {
+          "h": "Tertiary structure and folding"
+        },
+        "The largest driving force of folding is the **hydrophobic effect**. Nonpolar side chains in water force the surrounding water into an ordered cage, a loss of entropy of the solvent; burying them in the interior releases that water and raises the entropy of the system. The folding is also favored by hydrogen bonds, ionic interactions (salt bridges), and van der Waals contacts in the tightly packed core. **Disulfide bonds** (Cys–S–S–Cys, formed by oxidation of two thiols in the oxidizing environment outside the cell) cross-link the fold covalently. The net stability of a typical protein is small, ΔG(unfolding) ≈ 20–60 kJ mol⁻¹, the result of a small difference between large favorable and unfavorable terms (including the loss of conformational entropy of the chain, a few kJ mol⁻¹ per residue).",
+        "In the classic experiment of Anfinsen, ribonuclease A was unfolded with urea and β-mercaptoethanol (which reduces the disulfides) and returned to the native conformation, with full activity, when the denaturants were removed. The conclusion is that the sequence contains all the information needed for folding (the **native state** is the global free-energy minimum). In cells **chaperones** (Hsp70, GroEL/ES) prevent aggregation of folding intermediates. Misfolding gives **amyloid** fibers of β-sheets (Alzheimer’s disease; prion diseases).",
+        {
+          "h": "Denaturation"
+        },
+        "**Denaturation** is the loss of the native structure with no breaking of peptide bonds. Heat, extremes of pH, organic solvents, detergents, and chaotropic agents such as urea (6–8 M) or guanidinium chloride break non-covalent interactions; reducing agents break disulfides. Denaturation is usually cooperative (a sharp transition, like a melting), and may be irreversible when the chains aggregate (cooking an egg). In **SDS-PAGE**, the detergent sodium dodecyl sulfate coats proteins with negative charge in proportion to their length (≈ 1.4 g SDS per g protein), so they migrate in a polyacrylamide gel according to size alone, with log(molar mass) linear in mobility.",
+        {
+          "h": "Quaternary structure: hemoglobin"
+        },
+        "Myoglobin (one subunit, 153 residues) stores O₂ in muscle. Its binding curve is a hyperbola, Y = pO₂/(P₅₀ + pO₂), with P₅₀ ≈ 2.8 torr, so it is nearly saturated at tissue oxygen pressures (20–30 torr). Hemoglobin is a tetramer (α₂β₂, each with a heme group, Fe²⁺ in a porphyrin) with a sigmoidal curve, P₅₀ ≈ 26 torr. This is **cooperative binding**: binding of O₂ to one heme shifts the T (tense, low-affinity) state to the R (relaxed, high-affinity) state, by a movement of the Fe into the porphyrin plane and the associated change in the subunit interfaces. The Hill coefficient is n_H ≈ 2.8 (≤ 4, the number of sites). It permits hemoglobin to pick up O₂ in the lungs (≈100 torr, 98% saturated) and release 25–30% of it in the tissues (≈ 30 torr, 60%). The affinity is lowered by H⁺ and CO₂ (the **Bohr effect**) and by 2,3-bisphosphoglycerate, which binds between the β subunits of the T state; these favor delivery of O₂ to active tissue.",
+        {
+          "example": {
+            "title": "Myoglobin saturation",
+            "problem": "Calculate the fractional saturation of myoglobin (P₅₀ = 2.8 torr) at 30 torr and of hemoglobin (P₅₀ = 26 torr, n_H = 2.8) at the same pressure.",
+            "solution": "Mb: Y = 30/(2.8 + 30) = 0.915. Hb (Hill equation, Y = pⁿ/(P₅₀ⁿ + pⁿ)): (30/26)^{2.8} = 1.154^{2.8} = 1.49, so Y = 1.49/(1 + 1.49) = 0.60. In the tissues myoglobin keeps its oxygen (92% saturated) while hemoglobin gives it up (60%), which is the physiological function of the pair: myoglobin takes O₂ from hemoglobin."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "In an α-helix, the C=O of residue i hydrogen-bonds to the N–H of residue…",
+          "a": "i + 4",
+          "wrong": [
+            "i + 1",
+            "i + 2",
+            "i + 7"
+          ]
+        },
+        {
+          "q": "What is the main driving force of protein folding?",
+          "a": "The hydrophobic effect (burial of nonpolar side chains, releasing ordered water)",
+          "wrong": [
+            "Formation of peptide bonds",
+            "Covalent disulfide bonds only",
+            "Ionization of side chains"
+          ]
+        },
+        {
+          "q": "What does cooperative binding mean in hemoglobin?",
+          "a": "Binding of O₂ to one subunit raises the affinity of the others",
+          "wrong": [
+            "Each subunit binds O₂ independently",
+            "O₂ binding lowers the affinity of the others",
+            "Hemoglobin has no quaternary structure"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "catalysis",
+      "title": "Enzyme catalysis",
+      "terms": [
+        "enzyme",
+        "enzymes",
+        "active site",
+        "substrate",
+        "substrates",
+        "lock and key",
+        "induced fit",
+        "cofactor",
+        "cofactors",
+        "coenzyme",
+        "coenzymes",
+        "apoenzyme",
+        "holoenzyme",
+        "catalytic triad",
+        "serine protease",
+        "chymotrypsin",
+        "transition-state stabilization",
+        "transition state analog",
+        "oxyanion hole",
+        "acid–base catalysis",
+        "covalent catalysis",
+        "metal ion catalysis",
+        "proximity effect",
+        "specificity constant",
+        "kcat/Km",
+        "catalytic efficiency",
+        "enzyme classification",
+        "zymogen"
+      ],
+      "body": [
+        "An **enzyme** accelerates a reaction without being consumed, typically by 10⁶–10¹⁷ times, under mild conditions (water, 37 °C, pH ≈ 7) and with exquisite specificity for the substrate and for the stereochemistry of the product. Most are proteins (a few are RNA, the ribozymes). The reaction takes place at the **active site**, a cleft or pocket formed by residues that are often far apart in the sequence but close in the fold. The substrates bind through non-covalent interactions. The old model of **lock and key** (a rigid fit) is replaced by **induced fit**: the substrate, on binding, changes the shape of the enzyme to align the catalytic groups; the enzyme is most complementary to the transition state and not to the substrate.",
+        "The kinetics follows Michaelis–Menten: v = V_max[S]/(K_m + [S]), with V_max = k_cat[E]_T (see the kinetics chapter). Two numbers measure performance: k_cat, the **turnover number** (molecules of substrate converted per enzyme per second, 1 to 10⁶ s⁻¹), and the **specificity constant** k_cat/K_m (M⁻¹ s⁻¹), the second-order rate constant for the reaction of free enzyme with free substrate at low [S], which is used to compare substrates and enzymes. The upper limit is the diffusion-controlled encounter, 10⁸–10⁹ M⁻¹ s⁻¹, reached by catalase, carbonic anhydrase and triose phosphate isomerase (“perfect” enzymes).",
+        {
+          "h": "How enzymes work"
+        },
+        "The central principle is that the enzyme binds the transition state more tightly than the substrate: the enzyme lowers ΔG‡ by the extra binding free energy. Pauling’s idea led to the design of **transition state analogs**, stable molecules resembling the transition state that bind 10³–10⁶ times more tightly than the substrate and are potent inhibitors (and the haptens for catalytic antibodies). The specific mechanisms that combine to provide the effect are:",
+        {
+          "list": [
+            "**Proximity and orientation**: the enzyme holds two substrates close together, in the right orientation, converting a bimolecular reaction into an intramolecular one (effective molarity of 10⁴–10⁸ M).",
+            "**General acid–base catalysis**: side chains (His, Asp, Glu, Lys, Cys) donate or accept protons, which stabilize charges that develop in the transition state.",
+            "**Covalent catalysis**: a nucleophile of the enzyme (Ser, Cys, His, Lys) forms a transient covalent intermediate with the substrate, giving a path with lower barriers.",
+            "**Metal-ion catalysis**: Zn²⁺, Mg²⁺, Fe²⁺/³⁺, Mn²⁺ polarize groups, stabilize negative charge, or participate in redox. A non-protein helper is a **cofactor**: metal ions, or organic **coenzymes** (NAD⁺, FAD, coenzyme A, pyridoxal phosphate, thiamine pyrophosphate, biotin, many derived from vitamins). The protein without its cofactor is the apoenzyme, and the active complex is the holoenzyme.",
+            "**Transition-state stabilization** by electrostatic complementarity and by exclusion of water in the active site (a low-dielectric microenvironment)."
+          ]
+        },
+        {
+          "h": "Example: chymotrypsin"
+        },
+        "**Chymotrypsin** is a **serine protease** that cleaves peptide bonds on the C-terminal side of large hydrophobic residues (Phe, Tyr, Trp), which fit a hydrophobic pocket. Its mechanism is the textbook case of covalent and acid–base catalysis. A **catalytic triad** of Ser195, His57 and Asp102 does the work: Asp102 orients His57 and stabilizes its positive charge, His57 removes the proton from Ser195 so that its oxygen is a strong nucleophile, and the serine oxygen attacks the carbonyl carbon of the scissile bond. The resulting tetrahedral intermediate has a negatively charged oxygen, stabilized by two N–H groups of the backbone, the **oxyanion hole**. The intermediate collapses, with His57 protonating the leaving amine, to give an acyl-enzyme (a covalent ester with Ser195); the first product (the amine) leaves. Water enters, activated by His57, and attacks the acyl-enzyme through a second tetrahedral intermediate to release the carboxylic acid and regenerate the enzyme (a ping-pong mechanism). Digestive proteases are secreted as inactive precursors, the **zymogens** (chymotrypsinogen), and activated by cleavage, which prevents autodigestion of the pancreas.",
+        {
+          "example": {
+            "title": "Catalytic efficiency",
+            "problem": "An enzyme has k_cat = 4.0 × 10³ s⁻¹ and K_m = 2.0 × 10⁻⁴ M. What is k_cat/K_m, and how close is it to the diffusion limit?",
+            "solution": "k_cat/K_m = 4.0 × 10³/2.0 × 10⁻⁴ = 2.0 × 10⁷ M⁻¹ s⁻¹. The diffusion limit is about 10⁸–10⁹ M⁻¹ s⁻¹, so the enzyme is a factor of 5–50 below it: efficient, but the rate is not yet limited only by the encounter of enzyme and substrate."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "What is the role of the oxyanion hole in chymotrypsin?",
+          "a": "It stabilizes the negative charge of the tetrahedral intermediate by hydrogen bonds",
+          "wrong": [
+            "It binds the hydrophobic side chain",
+            "It donates a proton to serine",
+            "It stores the zymogen"
+          ]
+        },
+        {
+          "q": "An enzyme lowers the activation energy mainly by…",
+          "a": "Binding the transition state more tightly than the substrate",
+          "wrong": [
+            "Raising the temperature locally",
+            "Changing ΔG° of the reaction",
+            "Increasing the substrate concentration"
+          ]
+        },
+        {
+          "q": "What does k_cat/K_m measure?",
+          "a": "Catalytic efficiency: the second-order rate constant at low substrate concentration",
+          "wrong": [
+            "The maximum velocity",
+            "The affinity for the product",
+            "The enzyme concentration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "inhibition",
+      "title": "Enzyme inhibition and regulation",
+      "terms": [
+        "inhibitor",
+        "inhibitors",
+        "competitive inhibition",
+        "uncompetitive inhibition",
+        "noncompetitive inhibition",
+        "mixed inhibition",
+        "irreversible inhibitor",
+        "suicide inhibitor",
+        "allosteric regulation",
+        "allosteric enzyme",
+        "feedback inhibition",
+        "allosteric effector",
+        "covalent modification",
+        "phosphorylation",
+        "inhibition constant",
+        "Ki",
+        "MWC model",
+        "aspartate transcarbamoylase",
+        "penicillin",
+        "drug design"
+      ],
+      "body": [
+        "Inhibitors reduce the rate of an enzyme-catalyzed reaction. They are the basis of most drugs and the key to metabolic control. **Reversible inhibitors** bind non-covalently and are classified by whether they bind the free enzyme E, the enzyme–substrate complex ES, or both; with Lineweaver–Burk plots (1/v against 1/[S]) the types are distinguished at once.",
+        {
+          "table": {
+            "head": [
+              "Type",
+              "Binds",
+              "Apparent V_max",
+              "Apparent K_m",
+              "Lineweaver–Burk lines"
+            ],
+            "rows": [
+              [
+                "**Competitive**",
+                "E only (competes with S for the active site)",
+                "Unchanged",
+                "K_m(1 + [I]/K_i), increased",
+                "Intersect on the 1/v axis"
+              ],
+              [
+                "**Uncompetitive**",
+                "ES only",
+                "V_max/α′, decreased",
+                "K_m/α′, decreased",
+                "Parallel"
+              ],
+              [
+                "**Noncompetitive** (pure)",
+                "E and ES equally, at a separate site",
+                "V_max/α, decreased",
+                "Unchanged",
+                "Intersect on the 1/[S] axis"
+              ],
+              [
+                "**Mixed**",
+                "E and ES with different K_i",
+                "Decreased",
+                "Increased or decreased",
+                "Intersect off the axes"
+              ]
+            ],
+            "caption": "Reversible inhibition, with α = 1 + [I]/K_i and α′ = 1 + [I]/K_i′."
+          }
+        },
+        "A competitive inhibitor can be overcome by a high [S], so V_max is unchanged; the inhibitor makes the enzyme appear to have a lower affinity for the substrate. Typical examples are the statins (inhibitors of HMG-CoA reductase, K_i ~ nM) and methotrexate (dihydrofolate reductase). The **inhibition constant** K_i is the dissociation constant of the enzyme–inhibitor complex, and a smaller value means a more potent inhibitor.",
+        {
+          "example": {
+            "title": "Competitive inhibition",
+            "problem": "An enzyme has K_m = 2.0 mM. In the presence of 1.0 mM of a competitive inhibitor with K_i = 0.50 mM, what is the apparent K_m, and what happens to the rate at [S] = 2.0 mM?",
+            "solution": "α = 1 + [I]/K_i = 1 + 1.0/0.50 = 3.0, so K_m,app = 2.0 × 3.0 = 6.0 mM. Without inhibitor v/V_max = 2.0/(2.0 + 2.0) = 0.50; with inhibitor v/V_max = 2.0/(6.0 + 2.0) = 0.25. The rate is halved. To restore 50% of V_max one would need [S] = 6.0 mM."
+          }
+        },
+        "**Irreversible inhibitors** form a covalent bond with the enzyme: organophosphates (nerve agents, insecticides) phosphorylate the active-site serine of acetylcholinesterase; **penicillin** acylates the serine of the bacterial transpeptidase that cross-links the cell wall, as a structural mimic of the D-Ala-D-Ala substrate. Mechanism-based (**suicide**) inhibitors are converted by the enzyme itself into a reactive species that traps it, which makes them unusually selective.",
+        {
+          "h": "Regulation"
+        },
+        "Most pathways are controlled at a few key enzymes. **Allosteric enzymes** have regulatory sites separate from the active site, which bind effectors (activators or inhibitors) and shift the equilibrium between a low-affinity T state and a high-affinity R state (the concerted **MWC model**, as for hemoglobin). The velocity curve against [S] is sigmoidal, so a small change in [S] gives a large change in v. In **feedback inhibition** the end product of a pathway inhibits the first committed step: CTP inhibits aspartate transcarbamoylase (ATCase), and ATP and citrate inhibit phosphofructokinase. Other mechanisms are **covalent modification**, most often reversible **phosphorylation** of Ser, Thr or Tyr by kinases and removal by phosphatases (glycogen phosphorylase), and proteolytic activation of zymogens (digestive enzymes, blood clotting)."
+      ],
+      "check": [
+        {
+          "q": "A competitive inhibitor changes…",
+          "a": "Apparent K_m, but not V_max",
+          "wrong": [
+            "V_max only",
+            "Both K_m and V_max, in parallel",
+            "Neither"
+          ]
+        },
+        {
+          "q": "On a Lineweaver–Burk plot, uncompetitive inhibition gives…",
+          "a": "Parallel lines",
+          "wrong": [
+            "Lines intersecting on the y-axis",
+            "Lines intersecting on the x-axis",
+            "A single line"
+          ]
+        },
+        {
+          "q": "Feedback inhibition means…",
+          "a": "The end product of a pathway inhibits an early enzyme in it",
+          "wrong": [
+            "The substrate inhibits the last enzyme",
+            "The enzyme inhibits its own gene",
+            "The product activates the first enzyme"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Amino acids are zwitterions near neutral pH; pI is the mean of the pKa values around the neutral form. Peptide bonds are planar and trans because of resonance, leaving φ and ψ as the only backbone freedom.",
+    "Secondary structure: α-helix (3.6 residues/turn, i → i+4 hydrogen bonds), β-sheet, turns. Tertiary structure is driven by the hydrophobic effect and held by hydrogen bonds, salt bridges and disulfides. The sequence determines the fold (Anfinsen).",
+    "Hemoglobin binds O₂ cooperatively (sigmoidal, n_H ≈ 2.8, T ⇌ R) and responds to H⁺, CO₂ and 2,3-BPG; myoglobin binds hyperbolically.",
+    "Enzymes bind the transition state best. Mechanisms: proximity, acid–base, covalent and metal-ion catalysis. Chymotrypsin: Ser–His–Asp triad, oxyanion hole, acyl-enzyme. k_cat/K_m ≤ 10⁸–10⁹ M⁻¹ s⁻¹.",
+    "Competitive inhibitors raise K_m(app); uncompetitive lower both; noncompetitive lower V_max. Allosteric control, feedback inhibition, phosphorylation and zymogens regulate flux."
+  ],
+  "problems": [
+    {
+      "q": "Calculate the pI of lysine (pKa 2.18, 8.95, 10.53) and state the net charge of lysine at pH 7 and at pH 12. Toward which electrode does it migrate at pH 7?",
+      "solution": "The neutral species lies between the pKa of α-NH₃⁺ (8.95) and the side-chain ε-NH₃⁺ (10.53): pI = ½(8.95 + 10.53) = 9.74. At pH 7 (below pI), both amines are protonated and the carboxyl is deprotonated: net charge +1, migrating toward the cathode (−). At pH 12 (above all pKa values) all groups are deprotonated: net charge −1, migrating toward the anode.",
+      "a": "pI = 9.74; +1 at pH 7 (to the cathode); −1 at pH 12."
+    },
+    {
+      "q": "A tripeptide Ala–Glu–Lys is dissolved in water at pH 7. Estimate its net charge and sketch the sign of the charge on each ionizable group.",
+      "solution": "The N-terminal α-NH₃⁺ (pKa ≈ 8) is +1; the Glu side chain (pKa 4.3) is −1; the Lys side chain (pKa 10.5) is +1; the C-terminal COO⁻ (pKa ≈ 3.5) is −1. Net charge = +1 − 1 + 1 − 1 = 0, close to neutral at pH 7. (The peptide bonds carry no charge.)",
+      "a": "Net charge ≈ 0."
+    },
+    {
+      "q": "An enzyme with V_max = 100 µmol min⁻¹ and K_m = 5.0 mM is inhibited by a noncompetitive inhibitor with K_i = 2.0 mM at [I] = 4.0 mM. Calculate the apparent V_max and the velocity at [S] = 5.0 mM.",
+      "solution": "α = 1 + 4.0/2.0 = 3.0. V_max,app = 100/3.0 = 33.3 µmol min⁻¹; K_m is unchanged (5.0 mM). At [S] = K_m, v = V_max,app/2 = 16.7 µmol min⁻¹ (against 50 without inhibitor).",
+      "a": "V_max,app = 33 µmol min⁻¹; v = 17 µmol min⁻¹"
+    },
+    {
+      "q": "Hemoglobin (P₅₀ = 26 torr, n_H = 2.8) is 98% saturated in the lungs and 60% in the tissues. Compare this with the unloading that a non-cooperative protein with the same P₅₀ would give, using pO₂ = 100 torr in the lungs and 30 torr in the tissues.",
+      "solution": "Non-cooperative: Y(100) = 100/126 = 0.794; Y(30) = 30/56 = 0.536; fraction delivered = 0.794 − 0.536 = 0.26. Cooperative Hb: Y(100) = (3.85)^{2.8}/(1 + 3.85^{2.8}) = 43.8/44.8 = 0.978; Y(30) = 0.60; delivered = 0.38. Cooperativity increases the oxygen released by about 45% (0.38 vs 0.26).",
+      "a": "0.38 against 0.26 of the carrying capacity: about 45% more delivered."
+    }
+  ]
+}

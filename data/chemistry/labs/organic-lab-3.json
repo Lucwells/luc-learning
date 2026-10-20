@@ -1,0 +1,563 @@
+{
+  "id": "organic-lab-3",
+  "view": "chapter",
+  "title": "Organic Laboratory III: Redox, Olefination, Coupling, Natural Products and Identification",
+  "description": "Hypochlorite oxidation and borohydride reduction, the Wittig reaction, aspirin and phenacetin, natural products, azo dyes, Suzuki coupling, qualitative organic analysis, and nylon.",
+  "overview": [
+    "The experiments in this chapter extend the repertoire in three directions: reactions that control stereochemistry (borohydride reduction of camphor, the Wittig reaction), reactions used for medicines, dyes and materials (aspirin, phenacetin, methyl orange, Suzuki coupling, nylon), and the isolation and identification of unknown compounds (natural products from plants and the classical qualitative analysis of an unknown). The last group is the closest to real research practice: the answer is not known beforehand and the structure has to be deduced from converging evidence.",
+    "As before, each section gives the idea behind the experiment, a typical procedure with quantities, the calculation of yield, and the characterization. Always check the SDS and the course manual before starting; some reagents here (iodoethane, palladium salts, diazonium salts, sebacoyl chloride) need special care."
+  ],
+  "objectives": [
+    "Carry out a hypochlorite oxidation and a borohydride reduction, and explain the diastereoselectivity of camphor reduction.",
+    "Run a Wittig reaction, understand its driving force, and isomerize Z- to E-stilbene.",
+    "Prepare aspirin and phenacetin and test purity with FeCl₃.",
+    "Calculate the efficiency of a multiple extraction and isolate natural products by extraction and steam distillation.",
+    "Prepare a diazonium salt and an azo dye, with temperature and pH control.",
+    "Explain the Suzuki catalytic cycle and the green features of the aqueous reaction.",
+    "Identify an unknown by solubility classification, functional group tests and derivatives; carry out an interfacial polymerization."
+  ],
+  "sections": [
+    {
+      "id": "redox-lab",
+      "title": "Experiment: oxidation and reduction (borneol, camphor, cyclohexanol)",
+      "terms": [
+        "borneol oxidation",
+        "camphor reduction",
+        "sodium borohydride reduction experiment",
+        "bleach oxidation of alcohol",
+        "oxidation with hypochlorite",
+        "isoborneol",
+        "cyclohexanol oxidation",
+        "diastereoselectivity of camphor reduction",
+        "green oxidation",
+        "potassium iodide–starch test",
+        "camphor",
+        "borneol",
+        "hypochlorous acid oxidation mechanism",
+        "hydride attack from the endo face"
+      ],
+      "body": [
+        {
+          "h": "Oxidation with household bleach"
+        },
+        "A secondary alcohol is oxidized to the ketone by hypochlorous acid, generated in situ from bleach (aqueous NaOCl, ≈ 0.7 M, 5–6%) and acetic acid: NaOCl + CH₃COOH ⇌ HOCl + CH₃COONa. The mechanism: the alcohol is converted by HOCl into the alkyl hypochlorite R₂CH–O–Cl, which undergoes E2 loss of the C–H proton and chloride (Cl⁻ leaving group) to give R₂C=O. It is a “green” replacement for the classical chromium(VI) oxidations (Jones reagent), whose carcinogenic Cr(VI) and chromium waste are avoided. **Procedure**: borneol (1.0 g, 6.5 mmol) is dissolved in acetic acid (2 mL) and acetone or ethyl acetate, and bleach (≈ 14 mL, 1.5 equiv. of NaOCl) is added dropwise at 40–50 °C with stirring, and the mixture is stirred for 30 min. The excess oxidant is detected with **starch–iodide paper** (HOCl + 2 I⁻ + H⁺ → I₂ + Cl⁻ + H₂O; I₂ gives the blue-black starch complex) and destroyed with NaHSO₃. After extraction (CH₂Cl₂), washing with NaHCO₃ and brine, drying and evaporation, camphor (152.23 g mol⁻¹, mp 175–177 °C, **sublimes**) is obtained. IR: disappearance of O–H, C=O at 1740 cm⁻¹ (a strained cyclopentanone-type ring, higher than a normal ketone at 1715).",
+        {
+          "example": {
+            "title": "Bleach stoichiometry",
+            "problem": "How many mL of 0.70 M NaOCl are needed for 6.5 mmol of borneol at 1.5 equivalents?",
+            "solution": "Each alcohol needs 1 HOCl (two-electron oxidation, Cl(+1) → Cl(−1)). 1.5 × 6.5 = 9.75 mmol/0.70 mmol mL⁻¹ = 13.9 mL. Commercial bleach slowly loses strength; titration with thiosulfate gives the real concentration."
+          }
+        },
+        {
+          "h": "Reduction of camphor with sodium borohydride"
+        },
+        "Sodium borohydride delivers a hydride to the carbonyl carbon (a nucleophilic addition) and the alkoxide is protonated by the methanol solvent: 4 R₂C=O + NaBH₄ + 4 CH₃OH → 4 R₂CHOH + NaB(OCH₃)₄. Camphor (0.50 g, 3.3 mmol) in methanol (5 mL) is treated with NaBH₄ (0.5 g, in portions; each BH₄⁻ can deliver four hydrides, so a large excess is used because the reagent also reacts with the methanol), refluxed 5 min, and quenched in ice water; the solid is collected, dissolved in ether, dried, and evaporated. The product (theoretical: 3.3 mmol × 154.25 = 0.51 g) is a mixture of two **diastereomers**, isoborneol (exo-OH) and borneol (endo-OH). The camphor skeleton is a bicyclic ketone, with the C7 bridge carrying a methyl group that blocks the exo face, so the hydride attacks from the less hindered **endo** face, and the new O–H is on the exo face: **isoborneol** is the major product (≈ 85–90%), the opposite of what the thermodynamic stability would predict (borneol is more stable): the reaction is under kinetic, steric control.",
+        "The ratio is determined by ¹H NMR from the integrals of the carbinol hydrogen (H–C–OH): isoborneol δ 3.60 (dd), borneol δ 4.00 (ddd), or by GC (the two diastereomers have different retention times). Sample calculation: integrals of 3.60 (0.86) and 4.00 (0.14) give 86:14. Similarly, cyclohexanol is oxidized by bleach to cyclohexanone (the IR C=O at 1715 cm⁻¹ appears, the broad O–H disappears; 2,4-DNP gives an orange precipitate)."
+      ],
+      "check": [
+        {
+          "q": "Why does NaBH₄ reduction of camphor give mainly isoborneol?",
+          "a": "Hydride attacks from the less hindered endo face, placing the OH exo",
+          "wrong": [
+            "Isoborneol is the more stable alcohol",
+            "Hydride attacks from the exo face",
+            "NaBH₄ is not stereoselective"
+          ]
+        },
+        {
+          "q": "What does a positive starch–iodide test after the oxidation show?",
+          "a": "Excess oxidant (hypochlorite) is still present",
+          "wrong": [
+            "The reaction is complete and clean",
+            "Camphor is present",
+            "Starch is oxidized"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wittig-lab",
+      "title": "Experiment: the Wittig reaction (stilbene)",
+      "terms": [
+        "Wittig experiment",
+        "trans-stilbene synthesis",
+        "benzyltriphenylphosphonium chloride",
+        "stilbene",
+        "ylide formation experiment",
+        "triphenylphosphine oxide removal",
+        "E/Z isomerization with iodine",
+        "phase-transfer Wittig",
+        "cis-stilbene",
+        "stabilized ylide"
+      ],
+      "body": [
+        "**Reaction**: benzyltriphenylphosphonium chloride + PhCHO + base → PhCH=CHPh + Ph₃P=O. The phosphonium salt (made from PPh₃ and benzyl chloride) is deprotonated at the benzylic carbon by a strong base to give the **ylide** Ph₃P⁺–C⁻HPh ↔ Ph₃P=CHPh (deep color), which adds to the aldehyde carbonyl to form a four-membered **oxaphosphetane**; this collapses (retro-[2+2]) to the alkene and triphenylphosphine oxide. The driving force is the formation of the very strong P=O bond (≈ 540 kJ mol⁻¹). The reaction forms the C=C bond at a defined position (no isomer mixtures from elimination), which is its advantage over aldol dehydration. The disadvantage is poor atom economy: the Ph₃PO waste has a mass of 278 per 180 of stilbene.",
+        "**Procedure** (two-phase variant): the phosphonium salt (2.0 g, 5.1 mmol, 388.87 g mol⁻¹), benzaldehyde (0.50 mL, 4.9 mmol) and CH₂Cl₂ (5 mL) are placed in a flask; 50% aqueous NaOH (2.5 mL) is added dropwise with vigorous stirring (the hydroxide deprotonates the salt at the interface; the ylide dissolves in the organic phase); stirring continues for 30 min. The layers are separated, the CH₂Cl₂ is washed with water and dried. The stilbene (E and Z) is separated from the triphenylphosphine oxide (more polar, poorly soluble in hexane or cold ethanol) by dissolving in hexane or by a short silica plug.",
+        {
+          "list": [
+            "**Stereochemistry**: a semi-stabilized ylide such as the benzylide gives mixtures of Z and E (≈ 1:1 to 3:1 Z). Non-stabilized ylides (alkyl) favor Z; stabilized ylides (with C=O or CN on the carbon) favor E.",
+            "**Isomerization**: a catalytic amount of iodine in the solution of stilbene exposed to light (or heated) converts Z to the more stable E isomer by reversible addition of iodine radicals (the Z isomer is destabilized by steric clash of the phenyl groups by ≈ 18 kJ mol⁻¹). E-stilbene: mp 124 °C, colorless crystals; Z-stilbene is a liquid (mp 6 °C). Recrystallization from ethanol gives pure E.",
+            "**Characterization**: ¹H NMR: E: vinyl 7.11 (s, 2H); Z: vinyl 6.60 (s, 2H); aromatic 7.1–7.6. The vinyl protons are equivalent by symmetry, so they appear as a singlet. UV: E 295 nm (ε ≈ 29,000), Z 280 nm (lower: twisted, less conjugated)."
+          ]
+        },
+        {
+          "example": {
+            "title": "Yield and atom economy",
+            "problem": "Benzaldehyde (4.9 mmol) is the limiting reagent; 0.62 g of E-stilbene (180.25) is isolated after isomerization. Calculate the yield. What is the atom economy of the Wittig step from the reactants phosphonium salt + PhCHO + NaOH?",
+            "solution": "Theoretical = 4.9 × 180.25 = 0.883 g; yield = 0.62/0.883 = 70%. Atom economy = 180.25/(388.87 + 106.12 + 40.00) = 180.25/535.0 = 34%: two-thirds of the mass of the reagents ends up as Ph₃PO, NaCl and water."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "What is the main driving force of the Wittig reaction?",
+          "a": "Formation of the strong P=O bond of triphenylphosphine oxide",
+          "wrong": [
+            "Formation of a C–C single bond",
+            "Release of CO₂",
+            "Ring strain relief"
+          ]
+        },
+        {
+          "q": "How are E and Z stilbene distinguished by ¹H NMR?",
+          "a": "By the vinyl singlet position: 7.11 ppm (E) and 6.60 ppm (Z)",
+          "wrong": [
+            "By the J coupling",
+            "By the integrals",
+            "They cannot be distinguished"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "aspirin-lab",
+      "title": "Experiment: aspirin and the Williamson ether synthesis (phenacetin)",
+      "terms": [
+        "aspirin synthesis",
+        "acetylsalicylic acid",
+        "acetaminophen synthesis",
+        "Williamson ether experiment",
+        "ferric chloride test for phenols",
+        "salicylic acid acetylation",
+        "4-ethoxyacetanilide",
+        "phenacetin",
+        "acetaminophen",
+        "acetic anhydride",
+        "esterification of a phenol",
+        "phenoxide alkylation",
+        "purity test for aspirin"
+      ],
+      "body": [
+        {
+          "h": "Aspirin"
+        },
+        "**Reaction**: salicylic acid + acetic anhydride → acetylsalicylic acid + acetic acid (a few drops of H₃PO₄ or H₂SO₄ as catalyst). The phenolic OH, not very nucleophilic, is acylated by the anhydride, a more reactive acylating agent than the acid, so the equilibrium issue of the Fischer esterification does not apply. **Procedure**: salicylic acid (2.0 g, 14.5 mmol, 138.12 g mol⁻¹), acetic anhydride (4.0 mL, 4.3 g, 42 mmol; 3 equiv.) and 5 drops of 85% H₃PO₄ are heated in a flask at 70–80 °C for 10–15 min. Water (2 mL) is added carefully to destroy the excess anhydride (exothermic: (CH₃CO)₂O + H₂O → 2 CH₃COOH), then 20 mL of cold water; the flask is cooled in ice, scratching to induce crystallization; the crystals are collected and recrystallized from ethanol–water. **Theoretical yield**: 14.5 mmol × 180.16 = 2.61 g; typical 70–85%. mp 135–136 °C (in a capillary, it decomposes slowly: heat rapidly).",
+        "**Purity test**: the **ferric chloride test** gives a violet-purple color with phenols (the Fe³⁺ complex of the phenoxide; salicylic acid is positive). A few crystals of pure aspirin dissolved in ethanol give a negative (yellow) result. A positive test shows unreacted starting material (or hydrolysis, since aspirin hydrolyzes slowly in moist air to salicylic acid and a vinegar smell). IR: ester C=O 1750 and acid C=O 1690 cm⁻¹; ¹H NMR: 2.35 (s, 3H, acetyl), 7.1–8.1 (4 aromatic H), 11 (br, COOH).",
+        {
+          "h": "Phenacetin by Williamson ether synthesis"
+        },
+        "In the **Williamson ether synthesis**, an alkoxide or phenoxide displaces a halide from a primary alkyl halide by SN2. Acetaminophen (paracetamol, 0.50 g, 3.3 mmol, 151.16 g mol⁻¹) is deprotonated at the phenolic OH (pK_a ≈ 9.5; the amide N–H is much less acidic, pK_a ≈ 15 so O-alkylation is selective) by finely powdered K₂CO₃ (0.5 g) in butanone (6 mL); iodoethane (0.50 mL, 1.0 g, 6.2 mmol; a good SN2 substrate, primary with an excellent leaving group; an excess compensates for its volatility, bp 72 °C) is added and the mixture is refluxed for 1 h. Water is added to dissolve the salts, the mixture is cooled and the solid **4-ethoxyacetanilide (phenacetin)** is collected and recrystallized from water or aqueous ethanol. **Theoretical yield** = 3.3 mmol × 179.22 = 0.59 g; mp 134–136 °C. NMR: 1.40 (t, 3H), 2.14 (s, 3H, COCH₃), 4.00 (q, 2H, OCH₂), 6.85 and 7.38 (AA′BB′, 4H), 7.2 (br, NH). Phenacetin was a widely used analgesic until its kidney toxicity led to withdrawal, but paracetamol itself is its metabolite.",
+        {
+          "example": {
+            "title": "Limiting reagent in the acetylation",
+            "problem": "Is acetic anhydride in excess in the aspirin preparation? How much is consumed?",
+            "solution": "Salicylic acid: 14.5 mmol (limiting). Acetic anhydride: 4.0 mL × 1.08 g mL⁻¹ = 4.32 g/102.09 = 42.3 mmol, 2.9 equivalents. Consumed in the acetylation: 14.5 mmol; the rest (27.8 mmol) is destroyed by water to acetic acid."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "What does a violet color with FeCl₃ in the aspirin product show?",
+          "a": "Unreacted salicylic acid (a free phenol)",
+          "wrong": [
+            "Pure aspirin",
+            "Acetic anhydride",
+            "Water"
+          ]
+        },
+        {
+          "q": "Why is O-alkylation, not N-alkylation, selective for acetaminophen with K₂CO₃?",
+          "a": "The phenol OH (pKa ≈ 9.5) is much more acidic than the amide N–H, so only the phenoxide forms",
+          "wrong": [
+            "Nitrogen is not nucleophilic ever",
+            "K₂CO₃ attacks the amide",
+            "Iodoethane reacts only with oxygen"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "natural-products-lab",
+      "title": "Experiment: isolating natural products (caffeine, limonene, eugenol)",
+      "terms": [
+        "caffeine extraction",
+        "extraction of caffeine from tea",
+        "limonene steam distillation",
+        "eugenol from cloves",
+        "natural product isolation",
+        "orange peel limonene",
+        "clove oil",
+        "tannins removal",
+        "sodium carbonate in tea extraction",
+        "partition coefficient of caffeine",
+        "multiple extractions efficiency",
+        "Dalton's law in steam distillation",
+        "phenol extraction with NaOH",
+        "sublimation of caffeine"
+      ],
+      "body": [
+        {
+          "h": "Caffeine from tea"
+        },
+        "Tea leaves contain 2–4% caffeine (1,3,7-trimethylxanthine, 194.19 g mol⁻¹), together with tannins (polyphenols, acidic), chlorophyll, cellulose and sugars. Caffeine is soluble in hot water (180 mg mL⁻¹ at 80 °C; 22 mg mL⁻¹ at 25 °C) and more soluble in CH₂Cl₂, in which it has a partition coefficient K = [caffeine]_CH₂Cl₂/[caffeine]_water ≈ 4.6. **Procedure**: 5 g of tea (or 5 tea bags) is boiled for 15 min in 50 mL of water with 2 g of Na₂CO₃. The base converts the tannins and gallic acid derivatives to water-soluble sodium salts (phenolates, carboxylates) which stay in the aqueous phase, while caffeine (a weak base, pK_aH 0.6, neutral at this pH) can be extracted. The hot liquid is decanted through a filter, cooled, and extracted three times with 10 mL portions of CH₂Cl₂ in a separatory funnel (invert gently; shaking vigorously gives **emulsions**, which are broken with brine, Celite filtration or time). The combined organic extract is dried (Na₂SO₄), the solvent evaporated, and the crude caffeine (a pale green solid) is purified by recrystallization (acetone–hexane) or by **sublimation** (caffeine sublimes at 178 °C at atmospheric pressure, mp 235 °C). Identify by mp, IR (two C=O at 1700 and 1660 cm⁻¹, no O–H or N–H), TLC against a standard.",
+        {
+          "example": {
+            "title": "Efficiency of multiple extractions",
+            "problem": "100 mL of aqueous tea extract is extracted with 30 mL of CH₂Cl₂ in total, either in one portion or in three portions of 10 mL (K = 4.6). What fraction of the caffeine is extracted by each?",
+            "solution": "Fraction remaining after n extractions = [1/(1 + K V_o/V_w)]ⁿ. One extraction with 30 mL: 1/(1 + 4.6 × 0.30) = 1/2.38 = 0.420, so 58% extracted. Three with 10 mL: [1/(1 + 4.6 × 0.10)]³ = (1/1.46)³ = 0.321, so 68% extracted. Multiple small portions are more efficient than one large portion of the same total volume. (With 3 × 30 mL: (1/2.38)³ = 0.074, 93% extracted.)"
+          }
+        },
+        {
+          "h": "Limonene from orange peel (steam distillation)"
+        },
+        "(+)-Limonene (136.24 g mol⁻¹, a monoterpene made of two isoprene units, bp 176 °C) is the main component (>90%) of orange peel oil. Peel (grated, 20 g) with water is steam-distilled: since the two liquids are immiscible, each exerts its own vapor pressure and the mixture boils when the sum equals the atmospheric pressure (Dalton’s law), P_total = P_water + P_limonene = 760 torr, at about 97 °C, below the boiling point of water. The composition of the vapor (and so of the distillate) is n_limonene/n_water = P_limonene/P_water, so the mass ratio is (P_L M_L)/(P_W M_W). With P_L ≈ 50 torr assumed at the codistillation temperature, the mass ratio is 50 × 136.24/(710 × 18.02) = 0.53 g limonene per gram of water. The cloudy distillate is extracted with CH₂Cl₂, dried and evaporated; the identity follows from its smell, IR (C=C–H 3080 cm⁻¹, 887 for the isopropenyl =CH₂), refractive index n_D²⁰ = 1.4727 and optical rotation ([α]_D = +115° for the pure (R)-(+)-limonene).",
+        {
+          "h": "Eugenol from cloves"
+        },
+        "Clove oil is 70–90% **eugenol** (4-allyl-2-methoxyphenol, 164.2 g mol⁻¹, bp 254 °C), obtained by steam distillation of crushed cloves, followed by extraction of the distillate with CH₂Cl₂. Eugenol is a phenol and can be separated from neutral components (caryophyllene, eugenyl acetate) by extraction with 5% NaOH (as the water-soluble sodium phenoxide), and then regenerated by acidification with HCl and re-extraction. Tests: **FeCl₃** (blue-green: phenol), Br₂/CH₂Cl₂ (the allyl C=C decolorizes), IR (3500 broad O–H, 1640 C=C), NMR (δ 6.7–6.9 (3H), 5.95 (m, 1H, CH=), 5.05 (m, 2H, =CH₂), 3.88 (s, 3H, OCH₃), 3.32 (d, 2H, ArCH₂), 5.5 (s, OH))."
+      ],
+      "check": [
+        {
+          "q": "Why is sodium carbonate added when extracting caffeine from tea?",
+          "a": "It converts tannins to water-soluble salts that stay in the aqueous layer",
+          "wrong": [
+            "It protonates caffeine",
+            "It dissolves cellulose",
+            "It acts as a drying agent"
+          ]
+        },
+        {
+          "q": "Why does steam distillation allow limonene (bp 176 °C) to distill below 100 °C?",
+          "a": "The vapor pressures of the two immiscible liquids add, so the total reaches 760 torr at a lower temperature",
+          "wrong": [
+            "Water lowers the boiling point by forming a solution",
+            "Limonene is volatile at 25 °C only",
+            "Steam heats it above its bp"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "azo-lab",
+      "title": "Experiment: azo dye synthesis (methyl orange)",
+      "terms": [
+        "methyl orange synthesis",
+        "azo dye experiment",
+        "sulfanilic acid",
+        "diazotization experiment",
+        "N,N-dimethylaniline coupling",
+        "methyl orange indicator",
+        "diazonium salt stability",
+        "starch–iodide test for nitrous acid",
+        "chromophore of azo dyes",
+        "pH indicator color change"
+      ],
+      "body": [
+        "**Reaction**: (1) diazotization of sulfanilic acid (4-aminobenzenesulfonic acid, 173.19 g mol⁻¹): ArNH₂ + HNO₂ + H⁺ → ArN₂⁺ + 2 H₂O; (2) electrophilic azo coupling of the diazonium ion with N,N-dimethylaniline: ArN₂⁺ + C₆H₅N(CH₃)₂ → ArN=N–C₆H₄N(CH₃)₂ (methyl orange). Nitrous acid is made in situ from NaNO₂ and HCl (it decomposes if stored) and nitrosates the amine nitrogen. After a sequence of proton transfers and loss of water, the arenediazonium ion forms. Aromatic diazonium salts are only stable below 5–10 °C: above this they lose N₂ (ArN₂⁺ + H₂O → ArOH + N₂ + H⁺), and dry diazonium salts are explosive, so they are never isolated. Diazotization is therefore performed in an ice bath (0–5 °C).",
+        "**Procedure**: sulfanilic acid (2.0 g, 11.5 mmol) is dissolved in 20 mL of 2.5% Na₂CO₃ (it is a zwitterion, insoluble in water, and dissolves as the sodium sulfonate–amine). NaNO₂ (0.8 g, 11.6 mmol) is added, the solution is cooled to 0–5 °C and poured into a beaker with ice (10 g) and conc. HCl (2 mL): the diazonium salt (a fine white suspension of the inner salt) forms; a drop on **starch–iodide paper** turns blue-black if a slight excess of nitrous acid is present (it oxidizes I⁻ to I₂), and the excess is destroyed with a little urea or sulfamic acid. N,N-dimethylaniline (1.5 mL, 11.8 mmol) in acetic acid (1.2 mL) is added; the red acid form of methyl orange separates; the mixture is made basic with NaOH (the color changes to orange as the sodium salt of the yellow-orange base form); heated to dissolve, salted out with NaCl, cooled, and the orange crystals filtered, then recrystallized from water. **Theoretical yield** (sodium salt, 327.33 g mol⁻¹): 11.5 mmol × 327.33 = 3.76 g; typical 40–70%.",
+        {
+          "list": [
+            "**Why para?** The diazonium ion is a weak electrophile, so only strongly activated rings couple (anilines, phenols). Attack is at the para position of the –NMe₂ group (the ortho is hindered). The coupling medium is mildly acidic (pH 4–7) for anilines: at lower pH the amine is protonated and deactivated, at higher pH the diazonium is converted to the unreactive diazotate. Phenols couple in mildly basic solution (as the phenoxide).",
+            "**Color**: the extended conjugated π system, with the electron-donating NMe₂ and the electron-withdrawing SO₃⁻/N=N, absorbs in the visible. **Methyl orange is a pH indicator**: in acid, protonation of an azo nitrogen gives the red quinoid hydrazonium form (λ_max ≈ 507 nm); above pH 4.4 the yellow-orange azo form (λ_max ≈ 464 nm) dominates. pK_a ≈ 3.5, transition range pH 3.1–4.4 (red to yellow). It is suited to the titration of strong acid with a weak base (equivalence point at acidic pH).",
+            "**Hazards**: dimethylaniline is toxic and absorbed through skin; diazonium salts must not be allowed to dry out."
+          ]
+        },
+        {
+          "example": {
+            "title": "Indicator color at pH 4.0",
+            "problem": "For methyl orange, pK_a = 3.46. What are the fractions of the acid (red) and base (yellow) forms at pH 4.0?",
+            "solution": "[In⁻]/[HIn] = 10^{pH − pK_a} = 10^{0.54} = 3.46. Fraction base = 3.46/4.46 = 78%, acid = 22%: the solution is orange-yellow."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Why must the diazotization be kept at 0–5 °C?",
+          "a": "Aryl diazonium ions decompose to phenols and N₂ at higher temperature",
+          "wrong": [
+            "Nitrous acid is frozen",
+            "The amine would evaporate",
+            "The coupling needs low temperature only"
+          ]
+        },
+        {
+          "q": "At what position does the diazonium ion couple with N,N-dimethylaniline?",
+          "a": "Para to the dimethylamino group",
+          "wrong": [
+            "Ortho to the dimethylamino group",
+            "On the nitrogen",
+            "On a methyl group"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "suzuki-lab",
+      "title": "Experiment: Suzuki coupling and green chemistry",
+      "terms": [
+        "Suzuki coupling experiment",
+        "green chemistry experiment",
+        "palladium acetate catalyst",
+        "phenylboronic acid",
+        "4-bromoanisole",
+        "aqueous Suzuki",
+        "4-methoxybiphenyl",
+        "oxidative addition and reductive elimination",
+        "transmetalation in the lab",
+        "palladium black",
+        "ligand-free palladium",
+        "boronate formation",
+        "cross-coupling experiment"
+      ],
+      "body": [
+        "**Reaction**: 4-bromoanisole + phenylboronic acid → 4-methoxybiphenyl + boron salts (Pd(OAc)₂ cat., base, water/ethanol). The Suzuki–Miyaura coupling joins two sp² carbons and won the 2010 Nobel Prize (with Heck and Negishi). The catalytic cycle: (1) **oxidative addition** of the Ar–Br to Pd(0) to give Ar–Pd(II)–Br; (2) **transmetalation**: the base (carbonate, hydroxide) converts the boronic acid to the more nucleophilic boronate [PhB(OH)₃]⁻, which transfers the phenyl group to palladium, displacing bromide; (3) **reductive elimination** of Ar–Ph, regenerating Pd(0). Pd(OAc)₂ is reduced to Pd(0) in situ by the ethanol or the boronic acid.",
+        "**Procedure** (typical teaching scale, 1 mmol): 4-bromoanisole (187 mg, 1.0 mmol), phenylboronic acid (146 mg, 1.2 mmol), K₂CO₃ or Na₂CO₃ (2.0 mmol) and Pd(OAc)₂ (1–2 mg, 0.5 mol%) are heated in 4 mL of 1:1 water–ethanol at 60–80 °C for 20–30 min (or in a microwave). Palladium black (finely divided metal) precipitating indicates that the catalyst has aggregated but the reaction often proceeds. The mixture is cooled, diluted with water and extracted with ethyl acetate (or the product simply collected by filtration), then filtered through a short silica plug, and recrystallized from ethanol. TLC (hexanes–ethyl acetate 9:1) follows the disappearance of 4-bromoanisole. 4-Methoxybiphenyl (184.24 g mol⁻¹): mp 87–90 °C; ¹H NMR: 7.55 (m, 4H), 7.43 (t, 2H), 7.30 (t, 1H), 6.98 (d, 2H), 3.85 (s, 3H). **Theoretical yield** = 1.0 mmol × 184.24 = 184 mg.",
+        {
+          "list": [
+            "**Why it is “green”**: water–ethanol in place of toluene/THF; a very low loading of Pd (a precious, toxic, finite resource) and an air-stable catalyst; low-toxicity organoboron reagents and benign boron by-products (borates) compared with the organotin of Stille or the organozinc of Negishi couplings; short reaction time at moderate temperature (energy); high selectivity (few by-products, so a low E-factor).",
+            "The by-products to look for: biphenyl (homocoupling of the boronic acid, favored by O₂), anisole (protodehalogenation), and phenol from oxidation of the boronic acid."
+          ]
+        },
+        {
+          "example": {
+            "title": "Atom economy of the Suzuki coupling",
+            "problem": "Calculate the atom economy of the coupling of 4-bromoanisole with phenylboronic acid, first counting only the two coupling partners, then also counting 2 equivalents of K₂CO₃ (138.2 g mol⁻¹) as a reagent.",
+            "solution": "M(ArBr) = 187.04, M(PhB(OH)₂) = 121.93; M(product) = 184.24. Atom economy = 184.24/(187.04 + 121.93) = 184.24/308.97 = 59.6% (counting only the two partners). With 2 equivalents of K₂CO₃ included, 184.24/(308.97 + 276.4) = 31%. The coupling is thus not especially atom economical in principle; its green advantages lie in the other metrics."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "What does the base do in the Suzuki coupling?",
+          "a": "It converts the boronic acid to the nucleophilic boronate for transmetalation",
+          "wrong": [
+            "It oxidizes palladium",
+            "It reduces the aryl bromide",
+            "It dissolves the catalyst"
+          ]
+        },
+        {
+          "q": "The last step of the catalytic cycle is…",
+          "a": "Reductive elimination to form the C–C bond and regenerate Pd(0)",
+          "wrong": [
+            "Oxidative addition",
+            "Transmetalation",
+            "Ligand exchange"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "qualitative-lab",
+      "title": "Experiment: qualitative organic analysis and functional group tests",
+      "terms": [
+        "qualitative organic analysis",
+        "functional group tests",
+        "2,4-DNP test",
+        "chromic acid test",
+        "ferric chloride test",
+        "solubility classification",
+        "derivatization of unknowns",
+        "Tollens test",
+        "oxime derivative",
+        "melting point of derivatives",
+        "2,4-dinitrophenylhydrazone",
+        "Beilstein test",
+        "sodium fusion test",
+        "hydroxamic acid test"
+      ],
+      "body": [
+        "**Aim**: to identify an unknown organic compound by a systematic combination of physical constants (mp or bp), solubility behavior, functional group tests, and the preparation of a solid derivative whose melting point is compared with tables. The method is now done in addition to (or before) spectroscopy; its value is to teach chemical reasoning from functional-group reactivity.",
+        {
+          "h": "Solubility classification"
+        },
+        "A small amount (25 mg or 2 drops) of the unknown is tested in 0.75 mL of the solvents in sequence: water (soluble: low-molecular-weight polar compounds with ≤ 5 carbons; test the pH), diethyl ether, 5% NaOH, 5% NaHCO₃, 5% HCl, and conc. H₂SO₄. **Solubility in 5% NaOH** indicates an acid (carboxylic acids, phenols); if soluble also in 5% NaHCO₃ it is a strong acid (carboxylic acid); if only in NaOH, a weak acid (phenol). **Soluble in 5% HCl** indicates a base (amines). **Insoluble in all, but soluble in conc. H₂SO₄** means a neutral compound with a heteroatom or π bond (alcohols, aldehydes, ketones, esters, alkenes: protonated by the strong acid). **Insoluble even in conc. H₂SO₄**: saturated hydrocarbons, alkyl halides, simple aromatics.",
+        {
+          "h": "Functional group tests"
+        },
+        {
+          "table": {
+            "head": [
+              "Test",
+              "Positive result",
+              "Functional group"
+            ],
+            "rows": [
+              [
+                "**2,4-DNP** (2,4-dinitrophenylhydrazine in acid)",
+                "Yellow/orange/red precipitate of the hydrazone",
+                "Aldehydes and ketones"
+              ],
+              [
+                "**Tollens’ reagent** ([Ag(NH₃)₂]⁺)",
+                "Silver mirror (Ag⁰)",
+                "Aldehydes (not ketones)"
+              ],
+              [
+                "**Iodoform** (I₂/NaOH)",
+                "Yellow precipitate of CHI₃ (mp 119 °C), antiseptic smell",
+                "Methyl ketones CH₃CO–R; ethanol and CH₃CH(OH)R"
+              ],
+              [
+                "**Chromic acid** (CrO₃/H₂SO₄, orange)",
+                "Green/blue Cr(III) within seconds",
+                "Primary and secondary alcohols, aldehydes (not tertiary alcohols or ketones)"
+              ],
+              [
+                "**Lucas** (ZnCl₂/HCl)",
+                "Cloudiness: immediate (3°), 5 min (2°), none (1°)",
+                "Alcohols (C₃–C₆)"
+              ],
+              [
+                "**FeCl₃**",
+                "Violet, blue, green or red complex",
+                "Phenols and enols"
+              ],
+              [
+                "**Br₂/CH₂Cl₂**; **KMnO₄**",
+                "Decolorization; brown MnO₂",
+                "Alkenes and alkynes"
+              ],
+              [
+                "**Hinsberg** (PhSO₂Cl/NaOH)",
+                "Sulfonamide soluble (1°), insoluble (2°), no reaction (3°)",
+                "Amines"
+              ],
+              [
+                "**Hydroxamate (FeCl₃)**",
+                "Burgundy color",
+                "Esters, acid chlorides, anhydrides"
+              ],
+              [
+                "**AgNO₃/EtOH**",
+                "Precipitate of AgX",
+                "Alkyl halides (3° fast)"
+              ]
+            ],
+            "caption": "Classical qualitative tests."
+          }
+        },
+        "**Derivatives**: converting the unknown into a crystalline derivative with a sharp melting point gives a second physical constant: **semicarbazones** and 2,4-dinitrophenylhydrazones (and oximes) for aldehydes and ketones; p-nitrobenzoates or 3,5-dinitrobenzoates for alcohols; amides or anilides for acids; benzamides and acetamides for amines. The mp of the derivative and of the original compound are compared with a table of known compounds. A mixed melting point with an authentic sample proves identity.",
+        {
+          "example": {
+            "title": "Identifying an unknown",
+            "problem": "An unknown liquid, bp 79–80 °C, is insoluble in water, NaOH and HCl but dissolves in conc. H₂SO₄. It gives an orange precipitate with 2,4-DNP, no silver mirror with Tollens’ reagent, and a yellow precipitate with I₂/NaOH. The 2,4-DNP derivative melts at 114–115 °C, the semicarbazone at 145–146 °C. Identify the compound.",
+            "solution": "Neutral, with a heteroatom (H₂SO₄ soluble). 2,4-DNP positive: aldehyde or ketone. Tollens negative: a ketone. Iodoform positive: a methyl ketone, CH₃CO–R. bp 79–80 °C fits 2-butanone (MEK, bp 79.6 °C) and the 2,4-DNP derivative mp 115 °C and semicarbazone mp 146 °C match 2-butanone (acetone is excluded: bp 56 °C, DNP 126 °C, semicarbazone 187 °C; 2-pentanone bp 102 °C). The IR band at 1715 cm⁻¹ and the NMR (triplet 1.05, singlet 2.14, quartet 2.45) would confirm CH₃COCH₂CH₃."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "A compound dissolves in 5% NaOH but not in 5% NaHCO₃, and gives a violet color with FeCl₃. It is a…",
+          "a": "Phenol (a weak acid)",
+          "wrong": [
+            "Carboxylic acid",
+            "Amine",
+            "Alkane"
+          ]
+        },
+        {
+          "q": "Which test distinguishes an aldehyde from a ketone?",
+          "a": "Tollens’ test (silver mirror for aldehydes)",
+          "wrong": [
+            "2,4-DNP",
+            "Iodoform",
+            "Solubility in H₂SO₄"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "polymer-lab",
+      "title": "Experiment: making polymers (the nylon rope trick)",
+      "terms": [
+        "nylon rope trick",
+        "interfacial polymerization",
+        "sebacoyl chloride",
+        "hexamethylenediamine",
+        "nylon 6,10",
+        "polymerization experiment",
+        "free radical polymerization experiment",
+        "Schotten–Baumann conditions",
+        "step-growth polymerization in the lab",
+        "polystyrene synthesis",
+        "polyamide repeat unit",
+        "chain growth in the lab"
+      ],
+      "body": [
+        "**Nylon 6,10 by interfacial polymerization** is a step-growth polycondensation of a diamine with a diacid chloride, which is so fast at the interface of two immiscible liquids that a continuous polymer film forms and can be pulled out as a rope. Hexamethylenediamine (1,6-diaminohexane, 116.21 g mol⁻¹) in water, with NaOH, is covered carefully with a solution of sebacoyl chloride (decanedioyl dichloride, ClCO(CH₂)₈COCl, 239.14 g mol⁻¹) in hexane or cyclohexane. At the interface the amine attacks the acid chloride (nucleophilic acyl substitution) forming an amide bond and HCl: H₂N(CH₂)₆NH₂ + ClCO(CH₂)₈COCl → –[NH(CH₂)₆NH–CO(CH₂)₈CO]– + 2 HCl. The NaOH in the aqueous phase neutralizes the HCl (**Schotten–Baumann conditions**); if the HCl were not removed it would protonate the diamine to the unreactive ammonium. The film of nylon forms at the interface where the monomers meet, and as it is lifted with tweezers, fresh interface is exposed. The numbers 6,10 refer to the number of carbons in the diamine and in the diacid.",
+        "**Typical scale**: 2 mL of 0.2 M sebacoyl chloride in hexane (0.4 mmol) over 2 mL of an aqueous solution of 0.5 M hexamethylenediamine and 0.5 M NaOH (1.0 mmol diamine; excess). The strand is pulled out continuously, washed with water and with 50% ethanol (to remove the unreacted monomers, and HCl) and dried. The repeat unit C₁₆H₃₀N₂O₂ (282.43 g mol⁻¹) means that the theoretical yield from 0.4 mmol of the acid chloride (limiting) is 0.4 × 282.43 = 113 mg. The molar mass of the polymer is high only if the stoichiometry is exact (the Carothers equation, X̄_n = (1 + r)/(1 − r) for the stoichiometric ratio r < 1 at complete conversion, requires r near 1 for a large degree of polymerization), which is arranged at the interface, where the monomers diffuse toward each other in a 1:1 ratio, naturally. The polymer chains are held together by hydrogen bonds between the amide N–H and C=O groups of neighboring chains (the origin of its strength and its fiber-forming ability); IR: N–H 3300, amide I (C=O) 1640, amide II 1540 cm⁻¹; mp ≈ 215 °C.",
+        {
+          "h": "Chain-growth polymerization"
+        },
+        "A contrasting experiment is the **free-radical polymerization** of styrene or methyl methacrylate in toluene, initiated by AIBN (azobisisobutyronitrile, which decomposes at 70–80 °C with a half-life of about 1 h to give two radicals and N₂) or benzoyl peroxide. The polymer is precipitated in methanol and dried. The mass of polymer increases with time and the chains form very fast (chain-growth: the monomer is consumed gradually while high molar mass chains are present from the start), unlike step-growth where the molar mass rises only at high conversion. Inhibitors (hydroquinone, 4-tert-butylcatechol) in commercial monomers are removed by washing with NaOH or passing through alumina, since they capture radicals.",
+        {
+          "example": {
+            "title": "Carothers equation",
+            "problem": "In a step-growth polyamidation with a diamine:diacid chloride ratio r = 0.98 (diamine in 2% excess), what is the maximum number-average degree of polymerization at complete conversion?",
+            "solution": "X̄_n = (1 + r)/(1 − r) = 1.98/0.02 = 99 structural units (about 50 repeat units, M_n ≈ 14,000 g mol⁻¹ for nylon 6,10). An exactly stoichiometric balance would be required for infinite chains; at r = 0.99, X̄_n = 199."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Why is NaOH included in the aqueous phase in the nylon rope trick?",
+          "a": "To neutralize the HCl by-product that would otherwise protonate the diamine",
+          "wrong": [
+            "To catalyze the radical chain",
+            "To dissolve the polymer",
+            "To oxidize the diamine"
+          ]
+        },
+        {
+          "q": "What holds nylon chains together in the fiber?",
+          "a": "Hydrogen bonds between amide N–H and C=O groups of neighboring chains",
+          "wrong": [
+            "Ionic bonds",
+            "Covalent cross-links",
+            "Metallic bonding"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Bleach (HOCl) oxidizes secondary alcohols to ketones (borneol → camphor); starch–iodide detects excess oxidant. NaBH₄ reduces camphor from the less hindered endo face, to give mainly isoborneol (kinetic control).",
+    "Wittig: ylide + aldehyde → alkene + Ph₃P=O (driving force P=O); semi-stabilized ylides give Z/E mixtures; I₂/light isomerizes to E-stilbene. Aspirin: phenol acylated by Ac₂O; FeCl₃ detects residual salicylic acid. Phenacetin: Williamson SN2 on the phenoxide.",
+    "Multiple extractions are more efficient than one: fraction left = (1/(1 + K V_o/V_w))ⁿ. Steam distillation: n_org/n_water = P_org/P_water. Eugenol is a phenol, extractable into NaOH.",
+    "Diazotization at 0–5 °C (nitrous acid, starch–iodide check), coupling para to NMe₂ at pH 4–7 gives methyl orange (indicator, pK_a 3.5). Suzuki coupling: oxidative addition, transmetalation (boronate), reductive elimination; aqueous, low Pd, benign boron by-products.",
+    "Qualitative analysis: solubility classes, group tests (2,4-DNP, Tollens, iodoform, chromic acid, Lucas, FeCl₃) and solid derivatives with sharp mp. Nylon 6,10: interfacial step-growth polycondensation with NaOH to remove HCl; Carothers equation X̄_n = (1 + r)/(1 − r)."
+  ],
+  "problems": [
+    {
+      "q": "Caffeine (K = 4.6 between CH₂Cl₂ and water) is to be extracted from 50 mL of aqueous tea containing 100 mg. How much remains in the water after (a) one extraction with 30 mL CH₂Cl₂, (b) three extractions with 10 mL each?",
+      "solution": "Fraction remaining = [1/(1 + K V_o/V_w)]ⁿ. (a) V_o/V_w = 0.60; 1/(1 + 2.76) = 0.266 → 26.6 mg remain (73.4 mg extracted). (b) V_o/V_w = 0.20; 1/(1 + 0.92) = 0.521; cubed = 0.141 → 14.1 mg remain (85.9 mg extracted).",
+      "a": "(a) 26.6 mg; (b) 14.1 mg remain"
+    },
+    {
+      "q": "The reaction of 2.0 g of salicylic acid (138.12) with excess acetic anhydride gives 2.05 g of crude aspirin (180.16) which melts at 128–133 °C and gives a faint violet color with FeCl₃. Calculate the crude yield, and explain the observations.",
+      "solution": "n = 2.0/138.12 = 14.48 mmol → theoretical 2.61 g. Crude yield = 2.05/2.61 = 79%. The low, broad melting range (pure: 135–136 °C) and the violet color show contamination by unreacted salicylic acid (or its formation by hydrolysis). Recrystallization from ethanol–water removes it; the pure product will give a negative FeCl₃ test.",
+      "a": "79% crude; contains some salicylic acid"
+    },
+    {
+      "q": "A 0.50 g sample of camphor is reduced by NaBH₄ and the product has ¹H NMR integrals 0.86 (δ 3.60) and 0.14 (δ 4.00). What is the isoborneol:borneol ratio and the diastereomeric excess? How many grams of each are in 0.45 g of product?",
+      "solution": "Ratio = 0.86:0.14 = 86:14 (isoborneol 86%). Diastereomeric excess = 86 − 14 = 72%. In 0.45 g: isoborneol 0.387 g; borneol 0.063 g.",
+      "a": "86:14; de 72%; 0.387 g and 0.063 g"
+    },
+    {
+      "q": "An unknown solid (mp 121–122 °C) dissolves in 5% NaHCO₃ with effervescence. It gives no color with FeCl₃, no reaction with 2,4-DNP, and a neutral equivalent (titration with NaOH) of 122 g per equivalent. Identify the compound.",
+      "solution": "Soluble in NaHCO₃ with CO₂: a carboxylic acid. No FeCl₃ color: no phenol. Neutral equivalent 122 g mol⁻¹ for a monocarboxylic acid: M = 122. Benzoic acid (C₆H₅COOH, 122.12 g mol⁻¹, mp 122 °C) fits. A mixed mp with an authentic sample, the amide derivative (benzamide mp 128 °C) or the IR (broad O–H 2500–3300, C=O 1685) confirm.",
+      "a": "Benzoic acid"
+    }
+  ]
+}

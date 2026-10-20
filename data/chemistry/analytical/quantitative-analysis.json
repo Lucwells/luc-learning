@@ -177,7 +177,7 @@
         "preconcentration",
         "homogenization",
         "sample dissolution",
-        "fusion"
+        "fusion digestion"
       ],
       "body": [
         "Most of the error in an analysis occurs before the sample reaches the instrument: sample preparation often takes more time than the measurement, and the sample must first be **representative** of the material (a few grams must represent a ton of ore, or a drop of blood a whole person). **Sampling** theory requires particle size reduction, thorough mixing and the right number of increments; **contamination** (from reagents, containers, dust) and losses (adsorption, volatilization) are managed with blanks.",

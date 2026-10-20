@@ -1,0 +1,344 @@
+{
+  "id": "industrial-inorganic",
+  "view": "chapter",
+  "title": "Industrial Inorganic Chemistry: Ammonia, Acids and Alkalis",
+  "description": "The Haber–Bosch, Ostwald, contact, Solvay and chlor-alkali processes, and hydrogen from steam reforming.",
+  "overview": [
+    "A small group of inorganic chemicals underpins the modern economy: ammonia and nitric acid for fertilizer and explosives, sulfuric acid for fertilizers and metallurgy, sodium carbonate for glass, chlorine and sodium hydroxide for plastics, paper and water treatment. Each is made on a scale of 10⁷–10⁸ tonnes per year, from cheap raw materials (air, water, natural gas, sulfur, salt, limestone), by processes in which equilibrium, kinetics and heat integration were optimized over a century.",
+    "The chapter treats each process the way an industrial chemist does: the chemistry, the thermodynamic constraints (Le Chatelier’s principle applied to temperature and pressure), the catalyst, the engineering solution, and the stoichiometric and energetic bookkeeping."
+  ],
+  "objectives": [
+    "Apply Le Chatelier’s principle and the van ’t Hoff equation to choose conditions for Haber–Bosch ammonia synthesis, and calculate an equilibrium composition.",
+    "Describe hydrogen production by steam reforming and the water–gas shift reaction.",
+    "Write the reactions of the Ostwald process and the contact process, including double absorption.",
+    "Explain the Solvay process and its recycling of ammonia.",
+    "Describe the membrane chlor-alkali cell, and calculate its energy consumption from Faraday’s laws.",
+    "Do mass-balance calculations for tonnage of raw materials and products."
+  ],
+  "sections": [
+    {
+      "id": "haber",
+      "title": "Ammonia: the Haber–Bosch process",
+      "terms": [
+        "Haber–Bosch process",
+        "Haber-Bosch process",
+        "Haber process",
+        "Haber–Bosch",
+        "ammonia synthesis",
+        "promoted iron catalyst",
+        "synthesis gas",
+        "syngas",
+        "nitrogen fertilizer",
+        "urea synthesis",
+        "ammonium nitrate",
+        "single-pass conversion",
+        "recycle loop",
+        "ammonia production",
+        "Bosch",
+        "Mittasch",
+        "van 't Hoff equation in industry",
+        "steam reforming",
+        "water–gas shift"
+      ],
+      "body": [
+        "Ammonia is the key to fixed nitrogen. The **Haber–Bosch process** (Haber 1909, scaled by Bosch at BASF in 1913) combines nitrogen from air and hydrogen:",
+        {
+          "eq": "N₂(g) + 3 H₂(g) ⇌ 2 NH₃(g)    ΔH° = −92.4 kJ mol⁻¹ (of reaction as written),   ΔS° = −198 J K⁻¹ mol⁻¹"
+        },
+        "The reaction is exothermic and reduces the number of gas molecules from 4 to 2. By **Le Chatelier’s principle**, high pressure and low temperature favor ammonia. The equilibrium constant K_p = p²(NH₃)/[p(N₂)p³(H₂)] falls with temperature according to the van ’t Hoff equation: it is about 6 × 10⁵ atm⁻² at 298 K but only 1.45 × 10⁻⁵ atm⁻² at 500 °C. At 298 K the reaction is thermodynamically very favorable but kinetically impossible, since N≡N (945 kJ mol⁻¹) is so strong that the uncatalyzed reaction has a prohibitively high barrier. The practical conditions are a compromise between equilibrium and rate:",
+        {
+          "table": {
+            "head": [
+              "Variable",
+              "Value",
+              "Reason"
+            ],
+            "rows": [
+              [
+                "Temperature",
+                "400–500 °C",
+                "Needed for a useful rate with the catalyst; lower T gives better equilibrium but too slow"
+              ],
+              [
+                "Pressure",
+                "150–300 atm",
+                "Shifts the equilibrium to NH₃; higher pressure costs compression energy and stronger vessels"
+              ],
+              [
+                "Catalyst",
+                "Fe (from Fe₃O₄), promoted with K₂O, Al₂O₃, CaO",
+                "Dissociates N₂ at the surface (the rate-limiting step); K donates electron density, Al₂O₃ stabilizes the surface area"
+              ],
+              [
+                "Feed",
+                "N₂ : H₂ = 1 : 3",
+                "Stoichiometric mixture gives the highest equilibrium yield"
+              ],
+              [
+                "Operation",
+                "Ammonia removed by cooling and condensation (partial pressure ≈ 30–40 atm); unreacted gas recycled",
+                "Per-pass conversion only 15–25%; removal of NH₃ shifts the equilibrium; > 97% overall"
+              ]
+            ],
+            "caption": "Conditions in the Haber–Bosch process."
+          }
+        },
+        {
+          "example": {
+            "title": "Equilibrium conversion",
+            "problem": "At 500 °C K_p = 1.45 × 10⁻⁵ atm⁻². For a stoichiometric feed at a total pressure of 200 atm, what mole fraction of NH₃ is at equilibrium?",
+            "solution": "For the mixture with mole fractions y(NH₃) = y, y(N₂) = (1−y)/4 and y(H₂) = 3(1−y)/4: K_p P² = y²/[((1−y)/4)(27(1−y)³/64)] = 256y²/[27(1−y)⁴]. With K_pP² = 1.45 × 10⁻⁵ × 4.0 × 10⁴ = 0.58: y²/(1−y)⁴ = 0.58 × 27/256 = 0.0612, so y/(1−y)² = 0.2474. This is 0.2474y² − 1.4948y + 0.2474 = 0, so y = 0.170. At 17 mol% NH₃ at the outlet, the equilibrium has been approached; at 50 atm (K_pP² = 0.036) the conversion would fall to y ≈ 0.05."
+          }
+        },
+        {
+          "h": "Hydrogen: steam reforming"
+        },
+        "Hydrogen for ammonia (and for refining and methanol) is made mostly by **steam reforming** of natural gas over a nickel catalyst: CH₄ + H₂O ⇌ CO + 3 H₂ (ΔH° = +206 kJ mol⁻¹), at 800–900 °C and 20–30 atm in tubes heated externally. The reaction is strongly endothermic and increases the number of gas moles, so high temperature and moderate pressure (a compromise with the downstream compression) are used. In a second (secondary) reformer air is added, burning some of the gas to supply heat and also the nitrogen needed. The CO is converted in the **water–gas shift** reaction, CO + H₂O ⇌ CO₂ + H₂ (ΔH° = −41 kJ mol⁻¹; Fe₃O₄/Cr₂O₃ at ≈ 400 °C and Cu/ZnO at ≈ 200 °C), then CO₂ is scrubbed (with amine solutions) and the remaining CO and CO₂, which poison the iron catalyst, are converted to CH₄ by methanation. The overall energy use of modern plants is ≈ 28 GJ per tonne NH₃, close to the thermodynamic minimum of 20 GJ, and ≈ 1.2% of the world’s CO₂ emissions arise from ammonia production (1.9 t CO₂ per t NH₃, and it is the target of “green ammonia” with electrolytic hydrogen).",
+        "Most ammonia (80%) goes to fertilizers, directly or as **urea** (2 NH₃ + CO₂ → NH₂COONH₄ → (NH₂)₂CO + H₂O, 46% N), **ammonium nitrate** (NH₃ + HNO₃ → NH₄NO₃, 35% N) and ammonium sulfate and phosphates. The rest produces nitric acid, explosives, nylon and acrylonitrile.",
+        {
+          "example": {
+            "title": "Mass balance",
+            "problem": "How much hydrogen and nitrogen are needed to produce 1.00 t of ammonia, ideally?",
+            "solution": "1.00 × 10⁶ g/17.03 = 5.87 × 10⁴ mol NH₃. H₂ = 1.5 × 5.87 × 10⁴ = 8.81 × 10⁴ mol = 178 kg; N₂ = 0.5 × 5.87 × 10⁴ = 2.94 × 10⁴ mol = 823 kg. The hydrogen requires (from CH₄ via 4 H₂ per CH₄ overall) about 0.35 t of methane (CH₄ + 2 H₂O → CO₂ + 4 H₂) for the hydrogen alone."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Why is the Haber–Bosch process run at 400–500 °C even though low temperature favors NH₃?",
+          "a": "The catalyst needs the temperature for an acceptable rate",
+          "wrong": [
+            "High temperature favors the equilibrium",
+            "NH₃ only forms above 400 °C",
+            "It saves energy"
+          ]
+        },
+        {
+          "q": "What is the function of potassium in the iron catalyst?",
+          "a": "It acts as an electronic promoter, facilitating N₂ dissociation",
+          "wrong": [
+            "It is a structural support",
+            "It reacts with ammonia",
+            "It lowers the pressure"
+          ]
+        },
+        {
+          "q": "Why is CO removed before the synthesis loop?",
+          "a": "CO and CO₂ poison the iron catalyst",
+          "wrong": [
+            "They react to form urea",
+            "They increase the pressure",
+            "They condense ammonia"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nitric-sulfuric",
+      "title": "Nitric and sulfuric acids",
+      "terms": [
+        "Ostwald process",
+        "Contact process",
+        "nitric acid production",
+        "sulfuric acid production",
+        "platinum–rhodium gauze",
+        "vanadium(V) oxide catalyst",
+        "double absorption",
+        "oleum",
+        "nitric acid",
+        "pyrosulfuric acid",
+        "sulfur burner",
+        "converter bed",
+        "Frasch process",
+        "Claus process",
+        "absorption tower",
+        "ammonia oxidation"
+      ],
+      "body": [
+        {
+          "h": "Nitric acid: the Ostwald process"
+        },
+        "Nitric acid is made by oxidizing ammonia (the **Ostwald process**) in three steps:",
+        {
+          "list": [
+            "4 NH₃ + 5 O₂ → 4 NO + 6 H₂O   ΔH = −905 kJ. Ammonia and air (10% NH₃) pass over a **platinum–rhodium gauze** catalyst at 800–900 °C and 1–10 atm, with a contact time of ~10⁻³ s. The yield of NO is 95–98%. The reaction is very exothermic, so it is autothermal. The short contact time matters: with a longer contact, NO decomposes (2 NO → N₂ + O₂) or ammonia reacts with NO to give N₂, which is thermodynamically more stable, so selectivity is under kinetic control.",
+            "2 NO + O₂ → 2 NO₂   (the cooled gas oxidizes without catalyst; the reaction is third-order and exothermic, the rate increases at low temperature, a rare negative temperature coefficient).",
+            "3 NO₂ + H₂O → 2 HNO₃ + NO   in the absorption tower; the NO is reoxidized and recycled. The product is 55–68% HNO₃, and concentration to 98% needs dehydrating distillation (azeotrope at 68%)."
+          ]
+        },
+        "Overall: NH₃ + 2 O₂ → HNO₃ + H₂O. Most nitric acid is neutralized with ammonia to make ammonium nitrate; some goes to adipic acid and explosives (TNT, nitroglycerin). The tail gas is treated by catalytic reduction to remove NO_x (and N₂O, a by-product of the oxidation).",
+        {
+          "example": {
+            "title": "Nitric acid from ammonia",
+            "problem": "What mass of HNO₃ (100%) can be made from 1.00 t of NH₃ at an overall yield of 94%?",
+            "solution": "1 mol NH₃ → 1 mol HNO₃: 63.01/17.03 = 3.70 t per t NH₃ in theory; at 94%, 3.48 t HNO₃ (about 5.7 t of 61% acid)."
+          }
+        },
+        {
+          "h": "Sulfuric acid: the contact process"
+        },
+        "Sulfuric acid is the most produced chemical (≈ 2.5 × 10⁸ t y⁻¹; 60% for phosphate fertilizer). Sulfur (from the Claus process of desulfurization of oil and gas, or from the Frasch process) is burned in dry air: S + O₂ → SO₂ (ΔH = −297 kJ mol⁻¹). The heart of the **contact process** is the oxidation:",
+        {
+          "eq": "2 SO₂ + O₂ ⇌ 2 SO₃    ΔH° = −198 kJ mol⁻¹"
+        },
+        "It is exothermic and reduces the gas moles from 3 to 2, so the equilibrium is better at low T and high P; but the reaction is slow below ≈ 400 °C. The catalyst is **vanadium(V) oxide** (V₂O₅ with K₂SO₄ promoter, molten on silica support), active from ≈ 400 °C. The gas passes through several catalyst beds (the **converter**) at 400–450 °C, with cooling between the stages to maintain a favorable equilibrium; the first bed starts at ≈ 600 °C (fast, 70% conversion), and the final beds are at 400–430 °C. Pressure is kept at ≈ 1–2 atm because the conversion is already 99+% and compression is not needed. The SO₃ is not absorbed in water (the reaction forms an uncontrollable mist) but in 98% H₂SO₄: SO₃ + H₂SO₄ → H₂S₂O₇ (**oleum**, pyrosulfuric acid), which is diluted with water: H₂S₂O₇ + H₂O → 2 H₂SO₄. In **double absorption**, the gas is passed to an absorption tower after the third bed, the SO₃ is removed (shifting the equilibrium), and the remainder is returned to the fourth bed: the total conversion rises from 98% to 99.7%, with emissions of SO₂ reduced.",
+        {
+          "example": {
+            "title": "Sulfuric acid from sulfur",
+            "problem": "How many tonnes of H₂SO₄ (98.08 g mol⁻¹) result from 1.00 t of sulfur at 99.5% overall conversion? How much heat is released if all steps are exothermic with SO₂ → SO₃ at −99 kJ per mol SO₃ and S → SO₂ at −297 kJ per mol?",
+            "solution": "1 mol S → 1 mol H₂SO₄: 98.08/32.06 = 3.059 t per t S; at 99.5%, 3.04 t. Heat: per mole of S, −297 − 99 = −396 kJ plus the heat of hydration of SO₃ in water (≈ −130 kJ): about −525 kJ per mol H₂SO₄, or 5.4 GJ per tonne of acid, and the plant recovers it as high-pressure steam (a modern sulfuric acid plant is a net exporter of energy)."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Why is the Ostwald oxidation of NH₃ done with a very short contact time on the Pt–Rh gauze?",
+          "a": "To make NO selectively, before NO decomposes or reacts with NH₃ to form N₂",
+          "wrong": [
+            "To avoid melting the gauze only",
+            "To lower the pressure",
+            "Because Pt is slow"
+          ]
+        },
+        {
+          "q": "Why is SO₃ absorbed in 98% H₂SO₄ rather than water?",
+          "a": "Water gives a fine acid mist that is hard to collect; the strong acid absorbs SO₃ smoothly as oleum",
+          "wrong": [
+            "SO₃ is insoluble in water",
+            "H₂SO₄ is cheaper",
+            "Water destroys the catalyst"
+          ]
+        },
+        {
+          "q": "What is the purpose of double absorption?",
+          "a": "Removing SO₃ mid-process shifts the equilibrium so the final conversion is higher (≈ 99.7%)",
+          "wrong": [
+            "It doubles production",
+            "It lowers temperature in the burner",
+            "It produces oleum only"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "alkalis",
+      "title": "Sodium carbonate, chlorine and sodium hydroxide",
+      "terms": [
+        "Solvay process",
+        "chlor-alkali process",
+        "chlor-alkali",
+        "soda ash",
+        "sodium carbonate production",
+        "membrane cell",
+        "diaphragm cell",
+        "mercury cell",
+        "caustic soda",
+        "chlorine production",
+        "Nafion",
+        "dimensionally stable anode",
+        "ammonia–soda process",
+        "sodium bicarbonate precipitation",
+        "electrolysis of brine",
+        "current efficiency",
+        "brine purification",
+        "Le Blanc process",
+        "trona"
+      ],
+      "body": [
+        {
+          "h": "The Solvay process"
+        },
+        "Sodium carbonate (**soda ash**, Na₂CO₃) is needed for glass (about half), detergents, and chemicals. The direct reaction 2 NaCl + CaCO₃ → Na₂CO₃ + CaCl₂ is thermodynamically unfavorable, so the **Solvay (ammonia–soda) process** (1863) takes an indirect route using the low solubility of NaHCO₃, with ammonia as a recycled intermediate:",
+        {
+          "list": [
+            "NaCl(aq) + NH₃ + CO₂ + H₂O → NaHCO₃↓ + NH₄Cl   (CO₂ is bubbled through ammoniated brine in a tower at 30–40 °C; sodium bicarbonate is the least soluble salt present and precipitates)",
+            "2 NaHCO₃ → Na₂CO₃ + CO₂ + H₂O   (calcination of the filtered solid at 160–200 °C; CO₂ is recycled)",
+            "CaCO₃ → CaO + CO₂   (limestone kiln at 900–1000 °C; the CO₂ goes to step 1)",
+            "CaO + H₂O → Ca(OH)₂;   2 NH₄Cl + Ca(OH)₂ → 2 NH₃ + CaCl₂ + 2 H₂O   (ammonia is recovered and recycled)"
+          ]
+        },
+        "Overall: 2 NaCl + CaCO₃ → Na₂CO₃ + CaCl₂. Ammonia is a catalyst-like intermediate (almost wholly recycled), the raw materials are cheap, and the only by-product is calcium chloride solution (a disposal problem). Where natural trona (Na₂CO₃·NaHCO₃·2H₂O) is mined, as in Wyoming, it is cheaper to refine the mineral (this has displaced Solvay plants in the USA).",
+        {
+          "example": {
+            "title": "Raw materials for soda ash",
+            "problem": "What masses of NaCl and CaCO₃ are needed to make 1.00 t of Na₂CO₃ (105.99 g mol⁻¹)?",
+            "solution": "1.00 × 10⁶/105.99 = 9.435 × 10³ mol Na₂CO₃. NaCl: 2 × 9.435 × 10³ × 58.44 = 1.10 t. CaCO₃: 9.435 × 10³ × 100.09 = 0.944 t. CaCl₂ by-product: 9.435 × 10³ × 110.98 = 1.05 t."
+          }
+        },
+        {
+          "h": "The chlor-alkali process"
+        },
+        "The electrolysis of brine gives three products at once: chlorine (PVC, solvents, disinfectants, titanium dioxide), sodium hydroxide (paper, alumina, soap, chemicals) and hydrogen:",
+        {
+          "eq": "2 NaCl + 2 H₂O → Cl₂ + H₂ + 2 NaOH"
+        },
+        "Anode: 2 Cl⁻ → Cl₂ + 2e⁻ (E° = +1.36 V; the overpotential of O₂ evolution is high on the catalytic electrode, so chloride is oxidized in preference to water, E° = +1.23 V). Cathode: 2 H₂O + 2e⁻ → H₂ + 2 OH⁻ (E° = −0.83 V at pH 14). The thermodynamic minimum cell voltage is ≈ 2.2 V, and in practice 3.0–3.3 V. Three cell types exist. The old **mercury cell** (the Na⁺ is reduced to sodium amalgam at a Hg cathode, then reacts with water to give pure NaOH) has been phased out because of mercury pollution (Minamata). The **diaphragm cell** has an asbestos or polymer diaphragm and gives dilute NaOH contaminated with NaCl. The modern **membrane cell** separates the compartments with a cation-exchange membrane of perfluorinated sulfonate polymer (**Nafion**), which passes Na⁺ (and water) and blocks Cl⁻ and OH⁻, producing a pure 32% NaOH solution; the anode is titanium coated with RuO₂/IrO₂ (a **dimensionally stable anode**), the cathode nickel. The brine must be purified of Ca²⁺ and Mg²⁺ (precipitated as CaCO₃ and Mg(OH)₂, then ion-exchange), which would foul the membrane.",
+        "The products appear in a fixed ratio: per tonne of Cl₂, 1.128 t NaOH (the “electrochemical unit”, ECU) and 28 kg of H₂. The process uses about 2% of the world’s electricity.",
+        {
+          "example": {
+            "title": "Energy of the chlor-alkali process",
+            "problem": "Compute the electrical energy to make 1.00 t of Cl₂ at a cell voltage of 3.0 V and 95% current efficiency.",
+            "solution": "n(Cl₂) = 1.00 × 10⁶/70.90 = 1.41 × 10⁴ mol; 2 mol e⁻ per mol → 2.82 × 10⁴ mol e⁻ × 96,485 C = 2.72 × 10⁹ C (ideal). With 95% efficiency, charge = 2.86 × 10⁹ C. Energy = QV = 2.86 × 10⁹ × 3.0 = 8.6 × 10⁹ J = 2390 kWh. The industry figure is 2200–2600 kWh per tonne Cl₂. Over half the cost of chlorine is electricity."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Why can NaHCO₃ be precipitated from the Solvay mixture?",
+          "a": "It is the least soluble salt present in the cold ammoniated brine",
+          "wrong": [
+            "NaCl is insoluble",
+            "NH₄Cl is volatile",
+            "CO₂ is a solid"
+          ]
+        },
+        {
+          "q": "What does the Nafion membrane do in a chlor-alkali cell?",
+          "a": "Passes Na⁺ but blocks Cl⁻ and OH⁻, so the NaOH is pure",
+          "wrong": [
+            "Passes Cl₂ only",
+            "Acts as a catalyst",
+            "Prevents H₂ evolution"
+          ]
+        },
+        {
+          "q": "What mass of NaOH is produced per tonne of Cl₂?",
+          "a": "About 1.13 t",
+          "wrong": [
+            "0.5 t",
+            "2.0 t",
+            "0.88 t"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Haber–Bosch: N₂ + 3 H₂ ⇌ 2 NH₃ (ΔH = −92 kJ). Equilibrium favors low T, high P; the Fe catalyst needs 400–500 °C, so 150–300 atm and a recycle loop with NH₃ condensation are used (≈ 17% at equilibrium, 200 atm, 500 °C). H₂ comes from steam reforming (CH₄ + H₂O → CO + 3 H₂, +206 kJ) and the water–gas shift.",
+    "Ostwald: 4 NH₃ + 5 O₂ → 4 NO + 6 H₂O on Pt–Rh gauze (800–900 °C, short contact time), then NO → NO₂ → HNO₃ by absorption. Contact: S → SO₂ → SO₃ over V₂O₅ at 400–450 °C in multi-bed converters with double absorption; SO₃ is absorbed in 98% H₂SO₄ to make oleum.",
+    "Solvay: NaCl + NH₃ + CO₂ + H₂O → NaHCO₃ + NH₄Cl, calcination, ammonia recycled with lime. Net: 2 NaCl + CaCO₃ → Na₂CO₃ + CaCl₂.",
+    "Chlor-alkali: electrolysis of brine in a membrane cell gives Cl₂, H₂ and NaOH (1.13 t NaOH per t Cl₂), at ≈ 3 V and ≈ 2400 kWh per tonne of Cl₂."
+  ],
+  "problems": [
+    {
+      "q": "Use ΔH° = −92.4 kJ and ΔS° = −198 J K⁻¹ (per 2 NH₃) to estimate K_p at 298 K and 773 K, assuming constant ΔH° and ΔS°. Compare the result at 773 K with the experimental value of 1.45 × 10⁻⁵ atm⁻².",
+      "solution": "ΔG° = ΔH° − TΔS°. At 298 K: −92.4 + 298 × 0.198 = −33.4 kJ → K = exp(33,400/(8.314 × 298)) = exp(13.5) = 7 × 10⁵. At 773 K: −92.4 + 773 × 0.198 = +60.6 kJ → K = exp(−60,600/(8.314 × 773)) = exp(−9.43) = 8 × 10⁻⁵. The estimate (constant ΔH, ΔS) is a few times larger than the real value because ΔH becomes less negative with the temperature; but it shows the sign of the effect: K falls by a factor of 10⁹ from 298 to 773 K.",
+      "a": "K(298) ≈ 7 × 10⁵; K(773) ≈ 10⁻⁴: the equilibrium falls with the temperature by about nine orders of magnitude."
+    },
+    {
+      "q": "A converter feed has 11% SO₂, 10% O₂, 79% N₂ (by volume). If 98% of the SO₂ is converted, find the composition of the exit gas on 100 mol of feed.",
+      "solution": "SO₂ in = 11 mol; converted = 10.78 mol → SO₂ = 0.22 mol; SO₃ = 10.78 mol. O₂ consumed = 5.39 → O₂ = 4.61 mol. N₂ = 79 mol. Total = 0.22 + 10.78 + 4.61 + 79 = 94.61 mol. Mole fractions: SO₃ 11.4%, SO₂ 0.23%, O₂ 4.9%, N₂ 83.5%.",
+      "a": "SO₃ 11.4%, SO₂ 0.23%, O₂ 4.9%, N₂ 83.5%"
+    },
+    {
+      "q": "A Solvay plant has an overall yield of 92% on NaCl. How much brine (25% NaCl by mass) is needed to make 100 t of soda ash per day?",
+      "solution": "100 t Na₂CO₃ = 9.435 × 10⁵ mol requires 2 × 9.435 × 10⁵ = 1.887 × 10⁶ mol NaCl = 110.3 t NaCl in theory. At 92%: 119.9 t NaCl. At 25% NaCl: 479.6 t of brine (≈ 480 t) per day.",
+      "a": "≈ 480 t of brine per day"
+    },
+    {
+      "q": "Why can chloride be oxidized at the anode in preference to water in brine electrolysis, although the standard potential for oxygen evolution is lower?",
+      "solution": "Oxygen evolution from water is kinetically slow (a four-electron process with a high overpotential, 0.5–1 V on typical electrodes), while Cl⁻ oxidation is a fast two-electron process. On RuO₂-based anodes the overpotential for O₂ is large and that for Cl₂ is small (< 0.05 V), so at practical current densities chloride is oxidized selectively (with a current efficiency of 95–97%). The high concentration of Cl⁻ in saturated brine (≈ 5 M) also favors the reaction. In acid solution, E for O₂ is less favorable by the pH effect as well.",
+      "a": "Kinetics (overpotential) overrides the standard potentials."
+    }
+  ]
+}

@@ -1,0 +1,455 @@
+{
+  "id": "physical-lab-2",
+  "view": "chapter",
+  "title": "Physical Chemistry Laboratory II: Transport, Surfaces, Electrochemistry and Spectroscopy",
+  "description": "Conductivity and cell thermodynamics, adsorption isotherms, polymer viscosity, and the spectroscopy experiments: conjugated dyes, HCl rovibrational spectra, fluorescence quenching, hydrogen emission, and Raman spectra.",
+  "overview": [
+    "The second half of a physical chemistry laboratory turns to the experiments that connect measurable macroscopic properties to molecular models: how ions move in solution, how gas molecules stick to surfaces, how polymer coils increase the viscosity of a solution, and how molecules absorb, emit and scatter light in ways predicted by quantum mechanics. In each case the experiment compares a simple model (Kohlrausch’s law, the Langmuir isotherm, the Mark–Houwink equation, the particle in a box, the rigid rotor) with data, and the deviation from the model is as informative as the agreement.",
+    "As in the previous chapter, each section has the theory in brief, the procedure, a calculation with realistic numbers, and the main sources of error. Data analysis conventions (linear regression, uncertainty propagation) are those described in the first laboratory chapter."
+  ],
+  "objectives": [
+    "Calculate cell constants and molar conductivities, and use Kohlrausch’s law and Ostwald dilution to find Λ₀ and K_a.",
+    "Obtain ΔG, ΔS and ΔH of a cell reaction from E and dE/dT.",
+    "Fit adsorption data to the Langmuir and Freundlich isotherms and calculate a surface area.",
+    "Determine the intrinsic viscosity and the viscosity-average molar mass of a polymer.",
+    "Apply the free-electron model to a conjugated dye, and the rigid-rotor/harmonic oscillator model to the HCl and DCl spectra.",
+    "Analyze a Stern–Volmer plot, the Balmer series, and Raman spectra with depolarization ratios."
+  ],
+  "sections": [
+    {
+      "id": "conductivity",
+      "title": "Experiments: conductivity of electrolytes and cell thermodynamics",
+      "terms": [
+        "conductivity experiment",
+        "Kohlrausch's law",
+        "molar conductivity",
+        "limiting molar conductivity",
+        "Ostwald dilution law",
+        "conductance cell",
+        "cell constant",
+        "Nernst equation experiment",
+        "temperature dependence of cell potential experiment",
+        "Debye–Hückel–Onsager equation",
+        "law of independent migration of ions",
+        "weak electrolyte dissociation constant",
+        "Daniell cell experiment",
+        "ΔS from dE/dT",
+        "conductivity bridge",
+        "ionic mobility"
+      ],
+      "body": [
+        {
+          "h": "Conductivity"
+        },
+        "The conductance G (S = Ω⁻¹) of a solution between two electrodes is related to the **conductivity** κ (S cm⁻¹) by the **cell constant** K_cell = l/A (cm⁻¹): κ = K_cell G = K_cell/R. The cell constant is determined with a standard solution of known conductivity (0.0100 M KCl: κ = 1.413 mS cm⁻¹ at 25 °C). The **molar conductivity** Λ_m = κ/c (with c in mol cm⁻³, or Λ_m = 1000κ/c with c in mol L⁻¹) gives the contribution of one mole of electrolyte. The measurement uses AC (1 kHz) to prevent electrolysis and polarization of the electrodes, and a thermostatted bath (the conductivity changes by 2% per kelvin).",
+        {
+          "list": [
+            "**Strong electrolytes** follow **Kohlrausch’s law**: Λ_m = Λ₀ − K√c (an empirical form, explained by the Debye–Hückel–Onsager theory of the ionic atmosphere). The **limiting molar conductivity** Λ₀ is the intercept of Λ_m against √c, and is the sum of the ionic contributions, Λ₀ = ν₊λ₊⁰ + ν₋λ₋⁰ (the **law of independent migration of ions**). H⁺ and OH⁻ have anomalously high values (350 and 198 S cm² mol⁻¹) because of the Grotthuss proton-hopping mechanism.",
+            "**Weak electrolytes** (acetic acid) do not reach a limiting line, as the degree of dissociation α = Λ_m/Λ₀ increases on dilution. Ostwald’s dilution law, K_a = cα²/(1 − α), gives the linear form 1/Λ_m = 1/Λ₀ + Λ_m c/(K_a Λ₀²), in which the plot of 1/Λ_m against Λ_m c has the intercept 1/Λ₀ and slope 1/(K_aΛ₀²). Λ₀ of acetic acid is obtained from the strong electrolytes by Kohlrausch’s additivity: Λ₀(HOAc) = Λ₀(HCl) + Λ₀(NaOAc) − Λ₀(NaCl) = 390.5 S cm² mol⁻¹."
+          ]
+        },
+        {
+          "example": {
+            "title": "Dissociation constant of acetic acid",
+            "problem": "A cell filled with 0.0100 M KCl has R = 725 Ω; with 0.0100 M acetic acid it has R = 6285 Ω (25 °C). Find the cell constant, Λ_m, the degree of dissociation (Λ₀ = 390.5 S cm² mol⁻¹), and K_a.",
+            "solution": "K_cell = κR = 1.413 × 10⁻³ S cm⁻¹ × 725 Ω = 1.024 cm⁻¹. κ(HOAc) = 1.024/6285 = 1.63 × 10⁻⁴ S cm⁻¹. Λ_m = 1000 × 1.63 × 10⁻⁴/0.0100 = 16.3 S cm² mol⁻¹. α = 16.3/390.5 = 0.0417. K_a = 0.0100 × (0.0417)²/(1 − 0.0417) = 1.82 × 10⁻⁵ (literature 1.75 × 10⁻⁵)."
+          }
+        },
+        {
+          "h": "Cell potential and thermodynamics"
+        },
+        "A galvanic cell at equilibrium with no current delivers the maximum work, so ΔG = −nFE. The **Nernst equation**, E = E° − (RT/nF) ln Q, is tested by measuring E against the log of concentration of one half-cell (slope 59.2/n mV per decade at 25 °C). The temperature coefficient gives the entropy: ΔS = nF(∂E/∂T)_P, and then ΔH = ΔG + TΔS = −nF[E − T(∂E/∂T)]. Measure E (high-impedance voltmeter) at 5–6 temperatures between 5 and 45 °C with a thermostat; the slope of E against T (usually 10⁻⁴ V K⁻¹) is obtained by regression.",
+        {
+          "example": {
+            "title": "ΔG, ΔS, ΔH from a cell (illustrative numbers)",
+            "problem": "A two-electron cell has E = 1.100 V at 298.15 K and (∂E/∂T) = −4.0 × 10⁻⁴ V K⁻¹. Find ΔG, ΔS and ΔH.",
+            "solution": "ΔG = −2 × 96,485 × 1.100 = −212.3 kJ. ΔS = nF(∂E/∂T) = 2 × 96,485 × (−4.0 × 10⁻⁴) = −77.2 J K⁻¹. ΔH = ΔG + TΔS = −212.3 + 298.15 × (−0.0772) = −235.3 kJ. Heat exchanged reversibly is q = TΔS = −23 kJ (released)."
+          }
+        },
+        "Errors: contamination of the cell by ions (use conductivity water, κ < 1 µS cm⁻¹), temperature, and the dissolution of CO₂ in dilute solutions; junction potentials and polarization in the potentiometric measurements."
+      ],
+      "check": [
+        {
+          "q": "Why is AC used in conductivity measurements?",
+          "a": "To avoid electrolysis and polarization at the electrodes",
+          "wrong": [
+            "To increase the voltage",
+            "To heat the solution",
+            "To make the cell constant"
+          ]
+        },
+        {
+          "q": "What does the temperature coefficient of the cell potential give?",
+          "a": "The entropy change of the cell reaction",
+          "wrong": [
+            "The enthalpy directly",
+            "The cell constant",
+            "The ionic strength"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "adsorption",
+      "title": "Experiment: adsorption isotherm (acetic acid on charcoal)",
+      "terms": [
+        "adsorption experiment",
+        "adsorption of acetic acid on charcoal",
+        "charcoal adsorption",
+        "Freundlich plot",
+        "Langmuir plot experiment",
+        "surface area of charcoal",
+        "titration of acetic acid",
+        "adsorption isotherm determination",
+        "cross-sectional area of adsorbate",
+        "equilibrium concentration"
+      ],
+      "body": [
+        "**Aim**: to measure how much acetic acid is adsorbed from aqueous solution on activated charcoal as a function of the equilibrium concentration, at constant temperature, and to fit the Freundlich and Langmuir isotherms (theory in the chapter on photochemistry and surfaces).",
+        "**Procedure**: 1.00 g portions of charcoal are shaken with 50.0 mL of acetic acid solutions of different concentrations (0.05–0.50 M) for 30 min at constant temperature. After filtration (discard the first portion, which is changed by adsorption on the filter paper), aliquots of the filtrate are titrated with standard NaOH to phenolphthalein. The amount adsorbed per gram is Γ = (c₀ − c)V/m, where c₀ and c are the initial and equilibrium concentrations.",
+        {
+          "list": [
+            "**Freundlich**: Γ = K_F c^{1/n}, or log Γ = log K_F + (1/n) log c. A log–log plot is a line of slope 1/n (0.3–0.8) and intercept log K_F. It is empirical and has no saturation limit.",
+            "**Langmuir**: Γ = Γ_max K c/(1 + Kc), with the linear form c/Γ = 1/(KΓ_max) + c/Γ_max. The plot of c/Γ against c has the slope 1/Γ_max and intercept 1/(KΓ_max). It assumes a monolayer on identical, independent sites. The **surface area** is S = Γ_max N_A σ, with σ the area per adsorbed molecule (≈ 21 Å² for acetic acid)."
+          ]
+        },
+        {
+          "example": {
+            "title": "Langmuir fit and surface area",
+            "problem": "A plot of c/Γ (g L⁻¹, with c in mmol L⁻¹ and Γ in mmol g⁻¹) against c has slope 0.40 g mmol⁻¹ and intercept 12 g L⁻¹. Find Γ_max, K and the surface area (σ = 21 Å²).",
+            "solution": "Γ_max = 1/0.40 = 2.5 mmol g⁻¹. K = slope/intercept = 0.40/12 = 0.033 L mmol⁻¹ (33 M⁻¹). S = 2.5 × 10⁻³ mol g⁻¹ × 6.022 × 10²³ × 21 × 10⁻²⁰ m² = 316 m² g⁻¹. Activated charcoal values (500–1500 m² g⁻¹ by N₂ BET) are higher, since acetic acid does not enter the micropores, and the area per molecule is uncertain."
+          }
+        },
+        "Errors: equilibrium not reached in the time; temperature changes (adsorption is exothermic and the capacity falls with T); titration end-point at low concentrations; the fit of the Langmuir equation is poor at high coverage, where multilayers or pore filling occur."
+      ],
+      "check": [
+        {
+          "q": "What does the slope of the Langmuir plot c/Γ against c give?",
+          "a": "1/Γ_max",
+          "wrong": [
+            "K",
+            "1/K",
+            "Γ_max × K"
+          ]
+        },
+        {
+          "q": "What does the Freundlich exponent 1/n of 0.5 indicate?",
+          "a": "Adsorption increases less than proportionally with concentration (a curved, saturating isotherm)",
+          "wrong": [
+            "Linear adsorption",
+            "No adsorption",
+            "Chemical reaction"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "viscosity",
+      "title": "Experiment: viscosity and the molar mass of a polymer",
+      "terms": [
+        "Ostwald viscometer",
+        "viscosity experiment",
+        "intrinsic viscosity",
+        "Mark–Houwink equation",
+        "relative viscosity",
+        "specific viscosity",
+        "Poiseuille's law",
+        "Huggins equation",
+        "viscosity-average molar mass",
+        "reduced viscosity",
+        "Ubbelohde viscometer",
+        "kinetic energy correction",
+        "Kraemer equation",
+        "dilute solution viscometry"
+      ],
+      "body": [
+        "Dissolved polymer coils increase the viscosity of a solvent, in proportion to their hydrodynamic volume and so to their molar mass. In a capillary viscometer the efflux time t of a fixed volume is, by **Poiseuille’s law**, proportional to η/ρ, so for a dilute solution (density ≈ solvent) the relative viscosity is η_rel = η/η₀ ≈ t/t₀. The **specific viscosity** is η_sp = η_rel − 1, and the **reduced viscosity** is η_sp/c. The extrapolation to zero concentration gives the **intrinsic viscosity** [η] = lim(η_sp/c) (units mL g⁻¹), using the **Huggins equation** η_sp/c = [η] + k_H[η]²c (and Kraemer: ln η_rel/c = [η] − k_K[η]²c; the two extrapolate to the same intercept, a check).",
+        "The **Mark–Houwink equation** [η] = K M^a relates it to the viscosity-average molar mass M_v. K and a depend on the polymer, solvent and temperature (polystyrene in toluene at 25 °C: K = 0.017 mL g⁻¹, a = 0.69; a = 0.5 for a theta solvent, 0.5–0.8 for a flexible coil in a good solvent, near 2 for rigid rods).",
+        "**Procedure**: a viscometer of the Ostwald or Ubbelohde type is thermostatted at 25.00 °C (±0.05 K). The efflux time of the pure solvent (filtered; 100–200 s) is measured five times (±0.2 s). The polymer solution (stock 10 g L⁻¹) is added and diluted in steps to give 5–6 concentrations, with the efflux time at each.",
+        {
+          "example": {
+            "title": "Molar mass of polystyrene",
+            "problem": "Extrapolation of the reduced viscosity to c → 0 gives [η] = 45 mL g⁻¹ for polystyrene in toluene at 25 °C (K = 0.017 mL g⁻¹, a = 0.69). Find M_v. If t = 168.4 s for a solution of c = 5.0 g L⁻¹ and t₀ = 152.0 s for the solvent, find η_sp/c.",
+            "solution": "M_v = ([η]/K)^{1/a} = (45/0.017)^{1/0.69} = (2647)^{1.449} = e^{7.881 × 1.449} = e^{11.42} = 9.1 × 10⁴ g mol⁻¹. η_rel = 168.4/152.0 = 1.108; η_sp = 0.108; η_sp/c = 0.108/5.0 g L⁻¹ = 0.0216 L g⁻¹ = 21.6 mL g⁻¹."
+          }
+        },
+        "Errors: dust (filter all solutions), temperature, vertical alignment of the viscometer, kinetic energy correction for short efflux times (< 100 s), and degradation of the polymer."
+      ],
+      "check": [
+        {
+          "q": "What does extrapolating η_sp/c to zero concentration give?",
+          "a": "The intrinsic viscosity [η]",
+          "wrong": [
+            "The molar mass directly",
+            "The viscosity of the solvent",
+            "The density"
+          ]
+        },
+        {
+          "q": "For a given polymer, [η] increases with M. How?",
+          "a": "As M^a, with a between 0.5 and 0.8 for flexible coils",
+          "wrong": [
+            "Linearly with M",
+            "Inversely with M",
+            "It is independent of M"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "femo",
+      "title": "Experiment: conjugated dyes and the particle in a box",
+      "terms": [
+        "cyanine dyes",
+        "conjugated dyes experiment",
+        "free electron model",
+        "FEMO",
+        "particle in a box experiment",
+        "polymethine dye",
+        "HOMO–LUMO transition in dyes",
+        "π electron box length",
+        "vinylogous series",
+        "absorption maximum of cyanines",
+        "bond length alternation"
+      ],
+      "body": [
+        "The π electrons of a linear conjugated molecule can be modeled as non-interacting particles in a one-dimensional box of length L (the **free electron model**, FEMO): E_n = n²h²/(8m_eL²). With N π electrons, filled in pairs, the lowest transition is from n = N/2 to n = N/2 + 1, with the energy and wavelength:",
+        {
+          "eq": "ΔE = (N + 1)h²/(8m_eL²),    λ = 8m_e c L²/[h(N + 1)]"
+        },
+        "**Experiment**: record the visible spectra (400–800 nm) of a vinylogous series of cyanine dyes, such as 1,1′-diethyl-2,2′-cyanine, -carbocyanine and -dicarbocyanine iodides, in methanol, which differ by one –CH=CH– unit (two carbons and two π electrons). The wavelength of the absorption maximum shifts by ≈ 100 nm per added vinylene group. From the number of π electrons N and the λ_max, the box length L is calculated for each dye, and compared with the length expected from the structure, L = (number of bonds) × (average bond length, 1.39 Å) plus an end-correction. The plot of λ_max against N (or the length) shows the trend. The model neglects electron repulsion and the bond-length alternation, and so it gives the wrong magnitude when used with a simple bond count, but it explains the red shift with chain length: a longer box has more closely spaced levels.",
+        {
+          "example": {
+            "title": "Butadiene as a test",
+            "problem": "Estimate λ for butadiene (N = 4), assuming the box length is 5.6 Å. Compare with the observed 217 nm.",
+            "solution": "λ = 8m_e c L²/[h(N + 1)] = 8 × 9.109 × 10⁻³¹ × 2.998 × 10⁸ × (5.6 × 10⁻¹⁰)²/(6.626 × 10⁻³⁴ × 5) = 6.851 × 10⁻⁴⁰/3.313 × 10⁻³³ = 2.07 × 10⁻⁷ m = 207 nm, within 5% of the observed value."
+          }
+        },
+        "To use the model for dyes, count the π electrons: in a polymethine dye with p carbon atoms in the chain between the two nitrogens, N = p + 3 (one electron from each carbon plus two from the nitrogens, in this picture of the cationic chromophore), and the box extends one bond-length beyond each terminal atom."
+      ],
+      "check": [
+        {
+          "q": "Why does the absorption of cyanine dyes shift to longer wavelength with a longer chain?",
+          "a": "A longer box has more closely spaced energy levels, so the HOMO–LUMO gap decreases",
+          "wrong": [
+            "The molar mass increases",
+            "The solvent absorbs more",
+            "The bonds are weaker"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hcl",
+      "title": "Experiment: rovibrational spectrum of HCl and DCl",
+      "terms": [
+        "HCl rovibrational experiment",
+        "HCl DCl spectrum",
+        "rotational constant from IR",
+        "bond length from HCl spectrum",
+        "isotope effect in HCl",
+        "gas cell",
+        "R branch and P branch",
+        "force constant of HCl",
+        "isotopic splitting of H³⁵Cl and H³⁷Cl",
+        "anharmonicity from overtones",
+        "rigid rotor harmonic oscillator"
+      ],
+      "body": [
+        "In the gas phase, HCl absorbs in the IR at ≈ 2886 cm⁻¹, with vibrational transitions v = 0 → 1 accompanied by changes of the rotational quantum number J → J ± 1. In the rigid-rotor/harmonic-oscillator approximation the lines are at ν̃ = ν̃₀ + 2B(J + 1) for the **R branch** (J → J + 1, J = 0, 1, 2, …) and ν̃ = ν̃₀ − 2BJ for the **P branch** (J → J − 1, J = 1, 2, …), with a gap at the band origin ν̃₀ (no Q branch for a diatomic with Σ ground state). Adjacent lines are separated by 2B, ≈ 21 cm⁻¹; the separation decreases at higher J because the molecule stretches on rotation (centrifugal distortion) and because B_v decreases with v (rotation–vibration coupling).",
+        "**Procedure**: a gas cell (10 cm) is filled with HCl (from NaCl + H₂SO₄ or a lecture bottle) and DCl (from D₂O + a chloride source, in a vacuum line), and the spectra are recorded in an FTIR spectrometer with a resolution of 0.5 cm⁻¹ or better. Each line is assigned. The R(J) and P(J) lines are fitted to the combination differences: ν̃(R(J−1)) − ν̃(P(J+1)) = 4B(J + ½), whose slope gives B. The H³⁵Cl and H³⁷Cl isotopologues (3:1) appear as doublets with a splitting of ≈ 2 cm⁻¹ at 2886 (from the different reduced mass).",
+        {
+          "list": [
+            "From B, the moment of inertia I = h/(8π²cB) and the bond length r = (I/μ)^{1/2}.",
+            "From ν̃₀ the force constant k = μ(2πcν̃₀)².",
+            "From the comparison of HCl and DCl: the force constant is the same (the electronic potential does not depend on the nuclear mass, Born–Oppenheimer), so ν̃(DCl)/ν̃(HCl) = (μ_H/μ_D)^{1/2}."
+          ]
+        },
+        {
+          "example": {
+            "title": "Bond length and force constant of HCl",
+            "problem": "The line spacing of the H³⁵Cl spectrum is 2B = 21.18 cm⁻¹ and ν̃₀ = 2886 cm⁻¹. Calculate r, k, and the predicted band origin of D³⁵Cl (μ(HCl) = 0.9796 u; μ(DCl) = 1.9044 u).",
+            "solution": "B = 10.59 cm⁻¹. I = 6.626 × 10⁻³⁴/(8π² × 2.998 × 10¹⁰ cm s⁻¹ × 10.59 cm⁻¹) = 6.626 × 10⁻³⁴/2.507 × 10¹³ = 2.643 × 10⁻⁴⁷ kg m². μ = 0.9796 × 1.6605 × 10⁻²⁷ = 1.627 × 10⁻²⁷ kg → r = (2.643 × 10⁻⁴⁷/1.627 × 10⁻²⁷)^{1/2} = 1.275 × 10⁻¹⁰ m = 1.275 Å. k = μ(2πcν̃₀)² = 1.627 × 10⁻²⁷ × (2π × 2.998 × 10⁸ × 2.886 × 10⁵)² = 1.627 × 10⁻²⁷ × (5.436 × 10¹⁴)² = 481 N m⁻¹. DCl: ν̃₀ = 2886 × (0.9796/1.9044)^{1/2} = 2886 × 0.7172 = 2070 cm⁻¹ (observed ≈ 2090 cm⁻¹; the difference is the anharmonicity), and B(DCl) = B(HCl) × μ_H/μ_D = 5.45 cm⁻¹."
+          }
+        },
+        "Errors: resolution (blurring of the lines), overlap of isotopic lines, atmospheric water vapor lines at 3500–4000 and 1500–1900 cm⁻¹ (purge the instrument), and pressure broadening at high pressure."
+      ],
+      "check": [
+        {
+          "q": "Why is there no line at the band origin in the HCl spectrum?",
+          "a": "ΔJ = 0 is forbidden for a diatomic with no angular momentum in the electronic state, giving a gap",
+          "wrong": [
+            "HCl does not absorb at that frequency",
+            "The vibration is Raman only",
+            "The detector is blind there"
+          ]
+        },
+        {
+          "q": "How does the force constant of DCl compare with HCl?",
+          "a": "It is the same (Born–Oppenheimer); only the reduced mass changes",
+          "wrong": [
+            "Twice as large",
+            "Half as large",
+            "Zero"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fluorescence-lab",
+      "title": "Experiment: fluorescence quenching (Stern–Volmer)",
+      "terms": [
+        "Stern–Volmer experiment",
+        "fluorescence quenching experiment",
+        "quinine sulfate fluorescence",
+        "quinine fluorescence",
+        "iodide quenching",
+        "Stern–Volmer plot",
+        "bimolecular quenching constant",
+        "dynamic quenching",
+        "static quenching",
+        "diffusion-controlled quenching",
+        "tonic water"
+      ],
+      "body": [
+        "The fluorescence of quinine sulfate in dilute sulfuric acid (excitation 350 nm, emission maximum 450 nm, lifetime τ₀ = 19 ns) is quenched by halide ions through collisional (dynamic) deactivation of the excited state. The kinetic scheme (excitation, emission k_f, nonradiative k_nr, quenching k_q[Q]) gives the **Stern–Volmer** equation F₀/F = 1 + K_SV[Q] = 1 + k_qτ₀[Q].",
+        "**Procedure**: prepare a series of solutions with a fixed amount of quinine (10⁻⁵ M in 0.05 M H₂SO₄) and increasing concentrations of the quencher (0–0.10 M KCl or KI), keeping the ionic strength constant with KNO₃ or Na₂SO₄. Record the emission at 450 nm at fixed excitation wavelength. (The absorbance at the excitation wavelength should be < 0.05, to avoid inner-filter effects.) Plot F₀/F against [Q]: a straight line through (0, 1) with slope K_SV. Upward curvature indicates a combination of static and dynamic quenching (complex formation); a lifetime measurement distinguishes them (in dynamic quenching τ₀/τ = F₀/F; in static quenching τ is unchanged).",
+        {
+          "example": {
+            "title": "Quenching rate constant",
+            "problem": "The Stern–Volmer plot for chloride has slope K_SV = 120 M⁻¹ with τ₀ = 19 ns. Find k_q, and compare with the diffusion-controlled limit of ≈ 7 × 10⁹ M⁻¹ s⁻¹ in water. At what [Cl⁻] is the fluorescence halved?",
+            "solution": "k_q = K_SV/τ₀ = 120/19 × 10⁻⁹ = 6.3 × 10⁹ M⁻¹ s⁻¹, close to the diffusion limit: the quenching is efficient at nearly every encounter. F₀/F = 2 when [Q] = 1/K_SV = 8.3 × 10⁻³ M. Quenching by iodide is stronger (heavy-atom effect, K_SV ≈ 10³ M⁻¹)."
+          }
+        },
+        "Quinine is the ingredient of tonic water, whose blue fluorescence is seen under UV light, and it is commonly used as a standard (quantum yield 0.55). Errors: dissolved oxygen (also a quencher), photodecomposition on prolonged illumination, scattered light, and the inner-filter effect."
+      ],
+      "check": [
+        {
+          "q": "What does an upward-curving Stern–Volmer plot indicate?",
+          "a": "Static (complex-formation) quenching in addition to dynamic quenching",
+          "wrong": [
+            "Instrument drift only",
+            "No quenching",
+            "Pure dynamic quenching"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hydrogen-lab",
+      "title": "Experiment: the hydrogen emission spectrum and the Rydberg constant",
+      "terms": [
+        "Rydberg constant experiment",
+        "hydrogen emission spectrum experiment",
+        "Balmer series experiment",
+        "diffraction grating",
+        "spectrometer calibration",
+        "mercury lamp calibration",
+        "grating equation",
+        "deuterium isotope shift",
+        "reduced mass correction to the Rydberg constant",
+        "Balmer lines"
+      ],
+      "body": [
+        "The visible lines of atomic hydrogen are the **Balmer series**, transitions n → 2 with n = 3, 4, 5, 6 (H_α 656.3 nm red, H_β 486.1 nm blue-green, H_γ 434.0 nm violet, H_δ 410.2 nm). They fit 1/λ = R_H(1/2² − 1/n²), where R_H = 1.09678 × 10⁷ m⁻¹ is the **Rydberg constant** of hydrogen. For infinite nuclear mass R_∞ = 1.09737 × 10⁷ m⁻¹; R_H = R_∞/(1 + m_e/m_p), a small reduced-mass effect that also produces the isotope shift of deuterium (0.18 nm at H_α).",
+        "**Procedure**: a hydrogen discharge tube is viewed with a diffraction-grating spectrometer or a goniometer. A **diffraction grating** with line spacing d disperses the light according to the **grating equation** d sin θ = mλ. The instrument is calibrated with a mercury lamp (404.7, 435.8, 546.1 and 577.0/579.1 nm): a plot of the known λ against sin θ (or the pixel position) gives the calibration line. The hydrogen lines are measured and their wavelengths read from the calibration. Plot 1/λ against (1/4 − 1/n²): the slope is R_H.",
+        {
+          "example": {
+            "title": "Rydberg constant from H_β",
+            "problem": "The line assigned to n = 4 → 2 is at 486.1 nm (vacuum wavelengths are 0.14 nm longer than in air; ignore). Find R_H and the wavelength of the series limit.",
+            "solution": "1/λ = 1/486.1 × 10⁻⁹ = 2.0572 × 10⁶ m⁻¹. (1/4 − 1/16) = 0.1875. R_H = 2.0572 × 10⁶/0.1875 = 1.0972 × 10⁷ m⁻¹ (0.04% from the literature). The series limit n → ∞ is at 1/λ = R_H/4 = 2.742 × 10⁶ m⁻¹, λ = 364.7 nm."
+          }
+        },
+        "Errors: parallax and alignment of the grating, calibration drift, identification of lines (H₂ molecular lines in the discharge), order overlap. The spectra of deuterium, with a small isotope shift, and of other one-electron ions (He⁺: R × Z² = 4R) can be used to extend the model."
+      ],
+      "check": [
+        {
+          "q": "In the Balmer series, the final level n is…",
+          "a": "2",
+          "wrong": [
+            "1",
+            "3",
+            "∞"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "raman-lab",
+      "title": "Experiment: Raman spectrum of carbon tetrachloride",
+      "terms": [
+        "Raman experiment",
+        "CCl₄ Raman",
+        "carbon tetrachloride Raman",
+        "depolarization ratio",
+        "Stokes lines",
+        "anti-Stokes lines",
+        "totally symmetric vibration",
+        "polarized Raman band",
+        "chlorine isotope structure of the ν₁ band",
+        "notch filter",
+        "laser line rejection"
+      ],
+      "body": [
+        "Carbon tetrachloride (tetrahedral, T_d) has four vibrations: ν₁ (symmetric stretch, A₁, 459 cm⁻¹), ν₂ (E, 218 cm⁻¹), ν₃ (asymmetric stretch, T₂, 762 and 790 cm⁻¹), ν₄ (T₂ bend, 314 cm⁻¹). All are Raman active; only ν₃ and ν₄ are IR active.",
+        "**Procedure**: a 532 nm laser illuminates a sealed cell of CCl₄ (in a fume hood, with a suitable absorber of the stray beam) and the light scattered at 90° passes through a notch filter (to remove the Rayleigh line), a monochromator and a CCD detector. The spectrum is plotted against the Raman shift Δν̃ = 1/λ₀ − 1/λ. Anti-Stokes lines at the opposite side of the laser line are weaker. To measure the **depolarization ratio** ρ = I⊥/I∥, a polarizer in front of the detector is aligned parallel and then perpendicular to the polarization of the laser, and the intensities of each band are compared: for a totally symmetric vibration (A₁; here ν₁) the Raman band is polarized, ρ < 3/4 (ρ ≈ 0.01 for CCl₄); for non-totally-symmetric vibrations, ρ = 3/4 (depolarized). This assigns the symmetry of the vibrations. The ν₁ band shows a structure from the isotopologues C³⁵Cl₄, C³⁵Cl₃³⁷Cl, … (a 3:1 ³⁵Cl:³⁷Cl abundance gives a pattern of five peaks separated by ≈ 2–3 cm⁻¹), since the symmetric stretch is mass dependent.",
+        {
+          "example": {
+            "title": "Stokes position and anti-Stokes intensity",
+            "problem": "For a 532 nm laser, where does the 459 cm⁻¹ Stokes line appear, and what is the ratio I_AS/I_S at 298 K?",
+            "solution": "ν̃₀ = 1/(532 × 10⁻⁷ cm) = 18,797 cm⁻¹. Stokes: 18,797 − 459 = 18,338 cm⁻¹, λ = 545.3 nm. The anti-Stokes line is at 19,256 cm⁻¹, 519.3 nm. The population ratio: exp(−hcν̃/kT) = exp(−1.4388 × 459/298.15) = exp(−2.215) = 0.109. Times the factor (ν̃₀ + ν̃)⁴/(ν̃₀ − ν̃)⁴ = (19,256/18,338)⁴ = 1.216: I_AS/I_S = 0.133. The ratio of the two intensities measures the temperature of the sample."
+          }
+        },
+        "Problems: fluorescence from impurities (use pure solvent, distilled), laser heating, cosmic-ray spikes on the CCD, calibration (neon lamp or the known lines of a standard such as cyclohexane or toluene), and alignment of polarizers (depolarization ratios measured with an error < 5% need a polarization scrambler)."
+      ],
+      "check": [
+        {
+          "q": "A Raman band with a depolarization ratio of 0.02 belongs to…",
+          "a": "A totally symmetric vibration",
+          "wrong": [
+            "A non-totally-symmetric vibration",
+            "An overtone only",
+            "Fluorescence"
+          ]
+        },
+        {
+          "q": "Why are anti-Stokes lines weaker than Stokes lines?",
+          "a": "Fewer molecules are initially in the excited vibrational level (Boltzmann population)",
+          "wrong": [
+            "They are absorbed by the filter only",
+            "The laser is weaker at that wavelength",
+            "They are forbidden"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Conductivity: κ = K_cell/R; Λ_m = 1000κ/c; strong electrolytes Λ_m = Λ₀ − K√c; weak electrolytes K_a = cα²/(1 − α) with α = Λ_m/Λ₀. Cells: ΔG = −nFE, ΔS = nF(∂E/∂T), ΔH = ΔG + TΔS.",
+    "Adsorption: Freundlich log Γ = log K + (1/n) log c; Langmuir c/Γ = 1/(KΓ_max) + c/Γ_max; surface area = Γ_max N_A σ. Viscometry: η_sp/c extrapolated to c = 0 gives [η]; [η] = K M^a.",
+    "FEMO: λ = 8m_e cL²/[h(N + 1)]. HCl rovibration: line spacing 2B gives r = 1.275 Å; ν̃₀ gives k ≈ 481 N m⁻¹; DCl scales as (μ_H/μ_D)^{1/2}.",
+    "Stern–Volmer F₀/F = 1 + k_qτ₀[Q]. Balmer: 1/λ = R_H(1/4 − 1/n²). Raman: Δν̃ = 1/λ₀ − 1/λ; polarized bands (ρ < 3/4) are totally symmetric; I_AS/I_S follows Boltzmann."
+  ],
+  "problems": [
+    {
+      "q": "The limiting molar conductivities (S cm² mol⁻¹) at 25 °C are HCl 426.2, NaOAc 91.0 and NaCl 126.5. Find Λ₀ of acetic acid and the K_a of an acetic acid solution of 0.0200 M with Λ_m = 11.6 S cm² mol⁻¹.",
+      "solution": "Λ₀(HOAc) = 426.2 + 91.0 − 126.5 = 390.7 S cm² mol⁻¹. α = 11.6/390.7 = 0.0297. K_a = 0.0200 × (0.0297)²/(1 − 0.0297) = 1.82 × 10⁻⁵.",
+      "a": "Λ₀ = 390.7 S cm² mol⁻¹; K_a = 1.8 × 10⁻⁵"
+    },
+    {
+      "q": "The Freundlich plot for acetic acid on charcoal has log Γ = −0.50 + 0.45 log c (Γ in mmol g⁻¹, c in mmol L⁻¹). Calculate Γ at c = 100 mmol L⁻¹. How many times does Γ increase if c is doubled?",
+      "solution": "log Γ = −0.50 + 0.45 × 2 = 0.40 → Γ = 2.5 mmol g⁻¹. Doubling c multiplies Γ by 2^{0.45} = 1.37.",
+      "a": "2.5 mmol g⁻¹; ×1.37"
+    },
+    {
+      "q": "Use the free-electron model with a box length L = N × 1.40 Å (N = number of π electrons) to predict the longest-wavelength absorption of butadiene (N = 4), hexatriene (N = 6) and octatetraene (N = 8). Compare with the observed 217, 258 and 290 nm, and comment.",
+      "solution": "λ = 8m_ecL²/[h(N + 1)]. Butadiene: L = 5.6 Å, λ = 207 nm. Hexatriene: L = 8.4 Å, λ = 8(9.109 × 10⁻³¹)(2.998 × 10⁸)(8.4 × 10⁻¹⁰)²/(6.626 × 10⁻³⁴ × 7) = 332 nm. Octatetraene: L = 11.2 Å, λ = 460 nm. The model reproduces butadiene but overestimates the red shift as the chain grows (332 against 258 nm, 460 against 290 nm). Real polyenes have alternating single and double bonds, which keep a gap between the HOMO and LUMO that the uniform-box model closes too quickly; the potential along the chain is not flat.",
+      "a": "207, 332 and 460 nm: the model overestimates the shift in longer chains because it ignores bond alternation."
+    },
+    {
+      "q": "The R(0) line of H³⁵Cl is at 2906.25 cm⁻¹ and P(1) at 2864.85 cm⁻¹. Find ν̃₀ and B (rigid-rotor model).",
+      "solution": "R(0) = ν̃₀ + 2B; P(1) = ν̃₀ − 2B. ν̃₀ = (2906.25 + 2864.85)/2 = 2885.55 cm⁻¹; 4B = 2906.25 − 2864.85 = 41.40 cm⁻¹, so B = 10.35 cm⁻¹ (the literature is 10.59 cm⁻¹; the small difference reflects the use of the first lines, which are affected by the vibration–rotation coupling).",
+      "a": "ν̃₀ = 2885.6 cm⁻¹; B = 10.35 cm⁻¹"
+    }
+  ]
+}

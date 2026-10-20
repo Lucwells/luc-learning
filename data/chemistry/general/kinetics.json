@@ -767,7 +767,11 @@
             "Michaelis constant",
             "enzyme kinetics",
             "Lineweaver–Burk",
-            "saturation kinetics"
+            "saturation kinetics",
+            "Km",
+            "Vmax",
+            "Lineweaver-Burk",
+            "Michaelis–Menten kinetics"
           ],
           "body": [
             "Enzymes are biological catalysts. The simplest model has the substrate S binding reversibly to the enzyme E to form a complex ES, which then releases product:",
