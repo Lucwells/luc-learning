@@ -1,0 +1,347 @@
+{
+  "id": "generative-models",
+  "view": "chapter",
+  "title": "Deep Generative Models",
+  "description": "Learning to sample new data: autoregressive models, variational autoencoders, generative adversarial networks and diffusion models.",
+  "overview": [
+    "A discriminative model answers questions about given data: which class, what value. A generative model learns the distribution of the data itself, p(x), well enough to produce new examples that look like the training data: new faces, sentences, molecules or songs. The same model can also score how likely an input is, fill in missing parts, and learn representations without labels.",
+    "Four families dominate. Autoregressive models factor the distribution into one-step predictions. Variational autoencoders learn a latent code through a lower bound on the likelihood. Generative adversarial networks pit a generator against a critic. Diffusion models learn to reverse a gradual noising process. This chapter gives the objective of each and the idea that makes it trainable."
+  ],
+  "objectives": [
+    "State the goal of generative modeling and the main ways of evaluating it.",
+    "Explain autoregressive models and why they give exact likelihoods but slow sampling.",
+    "Derive the VAE objective, compute its KL term, and explain the reparameterization trick.",
+    "Write the GAN minimax objective and the optimal discriminator.",
+    "Describe the forward and reverse processes of diffusion models and the noise-prediction loss."
+  ],
+  "sections": [
+    {
+      "id": "goals",
+      "title": "The generative modeling problem",
+      "terms": [
+        "generative modeling",
+        "density estimation",
+        "implicit generative model",
+        "explicit density model",
+        "sampling",
+        "generative ai",
+        "generative models"
+      ],
+      "body": [
+        "Given samples x^{(1)}, …, x^{(m)} from an unknown distribution p_data, find a model p_θ that is close to it, and from which we can sample. Closeness is usually measured by the KL divergence (see Information Theory in the Mathematics book), whose minimization over θ is equivalent to maximizing the average log-likelihood Σ ln p_θ(x^{(i)}).",
+        {
+          "table": {
+            "head": [
+              "Family",
+              "Likelihood",
+              "Sampling",
+              "Idea"
+            ],
+            "rows": [
+              [
+                "Autoregressive",
+                "Exact",
+                "Slow (one element at a time)",
+                "Chain rule of probability"
+              ],
+              [
+                "Variational autoencoder",
+                "Lower bound (ELBO)",
+                "Fast",
+                "Latent code with encoder and decoder"
+              ],
+              [
+                "GAN",
+                "None (implicit)",
+                "Fast",
+                "Generator against discriminator"
+              ],
+              [
+                "Diffusion",
+                "Bound or via an ODE",
+                "Slow (many steps)",
+                "Learn to undo gradual noising"
+              ],
+              [
+                "Normalizing flow",
+                "Exact",
+                "Fast",
+                "Invertible transformations of simple noise"
+              ]
+            ],
+            "caption": "Families of deep generative models."
+          }
+        },
+        "Quality is hard to measure. Held-out log-likelihood suits models that have one, but a model can have a high likelihood and poor samples. For images, the Fréchet inception distance (FID) compares the distribution of network features of generated and real images, and human or model-based preference ratings assess text and image quality. A good generative model must be both faithful (samples look real) and diverse (it covers all the data, not only a few modes)."
+      ],
+      "check": [
+        {
+          "q": "Maximizing the average log-likelihood of the training data is equivalent to",
+          "a": "minimizing the KL divergence from the data distribution to the model",
+          "wrong": [
+            "maximizing the discriminator's accuracy",
+            "minimizing the number of parameters",
+            "matching only the mean of the data"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "autoregressive",
+      "title": "Autoregressive models",
+      "terms": [
+        "autoregressive model",
+        "autoregressive models",
+        "pixelcnn",
+        "next-token prediction",
+        "chain rule of probability"
+      ],
+      "body": [
+        "Apply the chain rule of probability to a data point with components x₁, …, x_d (the pixels of an image in raster order, the tokens of a sentence):",
+        {
+          "eq": "p(x) = Π_{j=1}^{d} p(x_j | x₁, …, x_{j−1})"
+        },
+        "Model each conditional with a neural network that reads the earlier components (a causal transformer, a masked convolution as in PixelCNN, or an RNN) and outputs a distribution over the next one. Training maximizes the exact log-likelihood by teacher forcing, in parallel over all positions. Sampling draws x₁, then x₂ given x₁, and so on: it needs d sequential network evaluations.",
+        {
+          "example": {
+            "title": "Probability of a sequence",
+            "problem": "A model gives p(A) = 0.6, p(B | A) = 0.5 and p(C | A, B) = 0.2. Find p(ABC) and the per-token cross-entropy.",
+            "solution": "p(ABC) = 0.6 × 0.5 × 0.2 = 0.06. The negative log-likelihood is −ln 0.06 = 2.81 nats, or 0.94 per token. The perplexity is e^{0.94} = 2.55."
+          }
+        },
+        "Large language models are autoregressive models over tokens (see Attention and Transformers). Autoregressive models give exact likelihoods and a stable training signal and scale well. Their weaknesses are slow sequential sampling and the lack of a compact latent representation."
+      ],
+      "check": [
+        {
+          "q": "A drawback of autoregressive sampling is that",
+          "a": "it requires one sequential model evaluation per generated element",
+          "wrong": [
+            "the likelihood cannot be computed",
+            "it needs a discriminator",
+            "it requires labeled data"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vae",
+      "title": "Variational autoencoders",
+      "terms": [
+        "variational autoencoder",
+        "variational autoencoders",
+        "vae",
+        "reparameterization trick",
+        "kl divergence term",
+        "latent space",
+        "denoising autoencoder"
+      ],
+      "body": [
+        "A **variational autoencoder** (VAE; Kingma and Welling, 2013) is a latent variable model, p(x) = ∫ p(z) p_θ(x | z) dz, with a simple prior p(z) = N(0, I) and a neural network decoder p_θ(x | z). The integral cannot be computed, so the exact posterior p(z | x) is intractable too. Instead, train a second network, the encoder q_φ(z | x) = N(μ_φ(x), diag σ_φ²(x)), to approximate it.",
+        "The evidence lower bound from the EM chapter becomes the training objective:",
+        {
+          "eq": "ln p_θ(x) ≥ E_{z ~ q_φ(z|x)} [ ln p_θ(x | z) ] − KL( q_φ(z | x) ‖ p(z) )"
+        },
+        {
+          "list": [
+            "The first term is the **reconstruction** quality: sample a code from the encoder and ask the decoder to reproduce x (squared error for a Gaussian decoder, cross-entropy for binary pixels).",
+            "The second term, the **KL divergence**, keeps the encoder's distributions close to the prior, so that codes drawn from the prior at generation time look like codes the decoder has seen. For Gaussians it has a closed form: KL = ½ Σ_j (μ_j² + σ_j² − ln σ_j² − 1)."
+          ]
+        },
+        {
+          "example": {
+            "title": "KL term for one latent dimension",
+            "problem": "The encoder outputs μ = 1 and σ = 0.5 for a latent coordinate. Compute its KL divergence from N(0, 1).",
+            "solution": "KL = ½(μ² + σ² − ln σ² − 1) = ½(1 + 0.25 − ln 0.25 − 1) = ½(0.25 + 1.386) = 0.818 nats. For μ = 0 and σ = 1 the KL is zero."
+          }
+        },
+        {
+          "h": "The reparameterization trick"
+        },
+        "The reconstruction term is an expectation over samples z drawn from q_φ, which depends on φ, so gradients cannot pass through the sampling step. Write the sample as a deterministic function of the parameters and an independent noise:",
+        {
+          "eq": "z = μ_φ(x) + σ_φ(x) ⊙ ε,    ε ~ N(0, I)"
+        },
+        "The randomness is now in ε, which does not depend on φ, and backpropagation works through μ and σ.",
+        "To generate, sample z ~ N(0, I) and decode it. Because the latent space is smooth, interpolating between two codes gives a gradual morph between two outputs. VAE samples tend to be blurry, since averaging over the uncertainty in the decoder smooths the image, but VAE-style encoders are used inside latent diffusion models, and the framework supplies useful representations. A **denoising autoencoder** is the simpler idea of corrupting the input and training the network to reconstruct the clean version."
+      ],
+      "check": [
+        {
+          "q": "The reparameterization trick lets gradients flow through sampling because",
+          "a": "the sample is written as a deterministic function of the parameters plus parameter-free noise",
+          "wrong": [
+            "the sampling step is removed",
+            "the decoder is linear",
+            "the noise is learned"
+          ]
+        },
+        {
+          "q": "In the VAE objective, the KL term",
+          "a": "keeps the encoder's distributions close to the prior N(0, I)",
+          "wrong": [
+            "measures the reconstruction error",
+            "maximizes the discriminator's loss",
+            "forces the latent code to be deterministic"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gan",
+      "title": "Generative adversarial networks",
+      "terms": [
+        "generative adversarial network",
+        "generative adversarial networks",
+        "gan",
+        "generator",
+        "discriminator",
+        "mode collapse",
+        "minimax game",
+        "wasserstein gan"
+      ],
+      "body": [
+        "A **GAN** (Goodfellow et al., 2014) trains two networks against each other. The **generator** G maps noise z ~ p(z) to a fake sample G(z). The **discriminator** D outputs the probability that its input is real. D is trained to tell real from fake, and G is trained to fool D:",
+        {
+          "eq": "min_G max_D  V(D, G) = E_{x ~ p_data}[ ln D(x) ] + E_{z ~ p(z)}[ ln(1 − D(G(z))) ]"
+        },
+        "For a fixed generator with sample distribution p_g, the optimal discriminator is",
+        {
+          "eq": "D*(x) = p_data(x) / ( p_data(x) + p_g(x) )"
+        },
+        "Substituting it into V gives V = −ln 4 + 2·JS(p_data ‖ p_g), where JS is the Jensen–Shannon divergence. The generator therefore minimizes a divergence between the real and generated distributions, and the minimum is reached when p_g = p_data, at which D* = 1/2 everywhere (the discriminator can only guess) and V = −ln 4 = −1.386.",
+        {
+          "example": {
+            "title": "Optimal discriminator at a point",
+            "problem": "At a point x the real density is 0.3 and the generator's density is 0.1. What is the optimal discriminator's output, and what is it when the generator is perfect?",
+            "solution": "D* = 0.3/(0.3 + 0.1) = 0.75: the point is more likely real. If p_g = p_data, D* = 0.5."
+          }
+        },
+        {
+          "h": "Training difficulties"
+        },
+        {
+          "list": [
+            "**Instability**: the two networks chase each other, and the losses do not decrease monotonically. Training needs careful architecture, normalization and learning rates.",
+            "**Mode collapse**: the generator produces only a few kinds of output that fool the discriminator, instead of the full diversity of the data.",
+            "**Vanishing gradients** when D becomes too good. In practice, G maximizes ln D(G(z)) instead (the non-saturating loss). The Wasserstein GAN replaces the discriminator with a critic that estimates the Wasserstein distance, giving a more informative gradient.",
+            "No likelihood is available, so evaluation relies on measures such as FID."
+          ]
+        },
+        "GANs produce sharp images in a single forward pass. They were the leading image generators from 2015 to about 2021 (the StyleGAN family), and they are still used where fast sampling matters. Diffusion models have taken most of the place that GANs held, because they are far easier to train and cover the data more completely."
+      ],
+      "check": [
+        {
+          "q": "At the global optimum of the GAN game, the discriminator outputs",
+          "a": "1/2 for every input",
+          "wrong": [
+            "1 for real data and 0 for fakes",
+            "0 everywhere",
+            "a random value"
+          ]
+        },
+        {
+          "q": "Mode collapse means",
+          "a": "the generator covers only a small part of the data's variety",
+          "wrong": [
+            "the discriminator is perfect",
+            "the loss is exactly zero",
+            "the latent space has one dimension"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "diffusion",
+      "title": "Diffusion models",
+      "terms": [
+        "diffusion model",
+        "diffusion models",
+        "denoising diffusion",
+        "ddpm",
+        "forward process",
+        "reverse process",
+        "score matching",
+        "classifier-free guidance",
+        "latent diffusion",
+        "noise prediction"
+      ],
+      "body": [
+        "A **diffusion model** (Sohl-Dickstein et al., 2015; Ho et al., 2020) builds data by learning to remove noise. The **forward process** gradually destroys a data point x₀ by adding a little Gaussian noise at each of T steps, until nothing but noise is left:",
+        {
+          "eq": "q(x_t | x_{t−1}) = N( √(1 − β_t) x_{t−1}, β_t I )"
+        },
+        "With ᾱ_t = Π_{s≤t}(1 − β_s), the composition of Gaussians has a closed form that jumps straight to any step:",
+        {
+          "eq": "x_t = √ᾱ_t x₀ + √(1 − ᾱ_t) ε,    ε ~ N(0, I)"
+        },
+        "At small t the sample is nearly the data, and at t = T, where ᾱ_T ≈ 0, it is nearly pure noise N(0, I).",
+        {
+          "example": {
+            "title": "A noised sample",
+            "problem": "At some step ᾱ_t = 0.64. Write x_t in terms of x₀ and ε. If x₀ has unit variance, what is the variance of x_t?",
+            "solution": "x_t = 0.8 x₀ + 0.6 ε, since √0.64 = 0.8 and √0.36 = 0.6. Its variance is 0.64(1) + 0.36(1) = 1, so the process keeps the scale fixed while shifting from signal to noise."
+          }
+        },
+        {
+          "h": "The reverse process and the training loss"
+        },
+        "Generation runs the process backward, starting from pure noise x_T and applying a learned denoising step at each t. A neural network ε_θ(x_t, t) (usually a U-Net or a transformer) is trained to **predict the noise** that was added. Each training step picks a random data point x₀, a random step t and noise ε, forms x_t, and minimizes the simple squared error",
+        {
+          "eq": "L = E_{x₀, t, ε} [ ‖ ε − ε_θ(x_t, t) ‖² ]"
+        },
+        "This is a weighted form of the variational bound on the likelihood. Equivalently, the network estimates the **score** ∇_x ln p_t(x), the direction in which the data density increases (the connection to score matching), and sampling follows this vector field from noise toward the data, either with stochastic steps (DDPM) or deterministic ones (DDIM and ODE solvers) in as few as 20 to 50 steps.",
+        {
+          "h": "Conditioning and guidance"
+        },
+        "To generate an image from a text prompt, feed an embedding of the text into ε_θ as well. **Classifier-free guidance** extrapolates from the unconditional prediction toward the conditional one, ε̂ = ε_θ(x_t, ∅) + s(ε_θ(x_t, c) − ε_θ(x_t, ∅)) with a guidance scale s > 1, which trades diversity for fidelity to the prompt. **Latent diffusion** runs the process in the compact latent space of a pretrained autoencoder, which makes high-resolution generation affordable. This is the design of the leading text-to-image and video systems.",
+        {
+          "note": "Diffusion training is simple (a regression loss), stable, and covers the whole data distribution. Sampling is slower than a GAN because it needs many network evaluations, which is addressed by distillation into few-step samplers."
+        }
+      ],
+      "check": [
+        {
+          "q": "In a diffusion model, the network is trained to",
+          "a": "predict the noise that was added to a data point at a random step",
+          "wrong": [
+            "classify real versus generated images",
+            "reconstruct the input through a bottleneck",
+            "predict the next pixel"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Generative models learn p_data well enough to sample from it. Maximum likelihood is equivalent to minimizing KL(p_data ‖ p_θ). Faithfulness and diversity both matter.",
+    "Autoregressive models factor p(x) by the chain rule: exact likelihood and stable training, but sequential sampling. Large language models are of this kind.",
+    "A VAE maximizes the ELBO: reconstruction plus a KL term to the prior. The reparameterization trick z = μ + σε makes the sampling differentiable.",
+    "A GAN plays min over G, max over D of E[ln D(x)] + E[ln(1 − D(G(z)))]. The optimal D is p_data/(p_data + p_g) and the optimum is p_g = p_data. Training can be unstable and suffer from mode collapse.",
+    "Diffusion models add noise gradually and learn to predict it, x_t = √ᾱ_t x₀ + √(1 − ᾱ_t)ε, then generate by iterative denoising. They are stable, diverse and the basis of current image and video generators."
+  ],
+  "problems": [
+    {
+      "q": "An encoder outputs μ = (0.5, −1) and σ = (1, 0.5) for two latent dimensions. Compute the KL divergence to N(0, I).",
+      "solution": "Dimension 1: ½(0.25 + 1 − 0 − 1) = 0.125. Dimension 2: ½(1 + 0.25 − ln 0.25 − 1) = ½(0.25 + 1.386) = 0.818. Total 0.943.",
+      "a": "0.943 nats."
+    },
+    {
+      "q": "At a data point the real density is 0.2 and the generator's is 0.6. What is the optimal discriminator output, and which way would the generator move its mass?",
+      "solution": "D* = 0.2/(0.2 + 0.6) = 0.25. The point is over-produced by the generator (0.6 against 0.2), so training pushes the generator to put less mass there.",
+      "a": "D* = 0.25; the generator should reduce its mass at this point."
+    },
+    {
+      "q": "ᾱ_t = 0.25. Write x_t in terms of x₀ and ε. What is the signal-to-noise ratio (signal variance over noise variance, with unit-variance data)?",
+      "solution": "x_t = 0.5 x₀ + 0.866 ε. The signal variance is 0.25 and the noise variance is 0.75, so the ratio is 1/3.",
+      "a": "x_t = 0.5x₀ + 0.866ε; SNR = 1/3."
+    },
+    {
+      "q": "An autoregressive model over 4 binary pixels assigns p(x₁ = 1) = 0.7, p(x₂ = 1 | x₁ = 1) = 0.4, p(x₃ = 0 | 1, 1) = 0.9 and p(x₄ = 1 | 1, 1, 0) = 0.5. Find p(1, 1, 0, 1).",
+      "solution": "0.7 × 0.4 × 0.9 × 0.5 = 0.126.",
+      "a": "0.126."
+    },
+    {
+      "q": "Why would a VAE trained with only the reconstruction term (no KL term) be a poor generator?",
+      "solution": "Without the KL term the encoder can place codes anywhere, with tiny variance, so the latent space has no relation to the prior. Samples from N(0, I) at generation time then fall in regions the decoder never saw, giving meaningless outputs.",
+      "a": "The codes would not be organized around the prior, so samples from the prior would not decode to realistic data."
+    }
+  ]
+}

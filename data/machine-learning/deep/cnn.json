@@ -1,0 +1,346 @@
+{
+  "id": "cnn",
+  "view": "chapter",
+  "title": "Convolutional Neural Networks",
+  "description": "Convolution, padding and stride, pooling, receptive fields and the main architectures from LeNet to ResNet.",
+  "overview": [
+    "A fully connected layer treats an image as an unstructured list of numbers. A 224 × 224 color image has 150,528 values, and connecting them to even 1000 hidden units takes 150 million weights. Such a layer would also have to learn separately to detect an edge at every position in the image. Images have structure we can exploit: nearby pixels are related, and a pattern means the same thing wherever it appears.",
+    "Convolutional neural networks (CNNs) build in these two properties. They are the standard architecture for images, video and audio, and the ideas (local connections, shared weights, hierarchy) carry over to many other domains."
+  ],
+  "objectives": [
+    "Compute a 1D and 2D convolution (cross-correlation) by hand, and the output size for a given padding and stride.",
+    "Count the parameters of convolutional layers and compare them with fully connected layers.",
+    "Explain pooling and compute the receptive field of a stack of layers.",
+    "Describe the design of LeNet, VGG, ResNet and the role of 1×1 convolutions and skip connections.",
+    "Explain transfer learning and fine-tuning."
+  ],
+  "sections": [
+    {
+      "id": "convolution",
+      "title": "The convolution operation",
+      "terms": [
+        "convolutional neural network",
+        "convolutional neural networks",
+        "convolution",
+        "convolutional layer",
+        "kernel size",
+        "activation map",
+        "cross-correlation",
+        "weight sharing",
+        "translation equivariance"
+      ],
+      "body": [
+        "A **convolutional layer** slides a small filter (kernel) over the input, and at each position computes the dot product between the filter and the patch beneath it. (What deep learning calls convolution is technically cross-correlation, since the filter is not flipped; since the filter is learned, the difference does not matter.)",
+        {
+          "svg": "<svg viewBox='0 0 400 190' role='img' aria-label='A 3 by 3 window sliding over a 6 by 6 grid to produce one cell of a 4 by 4 output' font-family='system-ui, sans-serif' font-size='12'><g fill='none' stroke='currentColor' stroke-width='1'><path d='M20,20 V164 M44,20 V164 M68,20 V164 M92,20 V164 M116,20 V164 M140,20 V164 M164,20 V164 M20,20 H164 M20,44 H164 M20,68 H164 M20,92 H164 M20,116 H164 M20,140 H164 M20,164 H164'/><path d='M230,44 V140 M254,44 V140 M278,44 V140 M302,44 V140 M326,44 V140 M230,44 H326 M230,68 H326 M230,92 H326 M230,116 H326 M230,140 H326'/></g><rect x='44' y='20' width='72' height='72' fill='none' style='stroke:var(--accent)' stroke-width='3'/><rect x='254' y='44' width='24' height='24' style='fill:var(--accent)' opacity='.4'/><path d='M116,56 L252,56' fill='none' stroke='currentColor' stroke-width='1.5' stroke-dasharray='5 3'/><g fill='currentColor' text-anchor='middle'><text x='92' y='184'>input 6×6</text><text x='278' y='160'>output 4×4</text><text x='185' y='48'>3×3 filter</text></g></svg>",
+          "caption": "One output value is the dot product of the 3×3 filter with the 3×3 patch under it. Sliding the filter by one cell fills in the 4×4 output."
+        },
+        "For input I and a K × K filter W, the output is",
+        {
+          "eq": "O[i, j] = Σ_{u=0}^{K−1} Σ_{v=0}^{K−1} W[u, v] · I[i + u, j + v] + b"
+        },
+        {
+          "example": {
+            "title": "A vertical edge detector",
+            "problem": "A 6×6 image has pixel value 10 in its left three columns and 0 in its right three columns. Apply the filter with rows (1, 0, −1) three times (a vertical edge filter) with stride 1 and no padding.",
+            "solution": [
+              "The output is 4×4. For a window covering columns j, j + 1, j + 2, the result is the sum of column j minus the sum of column j + 2, where each 3-row column sum is 30 for a column of 10s and 0 for 0s.",
+              {
+                "eq": [
+                  "j = 0: columns 0, 1, 2 → 30 − 30 = 0",
+                  "j = 1: columns 1, 2, 3 → 30 − 0 = 30",
+                  "j = 2: columns 2, 3, 4 → 30 − 0 = 30",
+                  "j = 3: columns 3, 4, 5 → 0 − 0 = 0"
+                ]
+              },
+              "Every row of the output is (0, 30, 30, 0). The filter responds only where the image changes from bright to dark, so it detects the vertical edge. A CNN learns filters like this, and many others, from data."
+            ]
+          }
+        },
+        {
+          "h": "Multiple channels and filters"
+        },
+        "A color image has 3 input **channels**. A filter spans all input channels: its size is K × K × C_in, and the dot product sums over all of them, producing one number per position. Using C_out different filters gives C_out output channels (a stack of **feature maps**), each detecting a different pattern. A layer has K·K·C_in·C_out weights plus C_out biases.",
+        {
+          "key": "Two properties give CNNs their power. Local connectivity: each output depends only on a small patch. Weight sharing: the same filter is used at every position, so the number of parameters does not grow with the image size and a pattern is detected wherever it appears (translation equivariance: shifting the input shifts the output)."
+        },
+        {
+          "example": {
+            "title": "Convolutional versus fully connected parameters",
+            "problem": "Compare the parameter counts of (a) a fully connected layer from a 224×224×3 image to 1000 units and (b) a 3×3 convolution from 64 channels to 128 channels.",
+            "solution": "(a) 150,528 × 1000 + 1000 ≈ 150.5 million. (b) 3·3·64·128 + 128 = 73,728 + 128 = 73,856. The convolution has about 2000 times fewer parameters, for a layer that is applied at every position of an image."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "How many parameters are in a 5×5 convolution from 3 input channels to 16 output channels (with biases)?",
+          "a": "1216",
+          "wrong": [
+            "400",
+            "1200",
+            "75"
+          ],
+          "why": "5·5·3·16 = 1200 weights plus 16 biases."
+        }
+      ]
+    },
+    {
+      "id": "padding-stride",
+      "title": "Padding, stride and output size",
+      "terms": [
+        "padding",
+        "stride",
+        "same padding",
+        "valid padding",
+        "output size",
+        "dilated convolution"
+      ],
+      "body": [
+        "Without padding, each convolution shrinks the image by K − 1 pixels and ignores the border pixels. **Padding** adds a border of P zeros. **Stride** S moves the filter S pixels at a time, which downsamples the output. For an input of width W:",
+        {
+          "eq": "W_out = ⌊ (W − K + 2P) / S ⌋ + 1"
+        },
+        {
+          "list": [
+            "'Valid' padding means P = 0. 'Same' padding uses P = (K − 1)/2 for odd K, so that with S = 1 the output has the same width as the input.",
+            "A stride of 2 halves the resolution, an alternative to pooling.",
+            "**Dilated** convolutions space the filter taps apart to see more context without extra parameters."
+          ]
+        },
+        {
+          "example": {
+            "title": "Output sizes",
+            "problem": "Find the output width for (a) W = 32, K = 5, P = 2, S = 1 and (b) W = 224, K = 7, P = 3, S = 2.",
+            "solution": "(a) (32 − 5 + 4)/1 + 1 = 32: the width is unchanged. (b) ⌊(224 − 7 + 6)/2⌋ + 1 = ⌊223/2⌋ + 1 = 111 + 1 = 112. This is the first layer of the ResNet architecture, which halves 224 to 112."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "A 28×28 image is convolved with a 3×3 filter, stride 1 and no padding. The output size is",
+          "a": "26×26",
+          "wrong": [
+            "28×28",
+            "25×25",
+            "27×27"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pooling",
+      "title": "Pooling and receptive fields",
+      "terms": [
+        "pooling",
+        "max pooling",
+        "average pooling",
+        "global average pooling",
+        "receptive field",
+        "downsampling"
+      ],
+      "body": [
+        "A **pooling** layer summarizes each small window by one number and so shrinks the feature map. **Max pooling** keeps the largest value in each window. A 2×2 max pool with stride 2 halves the height and width. Pooling adds a little translation invariance (a small shift of the pattern leaves the pooled output unchanged), reduces the computation and enlarges the region each later unit can see. Pooling layers have no parameters. **Global average pooling** averages each whole feature map to a single number, turning the last feature maps into a vector for the classifier.",
+        {
+          "example": {
+            "title": "Max pooling",
+            "problem": "Apply 2×2 max pooling with stride 2 to the 4×4 array with rows (1, 3, 2, 0), (4, 2, 1, 5), (0, 1, 3, 2), (2, 6, 4, 1).",
+            "solution": "The four windows give max(1, 3, 4, 2) = 4, max(2, 0, 1, 5) = 5, max(0, 1, 2, 6) = 6 and max(3, 2, 4, 1) = 4. The output is [[4, 5], [6, 4]]."
+          }
+        },
+        {
+          "h": "The receptive field"
+        },
+        "The **receptive field** of a unit is the region of the input that can influence it. A unit in the first 3×3 layer sees a 3×3 patch. After a second stacked 3×3 layer (stride 1) each unit sees 5×5, after a third, 7×7: in general 2n + 1 after n layers. Stride and pooling make the receptive field grow much faster in deeper layers.",
+        "This explains the VGG design principle: a stack of three 3×3 layers sees the same 7×7 region as one 7×7 layer, but with 3·(3·3)·C² = 27C² parameters instead of 49C², and it applies three nonlinearities instead of one.",
+        {
+          "key": "Early layers detect local patterns (edges, colors), middle layers combine them into textures and parts, and late layers represent objects. The hierarchy emerges from stacking convolutions with growing receptive fields."
+        }
+      ],
+      "check": [
+        {
+          "q": "What is the receptive field of a unit after four stacked 3×3 convolutions with stride 1?",
+          "a": "9×9",
+          "wrong": [
+            "12×12",
+            "3×3",
+            "16×16"
+          ],
+          "why": "2n + 1 = 9 for n = 4."
+        }
+      ]
+    },
+    {
+      "id": "architectures",
+      "title": "Architectures: from LeNet to ResNet",
+      "terms": [
+        "lenet",
+        "alexnet",
+        "vgg",
+        "resnet",
+        "residual network",
+        "skip connection",
+        "residual connection",
+        "1x1 convolution",
+        "bottleneck",
+        "imagenet"
+      ],
+      "body": [
+        "A typical CNN alternates convolutions (with ReLU and often normalization) and downsampling, doubling the number of channels each time the resolution is halved, and ends with global pooling and a classifier.",
+        {
+          "table": {
+            "head": [
+              "Network",
+              "Year",
+              "Idea"
+            ],
+            "rows": [
+              [
+                "LeNet-5",
+                "1998",
+                "Conv–pool stacks for digit recognition; showed the design works"
+              ],
+              [
+                "AlexNet",
+                "2012",
+                "Deep CNN with ReLU, dropout and GPU training; won ImageNet by a wide margin"
+              ],
+              [
+                "VGG",
+                "2014",
+                "Uniform stacks of 3×3 convolutions; depth of 16 to 19 layers"
+              ],
+              [
+                "Inception / GoogLeNet",
+                "2014",
+                "Parallel filter sizes; 1×1 convolutions to reduce channels"
+              ],
+              [
+                "ResNet",
+                "2015",
+                "Residual connections allow 50 to 150+ layers"
+              ],
+              [
+                "EfficientNet and others",
+                "2019+",
+                "Scale depth, width and resolution together; neural architecture search"
+              ]
+            ],
+            "caption": "Landmark convolutional architectures."
+          }
+        },
+        {
+          "h": "1×1 convolutions"
+        },
+        "A 1×1 convolution has no spatial extent. At each position it is a fully connected layer across the channels. It changes the number of channels cheaply and mixes information between channels. It is used to reduce channels before an expensive 3×3 convolution.",
+        {
+          "h": "Residual networks"
+        },
+        "Simply stacking more layers made networks harder to train, and even worse on training error, long before overfitting could explain it. **ResNet** (He et al., 2015) adds a skip connection around each block of layers, so the block learns a correction to its input:",
+        {
+          "eq": "y = x + F(x)"
+        },
+        "If the best thing for a block is to do nothing, F only has to learn zero. The derivative is I + ∂F/∂x, so gradients flow back along the identity path undiminished (see Vanishing and exploding gradients). ResNets with over 100 layers train easily, and skip connections now appear in nearly every deep architecture, including transformers. The bottleneck block of ResNet-50 uses a 1×1 convolution to reduce the channels, a 3×3 convolution, and a 1×1 convolution to restore them.",
+        {
+          "example": {
+            "title": "Why the bottleneck saves parameters",
+            "problem": "A block works on 256 channels. Compare a plain 3×3 convolution 256 → 256 with a bottleneck: 1×1 (256 → 64), 3×3 (64 → 64), 1×1 (64 → 256). Ignore biases.",
+            "solution": "Plain: 3·3·256·256 = 589,824. Bottleneck: 256·64 + 3·3·64·64 + 64·256 = 16,384 + 36,864 + 16,384 = 69,632. The bottleneck uses about 8.5 times fewer parameters."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "The main benefit of a residual connection y = x + F(x) is that",
+          "a": "gradients can flow through the identity path, so very deep networks train",
+          "wrong": [
+            "it reduces the number of parameters",
+            "it removes the need for activations",
+            "it makes the network linear"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cnn-practice",
+      "title": "Training and using CNNs",
+      "terms": [
+        "transfer learning",
+        "fine-tuning",
+        "object detection",
+        "image segmentation",
+        "im2col",
+        "pretrained model"
+      ],
+      "body": [
+        {
+          "h": "Computation and backpropagation"
+        },
+        "Software turns a convolution into one large matrix multiplication (im2col: unroll every patch into a row, and the filters into columns), which GPUs execute very efficiently. Backpropagation through a convolution is another convolution: the gradient with respect to the input is a convolution of the upstream gradient with the flipped filter, and the gradient with respect to the filter is a convolution of the input with the upstream gradient. All the training techniques of the previous chapter apply, with batch normalization after each convolution.",
+        {
+          "h": "Transfer learning"
+        },
+        "Early layers learn general features (edges, textures) that are useful for almost any image task. **Transfer learning** exploits this. Take a network pretrained on a large data set such as ImageNet (1.2 million images, 1000 classes), replace the final layer with one for your classes, and then either train only the new layer (feature extraction) or train the whole network with a small learning rate (**fine-tuning**). With a few hundred labeled images this typically beats training from scratch by a wide margin.",
+        {
+          "h": "Beyond classification"
+        },
+        {
+          "list": [
+            "**Object detection**: predict boxes and class labels for every object. Methods include region proposals (R-CNN family) and single-shot detectors (YOLO, SSD).",
+            "**Semantic segmentation**: classify every pixel. A fully convolutional network (a U-Net, for example) shrinks the image to gather context and then upsamples back, with skip connections that restore detail.",
+            "**Other data**: 1D convolutions apply to audio and time series, and 3D convolutions to video and volumes. Graph convolutions extend the idea to graphs.",
+            "**Vision transformers** divide an image into patches and process them with attention (see Attention and Transformers). With enough data they match or exceed CNNs, but CNNs remain efficient and strong when data are limited, because of the built-in inductive bias."
+          ]
+        },
+        {
+          "tip": "Use data augmentation (random crops, flips, color changes) for image tasks. It adds the invariances that pooling only partly provides."
+        }
+      ],
+      "check": [
+        {
+          "q": "When you have a small labeled image data set, the usual best approach is",
+          "a": "start from a pretrained network and fine-tune it",
+          "wrong": [
+            "train a very deep network from scratch",
+            "use a fully connected network on the pixels",
+            "remove all convolutional layers"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "A convolutional layer slides a small learned filter over the input. Local connectivity and weight sharing cut the parameters drastically and give translation equivariance. A layer has K·K·C_in·C_out weights.",
+    "The output width is ⌊(W − K + 2P)/S⌋ + 1. Padding preserves the size, and stride downsamples.",
+    "Pooling summarizes windows (max or average) and adds a little invariance. The receptive field grows with depth: 2n + 1 for n stacked 3×3 layers.",
+    "1×1 convolutions mix channels cheaply. ResNet's skip connection y = x + F(x) lets gradients bypass layers, enabling networks of hundreds of layers.",
+    "Transfer learning from a pretrained network is the default for small data sets. CNN ideas extend to detection, segmentation, audio and video."
+  ],
+  "problems": [
+    {
+      "q": "A 32×32×3 image goes through conv(5×5, 6 filters, no padding, stride 1), then 2×2 max pooling (stride 2). Give the output shape and the parameter count of the convolution.",
+      "solution": "Conv output: 32 − 5 + 1 = 28, so 28×28×6. Pooling halves it to 14×14×6. Parameters: 5·5·3·6 + 6 = 456.",
+      "a": "14×14×6; 456 parameters."
+    },
+    {
+      "q": "Convolve the 1D signal (1, 2, 3, 4, 5) with the filter (1, 0, −1) (stride 1, no padding).",
+      "solution": "Output length 5 − 3 + 1 = 3. Position 0: 1(1) + 2(0) + 3(−1) = −2. Position 1: 2 − 4 = −2. Position 2: 3 − 5 = −2.",
+      "a": "(−2, −2, −2): a constant slope detector."
+    },
+    {
+      "q": "A network stacks three 3×3 convolutions (stride 1) and then a 2×2 max pool (stride 2), then two more 3×3 convolutions. What is the receptive field in the input pixels of a unit in the last layer?",
+      "solution": "After three 3×3 convs: 7. The pool adds (2 − 1) × 1 = 1, giving 8, and doubles the stride to 2. Each of the next two 3×3 layers adds (3 − 1) × 2 = 4, giving 8 + 4 + 4 = 16.",
+      "a": "16×16."
+    },
+    {
+      "q": "Output width for W = 100, K = 3, P = 1, S = 2.",
+      "solution": "⌊(100 − 3 + 2)/2⌋ + 1 = ⌊99/2⌋ + 1 = 49 + 1 = 50.",
+      "a": "50."
+    },
+    {
+      "q": "A skip connection y = x + F(x) has F with Jacobian J. If the loss gradient at y is g, what is the gradient at x?",
+      "solution": "∂L/∂x = (I + J)ᵀg = g + Jᵀg. The term g passes straight through, whatever F does.",
+      "a": "g + Jᵀg."
+    }
+  ]
+}

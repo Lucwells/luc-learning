@@ -101,6 +101,8 @@
 .chapter .eq { font-family: var(--mono); font-size: 1.05rem; text-align: center; background: var(--tint); border-radius: 6px; padding: .6rem 1rem; margin: 1rem 0; overflow-x: auto; line-height: 1.8; }
 .eq-note { display: block; font-family: system-ui, sans-serif; font-size: .8rem; color: var(--muted); }
 .chapter .eqs { list-style: none; padding-left: 0; }
+.chapter .code pre { font: .9rem/1.55 var(--mono); background: var(--tint); border-radius: 6px; padding: .8rem 1rem; margin: 1rem 0 .3rem; overflow-x: auto; tab-size: 4; }
+.chapter .code figcaption { margin-top: .2rem; }
 .chapter .eq-line { font-family: var(--mono); font-size: .98rem; }
 .chapter dl.terms { grid-template-columns: max-content 1fr; background: var(--tint); border-radius: 6px; padding: .7rem 1rem; gap: .4rem 1.2rem; }
 .chapter dl.terms dt { font-family: system-ui, sans-serif; font-size: .9rem; }

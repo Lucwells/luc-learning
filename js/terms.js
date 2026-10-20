@@ -3,6 +3,8 @@
 // Markup inside strings:  **bold**   //italic//   x^{2}   x_{i}
 // Every section title and every entry in a section's "terms" list becomes a link wherever
 // that word appears in other text. The first mention in each top-level section is linked.
+// A term links to the current book's section when it has one. Otherwise it links into a book named in the current
+// book's "links" list (book.json), first match wins. Books without "links" stay self-contained.
 
 import { esc } from './util.js';
 import { lib } from './data.js';
@@ -14,7 +16,9 @@ export function buildTerms() {
   termMap = new Map();
   const add = (term, s) => {
     const t = esc(String(term).trim()).toLowerCase();
-    if (t && !termMap.has(t)) termMap.set(t, { key: s.key, href: s.href, title: s.title, chapter: s.chapter });
+    if (!t) return;
+    if (!termMap.has(t)) termMap.set(t, []);
+    termMap.get(t).push({ key: s.key, href: s.href, title: s.title, chapter: s.chapter });
   };
   const visit = (list) => list.forEach((s) => {
     [s.title, ...(s.terms ?? [])].forEach((t) => add(t, s));
@@ -34,17 +38,21 @@ export function fmt(text, { sup = false } = {}) {
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
     .replace(/\/\/(.+?)\/\//g, '<em>$1</em>')
     .replace(/\^\{(.+?)\}/g, '<sup>$1</sup>')
-    .replace(/_\{(.+?)\}/g, '<sub>$1</sub>');
+    .replace(/_\{(.+?)\}/g, '<sub>$1</sub>')
+    .replace(/([\p{L})\]̂])_([\p{L}\p{N}])(?![\p{L}\p{N}_])/gu, '$1<sub>$2</sub>'); // x_i, h_θ: a single character after _
 }
 
 // fmt() plus term links. Each target is linked once per `seen` set and never links to itself.
-export function inline(text, { self, seen = new Set(), sup = false } = {}) {
+export function inline(text, { self, book = self?.split('/')[0], seen = new Set(), sup = false } = {}) {
   const html = fmt(text, { sup });
   if (!termRe) return html;
   return html.split(/(<[^>]+>)/).map((part) => {
     if (part.startsWith('<')) return part;
     return part.replace(termRe, (m) => {
-      const t = termMap.get(m.toLowerCase());
+      const options = termMap.get(m.toLowerCase());
+      const home = lib.bookById.get(book);
+      const t = options?.find((o) => o.chapter.book.id === book)
+        ?? (home?.links ?? []).map((id) => options?.find((o) => o.chapter.book.id === id)).find(Boolean);
       if (!t || t.key === self || seen.has(t.key)) return m;
       seen.add(t.key);
       return `<a class="term" href="${t.href}" title="${esc(`${t.chapter.title}: ${t.title}`)}">${m}</a>`;

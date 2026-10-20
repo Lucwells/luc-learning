@@ -1,0 +1,413 @@
+{
+  "id": "wrangling",
+  "view": "chapter",
+  "title": "Data Wrangling with pandas",
+  "description": "DataFrames, selection, grouping, joins, cleaning and reshaping: the working skills of preparing data for analysis.",
+  "overview": [
+    "Data seldom arrive in the form an analysis needs. Wrangling is the work of turning them into it: selecting the relevant rows and columns, deriving new variables, summarizing by group, combining tables, repairing missing values and bad entries, and reshaping. In Python the tool for this is pandas, whose central object, the DataFrame, is a table with labeled columns built on the NumPy arrays of the Computer Science book.",
+    "The pandas operations correspond to a small set of concepts that also appear in SQL and in R's tidyverse: filter, project, group and aggregate, join, sort, reshape. This chapter teaches the concepts and the pandas idioms for them, with small examples whose results can be checked by hand."
+  ],
+  "objectives": [
+    "Create and inspect a DataFrame, and select data with loc, iloc and boolean masks.",
+    "Derive new columns with vectorized operations, string and date methods.",
+    "Summarize by group with groupby and pivot tables (split–apply–combine).",
+    "Combine tables with concat and the different kinds of merge, and predict the number of rows of a join.",
+    "Handle missing values, duplicates and types, reshape between wide and long form, and avoid common pandas pitfalls."
+  ],
+  "sections": [
+    {
+      "id": "dataframes",
+      "title": "DataFrames and selection",
+      "terms": [
+        "pandas",
+        "dataframe",
+        "loc and iloc",
+        "boolean indexing",
+        "read_csv",
+        "column selection"
+      ],
+      "body": [
+        "A **DataFrame** is a table: columns with names (each a **Series** of one type) and rows with an **index**. It is usually created by reading a file.",
+        {
+          "code": [
+            "import pandas as pd",
+            "",
+            "df = pd.DataFrame({",
+            "    'city':  ['A', 'A', 'B', 'B', 'C'],",
+            "    'month': [1, 2, 1, 2, 1],",
+            "    'sales': [10, 12, 8, None, 5],",
+            "})",
+            "# df = pd.read_csv('sales.csv')      # the usual way: from a file",
+            "",
+            "df.shape          # (5, 3)",
+            "df.dtypes         # city: object, month: int64, sales: float64",
+            "df.head(2)        # first two rows",
+            "df.info()         # columns, types, non-missing counts",
+            "df.describe()     # count, mean, std, min, quartiles, max of numeric columns"
+          ],
+          "caption": "A small DataFrame used throughout this chapter. The missing value None becomes NaN, so sales is float."
+        },
+        "The first step with any new table is to look at it: its shape, the types of the columns, a few rows, summary statistics and counts of missing values (df.isna().sum()). Many errors (a number read as text, a date read as a string) are visible at this stage.",
+        {
+          "h": "Selecting rows and columns"
+        },
+        {
+          "code": [
+            "df['sales']                      # one column, a Series",
+            "df[['city', 'sales']]            # several columns, a DataFrame",
+            "df.loc[0, 'sales']               # by label: row label 0, column 'sales'  -> 10.0",
+            "df.iloc[1, 2]                    # by integer position: row 1, column 2   -> 12.0",
+            "df.loc[:, 'city':'month']        # label slices include both ends",
+            "",
+            "df[df['sales'] > 9]              # boolean mask: rows with sales above 9",
+            "df[(df['city'] == 'A') & (df['month'] == 2)]     # combine conditions with & | ~ and parentheses",
+            "df[df['city'].isin(['A', 'C'])]  # membership"
+          ],
+          "caption": "Selection. A boolean expression produces a mask, and df[mask] keeps the rows where it is True."
+        },
+        {
+          "list": [
+            "**loc** selects by label and **iloc** by position; with a default integer index the two look alike but differ for slices (loc includes the end label, iloc excludes the end position).",
+            "Use & (and), | (or), ~ (not) for element-wise conditions, with parentheses; Python's and/or do not work on columns.",
+            "NaN is not equal to anything, including itself: use .isna() and .notna(), not == np.nan.",
+            "A **sort** is sort_values('sales', ascending=False); a **sample** is df.sample(n=100, random_state=0)."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "df[(df['a'] > 1) & (df['b'] < 5)] returns",
+          "a": "the rows where both conditions hold",
+          "wrong": [
+            "the rows where either condition holds",
+            "the columns a and b",
+            "an error, since & is not allowed"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "transform",
+      "title": "Creating and transforming columns",
+      "terms": [
+        "vectorized operations in pandas",
+        "apply function",
+        "string methods",
+        "datetime in pandas",
+        "to_datetime",
+        "assign",
+        "map and replace",
+        "categorical dtype",
+        "binning"
+      ],
+      "body": [
+        "New columns are computed from existing ones with **vectorized** expressions that act on whole columns at once, as in NumPy, and are far faster than Python loops or row-by-row apply.",
+        {
+          "code": [
+            "df['sales_k'] = df['sales'] / 1000                       # arithmetic on a column",
+            "df['big'] = df['sales'] > 9                              # boolean column",
+            "df['label'] = df['city'].str.lower() + '_' + df['month'].astype(str)   # 'a_1', 'a_2', ...",
+            "",
+            "df['level'] = pd.cut(df['sales'], bins=[0, 6, 11, 100], labels=['low', 'mid', 'high'])",
+            "df['city'] = df['city'].astype('category')               # compact type for few distinct values",
+            "df['city'].map({'A': 'north', 'B': 'south', 'C': 'east'})  # replace values by a dictionary"
+          ],
+          "caption": "Deriving columns: arithmetic, comparisons, string methods (via .str), binning with cut, and mapping."
+        },
+        {
+          "h": "Dates and times"
+        },
+        {
+          "code": [
+            "d = pd.to_datetime(pd.Series(['2024-03-04', '2024-03-09']))",
+            "d.dt.dayofweek       # [0, 5]      Monday = 0, Saturday = 5",
+            "d.dt.month           # [3, 3]",
+            "(d.iloc[1] - d.iloc[0]).days   # 5"
+          ],
+          "caption": "Parsing dates into datetime values makes their parts and differences available. Always parse explicitly, with a format when it is ambiguous."
+        },
+        {
+          "list": [
+            "Parse dates once, up front, and store them as datetimes, not strings. Extract features that a model can use: day of week, month, hour, days since an event.",
+            "Be explicit about **time zones**. Mixed zones silently give wrong differences.",
+            "Use **apply** (with a function) only when no vectorized form exists: it runs a Python function per row.",
+            "**Categorical** columns with few distinct values save memory and speed up grouping. The binned version of a numeric variable (cut with chosen edges, qcut with quantiles) discards information; keep the original too."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "Why prefer df['a'] * 2 to df['a'].apply(lambda x: x * 2)?",
+          "a": "The vectorized form runs in compiled code over the whole column and is much faster",
+          "wrong": [
+            "apply gives a different result",
+            "apply cannot be used on numbers",
+            "Vectorized operations use less precision"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "groupby",
+      "title": "Grouping and aggregation",
+      "terms": [
+        "groupby",
+        "split-apply-combine",
+        "aggregation",
+        "pivot table",
+        "agg",
+        "value_counts",
+        "crosstab",
+        "group statistics"
+      ],
+      "body": [
+        "Many questions are about groups: the average sales per city, the number of orders per customer, the fraction of positive labels per class. The pattern is **split–apply–combine**: split the rows into groups by the values of a key, apply a function to each group, and combine the results.",
+        {
+          "code": [
+            "df.groupby('city')['sales'].mean()",
+            "# city",
+            "# A    11.0     (10 and 12)",
+            "# B     8.0     (the missing value is skipped)",
+            "# C     5.0",
+            "",
+            "df.groupby('city').agg(total=('sales', 'sum'), months=('month', 'count'))",
+            "#       total  months",
+            "# A      22.0       2",
+            "# B       8.0       2",
+            "# C       5.0       1",
+            "",
+            "df['city'].value_counts()          # rows per city: A 2, B 2, C 1",
+            "df.pivot_table(index='city', columns='month', values='sales', aggfunc='sum')",
+            "# month     1     2",
+            "# city",
+            "# A      10.0  12.0",
+            "# B       8.0   NaN",
+            "# C       5.0   NaN"
+          ],
+          "caption": "Group means, several aggregates at once, counts and a pivot table. Aggregation functions skip missing values by default; count counts non-missing entries while size counts rows."
+        },
+        {
+          "list": [
+            "Common aggregates: mean, median, sum, count, size, min, max, std, nunique (number of distinct values), and custom functions. Use agg with named outputs to get a tidy result.",
+            "**transform** returns a result with the same shape as the input, for example the group mean attached to every row: df.groupby('city')['sales'].transform('mean'). It is how to center a variable within groups or compute within-group z-scores.",
+            "A **pivot table** is a group-by with the group keys spread over rows and columns; **crosstab** counts the occurrences of each combination of two categorical variables.",
+            "Check group sizes (counts) before reading group means: a mean of 3 observations is much less certain than a mean of 3000, and a group with one row has no spread."
+          ]
+        },
+        {
+          "example": {
+            "title": "A group comparison that needs counts",
+            "problem": "Two ad variants have these click rates: variant 1 has 4 clicks in 5 views (80%) and variant 2 has 450 clicks in 600 views (75%). Which is better?",
+            "solution": "The raw rates favor variant 1 by 5 points, but five views carry almost no information: the standard error of 0.8 with n = 5 is √(0.8 × 0.2/5) = 0.18, so the rate could easily be 60% or 100%. For variant 2 the standard error is √(0.75 × 0.25/600) = 0.018. Always report counts next to rates, and use intervals (see Estimation and Bootstrap)."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "df.groupby('city')['sales'].mean() computes",
+          "a": "the mean of sales for each distinct city",
+          "wrong": [
+            "the mean of the city column",
+            "the overall mean of sales",
+            "the number of rows per city"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "joins",
+      "title": "Combining tables",
+      "terms": [
+        "join",
+        "concat",
+        "inner join",
+        "left join",
+        "outer join",
+        "many-to-many join",
+        "foreign key"
+      ],
+      "body": [
+        "Data are usually spread over several tables linked by **keys**. **concat** stacks tables with the same columns vertically (or side by side). **merge** (a join) matches rows of two tables on key columns.",
+        {
+          "code": [
+            "customers = pd.DataFrame({'id': [1, 2, 3], 'name': ['Ann', 'Bo', 'Cy']})",
+            "orders = pd.DataFrame({'order': [101, 102, 103, 104],",
+            "                       'customer_id': [1, 1, 2, 4],",
+            "                       'amount': [20, 35, 15, 50]})",
+            "",
+            "customers.merge(orders, left_on='id', right_on='customer_id', how='inner')   # 3 rows",
+            "customers.merge(orders, left_on='id', right_on='customer_id', how='left')    # 4 rows",
+            "customers.merge(orders, left_on='id', right_on='customer_id', how='outer')   # 5 rows"
+          ],
+          "caption": "Three customers and four orders. Order 104 belongs to customer 4, who is not in the customer table, and customer Cy has no orders."
+        },
+        {
+          "table": {
+            "head": [
+              "how",
+              "Rows kept",
+              "Result for the example"
+            ],
+            "rows": [
+              [
+                "inner",
+                "keys present in both tables",
+                "Ann (101), Ann (102), Bo (103): 3 rows"
+              ],
+              [
+                "left",
+                "all rows of the left table",
+                "the 3 above plus Cy with missing order data: 4 rows"
+              ],
+              [
+                "right",
+                "all rows of the right table",
+                "the 3 above plus order 104 with missing customer data: 4 rows"
+              ],
+              [
+                "outer",
+                "all rows of both tables",
+                "inner rows + Cy + order 104: 5 rows"
+              ]
+            ],
+            "caption": "Types of join."
+          }
+        },
+        {
+          "list": [
+            "**Check the row count** after every join. A join on a key that is not unique in either table multiplies rows: if a key appears 3 times on the left and 2 times on the right, it produces 6 rows (a many-to-many join), often by mistake. Use merge(..., validate='one_to_many') to assert the expected relationship.",
+            "Know which rows are unmatched: merge(..., indicator=True) adds a column recording where each row came from. Unmatched keys often signal data problems (different id formats, whitespace, case).",
+            "Make keys the same type before joining (an integer id against a string id matches nothing).",
+            "Joins are the same operations as in SQL (see the next chapter), where they run inside the database."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "A left join of table L (100 rows) with table R on a key that is unique in R gives",
+          "a": "exactly 100 rows",
+          "wrong": [
+            "at most the number of rows of R",
+            "at least 200 rows",
+            "an error"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cleaning",
+      "title": "Cleaning and reshaping",
+      "terms": [
+        "fillna",
+        "dropna",
+        "drop_duplicates",
+        "melt",
+        "pivot",
+        "astype",
+        "chained assignment",
+        "settingwithcopywarning",
+        "string cleaning",
+        "mean imputation"
+      ],
+      "body": [
+        {
+          "code": [
+            "df.isna().sum()                       # missing values per column",
+            "df.dropna(subset=['sales'])           # drop rows where sales is missing",
+            "df['sales'].fillna(df['sales'].median())   # fill with the median",
+            "df.drop_duplicates(subset=['city', 'month'])   # keep the first of each key",
+            "df['sales'] = df['sales'].astype(float)        # change type",
+            "",
+            "s = pd.Series([' New York', 'new york ', 'NEW YORK'])",
+            "s.str.strip().str.lower()             # three spellings become 'new york'"
+          ],
+          "caption": "Common cleaning operations."
+        },
+        {
+          "list": [
+            "**Missing values**: count them first. Dropping rows is valid only under MCAR (see the Data Science Process chapter). Mean or median imputation is quick but shrinks the variance: filling the missing value in (2, 4, 6, missing) with the observed mean 4 gives (2, 4, 6, 4), whose sample variance is 8/3 = 2.67, below the 4.0 of the observed values. Keep an indicator column, or use multiple imputation when the missingness matters.",
+            "**Fit imputation statistics on the training data only** (see Data leakage in Generalization), then apply them to validation and test data.",
+            "**Duplicates**: define what makes two rows the same (a key), check for them, and decide which row to keep.",
+            "**Text cleaning**: strip whitespace, unify case and spelling, parse numbers out of strings ('$1,200' → 1200). Inspect value_counts() of categorical columns for variants of the same category.",
+            "**Types**: store numbers as numbers, dates as datetimes and categories as categories. Reading a column with one stray 'N/A' as text turns every number into a string."
+          ]
+        },
+        {
+          "h": "Reshaping between wide and long"
+        },
+        "The tidy (long) form has one row per observation. **melt** turns the columns of a wide table into rows, and **pivot** reverses it.",
+        {
+          "code": [
+            "wide = pd.DataFrame({'country': ['A', 'B'], '2021': [10, 8], '2022': [12, 9]})",
+            "long = wide.melt(id_vars='country', var_name='year', value_name='value')",
+            "#   country  year  value",
+            "# 0       A  2021     10",
+            "# 1       B  2021      8",
+            "# 2       A  2022     12",
+            "# 3       B  2022      9",
+            "",
+            "long.pivot(index='country', columns='year', values='value')   # back to wide"
+          ],
+          "caption": "melt and pivot."
+        },
+        {
+          "h": "Pitfalls"
+        },
+        {
+          "list": [
+            "**Chained assignment**: df[df['a'] > 0]['b'] = 1 modifies a temporary copy, not df, and raises a SettingWithCopy warning. Write df.loc[df['a'] > 0, 'b'] = 1.",
+            "**Views and copies**: assigning df2 = df does not copy. Use df.copy() before changing a table that you want to preserve.",
+            "**Row-wise loops and apply** on millions of rows are slow; prefer vectorized operations, groupby and merge.",
+            "**Memory**: use smaller types (float32, category, int32) and read in chunks (read_csv(chunksize=...)) for files too large for memory; use Parquet for large tables (see Computer Systems).",
+            "**Sanity checks as code**: after each step assert what you expect (assert df['id'].is_unique, assert df['age'].between(0, 120).all(), row counts). A pipeline written as functions with checks is reproducible and easy to re-run (see Software Practice)."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "Replacing missing values in a column with its mean tends to",
+          "a": "reduce the apparent variance of that column",
+          "wrong": [
+            "increase the variance",
+            "leave the variance unchanged",
+            "bias the mean"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "A DataFrame is a table of typed, labeled columns. Inspect shape, dtypes, a few rows, describe() and missing counts first. Select with loc (labels), iloc (positions) and boolean masks combined with &, |, ~.",
+    "Derive columns by vectorized expressions, string (.str) and datetime (.dt) methods; parse dates and types explicitly.",
+    "groupby implements split–apply–combine: agg, transform, pivot_table. Report counts with group statistics.",
+    "merge joins tables on keys: inner, left, right, outer. Check row counts and key uniqueness, since many-to-many joins multiply rows.",
+    "Clean by counting missing values, handling duplicates, fixing types and text. Reshape with melt and pivot. Avoid chained assignment, accidental aliasing and row-wise loops, and assert your expectations."
+  ],
+  "problems": [
+    {
+      "q": "For the sales DataFrame of this chapter, what do df['sales'].mean(), df['sales'].sum() and df['sales'].count() return?",
+      "solution": "The values are 10, 12, 8, NaN, 5. Missing values are skipped: sum = 35, count = 4, mean = 35/4 = 8.75.",
+      "a": "8.75, 35.0 and 4."
+    },
+    {
+      "q": "Customers table: ids 1 to 5. Orders table: 8 orders by customers 1 (3 orders), 2 (2 orders), 3 (3 orders). How many rows do inner, left and outer merges (customers on the left) produce?",
+      "solution": "Inner: 8 rows (every order has a customer). Left: 8 + customers 4 and 5 with no orders = 10 rows. Outer: also 10 (no unmatched orders).",
+      "a": "8, 10 and 10 rows."
+    },
+    {
+      "q": "A table has columns user, day and clicks, with 3 rows for user 'u1' (days 1, 2, 3, clicks 5, 0, 7) and 2 rows for 'u2' (days 1, 2, clicks 3, 3). Give the output of groupby('user')['clicks'].agg(['sum', 'mean', 'count']).",
+      "solution": "u1: sum 12, mean 4.0, count 3. u2: sum 6, mean 3.0, count 2.",
+      "a": "u1: 12, 4.0, 3; u2: 6, 3.0, 2."
+    },
+    {
+      "q": "Why is df[df['a'] > 0]['b'] = 1 wrong, and what is the correct form?",
+      "solution": "The first indexing returns a new DataFrame (a copy); the assignment changes that temporary object and not df. The correct, single-step form is df.loc[df['a'] > 0, 'b'] = 1.",
+      "a": "It modifies a temporary copy. Use df.loc[df['a'] > 0, 'b'] = 1."
+    },
+    {
+      "q": "The values of a column are 4, 6, 9 and one missing value. Compute the sample variance of the observed values and after mean imputation.",
+      "solution": "Observed mean = 19/3 = 6.333; squared deviations: 5.444, 0.111, 7.111, sum 12.667; variance = 12.667/2 = 6.333. After imputing 6.333, the sum of squares stays 12.667 but there are 4 values: variance 12.667/3 = 4.222.",
+      "a": "6.33 before; 4.22 after imputation."
+    }
+  ]
+}

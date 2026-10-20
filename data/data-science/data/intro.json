@@ -1,0 +1,520 @@
+{
+  "id": "intro",
+  "view": "chapter",
+  "title": "The Data Science Process",
+  "description": "The lifecycle of a data project, types of data and variables, tidy data, data quality and missingness, and how to formulate a question the data can answer.",
+  "overview": [
+    "Data science is the practice of drawing useful conclusions from data. A model with a very good test score can still be useless if it answers the wrong question, is trained on data that do not represent the cases it will meet, or is built on a table whose columns mean something other than what the analyst thinks. Most of the effort of a real project, and most of its failures, lie before and after the modeling step: asking a precise question, understanding where the data came from, cleaning it, and checking whether the answer can be believed.",
+    "This chapter sets out the process and its vocabulary. It describes the stages of a project, the kinds of data and variables, the tidy table format that the rest of the book assumes, the problems that real data have (errors, duplicates, missing values), and the different kinds of question (describe, predict, infer, intervene) that call for different methods."
+  ],
+  "objectives": [
+    "Describe the stages of a data science project and the questions asked at each.",
+    "Classify variables by measurement scale and decide which summaries and operations are meaningful.",
+    "Identify the unit of observation (granularity) of a table and put data in tidy form.",
+    "Recognize data quality problems and the three kinds of missing data (MCAR, MAR, MNAR).",
+    "Distinguish descriptive, predictive, inferential and causal questions, and explain how Simpson's paradox shows why the distinction matters."
+  ],
+  "sections": [
+    {
+      "id": "lifecycle",
+      "title": "The lifecycle of a data project",
+      "terms": [
+        "data science",
+        "data science process",
+        "data science lifecycle",
+        "crisp-dm",
+        "data scientist",
+        "data pipeline in data science"
+      ],
+      "body": [
+        "A data project goes through a cycle, usually many times.",
+        {
+          "list": [
+            "**Question**: what decision or understanding is wanted, and how would we know we had it? What would be done differently depending on the answer?",
+            "**Data acquisition**: what data exist, who collected them, how, and for what purpose? Can we get more? Are we allowed to use them?",
+            "**Cleaning and preparation**: fix errors, handle missing values, join tables, and put the data in a usable form. This stage typically takes the largest share of the time.",
+            "**Exploration**: summarize, plot, look for patterns and anomalies, and check assumptions (the next chapters).",
+            "**Modeling and inference**: fit models, estimate quantities, test hypotheses, with a measure of uncertainty.",
+            "**Communication and action**: explain the findings and their limits to the people who must act on them; deploy a model if one was built.",
+            "**Monitoring**: check that the model or conclusion still holds as the world changes, and iterate."
+          ],
+          "ordered": true
+        },
+        "The cycle is not a straight line. Exploration reveals problems with the data that send the analyst back to cleaning, and a poor result may show that the question was ill-posed. The standard industry description of the process is CRISP-DM (business understanding, data understanding, preparation, modeling, evaluation, deployment).",
+        {
+          "h": "Where machine learning fits"
+        },
+        "The Machine Learning book of this library covers the modeling stage in depth: choosing a model class, fitting it, and measuring its predictive performance. This book covers the stages around it, and the statistical thinking needed to judge what a result means: how the data were produced, how much a sample can tell us about a population, whether an observed difference is real, and whether an association is causal.",
+        {
+          "tip": "Write the question down in one sentence, with the population it applies to, the quantity to be estimated or predicted, and what decision depends on it. Many projects fail because the question was never made precise, and the team optimizes a metric that no one cares about."
+        }
+      ],
+      "check": [
+        {
+          "q": "Which stage typically takes the largest share of effort in practice?",
+          "a": "Cleaning and preparing the data",
+          "wrong": [
+            "Fitting the final model",
+            "Writing the final report",
+            "Choosing the programming language"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "data-types",
+      "title": "Types of data and variables",
+      "terms": [
+        "categorical variable",
+        "numerical variable",
+        "nominal",
+        "ordinal",
+        "interval scale",
+        "ratio scale",
+        "measurement scale",
+        "structured data",
+        "unstructured data",
+        "semi-structured data"
+      ],
+      "body": [
+        "Data differ in structure. **Structured** data fit a table with fixed columns (a spreadsheet, a database table). **Semi-structured** data have a flexible nested layout (JSON, XML, web logs). **Unstructured** data have no predefined schema: text, images, audio, video. Machine learning increasingly handles unstructured data by turning it into numeric vectors (embeddings), but analysis of most business and scientific data still starts from tables.",
+        "The columns of a table are **variables**, and what you can legitimately do with one depends on its measurement scale.",
+        {
+          "table": {
+            "head": [
+              "Scale",
+              "Meaning",
+              "Examples",
+              "Meaningful operations"
+            ],
+            "rows": [
+              [
+                "Nominal (categorical)",
+                "labels without order",
+                "country, blood type, yes/no",
+                "counting, mode, equality"
+              ],
+              [
+                "Ordinal",
+                "ordered categories, unequal or unknown gaps",
+                "survey rating 1–5, education level, severity",
+                "order, median, percentiles; differences are not meaningful"
+              ],
+              [
+                "Interval",
+                "equal differences, no true zero",
+                "temperature in °C, calendar year",
+                "differences, mean; ratios are not meaningful (20 °C is not 'twice as hot' as 10 °C)"
+              ],
+              [
+                "Ratio",
+                "equal differences and a true zero",
+                "height, income, counts, age",
+                "all arithmetic, including ratios"
+              ]
+            ],
+            "caption": "Scales of measurement."
+          }
+        },
+        {
+          "list": [
+            "A variable is **discrete** if it takes separated values (counts, categories) and **continuous** if it can take any value in a range (though measurement precision always makes it discrete in practice).",
+            "**Identifiers** (a customer id, a zip code) look numeric but are nominal: averaging zip codes is meaningless. Encoding them as numbers silently invites a model to treat 90210 as 'larger' than 10001.",
+            "**Dates and times** carry structure (day of week, season, elapsed time, time zone) that should be extracted explicitly, and they require care with time zones and daylight saving.",
+            "Ordinal variables are often analyzed as numbers (the mean satisfaction rating). That is a modeling assumption, that the gaps are roughly equal, and should be made knowingly."
+          ]
+        },
+        {
+          "example": {
+            "title": "Choosing a summary",
+            "problem": "A survey asks 'How satisfied are you?' on a scale from 1 (very unhappy) to 5 (very happy). The answers of 7 people are 5, 4, 4, 1, 5, 5, 2. Which summaries are appropriate?",
+            "solution": "The scale is ordinal. The median (4) and the distribution of counts (1: one person; 2: one; 4: two; 5: three) are safe. The mean, 3.71, is commonly reported and treats the gaps as equal, which may not be true. A nominal summary such as the mode (5) also works. The standard deviation depends on the equal-gap assumption as well."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "A postal code stored as an integer is best treated as",
+          "a": "a nominal (categorical) variable",
+          "wrong": [
+            "a ratio variable",
+            "an interval variable",
+            "a continuous variable"
+          ]
+        },
+        {
+          "q": "Temperature in degrees Celsius is on which scale?",
+          "a": "Interval: differences are meaningful, but there is no true zero",
+          "wrong": [
+            "Ratio",
+            "Nominal",
+            "Ordinal"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tidy",
+      "title": "Granularity and tidy data",
+      "terms": [
+        "tidy data",
+        "unit of observation",
+        "granularity",
+        "wide format",
+        "long format",
+        "data table",
+        "primary key",
+        "data dictionary"
+      ],
+      "body": [
+        "The **unit of observation** (or **granularity**) of a table says what one row represents: one transaction, one customer, one customer-month, one patient visit. The granularity must be known before any analysis, because it decides what the columns mean and which comparisons are valid. A table with one row per transaction has an 'amount' column that can be summed; the same column in a table with one row per customer might be an average or a total. Aggregating to a coarser grain loses information and can change conclusions (see Simpson's paradox below).",
+        "**Tidy data** (Wickham) organizes a table so that",
+        {
+          "list": [
+            "every **variable** is a column,",
+            "every **observation** is a row,",
+            "every type of observational unit has its own table."
+          ]
+        },
+        "Tidy tables make most analyses simple: filtering, grouping and plotting all assume it. Raw data are often **untidy**. A common case is the **wide** table in which the columns are values of a variable (one column per year), where the **long** form (columns year and value, one row per combination) is tidy.",
+        {
+          "table": {
+            "head": [
+              "country",
+              "2021",
+              "2022",
+              "2023"
+            ],
+            "rows": [
+              [
+                "A",
+                "10",
+                "12",
+                "15"
+              ],
+              [
+                "B",
+                "8",
+                "9",
+                "9"
+              ]
+            ],
+            "caption": "A wide table: the year is spread over the column names."
+          }
+        },
+        {
+          "table": {
+            "head": [
+              "country",
+              "year",
+              "value"
+            ],
+            "rows": [
+              [
+                "A",
+                "2021",
+                "10"
+              ],
+              [
+                "A",
+                "2022",
+                "12"
+              ],
+              [
+                "A",
+                "2023",
+                "15"
+              ],
+              [
+                "B",
+                "2021",
+                "8"
+              ],
+              [
+                "B",
+                "2022",
+                "9"
+              ],
+              [
+                "B",
+                "2023",
+                "9"
+              ]
+            ],
+            "caption": "The same data in tidy (long) form: three variables, six observations."
+          }
+        },
+        {
+          "list": [
+            "Each table should have a **primary key**: a column or combination of columns that uniquely identifies a row (here country and year). Checking that the key is unique is the first test of a dataset: duplicates silently inflate counts.",
+            "Keep a **data dictionary** that records the meaning, units, allowed values and source of each column. The numbers in a column labeled 'income' might be monthly, annual, before tax, or in thousands.",
+            "Data from different tables are linked by **keys** (joins), the subject of the SQL chapter."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "In tidy data, each row is",
+          "a": "one observation, with each variable in its own column",
+          "wrong": [
+            "one variable, with each observation in its own column",
+            "one table",
+            "one file"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "quality",
+      "title": "Data quality and missing data",
+      "terms": [
+        "data quality",
+        "data cleaning",
+        "missing data",
+        "mcar",
+        "mar",
+        "mnar",
+        "missing completely at random",
+        "missing at random",
+        "missing not at random",
+        "imputation",
+        "outlier",
+        "duplicates",
+        "measurement error"
+      ],
+      "body": [
+        "Real data are never clean. Common problems:",
+        {
+          "list": [
+            "**Errors and impossible values**: negative ages, a height of 2,000 cm, a date in the future. Often these are data entry mistakes or unit mix-ups (feet and meters). Sentinel values such as −999 or 0 used for 'unknown' are dangerous: a mean computed with them is nonsense.",
+            "**Duplicates**: the same record entered twice, or the same entity under different spellings ('Intl. Business Machines', 'IBM'). Duplicate entities across training and test sets cause leakage.",
+            "**Inconsistent formats**: dates as 03/04/2024 (March 4 or April 3?), mixed capitalization, trailing spaces, units.",
+            "**Outliers**: values far from the rest. They may be errors (remove or correct) or the most interesting observations (keep and study). Decide with domain knowledge, not by a mechanical rule.",
+            "**Measurement error and bias**: instruments drift, people misreport (underestimating alcohol use), definitions change over time.",
+            "**Selection**: the data may describe only part of the population (people who responded, customers who stayed, patients who came to the hospital)."
+          ]
+        },
+        {
+          "h": "Missing data"
+        },
+        "Values are often missing, and //why// they are missing matters as much as how many. Rubin's taxonomy:",
+        {
+          "table": {
+            "head": [
+              "Mechanism",
+              "Meaning",
+              "Example",
+              "Consequence of dropping incomplete rows"
+            ],
+            "rows": [
+              [
+                "MCAR: missing completely at random",
+                "the chance of being missing is unrelated to anything",
+                "a lab sample is dropped by accident",
+                "loses data but does not bias results"
+              ],
+              [
+                "MAR: missing at random",
+                "the chance of being missing depends on other observed variables",
+                "older respondents skip an online question; age is recorded",
+                "bias can be corrected by modeling on the observed variables"
+              ],
+              [
+                "MNAR: missing not at random",
+                "the chance of being missing depends on the missing value itself",
+                "high earners refuse to report income",
+                "biased, and the bias cannot be fixed from the data alone"
+              ]
+            ],
+            "caption": "Mechanisms of missingness."
+          }
+        },
+        {
+          "list": [
+            "**Deleting** rows with missing values (complete-case analysis) is simple and valid under MCAR, but wasteful and biased under MAR or MNAR.",
+            "**Imputation** fills in missing values: with the mean or median (simple, but it shrinks the variance and hides uncertainty), with predictions from other variables (regression, nearest neighbors), or with several plausible values (**multiple imputation**), which propagates the uncertainty.",
+            "Add an **indicator** for 'was missing', since missingness itself can be informative (a missing income field may correlate with default).",
+            "Always report how much data are missing, in which variables, and how it was handled."
+          ]
+        },
+        {
+          "example": {
+            "title": "Missingness biases an average",
+            "problem": "A survey of 1000 people asks for income. True incomes average $50,000 for those who answer, and the 300 people with incomes above $100,000 (average $150,000) mostly decline to answer: only 60 of them respond. What is the average of the 760 responses, and what is the average income of all 1000 people?",
+            "solution": "Respondents: 700 lower-income people at $50,000 each plus 60 high earners at $150,000. Mean = (700 × 50,000 + 60 × 150,000)/760 = (35,000,000 + 9,000,000)/760 = $57,900. Everyone: (700 × 50,000 + 300 × 150,000)/1000 = $80,000. The responses underestimate the true mean by 28%, and nothing in the responses alone reveals it: the data are MNAR."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "High earners are less likely to report their income. This is",
+          "a": "missing not at random (MNAR)",
+          "wrong": [
+            "missing completely at random",
+            "missing at random given income",
+            "not missing data at all"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "questions",
+      "title": "What kind of question is it?",
+      "terms": [
+        "descriptive question",
+        "predictive question",
+        "inferential question",
+        "causal question",
+        "simpson's paradox",
+        "confounding variable",
+        "target population",
+        "data leakage in projects"
+      ],
+      "body": [
+        "Four kinds of question call for different methods, and mixing them up is a common source of wrong conclusions.",
+        {
+          "table": {
+            "head": [
+              "Kind",
+              "Question",
+              "Example",
+              "Typical methods"
+            ],
+            "rows": [
+              [
+                "Descriptive",
+                "What is in this data?",
+                "average spending per customer last month",
+                "summaries, tables, plots"
+              ],
+              [
+                "Predictive",
+                "What will happen for a new case?",
+                "which customers will cancel next month",
+                "machine learning; judged by held-out accuracy"
+              ],
+              [
+                "Inferential",
+                "What can we say about a population from a sample?",
+                "is the average height of adults in a country between 165 and 170 cm?",
+                "estimation, confidence intervals, hypothesis tests"
+              ],
+              [
+                "Causal",
+                "What would happen if we changed something?",
+                "would a discount reduce cancellations?",
+                "randomized experiments, causal inference"
+              ]
+            ],
+            "caption": "Four kinds of questions."
+          }
+        },
+        "A predictive model can be excellent without being causal. Ice cream sales predict drowning deaths (both rise with the temperature), but banning ice cream would not save lives. A **confounding variable** is a common cause of both the treatment and the outcome, and it makes associations misleading.",
+        {
+          "h": "Simpson's paradox"
+        },
+        "A trend present in every subgroup can reverse when the groups are combined.",
+        {
+          "example": {
+            "title": "Kidney stone treatments",
+            "problem": "Two treatments for kidney stones had these success counts. Which is better?",
+            "solution": [
+              {
+                "table": {
+                  "head": [
+                    "",
+                    "Treatment A",
+                    "Treatment B"
+                  ],
+                  "rows": [
+                    [
+                      "Small stones",
+                      "81 / 87 = 93%",
+                      "234 / 270 = 87%"
+                    ],
+                    [
+                      "Large stones",
+                      "192 / 263 = 73%",
+                      "55 / 80 = 69%"
+                    ],
+                    [
+                      "Both together",
+                      "273 / 350 = 78%",
+                      "289 / 350 = 83%"
+                    ]
+                  ]
+                }
+              },
+              "A is better for small stones and better for large stones, yet B looks better overall. The reason: doctors gave the more difficult, large-stone cases mostly to treatment A (263 of its 350 patients), and large stones have lower success rates for any treatment. Stone size is a **confounder**: it influences both which treatment is chosen and the outcome. The right comparison conditions on stone size, so A is better, assuming size is the only confounder (see Causal Inference)."
+            ]
+          }
+        },
+        {
+          "h": "Target population and the data you have"
+        },
+        "Every inference is about a **target population**, the group the conclusion is meant to describe. The data are a sample from a **sampling frame**, the list from which it was actually drawn. If they differ (an online survey of internet users to describe all adults), the conclusion holds for the sample's population only. A prediction model has a target population too: the cases it will see after deployment, which must resemble the training data. Writing down the unit of observation, the target population, the outcome and the time window before looking at any data prevents most errors, including **leakage** (using, to predict an outcome, information that would not be available at prediction time).",
+        {
+          "example": {
+            "title": "Defining a prediction task",
+            "problem": "A hospital wants to predict readmission within 30 days. State the unit of observation, label and a feature that would leak.",
+            "solution": "Unit: one hospital discharge (a patient with several discharges contributes several rows, so the split between training and test must be by patient). Label: whether the patient is readmitted within 30 days of discharge. Features: information available at discharge time. A leaking feature: 'total length of the follow-up appointments in the next month', which is known only after the discharge and itself depends on the readmission."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Simpson's paradox is the phenomenon that",
+          "a": "a trend present in every subgroup can disappear or reverse in the combined data",
+          "wrong": [
+            "averages are always larger than medians",
+            "adding data always reverses a conclusion",
+            "samples are always biased"
+          ]
+        },
+        {
+          "q": "Which question is causal?",
+          "a": "Would reducing the price increase sales?",
+          "wrong": [
+            "What were last month's sales?",
+            "Which customers are likely to buy?",
+            "Is the mean price different from 20?"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "A data project cycles through question, data, cleaning, exploration, modeling, communication and monitoring. Precise questions and understanding of the data matter more than the model.",
+    "Variables are nominal, ordinal, interval or ratio; the scale limits the meaningful operations. Identifiers and codes are nominal even when numeric.",
+    "Know the unit of observation. Tidy data have one variable per column, one observation per row and one table per kind of unit; keys must be unique.",
+    "Data have errors, duplicates, outliers and bias. Missing data are MCAR, MAR or MNAR; dropping rows is valid only for MCAR, and MNAR cannot be repaired from the data alone.",
+    "Distinguish descriptive, predictive, inferential and causal questions. Confounders create Simpson's paradox, and conclusions hold only for the population the data represent."
+  ],
+  "problems": [
+    {
+      "q": "Classify each variable by scale: (a) shoe size in EU sizes, (b) the grade A/B/C/D, (c) the number of children, (d) the country of residence.",
+      "solution": "(a) interval or ordinal in practice (sizes are ordered with roughly equal steps, but zero is not meaningful); (b) ordinal; (c) ratio (a count with a true zero); (d) nominal.",
+      "a": "(a) interval/ordinal, (b) ordinal, (c) ratio, (d) nominal."
+    },
+    {
+      "q": "A table has one row per (customer, month) with columns customer_id, month and spend. What is its unit of observation and its primary key? What goes wrong if a row appears twice?",
+      "solution": "Unit: one customer in one month. Primary key: (customer_id, month). A duplicated row double-counts that month's spend, inflating totals and averages.",
+      "a": "A customer-month; key (customer_id, month); duplicates inflate sums."
+    },
+    {
+      "q": "In a sample of 200, 40 values of 'blood pressure' are missing, all among patients who did not return for a follow-up visit. The remaining mean is 128. What can you say about the true mean, and what would you do?",
+      "solution": "The missingness depends on the follow-up behavior, which may be related to health status, so it is probably MAR or MNAR. The mean of 128 may be biased (patients who did not return might be healthier or sicker). Compare the observed characteristics of those with and without values, use the observed variables to impute (multiple imputation) or weight, and report the sensitivity of the conclusions.",
+      "a": "The complete-case mean may be biased; investigate the mechanism, impute with auxiliary variables, and report sensitivity."
+    },
+    {
+      "q": "In the kidney stone example, compute the overall success rate of treatment A if it had been given to the same mix of stones as treatment B (270 small and 80 large out of 350).",
+      "solution": "A's rates are 93.1% (small) and 73.0% (large). With 270 small and 80 large: 0.931 × 270 + 0.730 × 80 = 251.4 + 58.4 = 309.8 out of 350 = 88.5%, above B's 82.6%. The reversal disappears when the groups have equal mix.",
+      "a": "About 88.5% for A versus 82.6% for B."
+    },
+    {
+      "q": "Write a one-sentence question for a project on customer cancellation that states the unit, the population, the outcome and the time window.",
+      "solution": "For example: 'Among active subscribers on the first of each month, which will cancel before the end of that month, so that retention offers can be sent to the 10% most likely to cancel?'",
+      "a": "A sentence naming unit (subscriber-month), population (active subscribers), outcome (cancellation within the month) and use."
+    }
+  ]
+}

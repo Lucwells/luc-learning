@@ -1,0 +1,366 @@
+{
+  "id": "rl-algorithms",
+  "view": "chapter",
+  "title": "Reinforcement Learning Algorithms",
+  "description": "Learning without a model: temporal-difference learning, Q-learning, deep Q-networks, policy gradients, exploration, and RL from human feedback.",
+  "overview": [
+    "Dynamic programming needs the transition probabilities of the environment and a table with an entry for every state. Real problems offer neither: the rules of a game may be known only through play, and the states are images or continuous measurements. Model-free reinforcement learning learns directly from experience, from sampled transitions (s, a, r, s′), without a model.",
+    "Two families dominate. Value-based methods learn Q(s, a) and act greedily on it (Q-learning, DQN). Policy-based methods adjust the parameters of the policy itself in the direction that increases the expected return (policy gradients, actor–critic, PPO). Both rest on the Bellman equations of the previous chapter."
+  ],
+  "objectives": [
+    "Compute Monte Carlo and temporal-difference updates, and compare their bias and variance.",
+    "Apply the Q-learning and SARSA updates, and explain the difference between on-policy and off-policy learning.",
+    "Describe DQN: function approximation, experience replay, target networks.",
+    "Derive the policy gradient theorem and explain baselines, actor–critic and PPO.",
+    "Compare exploration strategies on bandits, and describe how RL is used to train language models."
+  ],
+  "sections": [
+    {
+      "id": "td",
+      "title": "Monte Carlo and temporal-difference learning",
+      "terms": [
+        "model-free reinforcement learning",
+        "monte carlo method",
+        "monte carlo control",
+        "temporal-difference learning",
+        "td learning",
+        "td error",
+        "bootstrapping",
+        "td(0)",
+        "prediction problem"
+      ],
+      "body": [
+        "Consider the prediction problem: estimate V^π for a fixed policy from episodes of experience. There are two basic ideas.",
+        {
+          "list": [
+            "**Monte Carlo (MC)**: wait until the episode ends, compute the actual return G_t from each visited state, and move V(s_t) toward it: V(s_t) ← V(s_t) + α [G_t − V(s_t)]. This is an unbiased estimate of the value, but with high variance, since the return depends on many random events, and it cannot learn before the episode finishes.",
+            "**Temporal-difference (TD) learning**: after a single step, move V(s_t) toward the one-step target r_{t+1} + γV(s_{t+1}), which uses the current estimate of the next state's value in place of the rest of the return (**bootstrapping**):"
+          ]
+        },
+        {
+          "eq": [
+            "δ_t = r_{t+1} + γ V(s_{t+1}) − V(s_t)",
+            "V(s_t) ← V(s_t) + α δ_t"
+          ]
+        },
+        "The quantity δ_t is the **TD error**: the difference between the improved and the current estimate of the value. TD learns online, after every step, and works in continuing tasks. Its target has lower variance than MC (it depends on one random transition) but is biased, because V(s_{t+1}) is itself an estimate. Intermediate choices are n-step returns and **TD(λ)**, which averages them, interpolating between TD and MC.",
+        {
+          "example": {
+            "title": "A TD(0) update",
+            "problem": "A transition goes from state A to state B with reward 1. Currently V(A) = 2 and V(B) = 5. With γ = 0.9 and α = 0.1, apply TD(0).",
+            "solution": "The target is 1 + 0.9(5) = 5.5, so δ = 5.5 − 2 = 3.5, and the new V(A) = 2 + 0.1(3.5) = 2.35. The estimate moves 10% of the way toward the target. The positive error says that A was better than predicted."
+          }
+        },
+        {
+          "note": "The TD error also has a biological meaning: the firing of dopamine neurons in the brain resembles δ, a reward prediction error (Schultz et al., 1997)."
+        }
+      ],
+      "check": [
+        {
+          "q": "Compared with Monte Carlo, the one-step TD target has",
+          "a": "lower variance but some bias, because it bootstraps from the current estimate",
+          "wrong": [
+            "higher variance and no bias",
+            "no variance",
+            "higher variance and higher bias"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q-learning",
+      "title": "Q-learning and SARSA",
+      "terms": [
+        "q-learning",
+        "sarsa",
+        "on-policy",
+        "off-policy",
+        "epsilon-greedy",
+        "ε-greedy",
+        "tabular q-learning",
+        "learning rate in rl"
+      ],
+      "body": [
+        "To find a good policy without a model, learn the action values. **Q-learning** (Watkins, 1989) updates after each transition (s, a, r, s′):",
+        {
+          "eq": "Q(s, a) ← Q(s, a) + α [ r + γ max_{a′} Q(s′, a′) − Q(s, a) ]"
+        },
+        "This is a stochastic version of value iteration on the Bellman optimality equation. It learns Q* regardless of how the data were collected, as long as every state–action pair continues to be tried (and α decays appropriately). It is **off-policy**: the behavior policy that gathers data can differ from the target policy (greedy) being learned. That allows learning from old data, from other agents or from demonstrations.",
+        "**SARSA** (State, Action, Reward, State, Action) uses the action a′ that the agent actually takes next instead of the max:",
+        {
+          "eq": "Q(s, a) ← Q(s, a) + α [ r + γ Q(s′, a′) − Q(s, a) ]"
+        },
+        "It is **on-policy**: it learns the value of the behavior policy, including its exploration.",
+        {
+          "example": {
+            "title": "Q-learning versus SARSA",
+            "problem": "From a transition with Q(s, a) = 2, r = 1, α = 0.1, γ = 0.9, the next state s′ has Q(s′, ·) = (5, 3, 1). The behavior policy picks the action with Q = 3 next. Compare the two updates.",
+            "solution": [
+              "Q-learning uses the max: target = 1 + 0.9(5) = 5.5, so Q(s, a) ← 2 + 0.1(3.5) = 2.35.",
+              "SARSA uses the action taken: target = 1 + 0.9(3) = 3.7, so Q(s, a) ← 2 + 0.1(1.7) = 2.17.",
+              "Q-learning assumes optimal behavior from then on, and SARSA accounts for the exploratory step that was actually taken. In the cliff-walking problem this makes SARSA learn a safe path away from the cliff edge, and Q-learning the shortest path next to it."
+            ]
+          }
+        },
+        {
+          "h": "Exploration"
+        },
+        "The simplest rule for balancing exploration and exploitation is **ε-greedy**: with probability ε take a random action, otherwise the greedy one. Typically ε starts near 1 and decays toward 0.05 or so. Better exploration (optimism about untried actions, curiosity bonuses, noise in parameters) matters greatly when rewards are sparse, as in games where a reward comes only at the end."
+      ],
+      "check": [
+        {
+          "q": "Q-learning is called off-policy because",
+          "a": "it learns the greedy policy's values while following a different behavior policy",
+          "wrong": [
+            "it does not use a policy",
+            "it needs no rewards",
+            "it can only learn from one episode"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dqn",
+      "title": "Deep Q-networks",
+      "terms": [
+        "deep q-network",
+        "dqn",
+        "deep reinforcement learning",
+        "experience replay",
+        "replay buffer",
+        "target network",
+        "function approximation",
+        "deadly triad",
+        "double q-learning"
+      ],
+      "body": [
+        "A table of Q values is impossible for states such as images (an Atari screen has more states than atoms in the universe). With **function approximation**, represent Q(s, a; θ) by a neural network that takes the state and outputs one Q value per action, and train it to reduce the TD error by gradient descent on",
+        {
+          "eq": "L(θ) = E_{(s,a,r,s′)} [ ( r + γ max_{a′} Q(s′, a′; θ⁻) − Q(s, a; θ) )² ]"
+        },
+        "Naive training diverges: consecutive samples are strongly correlated, and the target moves every time the network changes. Mnih et al. (2015) made the **deep Q-network** (DQN) work, reaching human-level scores on many Atari games from pixels, by two devices:",
+        {
+          "list": [
+            "**Experience replay**: store the last million transitions in a buffer and train on random mini-batches. This breaks the correlation between samples and reuses each experience many times.",
+            "**Target network**: compute the target with a separate copy of the network, with parameters θ⁻ that are updated only every few thousand steps (or averaged slowly). This keeps the regression target fixed for a while and stabilizes training."
+          ]
+        },
+        "The combination of function approximation, bootstrapping and off-policy learning is called the **deadly triad**, because together they can make value estimates diverge. The max operator also makes Q-learning overestimate values, since it takes the maximum of noisy estimates. **Double DQN** selects the best next action with the online network and evaluates it with the target network, which reduces this bias. Further refinements (prioritized replay, dueling networks, distributional values, noisy networks) were combined in the Rainbow agent.",
+        {
+          "example": {
+            "title": "A DQN regression target",
+            "problem": "A stored transition has r = 0, γ = 0.99, and the target network's values at the next state are (1.2, 0.8, 1.5). The online network's current estimate for the action taken is 1.0. Find the target and the squared TD error.",
+            "solution": "The target is 0 + 0.99 × 1.5 = 1.485. The TD error is 1.485 − 1.0 = 0.485 and its square is 0.235. The gradient step moves Q(s, a; θ) up toward 1.485 while the target network stays fixed."
+          }
+        },
+        "DQN-style methods need discrete actions, since they take a max over actions. For continuous control (robot torques), policy-based or actor–critic methods are used."
+      ],
+      "check": [
+        {
+          "q": "What is the purpose of the target network in DQN?",
+          "a": "To keep the regression target stable while the online network is updated",
+          "wrong": [
+            "To choose the actions during exploration",
+            "To store old experiences",
+            "To increase the learning rate"
+          ]
+        },
+        {
+          "q": "Experience replay helps because",
+          "a": "random mini-batches from a buffer break the correlation of consecutive samples and reuse data",
+          "wrong": [
+            "it removes the need for rewards",
+            "it makes the policy deterministic",
+            "it guarantees convergence in all cases"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "policy-gradient",
+      "title": "Policy gradient methods",
+      "terms": [
+        "policy gradient",
+        "policy gradient theorem",
+        "reinforce",
+        "baseline",
+        "advantage function",
+        "actor-critic",
+        "actor–critic",
+        "ppo",
+        "proximal policy optimization",
+        "log-derivative trick",
+        "policy network"
+      ],
+      "body": [
+        "Instead of learning values and acting greedily, **policy gradient** methods parameterize the policy π_θ(a | s) (a softmax for discrete actions, a Gaussian for continuous ones) and ascend the gradient of the expected return J(θ) = E_{τ ~ π_θ}[G(τ)], where τ is a trajectory. This handles continuous actions, stochastic policies and directly optimizes what we care about.",
+        "**Deriving the gradient.** Using the log-derivative trick ∇π = π ∇ln π,",
+        {
+          "eq": [
+            "∇_θ J = ∇_θ Σ_τ P(τ; θ) G(τ) = Σ_τ P(τ; θ) ∇_θ ln P(τ; θ) G(τ)",
+            "= E_τ [ Σ_t ∇_θ ln π_θ(a_t | s_t) · G_t ]"
+          ]
+        },
+        "The environment's transition probabilities do not depend on θ, so they drop out of ∇ln P(τ; θ), leaving only the gradient of the log policy. This is the **policy gradient theorem**. The simplest algorithm, **REINFORCE**, samples episodes, and for every step increases the log-probability of the action taken in proportion to the return that followed. Good outcomes make the actions that led to them more likely.",
+        {
+          "h": "Baselines and the advantage"
+        },
+        "The estimate has high variance, since the return G_t is noisy. Subtracting any **baseline** b(s_t) that does not depend on the action leaves the expected gradient unchanged (because E[∇ln π] = 0) but can cut the variance substantially. The natural choice is the value function V(s_t), which gives the **advantage** A_t = G_t − V(s_t): how much better the action did than average in that state.",
+        {
+          "example": {
+            "title": "One policy-gradient step",
+            "problem": "A softmax policy over two actions has logits θ = (0, 0), so π = (0.5, 0.5). Action 1 is taken and the return is G = 4, with a baseline V = 2. Compute the update with α = 0.1.",
+            "solution": [
+              "For a softmax, ∂ ln π(a)/∂θ_j = 1[j = a] − π_j. For action 1 this is (1 − 0.5, −0.5) = (0.5, −0.5).",
+              "The advantage is 4 − 2 = 2, so the gradient estimate is 2 × (0.5, −0.5) = (1, −1). The update is θ ← (0, 0) + 0.1(1, −1) = (0.1, −0.1).",
+              "The new probability of action 1 is σ(0.2) = 0.55, up from 0.5. Had the return been below the baseline, the probability would have fallen."
+            ]
+          }
+        },
+        {
+          "h": "Actor–critic and PPO"
+        },
+        "**Actor–critic** methods learn two networks together: the **actor** (the policy) and the **critic** (a value function that provides the baseline and replaces the Monte Carlo return by a bootstrapped TD estimate, A_t ≈ r_{t+1} + γV(s_{t+1}) − V(s_t)). This lowers variance at the cost of some bias, as in TD learning.",
+        "Policy gradient steps can be too large: a bad step destroys the policy and the next batch of data is bad too. **Proximal policy optimization** (PPO; Schulman et al., 2017) limits how far the new policy moves from the old one. With the probability ratio r_t(θ) = π_θ(a_t | s_t)/π_old(a_t | s_t), it maximizes the clipped objective",
+        {
+          "eq": "L = E_t [ min( r_t A_t,  clip(r_t, 1 − ε, 1 + ε) A_t ) ]"
+        },
+        "For example, with ε = 0.2, r = 1.5 and A = 2 the objective is min(3, 1.2 × 2) = 2.4: further increases of the action's probability beyond 20% earn no extra reward, so there is no incentive for a large step. PPO is simple and robust, and it is the workhorse for training robots, games agents and language models."
+      ],
+      "check": [
+        {
+          "q": "Why does subtracting a state-dependent baseline from the return not bias the policy gradient?",
+          "a": "The baseline does not depend on the action, and E[∇ln π(a | s)] = 0",
+          "wrong": [
+            "The baseline is always zero",
+            "The return is already unbiased",
+            "The gradient is multiplied by the baseline"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bandits",
+      "title": "Exploration and bandits",
+      "terms": [
+        "multi-armed bandit",
+        "bandit problem",
+        "upper confidence bound",
+        "ucb",
+        "thompson sampling",
+        "regret"
+      ],
+      "body": [
+        "The simplest setting with exploration is the **multi-armed bandit**: K actions (slot machine arms), no states, each pull of arm i gives a random reward with an unknown mean μ_i. The aim is to minimize **regret**, the total reward lost compared with always pulling the best arm. Every pull of a worse arm costs, but without trying the arms we cannot know which is best.",
+        {
+          "list": [
+            "**ε-greedy** explores uniformly at random with probability ε. Simple, but it keeps wasting pulls on clearly bad arms.",
+            "**Upper confidence bound (UCB)** is optimism in the face of uncertainty. Pull the arm with the highest Q_i + c√(ln t / N_i), where Q_i is the average reward, N_i the number of pulls and t the total. The bonus is large for rarely tried arms and shrinks as they are sampled. UCB has regret that grows only logarithmically with t.",
+            "**Thompson sampling** keeps a Bayesian posterior on each arm's mean (Beta for 0/1 rewards), samples one value per arm from its posterior, and pulls the arm with the largest sample. It explores in proportion to the probability that an arm is best, and performs very well in practice."
+          ]
+        },
+        {
+          "example": {
+            "title": "UCB chooses an under-explored arm",
+            "problem": "After t = 12 pulls, arm 1 has been pulled 10 times with average reward 0.5, and arm 2 twice with average 0.6. Which arm does UCB (c = 1) pull next?",
+            "solution": "ln 12 = 2.485. Arm 1: 0.5 + √(2.485/10) = 0.5 + 0.498 = 0.998. Arm 2: 0.6 + √(2.485/2) = 0.6 + 1.115 = 1.715. UCB pulls arm 2, since we are still very uncertain about it."
+          }
+        },
+        "The same principle carries over to full RL as exploration bonuses (count-based and curiosity-driven rewards) and to **Bayesian optimization**. Bandits are also used directly in recommendation, clinical trials and online experiments."
+      ],
+      "check": [
+        {
+          "q": "In UCB, the bonus term for an arm",
+          "a": "is larger for arms that have been pulled fewer times",
+          "wrong": [
+            "is larger for arms with a high average reward",
+            "is constant",
+            "grows with the number of pulls of the arm"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rl-practice",
+      "title": "Learning from human feedback and other frontiers",
+      "terms": [
+        "rlhf",
+        "reinforcement learning from human feedback",
+        "reward model",
+        "reward hacking",
+        "model-based reinforcement learning",
+        "offline reinforcement learning",
+        "imitation learning",
+        "alphago",
+        "sample efficiency"
+      ],
+      "body": [
+        {
+          "h": "RL for language models"
+        },
+        "A pretrained language model imitates text, but a good assistant should give answers people prefer. **Reinforcement learning from human feedback** (RLHF) proceeds in three stages. (1) Collect comparisons: people rank pairs of model answers. (2) Train a **reward model** r_φ(x, y) so that preferred answers score higher, by maximizing ln σ(r_φ(x, y_w) − r_φ(x, y_l)) over the winner y_w and loser y_l of each comparison. (3) Fine-tune the language model as the policy, with PPO, to maximize the reward minus a penalty for drifting away from the starting model, β·KL(π_θ ‖ π_ref). The KL penalty keeps the output fluent and limits **reward hacking**, where the policy exploits flaws in the reward model to score highly without being better. Direct preference optimization (DPO) achieves a similar result with a supervised loss and no separate RL stage. Rewards that can be checked automatically (a proof, a unit test) are used the same way for reasoning.",
+        {
+          "h": "Other directions"
+        },
+        {
+          "list": [
+            "**Model-based RL** learns a model of the environment and plans with it (look-ahead search, imagined rollouts). It is far more sample-efficient than model-free methods when the model is good. AlphaGo and AlphaZero combined policy and value networks with Monte Carlo tree search and self-play to surpass human champions in Go, chess and shogi.",
+            "**Imitation learning** copies expert demonstrations (behavior cloning is supervised learning on state–action pairs) and is often used to initialize an agent. Inverse RL infers the reward from demonstrations.",
+            "**Offline RL** learns from a fixed data set of past experience without further interaction, needed when exploration is expensive or dangerous (healthcare, driving), but it must avoid actions the data never covered.",
+            "**Multi-agent RL** treats other learners as part of a non-stationary environment.",
+            "**Sample efficiency and safety** remain the practical obstacles. Model-free agents often need millions of interactions, rewards are easily misspecified, and a policy tuned in simulation can fail in the real world (the sim-to-real gap)."
+          ]
+        },
+        {
+          "tip": "Before applying RL, check whether a simpler method fits. If a model of the dynamics exists, use planning or control theory. If you have labeled examples of good behavior, use supervised learning. If the choices do not change future states, a contextual bandit is enough."
+        }
+      ],
+      "check": [
+        {
+          "q": "In RLHF, the KL penalty to the reference model is used to",
+          "a": "keep the policy close to the pretrained model and limit exploitation of the reward model",
+          "wrong": [
+            "increase the learning rate",
+            "label the comparisons",
+            "remove the need for a reward model"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Monte Carlo moves V toward the full return (unbiased, high variance). TD(0) moves it toward r + γV(s′) with TD error δ (lower variance, some bias, learns online).",
+    "Q-learning, Q ← Q + α[r + γ max Q(s′, ·) − Q], is off-policy and learns Q*. SARSA uses the next action actually taken and is on-policy. ε-greedy balances exploration and exploitation.",
+    "DQN approximates Q with a network, stabilized by experience replay and a target network. The deadly triad can cause divergence, and Double DQN reduces overestimation.",
+    "The policy gradient theorem gives ∇J = E[Σ ∇ln π(a_t | s_t) G_t]. Baselines and advantages cut variance, actor–critic learns the baseline, and PPO clips the probability ratio to keep updates small.",
+    "UCB and Thompson sampling handle exploration in bandits by optimism or posterior sampling.",
+    "RLHF fine-tunes language models against a learned reward with a KL penalty. Model-based, imitation and offline RL address sample efficiency and safety."
+  ],
+  "problems": [
+    {
+      "q": "With γ = 0.95, α = 0.2, a transition has r = −1, V(s) = 3 and V(s′) = 4. Apply TD(0).",
+      "solution": "Target = −1 + 0.95(4) = 2.8. δ = 2.8 − 3 = −0.2. V(s) ← 3 + 0.2(−0.2) = 2.96.",
+      "a": "δ = −0.2; V(s) = 2.96."
+    },
+    {
+      "q": "A Q-learning agent has Q(s, a) = 0.5, observes r = 2 and the next state with Q(s′, ·) = (1, 4), α = 0.5, γ = 0.9. Compute the update.",
+      "solution": "Target = 2 + 0.9(4) = 5.6. TD error = 5.6 − 0.5 = 5.1. New Q = 0.5 + 0.5(5.1) = 3.05.",
+      "a": "Q(s, a) = 3.05."
+    },
+    {
+      "q": "A softmax policy has logits (1, 0) for two actions. Compute π, and the gradient of ln π(a = 2) with respect to the logits.",
+      "solution": "π = (e/(e + 1), 1/(e + 1)) = (0.731, 0.269). For a = 2, ∂ ln π/∂θ = (0 − 0.731, 1 − 0.269) = (−0.731, 0.731).",
+      "a": "π = (0.731, 0.269); gradient (−0.731, 0.731)."
+    },
+    {
+      "q": "PPO with ε = 0.2: for r = 0.7 and A = −1.5, and for r = 1.3 and A = 1, evaluate the clipped objective min(rA, clip(r, 0.8, 1.2)A).",
+      "solution": "First: rA = −1.05, clip(0.7) = 0.8 so clipped = −1.2; min = −1.2. Second: rA = 1.3, clipped = 1.2; min = 1.2.",
+      "a": "−1.2 and 1.2."
+    },
+    {
+      "q": "Thompson sampling with Beta posteriors: arm A has 8 successes and 2 failures; arm B has 1 success and 1 failure (uniform priors). Give each arm's posterior and mean. Why can B still be chosen?",
+      "solution": "Arm A: Beta(9, 3), mean 0.75. Arm B: Beta(2, 2), mean 0.5. B's posterior is much wider, so a sample from it will exceed a typical sample from A's narrower posterior reasonably often, which triggers exploration of the uncertain arm.",
+      "a": "Beta(9, 3) with mean 0.75; Beta(2, 2) with mean 0.5. B is chosen when its wide posterior produces a high draw."
+    }
+  ]
+}

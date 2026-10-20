@@ -1,0 +1,392 @@
+{
+  "id": "hypothesis-testing",
+  "view": "chapter",
+  "title": "Hypothesis Testing",
+  "description": "The logic of significance tests, p-values and errors, the common tests, permutation tests, power and sample size, and the problem of multiple comparisons.",
+  "overview": [
+    "Is the difference between two groups real, or could it be chance? Hypothesis testing answers by asking how surprising the data would be if nothing were going on. If the observed difference would be rare under the assumption of no effect, we have evidence against that assumption. The method is the standard tool for judging experiments and A/B tests, and its misuse (misread p-values, tests run until something is significant) is one of the main reasons published findings fail to replicate.",
+    "This chapter explains the logic, defines the p-value and the two kinds of error, presents the t-test, the test of proportions, the chi-square test and the permutation test, shows how to plan sample size through power, and describes the multiple comparisons problem that arises when many hypotheses are tested."
+  ],
+  "objectives": [
+    "State null and alternative hypotheses, compute a test statistic and a p-value, and decide at a given significance level.",
+    "Define and distinguish Type I and Type II errors, significance level and power.",
+    "Carry out one- and two-sample t-tests, a two-proportion z-test and a chi-square test.",
+    "Perform a permutation test and explain why it needs few assumptions.",
+    "Compute the sample size for a desired power, and correct for multiple comparisons with Bonferroni and Benjamini–Hochberg."
+  ],
+  "sections": [
+    {
+      "id": "logic",
+      "title": "The logic of a significance test",
+      "terms": [
+        "hypothesis test",
+        "hypothesis testing",
+        "null hypothesis",
+        "alternative hypothesis",
+        "test statistic",
+        "p-value",
+        "significance level",
+        "type i error",
+        "type ii error",
+        "statistical significance",
+        "rejection region",
+        "one-sided test",
+        "two-sided test",
+        "false positive rate",
+        "hypothesis tests"
+      ],
+      "body": [
+        "A test compares a claim of 'no effect' with the data.",
+        {
+          "list": [
+            "The **null hypothesis** H₀ is the default claim: the coin is fair, the new page has the same conversion rate as the old, the drug has no effect. The **alternative** H₁ is what we suspect instead (the coin is biased; the rates differ). A **one-sided** alternative (rate B > rate A) looks in one direction only, a **two-sided** one in both.",
+            "A **test statistic** summarizes how far the data are from what H₀ predicts, in standardized units (a z-score, a t-statistic).",
+            "The **p-value** is the probability, //computed assuming H₀ is true//, of a test statistic at least as extreme as the one observed. A small p-value says the data would be unusual if H₀ held.",
+            "A **significance level** α (commonly 0.05) is chosen in advance. We **reject H₀** if p < α. This procedure produces a false positive (rejecting a true H₀) with probability α."
+          ]
+        },
+        {
+          "svg": "<svg viewBox='0 0 440 230' role='img' aria-label='Standard normal curve with shaded tails beyond plus and minus 1.96' font-family='system-ui, sans-serif' font-size='12'><path d='M70,198.2 L95,193 L120,178.3 L122,176.6 L122,200 L70,200 Z' style='fill:var(--accent)' fill-opacity='.35' stroke='none'/><path d='M318,176.6 L320,178.3 L345,193 L370,198.2 L370,200 L318,200 Z' style='fill:var(--accent)' fill-opacity='.35' stroke='none'/><path fill='none' stroke='currentColor' stroke-width='2.5' d='M70,198 L95,193 L120,178 L145,148 L170,103 L195,58.8 L220,40 L245,58.8 L270,103 L295,148 L320,178 L345,193 L370,198'/><path d='M40,200 H400' fill='none' stroke='currentColor' stroke-width='1.5'/><g fill='currentColor' text-anchor='middle'><text x='220' y='218'>0</text><text x='122' y='218'>−1.96</text><text x='318' y='218'>1.96</text><text x='96' y='170'>2.5%</text><text x='344' y='170'>2.5%</text><text x='220' y='120'>95%: do not reject</text><text x='220' y='20'>distribution of the test statistic if H₀ is true</text></g></svg>",
+          "caption": "A two-sided test at α = 0.05 rejects H₀ when the test statistic falls in either shaded tail, each holding 2.5% of the probability under H₀."
+        },
+        {
+          "example": {
+            "title": "Is the coin fair?",
+            "problem": "A coin is flipped 100 times and gives 60 heads. Test H₀: p = 0.5 against the two-sided alternative.",
+            "solution": [
+              "Under H₀ the number of heads has mean 50 and standard deviation √(100 × 0.25) = 5, so z = (60 − 50)/5 = 2.0.",
+              "Two-sided p-value ≈ 2 × P(Z ≥ 2) = 2 × 0.0228 = 0.0455 (the exact binomial value is 0.057). At α = 0.05 this is borderline; a one-sided test would give 0.028.",
+              "Interpretation: if the coin were fair, results at least this far from 50 would occur in about 5% of experiments. It is not the probability that the coin is fair."
+            ]
+          }
+        },
+        {
+          "h": "Two kinds of error"
+        },
+        {
+          "table": {
+            "head": [
+              "",
+              "H₀ true",
+              "H₀ false"
+            ],
+            "rows": [
+              [
+                "Reject H₀",
+                "Type I error (false positive), probability α",
+                "correct: probability = power = 1 − β"
+              ],
+              [
+                "Do not reject H₀",
+                "correct",
+                "Type II error (false negative), probability β"
+              ]
+            ],
+            "caption": "Decisions and errors."
+          }
+        },
+        "Lowering α reduces false positives and raises false negatives; the way to lower both is more data. Failing to reject H₀ is not evidence that H₀ is true: it may be that the test had too little **power** to detect a real effect. Say 'no evidence of a difference', not 'no difference'."
+      ],
+      "check": [
+        {
+          "q": "A p-value is the probability of",
+          "a": "data at least as extreme as observed, assuming the null hypothesis is true",
+          "wrong": [
+            "the null hypothesis being true",
+            "the alternative hypothesis being true",
+            "making a Type II error"
+          ]
+        },
+        {
+          "q": "If a test of a truly ineffective drug is run at α = 0.05 on 100 independent such drugs, about how many will appear significant?",
+          "a": "5",
+          "wrong": [
+            "0",
+            "50",
+            "95"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "common-tests",
+      "title": "The t-test, tests of proportions and the chi-square test",
+      "terms": [
+        "t-test",
+        "two-sample t-test",
+        "welch's t-test",
+        "paired t-test",
+        "z-test for proportions",
+        "chi-square test",
+        "chi-squared test of independence",
+        "expected counts",
+        "contingency table test",
+        "test of two proportions"
+      ],
+      "body": [
+        {
+          "h": "Comparing two means: the t-test"
+        },
+        "To compare the means of two independent groups, use **Welch's t-test**:",
+        {
+          "eq": "t = ( x̄₁ − x̄₂ ) / √( s₁²/n₁ + s₂²/n₂ )"
+        },
+        "The denominator is the standard error of the difference. Under H₀ (equal means) and approximately normal data, t follows a t distribution with a degrees-of-freedom value computed from the data (about n₁ + n₂ − 2 for similar variances). For paired measurements (before and after on the same people), take the differences and run a one-sample t-test on them: it is more sensitive, because person-to-person variation cancels.",
+        {
+          "example": {
+            "title": "A two-sample t-test",
+            "problem": "Group A: n = 30, mean 52, s = 10. Group B: n = 30, mean 48, s = 12. Test for a difference in means.",
+            "solution": "SE = √(100/30 + 144/30) = √8.133 = 2.852. t = (52 − 48)/2.852 = 1.40 with about 56 degrees of freedom. The two-sided p-value is about 0.17. The 4-point difference is compatible with chance at this sample size: the 95% interval for the difference, 4 ± 2.0 × 2.85 = (−1.7, 9.7), includes 0. The interval is the more informative summary."
+          }
+        },
+        {
+          "h": "Comparing two proportions: the A/B test"
+        },
+        "For conversion rates p̂₁ and p̂₂ in groups of size n₁ and n₂, pool the groups under H₀ (a common rate p̂) and compute",
+        {
+          "eq": "z = ( p̂₂ − p̂₁ ) / √( p̂(1 − p̂)(1/n₁ + 1/n₂) )"
+        },
+        {
+          "example": {
+            "title": "An A/B test",
+            "problem": "Version A converts 120 of 1000 visitors, version B converts 150 of 1000. Is B better?",
+            "solution": "p̂_A = 0.12, p̂_B = 0.15, pooled p̂ = 270/2000 = 0.135. SE = √(0.135 × 0.865 × 2/1000) = 0.01528. z = 0.03/0.01528 = 1.96, two-sided p = 0.050. The result sits exactly at the edge of significance. The estimated lift is 3 points (25% relative), with 95% interval 3 ± 3.0 points (using the unpooled SE of 0.0153, so 1.96 × 0.0153 = 3.0): from about 0 to 6 points. The data are suggestive, not decisive."
+          }
+        },
+        {
+          "h": "The chi-square test"
+        },
+        "The **chi-square test of independence** tests whether two categorical variables are associated. Compare the observed counts O in each cell with the counts E expected under independence, E = (row total × column total)/grand total:",
+        {
+          "eq": "χ² = Σ (O − E)² / E,    degrees of freedom = (rows − 1)(columns − 1)"
+        },
+        {
+          "example": {
+            "title": "Chi-square for the A/B data",
+            "problem": "Test the A/B table above: A: 120 converted, 880 not; B: 150 converted, 850 not.",
+            "solution": "Column totals: converted 270, not 1730; row totals 1000 each; grand total 2000. Expected: converted 135 and not 865 in each row. χ² = 2[(15)²/135 + (15)²/865] = 2(1.667 + 0.260) = 3.85 with 1 degree of freedom, p = 0.050: the same as the z-test (z² = 1.96² = 3.85). The test needs expected counts of at least about 5 in each cell."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "For the same 20 people measured before and after a treatment, the better test is",
+          "a": "a paired t-test on the differences",
+          "wrong": [
+            "a two-sample t-test",
+            "a chi-square test",
+            "a test of proportions"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "permutation",
+      "title": "Permutation tests",
+      "terms": [
+        "permutation test",
+        "randomization test",
+        "exact test",
+        "resampling test",
+        "monte carlo p-value"
+      ],
+      "body": [
+        "A **permutation test** builds the null distribution directly from the data, with no assumptions about normality. Under H₀ (the treatment has no effect) the group labels are arbitrary: the observed values would have occurred whichever group each unit was in. So re-assign the labels at random many times, recompute the test statistic each time, and see how often a value as extreme as the observed one occurs.",
+        {
+          "example": {
+            "title": "An exact permutation test",
+            "problem": "Group A has values 4, 5, 6 and group B has 7, 8, 9. The difference in means is 3. Is it significant?",
+            "solution": [
+              "There are C(6, 3) = 20 ways to choose which three of the six values are labeled A. Under H₀ they are equally likely.",
+              "The difference B − A equals 3 only for the observed split (A = {4, 5, 6}). The most extreme mirror split (A = {7, 8, 9}) gives −3. All other 18 splits give smaller differences in magnitude.",
+              "One-sided p-value = 1/20 = 0.05. Two-sided p-value = 2/20 = 0.10. With 6 observations that is the strongest evidence that could ever be obtained."
+            ]
+          }
+        },
+        {
+          "code": [
+            "def permutation_test(a, b, n_perm=10000, seed=0):",
+            "    rng = np.random.default_rng(seed)",
+            "    observed = b.mean() - a.mean()",
+            "    pooled = np.concatenate([a, b])",
+            "    count = 0",
+            "    for _ in range(n_perm):",
+            "        rng.shuffle(pooled)                              # random relabeling",
+            "        diff = pooled[len(a):].mean() - pooled[:len(a)].mean()",
+            "        count += abs(diff) >= abs(observed)",
+            "    return (count + 1) / (n_perm + 1)                    # two-sided p-value"
+          ],
+          "caption": "A Monte Carlo permutation test for a difference in means. The +1 in the numerator and denominator ensures a p-value is never exactly 0."
+        },
+        {
+          "list": [
+            "It works with any statistic (a median, a correlation, the AUC difference of two models) and makes few assumptions, mainly that units are exchangeable under H₀. It is the natural test for a randomized experiment, since the physical randomization is what is being re-enacted.",
+            "For large n, Monte Carlo sampling of permutations replaces enumeration of all of them.",
+            "Do not confuse it with the **bootstrap**: a permutation test resamples //without replacement// and breaks the link between labels and outcomes to simulate H₀, while the bootstrap resamples //with replacement// and preserves the data to estimate a sampling distribution (see the previous chapter)."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "A permutation test generates the null distribution by",
+          "a": "randomly reassigning the group labels and recomputing the statistic",
+          "wrong": [
+            "resampling observations with replacement",
+            "assuming the data are normal",
+            "removing outliers"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "power",
+      "title": "Power and sample size",
+      "terms": [
+        "statistical power",
+        "power analysis",
+        "effect size in testing",
+        "minimum detectable effect",
+        "sample size for a test",
+        "underpowered study"
+      ],
+      "body": [
+        "The **power** of a test is the probability of rejecting H₀ when a specific alternative is true: 1 − β. It depends on four things: the effect size δ (the true difference), the variability σ, the sample size n and the significance level α. A study with low power will probably miss a real effect, and when it does find one, it tends to exaggerate it.",
+        "For comparing two means with equal group sizes, two-sided, the sample size per group that achieves power 1 − β is approximately",
+        {
+          "eq": "n = 2 ( z_{α/2} + z_β )² σ² / δ²"
+        },
+        "with z_{α/2} = 1.96 for α = 0.05 and z_β = 0.84 for 80% power (1.28 for 90%). For two proportions replace σ² by p̄(1 − p̄), where p̄ is the average of the two rates.",
+        {
+          "example": {
+            "title": "Planning an experiment",
+            "problem": "Response times have σ = 10 ms. How many users per group are needed to detect a 2 ms improvement with 80% power at α = 0.05? How many to detect a conversion increase from 10% to 11%?",
+            "solution": [
+              "Means: n = 2(1.96 + 0.84)² (10²)/2² = 2(7.84)(100)/4 = 392 per group.",
+              "Proportions: p̄ = 0.105, p̄(1 − p̄) = 0.094, δ = 0.01: n = 2(7.84)(0.094)/0.0001 = 14,700 per group. Small effects on rare outcomes need tens of thousands of users.",
+              "Halving the detectable effect quadruples the required sample."
+            ]
+          }
+        },
+        {
+          "list": [
+            "Fix α, the minimum effect worth detecting (the **minimum detectable effect**), σ and the target power //before// collecting data, and write them down.",
+            "Estimate σ from a pilot study or past data; the calculation is only as good as this estimate.",
+            "An **underpowered** study that fails to find a significant effect has told us little; a result reported as 'not significant' should come with its confidence interval.",
+            "Do not compute 'observed power' from the same data: it is a function of the p-value and adds no information.",
+            "Peeking: testing repeatedly as data arrive and stopping when p < 0.05 inflates the false positive rate well above 5%. Use a fixed sample size, or a sequential method designed for repeated looks."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "If you want to detect an effect half as large with the same power, the sample size per group must",
+          "a": "increase by a factor of four",
+          "wrong": [
+            "double",
+            "halve",
+            "stay the same"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "multiple",
+      "title": "Multiple comparisons and the interpretation of p-values",
+      "terms": [
+        "multiple comparisons",
+        "multiple testing",
+        "bonferroni correction",
+        "benjamini–hochberg",
+        "benjamini-hochberg",
+        "false discovery rate",
+        "p-hacking",
+        "garden of forking paths",
+        "replication crisis",
+        "family-wise error rate"
+      ],
+      "body": [
+        "Each test at α = 0.05 has a 5% chance of a false positive. Run m independent tests of true null hypotheses, and the chance of at least one false positive is 1 − 0.95^m: 64% for m = 20 and 99.4% for m = 100. If you test 20 features for association with an outcome and report the one that is significant, you have probably reported noise. This is the **multiple comparisons problem**.",
+        {
+          "list": [
+            "**Bonferroni correction**: to keep the probability of any false positive (the **family-wise error rate**) at most α, test each hypothesis at α/m. With 20 tests, use 0.0025. It is simple and conservative; power falls as m grows.",
+            "**False discovery rate** (FDR): when many hypotheses are tested and a few false positives are acceptable (genomics with 20,000 genes, many A/B metrics), control the expected fraction of false discoveries among the rejections. The **Benjamini–Hochberg** procedure sorts the p-values p₍₁₎ ≤ … ≤ p₍ₘ₎ and rejects all hypotheses up to the largest i with p₍ᵢ₎ ≤ (i/m)·q."
+          ]
+        },
+        {
+          "example": {
+            "title": "Bonferroni versus Benjamini–Hochberg",
+            "problem": "Ten p-values are 0.001, 0.008, 0.039, 0.041, 0.042, 0.060, 0.074, 0.205, 0.212, 0.216. Which are rejected with Bonferroni at α = 0.05 and with BH at q = 0.05?",
+            "solution": "Bonferroni threshold: 0.05/10 = 0.005, so only the first (0.001) is rejected. BH thresholds (i/10)(0.05): 0.005, 0.010, 0.015, 0.020, …. The ordered p-values: 0.001 ≤ 0.005 ✓, 0.008 ≤ 0.010 ✓, 0.039 > 0.015, 0.041 > 0.020, and so on. The largest i that passes is 2, so BH rejects the first two. It finds one more discovery than Bonferroni, while controlling the expected proportion of false ones."
+          }
+        },
+        {
+          "h": "How p-values are misused"
+        },
+        {
+          "list": [
+            "**p-hacking and the garden of forking paths**: trying many analyses (subgroups, outlier rules, transformations, outcomes) and reporting the one that works. Each choice is an implicit comparison. Pre-register the analysis plan, report every test run, and confirm exploratory findings on new data.",
+            "**'p < 0.05' as a threshold of truth**: p = 0.049 and p = 0.051 carry nearly the same evidence. The American Statistical Association (2016) states that scientific conclusions should not be based only on whether a p-value passes a threshold.",
+            "**A p-value is not** the probability that H₀ is true, the probability that the result is due to chance, the size or importance of the effect, or the probability that the result will replicate.",
+            "**Significance is not importance**: with enough data any tiny difference is significant. Look at the effect size and interval.",
+            "**Non-significance is not equivalence**: a wide interval that includes 0 and large effects means the data are inconclusive.",
+            "**The replication crisis**: in several fields many published significant findings failed to replicate, largely because of low power, flexible analyses, publication bias (only significant results published) and multiple comparisons. Report effect sizes with intervals, pre-register, share data and code, and replicate."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "If you test 50 independent true null hypotheses at α = 0.05, the expected number of false positives is",
+          "a": "2.5",
+          "wrong": [
+            "0",
+            "5",
+            "0.05"
+          ]
+        },
+        {
+          "q": "The Benjamini–Hochberg procedure controls",
+          "a": "the expected proportion of false discoveries among the rejected hypotheses",
+          "wrong": [
+            "the probability of any false positive",
+            "the power of each test",
+            "the sample size"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "A test compares the data with H₀. The p-value is the probability, under H₀, of a statistic at least as extreme as observed. Reject when p < α. Type I error has probability α; Type II has probability β; power is 1 − β. Failing to reject is not proof of no effect.",
+    "Welch's t = (x̄₁ − x̄₂)/√(s₁²/n₁ + s₂²/n₂); paired data use the differences. Proportions use the pooled z-test, and categorical association the χ² test, Σ(O − E)²/E. Always report the effect with its confidence interval.",
+    "Permutation tests reassign labels at random to build the null distribution, with few assumptions; they re-enact the randomization of an experiment.",
+    "Power depends on effect size, variability, n and α. For means n = 2(z_{α/2} + z_β)²σ²/δ² per group: halving the detectable effect quadruples n. Decide the plan before collecting data and avoid peeking.",
+    "Many tests inflate false positives: 1 − 0.95^m. Use Bonferroni (α/m) or Benjamini–Hochberg (FDR), pre-register analyses, and interpret p-values with effect sizes, not as thresholds of truth."
+  ],
+  "problems": [
+    {
+      "q": "A sample of n = 36 has x̄ = 104 and s = 12. Test H₀: μ = 100 against a two-sided alternative with a t-test (df = 35, t critical value 2.03).",
+      "solution": "SE = 12/√36 = 2. t = (104 − 100)/2 = 2.0, which is below the critical value 2.03: p ≈ 0.053. Not significant at 0.05, but borderline; the 95% interval is 104 ± 4.06 = (99.9, 108.1).",
+      "a": "t = 2.0, p ≈ 0.053; do not reject at 0.05."
+    },
+    {
+      "q": "Version A: 45 conversions in 500. Version B: 70 in 500. Test the difference with a two-proportion z-test.",
+      "solution": "p̂_A = 0.09, p̂_B = 0.14, pooled = 115/1000 = 0.115. SE = √(0.115 × 0.885 × 2/500) = √0.000407 = 0.02018. z = 0.05/0.02018 = 2.48, two-sided p = 0.013. Significant at 0.05.",
+      "a": "z = 2.48, p = 0.013."
+    },
+    {
+      "q": "Compute the chi-square statistic for the table: group 1: 30 yes, 70 no; group 2: 50 yes, 50 no.",
+      "solution": "Totals: yes 80, no 120, each group 100, grand total 200. Expected: yes 40 and no 60 in each group. χ² = (30 − 40)²/40 + (70 − 60)²/60 + (50 − 40)²/40 + (50 − 60)²/60 = 2.5 + 1.667 + 2.5 + 1.667 = 8.33, with 1 degree of freedom: p = 0.004.",
+      "a": "χ² = 8.33, p ≈ 0.004."
+    },
+    {
+      "q": "How many users per group to detect an increase in conversion from 5% to 6% with 80% power at α = 0.05?",
+      "solution": "p̄ = 0.055, p̄(1 − p̄) = 0.0520, δ = 0.01. n = 2(7.84)(0.0520)/0.0001 = 8,154 per group.",
+      "a": "About 8,150 per group."
+    },
+    {
+      "q": "A team tests 15 metrics in an A/B test and finds one with p = 0.03. Is that convincing evidence of an effect on that metric?",
+      "solution": "With 15 independent tests at 0.05 the chance of at least one false positive is 1 − 0.95¹⁵ = 54%. After Bonferroni the threshold is 0.05/15 = 0.0033, which 0.03 does not meet. Without a pre-specified primary metric the result is weak evidence; treat it as a hypothesis for a follow-up test.",
+      "a": "No: with 15 tests such a p-value is expected by chance; it does not pass Bonferroni."
+    }
+  ]
+}

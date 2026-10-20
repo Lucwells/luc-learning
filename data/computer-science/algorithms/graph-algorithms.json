@@ -1,0 +1,469 @@
+{
+  "id": "graph-algorithms",
+  "view": "chapter",
+  "title": "Graph Algorithms",
+  "description": "Breadth-first and depth-first search, shortest paths, minimum spanning trees, topological sorting and flows, with their uses in machine learning.",
+  "overview": [
+    "Graphs model relationships, so graph algorithms answer the basic questions about them: what can be reached from here, what is the shortest route, how can everything be connected most cheaply, in what order must tasks run, how much can flow through a network. The same handful of algorithms also appears inside machine learning, from the order in which a neural network's computation is evaluated to the importance ranking of web pages and the clusters found in a data set.",
+    "This chapter develops traversal (BFS and DFS), shortest paths (Dijkstra, Bellman–Ford), spanning trees (Kruskal, Prim), topological order and a first look at flows and matching. It builds on the graph definitions of Discrete Mathematics and the queues, heaps and hash tables of Data Structures."
+  ],
+  "objectives": [
+    "Implement BFS and DFS, and use them for shortest paths in unweighted graphs, connected components and cycle detection.",
+    "Run Dijkstra's algorithm by hand, state its complexity and limitations, and know when to use Bellman–Ford.",
+    "Compute a minimum spanning tree with Kruskal's and Prim's algorithms and explain the cut property.",
+    "Produce a topological order of a DAG and explain its role in computational graphs.",
+    "Describe maximum flow, bipartite matching and PageRank, and identify graph algorithms in machine learning."
+  ],
+  "sections": [
+    {
+      "id": "traversal",
+      "title": "Graph traversal: BFS and DFS",
+      "terms": [
+        "breadth-first search",
+        "bfs",
+        "depth-first search",
+        "dfs",
+        "graph traversal",
+        "connected components",
+        "visited set",
+        "unweighted shortest path"
+      ],
+      "body": [
+        "A graph is stored as an adjacency list (a dictionary from each vertex to the list of its neighbors) so that scanning the neighbors of a vertex costs its degree. A **traversal** visits every vertex reachable from a start vertex, each exactly once, using a **visited** set to avoid looping on cycles. Total cost: O(V + E), since each vertex is processed once and each edge examined once (twice in an undirected graph).",
+        {
+          "h": "Breadth-first search"
+        },
+        "**BFS** explores in layers: first the start, then its neighbors, then their neighbors. It uses a **queue**. Because it reaches vertices in order of increasing distance, BFS finds **shortest paths in unweighted graphs**, measured in number of edges.",
+        {
+          "code": [
+            "from collections import deque",
+            "",
+            "def bfs_distances(graph, start):",
+            "    \"\"\"graph: dict mapping vertex -> list of neighbors. Returns hop counts from start.\"\"\"",
+            "    dist = {start: 0}",
+            "    queue = deque([start])",
+            "    while queue:",
+            "        u = queue.popleft()",
+            "        for v in graph[u]:",
+            "            if v not in dist:             # first time we reach v: shortest",
+            "                dist[v] = dist[u] + 1",
+            "                queue.append(v)",
+            "    return dist",
+            "",
+            "g = {'A': ['B', 'C'], 'B': ['A', 'D'], 'C': ['A', 'D'], 'D': ['B', 'C', 'E'], 'E': ['D']}",
+            "bfs_distances(g, 'A')     # {'A': 0, 'B': 1, 'C': 1, 'D': 2, 'E': 3}"
+          ],
+          "caption": "BFS computes the number of edges on a shortest path from the start."
+        },
+        {
+          "h": "Depth-first search"
+        },
+        "**DFS** goes as deep as possible along one path before backtracking. It uses a **stack**, usually the call stack of a recursive function.",
+        {
+          "code": [
+            "def dfs(graph, u, visited=None):",
+            "    if visited is None:",
+            "        visited = set()",
+            "    visited.add(u)",
+            "    for v in graph[u]:",
+            "        if v not in visited:",
+            "            dfs(graph, v, visited)",
+            "    return visited",
+            "",
+            "def connected_components(graph):",
+            "    seen, comps = set(), []",
+            "    for u in graph:",
+            "        if u not in seen:",
+            "            comp = dfs(graph, u)",
+            "            comps.append(comp)",
+            "            seen |= comp",
+            "    return comps"
+          ],
+          "caption": "DFS visits everything reachable from u. Running it from each unvisited vertex finds the connected components."
+        },
+        {
+          "list": [
+            "**Connected components**: the groups of mutually reachable vertices (for example, the clusters that result from linking all pairs of data points within distance ε).",
+            "**Cycle detection**: in a directed graph, DFS finds a cycle exactly when it meets a vertex that is still on the current recursion path.",
+            "**Topological order** and strongly connected components are built from DFS finishing times.",
+            "**Search in state spaces**: puzzles, game trees and planning problems are graphs whose vertices are states. BFS finds the fewest moves; DFS uses little memory and explores deep solutions; iterative deepening combines both."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "Which traversal finds the fewest-edge path in an unweighted graph?",
+          "a": "Breadth-first search",
+          "wrong": [
+            "Depth-first search",
+            "Both always",
+            "Neither"
+          ]
+        },
+        {
+          "q": "The running time of BFS on a graph with V vertices and E edges (adjacency list) is",
+          "a": "O(V + E)",
+          "wrong": [
+            "O(V²)",
+            "O(V · E)",
+            "O(E log V)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "shortest-paths",
+      "title": "Shortest paths",
+      "terms": [
+        "shortest path",
+        "shortest paths",
+        "dijkstra's algorithm",
+        "dijkstra",
+        "bellman-ford algorithm",
+        "bellman–ford algorithm",
+        "floyd–warshall algorithm",
+        "floyd-warshall algorithm",
+        "a* search",
+        "edge weight",
+        "relaxation"
+      ],
+      "body": [
+        "In a graph with edge weights (distances, costs, travel times), the length of a path is the sum of its edge weights. **Dijkstra's algorithm** finds the shortest paths from one source to all vertices when all weights are non-negative. It is greedy: repeatedly settle the unsettled vertex with the smallest tentative distance, since no other route can reach it more cheaply, and then **relax** its outgoing edges (replace dist[v] by dist[u] + w(u, v) if that is smaller).",
+        {
+          "code": [
+            "import heapq",
+            "",
+            "def dijkstra(graph, source):",
+            "    \"\"\"graph: dict u -> list of (v, weight). Returns shortest distances from source.\"\"\"",
+            "    dist = {source: 0}",
+            "    heap = [(0, source)]                    # priority queue of (distance, vertex)",
+            "    while heap:",
+            "        d, u = heapq.heappop(heap)",
+            "        if d > dist.get(u, float('inf')):   # stale entry: skip",
+            "            continue",
+            "        for v, w in graph[u]:",
+            "            nd = d + w",
+            "            if nd < dist.get(v, float('inf')):",
+            "                dist[v] = nd",
+            "                heapq.heappush(heap, (nd, v))",
+            "    return dist"
+          ],
+          "caption": "Dijkstra's algorithm with a binary heap: O((V + E) log V)."
+        },
+        {
+          "example": {
+            "title": "Dijkstra by hand",
+            "problem": "Undirected edges: A–B 4, A–C 2, B–C 1, B–D 5, C–D 8, C–E 10, D–E 2, D–F 6, E–F 3. Find the shortest distances from A.",
+            "solution": [
+              {
+                "table": {
+                  "head": [
+                    "Step",
+                    "Settle",
+                    "A",
+                    "B",
+                    "C",
+                    "D",
+                    "E",
+                    "F"
+                  ],
+                  "rows": [
+                    [
+                      "1",
+                      "A (0)",
+                      "0",
+                      "4",
+                      "2",
+                      "∞",
+                      "∞",
+                      "∞"
+                    ],
+                    [
+                      "2",
+                      "C (2)",
+                      "0",
+                      "3",
+                      "2",
+                      "10",
+                      "12",
+                      "∞"
+                    ],
+                    [
+                      "3",
+                      "B (3)",
+                      "0",
+                      "3",
+                      "2",
+                      "8",
+                      "12",
+                      "∞"
+                    ],
+                    [
+                      "4",
+                      "D (8)",
+                      "0",
+                      "3",
+                      "2",
+                      "8",
+                      "10",
+                      "14"
+                    ],
+                    [
+                      "5",
+                      "E (10)",
+                      "0",
+                      "3",
+                      "2",
+                      "8",
+                      "10",
+                      "13"
+                    ],
+                    [
+                      "6",
+                      "F (13)",
+                      "0",
+                      "3",
+                      "2",
+                      "8",
+                      "10",
+                      "13"
+                    ]
+                  ]
+                }
+              },
+              "The distances are A 0, B 3, C 2, D 8, E 10, F 13. The shortest path to F is A → C → B → D → E → F (2 + 1 + 5 + 2 + 3 = 13). The direct-looking route A–B has length 4, but going through C is shorter, 3."
+            ]
+          }
+        },
+        {
+          "list": [
+            "Dijkstra needs **non-negative** weights. With a negative edge, a settled vertex's distance can later improve, and the greedy step fails.",
+            "**Bellman–Ford** relaxes all edges V − 1 times: O(VE). It handles negative weights and detects negative cycles (a cycle whose weights sum to less than zero, which makes shortest paths undefined).",
+            "**Floyd–Warshall** computes all pairs of distances by dynamic programming in O(V³): d[i][j] = min(d[i][j], d[i][k] + d[k][j]) over intermediate vertices k.",
+            "**A\\* search** speeds up Dijkstra toward a single target by ordering vertices by distance so far plus a heuristic estimate of the remaining distance. It is optimal if the heuristic never overestimates, and it is the standard for route planning and game AI."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "Dijkstra's algorithm gives wrong answers when the graph has",
+          "a": "negative edge weights",
+          "wrong": [
+            "cycles",
+            "more than 100 vertices",
+            "undirected edges"
+          ]
+        },
+        {
+          "q": "All-pairs shortest paths by Floyd–Warshall takes time",
+          "a": "O(V³)",
+          "wrong": [
+            "O(V)",
+            "O(E)",
+            "O(V + E)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mst",
+      "title": "Minimum spanning trees",
+      "terms": [
+        "minimum spanning tree",
+        "kruskal's algorithm",
+        "kruskal",
+        "prim's algorithm",
+        "cut property",
+        "spanning tree",
+        "union-find structure"
+      ],
+      "body": [
+        "A **spanning tree** of a connected graph is a tree that includes all the vertices (V − 1 edges). A **minimum spanning tree** (MST) is the spanning tree of least total edge weight: the cheapest way to connect everything (cabling a network, for instance).",
+        {
+          "key": "Cut property: for any partition of the vertices into two groups, the lightest edge crossing between the groups belongs to some MST. Every greedy MST algorithm is an application of this fact."
+        },
+        {
+          "list": [
+            "**Kruskal's algorithm**: sort the edges by weight; go through them in order and add an edge if it does not form a cycle with the edges already chosen. Cycle checks use **union–find**, which maintains the connected groups with near-constant cost per operation. Total O(E log E), dominated by the sort.",
+            "**Prim's algorithm**: grow a tree from one vertex, always adding the cheapest edge leading out of the tree, found with a priority queue. O(E log V)."
+          ]
+        },
+        {
+          "example": {
+            "title": "Kruskal's algorithm",
+            "problem": "Find an MST of the graph used in the Dijkstra example.",
+            "solution": "Sorted edges: B–C 1, D–E 2, A–C 2, E–F 3, A–B 4, B–D 5, D–F 6, C–D 8, C–E 10. Take B–C (1), D–E (2), A–C (2), E–F (3). A–B would connect A and B, which are already joined through C: skip. B–D (5) joins the groups {A, B, C} and {D, E, F}: take. That makes 5 = V − 1 edges, so we stop. Total weight 1 + 2 + 2 + 3 + 5 = 13."
+          }
+        },
+        "An MST is not the same as a tree of shortest paths: in the example, the shortest path from A to F uses the edge C–B–D–E–F, but the MST connects things by a different criterion (total weight). In machine learning, **single-linkage clustering** is exactly Kruskal's algorithm: process the edges between data points in order of distance and merge groups; cutting the longest MST edges gives the clusters (see Clustering). MSTs also give approximation algorithms for the travelling salesman problem and appear in Chow–Liu trees for graphical models."
+      ],
+      "check": [
+        {
+          "q": "Kruskal's algorithm adds an edge",
+          "a": "if it joins two different components, in order of increasing weight",
+          "wrong": [
+            "if it is the heaviest remaining edge",
+            "only if it touches the starting vertex",
+            "if it forms a cycle"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "topological",
+      "title": "Topological sorting and DAGs",
+      "terms": [
+        "topological sort",
+        "topological order",
+        "kahn's algorithm",
+        "dependency graph",
+        "longest path in a dag",
+        "scheduling with dependencies",
+        "computational graph order"
+      ],
+      "body": [
+        "A **topological order** of a directed acyclic graph lists the vertices so that every edge u → v has u before v. It exists exactly when there is no directed cycle, and it is the order in which dependent tasks can be carried out: compile a library after the libraries it needs, run a course after its prerequisites, evaluate a node of a computation after its inputs.",
+        "**Kahn's algorithm**: compute each vertex's in-degree. Repeatedly remove a vertex of in-degree zero, output it, and decrease the in-degree of its successors. If vertices remain at the end, there is a cycle. Time O(V + E). (A DFS that outputs vertices in reverse finishing order also works.)",
+        {
+          "code": [
+            "from collections import deque",
+            "",
+            "def topological_order(graph):",
+            "    \"\"\"graph: dict u -> list of successors. Returns an order, or None if cyclic.\"\"\"",
+            "    indeg = {u: 0 for u in graph}",
+            "    for u in graph:",
+            "        for v in graph[u]:",
+            "            indeg[v] += 1",
+            "    ready = deque(u for u in graph if indeg[u] == 0)",
+            "    order = []",
+            "    while ready:",
+            "        u = ready.popleft()",
+            "        order.append(u)",
+            "        for v in graph[u]:",
+            "            indeg[v] -= 1",
+            "            if indeg[v] == 0:",
+            "                ready.append(v)",
+            "    return order if len(order) == len(graph) else None",
+            "",
+            "topological_order({'A': ['B', 'C'], 'B': ['D'], 'C': ['D'], 'D': []})   # ['A', 'B', 'C', 'D']"
+          ],
+          "caption": "Kahn's algorithm."
+        },
+        {
+          "list": [
+            "**Neural networks**: the forward pass evaluates the computational graph in topological order, and backpropagation visits it in the reverse order (see Automatic Differentiation).",
+            "**Build systems and pipelines** (make, data-processing workflows) schedule steps in topological order, running independent steps in parallel.",
+            "**Longest path in a DAG** (the critical path that determines the minimum completion time of a project) is solved by dynamic programming in topological order in O(V + E), while it is NP-hard on general graphs."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "If Kahn's algorithm finishes with some vertices never output, the graph",
+          "a": "contains a directed cycle",
+          "wrong": [
+            "is a tree",
+            "is bipartite",
+            "has negative weights"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "flows-ml",
+      "title": "Flows, matching and graphs in machine learning",
+      "terms": [
+        "maximum flow",
+        "max-flow min-cut theorem",
+        "bipartite matching",
+        "hungarian algorithm",
+        "pagerank algorithm",
+        "graph neural network",
+        "label propagation",
+        "assignment problem"
+      ],
+      "body": [
+        {
+          "h": "Flows and matching"
+        },
+        "In a **flow network** each edge has a capacity, and we want to send as much as possible from a source to a sink. The **max-flow min-cut theorem** states that the maximum flow equals the capacity of the smallest set of edges whose removal disconnects the sink from the source (the minimum cut). The Ford–Fulkerson method repeatedly finds a path with spare capacity and pushes flow along it. Max-flow solves scheduling, routing and image segmentation (a minimum cut separates foreground from background pixels).",
+        "A **matching** pairs up vertices of a bipartite graph (workers and jobs, predictions and ground-truth objects). Maximum matching reduces to max-flow. The **assignment problem**, a matching of minimum total cost, is solved by the **Hungarian algorithm** in O(n³). It is used to assign predicted boxes to labeled objects when training object detectors, to align clusters with classes when evaluating clustering, and, with the cost being a distance between distributions, in optimal transport.",
+        {
+          "h": "Where graphs appear in machine learning"
+        },
+        {
+          "list": [
+            "**PageRank**: the importance of a web page is the stationary distribution of a random surfer who follows links with probability 0.85 and jumps to a random page otherwise. It is the dominant eigenvector of the 'Google matrix' and is computed by power iteration, each step a sparse matrix–vector product, a pass over the edges (see Eigenvalues).",
+            "**Graph neural networks** update each vertex's feature vector by aggregating its neighbors' vectors, h_v ← σ(W · mean of h_u over neighbors u). They learn on molecules, social networks and knowledge graphs.",
+            "**Spectral clustering and semi-supervised label propagation** use the graph Laplacian of a similarity graph over the data (see Clustering).",
+            "**Manifold learning**: Isomap approximates distances along a curved data surface by shortest paths in a k-nearest-neighbor graph.",
+            "**Recommendation**: users and items form a bipartite graph; collaborative filtering uses paths and random walks on it.",
+            "**Probabilistic graphical models** use trees, junction trees and message passing on graphs (see Graphical Models); the Chow–Liu algorithm builds the best tree-structured model as a maximum spanning tree of pairwise mutual information.",
+            "**Computational graphs** are DAGs, handled by topological ordering."
+          ]
+        },
+        {
+          "example": {
+            "title": "A PageRank step",
+            "problem": "Three pages: 1 links to 2 and 3; 2 links to 3; 3 links to 1. With damping d = 0.85, starting from the uniform vector (1/3, 1/3, 1/3), compute one update of PageRank.",
+            "solution": "The new rank of page j is (1 − d)/3 + d Σ_{i → j} r_i/outdegree(i), with (1 − d)/3 = 0.05. Page 1 receives from page 3 (outdegree 1): 0.05 + 0.85(1/3) = 0.333. Page 2 receives from page 1 (outdegree 2): 0.05 + 0.85(1/6) = 0.192. Page 3 receives from page 1 (half of its rank) and page 2 (all of it): 0.05 + 0.85(1/6 + 1/3) = 0.475. They sum to 1.0. Page 3, which is linked to by both others, ranks highest."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "In the max-flow min-cut theorem, the value of the maximum flow equals",
+          "a": "the capacity of the minimum cut",
+          "wrong": [
+            "the number of edges",
+            "the sum of all capacities",
+            "the length of the shortest path"
+          ]
+        },
+        {
+          "q": "PageRank is computed by",
+          "a": "power iteration on a sparse link matrix",
+          "wrong": [
+            "sorting the pages by name",
+            "Dijkstra's algorithm",
+            "solving a knapsack problem"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "BFS (queue) and DFS (stack) traverse a graph in O(V + E). BFS gives shortest paths in unweighted graphs; DFS finds components, cycles and topological orders.",
+    "Dijkstra's algorithm settles vertices in order of tentative distance, O((V + E) log V) with a heap, for non-negative weights. Bellman–Ford handles negative weights in O(VE), Floyd–Warshall computes all pairs in O(V³), A* adds a heuristic.",
+    "A minimum spanning tree connects all vertices with least total weight; Kruskal (sort and union–find) and Prim (heap) are greedy and rest on the cut property. Single-linkage clustering is Kruskal's algorithm.",
+    "A topological order of a DAG (Kahn's algorithm, O(V + E)) respects dependencies; neural networks are evaluated forward in topological order and differentiated in reverse.",
+    "Max flow equals min cut; the Hungarian algorithm solves assignment. Graph algorithms appear in PageRank, graph neural networks, spectral methods, Isomap and recommendation."
+  ],
+  "problems": [
+    {
+      "q": "Run BFS from vertex 1 on the graph 1–2, 1–3, 2–4, 3–4, 4–5 and give the distances and one shortest path to 5.",
+      "solution": "Distances: 1: 0; 2 and 3: 1; 4: 2; 5: 3. A shortest path to 5 is 1 → 2 → 4 → 5.",
+      "a": "dist = {1: 0, 2: 1, 3: 1, 4: 2, 5: 3}; path 1-2-4-5."
+    },
+    {
+      "q": "Directed graph with edges S→A (7), S→B (2), B→A (3), A→T (1), B→T (8). Use Dijkstra to find the shortest distance from S to T and the path.",
+      "solution": "Start: S 0. Settle S: A = 7, B = 2. Settle B (2): A = min(7, 2 + 3) = 5, T = 2 + 8 = 10. Settle A (5): T = min(10, 5 + 1) = 6. Settle T (6). The shortest distance is 6, via S → B → A → T.",
+      "a": "6, path S → B → A → T."
+    },
+    {
+      "q": "Give a topological order of the tasks with prerequisites: shirt before tie, tie before jacket, pants before shoes, pants before belt, belt before jacket.",
+      "solution": "Edges: shirt→tie, tie→jacket, pants→shoes, pants→belt, belt→jacket. Vertices of in-degree 0: shirt and pants. One order: shirt, pants, tie, belt, shoes, jacket. Another: pants, shoes, belt, shirt, tie, jacket.",
+      "a": "For example shirt, pants, tie, belt, shoes, jacket."
+    },
+    {
+      "q": "Find an MST of the graph with edges a–b 3, a–c 1, b–c 2, b–d 4, c–d 5 and its weight.",
+      "solution": "Sorted: a–c 1, b–c 2, a–b 3, b–d 4, c–d 5. Take a–c, b–c; a–b would form a cycle (a–c–b), skip; take b–d. Total 1 + 2 + 4 = 7 with 3 edges for 4 vertices.",
+      "a": "Edges a–c, b–c, b–d; weight 7."
+    },
+    {
+      "q": "Why can Dijkstra's algorithm fail with a negative edge? Give a small example.",
+      "solution": "Take S→A (2), S→B (3), B→A (−2). Dijkstra settles A first with distance 2 (the smallest tentative distance), but the path S→B→A has length 1. After settling A, the algorithm never revisits it, so it reports 2 instead of 1.",
+      "a": "A settled vertex may later get a shorter route through a negative edge; Dijkstra reports 2 where the true distance is 1."
+    }
+  ]
+}

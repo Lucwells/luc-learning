@@ -1,0 +1,48 @@
+{
+  "id": "data-science",
+  "title": "Data Science",
+  "kicker": "Textbook",
+  "color": "#0e6e8c",
+  "subtitle": "Data wrangling, SQL, visualization, statistical inference, experiments, regression and causal reasoning.",
+  "preface": [
+    "This book is the data science that the Machine Learning book uses. It follows the structure of Berkeley Data 8, Data 100 and Data 102 and of Stanford CS 109 and Stats 60: handle data, explore it, draw conclusions from samples, fit models, and decide what the models can and cannot tell you.",
+    "Machine learning asks whether a model predicts well. Data science asks whether the data can support the question, and whether a result will hold up. Both questions matter, and the second one fails more often in practice.",
+    "Read the parts in order. The Inference part rests on the Probability part of the Mathematics book, and the Modeling part prepares you for the Linear Models part of the Machine Learning book."
+  ],
+  "links": [
+    "mathematics",
+    "machine-learning",
+    "computer-science"
+  ],
+  "parts": [
+    {
+      "title": "Working with Data",
+      "blurb": "Tables, cleaning, SQL and exploratory analysis.",
+      "chapters": [
+        "data-science/data/intro",
+        "data-science/data/wrangling",
+        "data-science/data/sql",
+        "data-science/data/eda-visualization"
+      ]
+    },
+    {
+      "title": "Statistical Inference",
+      "blurb": "Sampling, experiments, estimation, confidence intervals and hypothesis tests.",
+      "chapters": [
+        "data-science/inference/sampling-experiments",
+        "data-science/inference/estimation-bootstrap",
+        "data-science/inference/hypothesis-testing"
+      ]
+    },
+    {
+      "title": "Modeling",
+      "blurb": "Regression for inference, features, causality and responsible practice.",
+      "chapters": [
+        "data-science/modeling/regression-inference",
+        "data-science/modeling/feature-engineering",
+        "data-science/modeling/causal-inference",
+        "data-science/modeling/ethics-communication"
+      ]
+    }
+  ]
+}

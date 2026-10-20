@@ -1,0 +1,379 @@
+{
+  "id": "bayesian-methods",
+  "view": "chapter",
+  "title": "Bayesian Methods and Gaussian Processes",
+  "description": "Learning as updating beliefs: posterior distributions, conjugate priors, Bayesian linear regression, Gaussian processes, model evidence and approximate inference.",
+  "overview": [
+    "Maximum likelihood returns a single best parameter value and forgets how uncertain it is. A Bayesian treats the parameters as unknown quantities with a probability distribution. Before seeing data this distribution is the prior. After the data it is the posterior. Predictions average over every parameter value that is consistent with the data, weighted by its posterior probability.",
+    "The Bayesian view gives principled uncertainty estimates, a natural way to include prior knowledge, regularization that comes for free, and a criterion for comparing models. It also costs more computation. This chapter covers the basics, Bayesian linear regression, Gaussian processes (which put priors on functions), and the approximations used when exact inference is impossible."
+  ],
+  "objectives": [
+    "Compute a posterior for a Bernoulli parameter with a Beta prior, and distinguish MLE, MAP and the full posterior predictive.",
+    "Derive the posterior and predictive distribution of Bayesian linear regression and relate them to ridge regression.",
+    "Compute a Gaussian process prediction and interpret the predictive variance.",
+    "Explain the marginal likelihood and why it embodies Occam's razor.",
+    "Describe MCMC, variational inference and the Laplace approximation, and distinguish aleatoric from epistemic uncertainty."
+  ],
+  "sections": [
+    {
+      "id": "bayes-basics",
+      "title": "Bayesian inference and conjugate priors",
+      "terms": [
+        "bayesian inference",
+        "bayesian statistics",
+        "posterior distribution",
+        "posterior predictive distribution",
+        "conjugate prior",
+        "conjugacy",
+        "beta distribution",
+        "credible interval",
+        "bayesian learning",
+        "bayesian methods"
+      ],
+      "body": [
+        "Start with a **prior** p(θ) over the parameters θ and a model of the data, the **likelihood** p(D | θ). Bayes' rule gives the **posterior**:",
+        {
+          "eq": "p(θ | D) = p(D | θ) p(θ) / p(D),    p(D) = ∫ p(D | θ) p(θ) dθ"
+        },
+        "A prediction for a new point averages over the posterior, giving the **posterior predictive distribution**:",
+        {
+          "eq": "p(y* | x*, D) = ∫ p(y* | x*, θ) p(θ | D) dθ"
+        },
+        "Three levels of treatment can be compared. **Maximum likelihood** uses θ̂ = argmax p(D | θ). **MAP** estimation uses the posterior's peak, argmax p(θ | D), which adds a regularizing prior. The **full Bayesian** treatment keeps the whole posterior. With a lot of data the three agree, since the likelihood overwhelms the prior. With little data they can differ greatly.",
+        {
+          "h": "A conjugate example: coin flips"
+        },
+        "A prior is **conjugate** to a likelihood if the posterior is in the same family, which makes the update a closed-form calculation. For a coin with unknown heads probability θ, the Beta(α, β) prior, p(θ) ∝ θ^{α−1}(1 − θ)^{β−1}, is conjugate to the Bernoulli likelihood. After observing h heads and t tails,",
+        {
+          "eq": "θ | D ~ Beta(α + h, β + t)"
+        },
+        "The prior acts like α − 1 earlier heads and β − 1 earlier tails (pseudo-counts).",
+        {
+          "example": {
+            "title": "Updating a Beta prior",
+            "problem": "The prior is Beta(2, 2), centered at 0.5 with mild confidence. We see 7 heads and 3 tails. Compare the MLE, the MAP estimate and the posterior predictive probability that the next flip is heads.",
+            "solution": [
+              "The posterior is Beta(2 + 7, 2 + 3) = Beta(9, 5).",
+              {
+                "eq": [
+                  "MLE = 7/10 = 0.700",
+                  "MAP = (9 − 1)/(9 + 5 − 2) = 8/12 = 0.667",
+                  "posterior mean = predictive P(heads) = 9/(9 + 5) = 0.643"
+                ]
+              },
+              "The prior pulls the estimate toward 0.5, and the full Bayesian prediction is the most cautious. With 700 heads and 300 tails the three numbers would be 0.700, 0.700 and 0.699: the data swamp the prior. The posterior's spread tells us how sure we are: Beta(9, 5) has standard deviation √(9·5/(14²·15)) = 0.124, so a 95% credible interval is about 0.64 ± 0.25."
+            ]
+          }
+        },
+        {
+          "table": {
+            "head": [
+              "Likelihood",
+              "Conjugate prior",
+              "Posterior parameters"
+            ],
+            "rows": [
+              [
+                "Bernoulli / binomial",
+                "Beta(α, β)",
+                "α + successes, β + failures"
+              ],
+              [
+                "Categorical / multinomial",
+                "Dirichlet(α)",
+                "α + counts"
+              ],
+              [
+                "Poisson",
+                "Gamma(a, b)",
+                "a + Σx, b + n"
+              ],
+              [
+                "Gaussian, known variance (mean)",
+                "Gaussian",
+                "Precision-weighted average of prior mean and data"
+              ]
+            ],
+            "caption": "Common conjugate pairs."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "A Beta(1, 1) prior (uniform) and 3 heads, 1 tail give a posterior",
+          "a": "Beta(4, 2)",
+          "wrong": [
+            "Beta(3, 1)",
+            "Beta(1, 1)",
+            "Beta(5, 3)"
+          ]
+        },
+        {
+          "q": "As the amount of data grows, the MAP estimate approaches",
+          "a": "the maximum likelihood estimate",
+          "wrong": [
+            "the prior mean",
+            "zero",
+            "the posterior variance"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bayes-linreg",
+      "title": "Bayesian linear regression",
+      "terms": [
+        "bayesian linear regression",
+        "posterior over weights",
+        "predictive variance",
+        "predictive uncertainty",
+        "precision matrix"
+      ],
+      "body": [
+        "Take the linear model y = wᵀx + ε with Gaussian noise of variance σ², and a Gaussian prior w ~ N(0, τ²I). Because the Gaussian is conjugate to the Gaussian likelihood, the posterior over the weights is also Gaussian, w | D ~ N(μ_N, Σ_N), with",
+        {
+          "eq": [
+            "Σ_N = ( XᵀX/σ² + I/τ² )⁻¹",
+            "μ_N = Σ_N Xᵀy / σ² = ( XᵀX + (σ²/τ²) I )⁻¹ Xᵀy"
+          ]
+        },
+        "The posterior mean μ_N is exactly the ridge regression solution with λ = σ²/τ² (see the Regularization chapter's MAP derivation). The Bayesian treatment adds the covariance Σ_N, which says how well each direction of w has been determined. In directions where the data are informative the posterior is narrow, and in directions the data say nothing about, it stays as wide as the prior.",
+        "The posterior predictive distribution for a new input x* is Gaussian with",
+        {
+          "eq": [
+            "mean = μ_Nᵀ x*",
+            "variance = σ² + x*ᵀ Σ_N x*"
+          ]
+        },
+        "The two terms are the two kinds of uncertainty. σ² is irreducible noise in the data. x*ᵀΣ_Nx* is uncertainty about the weights, which grows for inputs far from the training data and shrinks with more data.",
+        {
+          "example": {
+            "title": "Predictive distribution in one dimension",
+            "problem": "Data x = (1, 2, 3), y = (2, 3, 5), a model y = wx + ε without intercept, with σ² = 1 and prior variance τ² = 1. Find the posterior of w and the predictive distribution at x* = 4.",
+            "solution": [
+              "XᵀX = 14 and Xᵀy = 23. The posterior variance is Σ_N = 1/(14/1 + 1/1) = 1/15 = 0.0667, and the mean is μ_N = 23/15 = 1.533 (the ridge estimate with λ = 1).",
+              "At x* = 4: the predictive mean is 4(1.533) = 6.13, and the variance is σ² + x*²Σ_N = 1 + 16(0.0667) = 2.07, a standard deviation of 1.44. At x* = 1 the variance would be 1.067: the model is far more certain close to the data."
+            ]
+          }
+        },
+        "The same machinery extends to feature maps φ(x), giving Bayesian polynomial or basis function regression with error bars that widen away from the data."
+      ],
+      "check": [
+        {
+          "q": "In Bayesian linear regression, the posterior mean of the weights equals",
+          "a": "the ridge regression solution with λ = σ²/τ²",
+          "wrong": [
+            "the ordinary least squares solution",
+            "the prior mean",
+            "the lasso solution"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gp",
+      "title": "Gaussian processes",
+      "terms": [
+        "gaussian process",
+        "gaussian processes",
+        "gp regression",
+        "covariance function",
+        "kernel function in gaussian processes",
+        "prior over functions",
+        "bayesian optimization"
+      ],
+      "body": [
+        "A **Gaussian process** (GP) is a distribution over functions. It is defined by a mean function (usually 0) and a **covariance function** k(x, x′) such that the function values at any finite set of inputs are jointly Gaussian with covariance matrix K_ij = k(x_i, x_j). The kernel states what kind of function to expect: with the RBF kernel k(x, x′) = exp(−(x − x′)²/(2ℓ²)), nearby inputs have strongly correlated outputs, so functions are smooth, with length scale ℓ.",
+        "Given training data (X, y) with noise variance σ², the posterior at test points is again Gaussian (conditioning one part of a multivariate Gaussian on another, see Multivariate Probability):",
+        {
+          "eq": [
+            "mean:  μ(x*) = k*ᵀ (K + σ²I)⁻¹ y",
+            "variance:  σ²(x*) = k(x*, x*) − k*ᵀ (K + σ²I)⁻¹ k*"
+          ]
+        },
+        "where k* is the vector of kernel values between x* and the training inputs. The mean is a weighted sum of kernel functions centered on the data: it is kernel ridge regression (see Support Vector Machines and Kernels) with regularization σ². The new ingredient is the variance, which is small near the data and returns to the prior variance far away.",
+        {
+          "example": {
+            "title": "A GP prediction from one observation",
+            "problem": "One training point (x = 0, y = 1), RBF kernel with ℓ = 1, prior variance 1, noise σ² = 0.1. Predict at x* = 1.",
+            "solution": [
+              "K = 1, so K + σ²I = 1.1. k* = exp(−0.5) = 0.6065.",
+              {
+                "eq": [
+                  "mean = 0.6065 · 1/1.1 = 0.551",
+                  "variance = 1 − 0.6065²/1.1 = 1 − 0.334 = 0.666"
+                ]
+              },
+              "The prediction is pulled toward the observation (0.55, between the prior mean 0 and the observed 1), and the uncertainty has fallen from 1 to 0.67. At x* = 0 the mean would be 1/1.1 = 0.91 and the variance 1 − 1/1.1 = 0.09; at x* = 5 the variance returns to almost 1."
+            ]
+          }
+        },
+        {
+          "h": "Practical points"
+        },
+        {
+          "list": [
+            "**Cost**: solving with the m × m matrix K + σ²I costs O(m³) time and O(m²) memory, so exact GPs are practical up to a few thousand points. Sparse and inducing-point approximations extend this.",
+            "**Hyperparameters** (ℓ, signal variance, σ²) are chosen by maximizing the marginal likelihood (next section), not by cross-validation.",
+            "**Kernels** can be combined: sums, products and periodic kernels model trends, seasonality and interactions.",
+            "**Bayesian optimization** uses a GP as a cheap model of an expensive function (such as validation accuracy as a function of hyperparameters). An acquisition rule, such as expected improvement, picks the next point to try by balancing exploitation (high predicted mean) against exploration (high variance)."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "How does the GP predictive variance behave far from all training points?",
+          "a": "It returns to the prior variance",
+          "wrong": [
+            "It drops to zero",
+            "It becomes infinite",
+            "It equals the noise variance only"
+          ]
+        },
+        {
+          "q": "The cost of exact GP regression with m training points scales as",
+          "a": "O(m³)",
+          "wrong": [
+            "O(m)",
+            "O(m log m)",
+            "O(1)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "evidence",
+      "title": "Model comparison and the marginal likelihood",
+      "terms": [
+        "marginal likelihood",
+        "model evidence",
+        "bayesian model comparison",
+        "bayes factor",
+        "occam factor",
+        "bayesian model averaging",
+        "type-ii maximum likelihood"
+      ],
+      "body": [
+        "The denominator of Bayes' rule, p(D | M) = ∫ p(D | θ, M) p(θ | M) dθ, is the **marginal likelihood** or model **evidence**: the probability the model assigns to the data, averaged over its prior. It compares models directly. The **Bayes factor** of two models is the ratio of their evidences.",
+        "The evidence automatically embodies Occam's razor. A flexible model can fit many data sets, so it spreads its probability thinly over all of them and gives any one data set a low probability. A simple model concentrates probability on a few data sets. If the data are of the kind that the simple model predicts, its evidence is higher. Complexity is penalized without a validation set, because the average over the prior includes the many parameter settings that fit the data badly.",
+        {
+          "example": {
+            "title": "Evidence for a fair versus a flexible coin",
+            "problem": "Model A says the coin is fair (θ = 0.5). Model B says θ is unknown with a uniform prior. For the data HHHHHHHHHH (10 heads), compute the evidence of each model and the Bayes factor.",
+            "solution": "Model A: p(D) = 0.5¹⁰ = 0.000977. Model B: p(D) = ∫θ¹⁰ dθ = 1/11 = 0.0909. The Bayes factor is 93 in favor of B: the data are far more probable if the coin may be biased. For 5 heads and 5 tails, A has 0.5¹⁰ = 0.000977, but B has ∫θ⁵(1 − θ)⁵ dθ = 1/2772 = 0.00036, which favors the simple, fair model by 2.7."
+          }
+        },
+        {
+          "list": [
+            "The BIC = ln p(D | θ̂) − (p/2) ln m is a large-sample approximation to the log evidence.",
+            "In GP regression and Bayesian linear regression the log evidence is available in closed form and can be maximized over the hyperparameters (type-II maximum likelihood, or empirical Bayes). This is how σ² and τ² are chosen without cross-validation.",
+            "**Bayesian model averaging** weights the predictions of several models by their posterior probabilities, which hedges against choosing the wrong one."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "The marginal likelihood penalizes needlessly complex models because",
+          "a": "a flexible model spreads its probability over many possible data sets, so each gets less",
+          "wrong": [
+            "it counts the number of parameters directly",
+            "it uses a separate validation set",
+            "it always favors the simplest model"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "approx-inference",
+      "title": "Approximate inference and uncertainty",
+      "terms": [
+        "approximate inference",
+        "mcmc",
+        "markov chain monte carlo",
+        "metropolis-hastings",
+        "variational inference",
+        "laplace approximation",
+        "epistemic uncertainty",
+        "aleatoric uncertainty",
+        "bayesian neural network",
+        "probabilistic programming"
+      ],
+      "body": [
+        "Outside conjugate models the posterior has no closed form, because the integral p(D) is intractable. Three families of approximations are used.",
+        {
+          "list": [
+            "**Markov chain Monte Carlo (MCMC)** draws samples from the posterior by running a Markov chain whose stationary distribution is the posterior. In **Metropolis–Hastings**, propose θ′ from a symmetric proposal and accept it with probability min(1, p(θ′ | D)/p(θ | D)); only the unnormalized posterior is needed, since the evidence cancels. Averages over the samples approximate any posterior expectation. Hamiltonian Monte Carlo (the sampler behind Stan and PyMC) uses gradients to move efficiently. It is asymptotically exact but can be slow.",
+            "**Variational inference** picks a simple family q_φ(θ) (for example, independent Gaussians) and maximizes the evidence lower bound, which is the same as minimizing KL(q ‖ posterior). It turns inference into optimization, scales to large models, and tends to underestimate the posterior's spread (see Mixture Models and EM, and VAEs).",
+            "**Laplace approximation** fits a Gaussian at the posterior mode, with covariance equal to the inverse Hessian of the negative log posterior. It is cheap and works well when the posterior is nearly Gaussian."
+          ]
+        },
+        {
+          "example": {
+            "title": "A Metropolis acceptance probability",
+            "problem": "The current state has unnormalized posterior density 0.4 and the proposal 0.1. What is the acceptance probability? What if the proposal has density 0.8?",
+            "solution": "min(1, 0.1/0.4) = 0.25. For a proposal with density 0.8, min(1, 0.8/0.4) = 1: always accepted."
+          }
+        },
+        {
+          "h": "Uncertainty in machine learning"
+        },
+        "Two kinds of uncertainty matter. **Aleatoric** uncertainty is noise inherent in the data (the σ² term above) and cannot be reduced by collecting more. **Epistemic** uncertainty is ignorance about the model, which shrinks as data accumulate (the x*ᵀΣ_Nx* term). A model that knows what it does not know can ask for help, avoid acting on uncertain predictions, and choose the next experiment (active learning, Bayesian optimization).",
+        "Deep networks are usually trained to a single point estimate and are overconfident. Practical approximations to a Bayesian treatment include **deep ensembles** (train several networks from different random starts and look at the disagreement), **Monte Carlo dropout** (keep dropout on at test time and average many passes), and Laplace approximations to the last layer. **Conformal prediction** gives distribution-free prediction sets with a guaranteed coverage rate, using only a held-out calibration set."
+      ],
+      "check": [
+        {
+          "q": "Uncertainty that shrinks as more data are collected is",
+          "a": "epistemic",
+          "wrong": [
+            "aleatoric",
+            "irreducible",
+            "both aleatoric and epistemic"
+          ]
+        },
+        {
+          "q": "In Metropolis–Hastings, why is the normalizing constant p(D) not needed?",
+          "a": "It cancels in the ratio of posterior densities",
+          "wrong": [
+            "It is always equal to 1",
+            "The chain does not use densities",
+            "It is computed by the proposal"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Bayesian inference updates a prior to a posterior with the likelihood, and predicts by averaging over the posterior. With a conjugate prior the update is exact: a Beta(α, β) prior and h heads, t tails give Beta(α + h, β + t).",
+    "Bayesian linear regression has a Gaussian posterior. Its mean is the ridge solution with λ = σ²/τ², and its predictive variance σ² + x*ᵀΣ_Nx* grows away from the data.",
+    "A Gaussian process puts a prior on functions through a kernel. Prediction needs μ = k*ᵀ(K + σ²I)⁻¹y and a variance that is small near the data. Cost is O(m³).",
+    "The marginal likelihood compares models and penalizes needless complexity automatically; it is also used to tune hyperparameters.",
+    "When exact inference is impossible: MCMC (samples), variational inference (optimized simple posterior), Laplace (Gaussian at the mode). Separate aleatoric from epistemic uncertainty."
+  ],
+  "problems": [
+    {
+      "q": "A prior Beta(1, 1) is updated with 6 heads and 2 tails. Give the posterior, its mean, and the probability of heads on the next flip.",
+      "solution": "Posterior Beta(7, 3). Mean = 7/10 = 0.7. The posterior predictive probability of heads equals the posterior mean, 0.7. (The MLE would be 6/8 = 0.75.)",
+      "a": "Beta(7, 3); 0.7."
+    },
+    {
+      "q": "For Bayesian linear regression with σ² = 4 and prior variance τ² = 1, what is the equivalent ridge λ? For XᵀX = 20 (one feature) and Xᵀy = 30, compute the posterior mean and variance of w.",
+      "solution": "λ = σ²/τ² = 4. μ_N = 30/(20 + 4) = 1.25. Σ_N = (20/4 + 1)⁻¹ = 1/6 = 0.167.",
+      "a": "λ = 4; μ_N = 1.25; Σ_N = 0.167."
+    },
+    {
+      "q": "With the same model as the previous problem and a new input x* = 2, give the predictive mean and standard deviation.",
+      "solution": "Mean = 1.25 × 2 = 2.5. Variance = σ² + x*²Σ_N = 4 + 4(0.1667) = 4.667, standard deviation 2.16.",
+      "a": "Mean 2.5, standard deviation 2.16."
+    },
+    {
+      "q": "A GP with RBF kernel (ℓ = 1, prior variance 1) has one training point (x = 0, y = 2) and noise σ² = 0.25. Predict the mean and variance at x* = 0.",
+      "solution": "k* = 1 and K + σ²I = 1.25. Mean = 1 · 2/1.25 = 1.6. Variance = 1 − 1/1.25 = 0.2.",
+      "a": "Mean 1.6, variance 0.2."
+    },
+    {
+      "q": "Compute the Bayes factor for the data HHHH (4 heads, 0 tails) between 'fair coin' and 'unknown θ with a uniform prior'.",
+      "solution": "Fair: 0.5⁴ = 0.0625. Uniform: ∫θ⁴ dθ = 1/5 = 0.2. The Bayes factor of the flexible model over the fair one is 0.2/0.0625 = 3.2 in favor of the flexible model.",
+      "a": "3.2 in favor of the unknown-θ model."
+    }
+  ]
+}

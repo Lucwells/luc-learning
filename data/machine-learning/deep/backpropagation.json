@@ -1,0 +1,300 @@
+{
+  "id": "backpropagation",
+  "view": "chapter",
+  "title": "Backpropagation",
+  "description": "Computing the gradient of a network's loss with the chain rule: computational graphs, the backward recursion, a worked example, vanishing gradients and gradient checking.",
+  "overview": [
+    "Training a neural network means minimizing a loss J(θ) over millions or billions of parameters by gradient descent, so we need ∇J, the derivative of the loss with respect to every weight. Differentiating each weight separately would cost one forward pass per parameter. Backpropagation computes all the derivatives together in a single backward pass that costs about as much as one forward pass.",
+    "Backpropagation is the chain rule of calculus organized to reuse work. This chapter derives it for the multilayer network, works a complete numerical example, and then looks at the trouble that long chains of derivatives cause."
+  ],
+  "objectives": [
+    "Evaluate and differentiate a function expressed as a computational graph by a forward and a backward pass.",
+    "Derive the backpropagation equations for a fully connected network.",
+    "Compute all the gradients of a small network by hand and apply a gradient step.",
+    "Explain vanishing and exploding gradients, and the role of the activation function.",
+    "Verify gradients numerically with gradient checking."
+  ],
+  "sections": [
+    {
+      "id": "graphs",
+      "title": "Computational graphs and the chain rule",
+      "terms": [
+        "computational graph",
+        "backpropagation",
+        "backprop",
+        "reverse-mode differentiation",
+        "upstream gradient",
+        "local gradient"
+      ],
+      "body": [
+        "Write the computation as a **computational graph**: each node is one simple operation (add, multiply, apply an activation) and each edge carries a value. The chain rule says that the derivative of the output with respect to any node is the sum, over the nodes it feeds, of the derivative of the output with respect to that node times the local derivative of that node with respect to this one:",
+        {
+          "eq": "∂f/∂u = Σ_{v : u → v} (∂f/∂v)(∂v/∂u)"
+        },
+        "The factor ∂f/∂v arrives from above (the **upstream gradient**), and ∂v/∂u is the **local gradient** of a single operation, which is simple. Starting at the output with ∂f/∂f = 1 and working backward through the graph, each node multiplies its upstream gradient by its local gradients and passes the products to its inputs.",
+        {
+          "svg": "<svg viewBox='0 0 400 220' role='img' aria-label='Computational graph for f = (x + y) z with forward values and backward gradients' font-family='system-ui, sans-serif' font-size='12'><g fill='none' stroke='currentColor' stroke-width='1.5'><path d='M62,48 L135,84 M62,138 L135,100 M168,92 L242,106 M205,176 L252,124 M278,112 L338,112'/></g><g fill='none' stroke='currentColor' stroke-width='1.5'><circle cx='150' cy='92' r='16'/><circle cx='262' cy='112' r='16'/></g><g fill='currentColor' text-anchor='middle'><text x='150' y='97' font-size='16'>+</text><text x='262' y='117' font-size='16'>×</text><text x='40' y='44'>x = −2</text><text x='40' y='134'>y = 5</text><text x='206' y='192'>z = −4</text><text x='200' y='84'>q = 3</text><text x='368' y='108'>f = −12</text></g><g style='fill:var(--accent)' text-anchor='middle'><text x='40' y='62'>∂f/∂x = −4</text><text x='40' y='152'>∂f/∂y = −4</text><text x='206' y='208'>∂f/∂z = 3</text><text x='200' y='130'>∂f/∂q = −4</text><text x='368' y='128'>1</text></g></svg>",
+          "caption": "f = (x + y)z at x = −2, y = 5, z = −4. Black: forward values. Blue: gradients flowing backward."
+        },
+        {
+          "example": {
+            "title": "Forward and backward on a small graph",
+            "problem": "Compute f = (x + y)z at x = −2, y = 5, z = −4, and the gradient with respect to x, y and z.",
+            "solution": [
+              "Forward: q = x + y = 3, and f = qz = −12.",
+              "Backward from ∂f/∂f = 1. The multiply node has local gradients ∂f/∂q = z = −4 and ∂f/∂z = q = 3, so these are the gradients at q and z. The add node has local gradients 1 and 1, so ∂f/∂x = ∂f/∂q · 1 = −4 and ∂f/∂y = −4.",
+              "Check by hand: f = (x + y)z, so ∂f/∂x = z = −4 and ∂f/∂z = x + y = 3. ✓"
+            ]
+          }
+        },
+        {
+          "key": "Reverse-mode differentiation gives the derivative of one scalar output with respect to all inputs in one backward sweep, at a cost proportional to one evaluation. A loss is a scalar and the parameters are many, which is the case that favors reverse mode. See Automatic Differentiation in the Computer Science book for how software does this."
+        }
+      ],
+      "check": [
+        {
+          "q": "At a multiply node f = qz, the gradient flowing back to q equals",
+          "a": "(upstream gradient) × z",
+          "wrong": [
+            "(upstream gradient) × q",
+            "(upstream gradient) + z",
+            "z only"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "backprop-derivation",
+      "title": "The backpropagation equations",
+      "terms": [
+        "backpropagation equations",
+        "error signal",
+        "delta",
+        "hadamard product",
+        "gradient of weights"
+      ],
+      "body": [
+        "Consider the L-layer network of the previous chapter, z^{[l]} = W^{[l]}a^{[l−1]} + b^{[l]} and a^{[l]} = g(z^{[l]}), with loss J on the output. Define the **error signal** of layer l as the gradient of the loss with respect to its pre-activation:",
+        {
+          "eq": "δ^{[l]} = ∂J/∂z^{[l]}"
+        },
+        "**Output layer.** For the standard pairings (sigmoid or softmax output with cross-entropy, identity output with squared error) the derivative collapses to the prediction error:",
+        {
+          "eq": "δ^{[L]} = a^{[L]} − y"
+        },
+        "**Hidden layers.** The pre-activation z^{[l]} influences the loss only through z^{[l+1]} = W^{[l+1]} g(z^{[l]}) + b^{[l+1]}. The chain rule gives",
+        {
+          "eq": "δ^{[l]} = ( W^{[l+1]ᵀ} δ^{[l+1]} ) ⊙ g′(z^{[l]})"
+        },
+        "where ⊙ is the elementwise (Hadamard) product. The transpose of the weight matrix carries the error from layer l + 1 back to the units in layer l that contributed to it, and g′ gates it by how sensitive each unit's output was.",
+        "**Parameter gradients.** Since z^{[l]} = W^{[l]}a^{[l−1]} + b^{[l]},",
+        {
+          "eq": [
+            "∂J/∂W^{[l]} = δ^{[l]} a^{[l−1]ᵀ}",
+            "∂J/∂b^{[l]} = δ^{[l]}"
+          ]
+        },
+        "For a batch, sum or average these over the examples. The algorithm is:",
+        {
+          "list": [
+            "**Forward pass**: compute and store every z^{[l]} and a^{[l]}, then the loss.",
+            "**Backward pass**: compute δ^{[L]}, and then for l = L, …, 1 compute ∂J/∂W^{[l]} and ∂J/∂b^{[l]}, and δ^{[l−1]}.",
+            "**Update**: θ ← θ − α ∇J (or an improved optimizer)."
+          ],
+          "ordered": true
+        },
+        {
+          "note": "Why δ^{[L]} = a − y: for sigmoid with binary cross-entropy, ∂J/∂z = (∂J/∂a)(∂a/∂z) = (−y/a + (1 − y)/(1 − a)) · a(1 − a) = a − y. The same holds for softmax with cross-entropy and, trivially, for identity with squared error. It is the GLM property from the Generalized Linear Models chapter."
+        }
+      ],
+      "check": [
+        {
+          "q": "In ∂J/∂W^{[l]} = δ^{[l]} a^{[l−1]ᵀ}, the factor a^{[l−1]} is the",
+          "a": "input activation to layer l, stored during the forward pass",
+          "wrong": [
+            "output of layer l",
+            "gradient of the loss with respect to the output",
+            "weight matrix of the next layer"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "worked-example",
+      "title": "A complete numerical example",
+      "terms": [
+        "backpropagation example",
+        "gradient step example"
+      ],
+      "body": [
+        "Return to the network of the previous chapter: x = (1, 2), a hidden layer of two ReLU units with W^{[1]} = [[0.5, −1], [1, 0.5]] and b^{[1]} = (0, 0.5), and a sigmoid output with W^{[2]} = [1, −0.5] and b^{[2]} = 0.2. The label is y = 1.",
+        {
+          "example": {
+            "title": "Gradients of the loss by backpropagation",
+            "problem": "Compute all the gradients of the cross-entropy loss, then take one gradient step with α = 0.5 and show that the loss falls.",
+            "solution": [
+              "**Forward.** z^{[1]} = (−1.5, 2.5), a^{[1]} = (0, 2.5), z^{[2]} = −1.05, p = σ(−1.05) = 0.259. Loss = −ln 0.259 = 1.350.",
+              "**Backward.** δ^{[2]} = p − y = −0.741. Then",
+              {
+                "eq": [
+                  "∂J/∂W^{[2]} = δ^{[2]} a^{[1]ᵀ} = −0.741 · (0, 2.5) = (0, −1.852)",
+                  "∂J/∂b^{[2]} = −0.741",
+                  "δ^{[1]} = (W^{[2]ᵀ} δ^{[2]}) ⊙ ReLU′(z^{[1]}) = (−0.741, 0.370) ⊙ (0, 1) = (0, 0.370)",
+                  "∂J/∂W^{[1]} = δ^{[1]} xᵀ = [[0, 0], [0.370, 0.741]]",
+                  "∂J/∂b^{[1]} = (0, 0.370)"
+                ]
+              },
+              "The first hidden unit was inactive (z = −1.5 < 0), so its gradient is exactly zero: ReLU blocks the error signal.",
+              "**Update with α = 0.5.** W^{[2]} = (1, −0.5) − 0.5(0, −1.852) = (1, 0.426); b^{[2]} = 0.2 + 0.370 = 0.570; the second row of W^{[1]} becomes (1, 0.5) − 0.5(0.370, 0.741) = (0.815, 0.130); b^{[1]} = (0, 0.315).",
+              "**New forward pass.** z^{[1]} = (−1.5, 0.815 + 0.259 + 0.315) = (−1.5, 1.389), a^{[1]} = (0, 1.389), z^{[2]} = 0.426(1.389) + 0.570 = 1.162, p = σ(1.162) = 0.762. The loss is −ln 0.762 = 0.272, down from 1.350."
+            ]
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "In the example, the first hidden unit receives zero gradient because",
+          "a": "its pre-activation was negative, so ReLU′ = 0",
+          "wrong": [
+            "its weights were zero",
+            "the loss did not depend on it",
+            "the output was exactly correct"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vanishing",
+      "title": "Vanishing and exploding gradients",
+      "terms": [
+        "vanishing gradient",
+        "vanishing gradients",
+        "exploding gradient",
+        "exploding gradients",
+        "gradient clipping",
+        "dead relu"
+      ],
+      "body": [
+        "Unrolling the recursion, the gradient reaching layer 1 is a product of one matrix and one diagonal derivative per layer:",
+        {
+          "eq": "δ^{[1]} = diag(g′(z^{[1]})) W^{[2]ᵀ} diag(g′(z^{[2]})) W^{[3]ᵀ} ⋯ diag(g′(z^{[L−1]})) W^{[L]ᵀ} δ^{[L]}"
+        },
+        "A product of many factors tends to shrink toward zero or grow without bound, exponentially in the number of layers.",
+        {
+          "list": [
+            "**Vanishing gradients.** The derivative of the sigmoid is at most 1/4. If each layer contributes a factor of about 0.25, the gradient through 10 layers is multiplied by 0.25¹⁰ ≈ 10⁻⁶. The early layers receive almost no signal and learn extremely slowly. Saturated units (|z| large) have g′ ≈ 0 and block learning entirely.",
+            "**Exploding gradients.** If the weight matrices have norms above 1, the product grows exponentially and the updates become huge and unstable. This is common in recurrent networks.",
+            "**Dead ReLUs.** A ReLU unit whose pre-activation is negative for all inputs has zero gradient and never recovers."
+          ]
+        },
+        {
+          "h": "Remedies"
+        },
+        {
+          "list": [
+            "**ReLU-family activations** have derivative 1 on the active side, so they do not shrink the signal.",
+            "**Careful initialization** keeps activations and gradients at a stable scale from the start (see Training Deep Networks).",
+            "**Normalization layers** (batch or layer normalization) re-center and re-scale the activations.",
+            "**Residual connections** let the gradient bypass layers: a block computes x + F(x), whose derivative is I + ∂F/∂x, never vanishing.",
+            "**Gradient clipping** rescales a gradient whose norm exceeds a threshold, which tames exploding gradients.",
+            "**Gated architectures** such as the LSTM were designed to carry information over long chains (see Sequence Models)."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "Why do deep sigmoid networks suffer from vanishing gradients?",
+          "a": "The sigmoid derivative is at most 0.25, so the backward product shrinks exponentially with depth",
+          "wrong": [
+            "The sigmoid is not differentiable",
+            "Sigmoid networks have too many parameters",
+            "Sigmoid units always output zero"
+          ]
+        },
+        {
+          "q": "Gradient clipping addresses",
+          "a": "exploding gradients",
+          "wrong": ["vanishing gradients", "overfitting", "dead ReLUs"]
+        }
+      ]
+    },
+    {
+      "id": "gradient-checking",
+      "title": "Gradient checking and common bugs",
+      "terms": [
+        "gradient checking",
+        "numerical gradient",
+        "finite difference",
+        "central difference"
+      ],
+      "body": [
+        "Backpropagation code is easy to get subtly wrong and still produce a network that trains badly. **Gradient checking** compares the analytic gradient with a numerical estimate. For each parameter θ_j, use the central difference",
+        {
+          "eq": "∂J/∂θ_j ≈ ( J(θ + εe_j) − J(θ − εe_j) ) / (2ε),    ε ≈ 10⁻⁵"
+        },
+        "and measure the relative difference ‖g_analytic − g_numeric‖ / (‖g_analytic‖ + ‖g_numeric‖). A value below about 10⁻⁷ is good; values around 10⁻³ or above signal a bug. The central difference has error O(ε²), far better than the one-sided O(ε).",
+        {
+          "list": [
+            "Check on a tiny network and a few examples; each check needs two forward passes per parameter, so it is far too slow for training.",
+            "Turn off dropout and any randomness while checking.",
+            "Use double precision. In single precision the rounding error in J swamps the difference.",
+            "Beware ReLU kinks: if θ + ε crosses a kink the numerical gradient is wrong even when the code is right."
+          ]
+        },
+        {
+          "example": {
+            "title": "Checking one derivative",
+            "problem": "For J(θ) = θ³ at θ = 2, compare the analytic derivative with the central difference using ε = 0.01.",
+            "solution": "Analytic: 3θ² = 12. Numerical: (2.01³ − 1.99³)/0.02 = (8.120601 − 7.880599)/0.02 = 0.240002/0.02 = 12.0001. The relative difference is about 4 × 10⁻⁶."
+          }
+        },
+        "Other classic bugs: forgetting to average over the batch, mixing up the transposes, applying the activation derivative at the wrong layer, using a stale (not recomputed) forward value, and being unable to overfit a tiny data set. A network should reach near-zero loss on 10 examples; if it cannot, something is broken."
+      ],
+      "check": [
+        {
+          "q": "Why is gradient checking done only for debugging?",
+          "a": "It needs two forward passes per parameter, which is far too slow for real training",
+          "wrong": [
+            "It is less accurate than backpropagation for large networks",
+            "It changes the weights",
+            "It requires the test set"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "A computational graph breaks a computation into simple operations. Reverse-mode differentiation sends gradients backward, multiplying the upstream gradient by each local gradient.",
+    "For a fully connected network: δ^{[L]} = a^{[L]} − y; δ^{[l]} = (W^{[l+1]ᵀ}δ^{[l+1]}) ⊙ g′(z^{[l]}); ∂J/∂W^{[l]} = δ^{[l]}a^{[l−1]ᵀ}; ∂J/∂b^{[l]} = δ^{[l]}.",
+    "Backpropagation computes all the gradients for about the cost of one forward pass, but it must store the forward activations.",
+    "Products of many Jacobians vanish or explode with depth. Use ReLU-type activations, good initialization, normalization, residual connections and gradient clipping.",
+    "Verify implementations with a central-difference gradient check, and make sure a tiny data set can be overfit."
+  ],
+  "problems": [
+    {
+      "q": "For f = (a·b + c)·d with a = 2, b = 3, c = −1, d = 4, compute f and all four partial derivatives by a forward and a backward pass.",
+      "solution": "Forward: u = ab = 6, v = u + c = 5, f = vd = 20. Backward: ∂f/∂v = d = 4 and ∂f/∂d = v = 5. v = u + c passes the gradient through: ∂f/∂u = 4 and ∂f/∂c = 4. u = ab gives ∂f/∂a = 4 · b = 12 and ∂f/∂b = 4 · a = 8.",
+      "a": "f = 20; ∂f/∂a = 12, ∂f/∂b = 8, ∂f/∂c = 4, ∂f/∂d = 5."
+    },
+    {
+      "q": "A logistic unit has z = 0.5, p = σ(z) = 0.622 and label y = 0. Find δ = ∂J/∂z for cross-entropy, and the gradient with respect to a weight whose input is 3.",
+      "solution": "δ = p − y = 0.622. The weight gradient is δ × input = 0.622 × 3 = 1.866.",
+      "a": "δ = 0.622; ∂J/∂w = 1.866."
+    },
+    {
+      "q": "A 20-layer network has sigmoid units, and at each layer the backward factor is about 0.2. By what factor is the gradient at layer 1 reduced relative to the output layer?",
+      "solution": "There are 19 backward steps between the output and layer 1. 0.2¹⁰ = 1.02 × 10⁻⁷ and 0.2⁹ = 5.12 × 10⁻⁷, so 0.2¹⁹ = 5.2 × 10⁻¹⁴.",
+      "a": "About 5 × 10⁻¹⁴; there is essentially no gradient signal."
+    },
+    {
+      "q": "Check by central difference with ε = 0.1 the derivative of J(θ) = θ² at θ = 3.",
+      "solution": "(3.1² − 2.9²)/0.2 = (9.61 − 8.41)/0.2 = 6.0, matching 2θ = 6 exactly (the central difference is exact for quadratics).",
+      "a": "6.0, equal to the analytic derivative."
+    },
+    {
+      "q": "A residual block computes y = x + F(x). If ∂F/∂x has all singular values below 0.1, what can you say about the gradient passing through the block?",
+      "solution": "The Jacobian is I + ∂F/∂x. Its singular values lie between 1 − 0.1 and 1 + 0.1, so the gradient is scaled by a factor between 0.9 and 1.1 and neither vanishes nor explodes quickly.",
+      "a": "The block scales the gradient by 0.9 to 1.1; the identity path preserves the signal."
+    }
+  ]
+}

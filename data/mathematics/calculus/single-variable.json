@@ -1,0 +1,535 @@
+{
+  "id": "single-variable",
+  "view": "chapter",
+  "title": "Single-Variable Calculus",
+  "description": "Limits, derivatives, integrals, series and Taylor approximation: the calculus that every machine learning derivation uses.",
+  "overview": [
+    "Calculus is the mathematics of change and accumulation. In machine learning the derivative says how a loss changes when a parameter moves, and so tells us which way to step. The integral accumulates probability over a range, and defines expectations of continuous quantities. Series and Taylor approximations replace complicated functions by simple ones near a point, which is the idea behind gradient descent and Newton's method.",
+    "This chapter is a compact review of one-variable calculus, selecting the parts that machine learning uses and illustrating each with a machine learning function: the sigmoid, the logarithm of a likelihood, the Gaussian integral and the geometric series of discounted rewards."
+  ],
+  "objectives": [
+    "Compute derivatives using the sum, product, quotient and chain rules, and differentiate the exponential, logarithm and sigmoid.",
+    "Find and classify the minima of a function with the first and second derivative tests.",
+    "Evaluate definite integrals with the fundamental theorem, substitution and integration by parts, including the Gaussian integral.",
+    "Sum geometric series and write Taylor series with an error estimate.",
+    "Use the standard inequalities 1 + x ≤ e^x and ln x ≤ x − 1, and the log-sum-exp identity."
+  ],
+  "sections": [
+    {
+      "id": "limits",
+      "title": "Functions, limits and continuity",
+      "terms": [
+        "continuity",
+        "continuous function",
+        "exponential function",
+        "natural logarithm",
+        "logarithm"
+      ],
+      "body": [
+        "A function f assigns to each input x one output f(x). The **limit** lim_{x→a} f(x) = L means that f(x) can be made as close to L as we like by taking x close enough to a (but not equal to it). A function is **continuous** at a if the limit exists and equals f(a): the graph has no jump at a. Polynomials, exponentials, logarithms (for x > 0) and the sigmoid are continuous everywhere on their domains.",
+        "Two functions occur constantly. The **exponential** eˣ, with e = 2.71828…, is the function that equals its own derivative and turns addition into multiplication, e^{a+b} = e^a e^b. Its inverse is the **natural logarithm**, ln x, with ln(ab) = ln a + ln b, ln(a/b) = ln a − ln b, and ln(a^p) = p ln a.",
+        {
+          "key": "The logarithm turns products into sums. A likelihood is a product of many probabilities, each below 1, which underflows in floating-point arithmetic and has awkward derivatives. Its logarithm is a sum, which is stable, easy to differentiate and has the same maximizer, because ln is increasing."
+        },
+        {
+          "example": {
+            "title": "Log of a product",
+            "problem": "Ten independent observations each have probability 0.01 under a model. Compute the likelihood and the log-likelihood.",
+            "solution": "The likelihood is 0.01¹⁰ = 10⁻²⁰. The log-likelihood is 10 ln 0.01 = 10(−4.605) = −46.05. A thousand such observations would give 10⁻²⁰⁰⁰, which underflows a 64-bit float (smallest about 10⁻³⁰⁸), while the log-likelihood −4605 is perfectly representable."
+          }
+        },
+        "A useful limit: lim_{n→∞} (1 + x/n)ⁿ = eˣ. It explains continuous compounding, and why the probability that an example is absent from a bootstrap sample of size m, (1 − 1/m)^m, tends to e⁻¹ = 0.368."
+      ],
+      "check": [
+        {
+          "q": "ln(0.5) + ln(0.2) equals",
+          "a": "ln(0.1)",
+          "wrong": [
+            "ln(0.7)",
+            "ln(0.25)",
+            "ln(10)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "derivatives",
+      "title": "Derivatives and differentiation rules",
+      "terms": [
+        "differentiation",
+        "chain rule",
+        "product rule",
+        "quotient rule",
+        "tangent line",
+        "differentiable"
+      ],
+      "body": [
+        "The **derivative** of f at x is the instantaneous rate of change, the limit of the slope of secant lines:",
+        {
+          "eq": "f′(x) = lim_{h→0} ( f(x + h) − f(x) ) / h"
+        },
+        "Geometrically it is the slope of the **tangent line**. The tangent line at a is y = f(a) + f′(a)(x − a), the best linear approximation to f near a.",
+        {
+          "svg": "<svg viewBox='0 0 380 230' role='img' aria-label='The parabola y = x squared and its tangent line at x = 1' font-family='system-ui, sans-serif' font-size='12'><g fill='none' stroke='currentColor' stroke-width='1.5'><path d='M20,200 H360 M100,215 V15'/></g><path fill='none' stroke='currentColor' stroke-width='2.5' d='M20,180 L60,195 L100,200 L140,195 L180,180 L220,155 L260,120 L300,75 L340,20'/><path fill='none' style='stroke:var(--accent)' stroke-width='2' d='M140,200 L276,132'/><circle cx='180' cy='180' r='4' fill='currentColor'/><g fill='currentColor'><text x='186' y='176'>(1, 1)</text><text x='290' y='126' style='fill:var(--accent)'>slope f′(1) = 2</text><text x='346' y='16'>f(x) = x²</text></g></svg>",
+          "caption": "The tangent line at x = 1 has slope f′(1) = 2 and touches the graph at (1, 1)."
+        },
+        {
+          "table": {
+            "head": [
+              "f(x)",
+              "f′(x)",
+              "Note"
+            ],
+            "rows": [
+              [
+                "xⁿ",
+                "n xⁿ⁻¹",
+                "power rule"
+              ],
+              [
+                "eˣ",
+                "eˣ",
+                "its own derivative"
+              ],
+              [
+                "ln x",
+                "1/x",
+                "for x > 0"
+              ],
+              [
+                "sin x, cos x",
+                "cos x, −sin x",
+                ""
+              ],
+              [
+                "1/x",
+                "−1/x²",
+                ""
+              ],
+              [
+                "√x",
+                "1/(2√x)",
+                ""
+              ]
+            ],
+            "caption": "Basic derivatives."
+          }
+        },
+        {
+          "h": "Rules"
+        },
+        {
+          "eqs": [
+            [
+              "(f + g)′ = f′ + g′ and (cf)′ = cf′",
+              "linearity"
+            ],
+            [
+              "(fg)′ = f′g + fg′",
+              "product rule"
+            ],
+            [
+              "(f/g)′ = (f′g − fg′)/g²",
+              "quotient rule"
+            ],
+            [
+              "(f(g(x)))′ = f′(g(x)) · g′(x)",
+              "chain rule"
+            ]
+          ]
+        },
+        "The **chain rule** is the engine of backpropagation: the derivative of a composition is the product of the derivatives of its links, taken from the outside in. A deep network is a long composition, and its gradient is a long chain-rule product.",
+        {
+          "example": {
+            "title": "Derivative of the sigmoid and of the log-sigmoid",
+            "problem": "Find σ′(x) for σ(x) = 1/(1 + e^{−x}), and the derivative of ln σ(x).",
+            "solution": [
+              "Write σ = (1 + e^{−x})⁻¹. By the chain rule, σ′ = −(1 + e^{−x})⁻² · (−e^{−x}) = e^{−x}/(1 + e^{−x})².",
+              "Split as [1/(1 + e^{−x})]·[e^{−x}/(1 + e^{−x})] = σ(x)(1 − σ(x)), since e^{−x}/(1 + e^{−x}) = 1 − σ. At x = 0, σ′ = 0.25, the maximum.",
+              "For the log: (ln σ)′ = σ′/σ = 1 − σ(x). This is why the gradient of the logistic regression log-likelihood is simply (y − h)x."
+            ]
+          }
+        },
+        {
+          "example": {
+            "title": "A squared-error loss",
+            "problem": "Differentiate L(w) = ½(wx − y)² with respect to w.",
+            "solution": "Let u = wx − y, so L = ½u². Then dL/dw = u · du/dw = (wx − y) x. The error times the input, as in the LMS rule."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "d/dx of ln(1 + e^x) (the softplus function) is",
+          "a": "σ(x) = e^x/(1 + e^x)",
+          "wrong": [
+            "1/(1 + e^x)",
+            "e^x",
+            "ln(e^x)"
+          ],
+          "why": "Chain rule: (1/(1 + e^x)) · e^x."
+        },
+        {
+          "q": "d/dx of (3x + 1)⁴ is",
+          "a": "12(3x + 1)³",
+          "wrong": [
+            "4(3x + 1)³",
+            "3(3x + 1)⁴",
+            "12x³"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "optimization-1d",
+      "title": "Optimization with derivatives",
+      "terms": [
+        "critical point",
+        "local minimum",
+        "second derivative test",
+        "convex function in one variable",
+        "newton's method for optimization",
+        "stationary point",
+        "concave"
+      ],
+      "body": [
+        "To minimize f, look for **critical points**, where f′(x) = 0 (the tangent is flat). Then use the second derivative, which measures curvature:",
+        {
+          "list": [
+            "f″(x) > 0 at a critical point: a local minimum (the graph curves up).",
+            "f″(x) < 0: a local maximum.",
+            "f″(x) = 0: inconclusive. A function with f″ ≥ 0 everywhere is **convex**, and every critical point is then a global minimum; this is why least squares and logistic regression are easy to optimize."
+          ]
+        },
+        {
+          "example": {
+            "title": "Minimizing a quadratic",
+            "problem": "Minimize f(x) = x² − 4x + 5.",
+            "solution": "f′(x) = 2x − 4 = 0 gives x = 2. f″ = 2 > 0, so it is a minimum with f(2) = 1. The same procedure finds the sample mean as the minimizer of Σ(x_i − μ)²: setting −2Σ(x_i − μ) = 0 gives μ = mean."
+          }
+        },
+        {
+          "h": "Gradient descent and Newton's method in one variable"
+        },
+        "**Gradient descent** moves against the derivative: x ← x − α f′(x). For a quadratic f = ½cx² the update is x ← (1 − αc)x, so it converges if |1 − αc| < 1, i.e. α < 2/c. A larger curvature requires a smaller step.",
+        "**Newton's method** for solving g(x) = 0 replaces g by its tangent line and jumps to where that line crosses zero:",
+        {
+          "eq": "x ← x − g(x)/g′(x)"
+        },
+        "Applied to g = f′ it finds critical points: x ← x − f′(x)/f″(x), which scales the step by the inverse curvature.",
+        {
+          "example": {
+            "title": "Newton's method for √2",
+            "problem": "Solve g(x) = x² − 2 = 0 starting at x₀ = 1.",
+            "solution": "g′ = 2x. x₁ = 1 − (−1)/2 = 1.5. x₂ = 1.5 − 0.25/3 = 1.41667. x₃ = 1.41667 − 0.006944/2.8333 = 1.414216. The true value is 1.414214: the number of correct digits roughly doubles each step (quadratic convergence)."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "For f(x) = x³ − 3x, the critical point x = 1 is a",
+          "a": "local minimum",
+          "wrong": [
+            "local maximum",
+            "global maximum",
+            "not a critical point"
+          ],
+          "why": "f′ = 3x² − 3 = 0 at x = ±1, and f″(1) = 6 > 0."
+        },
+        {
+          "q": "Gradient descent on f = ½cx² with step α converges when",
+          "a": "0 < α < 2/c",
+          "wrong": [
+            "α > 2/c",
+            "α = c",
+            "α > c"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "integrals",
+      "title": "Integrals",
+      "terms": [
+        "definite integral",
+        "antiderivative",
+        "fundamental theorem of calculus",
+        "integration by parts",
+        "improper integral",
+        "gaussian integral",
+        "riemann sum"
+      ],
+      "body": [
+        "The **definite integral** ∫_a^b f(x) dx is the signed area under the graph of f between a and b, the limit of **Riemann sums** Σ f(x_i)Δx. The **fundamental theorem of calculus** links it to derivatives: if F′ = f (F is an **antiderivative**), then",
+        {
+          "eq": "∫_a^b f(x) dx = F(b) − F(a)"
+        },
+        {
+          "table": {
+            "head": [
+              "f(x)",
+              "Antiderivative F(x)"
+            ],
+            "rows": [
+              [
+                "xⁿ (n ≠ −1)",
+                "xⁿ⁺¹/(n + 1)"
+              ],
+              [
+                "1/x",
+                "ln|x|"
+              ],
+              [
+                "eˣ",
+                "eˣ"
+              ],
+              [
+                "e^{−λx}",
+                "−e^{−λx}/λ"
+              ],
+              [
+                "cos x, sin x",
+                "sin x, −cos x"
+              ]
+            ],
+            "caption": "Basic antiderivatives (plus an arbitrary constant)."
+          }
+        },
+        {
+          "h": "Two techniques"
+        },
+        {
+          "list": [
+            "**Substitution** undoes the chain rule: with u = g(x), ∫ f(g(x)) g′(x) dx = ∫ f(u) du.",
+            "**Integration by parts** undoes the product rule: ∫ u dv = uv − ∫ v du."
+          ]
+        },
+        {
+          "example": {
+            "title": "An exponential distribution",
+            "problem": "Show that p(x) = λe^{−λx} for x ≥ 0 integrates to 1, and compute its mean ∫₀^∞ x λe^{−λx} dx.",
+            "solution": [
+              "∫₀^∞ λe^{−λx} dx = [−e^{−λx}]₀^∞ = 0 − (−1) = 1.",
+              "For the mean use integration by parts with u = x and dv = λe^{−λx} dx (so v = −e^{−λx}): ∫₀^∞ x λe^{−λx} dx = [−x e^{−λx}]₀^∞ + ∫₀^∞ e^{−λx} dx = 0 + 1/λ. The mean is 1/λ."
+            ]
+          }
+        },
+        {
+          "h": "The Gaussian integral"
+        },
+        "The function e^{−x²/2} has no elementary antiderivative, but its integral over the whole line is known exactly:",
+        {
+          "eq": "∫_{−∞}^{∞} e^{−x²/2} dx = √(2π)"
+        },
+        "This is why the normal density has the constant 1/√(2π): N(x; μ, σ²) = (1/(σ√(2π))) exp(−(x − μ)²/(2σ²)). By the substitution u = (x − μ)/σ, the integral over x of the unnormalized exponential is σ√(2π) for any mean and variance. The standard derivation squares the integral and switches to polar coordinates (see Multivariable Calculus).",
+        "An integral over an infinite range is an **improper integral**, defined as a limit of integrals over [a, b] as b → ∞. It converges when the integrand decays fast enough: ∫₁^∞ x⁻² dx = 1 converges, while ∫₁^∞ x⁻¹ dx diverges."
+      ],
+      "check": [
+        {
+          "q": "∫₀^2 3x² dx equals",
+          "a": "8",
+          "wrong": [
+            "6",
+            "12",
+            "4"
+          ],
+          "why": "[x³]₀² = 8."
+        },
+        {
+          "q": "∫ from −∞ to ∞ of e^{−x²/2} dx equals",
+          "a": "√(2π)",
+          "wrong": [
+            "1",
+            "π",
+            "2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "series",
+      "title": "Series and Taylor approximation",
+      "terms": [
+        "geometric series",
+        "taylor series",
+        "taylor expansion",
+        "taylor approximation",
+        "taylor's theorem",
+        "linear approximation",
+        "maclaurin series"
+      ],
+      "body": [
+        "A **geometric series** has a constant ratio r between terms. Its partial sum and its limit for |r| < 1 are",
+        {
+          "eq": [
+            "Σ_{k=0}^{n−1} r^k = (1 − rⁿ)/(1 − r)",
+            "Σ_{k=0}^{∞} r^k = 1/(1 − r)"
+          ]
+        },
+        "This is the formula behind the discounted return of reinforcement learning: a reward of 1 per step with discount γ = 0.9 is worth 1/(1 − 0.9) = 10. It also gives the sum of the learning rate schedules and the error decay of iterative algorithms, which shrinks like r^k.",
+        {
+          "h": "Taylor series"
+        },
+        "A smooth function near a point a is approximated by a polynomial whose derivatives match those of f at a:",
+        {
+          "eq": "f(x) = f(a) + f′(a)(x − a) + f″(a)(x − a)²/2! + f‴(a)(x − a)³/3! + …"
+        },
+        "Truncating after the term of order n leaves an error of size about |x − a|^{n+1} times the next derivative. The first-order truncation is the tangent line, and the second-order one adds curvature. Gradient descent uses the first-order model (and picks a step in which it can be trusted), and Newton's method uses the second-order model.",
+        {
+          "table": {
+            "head": [
+              "Function",
+              "Taylor series about 0"
+            ],
+            "rows": [
+              [
+                "eˣ",
+                "1 + x + x²/2! + x³/3! + …"
+              ],
+              [
+                "ln(1 + x)",
+                "x − x²/2 + x³/3 − …   (|x| < 1)"
+              ],
+              [
+                "1/(1 − x)",
+                "1 + x + x² + …   (|x| < 1)"
+              ],
+              [
+                "sin x",
+                "x − x³/3! + x⁵/5! − …"
+              ],
+              [
+                "σ(x)",
+                "1/2 + x/4 − x³/48 + …"
+              ]
+            ],
+            "caption": "Series worth remembering."
+          }
+        },
+        {
+          "example": {
+            "title": "Approximating e^{0.1}",
+            "problem": "Estimate e^{0.1} with the Taylor polynomial of order 3 and bound the error.",
+            "solution": "1 + 0.1 + 0.01/2 + 0.001/6 = 1 + 0.1 + 0.005 + 0.000167 = 1.105167. The true value is 1.105171, so the error is 4 × 10⁻⁶, about the size of the next term 0.1⁴/24 = 4.2 × 10⁻⁶."
+          }
+        },
+        {
+          "example": {
+            "title": "Linearizing the log loss",
+            "problem": "For small p, approximate −ln(1 − p).",
+            "solution": "Using ln(1 + x) = x − x²/2 + … with x = −p: −ln(1 − p) = p + p²/2 + p³/3 + …. So for a small error probability p, the log loss of the true class is about p."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Σ_{k=0}^∞ (0.5)^k equals",
+          "a": "2",
+          "wrong": [
+            "1",
+            "0.5",
+            "infinity"
+          ]
+        },
+        {
+          "q": "The second-order Taylor polynomial of f about a uses",
+          "a": "f(a), f′(a) and f″(a)",
+          "wrong": [
+            "only f(a)",
+            "only f′(a)",
+            "f(a) and the integral of f"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "inequalities",
+      "title": "Convexity and useful inequalities",
+      "terms": [
+        "jensen's inequality for convex functions",
+        "log-sum-exp",
+        "logsumexp",
+        "softmax stability",
+        "convex function and its tangent line",
+        "exponential bound"
+      ],
+      "body": [
+        "A function is **convex** if its graph lies below every chord, equivalently if it lies above every tangent line, equivalently (for twice-differentiable functions) f″ ≥ 0. Two consequences are used everywhere.",
+        {
+          "list": [
+            "**Tangent bounds.** Since eˣ is convex and its tangent at 0 is 1 + x, we have 1 + x ≤ eˣ for all x. Taking logarithms, ln y ≤ y − 1 for y > 0. These are used to bound probabilities (for example (1 − ε)^m ≤ e^{−εm}, as in the learning theory chapter) and to prove that KL divergence is non-negative.",
+            "**Jensen's inequality.** For convex f, f(E[X]) ≤ E[f(X)]; for concave f (such as ln), the inequality reverses: ln E[X] ≥ E[ln X]. It is the key to the EM algorithm."
+          ]
+        },
+        {
+          "example": {
+            "title": "Checking the bounds",
+            "problem": "Verify 1 + x ≤ e^x at x = 0.5 and x = −1, and (1 − 0.1)^20 ≤ e^{−2}.",
+            "solution": "At x = 0.5: 1.5 ≤ 1.6487. At x = −1: 0 ≤ 0.3679. (0.9)²⁰ = 0.1216 and e^{−2} = 0.1353, so 0.1216 ≤ 0.1353 ✓."
+          }
+        },
+        {
+          "h": "The log-sum-exp trick"
+        },
+        "Softmax and log-likelihoods of mixtures need ln Σ_i e^{z_i}. If any z_i is large, e^{z_i} overflows (e⁸⁰⁰ is infinity in double precision). Subtract the maximum m = max z_i:",
+        {
+          "eq": "ln Σ_i e^{z_i} = m + ln Σ_i e^{z_i − m}"
+        },
+        "Now every exponent is ≤ 0, so nothing overflows, and the largest term equals 1, so the sum cannot underflow to 0.",
+        {
+          "example": {
+            "title": "Stable log-sum-exp",
+            "problem": "Compute ln(e^{1000} + e^{1001}) without overflow.",
+            "solution": "With m = 1001: 1001 + ln(e^{−1} + 1) = 1001 + ln(1.3679) = 1001.3133. Computing e^{1000} directly would overflow."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "ln y ≤ y − 1 holds because",
+          "a": "the line y − 1 is tangent to the concave function ln y at y = 1, and lies above it",
+          "wrong": [
+            "ln y is linear",
+            "ln y is convex",
+            "y − 1 is the integral of ln y"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "The logarithm turns products into sums, so likelihoods are handled through log-likelihoods.",
+    "The derivative is the slope of the tangent line. Use the chain rule for compositions: σ′ = σ(1 − σ), and (ln σ)′ = 1 − σ.",
+    "Critical points have f′ = 0; f″ > 0 gives a minimum, and convex functions have only global minima. Gradient descent steps x ← x − αf′ and converges for α < 2/c on a quadratic; Newton's method x ← x − f′/f″ converges quadratically near a minimum.",
+    "The fundamental theorem gives ∫_a^b f = F(b) − F(a). The Gaussian integral ∫e^{−x²/2}dx = √(2π) fixes the normal density.",
+    "Geometric series sum to 1/(1 − r). Taylor polynomials approximate f near a, and the tangent line is the first-order one.",
+    "1 + x ≤ e^x, ln y ≤ y − 1 and Jensen's inequality are used constantly. The log-sum-exp trick keeps softmax numerically stable."
+  ],
+  "problems": [
+    {
+      "q": "Differentiate f(x) = x e^{−x} and find its maximum for x ≥ 0.",
+      "solution": "By the product rule f′ = e^{−x} − x e^{−x} = (1 − x)e^{−x}, which is zero at x = 1. For x < 1 it is positive and for x > 1 negative, so x = 1 is the maximum, with f(1) = e⁻¹ = 0.368.",
+      "a": "f′ = (1 − x)e^{−x}; the maximum is at x = 1 with value 0.368."
+    },
+    {
+      "q": "Use Newton's method to find √5 starting from x₀ = 2: do two steps.",
+      "solution": "g = x² − 5, g′ = 2x. x₁ = 2 − (4 − 5)/4 = 2.25. x₂ = 2.25 − (5.0625 − 5)/4.5 = 2.25 − 0.013889 = 2.236111. The true value is 2.236068.",
+      "a": "x₁ = 2.25, x₂ = 2.2361."
+    },
+    {
+      "q": "Evaluate ∫₀^∞ x² e^{−x} dx by parts.",
+      "solution": "Let u = x², dv = e^{−x}dx: [−x²e^{−x}]₀^∞ + ∫₀^∞ 2x e^{−x} dx = 0 + 2·∫₀^∞ x e^{−x} dx. The last integral equals 1 (by parts again: [−xe^{−x}] + ∫e^{−x} = 1). So the result is 2.",
+      "a": "2 (this is Γ(3) = 2!)."
+    },
+    {
+      "q": "A reinforcement learning agent receives reward 3 at every step with discount γ = 0.8. What is the total discounted reward, and what is it if the episode stops after 5 steps?",
+      "solution": "Infinite: 3/(1 − 0.8) = 15. Five steps: 3(1 − 0.8⁵)/(1 − 0.8) = 15(1 − 0.32768) = 10.08.",
+      "a": "15 and 10.08."
+    },
+    {
+      "q": "Compute ln(e^{−500} + e^{−502}) with the log-sum-exp trick.",
+      "solution": "m = −500: −500 + ln(1 + e^{−2}) = −500 + ln(1.1353) = −500 + 0.1269 = −499.8731.",
+      "a": "−499.873."
+    }
+  ]
+}

@@ -1,0 +1,449 @@
+{
+  "id": "numerical-computing",
+  "view": "chapter",
+  "title": "Numerical Computing",
+  "description": "Floating-point arithmetic, rounding error and cancellation, conditioning and stability, numerically sound formulas for machine learning, and low-precision training.",
+  "overview": [
+    "Computers do not work with real numbers. They work with a finite set of binary fractions, so almost every arithmetic operation rounds, and the errors accumulate. Most of the time this is invisible. Sometimes it produces a loss that is exactly zero, an infinity in the middle of a softmax, or a model whose results change when the data are reordered. Numerical computing is the discipline of understanding these effects and writing calculations that are robust to them.",
+    "This chapter explains how floating-point numbers are stored, where precision is lost (rounding, cancellation, overflow), the difference between a problem that is sensitive (conditioning) and an algorithm that is unstable, and the specific formulas that machine learning code must write carefully: softmax, log-likelihoods, variances and finite-difference gradients. It ends with the low-precision formats used to train large networks."
+  ],
+  "objectives": [
+    "Describe the IEEE 754 floating-point format, and compute machine epsilon, range and spacing for single and double precision.",
+    "Explain why 0.1 + 0.2 ≠ 0.3, and compare floating-point numbers with a tolerance.",
+    "Recognize catastrophic cancellation and rewrite formulas to avoid it, including the variance, log1p and expm1.",
+    "Distinguish conditioning from stability, and use the condition number to bound the error of a linear solve.",
+    "Apply stable implementations of softmax, log-sum-exp and the logistic loss, and explain loss scaling and mixed precision."
+  ],
+  "sections": [
+    {
+      "id": "floating-point",
+      "title": "Floating-point numbers",
+      "terms": [
+        "floating-point arithmetic",
+        "floating point",
+        "ieee 754",
+        "machine epsilon",
+        "double precision",
+        "single precision",
+        "mantissa",
+        "significand",
+        "overflow",
+        "underflow",
+        "denormal numbers",
+        "nan",
+        "rounding error",
+        "bfloat16",
+        "half precision",
+        "numerical computing"
+      ],
+      "body": [
+        "A real number is stored in a fixed number of bits as a sign, an exponent and a **significand** (mantissa), in the manner of scientific notation: ±1.f × 2^e. The IEEE 754 standard fixes the formats used by essentially all hardware.",
+        {
+          "table": {
+            "head": [
+              "Format",
+              "Bits (sign / exponent / fraction)",
+              "Precision",
+              "Machine epsilon",
+              "Largest value",
+              "Used for"
+            ],
+            "rows": [
+              [
+                "float64 (double)",
+                "1 / 11 / 52",
+                "≈ 16 decimal digits",
+                "2.2 × 10⁻¹⁶",
+                "1.8 × 10³⁰⁸",
+                "scientific computing, NumPy default"
+              ],
+              [
+                "float32 (single)",
+                "1 / 8 / 23",
+                "≈ 7 decimal digits",
+                "1.2 × 10⁻⁷",
+                "3.4 × 10³⁸",
+                "deep learning default"
+              ],
+              [
+                "float16 (half)",
+                "1 / 5 / 10",
+                "≈ 3 decimal digits",
+                "9.8 × 10⁻⁴",
+                "65,504",
+                "GPU training with loss scaling"
+              ],
+              [
+                "bfloat16",
+                "1 / 8 / 7",
+                "≈ 2 decimal digits",
+                "7.8 × 10⁻³",
+                "3.4 × 10³⁸",
+                "TPU and GPU training"
+              ]
+            ],
+            "caption": "Floating-point formats."
+          }
+        },
+        "**Machine epsilon** ε is the gap between 1 and the next representable number: 2⁻⁵² for double precision. A single rounding changes a number by a relative amount of at most ε/2, so each operation has a relative error of about 10⁻¹⁶ in double precision. The spacing between neighbors grows with the magnitude: near 1 it is 2.2 × 10⁻¹⁶, near 10¹⁶ it is 2. Numbers are dense near zero and sparse far from it.",
+        {
+          "code": [
+            "0.1 + 0.2                    # 0.30000000000000004",
+            "0.1 + 0.2 == 0.3             # False",
+            "import math",
+            "math.isclose(0.1 + 0.2, 0.3) # True   (compares with a relative tolerance)",
+            "",
+            "(1e16 + 1.0) - 1e16          # 0.0     the 1 is lost: spacing near 1e16 is 2",
+            "1e308 * 10                   # inf     overflow",
+            "float('inf') - float('inf')  # nan     'not a number'",
+            "float('nan') == float('nan') # False   nan is not equal even to itself",
+            "",
+            "import numpy as np",
+            "np.finfo(np.float64).eps     # 2.220446049250313e-16",
+            "np.float32(16777216) + np.float32(1)   # 16777216.0   float32 has 24 significant bits",
+            "np.float16(70000)            # inf     above the float16 maximum 65504"
+          ],
+          "caption": "Floating-point surprises."
+        },
+        {
+          "list": [
+            "**Most decimal fractions are not exact**: 0.1 = 0.000110011001100… in binary repeats forever and is stored as 0.1000000000000000055511151231257827…. Integers up to 2⁵³ are exact in double precision, and only up to 2²⁴ = 16,777,216 in float32.",
+            "**Overflow** produces ±inf, and **underflow** produces 0 (after passing through slowly shrinking denormal numbers). An invalid operation such as 0/0 or inf − inf produces **nan**, which then propagates through every later calculation.",
+            "**Never compare floats for equality.** Use a tolerance: abs(a − b) <= rtol·max(abs(a), abs(b)) + atol, as in math.isclose and np.allclose.",
+            "**Addition is not associative**: (a + b) + c can differ from a + (b + c). Summing in a different order, for example on a different number of GPU threads, changes the last digits. This is why parallel results are reproducible only up to rounding."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "The machine epsilon of double precision is about",
+          "a": "2.2 × 10⁻¹⁶",
+          "wrong": [
+            "1 × 10⁻⁷",
+            "1 × 10⁻³⁰⁸",
+            "0"
+          ]
+        },
+        {
+          "q": "The correct way to test whether two computed floats are equal is",
+          "a": "to check that they are within a small tolerance",
+          "wrong": [
+            "a == b",
+            "to convert both to strings",
+            "to subtract and test for exactly 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cancellation",
+      "title": "Rounding error, cancellation and summation",
+      "terms": [
+        "catastrophic cancellation",
+        "cancellation error",
+        "log1p",
+        "expm1",
+        "pairwise summation",
+        "kahan summation",
+        "welford's algorithm",
+        "relative error",
+        "absolute error",
+        "numerically stable variance"
+      ],
+      "body": [
+        "Rounding errors are small, but subtracting two nearly equal numbers can promote them to the leading digits. This is **catastrophic cancellation**. The subtraction itself is exact; what is lost is the information in the digits that were already rounded off before the subtraction, and when the leading digits cancel, the garbage that was in the trailing digits becomes the result.",
+        {
+          "example": {
+            "title": "A formula that loses everything",
+            "problem": "Compute f(x) = (1 − cos x)/x² at x = 10⁻⁸. The true value is very close to ½.",
+            "solution": [
+              "cos(10⁻⁸) = 1 − 5 × 10⁻¹⁷, but the spacing of doubles just below 1 is 1.1 × 10⁻¹⁶, so cos(10⁻⁸) is rounded to exactly 1.0. Then 1 − cos x = 0 and f(x) = 0: no correct digits.",
+              "Rewrite with the identity 1 − cos x = 2 sin²(x/2): f(x) = 2 sin²(x/2)/x², which gives 0.5 to full precision. The two formulas are equal in exact arithmetic and differ completely in floating point."
+            ]
+          }
+        },
+        {
+          "code": [
+            "import math",
+            "",
+            "x = 1e16",
+            "math.sqrt(x + 1) - math.sqrt(x)         # 0.0       cancellation",
+            "1 / (math.sqrt(x + 1) + math.sqrt(x))   # 5e-09     same quantity, rewritten",
+            "",
+            "math.log(1 + 1e-10)                     # 1.00000008274037e-10   only 8 correct digits",
+            "math.log1p(1e-10)                       # 9.9999999995e-11       accurate",
+            "math.expm1(1e-10)                       # 1.00000000005e-10      accurate exp(x) - 1"
+          ],
+          "caption": "Rewriting formulas to avoid cancellation, and the library functions log1p and expm1 for small arguments."
+        },
+        {
+          "h": "The variance"
+        },
+        "The textbook formula Var = E[x²] − (E[x])² is a classic trap. For data with a large mean and a small spread, such as 10⁹ + (1, 2, 3), both terms are about 10¹⁸ and agree in the first 16 digits, so their difference, which should be 2/3, is destroyed by cancellation (it can even come out negative). The stable approach is two passes (compute the mean, then average the squared deviations) or **Welford's online algorithm**, which updates the mean and the sum of squared deviations one value at a time:",
+        {
+          "code": [
+            "def welford(xs):",
+            "    n, mean, m2 = 0, 0.0, 0.0",
+            "    for x in xs:",
+            "        n += 1",
+            "        delta = x - mean",
+            "        mean += delta / n",
+            "        m2 += delta * (x - mean)      # uses the updated mean",
+            "    return mean, m2 / (n - 1)         # sample mean and variance",
+            "",
+            "welford([1e9 + 1, 1e9 + 2, 1e9 + 3])   # (1000000002.0, 1.0)"
+          ],
+          "caption": "Welford's algorithm is stable and works on a stream. Batch normalization and running statistics rely on the same idea."
+        },
+        {
+          "h": "Summing many numbers"
+        },
+        "Adding a long list of numbers one by one into a running total accumulates error that grows with the length of the list, about n·ε in the worst case, because each small term is added to a large total and loses digits. Remedies: **pairwise summation** (add in a tree, as NumPy does: error about log n · ε), **Kahan compensated summation** (track the lost low-order part in a second variable), or simply accumulating in higher precision (float32 data in a float64 accumulator). Averaging 10⁸ float32 loss values into a float32 total is a classic source of silently wrong statistics."
+      ],
+      "check": [
+        {
+          "q": "Catastrophic cancellation occurs when",
+          "a": "two nearly equal numbers are subtracted, exposing earlier rounding errors",
+          "wrong": [
+            "a number is divided by zero",
+            "a sum has too many terms",
+            "an integer overflows"
+          ]
+        },
+        {
+          "q": "For x close to 0, the accurate way to compute ln(1 + x) is",
+          "a": "math.log1p(x)",
+          "wrong": [
+            "math.log(1 + x)",
+            "math.exp(x) − 1",
+            "x"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "conditioning",
+      "title": "Conditioning and stability",
+      "terms": [
+        "conditioning of a problem",
+        "condition number of a problem",
+        "numerical stability",
+        "backward stable",
+        "forward error",
+        "backward error",
+        "hilbert matrix",
+        "well-conditioned"
+      ],
+      "body": [
+        "Two different things can make a computed answer wrong, and they should not be confused.",
+        {
+          "list": [
+            "**Conditioning** is a property of the //problem//: how much the exact answer changes when the input changes slightly. An **ill-conditioned** problem amplifies small input errors, whatever algorithm is used. The relative **condition number** κ is the worst-case ratio of the relative change in the output to the relative change in the input.",
+            "**Stability** is a property of the //algorithm//: whether it computes the answer with errors no worse than the problem's own sensitivity allows. A **backward stable** algorithm returns the exact answer to a slightly perturbed input, so its error is about κ·ε."
+          ]
+        },
+        "For solving Ax = b, the relative error of the computed solution is bounded by about κ(A)·ε, with κ(A) = σ_max/σ_min the condition number from the SVD (see the SVD chapter). If κ = 10¹⁰ in double precision, we expect about 16 − 10 = 6 correct digits.",
+        {
+          "example": {
+            "title": "The Hilbert matrix",
+            "problem": "The n × n Hilbert matrix H_ij = 1/(i + j − 1) has condition number about 1.6 × 10¹³ for n = 10. How many digits are expected to be correct when solving Hx = b in double precision?",
+            "solution": "About 16 − log₁₀(1.6 × 10¹³) ≈ 16 − 13.2 = 2.8, so only two or three digits survive, even with a backward stable method. The problem, not the algorithm, is the cause. A Hilbert matrix arises when fitting a polynomial of high degree on [0, 1] in the monomial basis, one of the reasons to use orthogonal polynomials or to regularize."
+          }
+        },
+        {
+          "h": "Conditioning in machine learning"
+        },
+        {
+          "list": [
+            "**The normal equations** square the condition number: κ(XᵀX) = κ(X)². Solving least squares by QR or SVD works with κ(X) instead (see Orthogonality and Least Squares).",
+            "**Collinear features** make XᵀX nearly singular, so the weights are poorly determined and unstable. Ridge regression improves the conditioning: the smallest eigenvalue becomes at least λ.",
+            "**Feature scaling** reduces the condition number of the Hessian and speeds up gradient descent (see Gradient Methods). Unscaled features also hurt conditioning in a numerical sense.",
+            "**A stable algorithm is not enough if the problem is ill-conditioned**; the fix is to reformulate the problem (regularize, rescale, reparameterize) or to collect better data."
+          ]
+        },
+        {
+          "tip": "Never invert a matrix to solve a system, and avoid forming XᵀX. Prefer solve, lstsq or a factorization: they are both faster and more accurate."
+        }
+      ],
+      "check": [
+        {
+          "q": "The condition number of the normal equations matrix XᵀX is related to that of X by",
+          "a": "κ(XᵀX) = κ(X)²",
+          "wrong": [
+            "κ(XᵀX) = κ(X)",
+            "κ(XᵀX) = √κ(X)",
+            "κ(XᵀX) = 1"
+          ]
+        },
+        {
+          "q": "A backward stable algorithm applied to a problem with condition number 10⁸ in double precision gives about this many correct digits:",
+          "a": "8",
+          "wrong": [
+            "16",
+            "0",
+            "24"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ml-numerics",
+      "title": "Numerically careful machine learning formulas",
+      "terms": [
+        "stable softmax implementation",
+        "log-sum-exp trick in code",
+        "softplus",
+        "log-softmax",
+        "binary cross-entropy from logits",
+        "finite difference step size",
+        "gradient clipping for stability",
+        "epsilon in denominators"
+      ],
+      "body": [
+        "Several formulas in machine learning must be written specially, because the naive form overflows, underflows or cancels.",
+        {
+          "h": "Softmax and log-softmax"
+        },
+        "Computing e^{z} overflows for z above about 709 in double precision and about 88 in float32. Subtracting the maximum, softmax(z) = softmax(z − max z), keeps every exponent ≤ 0. For the log of a softmax (needed for the cross-entropy loss), never compute log(softmax(z)): the softmax can underflow to 0 and the log gives −inf. Use the log-sum-exp form directly:",
+        {
+          "eq": "log softmax(z)_i = z_i − m − ln Σ_j e^{z_j − m},    m = max_j z_j"
+        },
+        {
+          "h": "Logistic loss from logits"
+        },
+        "The binary cross-entropy for logit z and label y ∈ {0, 1} is ln(1 + e^{z}) − yz. Computing it as −y log σ(z) − (1 − y) log(1 − σ(z)) fails for large |z|: σ(40) rounds to exactly 1 in double precision, 1 − σ(z) becomes 0, and the log is −inf. The stable form uses the softplus: ln(1 + e^{z}) = max(z, 0) + ln(1 + e^{−|z|}) with log1p. Deep learning libraries provide functions that take logits directly (for instance 'binary cross entropy with logits'), and these should always be preferred to applying the sigmoid and then the log.",
+        {
+          "code": [
+            "import numpy as np",
+            "",
+            "def bce_with_logits(z, y):",
+            "    # ln(1 + e^z) - y z, written to avoid overflow",
+            "    return np.maximum(z, 0) - y * z + np.log1p(np.exp(-np.abs(z)))",
+            "",
+            "bce_with_logits(np.array([40.0, -40.0]), np.array([1.0, 1.0]))   # [4.2e-18, 40.0]"
+          ],
+          "caption": "A stable logistic loss. For a confident correct prediction (z = 40, y = 1) the loss is 4 × 10⁻¹⁸, and for a confident wrong one (z = −40, y = 1) it is 40."
+        },
+        {
+          "h": "Other recipes"
+        },
+        {
+          "list": [
+            "**Epsilons**: add a small constant to denominators (batch normalization, Adam: ε = 10⁻⁸) and inside logarithms (log(p + 10⁻¹²)) to avoid division by zero and log(0). Choose ε relative to the precision in use: 10⁻⁸ is too small for float16.",
+            "**Work in log space** for products of many probabilities (see Naive Bayes and Hidden Markov Models): sum logs instead of multiplying, and combine log-probabilities with log-sum-exp.",
+            "**Norms and normalization**: compute ‖x‖ with scaling if entries can be huge, and add ε before a square root whose argument can reach 0, since the derivative of √x at 0 is infinite.",
+            "**Finite differences**: the forward difference (f(x + h) − f(x))/h has truncation error about h·f″/2 and rounding error about ε|f|/h. The total is smallest at h ≈ √ε ≈ 10⁻⁸ (error about 10⁻⁸). The central difference has truncation error h²f‴/6 and its best step is h ≈ ε^{1/3} ≈ 6 × 10⁻⁶ (error about 10⁻¹⁰). Too small an h is as bad as too large (see Gradient checking).",
+            "**Clipping and monitoring**: gradient clipping bounds exploding updates, and checking for nan or inf (np.isfinite) on the loss catches a divergence at the step where it happens."
+          ]
+        },
+        {
+          "example": {
+            "title": "Why the finite-difference step matters",
+            "problem": "Estimate the derivative of sin x at x = 1 (true value cos 1 = 0.5403023) using the forward difference with h = 10⁻⁸ and h = 10⁻¹⁴.",
+            "solution": "With h = 10⁻⁸ the error is about 10⁻⁸ (about 8 correct digits): truncation h/2 · |sin 1| ≈ 4 × 10⁻⁹ and rounding ε/h ≈ 2 × 10⁻⁸ are comparable. With h = 10⁻¹⁴ the numerator f(x + h) − f(x) is about 5 × 10⁻¹⁵ and is computed with absolute error 10⁻¹⁶, so the relative error is about 2%: the result 0.55 is correct to only 1 or 2 digits."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "log(softmax(z)) should be computed as",
+          "a": "z − max z − log Σ exp(z − max z)",
+          "wrong": [
+            "log of the softmax, as written",
+            "softmax of log z",
+            "z − sum(z)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mixed-precision",
+      "title": "Low precision and mixed-precision training",
+      "terms": [
+        "mixed precision",
+        "mixed-precision training",
+        "loss scaling",
+        "quantization",
+        "int8",
+        "stochastic rounding",
+        "reduced precision"
+      ],
+      "body": [
+        "Memory traffic and arithmetic on GPUs scale with the number of bits, so halving the precision roughly doubles the speed and halves the memory, which makes models twice as large trainable. Neural networks tolerate noise, so low precision often works, but the formats have limits.",
+        {
+          "list": [
+            "**float16** has a narrow range (largest 65,504, smallest normal 6 × 10⁻⁵). Activations can overflow, and small gradients underflow to zero. **Loss scaling** multiplies the loss by a large factor (such as 1024 or a dynamically chosen value) before backpropagation, so that small gradients stay representable, and divides the gradients by the same factor before the weight update.",
+            "**bfloat16** keeps float32's 8-bit exponent (the same range) and has only 7 fraction bits (about 2 decimal digits). It needs no loss scaling and is the standard on TPUs and recent GPUs.",
+            "**Mixed-precision training** keeps a float32 master copy of the weights and does the forward and backward passes in 16-bit, with certain operations (reductions, softmax, loss, normalization statistics) in float32. The master weights matter because an update such as w ← w − 10⁻⁵·g would be lost when added to a 16-bit weight of size 1 (the spacing near 1 is 10⁻³ in float16), but is retained in float32.",
+            "**Quantization** for inference stores weights and activations as 8-bit or 4-bit integers with a scale factor, cutting memory 4 to 8 times, with a small loss of accuracy, and is the way large language models are run on modest hardware.",
+            "Accumulating dot products in higher precision than the inputs (16-bit inputs, 32-bit accumulator) is what GPU matrix units do."
+          ]
+        },
+        {
+          "example": {
+            "title": "Why the master weights are kept in float32",
+            "problem": "A weight is 1.0 and the update is 2 × 10⁻⁴. What happens in float16 and in float32?",
+            "solution": "In float16 the spacing of numbers near 1 is 2⁻¹⁰ ≈ 9.8 × 10⁻⁴, so the update is smaller than half the spacing and 1.0 + 0.0002 rounds back to 1.0: the weight never changes. In float32 (spacing 1.2 × 10⁻⁷) the weight becomes 1.0002. Small learning rates and late-training updates would be lost without a float32 master copy."
+          }
+        },
+        {
+          "tip": "When a training run produces nan or the loss suddenly jumps, suspect numerics before the model: check for overflow in a half-precision activation, a missing epsilon in a normalization, an exp of a large number, or a learning rate that is too high. Running a few steps in float32 isolates the cause."
+        }
+      ],
+      "check": [
+        {
+          "q": "Loss scaling is used in float16 training to",
+          "a": "keep small gradients from underflowing to zero",
+          "wrong": [
+            "make the loss smaller",
+            "increase the model's capacity",
+            "remove the need for gradients"
+          ]
+        },
+        {
+          "q": "bfloat16 differs from float16 in that it has",
+          "a": "the same exponent range as float32 but fewer fraction bits",
+          "wrong": [
+            "more fraction bits and a smaller range",
+            "the exact precision of float64",
+            "no exponent"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Floating-point numbers store a sign, exponent and significand. Double precision has ε = 2.2 × 10⁻¹⁶ (16 digits), float32 has 1.2 × 10⁻⁷ (7 digits). Spacing grows with magnitude, most decimals are inexact (0.1 + 0.2 ≠ 0.3), overflow gives inf, invalid operations give nan, and floats must be compared with tolerances.",
+    "Catastrophic cancellation destroys accuracy when subtracting nearly equal numbers. Rewrite the formula (log1p, expm1, 2 sin²(x/2)), use Welford for variance, and sum with pairwise or compensated summation.",
+    "Conditioning is a property of the problem and stability of the algorithm. The error of a solve is about κ(A)·ε. The normal equations square κ; prefer QR or SVD.",
+    "Write softmax with the maximum subtracted, log-softmax and logistic loss from logits with log1p, probabilities in log space, and choose finite-difference steps near √ε (forward) or ε^{1/3} (central).",
+    "Mixed precision uses 16-bit arithmetic with float32 master weights and loss scaling for float16; bfloat16 trades precision for range; quantization compresses inference."
+  ],
+  "problems": [
+    {
+      "q": "How many decimal digits of precision does float32 give, and what is the spacing of float32 numbers near 1 and near 2²⁴?",
+      "solution": "24 significant bits give about 24 × 0.301 = 7.2 digits. Near 1 the spacing is 2⁻²³ = 1.2 × 10⁻⁷. Near 2²⁴ = 16,777,216 it is 2: this is why 16,777,216 + 1 = 16,777,216 in float32.",
+      "a": "About 7 digits; spacing 1.2 × 10⁻⁷ near 1 and 2 near 1.7 × 10⁷."
+    },
+    {
+      "q": "Rewrite f(x) = √(x² + 1) − 1 to avoid cancellation for small x, and evaluate it at x = 10⁻⁹.",
+      "solution": "Multiply and divide by the conjugate: f(x) = x²/(√(x² + 1) + 1). At x = 10⁻⁹, x² = 10⁻¹⁸ and the denominator is 2, so f = 5 × 10⁻¹⁹. The naive form computes x² + 1 = 1.0 exactly in double precision, giving 0.",
+      "a": "f(x) = x²/(√(x² + 1) + 1) = 5 × 10⁻¹⁹."
+    },
+    {
+      "q": "A system Ax = b has κ(A) = 10⁶ and is solved in float32. Estimate the number of correct digits. What if it is solved in float64?",
+      "solution": "Float32 has about 7 digits, so about 7 − 6 = 1 correct digit. Float64 has about 16, so about 16 − 6 = 10 correct digits.",
+      "a": "About 1 digit and about 10 digits."
+    },
+    {
+      "q": "Compute the stable softmax of z = (1000, 1001, 1002) by hand.",
+      "solution": "Subtract the maximum: (−2, −1, 0). exp: (0.1353, 0.3679, 1). The sum is 1.5032. Probabilities (0.0900, 0.2447, 0.6652). The naive computation overflows to inf/inf = nan.",
+      "a": "(0.090, 0.245, 0.665)."
+    },
+    {
+      "q": "In float16, a gradient of 10⁻⁸ (smallest subnormal about 6 × 10⁻⁸, smallest normal 6 × 10⁻⁵) is multiplied by a loss scale of 2¹⁶ = 65,536. What happens before and after scaling?",
+      "solution": "10⁻⁸ is below the smallest subnormal float16 value (about 6 × 10⁻⁸), so it underflows to 0. After scaling it is 10⁻⁸ × 65,536 = 6.6 × 10⁻⁴, a normal float16 number, which is stored with about 3 digits. After backpropagation the gradient is divided by 65,536 (in float32) to recover 10⁻⁸ for the update.",
+      "a": "It underflows to zero without scaling and is representable (6.6 × 10⁻⁴) with scaling."
+    }
+  ]
+}

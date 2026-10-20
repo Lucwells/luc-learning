@@ -1,0 +1,309 @@
+{
+  "id": "learning-theory",
+  "view": "chapter",
+  "title": "Statistical Learning Theory",
+  "description": "PAC learning, uniform convergence, VC dimension, Rademacher complexity and what generalization bounds say about practice.",
+  "overview": [
+    "Why should a rule that works on a training sample work on new data? The earlier chapters answered with experiments: hold out data and measure. Learning theory answers with mathematics. It proves that, under stated assumptions, the gap between training error and true error is small with high probability, and it says how that gap depends on the number of training examples and the complexity of the model class.",
+    "The results are bounds, usually loose in numbers but correct in form, and the form explains the practical lore: more data helps, simpler models generalize better from small samples, and margins and regularization matter. This chapter derives the main bounds from two ingredients, concentration inequalities and the union bound."
+  ],
+  "objectives": [
+    "State the PAC learning model and derive the sample complexity of a consistent learner over a finite hypothesis class.",
+    "Use Hoeffding's inequality and the union bound to prove uniform convergence and an ERM generalization bound.",
+    "Define shattering and VC dimension, compute it for simple classes, and use it in a bound.",
+    "Explain Rademacher complexity and margin-based bounds.",
+    "Interpret what the theory implies for practice and where it falls short for deep networks."
+  ],
+  "sections": [
+    {
+      "id": "pac",
+      "title": "PAC learning and finite hypothesis classes",
+      "terms": [
+        "pac learning",
+        "probably approximately correct",
+        "sample complexity",
+        "realizable setting",
+        "consistent learner",
+        "union bound",
+        "approximation error",
+        "estimation error",
+        "excess risk"
+      ],
+      "body": [
+        "Fix a hypothesis class ℋ, a distribution P over inputs and labels, and the risk R(h) = P(h(x) ≠ y) with R̂(h) its average on the m training examples (see the Introduction). In the **realizable** setting some h* ∈ ℋ has zero risk. A learner is **probably approximately correct** (PAC) if, for any accuracy ε > 0 and confidence δ > 0, with probability at least 1 − δ over the sample it returns a hypothesis with risk at most ε, using a number of examples (the **sample complexity**) that is polynomial in 1/ε and 1/δ.",
+        {
+          "key": "Finite class, realizable case. Any hypothesis consistent with m examples has risk at most ε with probability ≥ 1 − δ if m ≥ (1/ε)(ln|ℋ| + ln(1/δ))."
+        },
+        "**Proof.** Call h **bad** if R(h) > ε. A bad hypothesis is consistent with one random example with probability at most 1 − ε, so with all m independent examples with probability at most (1 − ε)^m ≤ e^{−εm}. By the **union bound** (the probability of any of several events is at most the sum of their probabilities), the probability that //some// bad hypothesis in ℋ is consistent with the sample is at most |ℋ| e^{−εm}. Setting |ℋ|e^{−εm} ≤ δ and solving for m gives the claim. ∎",
+        {
+          "example": {
+            "title": "Learning conjunctions",
+            "problem": "How many examples guarantee, with 95% confidence, a risk below 0.1 for the class of conjunctions of up to 10 Boolean literals? Each of the 10 variables can appear positively, negated or not at all, so |ℋ| = 3¹⁰.",
+            "solution": "ln|ℋ| = 10 ln 3 = 10.99, and ln(1/δ) = ln 20 = 3.00. So m ≥ (1/0.1)(10.99 + 3.00) = 139.8: about 140 examples. The count grows only logarithmically in |ℋ|, which is exponential in the number of variables: a hypothesis space with 59,049 elements needs only 140 examples."
+          }
+        },
+        {
+          "h": "Two sources of error"
+        },
+        "Let ĥ be the learner's output, h* the best hypothesis in ℋ and R* the Bayes risk. The excess risk splits into",
+        {
+          "eq": "R(ĥ) − R* = [ R(ĥ) − R(h*) ] + [ R(h*) − R* ]"
+        },
+        "The first term, the **estimation error**, is due to having finite data and grows with the size of ℋ. The second, the **approximation error**, is the price of restricting to ℋ and shrinks as ℋ grows. Theory in this chapter bounds the first term. The tradeoff between the two is the bias–variance tradeoff of the Generalization chapter."
+      ],
+      "check": [
+        {
+          "q": "In the finite-class PAC bound, the number of examples needed grows with |ℋ| like",
+          "a": "ln|ℋ|",
+          "wrong": ["|ℋ|", "|ℋ|²", "√|ℋ|"]
+        },
+        {
+          "q": "The union bound is used to",
+          "a": "bound the probability that any one of the hypotheses in the class is bad",
+          "wrong": [
+            "show that the loss is convex",
+            "bound the training error",
+            "make the data independent"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "uniform-convergence",
+      "title": "Uniform convergence and the agnostic case",
+      "terms": [
+        "hoeffding's inequality",
+        "uniform convergence",
+        "agnostic learning",
+        "generalization bound",
+        "concentration inequality",
+        "empirical risk minimization guarantee"
+      ],
+      "body": [
+        "In practice no hypothesis is perfect (the **agnostic** case). We want the training risk R̂(h) to be close to R(h) for every h ∈ ℋ at once, so that minimizing R̂ also nearly minimizes R. This property is **uniform convergence**.",
+        "**Hoeffding's inequality** controls one hypothesis. If Z₁, …, Z_m are independent with values in [0, 1] and mean μ, then P(|Z̄ − μ| ≥ γ) ≤ 2e^{−2mγ²}. Apply it to the 0–1 losses of a fixed h, whose mean is R(h):",
+        {
+          "eq": "P( |R̂(h) − R(h)| > γ ) ≤ 2 e^{−2mγ²}"
+        },
+        "Take the union bound over the |ℋ| hypotheses and set the total failure probability to δ. With probability at least 1 − δ, simultaneously for all h ∈ ℋ,",
+        {
+          "eq": "| R̂(h) − R(h) | ≤ √( ( ln|ℋ| + ln(2/δ) ) / (2m) )"
+        },
+        "**Consequence for ERM.** Let ĥ minimize R̂ and h* minimize R over ℋ. Then R(ĥ) ≤ R̂(ĥ) + γ ≤ R̂(h*) + γ ≤ R(h*) + 2γ. Empirical risk minimization is within 2γ of the best hypothesis in the class, with γ the width above.",
+        {
+          "example": {
+            "title": "Numbers for the bound",
+            "problem": "(a) For one fixed classifier and a test set of m = 1000, bound the probability that the observed error differs from the true error by more than 0.05. (b) For a class of |ℋ| = 1000 hypotheses, m = 5000 and δ = 0.05, find γ.",
+            "solution": [
+              "(a) 2e^{−2(1000)(0.0025)} = 2e^{−5} = 0.0135.",
+              "(b) γ = √((ln 1000 + ln 40)/(2 · 5000)) = √((6.908 + 3.689)/10,000) = √0.00106 = 0.0326. So every hypothesis in the class has true error within 3.3% of its training error, and ERM is within 6.5% of the best in class."
+            ]
+          }
+        },
+        {
+          "note": "Part (a) is the justification for using a held-out test set: when the hypothesis is chosen without looking at the test data, a single application of Hoeffding applies. Choosing the best of many hypotheses on the test set needs the union bound, which is the selection effect warned about in Evaluating Models."
+        },
+        "The bound rises with ln|ℋ| and falls as 1/√m. Halving the width γ requires four times as many examples. This 1/√m rate is typical and is also seen in learning curves."
+      ],
+      "check": [
+        {
+          "q": "How does the uniform convergence width γ scale with the sample size m?",
+          "a": "as 1/√m",
+          "wrong": ["as 1/m", "as 1/m²", "it does not depend on m"]
+        }
+      ]
+    },
+    {
+      "id": "vc",
+      "title": "VC dimension",
+      "terms": [
+        "vc dimension",
+        "vapnik-chervonenkis dimension",
+        "shattering",
+        "shatter",
+        "growth function",
+        "sauer's lemma",
+        "sauer–shelah lemma"
+      ],
+      "body": [
+        "Most useful classes are infinite (every linear classifier), so ln|ℋ| is infinite and the previous bound is vacuous. What matters is not how many hypotheses there are, but how many different ways they can label a finite sample. A class **shatters** a set of m points if, for every one of the 2^m labelings of the points, some hypothesis in the class realizes it. The **VC dimension** d_VC(ℋ) is the size of the largest set that ℋ can shatter.",
+        {
+          "list": [
+            "Intervals on the line, h(x) = 1 if a ≤ x ≤ b: VC dimension 2. Two points can be labeled in every way, but for three points a < b < c the labeling (+, −, +) is impossible.",
+            "Linear classifiers (halfplanes) in the plane: VC dimension 3. Any three non-collinear points can be labeled in all 8 ways, but four points cannot be shattered: the XOR labeling of the corners of a square has no linear separator.",
+            "Linear classifiers in ℝⁿ with an intercept: VC dimension n + 1, the number of parameters.",
+            "A class with a sine function sin(ωx) of one parameter has infinite VC dimension. Parameter count is not the same as complexity."
+          ]
+        },
+        {
+          "example": {
+            "title": "Why four points cannot be shattered by a line in the plane",
+            "problem": "Show that no line separates the labeling of the four corners of a square in which one diagonal is positive and the other negative.",
+            "solution": "Take the corners (0, 0), (1, 1) labeled + and (0, 1), (1, 0) labeled −. A line that keeps (0, 0) and (1, 1) on the positive side also keeps their midpoint (0.5, 0.5) there, because half-planes are convex. But (0.5, 0.5) is also the midpoint of the negative pair, so it would have to lie on the negative side. Contradiction. Hence d_VC = 3 for lines in the plane."
+          }
+        },
+        "The **growth function** Π_ℋ(m), the maximum number of labelings of m points, equals 2^m up to m = d and then grows only polynomially: **Sauer's lemma** gives Π_ℋ(m) ≤ (em/d)^d for m ≥ d. For d = 3 and m = 10 that is 744 labelings instead of 2¹⁰ = 1024, and for m = 100 it is about 4 × 10⁵ instead of 10³⁰. Replacing ln|ℋ| with ln Π_ℋ(2m) in the uniform convergence proof (via a symmetrization argument) gives the **VC bound**: with probability at least 1 − δ, for all h ∈ ℋ,",
+        {
+          "eq": "R(h) ≤ R̂(h) + O( √( ( d ln(m/d) + ln(1/δ) ) / m ) )"
+        },
+        "so the number of examples needed to learn is roughly proportional to the VC dimension d, divided by ε² in the agnostic case.",
+        {
+          "key": "A class is learnable (in the PAC sense) if and only if it has finite VC dimension. Generalization needs the class to be rich enough to fit the target, and not so rich that it can shatter large samples."
+        }
+      ],
+      "check": [
+        {
+          "q": "The VC dimension of linear classifiers (with intercept) in ℝ⁵ is",
+          "a": "6",
+          "wrong": ["5", "4", "infinite"]
+        },
+        {
+          "q": "To shatter a set of points, a hypothesis class must",
+          "a": "realize every possible labeling of the points",
+          "wrong": [
+            "label all points correctly for one labeling only",
+            "have fewer than m hypotheses",
+            "contain a linear function"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rademacher",
+      "title": "Rademacher complexity and margin bounds",
+      "terms": [
+        "rademacher complexity",
+        "margin bound",
+        "norm-based bounds",
+        "structural risk minimization",
+        "algorithmic stability",
+        "pac-bayes"
+      ],
+      "body": [
+        "The VC dimension ignores the data and the algorithm: it is a worst case over distributions. The **Rademacher complexity** measures how well the class can fit random noise on the actual sample. Draw independent random signs σ_i ∈ {−1, +1} and let",
+        {
+          "eq": "R̂_m(ℋ) = E_σ [ sup_{h ∈ ℋ} (1/m) Σ_i σ_i h(x_i) ]"
+        },
+        "If ℋ can correlate with any pattern of random signs, its complexity is high. A standard bound says that with probability at least 1 − δ, for every h ∈ ℋ, the true risk is at most the empirical risk plus 2R̂_m(ℋ) + O(√(ln(1/δ)/m)), and it is usually tighter than the VC bound.",
+        {
+          "h": "Margin bounds"
+        },
+        "For linear classifiers with ‖w‖ ≤ B and inputs with ‖x‖ ≤ R, the Rademacher complexity is at most BR/√m, independent of the dimension. This leads to the bound for a classifier with margin γ (every training point satisfies y wᵀx ≥ γ):",
+        {
+          "eq": "R(w) ≲ R̂_γ(w) + O( R‖w‖ / (γ √m) )"
+        },
+        "Here R̂_γ is the fraction of training points with margin below γ. The bound depends on the ratio R‖w‖/γ, not on the number of features. That explains why support vector machines work in very high or infinite-dimensional kernel spaces: what counts is the margin. It also justifies weight decay: limiting ‖w‖ limits complexity, and for neural networks, norm-based bounds are one of the better partial explanations of generalization.",
+        {
+          "example": {
+            "title": "Sizing a margin bound",
+            "problem": "Inputs have norm at most R = 10, the weights satisfy ‖w‖ = 2, the margin is γ = 4 on all of m = 10,000 training points. Evaluate the complexity term R‖w‖/(γ√m).",
+            "solution": "R‖w‖/γ = 10 · 2/4 = 5, and 5/√10,000 = 0.05. Up to constants, the true error exceeds the training error (0 here) by about 5%. With 100 times fewer examples the term would be 10 times larger."
+          }
+        },
+        {
+          "h": "Other approaches"
+        },
+        {
+          "list": [
+            "**Structural risk minimization**: choose among nested classes ℋ₁ ⊂ ℋ₂ ⊂ … by minimizing training error plus the complexity bound. Regularization is a smooth version.",
+            "**Algorithmic stability**: if changing one training example changes the learned hypothesis's loss little, the algorithm generalizes, whatever the class. Strongly regularized methods (ridge, SVM) and SGD with few steps are stable.",
+            "**PAC-Bayes bounds** bound the risk of a randomized predictor drawn from a distribution Q over hypotheses by the training risk plus a term in KL(Q ‖ prior)/m. They give the tightest numerical guarantees yet obtained for neural networks."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "Why can margin bounds apply to SVMs with infinite-dimensional kernels?",
+          "a": "The bound depends on the margin and weight norm, not on the number of features",
+          "wrong": [
+            "Kernels reduce the dimension to 2",
+            "The VC dimension of kernel SVMs is always 3",
+            "The bound ignores the training error"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "theory-practice",
+      "title": "What theory says about practice",
+      "terms": [
+        "uniform convergence failure",
+        "implicit regularization",
+        "theory of deep learning",
+        "no free lunch and learning theory",
+        "sample size rule of thumb"
+      ],
+      "body": [
+        {
+          "list": [
+            "**More data helps, with diminishing returns**: errors fall like 1/√m (or like 1/m in the realizable case with small noise). Compare the learning curves in the Generalization chapter.",
+            "**Complexity must match the data**: the number of examples must exceed, roughly, the VC dimension (the number of parameters, for linear models) for the training error to be a reliable guide. A common rule of thumb, at least 10 examples per parameter for simple models, comes from this.",
+            "**Regularization and margins improve guarantees** without changing the number of parameters, by shrinking the effective class.",
+            "**Validation is a one-hypothesis bound**: a held-out set gives an honest estimate through Hoeffding, with error about 1/√m_val. Selecting among K models on it costs about √(ln K) in the bound.",
+            "**No free lunch** (see Inductive bias and no free lunch) is the other side: no bound can hold for all distributions without restricting the class."
+          ]
+        },
+        {
+          "h": "Where classical theory falls short"
+        },
+        "Modern deep networks have more parameters than training examples, VC dimensions in the millions, and yet generalize, even when able to fit random labels (Zhang et al., 2017). Classical uniform convergence over the whole class gives vacuous bounds. Explanations under active study:",
+        {
+          "list": [
+            "**Implicit regularization**: gradient descent from a small initialization prefers simple solutions (minimum norm, large margin) among the many that fit the data, so the effective class is small.",
+            "**Double descent**, seen in the Generalization chapter: test error can fall again beyond the interpolation threshold.",
+            "**Data-dependent and algorithm-dependent bounds**: PAC-Bayes, stability and compression bounds (a network that can be compressed to a few bits generalizes).",
+            "**Benign overfitting** in high-dimensional linear and kernel models, where interpolating noisy data still gives near-optimal predictions."
+          ]
+        },
+        {
+          "tip": "Use theory for what it does well: understanding scaling (how error should change with m and complexity), sanity checks (a class that can shatter your sample will overfit), and design principles (regularize, use margins, average), and use held-out data for the actual numbers."
+        }
+      ],
+      "check": [
+        {
+          "q": "Why is a classical VC bound vacuous for a network with 10⁸ parameters trained on 10⁶ examples?",
+          "a": "The VC dimension exceeds the number of examples, so the bound is larger than 1",
+          "wrong": [
+            "The VC dimension is zero",
+            "The training error is too high",
+            "Hoeffding's inequality does not apply to networks"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "PAC learning asks for risk below ε with probability 1 − δ. For a finite class and a consistent learner, m ≥ (1/ε)(ln|ℋ| + ln(1/δ)) examples suffice. The proof uses the union bound.",
+    "Hoeffding plus the union bound gives uniform convergence: |R̂(h) − R(h)| ≤ √((ln|ℋ| + ln(2/δ))/(2m)) for all h, so ERM is within 2γ of the best hypothesis in the class.",
+    "The VC dimension is the largest number of points the class can shatter. Lines in the plane have d_VC = 3 and linear classifiers in ℝⁿ have n + 1. A finite VC dimension characterizes PAC learnability, and the sample size scales with d.",
+    "Rademacher complexity measures the fit to random noise on the actual sample. Margin bounds depend on R‖w‖/(γ√m), not on the dimension, and so justify SVMs and weight decay.",
+    "For overparameterized deep networks, classical bounds are vacuous. Implicit regularization, double descent and PAC-Bayes bounds are active explanations."
+  ],
+  "problems": [
+    {
+      "q": "A class has |ℋ| = 2²⁰. How many examples guarantee risk ≤ 0.05 with confidence 99% for a consistent learner?",
+      "solution": "ln|ℋ| = 20 ln 2 = 13.86, ln(1/δ) = ln 100 = 4.605. m ≥ (13.86 + 4.605)/0.05 = 369.3.",
+      "a": "370 examples."
+    },
+    {
+      "q": "A hypothesis was chosen without looking at a test set of 2500 examples, on which it has error 0.12. Give an interval for its true error that holds with probability at least 95%.",
+      "solution": "Set 2e^{−2mγ²} = 0.05: γ = √(ln 40/(2 · 2500)) = √(3.689/5000) = 0.0272. The true error lies in [0.093, 0.147].",
+      "a": "0.12 ± 0.027."
+    },
+    {
+      "q": "Show that the class of intervals [a, b] on the real line has VC dimension exactly 2.",
+      "solution": "Two points x₁ < x₂ can be given any of the four labelings: both positive (an interval covering both), only one positive (an interval around it), none (an interval away from both). Three points x₁ < x₂ < x₃ cannot be labeled (+, −, +): an interval containing x₁ and x₃ contains x₂. So the maximum shattered size is 2.",
+      "a": "d_VC = 2."
+    },
+    {
+      "q": "Use Sauer's lemma to bound the number of distinct labelings of m = 20 points by a class with d_VC = 2, and compare with 2²⁰.",
+      "solution": "(em/d)^d = (e · 20/2)² = (27.18)² = 739. Compared with 2²⁰ = 1,048,576, the class can realize at most a tiny fraction of the labelings.",
+      "a": "At most 739 labelings."
+    },
+    {
+      "q": "For linear classifiers with R = 5, ‖w‖ = 3 and margin γ = 1.5, how many training examples are needed so that the margin complexity term R‖w‖/(γ√m) falls to 0.05?",
+      "solution": "R‖w‖/γ = 5 · 3/1.5 = 10. Setting 10/√m = 0.05 gives √m = 200, so m = 40,000.",
+      "a": "m = 40,000."
+    }
+  ]
+}

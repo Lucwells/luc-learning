@@ -1,0 +1,65 @@
+{
+  "id": "mathematics",
+  "title": "Mathematics for Machine Learning",
+  "kicker": "Textbook",
+  "color": "#1b5e20",
+  "subtitle": "Calculus, linear algebra, probability, optimization and information theory, with machine learning in mind.",
+  "preface": [
+    "This book is the mathematics that the Machine Learning book uses: single and multivariable calculus, linear algebra, probability, statistical estimation, optimization and information theory. It matches the lower-division and early upper-division courses at Stanford (Math 51, CS 109, CS 205L) and Berkeley (Math 53, Math 54, EECS 16A/16B, CS 70, Stat 134, EECS 127).",
+    "The treatment is concise. Definitions come with a reason for being, results come with a proof or a derivation when the argument teaches something, and examples are numerical and checked. Where a concept matters for machine learning, the text says where it reappears.",
+    "Read the parts in order: Calculus, Linear Algebra, Probability, Estimation, then Optimization and Information. The Linear Algebra and Probability parts are the ones to know best before starting Machine Learning."
+  ],
+  "links": [
+    "machine-learning",
+    "data-science",
+    "computer-science"
+  ],
+  "parts": [
+    {
+      "title": "Calculus",
+      "blurb": "Derivatives, integrals and series in one variable, then gradients, Jacobians and Hessians in many.",
+      "chapters": [
+        "mathematics/calculus/single-variable",
+        "mathematics/calculus/multivariable"
+      ]
+    },
+    {
+      "title": "Linear Algebra",
+      "blurb": "Vectors, matrices, subspaces, orthogonality, eigenvalues and the singular value decomposition.",
+      "chapters": [
+        "mathematics/linear-algebra/vectors-matrices",
+        "mathematics/linear-algebra/vector-spaces",
+        "mathematics/linear-algebra/orthogonality",
+        "mathematics/linear-algebra/eigen",
+        "mathematics/linear-algebra/svd"
+      ]
+    },
+    {
+      "title": "Probability",
+      "blurb": "Events, random variables, joint distributions, the Gaussian and limit theorems.",
+      "chapters": [
+        "mathematics/probability/probability-basics",
+        "mathematics/probability/random-variables",
+        "mathematics/probability/multivariate",
+        "mathematics/probability/limit-theorems"
+      ]
+    },
+    {
+      "title": "Estimation",
+      "blurb": "Maximum likelihood, Bayesian estimation and the properties of estimators.",
+      "chapters": [
+        "mathematics/estimation/estimation"
+      ]
+    },
+    {
+      "title": "Optimization and Information",
+      "blurb": "Convexity, gradient methods, constrained optimization, duality, entropy and divergence.",
+      "chapters": [
+        "mathematics/optimization/convex-optimization",
+        "mathematics/optimization/gradient-methods",
+        "mathematics/optimization/constrained",
+        "mathematics/optimization/information-theory"
+      ]
+    }
+  ]
+}

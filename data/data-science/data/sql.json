@@ -1,0 +1,496 @@
+{
+  "id": "sql",
+  "view": "chapter",
+  "title": "Databases and SQL",
+  "description": "The relational model, SELECT queries, aggregation, joins, subqueries and window functions, and how data scientists use a database.",
+  "overview": [
+    "Most of the world's data live in databases, not in files on your laptop. A relational database stores data in tables, guarantees their consistency, lets many people use them at once, and answers questions by running queries written in SQL (Structured Query Language), a declarative language: you state what you want, not how to compute it, and the database finds an efficient way. Data scientists typically get their data by writing SQL, because filtering, joining and aggregating inside the database is far faster than first copying billions of rows into memory.",
+    "This chapter covers the relational model and the core of SQL: SELECT with filtering and sorting, aggregation with GROUP BY, joins, subqueries and common table expressions, and window functions. The examples use one small data set, so that every result can be checked by hand, and the same operations appear in the pandas chapter."
+  ],
+  "objectives": [
+    "Describe tables, keys, schemas and why databases are used instead of files.",
+    "Write SELECT queries with WHERE, ORDER BY and LIMIT, and handle NULL correctly.",
+    "Aggregate with GROUP BY and HAVING, and explain the logical order of evaluation of a query.",
+    "Join tables with inner and left joins, and use subqueries and CTEs.",
+    "Use window functions for running totals, ranks and comparisons with previous rows, and know the basics of indexes, transactions and normalization."
+  ],
+  "sections": [
+    {
+      "id": "relational",
+      "title": "The relational model",
+      "terms": [
+        "relational database",
+        "sql",
+        "schema",
+        "primary key in a database",
+        "foreign key in a database",
+        "sqlite",
+        "database management system",
+        "relation"
+      ],
+      "body": [
+        "A **relational database** organizes data in **tables** (relations). A table has a fixed **schema**: named columns with types. Each row is a record. A **primary key** is a column (or set of columns) whose value uniquely identifies a row. A **foreign key** is a column that refers to the primary key of another table, which links the tables and lets the database enforce that, for example, every order refers to an existing customer.",
+        "The examples below use two small tables.",
+        {
+          "table": {
+            "head": [
+              "id",
+              "name",
+              "city"
+            ],
+            "rows": [
+              [
+                "1",
+                "Ann",
+                "Oslo"
+              ],
+              [
+                "2",
+                "Bo",
+                "Rome"
+              ],
+              [
+                "3",
+                "Cy",
+                "Oslo"
+              ]
+            ],
+            "caption": "customers (primary key: id)."
+          }
+        },
+        {
+          "table": {
+            "head": [
+              "order_id",
+              "customer_id",
+              "amount",
+              "order_date"
+            ],
+            "rows": [
+              [
+                "101",
+                "1",
+                "20",
+                "2024-01-05"
+              ],
+              [
+                "102",
+                "1",
+                "35",
+                "2024-01-20"
+              ],
+              [
+                "103",
+                "2",
+                "15",
+                "2024-02-02"
+              ],
+              [
+                "104",
+                "4",
+                "50",
+                "2024-02-10"
+              ]
+            ],
+            "caption": "orders (primary key: order_id; customer_id refers to customers.id). Order 104 refers to a customer that is not in the table."
+          }
+        },
+        {
+          "code": [
+            "CREATE TABLE customers (",
+            "    id    INTEGER PRIMARY KEY,",
+            "    name  TEXT NOT NULL,",
+            "    city  TEXT",
+            ");",
+            "CREATE TABLE orders (",
+            "    order_id    INTEGER PRIMARY KEY,",
+            "    customer_id INTEGER REFERENCES customers(id),",
+            "    amount      REAL,",
+            "    order_date  TEXT",
+            ");"
+          ],
+          "caption": "Creating the tables. The REFERENCES clause declares the foreign key. (The row of order 104 would violate it if the database enforced the constraint; real data often do not, which is why join checks matter.)"
+        },
+        {
+          "h": "Why use a database?"
+        },
+        {
+          "list": [
+            "**Scale**: tables can hold billions of rows, with indexes (below) that find a row in milliseconds, and the database processes the data on its own machine.",
+            "**Consistency and safety**: constraints (types, keys, NOT NULL) and **transactions** keep the data valid, and the data survive crashes.",
+            "**Concurrency**: many users and programs read and write at once without corrupting each other's work.",
+            "**One shared source of truth** that everyone queries, instead of many copies of spreadsheets that diverge.",
+            "SQL is the common language of PostgreSQL, MySQL, SQLite, SQL Server, Oracle and of data warehouses and engines such as BigQuery, Snowflake, Spark SQL and DuckDB. The core is standard and portable. **SQLite** is a database in a single file with no server, ideal for learning, and included in Python (the sqlite3 module); DuckDB is a similar embedded engine designed for analytics."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "A foreign key is",
+          "a": "a column that refers to the primary key of another table",
+          "wrong": [
+            "a column that must be unique in its own table",
+            "an encrypted column",
+            "the first column of any table"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "select",
+      "title": "SELECT, filtering and NULL",
+      "terms": [
+        "select statement",
+        "where clause",
+        "order by",
+        "limit clause",
+        "null in sql",
+        "like operator",
+        "three-valued logic",
+        "coalesce",
+        "case expression"
+      ],
+      "body": [
+        "A query reads data with **SELECT** (which columns), **FROM** (which table), **WHERE** (which rows), **ORDER BY** (sorting) and **LIMIT** (how many).",
+        {
+          "code": [
+            "SELECT name, city",
+            "FROM customers",
+            "WHERE city = 'Oslo'",
+            "ORDER BY name;",
+            "-- Ann | Oslo",
+            "-- Cy  | Oslo",
+            "",
+            "SELECT order_id, amount * 1.25 AS amount_with_tax      -- an expression with an alias",
+            "FROM orders",
+            "WHERE amount BETWEEN 15 AND 40 AND order_date >= '2024-01-10'",
+            "ORDER BY amount DESC",
+            "LIMIT 2;",
+            "-- 102 | 43.75",
+            "-- 103 | 18.75"
+          ],
+          "caption": "Selecting, filtering and sorting. Keywords are not case-sensitive, and the clauses must appear in this order."
+        },
+        {
+          "list": [
+            "Comparison operators: =, <> (or !=), <, <=, >, >=. Combine with AND, OR, NOT. **IN** ('Oslo', 'Rome') tests membership, **BETWEEN a AND b** is inclusive, and **LIKE** 'A%' matches strings by pattern (% is any run of characters, _ one character).",
+            "**DISTINCT** removes duplicate rows: SELECT DISTINCT city FROM customers.",
+            "**CASE** makes conditional columns: CASE WHEN amount >= 30 THEN 'large' ELSE 'small' END.",
+            "Avoid SELECT * in analyses and production code: list the columns you need, which is faster and keeps the query stable when the table changes."
+          ]
+        },
+        {
+          "h": "NULL"
+        },
+        "A missing value is **NULL**, and it is not a value but a marker for 'unknown'. Comparisons with NULL are unknown, not true or false: NULL = NULL is NULL, so WHERE city = NULL returns no rows, even for rows with a missing city. SQL has **three-valued logic** (true, false, unknown), and WHERE keeps only the rows where the condition is true.",
+        {
+          "code": [
+            "SELECT * FROM customers WHERE city IS NULL;       -- correct test for missing",
+            "SELECT * FROM customers WHERE city <> 'Oslo';     -- does NOT return rows where city is NULL",
+            "SELECT COALESCE(city, 'unknown') FROM customers;  -- replace NULL by a default",
+            "",
+            "-- aggregates ignore NULLs; COUNT(*) counts rows, COUNT(city) counts non-NULL cities"
+          ]
+        },
+        {
+          "warn": "A filter such as WHERE city <> 'Oslo' silently drops the rows with a NULL city. When the data have missing values, decide explicitly how they should be treated, with IS NULL or COALESCE."
+        }
+      ],
+      "check": [
+        {
+          "q": "SELECT * FROM t WHERE x = NULL returns",
+          "a": "no rows, because a comparison with NULL is never true",
+          "wrong": [
+            "all rows where x is missing",
+            "all rows",
+            "an error"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "aggregation",
+      "title": "Aggregation and GROUP BY",
+      "terms": [
+        "group by",
+        "having clause",
+        "aggregate function",
+        "order of evaluation of sql",
+        "sum and avg in sql"
+      ],
+      "body": [
+        "Aggregate functions (COUNT, SUM, AVG, MIN, MAX) collapse many rows into one value. With **GROUP BY** they are computed separately for each group, the split–apply–combine pattern of the previous chapter.",
+        {
+          "code": [
+            "SELECT city, COUNT(*) AS n_customers",
+            "FROM customers",
+            "GROUP BY city;",
+            "-- Oslo | 2",
+            "-- Rome | 1",
+            "",
+            "SELECT customer_id, SUM(amount) AS total, COUNT(*) AS n_orders",
+            "FROM orders",
+            "GROUP BY customer_id",
+            "HAVING SUM(amount) > 20;           -- HAVING filters groups, WHERE filters rows",
+            "-- 1 | 55 | 2",
+            "-- 4 | 50 | 1"
+          ],
+          "caption": "Totals are computed per customer (1: 55, 2: 15, 4: 50). HAVING keeps only the groups with a total above 20, so customer 2 is dropped."
+        },
+        {
+          "h": "The logical order of evaluation"
+        },
+        "A SQL query is written starting with SELECT but is evaluated in this order, which explains what each clause can see:",
+        {
+          "list": [
+            "**FROM** (and JOIN): form the input rows.",
+            "**WHERE**: filter individual rows (before grouping, so it cannot use aggregates).",
+            "**GROUP BY**: form groups.",
+            "**HAVING**: filter groups (can use aggregates).",
+            "**SELECT**: compute the output columns and aliases.",
+            "**ORDER BY**: sort. **LIMIT**: keep the first rows."
+          ],
+          "ordered": true
+        },
+        "Every column in the SELECT list of a grouped query must either be a grouping column or be inside an aggregate function. Aggregates over an empty set: COUNT is 0, but SUM, AVG, MIN and MAX are NULL, which matters for groups with no rows (use COALESCE(SUM(x), 0)).",
+        {
+          "example": {
+            "title": "Reading a query's result",
+            "problem": "What does SELECT customer_id, AVG(amount) FROM orders WHERE amount > 15 GROUP BY customer_id return?",
+            "solution": "WHERE keeps orders 101 (20), 102 (35) and 104 (50), dropping 103 (15). Grouping by customer: customer 1 has 20 and 35, average 27.5; customer 4 has 50. Result: (1, 27.5) and (4, 50.0). Customer 2 does not appear: its only order was filtered out by WHERE before grouping."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "The difference between WHERE and HAVING is that",
+          "a": "WHERE filters rows before grouping and HAVING filters groups after aggregation",
+          "wrong": [
+            "HAVING is faster than WHERE",
+            "WHERE can use aggregates and HAVING cannot",
+            "they are the same"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sql-joins",
+      "title": "Joins, subqueries and CTEs",
+      "terms": [
+        "sql join",
+        "inner join in sql",
+        "left join in sql",
+        "subquery",
+        "common table expression",
+        "cte",
+        "self-join",
+        "union"
+      ],
+      "body": [
+        "A **join** combines rows of two tables that match on a condition (the same operation as merge in pandas).",
+        {
+          "code": [
+            "SELECT c.name, o.order_id, o.amount",
+            "FROM customers AS c",
+            "INNER JOIN orders AS o ON o.customer_id = c.id;",
+            "-- Ann | 101 | 20",
+            "-- Ann | 102 | 35",
+            "-- Bo  | 103 | 15            (3 rows: Cy has no orders, order 104 has no customer)",
+            "",
+            "SELECT c.name, COALESCE(SUM(o.amount), 0) AS total",
+            "FROM customers AS c",
+            "LEFT JOIN orders AS o ON o.customer_id = c.id     -- keep customers with no orders",
+            "GROUP BY c.name;",
+            "-- Ann | 55",
+            "-- Bo  | 15",
+            "-- Cy  | 0"
+          ],
+          "caption": "INNER JOIN keeps only matching rows; LEFT JOIN keeps all rows of the left table, filling NULL where there is no match."
+        },
+        {
+          "list": [
+            "**Find the rows with no match**: LEFT JOIN, then WHERE o.order_id IS NULL, lists customers without orders (here Cy).",
+            "As in pandas, **check the row count** of a join. A key that repeats on both sides multiplies rows, and then SUM aggregates are inflated (a classic bug: joining to a table with several rows per customer and then summing a customer-level column).",
+            "A **self-join** joins a table to itself, for example to compare each employee with their manager."
+          ]
+        },
+        {
+          "h": "Subqueries and common table expressions"
+        },
+        "A **subquery** is a query inside another. A **common table expression** (CTE), introduced by WITH, names an intermediate result and makes long queries readable, like a function.",
+        {
+          "code": [
+            "-- customers whose total spending exceeds the average customer total",
+            "WITH totals AS (",
+            "    SELECT customer_id, SUM(amount) AS total",
+            "    FROM orders",
+            "    GROUP BY customer_id",
+            ")",
+            "SELECT customer_id, total",
+            "FROM totals",
+            "WHERE total > (SELECT AVG(total) FROM totals);",
+            "-- the totals are 55, 15, 50 with average 40: customers 1 (55) and 4 (50)"
+          ],
+          "caption": "A CTE and a scalar subquery."
+        },
+        "**EXISTS** tests whether a subquery returns any rows: WHERE EXISTS (SELECT 1 FROM orders o WHERE o.customer_id = c.id) selects customers with at least one order. **UNION** stacks the results of two queries with the same columns, like concat."
+      ],
+      "check": [
+        {
+          "q": "To list customers who have no orders, use",
+          "a": "a LEFT JOIN from customers to orders with WHERE orders.order_id IS NULL",
+          "wrong": [
+            "an INNER JOIN with WHERE orders.order_id = NULL",
+            "GROUP BY city",
+            "ORDER BY customer_id"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "windows",
+      "title": "Window functions and database practice",
+      "terms": [
+        "window function",
+        "window functions",
+        "over clause",
+        "partition by",
+        "row_number",
+        "lag",
+        "running total",
+        "database index",
+        "transaction",
+        "acid",
+        "sql injection"
+      ],
+      "body": [
+        "A **window function** computes a value for each row from a set (a 'window') of related rows, without collapsing the rows as GROUP BY does. It is written with an **OVER** clause that gives the partition (PARTITION BY) and the order (ORDER BY) within it.",
+        {
+          "code": [
+            "SELECT customer_id, order_id, amount,",
+            "       SUM(amount)  OVER (PARTITION BY customer_id ORDER BY order_date) AS running_total,",
+            "       ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY amount DESC) AS rank_in_customer,",
+            "       LAG(amount)  OVER (PARTITION BY customer_id ORDER BY order_date) AS previous_amount",
+            "FROM orders;",
+            "-- customer_id | order_id | amount | running_total | rank_in_customer | previous_amount",
+            "--           1 |      101 |     20 |            20 |                2 |            NULL",
+            "--           1 |      102 |     35 |            55 |                1 |              20",
+            "--           2 |      103 |     15 |            15 |                1 |            NULL",
+            "--           4 |      104 |     50 |            50 |                1 |            NULL"
+          ],
+          "caption": "A running total, a rank within each customer, and the previous order's amount. The number of rows is unchanged."
+        },
+        {
+          "list": [
+            "Ranking: ROW_NUMBER (1, 2, 3, …), RANK (ties share a rank, then skip), DENSE_RANK (no skipping). **Top-N per group**: compute ROW_NUMBER() in a subquery or CTE and keep rows with rank ≤ N, for instance each customer's three largest orders.",
+            "Offsets: LAG(x, k) and LEAD(x, k) read the value k rows before or after, for period-over-period changes. Moving averages: AVG(x) OVER (ORDER BY d ROWS BETWEEN 6 PRECEDING AND CURRENT ROW).",
+            "Shares: amount / SUM(amount) OVER (PARTITION BY customer_id) gives each order's share of its customer's total."
+          ]
+        },
+        {
+          "h": "Indexes, transactions, design"
+        },
+        {
+          "list": [
+            "An **index** is an auxiliary sorted structure, typically a B-tree (see Data Structures), on one or more columns. It lets the database find rows by a key in O(log n) instead of scanning the whole table, and speeds up joins, filters and sorts on that column, at the price of space and slower writes. Look at the plan with EXPLAIN. Primary keys are indexed automatically; add indexes for columns used often in WHERE and JOIN.",
+            "A **transaction** groups several statements that succeed or fail together. The ACID properties: **A**tomicity (all or nothing), **C**onsistency (constraints hold), **I**solation (concurrent transactions do not interfere), **D**urability (committed data survive crashes). A bank transfer is the standard example: debit and credit must both happen or neither.",
+            "**Normalization** removes redundancy by storing each fact once, in its own table linked by keys (customers in one table, orders in another, not the customer's address repeated in every order). It prevents inconsistent updates. Analytical databases often **denormalize** into wide tables for query speed.",
+            "**Parameterized queries** protect against **SQL injection**: never build SQL by pasting user input into the query text; pass values separately."
+          ]
+        },
+        {
+          "code": [
+            "import sqlite3, pandas as pd",
+            "",
+            "con = sqlite3.connect('shop.db')",
+            "df = pd.read_sql_query(",
+            "    'SELECT customer_id, SUM(amount) AS total FROM orders WHERE order_date >= ? GROUP BY customer_id',",
+            "    con, params=('2024-02-01',))        # the ? placeholder is filled safely",
+            "con.close()"
+          ],
+          "caption": "Running a parameterized query from Python and getting a DataFrame. Do the heavy filtering and aggregation in SQL, and bring only the result into pandas."
+        },
+        {
+          "tip": "Write queries incrementally: start with the FROM and JOIN and look at a few rows, add the WHERE, then the GROUP BY. Check row counts at each step, and compare an aggregate computed two different ways before trusting it."
+        }
+      ],
+      "check": [
+        {
+          "q": "How do window functions differ from GROUP BY aggregates?",
+          "a": "They compute a value per row from a window of rows, keeping every row in the output",
+          "wrong": [
+            "They collapse each group to one row",
+            "They can only be used on sorted tables",
+            "They run only on indexed columns"
+          ]
+        },
+        {
+          "q": "An index on a column makes lookups by that column",
+          "a": "much faster (about O(log n)), at the cost of extra space and slower writes",
+          "wrong": [
+            "slower but more accurate",
+            "unnecessary, since tables are always sorted",
+            "impossible to combine with joins"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "A relational database stores typed tables with primary and foreign keys, and provides scale, consistency, concurrency and a shared source of truth. SQL is declarative.",
+    "SELECT … FROM … WHERE … ORDER BY … LIMIT filters and sorts. NULL means unknown: use IS NULL and COALESCE, and remember that comparisons with NULL are not true.",
+    "GROUP BY with aggregates summarizes groups, and HAVING filters groups. The logical order is FROM, WHERE, GROUP BY, HAVING, SELECT, ORDER BY, LIMIT.",
+    "INNER JOIN keeps matches, LEFT JOIN keeps all left rows with NULLs for non-matches; check row counts. CTEs and subqueries structure complex queries.",
+    "Window functions (SUM/ROW_NUMBER/LAG OVER (PARTITION BY … ORDER BY …)) give running totals, ranks and period comparisons without collapsing rows. Indexes speed lookups, transactions give ACID, normalization avoids redundancy, and parameterized queries prevent injection."
+  ],
+  "problems": [
+    {
+      "q": "Using the customers and orders tables of the chapter, what does SELECT c.city, SUM(o.amount) FROM customers c JOIN orders o ON o.customer_id = c.id GROUP BY c.city return?",
+      "solution": "The join keeps orders 101, 102 (Ann, Oslo) and 103 (Bo, Rome). Oslo: 20 + 35 = 55. Rome: 15. Order 104 has no customer and is dropped by the inner join.",
+      "a": "Oslo 55; Rome 15."
+    },
+    {
+      "q": "Write a query for the number of orders and the total amount per customer name, including customers without orders (show 0).",
+      "solution": [
+        "Use a LEFT JOIN, count a column of the orders table (not *) so that customers without orders give 0:",
+        {
+          "code": [
+            "SELECT c.name, COUNT(o.order_id) AS n_orders, COALESCE(SUM(o.amount), 0) AS total",
+            "FROM customers c LEFT JOIN orders o ON o.customer_id = c.id",
+            "GROUP BY c.name;"
+          ]
+        },
+        "The result is Ann 2 55, Bo 1 15, Cy 0 0."
+      ],
+      "a": "Ann (2, 55), Bo (1, 15), Cy (0, 0)."
+    },
+    {
+      "q": "Write a query returning, for each customer, their largest single order.",
+      "solution": [
+        "With a window function:",
+        {
+          "code": [
+            "WITH ranked AS (",
+            "    SELECT customer_id, order_id, amount,",
+            "           ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY amount DESC) AS rn",
+            "    FROM orders",
+            ")",
+            "SELECT customer_id, order_id, amount FROM ranked WHERE rn = 1;"
+          ]
+        },
+        "The rows are (1, 102, 35), (2, 103, 15) and (4, 104, 50). A simple alternative is SELECT customer_id, MAX(amount) FROM orders GROUP BY customer_id when the other columns are not needed."
+      ],
+      "a": "(1, 102, 35), (2, 103, 15), (4, 104, 50)."
+    },
+    {
+      "q": "A table has 5 rows with city values 'Oslo', 'Rome', NULL, 'Oslo', NULL. What do COUNT(*), COUNT(city), COUNT(DISTINCT city) and the filter WHERE city <> 'Oslo' return?",
+      "solution": "COUNT(*) = 5; COUNT(city) = 3 (NULLs skipped); COUNT(DISTINCT city) = 2; the filter keeps only 'Rome' (1 row), because the comparison with NULL is unknown and drops the two NULL rows.",
+      "a": "5, 3, 2 and 1 row."
+    },
+    {
+      "q": "A join of a 1000-row customers table to an orders table on customer id gives 1000 rows with an INNER JOIN, but customers has 1000 and orders has 5000 rows. What should you suspect?",
+      "solution": "With 5000 orders and a join on customer id, the inner join should return as many rows as there are matching orders, not 1000. If it returned exactly 1000, most orders have no matching customer (a key mismatch such as different id types or formats), or the join condition is wrong. Check unmatched rows with a LEFT JOIN and IS NULL, and compare the number of distinct keys on each side.",
+      "a": "Most orders have unmatched keys, or the join condition is wrong; investigate with a LEFT JOIN and IS NULL."
+    }
+  ]
+}

@@ -1,0 +1,456 @@
+{
+  "id": "numpy",
+  "view": "chapter",
+  "title": "Array Programming with NumPy",
+  "description": "Arrays, indexing, vectorization, broadcasting, linear algebra routines, random numbers and the performance habits of numerical Python.",
+  "overview": [
+    "A Python loop over a million numbers is slow, because the interpreter handles every addition one at a time. NumPy moves the loop into compiled code. Its central object, the n-dimensional array, stores numbers contiguously in memory with a single type, and operations apply to whole arrays at once: this is vectorization. It is what makes numerical Python fast enough for machine learning, and its conventions (shapes, axes, broadcasting) are inherited by PyTorch, TensorFlow and JAX.",
+    "A model in this style is written as a few lines of array algebra that mirror the mathematics: X @ w for the predictions of a linear model, a matrix product for a layer. This chapter teaches that style: how to think about shapes, how to avoid loops, how to use broadcasting and the linear algebra routines, and how to generate random numbers reproducibly."
+  ],
+  "objectives": [
+    "Create arrays, read their shape and dtype, and index with slices, boolean masks and integer arrays.",
+    "Replace Python loops with vectorized operations and reductions along an axis.",
+    "Apply the broadcasting rules to predict result shapes, and use them to standardize data and compute distances.",
+    "Solve linear systems and least squares, and write stable softmax and logistic functions.",
+    "Use a seeded random generator, split data and bootstrap; estimate memory use and avoid common performance traps."
+  ],
+  "sections": [
+    {
+      "id": "arrays",
+      "title": "Arrays, shapes and indexing",
+      "terms": [
+        "ndarray",
+        "numpy array",
+        "array shape",
+        "boolean mask",
+        "fancy indexing",
+        "view versus copy"
+      ],
+      "body": [
+        "An **ndarray** is a grid of numbers of one type (its **dtype**, such as float64, float32 or int64). Its **shape** is the tuple of its sizes along each **axis**: a data matrix with m examples and n features has shape (m, n); a color image batch has shape (batch, height, width, channels).",
+        {
+          "code": [
+            "import numpy as np",
+            "",
+            "X = np.array([[1, 2], [3, 4], [5, 6]])",
+            "X.shape       # (3, 2)",
+            "X.ndim        # 2",
+            "X.dtype       # int64",
+            "",
+            "np.zeros((2, 3))        # 2x3 array of 0.0",
+            "np.ones(4)              # [1., 1., 1., 1.]",
+            "np.arange(0, 10, 2)     # [0, 2, 4, 6, 8]",
+            "np.linspace(0, 1, 5)    # [0., 0.25, 0.5, 0.75, 1.]",
+            "np.eye(3)               # 3x3 identity matrix"
+          ],
+          "caption": "Creating arrays and reading their shape."
+        },
+        {
+          "h": "Indexing"
+        },
+        {
+          "code": [
+            "X[1]            # row 1:    [3, 4]",
+            "X[:, 0]         # column 0: [1, 3, 5]",
+            "X[0:2, 1]       # rows 0-1 of column 1: [2, 4]",
+            "X[X > 2]        # boolean mask, flattened: [3, 4, 5, 6]",
+            "X[[2, 0]]       # rows 2 and 0 (integer array): [[5, 6], [1, 2]]",
+            "",
+            "y = np.array([0, 1, 1])",
+            "X[y == 1]       # the rows whose label is 1: [[3, 4], [5, 6]]"
+          ],
+          "caption": "Slices, boolean masks and integer-array indexing. Selecting the examples of one class is one line."
+        },
+        {
+          "list": [
+            "A **slice** like X[:, 0] is a **view**: it shares memory with X, so changing it changes X. Boolean and integer-array indexing return **copies**. Use .copy() to detach a view.",
+            "**reshape** changes the shape without changing the data (total size must match): np.arange(6).reshape(2, 3). Use -1 for one dimension to be inferred: x.reshape(-1, 1) turns a vector of length m into an (m, 1) column.",
+            "**Transpose**: X.T swaps axes. **Concatenation**: np.concatenate, np.vstack, np.hstack, np.column_stack.",
+            "Arrays have one dtype, so mixing integers and floats upcasts to float. Choosing float32 halves memory and speeds up GPU work; float64 is the default for scientific code."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "An array has shape (1000, 20). What does X[:, 3] select?",
+          "a": "column 3, a vector of 1000 values",
+          "wrong": [
+            "row 3, a vector of 20 values",
+            "the first three columns",
+            "a single number"
+          ]
+        },
+        {
+          "q": "X[:, 0] on a NumPy array returns",
+          "a": "a view that shares memory with X",
+          "wrong": [
+            "an independent copy",
+            "a Python list",
+            "an error"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vectorization",
+      "title": "Vectorization",
+      "terms": [
+        "vectorization",
+        "vectorized operations",
+        "universal function",
+        "ufunc",
+        "numpy aggregation",
+        "loop-free code"
+      ],
+      "body": [
+        "**Vectorization** means expressing a computation as operations on whole arrays instead of loops over elements. Arithmetic operators and mathematical functions (np.exp, np.log, np.sqrt) are **universal functions** that act elementwise. **Reductions** (sum, mean, max, argmax, std) collapse an axis.",
+        {
+          "code": [
+            "a = np.array([1.0, 2.0, 3.0])",
+            "b = np.array([4.0, 5.0, 6.0])",
+            "a + b         # [5., 7., 9.]",
+            "a * b         # [4., 10., 18.]   (elementwise, not a dot product)",
+            "a @ b         # 32.0             (dot product)",
+            "np.exp(a)     # [2.718, 7.389, 20.086]",
+            "",
+            "X = np.array([[1, 2], [3, 4], [5, 6]])",
+            "X.sum()          # 21",
+            "X.sum(axis=0)    # [9, 12]    sum down the rows -> one value per column",
+            "X.sum(axis=1)    # [3, 7, 11] sum across the columns -> one value per row",
+            "X.mean(axis=0)   # [3., 4.]",
+            "X.argmax(axis=1) # [1, 1, 1]  index of the largest entry in each row"
+          ],
+          "caption": "Elementwise operations and reductions. The axis argument names the axis that disappears."
+        },
+        "Compare computing a mean squared error. In pure Python: sum((p - t) ** 2 for p, t in zip(preds, targets)) / len(preds). With arrays it is one line with no loop:",
+        {
+          "code": [
+            "mse = np.mean((preds - targets) ** 2)"
+          ]
+        },
+        {
+          "example": {
+            "title": "Why vectorization is fast",
+            "problem": "Summing the squares of 10⁶ numbers takes about 100 milliseconds with a Python loop and about 1 millisecond with np.dot(x, x). Why the difference?",
+            "solution": "The Python loop executes about 10⁶ interpreter steps, each of which looks up types, allocates objects and dispatches an operation (roughly 100 nanoseconds each). NumPy does one call into compiled code that streams through contiguous memory, with the CPU's SIMD instructions and optimized BLAS libraries. The cost per element drops to about 1 nanosecond. The speedup of 50 to 100 times is typical, and larger on GPUs."
+          }
+        },
+        {
+          "tip": "When you find yourself writing a for loop over examples or over elements, look for an array formulation. Loops over epochs, batches or layers are fine, since each iteration does a lot of work. Loops over individual numbers are the thing to avoid."
+        }
+      ],
+      "check": [
+        {
+          "q": "X has shape (100, 5). X.mean(axis=0) has shape",
+          "a": "(5,)",
+          "wrong": [
+            "(100,)",
+            "(100, 5)",
+            "()"
+          ]
+        },
+        {
+          "q": "For arrays a and b, a * b computes",
+          "a": "the elementwise product",
+          "wrong": [
+            "the dot product",
+            "the matrix product",
+            "the outer product"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "broadcasting",
+      "title": "Broadcasting",
+      "terms": [
+        "broadcasting",
+        "numpy broadcasting rules",
+        "newaxis",
+        "keepdims",
+        "pairwise distances"
+      ],
+      "body": [
+        "**Broadcasting** lets arrays of different shapes be combined elementwise, by virtually stretching the smaller one. The rule: align the shapes from the right; two dimensions are compatible if they are equal or one of them is 1 (a missing dimension counts as 1). A dimension of size 1 is repeated to match the other.",
+        {
+          "table": {
+            "head": [
+              "Shapes",
+              "Result",
+              "Example"
+            ],
+            "rows": [
+              [
+                "(3, 2) and (2,)",
+                "(3, 2)",
+                "subtract the column means from a data matrix"
+              ],
+              [
+                "(3, 2) and (3, 1)",
+                "(3, 2)",
+                "divide each row by its own norm"
+              ],
+              [
+                "(3, 1) and (1, 2)",
+                "(3, 2)",
+                "outer sum or product"
+              ],
+              [
+                "(3, 2) and (3,)",
+                "error",
+                "shapes (3, 2) and (3,) align as 2 vs 3: incompatible"
+              ]
+            ],
+            "caption": "Broadcasting examples."
+          }
+        },
+        {
+          "code": [
+            "X = np.array([[1., 2.], [3., 4.], [5., 6.]])",
+            "mean = X.mean(axis=0)        # shape (2,):  [3., 4.]",
+            "std = X.std(axis=0)          # shape (2,):  [1.633, 1.633]",
+            "Z = (X - mean) / std         # (3,2) - (2,) -> (3,2)",
+            "# Z = [[-1.225, -1.225], [0., 0.], [1.225, 1.225]]",
+            "",
+            "norms = np.linalg.norm(X, axis=1, keepdims=True)   # shape (3, 1)",
+            "X_unit = X / norms           # each row now has length 1"
+          ],
+          "caption": "Standardizing the columns (each feature gets mean 0 and standard deviation 1), and normalizing the rows. keepdims=True keeps a size-1 axis so the result broadcasts correctly."
+        },
+        {
+          "h": "Pairwise distances without loops"
+        },
+        "Insert axes with None (or np.newaxis) to make shapes (n, 1, d) and (1, m, d), subtract (the result is (n, m, d)), square and sum over the last axis:",
+        {
+          "code": [
+            "A = np.random.rand(500, 8)    # 500 points in 8 dimensions",
+            "B = np.random.rand(300, 8)",
+            "D2 = ((A[:, None, :] - B[None, :, :]) ** 2).sum(axis=-1)   # (500, 300)",
+            "",
+            "# Cheaper in memory: ||a - b||^2 = ||a||^2 + ||b||^2 - 2 a.b",
+            "D2 = (A ** 2).sum(1)[:, None] + (B ** 2).sum(1)[None, :] - 2 * A @ B.T"
+          ],
+          "caption": "All squared Euclidean distances between two point sets, as used by k-means and nearest neighbors. The second form avoids the (500, 300, 8) intermediate array."
+        },
+        {
+          "warn": "Broadcasting silently succeeds on shapes you did not intend. A vector of shape (m,) minus a column of shape (m, 1) gives an (m, m) matrix, not an m-vector, and a loss computed on such a result is wrong with no error. Print the shapes while writing code, and prefer explicit reshapes."
+        }
+      ],
+      "check": [
+        {
+          "q": "Arrays of shapes (4, 1) and (1, 5) broadcast to shape",
+          "a": "(4, 5)",
+          "wrong": [
+            "(4, 1)",
+            "(5, 4)",
+            "they cannot be broadcast"
+          ]
+        },
+        {
+          "q": "Why use keepdims=True in X.sum(axis=1, keepdims=True)?",
+          "a": "The result keeps shape (m, 1) so it broadcasts against X row by row",
+          "wrong": [
+            "It makes the sum faster",
+            "It preserves the dtype",
+            "It sums over all axes"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "linalg",
+      "title": "Linear algebra and numerical recipes",
+      "terms": [
+        "numpy linear algebra",
+        "np.linalg",
+        "matrix product operator",
+        "lstsq",
+        "einsum",
+        "stable softmax",
+        "sigmoid function code"
+      ],
+      "body": [
+        "NumPy's linear algebra routines call optimized libraries (BLAS and LAPACK). The matrix product is the @ operator. For shapes (m, n) @ (n, k) the result is (m, k); a matrix times a vector, (m, n) @ (n,), is (m,).",
+        {
+          "code": [
+            "A = np.array([[2., 1.], [1., 3.]])",
+            "b = np.array([3., 5.])",
+            "x = np.linalg.solve(A, b)          # solves A x = b:  [0.8, 1.4]",
+            "",
+            "w, V = np.linalg.eigh(A)            # eigenvalues (ascending), eigenvectors in columns (symmetric A)",
+            "U, s, Vt = np.linalg.svd(X, full_matrices=False)   # X = U @ diag(s) @ Vt"
+          ],
+          "caption": "Solving a linear system, eigendecomposition and SVD. Use solve, not inv(A) @ b (see Vectors, Matrices and Linear Systems)."
+        },
+        {
+          "h": "Linear regression in four lines"
+        },
+        {
+          "code": [
+            "x = np.array([1., 2., 3.])",
+            "y = np.array([2., 3., 5.])",
+            "X = np.column_stack([np.ones_like(x), x])         # design matrix with an intercept column",
+            "theta, *_ = np.linalg.lstsq(X, y, rcond=None)     # least squares via the SVD",
+            "# theta = [0.3333, 1.5]   -> y = 1/3 + 1.5 x",
+            "",
+            "# the same by the normal equations (less stable):",
+            "theta2 = np.linalg.solve(X.T @ X, X.T @ y)"
+          ],
+          "caption": "The least squares fit of the Linear Regression chapter. lstsq is preferred: it uses an orthogonal factorization and works even for rank-deficient X."
+        },
+        {
+          "h": "Gradient descent, vectorized"
+        },
+        {
+          "code": [
+            "def gd_linear(X, y, lr=0.1, steps=1000):",
+            "    m, n = X.shape",
+            "    theta = np.zeros(n)",
+            "    for _ in range(steps):",
+            "        grad = X.T @ (X @ theta - y) / m     # gradient of the mean squared error / 2",
+            "        theta -= lr * grad",
+            "    return theta"
+          ],
+          "caption": "Batch gradient descent for least squares. The loop is over steps. Each step is two matrix products over all examples."
+        },
+        {
+          "h": "Numerically stable functions"
+        },
+        "Directly applying exp can overflow. Subtracting the maximum leaves softmax unchanged and keeps every exponent non-positive (see log-sum-exp):",
+        {
+          "code": [
+            "def softmax(z):",
+            "    z = z - z.max(axis=-1, keepdims=True)",
+            "    e = np.exp(z)",
+            "    return e / e.sum(axis=-1, keepdims=True)",
+            "",
+            "softmax(np.array([2., 1., 0.]))        # [0.665, 0.245, 0.090]",
+            "softmax(np.array([1000., 1001.]))      # [0.269, 0.731]  (no overflow)",
+            "",
+            "def sigmoid(z):",
+            "    return 1.0 / (1.0 + np.exp(-z))     # for large negative z use scipy.special.expit"
+          ],
+          "caption": "A stable softmax, working on a single vector or on a batch of rows."
+        },
+        {
+          "note": "np.einsum writes tensor contractions by index: np.einsum('ij,jk->ik', A, B) is the matrix product, 'bij,bjk->bik' is a batched product, and 'i,i->' is a dot product. Attention scores in a transformer are einsum('bqd,bkd->bqk', Q, K)."
+        }
+      ],
+      "check": [
+        {
+          "q": "np.linalg.lstsq(X, y, rcond=None) is usually preferred to solve(X.T @ X, X.T @ y) because",
+          "a": "it avoids forming XᵀX, which squares the condition number",
+          "wrong": [
+            "it is always faster",
+            "it gives a different, better objective",
+            "it requires fewer examples"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "random-perf",
+      "title": "Random numbers, reproducibility and performance",
+      "terms": [
+        "random number generator",
+        "default_rng",
+        "random seed",
+        "reproducibility",
+        "train test split",
+        "bootstrap sampling in code",
+        "memory footprint",
+        "float32",
+        "contiguous memory"
+      ],
+      "body": [
+        "Randomness is used to initialize weights, shuffle and split data, sample batches and add noise. A **pseudo-random generator** produces a deterministic sequence from a **seed**: the same seed gives the same numbers. Use a seeded generator object and pass it around.",
+        {
+          "code": [
+            "rng = np.random.default_rng(seed=0)",
+            "",
+            "rng.random(3)                 # uniform on [0, 1)",
+            "rng.normal(0, 1, size=(4, 2))   # Gaussian samples",
+            "rng.integers(0, 10, size=5)   # random integers 0..9",
+            "",
+            "m = 100",
+            "idx = rng.permutation(m)      # a random ordering of 0..99",
+            "train_idx, val_idx = idx[:80], idx[80:]     # 80/20 split",
+            "",
+            "boot = rng.choice(m, size=m, replace=True)  # bootstrap sample of indices",
+            "np.unique(boot).size / m      # about 0.63: the fraction of distinct examples"
+          ],
+          "caption": "Splitting and bootstrapping. A bootstrap sample contains about 63% of the distinct examples (see Ensembles)."
+        },
+        {
+          "tip": "Record the seed with every experiment. When results must be reproducible across runs and machines, also fix the library versions, since generators and algorithms change between versions. Report variation across several seeds, not one lucky run."
+        },
+        {
+          "h": "Memory and speed"
+        },
+        {
+          "list": [
+            "**Memory** = number of elements × bytes per element. A float64 data matrix with 10⁶ rows and 10³ columns takes 10⁶ × 10³ × 8 = 8 × 10⁹ bytes = 8 GB, and 4 GB in float32. Check this before loading.",
+            "NumPy stores arrays in **row-major** order (C order): elements of a row are adjacent in memory, so iterating along the last axis is fastest. A transpose is a free view, but operations on it may be slower because the memory access is strided; np.ascontiguousarray makes a contiguous copy.",
+            "Operations like a + b create a new array. Intermediate arrays cost memory and time. In-place operations (a += b, np.add(a, b, out=a)) avoid the copy.",
+            "Avoid appending to arrays in a loop (each append copies the whole array). Collect items in a list and convert once, or preallocate with np.empty.",
+            "Profile before optimizing: use timeit for a small piece, and cProfile or line profilers for a program. Usually a few operations dominate.",
+            "For GPUs and automatic differentiation, the same style carries over to PyTorch and JAX: arrays become tensors, and operations are recorded for backpropagation (see Automatic Differentiation)."
+          ]
+        },
+        {
+          "example": {
+            "title": "How big can the data be?",
+            "problem": "You have 16 GB of memory. A float32 data set has 2 × 10⁶ examples with 500 features. Does it fit, and does a pairwise distance matrix of 50,000 examples?",
+            "solution": "The data set needs 2 × 10⁶ × 500 × 4 bytes = 4 × 10⁹ bytes = 4 GB: it fits. The distance matrix for 50,000 points has 2.5 × 10⁹ entries, which is 10 GB in float32 (20 GB in float64): too big for a naive computation in 16 GB. Compute it in blocks, or use an approximate nearest neighbor index."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "A float64 array with 5 × 10⁸ elements needs",
+          "a": "4 GB",
+          "wrong": [
+            "0.5 GB",
+            "40 GB",
+            "5 GB"
+          ],
+          "why": "5 × 10⁸ × 8 bytes = 4 × 10⁹ bytes."
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "A NumPy array has a dtype and a shape; indexing uses slices (views), boolean masks and integer arrays (copies). reshape(-1, 1) makes a column.",
+    "Vectorized operations and reductions along an axis replace Python loops and are 50 to 100 times faster: np.mean((p − t) ** 2).",
+    "Broadcasting aligns shapes from the right; dimensions must match or be 1. It standardizes data in one line and computes pairwise distances, but can silently produce the wrong shape, so check shapes.",
+    "Use @, solve, lstsq, eigh and svd. Never invert a matrix to solve a system. Subtract the maximum in softmax.",
+    "Seed a random generator, record the seed, and report variation across seeds. Estimate memory as elements × bytes, prefer float32 where precision allows, and avoid appending in loops."
+  ],
+  "problems": [
+    {
+      "q": "X has shape (200, 10) and w has shape (10,). What are the shapes of X @ w, X.T @ X and X.mean(axis=0)?",
+      "solution": "X @ w is (200,). X.T @ X is (10, 200) @ (200, 10) = (10, 10). X.mean(axis=0) is (10,).",
+      "a": "(200,), (10, 10) and (10,)."
+    },
+    {
+      "q": "Given X = [[1, 2], [3, 4], [5, 6]], what is (X - X.mean(axis=0)).sum(axis=0)?",
+      "solution": "The column means are (3, 4). The centered columns are (−2, 0, 2) and (−2, 0, 2), each summing to 0.",
+      "a": "[0., 0.] (centered data have zero column sums)."
+    },
+    {
+      "q": "A has shape (6, 1) and b has shape (6,). What is the shape of A + b, and why is it a likely bug?",
+      "solution": "Aligning from the right, (6, 1) and (6,) become (6, 1) and (1, 6), so the result is (6, 6): every pair sum. If an element-by-element sum of two 6-vectors was intended, the shapes should be (6,) and (6,), or both (6, 1).",
+      "a": "(6, 6); the broadcast creates all pairwise sums instead of an elementwise sum."
+    },
+    {
+      "q": "Write a vectorized expression for the accuracy of predictions preds against labels y (both of shape (m,)).",
+      "solution": "np.mean(preds == y). The comparison gives a boolean array, and the mean of booleans is the fraction of True values. For example, preds = [1, 0, 1, 1] and y = [1, 1, 1, 0] gives 0.5.",
+      "a": "np.mean(preds == y)."
+    },
+    {
+      "q": "A batch of images has shape (64, 3, 224, 224) in float32. How many bytes does it use?",
+      "solution": "64 × 3 × 224 × 224 = 9,633,792 elements; times 4 bytes = 38,535,168 bytes ≈ 38.5 MB.",
+      "a": "About 38.5 MB."
+    }
+  ]
+}

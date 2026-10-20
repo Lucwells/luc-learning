@@ -1,0 +1,384 @@
+{
+  "id": "sampling-experiments",
+  "view": "chapter",
+  "title": "Sampling and Experiments",
+  "description": "Populations and samples, sampling distributions, sampling designs and their biases, and randomized experiments.",
+  "overview": [
+    "Almost every data analysis tries to say something about more than the data in hand: all customers, not just those in the table; all future patients, not just those in the trial. The link between the data and the wider world is the way the data were collected. A random sample supports statements about the population it came from, with a known margin of error. A randomized experiment supports statements about cause and effect. Data collected by convenience support neither, however many rows there are.",
+    "This chapter develops the ideas that make inference possible: the distinction between a population and a sample, the sampling distribution of a statistic, the standard designs and their biases, and the logic of randomized experiments and A/B tests. It is the base for the next chapters on estimation and hypothesis testing."
+  ],
+  "objectives": [
+    "Distinguish population, sample, parameter and statistic, and describe the sampling distribution of the sample mean.",
+    "Compare simple random, stratified, cluster and convenience samples, and identify selection, non-response and survivorship bias.",
+    "Compute the margin of error of a proportion and the sample size needed for a target margin.",
+    "Explain why randomization supports causal conclusions, and design a randomized experiment or A/B test with control, blinding and blocking.",
+    "Recognize how sampling bias appears in machine learning data and evaluation."
+  ],
+  "sections": [
+    {
+      "id": "pop-sample",
+      "title": "Populations, samples and sampling distributions",
+      "terms": [
+        "population",
+        "statistic",
+        "sampling distribution",
+        "standard error",
+        "simple random sample",
+        "sampling variability",
+        "finite population correction",
+        "random sampling",
+        "sampling and experiments"
+      ],
+      "body": [
+        "The **population** is the entire group we want to learn about (all adult residents of a country, all transactions of next year). A **parameter** is a numerical feature of the population: its mean μ, a proportion p. We seldom observe the whole population, so we study a **sample**, a subset, and compute a **statistic** (the sample mean x̄, the sample proportion p̂) as an estimate of the parameter.",
+        "A **simple random sample** (SRS) of size n gives every possible subset of size n the same chance of being chosen. Different samples give different statistics, so the statistic is itself a random variable. Its distribution over repeated samples is the **sampling distribution**, which describes how much an estimate varies from sample to sample, and so how far it is likely to be from the truth.",
+        {
+          "example": {
+            "title": "A sampling distribution, exactly",
+            "problem": "A population has four values, 2, 4, 6, 8 (mean 5, variance 5). List the sample means of all 16 samples of size 2 drawn with replacement, and compute their mean and variance.",
+            "solution": [
+              {
+                "table": {
+                  "head": [
+                    "Sample mean",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                    "6",
+                    "7",
+                    "8"
+                  ],
+                  "rows": [
+                    [
+                      "Number of samples (of 16)",
+                      "1",
+                      "2",
+                      "3",
+                      "4",
+                      "3",
+                      "2",
+                      "1"
+                    ]
+                  ]
+                }
+              },
+              "The mean of the sample means is (2 + 6 + 12 + 20 + 18 + 14 + 8)/16 = 5: the sample mean is **unbiased** for μ. Their variance is [9 + 2(4) + 3(1) + 0 + 3(1) + 2(4) + 9]/16 = 40/16 = 2.5 = σ²/n = 5/2. The distribution of the sample mean is also more concentrated and more bell-shaped than the population, as the central limit theorem predicts."
+            ]
+          }
+        },
+        {
+          "key": "For independent draws, the sample mean has mean μ and standard deviation σ/√n. This standard deviation of a statistic is its **standard error**: it shrinks with the square root of the sample size. To halve the error, quadruple the sample (see Limit Theorems)."
+        },
+        {
+          "list": [
+            "The standard error says how much the //statistic// varies; the standard deviation σ says how much the //data// vary. Confusing them is a common mistake.",
+            "When sampling a sizable fraction N_s/N_pop of a finite population without replacement, the standard error is reduced by the **finite population correction** √(1 − n/N). It matters only when the sample is more than a few percent of the population. Beyond that, the precision depends on the absolute sample size, not on the fraction of the population: a sample of 1000 estimates a proportion about as well for a city of 100,000 as for a country of 100 million.",
+            "The sample proportion p̂ has standard error √(p(1 − p)/n)."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "The standard error of a sample mean from n = 100 independent observations with σ = 20 is",
+          "a": "2",
+          "wrong": [
+            "20",
+            "0.2",
+            "200"
+          ]
+        },
+        {
+          "q": "To cut the standard error of a sample mean in half you need",
+          "a": "four times as many observations",
+          "wrong": [
+            "twice as many",
+            "half as many",
+            "the same number"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "designs-bias",
+      "title": "Sampling designs and bias",
+      "terms": [
+        "stratified sample",
+        "cluster sample",
+        "systematic sample",
+        "convenience sample",
+        "voluntary response",
+        "selection bias",
+        "non-response bias",
+        "survivorship bias",
+        "sampling frame",
+        "design effect",
+        "margin of error",
+        "sample weights"
+      ],
+      "body": [
+        "How the sample is chosen matters more than how large it is.",
+        {
+          "table": {
+            "head": [
+              "Design",
+              "How",
+              "Strength",
+              "Weakness"
+            ],
+            "rows": [
+              [
+                "Simple random sample",
+                "every subset equally likely",
+                "unbiased; simple theory",
+                "needs a complete list (the sampling frame); may miss small groups"
+              ],
+              [
+                "Stratified",
+                "split the population into strata (region, age group), sample within each",
+                "lower variance when strata differ; guarantees small groups",
+                "needs stratum information beforehand"
+              ],
+              [
+                "Cluster",
+                "sample whole groups (schools, villages, hospitals) and survey everyone in them",
+                "cheap and practical",
+                "less precise: members of a cluster resemble each other"
+              ],
+              [
+                "Systematic",
+                "every k-th unit from a list",
+                "easy",
+                "can align with a periodic pattern in the list"
+              ],
+              [
+                "Convenience",
+                "whoever is easy to reach",
+                "cheap",
+                "biased in unknown ways; no valid error bounds"
+              ],
+              [
+                "Voluntary response",
+                "people choose to respond (online polls, reviews)",
+                "—",
+                "dominated by the motivated and extreme"
+              ]
+            ],
+            "caption": "Sampling designs."
+          }
+        },
+        {
+          "h": "Biases"
+        },
+        "A random error shrinks as n grows. A **bias** (systematic error) does not: a million biased observations are a million wrong answers. The common sources:",
+        {
+          "list": [
+            "**Selection bias**: the sampling procedure favors some members of the population. The sampling frame may omit people (a phone survey misses people without phones).",
+            "**Non-response bias**: the people who respond differ from those who do not.",
+            "**Voluntary response bias**: self-selected respondents are typically those with strong opinions.",
+            "**Survivorship bias**: only the units that 'survived' some filter are observed. Studying successful companies to find the secrets of success ignores the failed ones with the same practices; in the Second World War, armor was proposed for the places where returned bombers had bullet holes, until Abraham Wald pointed out that the planes hit elsewhere never came back.",
+            "**Measurement bias**: leading or sensitive questions, instrument error, social desirability."
+          ]
+        },
+        {
+          "example": {
+            "title": "Size is no defense against bias",
+            "problem": "In 1936 the Literary Digest magazine mailed 10 million questionnaires to people from telephone directories and club lists, and 2.4 million replied, predicting a landslide for Alf Landon over Franklin Roosevelt. Roosevelt won with 61% of the vote. George Gallup predicted Roosevelt using about 50,000 people. Why was the huge poll wrong?",
+            "solution": "The frame (telephone and club members, in the Depression) over-represented wealthier voters, who favored Landon, and the voluntary response added non-response bias. The size reduced the random error to nearly zero while leaving the bias untouched. Gallup's smaller quota-based sample was chosen to resemble the electorate. The lesson: a biased sample is a precisely wrong answer."
+          }
+        },
+        {
+          "h": "How large a sample?"
+        },
+        "For a proportion, the 95% **margin of error** is about 1.96 √(p(1 − p)/n). Because p(1 − p) is at most 1/4 (at p = 0.5), the worst case is",
+        {
+          "eq": "ME ≈ 1.96 · 0.5/√n = 0.98/√n,    so    n ≈ 0.96/ME²"
+        },
+        {
+          "example": {
+            "title": "Sample size for a poll",
+            "problem": "How large must a random sample be for a margin of error of 3 percentage points, and of 1 point?",
+            "solution": "n ≈ 0.96/0.03² = 1067 for ±3%, and 0.96/0.01² = 9604 for ±1%. Cutting the margin to a third costs nine times as many respondents. With n = 1000 the margin is 0.98/√1000 = 3.1%. This applies to simple random samples only; clustering enlarges the error by the **design effect** 1 + (m − 1)ρ for clusters of size m with intra-cluster correlation ρ (for m = 20 and ρ = 0.05: 1.95, so the effective sample size is about half the nominal one)."
+          }
+        },
+        "When the sample under-represents some groups, **weights** correct for it: each respondent counts in proportion to the number of population members they represent. Weighting fixes known imbalances in observed variables but cannot repair bias caused by unobserved ones."
+      ],
+      "check": [
+        {
+          "q": "Increasing the size of a biased sample",
+          "a": "does not remove the bias, and only makes the estimate more precisely wrong",
+          "wrong": [
+            "eliminates the bias",
+            "doubles the bias",
+            "makes the sample random"
+          ]
+        },
+        {
+          "q": "A survey of 2500 people drawn at random has a 95% margin of error for a proportion of at most about",
+          "a": "2 percentage points",
+          "wrong": [
+            "0.2 points",
+            "5 points",
+            "10 points"
+          ],
+          "why": "0.98/√2500 = 0.0196."
+        }
+      ]
+    },
+    {
+      "id": "experiments",
+      "title": "Randomized experiments",
+      "terms": [
+        "randomized experiment",
+        "randomized controlled trial",
+        "rct",
+        "treatment group",
+        "control group",
+        "randomization",
+        "blinding",
+        "double-blind",
+        "placebo",
+        "blocking",
+        "a/b test",
+        "confounder in experiments",
+        "internal validity",
+        "external validity",
+        "observational study"
+      ],
+      "body": [
+        "To learn the effect of a treatment (a drug, a price, a web page design), compare outcomes of units that received it with those that did not. In an **observational study** the units choose or are assigned treatments by some process outside the investigator's control, and the groups usually differ in other ways, so the comparison is **confounded** (see Simpson's paradox). People who take vitamins are healthier for many reasons other than the vitamins.",
+        {
+          "key": "In a **randomized controlled trial**, the investigator assigns units to treatment or control by a random mechanism (a coin flip, a random number). Randomization makes the groups comparable on average in every respect, those that are measured and those that are not, so any systematic difference in outcome can be attributed to the treatment."
+        },
+        "Why this works: assignment is independent of every pre-treatment characteristic, including the unmeasured ones. With 8 patients and 4 to be treated, there are C(8, 4) = 70 equally likely assignments. Whatever the (unknown) health of each patient, the chance that treated and untreated groups differ in average health is symmetric around zero, and the difference shrinks as the groups grow. The only systematic difference left between the groups is the treatment.",
+        {
+          "list": [
+            "**Control group**: the comparison group, receiving no treatment, the standard treatment or a **placebo** (an inert treatment), which separates the effect of the treatment from the effect of expecting to be treated.",
+            "**Blinding**: in a **single-blind** study subjects do not know their group; in a **double-blind** study neither do the people who deliver the treatment or evaluate the outcome, preventing expectations from biasing the results.",
+            "**Replication**: enough units, and repeated studies, for the effect to stand out from chance.",
+            "**Blocking**: first group units by a variable known to affect the outcome (age group, site), then randomize within each block. It balances that variable exactly and increases precision (like stratified sampling).",
+            "**Randomize the unit that is treated**: if treatment is delivered to classrooms, randomize classrooms, not students; the analysis must follow the design."
+          ]
+        },
+        {
+          "h": "A/B tests"
+        },
+        "An **A/B test** is a randomized experiment in a product: visitors are randomly assigned to the current version A or a variant B and a metric (conversion, revenue, retention) is compared. Randomization at the user level makes the comparison causal.",
+        {
+          "list": [
+            "Decide the **hypothesis, the primary metric, the sample size and the stopping rule in advance** (see Hypothesis Testing for the power calculation). Peeking at the results every day and stopping when they look significant inflates false positives.",
+            "Check that the assignment worked: the two groups should have similar sizes (a **sample-ratio mismatch** signals a bug) and similar pre-experiment characteristics.",
+            "**Interference**: if one unit's treatment affects another's outcome (a social network, a marketplace where buyers compete), the simple comparison is biased. Randomize clusters or use other designs.",
+            "**Novelty and seasonality effects**: run long enough to see steady behavior, over whole weeks.",
+            "**Ethics**: experiments on people need consent or a justified waiver, minimal harm, and review."
+          ]
+        },
+        {
+          "h": "Internal and external validity"
+        },
+        "A well-run randomized experiment has high **internal validity**: the estimated effect is the true effect for the participants in the study. Whether it applies to other people, places or times is **external validity**, which depends on how the participants were selected and on whether the setting resembles the target. A drug trial on healthy young volunteers may say little about elderly patients with other conditions.",
+        {
+          "note": "When experiments are impossible or unethical (smoking and cancer, the effect of a policy on a country), causal conclusions must come from observational data and extra assumptions, or from natural experiments in which nature or a rule assigns treatment as if at random (see Causal Inference)."
+        }
+      ],
+      "check": [
+        {
+          "q": "Why does randomizing treatment support a causal conclusion?",
+          "a": "It makes the treated and control groups comparable on average in all characteristics, measured or not",
+          "wrong": [
+            "It guarantees that both groups are identical",
+            "It increases the sample size",
+            "It removes measurement error"
+          ]
+        },
+        {
+          "q": "In a double-blind trial",
+          "a": "neither the participants nor those evaluating the outcomes know who received the treatment",
+          "wrong": [
+            "the treatment is given twice",
+            "two control groups are used",
+            "only the participants know their group"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sampling-ml",
+      "title": "Sampling bias in machine learning",
+      "terms": [
+        "dataset shift",
+        "covariate shift",
+        "selective labels",
+        "training data bias",
+        "importance weighting",
+        "representative sample",
+        "feedback loop"
+      ],
+      "body": [
+        "Machine learning data sets are samples too, and the same questions apply: from what population were the examples drawn, and is that the population on which the model will be used?",
+        {
+          "list": [
+            "**Selection in the labels**: a loan model trained on past decisions sees outcomes (repayment) only for applicants who were approved. A medical model trained on patients who were tested sees labels only for them. The model learns about the selected population, and extrapolates to the rest without any evidence.",
+            "**Convenience data**: images scraped from the web over-represent some countries, languages and demographics. A face recognition model trained mostly on light-skinned faces performs worse on dark-skinned ones; a speech model trained on one accent fails on others.",
+            "**Dataset shift**: the data seen after deployment differ from the training data because of time (covariate shift: the distribution of inputs changes), a change in the relationship between inputs and outputs (concept drift) or a change in the population. Monitor inputs and performance after deployment.",
+            "**Feedback loops**: a model's decisions shape the data it will later be retrained on (a recommender only sees clicks on what it showed). The data are then no longer a sample of the world.",
+            "**Evaluation samples**: the test set must be drawn from the deployment distribution, with the splits made by the unit that matters (by patient, by user, by time: not by random row), or the reported accuracy is optimistic (see Generalization)."
+          ]
+        },
+        {
+          "example": {
+            "title": "Correcting a covariate shift by weighting",
+            "problem": "A model is trained on data in which 80% of the examples come from group A and 20% from group B, but in deployment the groups are 50% and 50%. How should the training examples be weighted to match deployment?",
+            "solution": "Use importance weights w = (deployment share)/(training share): 0.5/0.8 = 0.625 for each group A example and 0.5/0.2 = 2.5 for each group B example. Weighting the loss this way makes the training objective equal in expectation to the deployment objective, provided the relationship between inputs and labels is the same in both populations. Large weights make estimates noisy, and the correction cannot make up for groups that are missing from the training data."
+          }
+        },
+        "**Active learning** chooses which examples to label next (the uncertain ones), which makes the labeled set a deliberately biased sample that is very informative, and so requires care when estimating accuracy on it. **Stratified splits** keep class proportions the same across train and test sets, which is important for rare classes (see Evaluating Models)."
+      ],
+      "check": [
+        {
+          "q": "A credit model is trained only on loans that were approved. The main sampling problem is that",
+          "a": "outcomes are unobserved for rejected applicants, so the training data are a selected subset",
+          "wrong": [
+            "the data are too large",
+            "approved loans have no labels",
+            "the model cannot use categorical variables"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Parameters describe a population, and statistics are computed from a sample. The sampling distribution of a statistic shows its variability; the standard error of a mean is σ/√n, of a proportion √(p(1 − p)/n). Precision depends on the sample size, not on the fraction of the population.",
+    "Random sampling (simple, stratified, cluster) supports inference. Convenience and voluntary samples have unknown bias. Bias does not shrink with n: a huge biased sample is precisely wrong (Literary Digest 1936).",
+    "The margin of error for a proportion is about 0.98/√n at 95%: n ≈ 1070 for ±3%, 9600 for ±1%. Cluster sampling has a design effect 1 + (m − 1)ρ.",
+    "Randomized controlled experiments make groups comparable on average in all characteristics, so differences in outcome can be attributed to the treatment. Use control, placebo, blinding, blocking, a pre-specified plan, and watch for interference. Internal validity is not external validity.",
+    "ML data have selection, shift and feedback problems; evaluate on data that match the deployment population, split by the right unit, and use weights or monitoring where they differ."
+  ],
+  "problems": [
+    {
+      "q": "A population of 10,000 has σ = 15. Find the standard error of the mean of a simple random sample of n = 225, and the sample size needed to make it 0.5.",
+      "solution": "SE = 15/√225 = 1. For SE = 0.5: √n = 30, so n = 900.",
+      "a": "SE = 1; n = 900."
+    },
+    {
+      "q": "A poll of 1600 people finds 54% support a measure. Give the margin of error and a 95% interval, and say whether a majority is clearly supported.",
+      "solution": "SE = √(0.54 × 0.46/1600) = 0.01246, so ME = 1.96 × 0.01246 = 0.0244. The interval is 54% ± 2.4%, i.e. (51.6%, 56.4%), entirely above 50%, so the sample supports a majority (assuming a random sample and no non-response bias).",
+      "a": "ME 2.4 points; (51.6%, 56.4%); yes."
+    },
+    {
+      "q": "A region is 60% urban and 40% rural. A stratified random sample of 500 people is taken, proportional to the population. How many from each stratum?",
+      "solution": "Urban: 0.6 × 500 = 300. Rural: 0.4 × 500 = 200.",
+      "a": "300 urban and 200 rural."
+    },
+    {
+      "q": "An online review site shows an average of 4.6 stars from 200 voluntary reviews. List two reasons why this may not represent all customers.",
+      "solution": "Voluntary response: people with very good or very bad experiences are more likely to review; non-reviewers (the majority) are unrepresented. Also, reviews can be incentivized, fake or removed, and only customers who completed a purchase (survivors) can review.",
+      "a": "Self-selection toward extreme experiences, and non-response from the silent majority (also incentives and survivorship)."
+    },
+    {
+      "q": "A new web page is tested on 5000 visitors in each group. Visitors were assigned by whether they arrived before or after noon. Why is this not a valid experiment, and how should it be assigned?",
+      "solution": "Time of day is confounded with the treatment: people browsing in the morning differ from those in the afternoon, so any difference could reflect who the visitors are. Assign visitors at random (for example, by hashing the user id or by a random draw on arrival), so that both versions run at the same time on comparable visitors.",
+      "a": "Assignment by time confounds treatment with visitor type; assign at random, concurrently."
+    }
+  ]
+}

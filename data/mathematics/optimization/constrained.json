@@ -1,0 +1,347 @@
+{
+  "id": "constrained",
+  "view": "chapter",
+  "title": "Constrained Optimization and Duality",
+  "description": "Lagrange multipliers, the KKT conditions, Lagrangian duality and their use for support vector machines, PCA, maximum entropy and regularization.",
+  "overview": [
+    "Many problems ask for the best point subject to restrictions: probabilities must be non-negative and sum to one, a weight vector must have norm at most one, a classifier must separate the data with a margin. The method of Lagrange multipliers turns a constrained problem into an unconstrained one by pricing the constraints. The prices, the multipliers, are not just a trick: they measure how much the optimum would improve if a constraint were relaxed.",
+    "The resulting Karush–Kuhn–Tucker (KKT) conditions are the first-order optimality conditions for constrained problems. Duality builds on the same Lagrangian a second problem, whose solution bounds and often equals the original one. Duality gave the support vector machine its kernel form, and it explains several results of the Machine Learning book."
+  ],
+  "objectives": [
+    "Solve equality-constrained problems with Lagrange multipliers and interpret the multiplier geometrically.",
+    "Write the Lagrangian and the KKT conditions for a problem with inequality constraints, and solve small examples.",
+    "Form the dual function and dual problem, and state weak and strong duality.",
+    "Derive the dual of the hard-margin support vector machine.",
+    "Use constrained optimization to derive PCA, maximum entropy distributions and the equivalence of constrained and penalized regularization."
+  ],
+  "sections": [
+    {
+      "id": "lagrange",
+      "title": "Equality constraints and Lagrange multipliers",
+      "terms": [
+        "lagrange multiplier",
+        "lagrange multipliers",
+        "lagrangian",
+        "equality constraint",
+        "equality constraints",
+        "constrained maximization",
+        "method of lagrange multipliers",
+        "constrained optimization"
+      ],
+      "body": [
+        "Minimize f(x) subject to h(x) = 0. At a constrained minimum, the gradient of f must be perpendicular to the constraint surface (otherwise we could slide along the surface and lower f), so it is parallel to the gradient of h, which is also perpendicular to the surface:",
+        {
+          "eq": "∇f(x) = ν ∇h(x)"
+        },
+        {
+          "svg": "<svg viewBox='0 0 380 230' role='img' aria-label='Circular level curves of f and a constraint line, tangent at the constrained minimum' font-family='system-ui, sans-serif' font-size='12'><defs><marker id='arr' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='7' markerHeight='7' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='currentColor'/></marker></defs><g fill='none' stroke='currentColor' stroke-width='1.2' opacity='.6'><circle cx='80' cy='180' r='56.6'/><circle cx='80' cy='180' r='89.4'/><circle cx='80' cy='180' r='120'/></g><g fill='none' stroke='currentColor' stroke-width='1' opacity='.5'><path d='M20,200 H360 M80,225 V10'/></g><path d='M60,70 L300,190' fill='none' style='stroke:var(--accent)' stroke-width='2.5'/><circle cx='120' cy='100' r='4' fill='currentColor'/><path d='M120,100 L150,40' fill='none' stroke='currentColor' stroke-width='2' marker-end='url(#arr)'/><g fill='currentColor'><text x='156' y='38'>∇f ∥ ∇h</text><text x='250' y='150' style='fill:var(--accent)'>h(x) = 0</text><text x='128' y='116'>(1, 2)</text><text x='20' y='224'>level curves of f = x² + y²</text></g></svg>",
+          "caption": "Minimize x² + y² subject to x + 2y = 5. The constraint line (blue) touches the lowest reachable level curve at (1, 2), where the two curves are tangent and their gradients are parallel."
+        },
+        "The same condition is obtained by forming the **Lagrangian** L(x, ν) = f(x) − ν h(x) and setting all its partial derivatives, with respect to x and the multiplier ν, to zero. The derivative with respect to ν returns the constraint h(x) = 0, and the derivatives with respect to x give the parallel-gradient condition. For several constraints h_j use one multiplier each.",
+        {
+          "example": {
+            "title": "Closest point on a line",
+            "problem": "Minimize x² + y² subject to x + 2y = 5.",
+            "solution": "∇f = (2x, 2y) = ν(1, 2), so x = ν/2 and y = ν. The constraint gives ν/2 + 2ν = 5, so ν = 2, x = 1, y = 2, and f = 5. The multiplier ν = 2 is the rate at which the optimal value would grow with the constraint level: if the constraint were x + 2y = 5 + δ the optimum would be (5 + δ)²/5, whose derivative at δ = 0 is 2 ✓."
+          }
+        },
+        {
+          "example": {
+            "title": "Maximize a product",
+            "problem": "Maximize xy subject to x + y = 10.",
+            "solution": "L = xy − ν(x + y − 10). ∂/∂x: y = ν. ∂/∂y: x = ν. So x = y = 5 and the maximum is 25."
+          }
+        },
+        {
+          "h": "Two derivations from machine learning"
+        },
+        {
+          "list": [
+            "**PCA**: maximize uᵀΣu subject to uᵀu = 1. The Lagrangian uᵀΣu − λ(uᵀu − 1) has gradient 2Σu − 2λu = 0, i.e. Σu = λu: the optimal direction is an eigenvector of the covariance matrix, and the objective equals λ (see PCA and Dimensionality Reduction).",
+            "**Maximum entropy**: maximize −Σp_i ln p_i subject to Σp_i = 1. The Lagrangian's derivative is −ln p_i − 1 − ν = 0, which gives the same p_i for every i: the uniform distribution, p_i = 1/n, is the maximum entropy distribution on n outcomes. Adding a constraint on the mean E[x] gives p_i ∝ e^{−βx_i}, the exponential family (the Gibbs or softmax form)."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "At a constrained optimum with one equality constraint h(x) = 0, the gradient of f is",
+          "a": "parallel to the gradient of h",
+          "wrong": [
+            "zero",
+            "perpendicular to the gradient of h",
+            "equal to the multiplier"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "kkt",
+      "title": "Inequality constraints and the KKT conditions",
+      "terms": [
+        "kkt conditions",
+        "karush–kuhn–tucker conditions",
+        "karush-kuhn-tucker conditions",
+        "inequality constraint",
+        "inequality constraints",
+        "complementary slackness",
+        "active constraint",
+        "primal feasibility",
+        "dual feasibility"
+      ],
+      "body": [
+        "Consider the general problem",
+        {
+          "eq": [
+            "minimize f(x)",
+            "subject to g_i(x) ≤ 0 (i = 1, …, m),  h_j(x) = 0 (j = 1, …, p)"
+          ]
+        },
+        "with the Lagrangian L(x, λ, ν) = f(x) + Σλ_ig_i(x) + Σν_jh_j(x), where the multipliers of the inequality constraints satisfy λ_i ≥ 0. The **Karush–Kuhn–Tucker (KKT) conditions** for a point x* with multipliers (λ*, ν*) are:",
+        {
+          "list": [
+            "**Stationarity**: ∇f(x*) + Σλ_i*∇g_i(x*) + Σν_j*∇h_j(x*) = 0.",
+            "**Primal feasibility**: g_i(x*) ≤ 0 and h_j(x*) = 0.",
+            "**Dual feasibility**: λ_i* ≥ 0.",
+            "**Complementary slackness**: λ_i*g_i(x*) = 0 for each i."
+          ],
+          "ordered": true
+        },
+        "Complementary slackness says that each constraint is either **active** (g_i = 0, the optimum sits on its boundary, and its multiplier may be positive) or inactive (g_i < 0, and then its multiplier is zero, as if the constraint were absent). The KKT conditions are necessary for optimality under mild regularity assumptions, and, for a **convex** problem, they are also **sufficient**: any point satisfying them is a global minimum.",
+        {
+          "example": {
+            "title": "An active constraint",
+            "problem": "Minimize (x − 2)² + (y − 2)² subject to x + y ≤ 2.",
+            "solution": [
+              "The unconstrained minimum (2, 2) violates the constraint (x + y = 4 > 2), so we expect the constraint to be active: x + y = 2.",
+              "Stationarity with g = x + y − 2: (2(x − 2), 2(y − 2)) + λ(1, 1) = 0, giving x = y = 2 − λ/2. With x + y = 2, we get λ = 2, x = y = 1.",
+              "Check: λ = 2 ≥ 0 ✓, g = 0 ✓. The optimum (1, 1) is the projection of (2, 2) onto the half-plane, with value 2."
+            ]
+          }
+        },
+        {
+          "example": {
+            "title": "An inactive constraint",
+            "problem": "Minimize (x − 0.5)² + (y − 0.5)² subject to x + y ≤ 2.",
+            "solution": "The unconstrained minimum (0.5, 0.5) has x + y = 1 < 2, so it is feasible and the constraint is inactive: λ = 0 by complementary slackness, and the solution is (0.5, 0.5). The constraint plays no role."
+          }
+        },
+        {
+          "example": {
+            "title": "A one-dimensional problem",
+            "problem": "Minimize x² subject to x ≥ 1, i.e. g(x) = 1 − x ≤ 0.",
+            "solution": "Stationarity: 2x − λ = 0. If λ = 0 then x = 0, which is infeasible, so g is active: x = 1 and λ = 2 > 0 ✓. All four conditions hold, and since the problem is convex, x* = 1 is the global minimum."
+          }
+        },
+        {
+          "h": "The multiplier as a price"
+        },
+        "Let p*(b) be the optimal value when the constraint is relaxed to g(x) ≤ b. Then dp*/db = −λ* (at b = 0): the multiplier is the marginal gain, in objective units, from loosening the constraint by one unit (the shadow price). In the one-dimensional example above, p*(b) = b² for b ≥ 0 so that relaxing the constraint to x ≥ 1 − ε would change the value by about −2ε, matching λ = 2."
+      ],
+      "check": [
+        {
+          "q": "Complementary slackness requires that for each inequality constraint",
+          "a": "either the multiplier is zero or the constraint holds with equality",
+          "wrong": [
+            "the multiplier is negative",
+            "the constraint is always active",
+            "the multiplier equals the constraint value"
+          ]
+        },
+        {
+          "q": "In a convex problem, a point satisfying the KKT conditions is",
+          "a": "a global minimum",
+          "wrong": [
+            "only a local maximum",
+            "not necessarily feasible",
+            "a saddle point"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "duality",
+      "title": "Lagrangian duality",
+      "terms": [
+        "lagrangian duality",
+        "dual function",
+        "dual problem",
+        "weak duality",
+        "strong duality",
+        "slater's condition",
+        "duality gap",
+        "primal problem",
+        "primal-dual"
+      ],
+      "body": [
+        "Call the original problem the **primal** problem with optimal value p*. The **dual function** is the minimum of the Lagrangian over x:",
+        {
+          "eq": "g(λ, ν) = inf_x L(x, λ, ν),    λ ≥ 0"
+        },
+        "For any feasible x and any λ ≥ 0, L(x, λ, ν) ≤ f(x) (the added terms Σλ_ig_i are ≤ 0 and Σν_jh_j = 0), so g(λ, ν) ≤ p*: the dual function is a lower bound on the primal optimum. This is **weak duality**. The **dual problem** looks for the best bound:",
+        {
+          "eq": "d* = max_{λ ≥ 0, ν} g(λ, ν) ≤ p*"
+        },
+        "The dual function is always concave (it is an infimum of functions affine in (λ, ν)), so the dual problem is a concave maximization, i.e. convex, even if the primal is not. The difference p* − d* ≥ 0 is the **duality gap**. For convex problems satisfying a mild condition (**Slater's condition**: there is a strictly feasible point), **strong duality** holds: d* = p*, and the KKT conditions characterize the optimum of both.",
+        {
+          "example": {
+            "title": "The dual of a simple problem",
+            "problem": "Form and solve the dual of: minimize x² subject to x ≥ 1.",
+            "solution": "L(x, λ) = x² + λ(1 − x). Minimizing over x: 2x − λ = 0 gives x = λ/2, so g(λ) = λ²/4 + λ − λ²/2 = λ − λ²/4. Maximize over λ ≥ 0: g′ = 1 − λ/2 = 0 gives λ = 2 and g(2) = 2 − 1 = 1. This equals the primal optimum p* = 1: there is no gap, and the optimal dual variable is the multiplier found before."
+          }
+        },
+        {
+          "list": [
+            "The dual problem has one variable per constraint, so it can be much smaller than the primal when there are few constraints and many variables, or the reverse.",
+            "From a dual solution, the primal solution is recovered by minimizing the Lagrangian at the optimal multipliers.",
+            "Dual variables give **certificates**: any feasible (λ, ν) bounds p* from below, so an algorithm can stop when the primal value and the dual bound are close.",
+            "Duality underlies many algorithms: SVM solvers (SMO), ADMM, and the interior-point methods for convex programs."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "Weak duality says that the dual optimal value d* is",
+          "a": "at most the primal optimal value p*",
+          "wrong": [
+            "at least p*",
+            "always equal to p*",
+            "unrelated to p*"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "svm-derivation",
+      "title": "Application: the support vector machine dual",
+      "terms": [
+        "svm dual derivation",
+        "support vector machine duality",
+        "kernel trick from duality",
+        "dual form of the svm"
+      ],
+      "body": [
+        "The hard-margin support vector machine (see Support Vector Machines and Kernels) is the convex problem",
+        {
+          "eq": [
+            "minimize ½‖w‖²",
+            "subject to 1 − y_i(wᵀx_i + b) ≤ 0,  i = 1, …, m"
+          ]
+        },
+        "Its Lagrangian, with multipliers α_i ≥ 0, is L = ½‖w‖² − Σα_i[y_i(wᵀx_i + b) − 1]. Minimizing over the primal variables (w, b):",
+        {
+          "eq": [
+            "∂L/∂w = w − Σα_iy_ix_i = 0  ⟹  w = Σα_iy_ix_i",
+            "∂L/∂b = −Σα_iy_i = 0  ⟹  Σα_iy_i = 0"
+          ]
+        },
+        "Substituting back gives the dual function, which depends on the data only through inner products:",
+        {
+          "eq": "g(α) = Σα_i − ½ ΣΣ α_iα_jy_iy_j x_iᵀx_j,    α ≥ 0, Σα_iy_i = 0"
+        },
+        "The problem is convex with affine constraints, so strong duality holds, and the KKT conditions give complementary slackness: α_i[y_i(wᵀx_i + b) − 1] = 0. A point either has α_i = 0 or lies exactly on the margin; the latter are the **support vectors**. Replacing x_iᵀx_j by a kernel K(x_i, x_j) is the kernel trick.",
+        {
+          "example": {
+            "title": "Why only support vectors matter",
+            "problem": "In the two-point example of the SVM chapter, x₁ = 0 (y = −1) and x₂ = 2 (y = +1), the optimal dual variables are α₁ = α₂ = 1/2. Which constraints are active, and what is the margin?",
+            "solution": "Both α_i > 0, so both constraints are active: the points lie on the margin. w = ½(−1)(0) + ½(+1)(2) = 1, and b = −1 from the active constraint at x₂. The dual value is Σα − ½(α²)(x₂²) = 1 − ½(¼)(4) = 0.5 = ½‖w‖², so there is no duality gap."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "In the SVM dual, the data enter only through",
+          "a": "inner products x_iᵀx_j",
+          "wrong": [
+            "the norms ‖x_i‖ alone",
+            "the labels y_i only",
+            "the number of examples"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "constrained-ml",
+      "title": "Constraints, penalties and algorithms",
+      "terms": [
+        "constrained versus penalized regularization",
+        "projected gradient descent",
+        "projection onto the simplex",
+        "penalty method",
+        "barrier method",
+        "interior-point method",
+        "admm",
+        "frank–wolfe"
+      ],
+      "body": [
+        {
+          "h": "Constrained and penalized regularization"
+        },
+        "Ridge regression can be posed as a constrained problem, minimize ‖Xθ − y‖² subject to ‖θ‖² ≤ t, or as the penalized problem minimize ‖Xθ − y‖² + λ‖θ‖². The Lagrangian of the first is the objective of the second, with the multiplier λ. For every t > 0 there is a λ ≥ 0 with the same solution (and vice versa), and λ is the price of the norm budget: by complementary slackness, λ = 0 if the unconstrained least squares solution already satisfies the constraint, and otherwise the constraint is active. The same holds for the lasso, with ‖θ‖₁ ≤ t. This is the equivalence between the 'ball' and the 'penalty' pictures in the Regularization chapter.",
+        {
+          "example": {
+            "title": "Ridge as a constrained problem",
+            "problem": "Minimize (θ − 3)² subject to θ² ≤ 4. Find θ and the multiplier.",
+            "solution": "The unconstrained minimum 3 violates |θ| ≤ 2, so the constraint is active: θ = 2. Stationarity: 2(θ − 3) + λ(2θ) = 0 gives −2 + 4λ = 0, so λ = 0.5. The equivalent penalized problem (θ − 3)² + 0.5θ² has minimizer θ = 3/(1 + 0.5) = 2 ✓."
+          }
+        },
+        {
+          "h": "Algorithms for constrained problems"
+        },
+        {
+          "list": [
+            "**Projected gradient descent**: take a gradient step, then project back onto the feasible set C: x ← Π_C(x − α∇f(x)). Works when the projection is easy, for example onto a ball (rescale), a box (clip), or the probability simplex (a sort-and-threshold algorithm).",
+            "**Penalty and barrier methods**: replace the constraints by a penalty for violating them, or, in an **interior-point method**, by a logarithmic barrier −(1/t)Σln(−g_i(x)) that keeps the iterates strictly inside the feasible set, with t increased gradually. Interior-point methods solve LPs and QPs in tens of Newton iterations.",
+            "**ADMM** (alternating direction method of multipliers) splits a problem into pieces that are solved separately and coordinated through dual variables. It is popular for distributed and structured problems.",
+            "**Frank–Wolfe** minimizes a linear approximation over the feasible set, which is cheap for polytopes and nuclear-norm balls.",
+            "In training with the softmax or a normalized weight, constraints are enforced by parameterization (softmax ensures non-negative weights that sum to one) so that unconstrained optimization can be used."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "In projected gradient descent, after each gradient step the iterate is",
+          "a": "projected back onto the feasible set",
+          "wrong": [
+            "multiplied by the Lagrange multiplier",
+            "reinitialized randomly",
+            "moved along the constraint normal only"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "With an equality constraint, ∇f = ν∇h at the optimum: the gradients are parallel. Solve with the Lagrangian L = f − νh and set all derivatives to zero. PCA (Σu = λu) and the maximum entropy (uniform, or Gibbs) distribution are examples.",
+    "With inequality constraints g_i ≤ 0, the KKT conditions are stationarity, primal feasibility, λ ≥ 0 and complementary slackness (λ_ig_i = 0). They are sufficient for convex problems. A multiplier is the shadow price of its constraint.",
+    "The dual function g(λ, ν) = inf_x L is concave and bounds the primal optimum from below (weak duality). Under Slater's condition for convex problems, d* = p* (strong duality).",
+    "The SVM dual has only inner products of data points, the support vectors are those with α_i > 0, and the kernel trick follows.",
+    "Constrained and penalized regularization are equivalent, with λ as the multiplier. Projected gradient, interior-point and ADMM methods solve constrained problems."
+  ],
+  "problems": [
+    {
+      "q": "Minimize x² + y² + z² subject to x + y + z = 3.",
+      "solution": "2x = 2y = 2z = ν, so x = y = z and 3x = 3 gives x = y = z = 1. The minimum is 3, with ν = 2.",
+      "a": "(1, 1, 1), minimum 3."
+    },
+    {
+      "q": "Maximize x + y subject to x² + y² = 2.",
+      "solution": "∇(x + y) = (1, 1) = ν(2x, 2y), so x = y = 1/(2ν). Then 2x² = 2 gives x = ±1. The maximum is at (1, 1) with value 2 (and the minimum at (−1, −1), value −2).",
+      "a": "Maximum 2 at (1, 1)."
+    },
+    {
+      "q": "Solve: minimize x² + y² subject to x + y ≥ 4. Give the multiplier.",
+      "solution": "Write g = 4 − x − y ≤ 0. Stationarity: (2x − λ, 2y − λ) = 0, so x = y = λ/2. The constraint is active (the unconstrained minimum 0 is infeasible): x + y = 4 gives x = y = 2 and λ = 4 > 0. The minimum value is 8.",
+      "a": "(2, 2); f = 8; λ = 4."
+    },
+    {
+      "q": "Form the dual of: minimize ½x² subject to x ≥ 2 and show strong duality.",
+      "solution": "L = ½x² + λ(2 − x), minimized at x = λ, giving g(λ) = ½λ² + 2λ − λ² = 2λ − ½λ². Maximizing: λ = 2, g = 4 − 2 = 2. The primal optimum is x = 2 with ½x² = 2. So d* = p* = 2.",
+      "a": "g(λ) = 2λ − λ²/2, d* = 2 = p*."
+    },
+    {
+      "q": "Show that the maximum entropy distribution on {1, 2, 3} with no constraints other than normalization is uniform, and compute its entropy.",
+      "solution": "The Lagrangian −Σp ln p − ν(Σp − 1) gives −ln p_i − 1 − ν = 0, so all p_i are equal, p_i = 1/3. The entropy is ln 3 = 1.0986 nats (1.585 bits).",
+      "a": "p = (1/3, 1/3, 1/3); H = ln 3."
+    }
+  ]
+}

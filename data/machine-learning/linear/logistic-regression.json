@@ -1,0 +1,376 @@
+{
+  "id": "logistic-regression",
+  "view": "chapter",
+  "title": "Logistic Regression and Classification",
+  "description": "The logistic model, cross-entropy loss, gradient and Newton methods, decision boundaries, the perceptron and softmax regression.",
+  "overview": [
+    "Classification asks for a category instead of a number. A linear model's output can be any real number, so we pass it through a function that squashes it into a probability. The result, logistic regression, is the workhorse of classification: it is fast, it is interpretable, and it is the building block of neural networks, whose last layer is usually a logistic or softmax unit.",
+    "We derive the model from the idea of log-odds, fit it by maximum likelihood, solve it with gradient ascent and Newton's method, examine the decision boundary, and then extend to the perceptron and to more than two classes."
+  ],
+  "objectives": [
+    "Write the logistic model and interpret its output as a probability and its weights as log-odds.",
+    "Derive the log-likelihood, its gradient and its Hessian.",
+    "Carry out gradient and Newton steps by hand on a small data set.",
+    "Describe the decision boundary and explain what happens on linearly separable data.",
+    "State the perceptron update, and write the softmax model and its loss for K classes."
+  ],
+  "sections": [
+    {
+      "id": "logistic-model",
+      "title": "The logistic model",
+      "terms": [
+        "logistic regression",
+        "sigmoid",
+        "logistic function",
+        "log-odds",
+        "logit",
+        "odds",
+        "binary classification model"
+      ],
+      "body": [
+        "Let y ∈ {0, 1}. Fitting a line to 0/1 labels by least squares is a poor idea: predictions fall outside [0, 1], and a few distant points tilt the line and change the classification of unrelated points. We want a model of the probability P(y = 1 | x).",
+        "The **odds** of an event with probability p are p/(1 − p), and the **log-odds** (**logit**) is ln(p/(1 − p)), which takes any real value. Assume the log-odds are linear in the features:",
+        {
+          "eq": "ln( p / (1 − p) ) = θᵀx"
+        },
+        "Solving for p gives the **sigmoid** (logistic function) of θᵀx:",
+        {
+          "eq": [
+            "P(y = 1 | x; θ) = h_θ(x) = σ(θᵀx),    σ(z) = 1 / (1 + e^{−z})",
+            "P(y = 0 | x; θ) = 1 − σ(θᵀx) = σ(−θᵀx)"
+          ]
+        },
+        {
+          "svg": "<svg viewBox='0 0 440 230' role='img' aria-label='The sigmoid function rising from 0 to 1' font-family='system-ui, sans-serif' font-size='12'><g fill='none' stroke='currentColor' stroke-width='1.5'><path d='M40,200 H410 M220,200 V10'/></g><g fill='none' stroke='currentColor' stroke-width='1' stroke-dasharray='4 3' opacity='.55'><path d='M40,20 H410 M40,110 H220'/></g><path fill='none' style='stroke:var(--accent)' stroke-width='2.5' d='M40,199.6 L100,196.8 L130,191.5 L160,178.5 L175,167.2 L190,151.6 L205,132.1 L220,110 L235,87.9 L250,68.4 L265,52.8 L280,41.4 L310,28.5 L340,23.2 L400,20.4'/><g fill='currentColor'><text x='34' y='24' text-anchor='end'>1</text><text x='34' y='114' text-anchor='end'>0.5</text><text x='34' y='204' text-anchor='end'>0</text><text x='224' y='222'>z = 0</text><text x='400' y='222' text-anchor='end'>z</text><text x='230' y='14'>σ(z)</text></g></svg>",
+          "caption": "The sigmoid σ(z) = 1/(1 + e^{−z}). It equals 0.5 at z = 0 and saturates at 0 and 1."
+        },
+        {
+          "list": [
+            "σ is increasing, σ(−z) = 1 − σ(z), and its derivative is σ′(z) = σ(z)(1 − σ(z)), at most 1/4 at z = 0.",
+            "The weight θ_j is the change in log-odds per unit change of x_j. Increasing x_j by one multiplies the odds by e^{θ_j}.",
+            "The two cases combine into one formula: P(y | x; θ) = h^y (1 − h)^{1−y}."
+          ]
+        },
+        {
+          "example": {
+            "title": "From weights to probability",
+            "problem": "A model has θ = (−4, 2) with x = (1, x₁). Find P(y = 1) at x₁ = 3 and the value of x₁ at which the probability is 0.5. By what factor do the odds change when x₁ increases by 1?",
+            "solution": [
+              "At x₁ = 3 the log-odds are −4 + 2(3) = 2, so P = σ(2) = 1/(1 + e^{−2}) = 0.881.",
+              "The probability is 0.5 when the log-odds are 0: −4 + 2x₁ = 0, so x₁ = 2.",
+              "Each unit increase of x₁ multiplies the odds by e² = 7.39."
+            ]
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "If σ(z) = 0.8, what is σ(−z)?",
+          "a": "0.2",
+          "wrong": ["0.8", "−0.8", "0.5"]
+        },
+        {
+          "q": "A weight θ_j = 0.7 means that a one-unit increase in x_j multiplies the odds of y = 1 by about",
+          "a": "2.01",
+          "wrong": ["0.7", "1.7", "0.50"],
+          "why": "e^{0.7} = 2.01."
+        }
+      ]
+    },
+    {
+      "id": "mle",
+      "title": "Maximum likelihood and cross-entropy",
+      "terms": [
+        "cross-entropy loss",
+        "binary cross-entropy",
+        "negative log-likelihood",
+        "gradient ascent",
+        "log-likelihood of logistic regression",
+        "iteratively reweighted least squares"
+      ],
+      "body": [
+        "Assuming independent examples, the likelihood of the training labels is the product of the individual probabilities, and the log-likelihood is",
+        {
+          "eq": "ℓ(θ) = Σ_{i=1}^{m} [ y^{(i)} ln h_θ(x^{(i)}) + (1 − y^{(i)}) ln(1 − h_θ(x^{(i)})) ]"
+        },
+        "Minimizing the average negative log-likelihood, J(θ) = −ℓ(θ)/m, is the same as minimizing the **binary cross-entropy** loss. It penalizes a confident wrong prediction heavily: a true label 1 with predicted probability 0.01 costs −ln 0.01 = 4.6.",
+        {
+          "h": "The gradient"
+        },
+        "Differentiate one term with h = σ(z), z = θᵀx, using σ′ = σ(1 − σ):",
+        {
+          "eq": [
+            "∂/∂θ_j [ y ln h + (1 − y) ln(1 − h) ] = ( y/h − (1 − y)/(1 − h) ) h(1 − h) x_j = (y − h) x_j"
+          ]
+        },
+        "Summing over examples,",
+        {
+          "eq": [
+            "∇ℓ(θ) = Σ ( y^{(i)} − h_θ(x^{(i)}) ) x^{(i)} = Xᵀ(y − h)",
+            "∇J(θ) = (1/m) Xᵀ(h − y)"
+          ]
+        },
+        "This has exactly the form of the least squares gradient, with h in place of the linear prediction. That similarity is not an accident; it is a property of all generalized linear models (see the next chapter). Gradient descent is θ ← θ − α ∇J(θ).",
+        {
+          "example": {
+            "title": "A gradient step",
+            "problem": "The data are x = 1, 2, 3, 4 with labels y = 0, 1, 0, 1, and the model has an intercept. At θ = (0, 0), compute the gradient of the average loss and a descent step with α = 1.",
+            "solution": [
+              "With θ = 0 every probability is 0.5, so h − y = (0.5, −0.5, 0.5, −0.5).",
+              {
+                "eq": [
+                  "∂J/∂θ₀ = (1/4)(0.5 − 0.5 + 0.5 − 0.5) = 0",
+                  "∂J/∂θ₁ = (1/4)(0.5·1 − 0.5·2 + 0.5·3 − 0.5·4) = −0.25"
+                ]
+              },
+              "The step gives θ = (0, 0.25): the slope increases, since larger x values tend to have label 1."
+            ]
+          }
+        },
+        {
+          "key": "The log-likelihood of logistic regression is concave (equivalently, J is convex), so gradient methods reach the global optimum. There is no closed form, unlike least squares."
+        }
+      ],
+      "check": [
+        {
+          "q": "The gradient of the logistic log-likelihood is",
+          "a": "Xᵀ(y − h), where h holds the predicted probabilities",
+          "wrong": [
+            "Xᵀ(h − y)ᵀ y",
+            "(XᵀX)⁻¹Xᵀy",
+            "Σ h x, with no dependence on y"
+          ]
+        },
+        {
+          "q": "A true label of 1 is given probability 0.5 by a model. The cross-entropy for this example is",
+          "a": "0.693",
+          "wrong": ["0.5", "1.0", "0.25"],
+          "why": "−ln 0.5 = 0.693."
+        }
+      ]
+    },
+    {
+      "id": "newton",
+      "title": "Newton's method",
+      "terms": [
+        "newton's method",
+        "newton method",
+        "hessian",
+        "second-order method",
+        "irls"
+      ],
+      "body": [
+        "Gradient descent uses the slope only. **Newton's method** also uses the curvature, by minimizing the second-order Taylor approximation of J at each step:",
+        {
+          "eq": "θ ← θ − H⁻¹ ∇J(θ),    H = ∇²J(θ)"
+        },
+        "For logistic regression the Hessian has a clean form:",
+        {
+          "eq": [
+            "H = (1/m) Xᵀ S X,    S = diag( h_i(1 − h_i) )"
+          ]
+        },
+        "S has positive diagonal entries, so H is positive semidefinite (J is convex), and each Newton step solves a weighted least squares problem, which is why the method is also called iteratively reweighted least squares (IRLS). Near the optimum, Newton's method converges quadratically: the number of correct digits roughly doubles each step. It typically needs 5 to 10 iterations, versus hundreds for gradient descent. The price is forming and solving with an n×n matrix at every step, O(mn² + n³).",
+        {
+          "example": {
+            "title": "A Newton step",
+            "problem": "Use the same data (x = 1, 2, 3, 4; y = 0, 1, 0, 1) at θ = (0, 0). Take one Newton step.",
+            "solution": [
+              "All probabilities are 0.5, so S = 0.25 I and H = (0.25/4) XᵀX with X = [[1,1],[1,2],[1,3],[1,4]].",
+              {
+                "eq": [
+                  "XᵀX = [[4, 10], [10, 30]]",
+                  "H = [[0.25, 0.625], [0.625, 1.875]],   det H = 0.0781",
+                  "H⁻¹ = [[24, −8], [−8, 3.2]]"
+                ]
+              },
+              "With gradient g = (0, −0.25), H⁻¹g = (2, −0.8), so θ ← (0, 0) − (2, −0.8) = (−2, 0.8). The decision boundary −2 + 0.8x = 0 is at x = 2.5, between the labels as expected. The probabilities are σ(−1.2) = 0.23, σ(−0.4) = 0.40, σ(0.4) = 0.60 and σ(1.2) = 0.77 at x = 1, …, 4, close to optimal in a single step."
+            ]
+          }
+        },
+        "Newton's method is a second-order method and needs a convex or at least well-behaved function. For high-dimensional problems such as deep networks, quasi-Newton methods and first-order methods are used instead (see Gradient Methods in the Mathematics book)."
+      ],
+      "check": [
+        {
+          "q": "Newton's method is attractive for logistic regression because",
+          "a": "J is convex and the method converges in few iterations",
+          "wrong": [
+            "It does not need the gradient",
+            "Each iteration is cheaper than a gradient step",
+            "It avoids matrix inversion"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "boundary",
+      "title": "Decision boundaries and separable data",
+      "terms": [
+        "decision boundary",
+        "linearly separable",
+        "linear separability",
+        "separable data",
+        "linear classifier"
+      ],
+      "body": [
+        "To classify, predict y = 1 when P(y = 1 | x) > 0.5, that is when θᵀx > 0. The **decision boundary** {x : θᵀx = 0} is a hyperplane: a point in one dimension, a line in two, a plane in three. Logistic regression is therefore a **linear classifier**. The vector θ is perpendicular to the boundary, and the distance from a point to the boundary is |θᵀx|/‖θ‖. The probability is the sigmoid of that scaled distance, so points far from the boundary get probabilities near 0 or 1.",
+        "Nonlinear boundaries come from feature maps, as in regression: adding x₁², x₂² and x₁x₂ lets a linear classifier in feature space draw an ellipse in the original space.",
+        {
+          "h": "Separable data"
+        },
+        "If a hyperplane separates the two classes perfectly (the data are **linearly separable**), the likelihood can always be increased by scaling θ upward: multiplying θ by c > 1 sharpens every probability toward the correct 0 or 1 and raises ℓ. No finite maximizer exists, the weights grow without bound, and the probabilities become extreme. Gradient descent never converges, and Newton's method hits a singular Hessian.",
+        {
+          "warn": "On separable or nearly separable data, always add regularization. The penalty λ‖θ‖² stops the weights from diverging and also improves generalization. Most libraries regularize logistic regression by default."
+        },
+        "The regularized objective is J(θ) + (λ/2m)‖θ‖² (again with the intercept excluded). It is still convex, and the Gaussian-prior (MAP) interpretation of Regularization applies."
+      ],
+      "check": [
+        {
+          "q": "With θ = (−1, 2, 3) and x = (1, 0, 1), which class is predicted?",
+          "a": "Class 1, since θᵀx = 2 > 0",
+          "wrong": [
+            "Class 0, since θᵀx = −1",
+            "Class 0, since θᵀx = 2 is even",
+            "Cannot be determined"
+          ]
+        },
+        {
+          "q": "Why does unregularized logistic regression fail on linearly separable data?",
+          "a": "The likelihood keeps increasing as the weights grow, so no finite maximizer exists",
+          "wrong": [
+            "The sigmoid is not defined",
+            "The log-likelihood becomes convex",
+            "The gradient is always zero"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "perceptron",
+      "title": "The perceptron",
+      "terms": [
+        "perceptron",
+        "perceptron algorithm",
+        "perceptron convergence",
+        "mistake bound"
+      ],
+      "body": [
+        "The **perceptron** replaces the sigmoid with a hard threshold: h(x) = 1 if θᵀx ≥ 0 and 0 otherwise. It outputs a class but no probability. It was proposed by Rosenblatt in 1958 and is the ancestor of the neural network. Its learning rule has the same form as the logistic update:",
+        {
+          "eq": "θ ← θ + α ( y^{(i)} − h(x^{(i)}) ) x^{(i)}"
+        },
+        "The correction is zero when the example is classified correctly. On a mistake with y = 1, h = 0, the update adds αx to θ, which raises θᵀx on that example. On a mistake with y = 0, h = 1, it subtracts αx.",
+        {
+          "key": "Perceptron convergence theorem (Novikoff). If every ‖x‖ ≤ R and some unit vector θ* separates the data with margin γ (y θ*ᵀx ≥ γ in ±1 labeling), the perceptron makes at most (R/γ)² mistakes, whatever the order or the number of examples."
+        },
+        "The bound depends on the geometry (the margin), not on the dimension or the number of examples. If the data are not separable, the perceptron never settles. Large-margin classifiers, which come next in the book, choose the separating hyperplane with the biggest γ, and kernels allow the perceptron in very high dimensions.",
+        {
+          "example": {
+            "title": "A perceptron update",
+            "problem": "Labels are 0/1, α = 1, θ = (0, 0, 0) and the first example is x = (1, 2, −1) with y = 1. Update θ.",
+            "solution": "θᵀx = 0 ≥ 0, so h = 1, which is correct; no update. For a second example x = (1, −1, 3) with y = 0, h = 1 (since θᵀx = 0) is wrong, so θ ← θ + 1(0 − 1)x = (−1, 1, −3)."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "The perceptron mistake bound (R/γ)² depends on",
+          "a": "the radius of the data and the margin",
+          "wrong": [
+            "the number of training examples",
+            "the number of features",
+            "the learning rate"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "softmax",
+      "title": "More than two classes: softmax regression",
+      "terms": [
+        "softmax regression",
+        "softmax",
+        "multiclass classification",
+        "one-vs-rest",
+        "multinomial logistic regression",
+        "one-hot"
+      ],
+      "body": [
+        "With K classes, give each class its own weight vector θ_k and score s_k = θ_kᵀx. The **softmax** turns the scores into a probability distribution:",
+        {
+          "eq": "P(y = k | x) = exp(s_k) / Σ_{j=1}^{K} exp(s_j)"
+        },
+        "Probabilities are positive and sum to one. For K = 2 the model reduces to logistic regression, with θ = θ₁ − θ₀. The loss is the cross-entropy: with y one-hot encoded (a vector with a 1 in the true class's position),",
+        {
+          "eq": [
+            "loss = − Σ_k y_k ln p_k = − ln p_{true class}",
+            "∇_{θ_k} loss = ( p_k − y_k ) x"
+          ]
+        },
+        "The gradient again has the 'prediction minus target' form. Softmax with cross-entropy is the output layer of nearly every neural classifier.",
+        {
+          "example": {
+            "title": "Softmax probabilities and loss",
+            "problem": "Three classes have scores (2, 1, 0). Find the probabilities. If the true class is the second, what is the loss and the gradient with respect to the scores?",
+            "solution": [
+              "exp(2) = 7.389, exp(1) = 2.718, exp(0) = 1, with sum 11.107. The probabilities are (0.665, 0.245, 0.090).",
+              "The loss is −ln 0.245 = 1.41. The gradient with respect to the scores is p − y = (0.665, 0.245 − 1, 0.090) = (0.665, −0.755, 0.090): it pushes the true class's score up and the others down."
+            ]
+          }
+        },
+        {
+          "h": "Alternatives"
+        },
+        {
+          "list": [
+            "**One-vs-rest**: train K binary classifiers, each separating one class from all the others, and predict the class with the highest score. It needs only a binary learner.",
+            "**One-vs-one**: train K(K − 1)/2 classifiers on pairs of classes and vote.",
+            "**Numerical stability**: compute softmax as exp(s_k − max_j s_j) / Σ exp(s_j − max s). Subtracting the maximum leaves the result unchanged and avoids overflow."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "Softmax scores (0, 0, 0) give probabilities",
+          "a": "1/3 each",
+          "wrong": ["0 each", "(1, 0, 0)", "undefined"]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Logistic regression models P(y = 1 | x) = σ(θᵀx), equivalently linear log-odds. Weights multiply the odds by e^{θ_j} per unit of x_j.",
+    "Maximum likelihood gives the cross-entropy loss. Its gradient is Xᵀ(h − y)/m, and J is convex, with no closed form.",
+    "Newton's method uses H = XᵀSX/m with S = diag(h(1 − h)) and converges in a few steps.",
+    "The decision boundary θᵀx = 0 is a hyperplane. On separable data the unregularized weights diverge, so regularize.",
+    "The perceptron is the hard-threshold version with the update θ ← θ + α(y − h)x, and makes at most (R/γ)² mistakes on separable data.",
+    "Softmax regression generalizes to K classes with cross-entropy loss and gradient (p − y)xᵀ."
+  ],
+  "problems": [
+    {
+      "q": "A logistic model has θ = (−3, 1.5) with x = (1, x₁). Find P(y = 1) at x₁ = 1 and x₁ = 3, and the decision boundary.",
+      "solution": "At x₁ = 1, z = −1.5, σ(−1.5) = 1/(1 + e^{1.5}) = 0.182. At x₁ = 3, z = 1.5, σ = 0.818. The boundary is where −3 + 1.5x₁ = 0, so x₁ = 2.",
+      "a": "0.182, 0.818; boundary x₁ = 2."
+    },
+    {
+      "q": "For the data x = 1, 2, 3, 4 and y = 0, 1, 0, 1 with θ = (−2, 0.8), find the average cross-entropy loss.",
+      "solution": "z = −1.2, −0.4, 0.4, 1.2 give probabilities 0.2315, 0.4013, 0.5987, 0.7685. Losses: −ln(1 − 0.2315) = 0.2631, −ln 0.4013 = 0.9132, −ln(1 − 0.5987) = 0.9132, −ln 0.7685 = 0.2631. The mean is 2.3526/4 = 0.588.",
+      "a": "About 0.588, below ln 2 = 0.693 at θ = 0."
+    },
+    {
+      "q": "Show that for h = σ(z) the derivative is h(1 − h).",
+      "solution": "σ(z) = (1 + e^{−z})⁻¹. Differentiating, σ′ = e^{−z}/(1 + e^{−z})² = [1/(1 + e^{−z})]·[e^{−z}/(1 + e^{−z})] = σ(z)(1 − σ(z)).",
+      "a": "σ′(z) = σ(z)(1 − σ(z))."
+    },
+    {
+      "q": "Scores for 3 classes are (1, 1, 3). Compute the softmax probabilities and the cross-entropy if the true class is the third.",
+      "solution": "exp: 2.718, 2.718, 20.086; sum 25.522. Probabilities: 0.1065, 0.1065, 0.7870. The loss is −ln 0.7870 = 0.240.",
+      "a": "(0.107, 0.107, 0.787); loss 0.240."
+    },
+    {
+      "q": "The perceptron is run with α = 1 from θ = (0, 0). The example x = (2, 1) with y = 0 is misclassified (θᵀx = 0 gives h = 1). Give the new θ, and check that this example is now classified correctly.",
+      "solution": "θ ← (0, 0) + 1(0 − 1)(2, 1) = (−2, −1). Now θᵀx = −5 < 0, so h = 0, which matches y.",
+      "a": "θ = (−2, −1)."
+    }
+  ]
+}

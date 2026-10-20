@@ -1,0 +1,431 @@
+{
+  "id": "sorting-searching",
+  "view": "chapter",
+  "title": "Searching, Sorting and Divide and Conquer",
+  "description": "Binary search, insertion sort, merge sort and quicksort, the Ω(n log n) lower bound, and the divide-and-conquer strategy.",
+  "overview": [
+    "Searching and sorting are the first algorithms every programmer learns, and they teach the most useful design idea in the subject: divide and conquer. Split a problem into smaller pieces of the same kind, solve each recursively, and combine the answers. Binary search discards half of the data at each step and merge sort sorts the halves separately, and each reduces a linear or quadratic cost to a logarithmic or n log n one.",
+    "Machine learning leans on these routines constantly. Decision trees sort each feature to find the best split, ROC curves and AUC are computed by sorting the scores, k-nearest-neighbor search and ranking return the top results, and medians and percentiles need order statistics."
+  ],
+  "objectives": [
+    "Implement binary search correctly and state its logarithmic cost and the invariant it maintains.",
+    "Implement insertion sort, merge sort and quicksort, and analyze their best, worst and expected running times.",
+    "Prove that any comparison sort needs Ω(n log n) comparisons, and describe sorts that beat the bound by not comparing.",
+    "Apply divide and conquer to exponentiation and selection.",
+    "Identify where sorting and searching appear in machine learning pipelines."
+  ],
+  "sections": [
+    {
+      "id": "binary-search",
+      "title": "Searching and binary search",
+      "terms": [
+        "binary search",
+        "linear search",
+        "sorted array",
+        "bisect",
+        "search invariant",
+        "binary search on the answer"
+      ],
+      "body": [
+        "Finding a value in an unsorted list requires checking items one by one: O(n). If the list is **sorted**, **binary search** does far better. Compare the target with the middle item: if equal, done; if the target is smaller, search the left half, otherwise the right half. Each comparison halves the range, so at most ⌊log₂ n⌋ + 1 comparisons are needed: 20 for a million items, 30 for a billion.",
+        {
+          "code": [
+            "def binary_search(xs, target):",
+            "    \"\"\"Index of target in sorted list xs, or -1.\"\"\"",
+            "    lo, hi = 0, len(xs) - 1          # invariant: if target is in xs, it is in xs[lo..hi]",
+            "    while lo <= hi:",
+            "        mid = (lo + hi) // 2",
+            "        if xs[mid] == target:",
+            "            return mid",
+            "        elif xs[mid] < target:",
+            "            lo = mid + 1               # discard the left half and the middle",
+            "        else:",
+            "            hi = mid - 1               # discard the right half and the middle",
+            "    return -1",
+            "",
+            "binary_search([2, 3, 5, 7, 11, 13], 11)   # 4",
+            "binary_search([2, 3, 5, 7, 11, 13], 6)    # -1"
+          ],
+          "caption": "Binary search with its loop invariant. Python's bisect module provides tested versions (bisect_left, bisect_right)."
+        },
+        {
+          "example": {
+            "title": "How many steps?",
+            "problem": "How many comparisons does binary search need, at most, on 1,000,000 sorted items? How would linear search compare?",
+            "solution": "The range shrinks 10⁶ → 5 × 10⁵ → … → 1, which takes about log₂ 10⁶ = 19.9, so at most 20 comparisons. Linear search needs up to 10⁶: 50,000 times more."
+          }
+        },
+        {
+          "warn": "Binary search is famously easy to get wrong. Common bugs: using lo < hi instead of lo <= hi (missing the last item), not moving past mid (an infinite loop), and in fixed-width integer languages computing (lo + hi)//2 where lo + hi overflows (use lo + (hi − lo)//2). Write the invariant down and check it for the empty and one-item cases."
+        },
+        {
+          "h": "Binary search on a monotone predicate"
+        },
+        "The idea works for any yes/no property that is false up to a threshold and true after it: find the smallest x for which it holds. Examples in machine learning: the smallest learning rate (on a log scale) at which training diverges, the decision threshold that reaches 95% recall, the largest batch size that fits in memory, and the debugging tool `git bisect`, which finds the first bad commit in log₂ n tests."
+      ],
+      "check": [
+        {
+          "q": "Binary search requires that the data are",
+          "a": "sorted (or the predicate monotone)",
+          "wrong": [
+            "unique",
+            "stored in a linked list",
+            "positive"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "elementary-sorts",
+      "title": "Elementary sorting algorithms",
+      "terms": [
+        "sorting",
+        "insertion sort",
+        "selection sort",
+        "bubble sort",
+        "stable sort",
+        "in-place sorting",
+        "inversions"
+      ],
+      "body": [
+        "**Sorting** arranges items in order. Two properties matter besides speed: a sort is **in place** if it uses O(1) extra memory, and **stable** if items with equal keys keep their original relative order. Stability makes multi-key sorting possible: sort by the secondary key first, then stably by the primary key.",
+        "**Insertion sort** builds a sorted prefix: take the next item and slide it left past larger items until it is in position, like sorting playing cards in the hand.",
+        {
+          "code": [
+            "def insertion_sort(xs):",
+            "    for i in range(1, len(xs)):",
+            "        key = xs[i]",
+            "        j = i - 1",
+            "        while j >= 0 and xs[j] > key:   # shift larger items right",
+            "            xs[j + 1] = xs[j]",
+            "            j -= 1",
+            "        xs[j + 1] = key",
+            "    return xs",
+            "",
+            "insertion_sort([5, 2, 4, 6, 1, 3])      # [1, 2, 3, 4, 5, 6]"
+          ],
+          "caption": "Insertion sort: in place and stable."
+        },
+        "Each shift removes one **inversion**, a pair of items that is out of order (i < j with xs[i] > xs[j]). So insertion sort takes Θ(n + I) time, where I is the number of inversions. For [5, 2, 4, 6, 1, 3] the inversions are (5,2), (5,4), (5,1), (5,3), (2,1), (4,1), (4,3), (6,1), (6,3): I = 9, and the algorithm performs exactly 9 shifts. A sorted list has 0 inversions (best case: O(n)); a reversed list has n(n − 1)/2 (worst case: Θ(n²)).",
+        {
+          "list": [
+            "**Selection sort** repeatedly selects the minimum of the unsorted part and swaps it into place: always Θ(n²) comparisons but only n − 1 swaps.",
+            "**Bubble sort** swaps adjacent out-of-order items repeatedly. It is easy to describe and slow; it has no practical use.",
+            "Quadratic sorts are fine for very small arrays (under about 20 items) and for nearly sorted data. Real libraries use insertion sort for the small pieces of a faster algorithm."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "How many inversions does the list [3, 1, 2] have?",
+          "a": "2",
+          "wrong": [
+            "1",
+            "3",
+            "0"
+          ],
+          "why": "(3, 1) and (3, 2)."
+        },
+        {
+          "q": "Insertion sort is fastest when the input is",
+          "a": "already sorted, taking O(n)",
+          "wrong": [
+            "in reverse order",
+            "random",
+            "all items distinct"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fast-sorts",
+      "title": "Merge sort and quicksort",
+      "terms": [
+        "merge sort",
+        "quicksort",
+        "pivot",
+        "timsort",
+        "quickselect",
+        "order statistic",
+        "median of medians",
+        "divide and conquer"
+      ],
+      "body": [
+        "Both of the fast general-purpose sorts use **divide and conquer**: divide the input, solve the parts recursively, combine.",
+        {
+          "h": "Merge sort"
+        },
+        "Split the list in half, sort each half recursively, and **merge** the two sorted halves by repeatedly taking the smaller of the two front items.",
+        {
+          "code": [
+            "def merge_sort(xs):",
+            "    if len(xs) <= 1:",
+            "        return xs",
+            "    mid = len(xs) // 2",
+            "    left, right = merge_sort(xs[:mid]), merge_sort(xs[mid:])",
+            "    out, i, j = [], 0, 0",
+            "    while i < len(left) and j < len(right):",
+            "        if left[i] <= right[j]:          # <= keeps equal items in order (stable)",
+            "            out.append(left[i]); i += 1",
+            "        else:",
+            "            out.append(right[j]); j += 1",
+            "    return out + left[i:] + right[j:]",
+            "",
+            "merge_sort([38, 27, 43, 3, 9, 82, 10])   # [3, 9, 10, 27, 38, 43, 82]"
+          ],
+          "caption": "Merge sort. Merging two sorted lists of total length n takes n steps."
+        },
+        "The recurrence T(n) = 2T(n/2) + Θ(n) gives Θ(n log n) in every case (see Algorithm Analysis). It is stable and its running time does not depend on the input, but it needs O(n) extra memory. It is also the basis of **external sorting** of data on disk and of sorting in parallel and distributed systems (merging sorted runs).",
+        {
+          "h": "Quicksort"
+        },
+        "Choose a **pivot**, **partition** the items into those smaller than the pivot and those larger, and sort the two parts recursively. No merging is needed.",
+        {
+          "code": [
+            "import random",
+            "",
+            "def quicksort(xs):",
+            "    if len(xs) <= 1:",
+            "        return xs",
+            "    pivot = random.choice(xs)",
+            "    smaller = [x for x in xs if x < pivot]",
+            "    equal   = [x for x in xs if x == pivot]",
+            "    larger  = [x for x in xs if x > pivot]",
+            "    return quicksort(smaller) + equal + quicksort(larger)"
+          ],
+          "caption": "A simple (not in-place) quicksort with a random pivot."
+        },
+        "If the pivot splits the list evenly each time, T(n) = 2T(n/2) + Θ(n) = Θ(n log n). If the pivot is always the smallest or largest item (for instance the first item of an already sorted list), T(n) = T(n − 1) + Θ(n) = Θ(n²). A **random pivot** makes the bad case extremely unlikely: the expected running time is O(n log n) for every input. In-place versions with good constants make quicksort the fastest sort in practice on arrays, though it is not stable.",
+        {
+          "table": {
+            "head": [
+              "Sort",
+              "Best",
+              "Average",
+              "Worst",
+              "Extra memory",
+              "Stable"
+            ],
+            "rows": [
+              [
+                "Insertion",
+                "n",
+                "n²",
+                "n²",
+                "O(1)",
+                "yes"
+              ],
+              [
+                "Merge",
+                "n log n",
+                "n log n",
+                "n log n",
+                "O(n)",
+                "yes"
+              ],
+              [
+                "Quick (random pivot)",
+                "n log n",
+                "n log n",
+                "n² (very unlikely)",
+                "O(log n)",
+                "no"
+              ],
+              [
+                "Heap",
+                "n log n",
+                "n log n",
+                "n log n",
+                "O(1)",
+                "no"
+              ]
+            ],
+            "caption": "Comparison sorts."
+          }
+        },
+        "Python's built-in sorted and list.sort use **Timsort**, a hybrid of merge sort and insertion sort that exploits runs of already ordered data: O(n log n) in the worst case, O(n) on sorted input, stable.",
+        {
+          "h": "Selection: the k-th smallest item"
+        },
+        "To find the median (or any percentile), a full sort is more than needed. **Quickselect** partitions around a pivot as in quicksort, but recurses only into the side that contains the k-th item: expected time O(n). The median-of-medians variant guarantees O(n) in the worst case. NumPy's np.median and np.partition use this idea."
+      ],
+      "check": [
+        {
+          "q": "Quicksort's worst case is Θ(n²) and arises when",
+          "a": "the pivot is always the smallest or largest item",
+          "wrong": [
+            "the input has duplicate items",
+            "n is a power of two",
+            "the pivot is the median"
+          ]
+        },
+        {
+          "q": "Why is merge sort used for sorting data too big for memory?",
+          "a": "Sorted runs can be merged sequentially from disk, with a running time that does not depend on the input",
+          "wrong": [
+            "it needs no extra memory",
+            "it is always faster than quicksort",
+            "it works without comparisons"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lower-bound",
+      "title": "The Ω(n log n) lower bound and sorting without comparisons",
+      "terms": [
+        "comparison sort lower bound",
+        "decision tree lower bound",
+        "counting sort",
+        "radix sort",
+        "non-comparison sort",
+        "stirling's approximation"
+      ],
+      "body": [
+        "Can a comparison-based sort beat n log n? No. A comparison sort can be viewed as a binary **decision tree**: each internal node is one comparison with two outcomes, and each leaf is the permutation that the algorithm outputs. There are n! possible input orderings, and each must reach a different leaf, so the tree has at least n! leaves. A binary tree of height h has at most 2^h leaves, so 2^h ≥ n!, and the worst-case number of comparisons is at least",
+        {
+          "eq": "h ≥ log₂(n!) ≥ (n/2) log₂(n/2) = Ω(n log n)"
+        },
+        "(the last step because n! ≥ (n/2)^{n/2}, taking only the largest n/2 factors; Stirling's formula gives log₂ n! ≈ n log₂ n − 1.44n). Merge sort and heapsort are therefore optimal among comparison sorts.",
+        {
+          "example": {
+            "title": "A concrete bound",
+            "problem": "What is the minimum number of comparisons that guarantees sorting 10 items?",
+            "solution": "log₂(10!) = log₂(3,628,800) = 21.8, so at least 22 comparisons are needed in the worst case. A simple quadratic sort uses up to 45."
+          }
+        },
+        {
+          "h": "Beating the bound by not comparing"
+        },
+        "The bound applies only to algorithms that learn about the order solely through comparisons. If the keys are integers in a known small range, we can do better.",
+        {
+          "list": [
+            "**Counting sort** sorts n integers from {0, …, k − 1} by counting how many times each value occurs and writing them out in order: O(n + k) time, with O(k) memory. For labels from a few classes it is far faster than any comparison sort.",
+            "**Radix sort** sorts d-digit numbers by applying a stable counting sort to one digit at a time, from the least significant: O(d(n + k)).",
+            "**Bucket sort** splits uniformly distributed values into buckets and sorts each: O(n) on average."
+          ]
+        },
+        {
+          "code": [
+            "def counting_sort(xs, k):",
+            "    counts = [0] * k",
+            "    for x in xs:",
+            "        counts[x] += 1                   # count occurrences of each value",
+            "    out = []",
+            "    for value in range(k):",
+            "        out.extend([value] * counts[value])",
+            "    return out",
+            "",
+            "counting_sort([2, 0, 1, 2, 0, 2], 3)     # [0, 0, 1, 2, 2, 2]"
+          ],
+          "caption": "Counting sort for small integer keys."
+        }
+      ],
+      "check": [
+        {
+          "q": "Any comparison sort must make at least about this many comparisons in the worst case:",
+          "a": "log₂(n!) = Ω(n log n)",
+          "wrong": [
+            "n",
+            "n²",
+            "log₂ n"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "divide-conquer-ml",
+      "title": "Divide and conquer, and sorting in machine learning",
+      "terms": [
+        "fast exponentiation",
+        "exponentiation by squaring",
+        "divide-and-conquer strategy",
+        "sorting in decision trees",
+        "rank-based metrics",
+        "top-k selection",
+        "percentile computation"
+      ],
+      "body": [
+        "Divide and conquer often turns repeated work into a logarithmic number of steps. **Exponentiation by squaring** computes xⁿ with O(log n) multiplications by using x^n = (x^{n/2})² for even n and x · x^{n−1} for odd n.",
+        {
+          "code": [
+            "def power(x, n):",
+            "    if n == 0:",
+            "        return 1",
+            "    half = power(x, n // 2)",
+            "    return half * half if n % 2 == 0 else half * half * x",
+            "",
+            "power(3, 13)     # 1594323"
+          ],
+          "caption": "Fast exponentiation. 3¹³ takes 5 multiplications (13 = 1101 in binary), not 12."
+        },
+        "The same idea gives fast matrix powers (the n-th Fibonacci number from the 2 × 2 matrix [[1, 1], [1, 0]]ⁿ in O(log n) steps), and with a different split Karatsuba's multiplication and Strassen's matrix product (see the recurrences in Algorithm Analysis).",
+        {
+          "h": "Where machine learning sorts and searches"
+        },
+        {
+          "list": [
+            "**Decision trees**: to find the best threshold of a numerical feature, sort its m values once, O(m log m), then sweep through them, updating the class counts in O(1) per step to evaluate every split (see Decision Trees). Tree growing costs O(n m log m) per level.",
+            "**Rank-based metrics**: the AUC of a classifier is computed by sorting the scores (see the pair-counting example in Evaluating Models): O(m log m). The ROC curve is a sweep over the sorted scores. Quantiles, medians and the median absolute deviation need order statistics.",
+            "**Top-k retrieval**: return the k best of m candidates by a heap in O(m log k) or by quickselect in O(m), instead of sorting all of them.",
+            "**Nearest neighbor search** in low dimension is a search in a tree structure (k-d tree), the multidimensional analogue of binary search (see Nearest Neighbors).",
+            "**Hyperparameter and threshold search** use binary search on a monotone quantity.",
+            "**Sorting by length** (bucketing) groups sequences of similar length into a batch so that little padding is wasted when training on text."
+          ]
+        },
+        {
+          "example": {
+            "title": "Counting inversions with merge sort",
+            "problem": "How could you count the number of inversions of an array in O(n log n), instead of O(n²)?",
+            "solution": "Run merge sort. When the merge step takes an item from the right half before the remaining items of the left half, each of those remaining left items forms an inversion with it, so add their number. Summing over all merges counts every inversion once. Kendall's τ rank correlation, which is built on inversions, can therefore be computed in O(n log n)."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "To find the best split threshold for a numerical feature, a decision tree algorithm",
+          "a": "sorts the feature values and sweeps through them updating class counts",
+          "wrong": [
+            "tries random thresholds only",
+            "hashes the feature values",
+            "uses linear search on the unsorted data for every threshold"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Binary search finds an item in a sorted array in O(log n) comparisons (20 for a million items), by halving the range while maintaining an invariant. It also applies to any monotone yes/no predicate.",
+    "Insertion sort is Θ(n + inversions): quadratic in the worst case, linear on nearly sorted data. Stable sorts keep equal items in order.",
+    "Merge sort is Θ(n log n) always, stable, with O(n) extra memory. Quicksort is expected O(n log n) with a random pivot and Θ(n²) in the worst case. Timsort combines merge and insertion sort. Quickselect finds the k-th item in expected O(n).",
+    "Every comparison sort needs Ω(n log n) comparisons (log₂ n! leaves in the decision tree). Counting and radix sort beat it for small-range integers by not comparing.",
+    "Divide and conquer also gives fast exponentiation. Machine learning sorts for tree splits and AUC, uses heaps for top-k, and uses binary search for thresholds."
+  ],
+  "problems": [
+    {
+      "q": "Trace merge sort on [4, 1, 3, 2] and count the merge comparisons.",
+      "solution": "Split: [4, 1] and [3, 2]; then [4], [1], [3], [2]. Merge [4] and [1] → [1, 4] (1 comparison). Merge [3] and [2] → [2, 3] (1 comparison). Merge [1, 4] and [2, 3]: compare 1 vs 2 → 1; 4 vs 2 → 2; 4 vs 3 → 3; then 4 remains: 3 comparisons. Result [1, 2, 3, 4], with 5 comparisons in all.",
+      "a": "[1, 2, 3, 4] with 5 comparisons."
+    },
+    {
+      "q": "How many inversions does [4, 3, 2, 1] have, and how many shifts does insertion sort perform on it?",
+      "solution": "Every pair is out of order: C(4, 2) = 6 inversions. Insertion sort performs one shift per inversion: 6.",
+      "a": "6 and 6."
+    },
+    {
+      "q": "A sorted array has 2²⁰ − 1 = 1,048,575 items. What is the maximum number of comparisons of binary search?",
+      "solution": "A search tree over n items has height ⌊log₂ n⌋ + 1 comparisons at most: ⌊log₂(2²⁰ − 1)⌋ + 1 = 19 + 1 = 20.",
+      "a": "20."
+    },
+    {
+      "q": "Use fast exponentiation to compute 2¹⁰ and list the multiplications.",
+      "solution": "power(2, 10): half = power(2, 5); power(2, 5): half = power(2, 2), then half·half·2; power(2, 2): half = power(2, 1) = 2 (from power(2, 0) = 1: 1·1·2), giving 2·2 = 4; then power(2, 5) = 4·4·2 = 32; power(2, 10) = 32·32 = 1024. About log₂ 10 ≈ 4 squarings instead of 9 multiplications.",
+      "a": "1024."
+    },
+    {
+      "q": "You must sort 10⁷ integer class labels, each between 0 and 9. Which sort is best and what does it cost?",
+      "solution": "Counting sort with k = 10: O(n + k) = about 10⁷ operations and 10 counters of memory, compared with about 2.3 × 10⁸ for a comparison sort.",
+      "a": "Counting sort, O(n + k) ≈ 10⁷ operations."
+    }
+  ]
+}

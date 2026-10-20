@@ -1,0 +1,315 @@
+{
+  "id": "convex-optimization",
+  "view": "chapter",
+  "title": "Convex Sets, Convex Functions and Convex Problems",
+  "description": "Convexity and its tests, why every local minimum of a convex function is global, strong convexity and smoothness, subgradients and the convex problems of machine learning.",
+  "overview": [
+    "Training a model means minimizing a loss. In general this is hard: a function can have many local minima, flat regions and saddle points, and a search that stops at one local minimum may be far from the best. Convex functions are the exception. Their graphs are bowls: any local minimum is global, gradient methods converge, and the answer does not depend on where the search starts.",
+    "Linear regression, ridge, lasso, logistic regression and support vector machines are all convex problems. Neural networks are not, but the language of convexity (gradients, curvature, condition numbers) still describes what optimizers do locally. This chapter defines convexity, gives tests for it, derives the key optimality results and introduces subgradients for non-smooth losses."
+  ],
+  "objectives": [
+    "Define convex sets and convex functions, and check convexity with the definition, the first-order and the second-order conditions.",
+    "Prove that a local minimum of a convex function is global and state the optimality condition for constrained convex problems.",
+    "Define strong convexity and smoothness, and relate them to the Hessian's eigenvalues.",
+    "Compute subgradients of non-smooth functions and derive soft thresholding.",
+    "Classify the common machine learning objectives as convex or non-convex."
+  ],
+  "sections": [
+    {
+      "id": "convex-sets-functions",
+      "title": "Convex sets and convex functions",
+      "terms": [
+        "convex set",
+        "convex sets",
+        "convex function",
+        "convex functions",
+        "strictly convex",
+        "epigraph",
+        "convexity",
+        "concave function",
+        "convex combination"
+      ],
+      "body": [
+        "A set C is **convex** if the segment between any two of its points lies in C: for x, y ∈ C and 0 ≤ t ≤ 1, tx + (1 − t)y ∈ C. A disc is convex, and a ring is not. Intersections of convex sets are convex: a half-space {x : aᵀx ≤ b}, a norm ball {‖x‖ ≤ r} and the set of PSD matrices are convex, so a polyhedron (an intersection of half-spaces) is too.",
+        "A function f is **convex** if, for all x, y and t ∈ [0, 1],",
+        {
+          "eq": "f( t x + (1 − t) y ) ≤ t f(x) + (1 − t) f(y)"
+        },
+        "Geometrically, the chord between two points of the graph lies on or above the graph. Equivalently, the region above the graph (the **epigraph**) is a convex set. f is **concave** if −f is convex, and **strictly convex** if the inequality is strict for x ≠ y.",
+        {
+          "svg": "<svg viewBox='0 0 400 270' role='img' aria-label='A convex function with a chord above it and a tangent line below it' font-family='system-ui, sans-serif' font-size='12'><path fill='none' stroke='currentColor' stroke-width='2.5' d='M90,20.6 L100,50 L110,76.6 L120,100.4 L130,121.4 L140,139.6 L150,155 L160,167.6 L170,177.4 L180,184.4 L190,188.6 L200,190 L210,188.6 L220,184.4 L230,177.4 L240,167.6 L250,155 L260,139.6 L270,121.4 L280,100.4 L290,76.6 L300,50 L310,20.6'/><path d='M100,50 L280,100.4' fill='none' stroke='currentColor' stroke-width='1.5' stroke-dasharray='5 3'/><path d='M180,234.8 L300,100.4' fill='none' style='stroke:var(--accent)' stroke-width='2'/><g fill='currentColor'><circle cx='100' cy='50' r='3.5'/><circle cx='280' cy='100.4' r='3.5'/><circle cx='240' cy='167.6' r='3.5'/><text x='108' y='44'>(x, f(x))</text><text x='214' y='92'>chord: above the graph</text><text x='190' y='248' style='fill:var(--accent)'>tangent: below the graph</text></g></svg>",
+          "caption": "For a convex function, every chord lies above the graph and every tangent line lies below it."
+        },
+        {
+          "h": "Examples"
+        },
+        {
+          "list": [
+            "Convex: affine functions aᵀx + b, any norm ‖x‖, x², eˣ, |x|, −ln x for x > 0, xᵀAx for PSD A, max(f₁, f₂) when both are convex, the log-sum-exp ln Σe^{x_i}.",
+            "Not convex: x³ (on all of ℝ), sin x, ln x (it is concave), x₁x₂.",
+            "**Operations preserving convexity**: non-negative sums Σ a_if_i (a_i ≥ 0), pointwise maxima, composition with an affine map f(Ax + b), and f(g(x)) when f is convex and non-decreasing and g is convex.",
+            "A convex combination Σ t_ix_i (t_i ≥ 0, Σt_i = 1) of points weights them like probabilities, and **Jensen's inequality** f(E[X]) ≤ E[f(X)] is the extension of the definition to expectations."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "Which function is convex on all of ℝ?",
+          "a": "f(x) = x⁴",
+          "wrong": ["f(x) = x³", "f(x) = sin x", "f(x) = −x²"]
+        },
+        {
+          "q": "The chord between two points on the graph of a convex function lies",
+          "a": "on or above the graph",
+          "wrong": ["below the graph", "always on the graph", "perpendicular to the graph"]
+        }
+      ]
+    },
+    {
+      "id": "convexity-tests",
+      "title": "Testing convexity",
+      "terms": [
+        "first-order condition for convexity",
+        "second-order condition for convexity",
+        "strong convexity",
+        "strongly convex",
+        "smoothness",
+        "lipschitz gradient",
+        "condition number of a function"
+      ],
+      "body": [
+        "For differentiable functions two equivalent tests are easier than the definition.",
+        {
+          "list": [
+            "**First order**: f is convex iff it lies above all of its tangent planes: f(y) ≥ f(x) + ∇f(x)ᵀ(y − x) for all x, y. (For eˣ at x = 0 this is 1 + y ≤ eʸ.)",
+            "**Second order**: a twice-differentiable f is convex iff its Hessian is positive semidefinite everywhere: ∇²f(x) ⪰ 0."
+          ]
+        },
+        {
+          "example": {
+            "title": "Convexity of ML losses",
+            "problem": "Show that the logistic loss ℓ(z) = ln(1 + e^{−z}) is convex in z, that least squares is convex in θ, and that log-sum-exp is convex.",
+            "solution": [
+              "Logistic loss: ℓ′(z) = −σ(−z) = −1/(1 + eᶻ) and ℓ″(z) = σ(z)σ(−z) = e^{z}/(1 + e^{z})² ≥ 0. Composed with the affine map z = yθᵀx, it is convex in θ. The sum of convex functions is convex.",
+              "Least squares ‖Xθ − y‖² has Hessian 2XᵀX ⪰ 0, since vᵀXᵀXv = ‖Xv‖² ≥ 0.",
+              "Log-sum-exp f(x) = ln Σe^{x_i} has gradient p = softmax(x) and Hessian diag(p) − ppᵀ, which is PSD because vᵀ(diag(p) − ppᵀ)v = Σp_iv_i² − (Σp_iv_i)² = Var_p(v) ≥ 0. So the softmax cross-entropy loss is convex in the logits."
+            ]
+          }
+        },
+        {
+          "h": "Strong convexity and smoothness"
+        },
+        "Two constants quantify how bowl-like a function is. f is **μ-strongly convex** if ∇²f ⪰ μI (the curvature is at least μ > 0 in every direction), and **L-smooth** if ∇²f ⪯ LI (its gradient is L-Lipschitz, so the curvature is at most L). For a twice-differentiable function, μ and L are bounds on the eigenvalues of the Hessian, and the ratio κ = L/μ is its **condition number**.",
+        {
+          "list": [
+            "Strong convexity guarantees a unique minimizer and a quadratic lower bound f(y) ≥ f(x) + ∇f(x)ᵀ(y − x) + (μ/2)‖y − x‖². Adding an L2 penalty (λ/2)‖θ‖² to a convex loss makes it λ-strongly convex: this is one more effect of ridge regularization.",
+            "Smoothness gives the quadratic upper bound f(y) ≤ f(x) + ∇f(x)ᵀ(y − x) + (L/2)‖y − x‖², which justifies the step size 1/L of gradient descent: a step of that size always decreases f.",
+            "The convergence speed of gradient methods depends on κ, as discussed in Gradient Methods."
+          ]
+        },
+        {
+          "example": {
+            "title": "μ and L for a quadratic",
+            "problem": "Find μ, L and κ for f(x, y) = x² + xy + y².",
+            "solution": "The Hessian is [[2, 1], [1, 2]] with eigenvalues 3 and 1. So μ = 1, L = 3 and κ = 3. It is strongly convex with a unique minimizer at the origin."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "A twice-differentiable function is convex exactly when its Hessian is",
+          "a": "positive semidefinite everywhere",
+          "wrong": ["diagonal", "invertible", "zero at the minimum"]
+        },
+        {
+          "q": "Adding (λ/2)‖θ‖² to a convex loss makes it",
+          "a": "λ-strongly convex",
+          "wrong": ["concave", "non-smooth", "linear"]
+        }
+      ]
+    },
+    {
+      "id": "optimality",
+      "title": "Optimality conditions",
+      "terms": [
+        "global minimum",
+        "local minimum is global",
+        "optimality condition",
+        "first-order optimality",
+        "unconstrained optimization",
+        "constrained optimization problem",
+        "feasible set",
+        "stationary point of a convex function"
+      ],
+      "body": [
+        "A general **optimization problem** is: minimize f(x) over x in a **feasible set** C. The point x* is a global minimum if f(x*) ≤ f(x) for every feasible x, and a local minimum if this holds in a neighborhood.",
+        {
+          "key": "For a convex function on a convex set, every local minimum is a global minimum."
+        },
+        "**Proof.** Suppose x is a local minimum but some feasible y has f(y) < f(x). For t ∈ (0, 1], the point z_t = (1 − t)x + ty is feasible by convexity of the set, and by convexity of f, f(z_t) ≤ (1 − t)f(x) + tf(y) < f(x). As t → 0, z_t approaches x, so there are feasible points arbitrarily near x with a smaller value. This contradicts local minimality. ∎",
+        {
+          "h": "Conditions for a minimum"
+        },
+        {
+          "list": [
+            "**Unconstrained and differentiable**: ∇f(x*) = 0 is necessary for any minimum, and for convex f it is also sufficient. For a non-convex function it only marks a stationary point (a minimum, a maximum or a saddle).",
+            "**Constrained convex problem** (x ∈ C): x* is optimal iff ∇f(x*)ᵀ(y − x*) ≥ 0 for every y ∈ C: no feasible direction decreases f to first order. If x* is interior, this reduces to ∇f(x*) = 0.",
+            "**Uniqueness**: a strictly convex function has at most one minimizer."
+          ]
+        },
+        {
+          "example": {
+            "title": "A constrained minimum",
+            "problem": "Minimize f(x) = ½x² subject to x ≥ 1.",
+            "solution": "The unconstrained minimum x = 0 is infeasible. At x* = 1, ∇f = 1 and for every feasible y ≥ 1, ∇f(x*)(y − x*) = y − 1 ≥ 0 ✓. So x* = 1: the constraint is active. At an active constraint the gradient does not vanish; the Lagrange multiplier (next chapters) is its size, here 1."
+          }
+        },
+        {
+          "example": {
+            "title": "Least squares has a global minimizer",
+            "problem": "Argue that every solution of the normal equations minimizes ‖Xθ − y‖².",
+            "solution": "The objective is convex (Hessian 2XᵀX ⪰ 0), so a point with zero gradient, 2Xᵀ(Xθ − y) = 0, is a global minimum. If XᵀX is invertible the minimizer is unique (strict convexity); otherwise the minimizers form an affine set, and the minimum-norm one is the pseudoinverse solution."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "For a convex differentiable function, a point with ∇f(x) = 0 is",
+          "a": "a global minimum",
+          "wrong": ["a local maximum", "a saddle point", "not necessarily a minimum"]
+        }
+      ]
+    },
+    {
+      "id": "subgradients",
+      "title": "Subgradients and non-smooth functions",
+      "terms": [
+        "subgradient",
+        "subgradients",
+        "subdifferential",
+        "non-smooth optimization",
+        "soft-thresholding derivation",
+        "proximal operator",
+        "hinge loss subgradient"
+      ],
+      "body": [
+        "Some of the most useful objectives have kinks: the absolute value of the lasso, the hinge loss of the SVM, ReLU. A **subgradient** of a convex f at x is any vector g such that f(y) ≥ f(x) + gᵀ(y − x) for all y: the slope of a line that touches the graph at x and stays below it. The set of all subgradients is the **subdifferential** ∂f(x). At a point where f is differentiable it contains only the gradient. At a kink it contains a whole interval of slopes.",
+        {
+          "list": [
+            "f(x) = |x|: ∂f(x) = {−1} for x < 0, {+1} for x > 0 and the interval [−1, 1] at 0.",
+            "f(z) = max(0, 1 − z) (hinge loss): ∂f = {−1} for z < 1, {0} for z > 1 and [−1, 0] at z = 1.",
+            "ReLU max(0, x): ∂f(0) = [0, 1]. Software picks one value, commonly 0."
+          ]
+        },
+        "The optimality condition for an unconstrained convex problem is **0 ∈ ∂f(x_{opt})**. Subgradient descent, x ← x − α g_t, with a decaying step size, converges for non-smooth convex functions, at the slower rate O(1/√t).",
+        {
+          "example": {
+            "title": "Deriving soft thresholding",
+            "problem": "Minimize h(x) = ½(x − z)² + λ|x| over x, for λ > 0.",
+            "solution": [
+              "The optimality condition is 0 ∈ (x − z) + λ∂|x|.",
+              "If x > 0: x − z + λ = 0 gives x = z − λ, valid when z > λ. If x < 0: x = z + λ, valid when z < −λ. If x = 0: we need 0 ∈ −z + λ[−1, 1], i.e. |z| ≤ λ.",
+              "So x* = sign(z)·max(|z| − λ, 0): the soft-thresholding operator, which gives the lasso solution for orthonormal features (see Regularization in the Machine Learning book). For z = 3 and λ = 0.5, x* = 2.5; for z = 0.4, x* = 0."
+            ]
+          }
+        },
+        "The minimizer of f(x) + λ‖x‖₁ in general is found by **proximal gradient** methods: take a gradient step on the smooth part, then apply the soft-threshold (the proximal operator of the L1 norm). This is the ISTA algorithm for the lasso."
+      ],
+      "check": [
+        {
+          "q": "At x = 0, the subdifferential of |x| is",
+          "a": "the interval [−1, 1]",
+          "wrong": ["{0}", "{1}", "empty"]
+        }
+      ]
+    },
+    {
+      "id": "convex-ml",
+      "title": "Convex and non-convex problems in machine learning",
+      "terms": [
+        "convex optimization problem",
+        "linear programming",
+        "quadratic programming",
+        "semidefinite programming",
+        "non-convex optimization",
+        "local minima in neural networks",
+        "saddle points in deep learning"
+      ],
+      "body": [
+        "A **convex optimization problem** minimizes a convex function over a convex set. Standard classes, in increasing generality, are linear programs (LP: linear objective, linear constraints), quadratic programs (QP), second-order cone programs and semidefinite programs. Efficient algorithms and reliable software exist for all of them.",
+        {
+          "table": {
+            "head": ["Problem", "Objective", "Convex?", "Class"],
+            "rows": [
+              ["Least squares, ridge", "‖Xθ − y‖² + λ‖θ‖²", "Yes (strongly, with λ > 0)", "unconstrained QP"],
+              ["Lasso", "½‖Xθ − y‖² + λ‖θ‖₁", "Yes, non-smooth", "QP after reformulation"],
+              ["Logistic regression", "Σ ln(1 + e^{−y θᵀx}) (+ λ‖θ‖²)", "Yes", "smooth convex"],
+              ["Support vector machine", "½‖w‖² + C Σ max(0, 1 − y(wᵀx + b))", "Yes", "QP"],
+              ["Linear programming (e.g. LP decoding, optimal transport)", "cᵀx subject to Ax ≤ b", "Yes", "LP"],
+              ["Neural network training", "loss of a composition of nonlinear layers", "No", "non-convex"],
+              ["k-means, mixture models, matrix factorization", "joint over assignments and centers", "No", "non-convex"]
+            ],
+            "caption": "Convexity of common machine learning objectives."
+          }
+        },
+        "Non-convex objectives, such as the training loss of a neural network, can have many local minima and saddle points, and the result depends on the initialization. Several facts make them less daunting than the worst case suggests:",
+        {
+          "list": [
+            "In high dimensions most stationary points are saddles, not poor local minima, and gradient methods with noise escape saddles.",
+            "Wide networks tend to have many good minima with nearly equal loss; the local minima found in practice are usually good enough.",
+            "Overparameterized networks can reach zero training loss, so the global minimum value is known.",
+            "Convex sub-problems are used inside non-convex ones: EM alternates convex steps, and the last layer of a network is a convex logistic regression given the features."
+          ]
+        },
+        {
+          "tip": "When an objective is convex, use that. Use a solver with guarantees, such as a QP solver or L-BFGS, rather than a tuned SGD recipe, and expect the same answer from any starting point. When the objective is not convex, run from several initializations and keep the best."
+        }
+      ],
+      "check": [
+        {
+          "q": "Which objective is NOT convex in the parameters?",
+          "a": "The cross-entropy loss of a two-layer neural network with ReLU hidden units",
+          "wrong": [
+            "The logistic regression loss",
+            "The ridge regression objective",
+            "The soft-margin SVM objective"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "A function is convex if every chord lies above its graph. Equivalent tests: f(y) ≥ f(x) + ∇f(x)ᵀ(y − x), and ∇²f ⪰ 0. Convexity is preserved by non-negative sums, maxima and affine compositions.",
+    "For a convex function every local minimum is global, and ∇f = 0 is sufficient for a minimum. With a convex constraint set the condition is ∇f(x*)ᵀ(y − x*) ≥ 0 for all feasible y.",
+    "μ-strong convexity (∇²f ⪰ μI) gives a unique minimum; L-smoothness (∇²f ⪯ LI) bounds the step size by 1/L; κ = L/μ is the condition number.",
+    "Subgradients generalize gradients to kinks; the optimality condition is 0 ∈ ∂f. Soft thresholding is the minimizer of ½(x − z)² + λ|x|.",
+    "Least squares, ridge, lasso, logistic regression and SVMs are convex. Neural networks, k-means and mixtures are not."
+  ],
+  "problems": [
+    {
+      "q": "Determine whether f(x, y) = x² − xy + y² is convex, and give μ and L.",
+      "solution": "The Hessian is [[2, −1], [−1, 2]] with eigenvalues 3 and 1. It is positive definite, so f is strongly convex, with μ = 1, L = 3.",
+      "a": "Convex; μ = 1, L = 3."
+    },
+    {
+      "q": "Show that f(x) = max(x, 0) + x² is convex.",
+      "solution": "max(x, 0) is the maximum of two linear functions, hence convex. x² is convex. A sum of convex functions is convex.",
+      "a": "It is a sum of two convex functions."
+    },
+    {
+      "q": "Minimize f(x) = (x − 3)² subject to 0 ≤ x ≤ 2.",
+      "solution": "The unconstrained minimum x = 3 is infeasible. f′(x) = 2(x − 3) < 0 on the interval, so f decreases as x increases and the best feasible point is x* = 2, with f = 1. Check: f′(2)(y − 2) = −2(y − 2) ≥ 0 for all y ∈ [0, 2] ✓.",
+      "a": "x* = 2."
+    },
+    {
+      "q": "Find the subdifferential of f(x) = |x − 2| + 3|x| at x = 0 and at x = 2, and the minimizer of f.",
+      "solution": "At x = 0: the first term has slope −1 (x < 2), the second has the interval [−3, 3], so ∂f(0) = [−4, 2], which contains 0. At x = 2: the first term gives [−1, 1] and the second gives 3, so ∂f(2) = [2, 4], which does not contain 0. Since 0 ∈ ∂f(0), the minimizer is x = 0.",
+      "a": "∂f(0) = [−4, 2] ∋ 0, so x* = 0."
+    },
+    {
+      "q": "Use soft thresholding to solve min ½(x − z)² + λ|x| for z = −2 and λ = 0.7, and for z = 0.5, λ = 0.7.",
+      "solution": "For z = −2: sign(−2)·max(2 − 0.7, 0) = −1.3. For z = 0.5: |z| < λ, so the result is 0.",
+      "a": "−1.3 and 0."
+    }
+  ]
+}

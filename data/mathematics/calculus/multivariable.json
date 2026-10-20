@@ -1,0 +1,411 @@
+{
+  "id": "multivariable",
+  "view": "chapter",
+  "title": "Multivariable Calculus",
+  "description": "Partial derivatives, the gradient, Jacobians and the chain rule, the Hessian, matrix calculus identities and multiple integrals.",
+  "overview": [
+    "A machine learning model has thousands or billions of parameters, so its loss is a function of many variables. To minimize it we need the multivariable versions of the derivative. The gradient collects all the partial derivatives and points uphill. The Jacobian describes how a vector-valued function changes, and its chain rule is backpropagation. The Hessian measures curvature and decides whether a critical point is a minimum.",
+    "This chapter builds these objects, derives the matrix-calculus identities that appear in least squares, logistic regression and neural networks, and ends with multiple integrals and the change-of-variables formula that normalizes the Gaussian."
+  ],
+  "objectives": [
+    "Compute partial derivatives and the gradient, and use the gradient to find the direction of steepest ascent and a directional derivative.",
+    "Compute a Jacobian and apply the multivariable chain rule.",
+    "Compute the Hessian, write the second-order Taylor approximation and classify critical points.",
+    "Use the standard matrix-calculus identities for linear and quadratic forms.",
+    "Evaluate double integrals, use polar coordinates, and state the change-of-variables formula."
+  ],
+  "sections": [
+    {
+      "id": "gradient",
+      "title": "Partial derivatives and the gradient",
+      "terms": [
+        "partial derivative",
+        "partial derivatives",
+        "gradient vector",
+        "directional derivative",
+        "steepest ascent",
+        "level set",
+        "contour"
+      ],
+      "body": [
+        "For a function f(x₁, …, x_n) of several variables, the **partial derivative** ∂f/∂x_i is the ordinary derivative with respect to x_i, treating all the other variables as constants. The **gradient** collects them into a vector:",
+        {
+          "eq": "∇f(x) = ( ∂f/∂x₁, …, ∂f/∂x_n )ᵀ"
+        },
+        {
+          "example": {
+            "title": "A gradient",
+            "problem": "Find the gradient of f(x, y) = x² + xy + 2y² and evaluate it at (1, 1).",
+            "solution": "∂f/∂x = 2x + y and ∂f/∂y = x + 4y, so ∇f = (2x + y, x + 4y). At (1, 1) the gradient is (3, 5)."
+          }
+        },
+        "The **directional derivative** of f at x in the direction of a unit vector u is the rate of change along that direction, and it equals a dot product:",
+        {
+          "eq": "D_u f(x) = ∇f(x)ᵀ u = ‖∇f(x)‖ cos θ"
+        },
+        "where θ is the angle between ∇f and u. The right side is largest when θ = 0, so the gradient points in the direction of **steepest ascent**, and its length is the steepest rate of increase. The direction −∇f is the steepest descent, which is the reason gradient descent moves against the gradient. The gradient is also perpendicular to the **level sets** (contours) {x : f(x) = c}, because moving along a contour does not change f.",
+        {
+          "svg": "<svg viewBox='0 0 440 220' role='img' aria-label='Elliptical contour lines with gradient and negative gradient arrows at a point' font-family='system-ui, sans-serif' font-size='12'><defs><marker id='arr' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='7' markerHeight='7' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='currentColor'/></marker></defs><g fill='none' stroke='currentColor' stroke-width='1.5' opacity='.6'><ellipse cx='220' cy='110' rx='50' ry='25'/><ellipse cx='220' cy='110' rx='100' ry='50'/><ellipse cx='220' cy='110' rx='150' ry='75'/></g><circle cx='290.7' cy='74.6' r='4' fill='currentColor'/><path d='M290.7,74.6 L317.5,21' fill='none' style='stroke:var(--accent)' stroke-width='2.5' marker-end='url(#arr)'/><path d='M290.7,74.6 L263.9,128.2' fill='none' stroke='currentColor' stroke-width='2' stroke-dasharray='5 3' marker-end='url(#arr)'/><g fill='currentColor'><text x='322' y='26' style='fill:var(--accent)'>∇f</text><text x='236' y='140'>−∇f</text><text x='350' y='200'>contours of f = x² + 4y²</text></g></svg>",
+          "caption": "Contours of f(x, y) = x² + 4y². The gradient (solid) is perpendicular to the contour and points toward higher values; its negative (dashed) is the steepest descent direction. Note it does not point at the minimum."
+        },
+        {
+          "example": {
+            "title": "A directional derivative",
+            "problem": "For f(x, y) = x² + xy + 2y² at (1, 1), find D_u f for u = (1, 0) and for the steepest-descent direction.",
+            "solution": "D_u f = (3, 5)·(1, 0) = 3. The steepest descent direction is −(3, 5)/√34, along which the rate of change is −‖(3, 5)‖ = −√34 = −5.83. Moving a small distance ε in that direction reduces f by about 5.83ε."
+          }
+        },
+        {
+          "warn": "For elongated contours the negative gradient points across the valley, not at the minimum. This is why plain gradient descent zigzags on badly scaled problems."
+        }
+      ],
+      "check": [
+        {
+          "q": "The gradient of f(x, y) = 3x + 2y² at (1, 2) is",
+          "a": "(3, 8)",
+          "wrong": [
+            "(3, 4)",
+            "(1, 2)",
+            "(3, 2)"
+          ]
+        },
+        {
+          "q": "The gradient at a point is perpendicular to",
+          "a": "the level curve of f through that point",
+          "wrong": [
+            "the x-axis",
+            "the Hessian",
+            "the direction of steepest descent"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "jacobian",
+      "title": "Jacobians and the chain rule",
+      "terms": [
+        "jacobian",
+        "jacobian matrix",
+        "multivariable chain rule",
+        "vector-valued function",
+        "vector-jacobian product",
+        "softmax jacobian"
+      ],
+      "body": [
+        "For a function f : ℝⁿ → ℝᵐ with components f₁, …, f_m, the **Jacobian matrix** is the m × n matrix of all partial derivatives, J_ij = ∂f_i/∂x_j. It is the best linear approximation to f near a point: f(x + d) ≈ f(x) + J d. For m = 1 the Jacobian is the transpose of the gradient.",
+        {
+          "example": {
+            "title": "A Jacobian",
+            "problem": "Find the Jacobian of f(x, y) = (x²y, 5x + sin y) and evaluate it at (1, π).",
+            "solution": "J = [[2xy, x²], [5, cos y]]. At (1, π): [[2π, 1], [5, −1]] ≈ [[6.28, 1], [5, −1]]."
+          }
+        },
+        "The **chain rule** for compositions says that Jacobians multiply: if h = g ∘ f, then J_h(x) = J_g(f(x)) · J_f(x). For a scalar loss L at the end of a chain x → z → a → L, the gradient is a product of Jacobians, evaluated from the output backward:",
+        {
+          "eq": "∂L/∂x = J_{z}(x)ᵀ J_{a}(z)ᵀ ∇_a L"
+        },
+        "Backpropagation computes this right-to-left, so that each step multiplies a Jacobian transpose by a //vector// (the gradient flowing back), a **vector–Jacobian product**. It never forms the full Jacobians, whose size would be enormous. This ordering is why reverse mode is efficient for a scalar loss with many inputs.",
+        {
+          "example": {
+            "title": "One layer of a network",
+            "problem": "For a layer z = Wx + b, a = σ(z) (elementwise) and loss L, write ∂L/∂z, ∂L/∂W and ∂L/∂x in terms of the upstream gradient g = ∂L/∂a.",
+            "solution": [
+              "The Jacobian of the elementwise σ is diagonal, with entries σ′(z_i), so ∂L/∂z = g ⊙ σ′(z) =: δ.",
+              "For z = Wx + b: ∂L/∂W = δ xᵀ, ∂L/∂b = δ and ∂L/∂x = Wᵀδ. These are exactly the backpropagation equations of the Machine Learning book."
+            ]
+          }
+        },
+        {
+          "h": "The softmax Jacobian"
+        },
+        "For p = softmax(z), ∂p_i/∂z_j = p_i(δ_ij − p_j) (with δ_ij the Kronecker delta), so J = diag(p) − ppᵀ. Every row sums to zero, because the probabilities sum to one and any increase in one must be matched by decreases in the others.",
+        {
+          "example": {
+            "title": "A softmax Jacobian",
+            "problem": "Find the Jacobian for p = (0.7, 0.2, 0.1).",
+            "solution": "J = diag(p) − ppᵀ = [[0.21, −0.14, −0.07], [−0.14, 0.16, −0.02], [−0.07, −0.02, 0.09]]. For instance J₁₁ = 0.7(1 − 0.7) = 0.21 and J₁₂ = −0.7(0.2) = −0.14."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "If h = g ∘ f, the Jacobian of h is",
+          "a": "the product J_g(f(x)) J_f(x)",
+          "wrong": [
+            "the sum J_g + J_f",
+            "the product J_f J_g in the other order",
+            "J_g only"
+          ]
+        },
+        {
+          "q": "The Jacobian of an elementwise activation σ(z) is",
+          "a": "a diagonal matrix with entries σ′(z_i)",
+          "wrong": [
+            "the identity",
+            "a full matrix of ones",
+            "the zero matrix"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hessian",
+      "title": "The Hessian and second-order approximation",
+      "terms": [
+        "hessian matrix",
+        "second-order taylor approximation",
+        "saddle point",
+        "positive definite hessian",
+        "curvature",
+        "second partial derivatives",
+        "second-order condition"
+      ],
+      "body": [
+        "The **Hessian** of a scalar function is the symmetric matrix of second partial derivatives, H_ij = ∂²f/∂x_i∂x_j. (Mixed partials are equal when they are continuous.) It describes curvature in every direction: the second derivative along a unit direction u is uᵀHu.",
+        "The second-order Taylor approximation near x is",
+        {
+          "eq": "f(x + d) ≈ f(x) + ∇f(x)ᵀ d + ½ dᵀ H(x) d"
+        },
+        "At a critical point (∇f = 0) the behavior is governed by H:",
+        {
+          "list": [
+            "H positive definite (all eigenvalues > 0): a local **minimum**.",
+            "H negative definite (all eigenvalues < 0): a local maximum.",
+            "H has eigenvalues of both signs: a **saddle point**, which is a minimum in some directions and a maximum in others.",
+            "A function is **convex** exactly when H is positive semidefinite everywhere. For a convex function every critical point is a global minimum."
+          ]
+        },
+        {
+          "example": {
+            "title": "Classifying critical points",
+            "problem": "Classify the critical points of f(x, y) = x² + xy + 2y² and of g(x, y) = x² − y².",
+            "solution": [
+              "For f, ∇f = (2x + y, x + 4y) = 0 only at the origin. H = [[2, 1], [1, 4]] has trace 6 and determinant 7, so eigenvalues (6 ± √8)/2 = 4.414 and 1.586, both positive. The origin is a minimum, and f is convex.",
+              "For g, ∇g = (2x, −2y) = 0 at the origin, with H = diag(2, −2): eigenvalues of both signs. It is a saddle point."
+            ]
+          }
+        },
+        "Newton's method uses the second-order model: minimizing it over d gives the step d = −H⁻¹∇f, which is a gradient step rescaled by the inverse curvature. In high-dimensional non-convex problems such as neural networks, most critical points are saddles, not local minima, and the Hessian's eigenvalues (the curvature in each direction) determine the largest stable learning rate, 2/λ_max.",
+        {
+          "example": {
+            "title": "Hessians of two losses",
+            "problem": "Find the Hessian of the least squares loss L(θ) = ‖Xθ − y‖², and say whether it is convex.",
+            "solution": "The gradient is 2Xᵀ(Xθ − y) and the Hessian is 2XᵀX. For any vector v, vᵀXᵀXv = ‖Xv‖² ≥ 0, so the Hessian is positive semidefinite: L is convex, and every critical point (every solution of the normal equations) is a global minimum."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "A critical point with Hessian eigenvalues (3, −1) is",
+          "a": "a saddle point",
+          "wrong": [
+            "a local minimum",
+            "a local maximum",
+            "a global minimum"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "matrix-calculus",
+      "title": "Matrix calculus",
+      "terms": [
+        "matrix calculus",
+        "gradient of a quadratic form",
+        "gradient of linear form",
+        "trace identities",
+        "derivative of matrix expression"
+      ],
+      "body": [
+        "Most machine learning objectives are written with vectors and matrices. A few identities, which can all be checked by writing out the components, handle nearly every case. Here a and b are constant vectors, A is a constant matrix and x is the variable, with the gradient written as a column vector.",
+        {
+          "table": {
+            "head": [
+              "Function f(x)",
+              "Gradient ∇f",
+              "Hessian"
+            ],
+            "rows": [
+              [
+                "aᵀx",
+                "a",
+                "0"
+              ],
+              [
+                "xᵀx = ‖x‖²",
+                "2x",
+                "2I"
+              ],
+              [
+                "xᵀAx",
+                "(A + Aᵀ)x   (= 2Ax if A is symmetric)",
+                "A + Aᵀ"
+              ],
+              [
+                "‖Ax − b‖²",
+                "2Aᵀ(Ax − b)",
+                "2AᵀA"
+              ],
+              [
+                "‖x‖ (x ≠ 0)",
+                "x/‖x‖",
+                "(I − xxᵀ/‖x‖²)/‖x‖"
+              ]
+            ],
+            "caption": "Gradients of common functions of a vector."
+          }
+        },
+        {
+          "example": {
+            "title": "Deriving the normal equations",
+            "problem": "Minimize J(θ) = ‖Xθ − y‖² using the table.",
+            "solution": "∇J = 2Xᵀ(Xθ − y). Setting it to zero gives XᵀXθ = Xᵀy, the normal equations, and the Hessian 2XᵀX is positive semidefinite, so the solution is a global minimum."
+          }
+        },
+        {
+          "example": {
+            "title": "A check by components",
+            "problem": "Verify ∇(xᵀAx) = (A + Aᵀ)x for A = [[1, 2], [0, 3]].",
+            "solution": "xᵀAx = x₁² + 2x₁x₂ + 3x₂². The gradient is (2x₁ + 2x₂, 2x₁ + 6x₂). And (A + Aᵀ)x = [[2, 2], [2, 6]]x = (2x₁ + 2x₂, 2x₁ + 6x₂) ✓."
+          }
+        },
+        {
+          "h": "Matrix-valued variables"
+        },
+        "For a scalar function of a matrix X, the gradient ∇_X f has the same shape as X, with entries ∂f/∂X_ij. Useful identities include ∇_X tr(AX) = Aᵀ, ∇_X tr(XᵀAX) = (A + Aᵀ)X, ∇_X ln det X = X⁻ᵀ, and ∇_X ‖X‖_F² = 2X. The trace is handy because tr(AB) = tr(BA) and a scalar equals its own trace: for example aᵀXb = tr(aᵀXb) = tr(baᵀX), so ∇_X aᵀXb = abᵀ.",
+        {
+          "note": "Conventions differ. Some books define the derivative of a scalar with respect to a column vector as a row vector (the 'numerator layout'). This book uses the gradient as a column vector throughout, which matches the update θ ← θ − α∇J."
+        }
+      ],
+      "check": [
+        {
+          "q": "The gradient of f(x) = ‖Ax − b‖² is",
+          "a": "2Aᵀ(Ax − b)",
+          "wrong": [
+            "2A(Ax − b)",
+            "Aᵀb",
+            "2(Ax − b)"
+          ]
+        },
+        {
+          "q": "If A is symmetric, ∇(xᵀAx) equals",
+          "a": "2Ax",
+          "wrong": [
+            "Ax",
+            "Aᵀ + A²",
+            "x"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "multiple-integrals",
+      "title": "Multiple integrals and change of variables",
+      "terms": [
+        "multiple integral",
+        "double integral",
+        "fubini's theorem",
+        "polar coordinates",
+        "change of variables",
+        "jacobian determinant",
+        "iterated integral",
+        "multiple integrals"
+      ],
+      "body": [
+        "A **double integral** ∬ f(x, y) dA gives the volume under a surface. Over a rectangle it is computed as an **iterated integral**, integrating one variable at a time (**Fubini's theorem**, valid for continuous or non-negative f):",
+        {
+          "eq": "∬_{[a,b]×[c,d]} f(x, y) dA = ∫_a^b ( ∫_c^d f(x, y) dy ) dx"
+        },
+        "If the integrand factorizes, f(x, y) = g(x)h(y), the integral is the product ∫g · ∫h. This is the reason independent random variables have densities that multiply, and why the joint likelihood of independent data is a product.",
+        {
+          "h": "Change of variables"
+        },
+        "Substitution in one variable generalizes: if x = φ(u) is an invertible map, then",
+        {
+          "eq": "∫ f(x) dx = ∫ f(φ(u)) |det J_φ(u)| du"
+        },
+        "where J_φ is the Jacobian matrix of φ. The absolute value of its determinant is the local factor by which the map stretches volumes. The same factor appears when the density of a transformed random variable is computed (see Multivariate Probability), and in normalizing flows.",
+        {
+          "h": "The Gaussian integral"
+        },
+        "Let I = ∫_{−∞}^{∞} e^{−x²/2} dx. Then",
+        {
+          "eq": "I² = ∬ e^{−(x² + y²)/2} dx dy"
+        },
+        "Switch to polar coordinates x = r cos θ, y = r sin θ. The Jacobian determinant is r, so dx dy = r dr dθ and",
+        {
+          "eq": "I² = ∫₀^{2π} ∫₀^∞ e^{−r²/2} r dr dθ = 2π · [−e^{−r²/2}]₀^∞ = 2π"
+        },
+        "Hence I = √(2π), the constant in the normal density.",
+        {
+          "example": {
+            "title": "Area of a disc by polar coordinates",
+            "problem": "Find the area of the disc x² + y² ≤ R².",
+            "solution": "∫₀^{2π} ∫₀^R r dr dθ = 2π · R²/2 = πR². The factor r from the Jacobian is essential: without it the answer would be 2πR."
+          }
+        },
+        {
+          "example": {
+            "title": "A scaling map",
+            "problem": "The map x = Au + b with A = [[2, 0], [0, 3]] takes the unit square to a rectangle. What is the area scale factor?",
+            "solution": "|det A| = 6. The unit square has area 1 and the image rectangle (2 by 3) has area 6."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "In polar coordinates, dx dy equals",
+          "a": "r dr dθ",
+          "wrong": [
+            "dr dθ",
+            "r² dr dθ",
+            "dr dθ / r"
+          ]
+        },
+        {
+          "q": "A linear map x = Au scales areas by a factor of",
+          "a": "|det A|",
+          "wrong": [
+            "det A without the absolute value",
+            "the trace of A",
+            "‖A‖"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "The gradient ∇f collects partial derivatives; it points in the direction of steepest ascent, is perpendicular to level sets, and gives D_u f = ∇fᵀu.",
+    "The Jacobian of f : ℝⁿ → ℝᵐ is an m × n matrix; the chain rule multiplies Jacobians. Backpropagation evaluates vector–Jacobian products from the output backward.",
+    "The Hessian gives the second-order Taylor model f(x + d) ≈ f + ∇fᵀd + ½dᵀHd. Positive definite Hessian at a critical point means a minimum, mixed signs mean a saddle, and positive semidefinite everywhere means convex.",
+    "Key identities: ∇aᵀx = a, ∇xᵀAx = (A + Aᵀ)x, ∇‖Ax − b‖² = 2Aᵀ(Ax − b); they give the normal equations.",
+    "Double integrals are iterated integrals (Fubini). Under a change of variables, volumes scale by |det J|. In polar coordinates dx dy = r dr dθ, which proves ∫e^{−x²/2}dx = √(2π)."
+  ],
+  "problems": [
+    {
+      "q": "Find the gradient and the Hessian of f(x, y, z) = x²y + yz² and evaluate the gradient at (1, 2, 3).",
+      "solution": "∇f = (2xy, x² + z², 2yz). At (1, 2, 3): (4, 10, 12). The Hessian is [[2y, 2x, 0], [2x, 0, 2z], [0, 2z, 2y]].",
+      "a": "∇f(1, 2, 3) = (4, 10, 12)."
+    },
+    {
+      "q": "Find the minimum of f(x, y) = x² + 2y² − 2x + 4y.",
+      "solution": "∇f = (2x − 2, 4y + 4) = 0 gives (1, −1). H = diag(2, 4) is positive definite, so this is the global minimum, with f = 1 + 2 − 2 − 4 = −3.",
+      "a": "Minimum −3 at (1, −1)."
+    },
+    {
+      "q": "Compute the Jacobian of f(x, y) = (e^x cos y, e^x sin y) and its determinant.",
+      "solution": "J = [[e^x cos y, −e^x sin y], [e^x sin y, e^x cos y]], with determinant e^{2x}(cos²y + sin²y) = e^{2x}.",
+      "a": "det J = e^{2x}."
+    },
+    {
+      "q": "For f(θ) = ½θᵀAθ − bᵀθ with A = [[2, 0], [0, 4]] and b = (2, 4), find the minimizer, and the largest stable gradient descent step size.",
+      "solution": "∇f = Aθ − b = 0 gives θ = A⁻¹b = (1, 1). The Hessian is A with eigenvalues 2 and 4, so gradient descent is stable for α < 2/4 = 0.5.",
+      "a": "θ* = (1, 1); α < 0.5."
+    },
+    {
+      "q": "Compute ∬ over the unit square of x y² dA.",
+      "solution": "The integrand factorizes: ∫₀¹ x dx · ∫₀¹ y² dy = (1/2)(1/3) = 1/6.",
+      "a": "1/6."
+    }
+  ]
+}

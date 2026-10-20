@@ -1,0 +1,307 @@
+{
+  "id": "decision-trees",
+  "view": "chapter",
+  "title": "Decision Trees",
+  "description": "Recursive partitioning for classification and regression: impurity measures, the CART algorithm, pruning and the limits of single trees.",
+  "overview": [
+    "A decision tree asks a sequence of simple questions about the features, each splitting the data in two, until the answer is clear enough to predict. The result is a flowchart that a person can read, that handles numeric and categorical features without scaling, and that captures interactions between features automatically.",
+    "A single tree is weak on its own: it overfits easily, and small changes in the data give a very different tree. But trees are the building block of random forests and gradient boosting, which are among the strongest methods for tabular data. This chapter builds one tree, and the next chapter combines many."
+  ],
+  "objectives": [
+    "Describe how a tree partitions the feature space and makes predictions.",
+    "Compute entropy, Gini impurity and information gain for a split.",
+    "Run the greedy CART procedure by hand for classification and regression.",
+    "Control overfitting with stopping rules and cost-complexity pruning.",
+    "State the strengths and weaknesses of single trees."
+  ],
+  "sections": [
+    {
+      "id": "tree-structure",
+      "title": "How a decision tree predicts",
+      "terms": [
+        "decision tree",
+        "decision trees",
+        "classification tree",
+        "regression tree",
+        "leaf",
+        "root node",
+        "recursive partitioning",
+        "cart"
+      ],
+      "body": [
+        "A **decision tree** is a binary tree. Each internal node tests one feature against a threshold (x_j ≤ t for numeric features, or membership in a set for categorical ones) and sends the example left or right. Each **leaf** holds a prediction: the majority class of the training examples that reach it, or their mean for regression. Equivalently, the tree cuts the feature space into axis-aligned boxes and predicts a constant in each box.",
+        {
+          "svg": "<svg viewBox='0 0 400 210' role='img' aria-label='A small decision tree with a root test and two further nodes' font-family='system-ui, sans-serif' font-size='12'><g fill='none' stroke='currentColor' stroke-width='1.5'><path d='M200,48 L110,95 M200,48 L290,95 M110,130 L60,170 M110,130 L160,170'/></g><g fill='none' style='stroke:var(--accent)' stroke-width='2'><rect x='150' y='20' width='100' height='28' rx='4'/><rect x='60' y='95' width='100' height='35' rx='4'/></g><g fill='none' stroke='currentColor' stroke-width='1.5'><rect x='245' y='95' width='90' height='35' rx='4'/><rect x='20' y='170' width='80' height='28' rx='4'/><rect x='120' y='170' width='80' height='28' rx='4'/></g><g fill='currentColor' text-anchor='middle'><text x='200' y='38'>x₂ ≤ 3 ?</text><text x='110' y='117'>x₁ ≤ 2 ?</text><text x='290' y='117'>predict B</text><text x='60' y='188'>predict A</text><text x='160' y='188'>predict B</text><text x='140' y='72'>yes</text><text x='265' y='72'>no</text><text x='72' y='154'>yes</text><text x='150' y='154'>no</text></g></svg>",
+          "caption": "A depth-2 tree. Each path from the root to a leaf is a rule, such as: if x₂ ≤ 3 and x₁ ≤ 2 then A."
+        },
+        "Prediction is fast: it follows one path of length at most the depth, so it needs O(depth) comparisons. A tree can represent any Boolean function (with enough nodes), and it can represent interactions that a linear model needs explicit features for. For example, the rule 'x₁ > 0 XOR x₂ > 0' needs two levels."
+      ],
+      "check": [
+        {
+          "q": "A decision tree divides the feature space into",
+          "a": "axis-aligned boxes, each with a constant prediction",
+          "wrong": [
+            "oblique hyperplane regions",
+            "spheres around each training point",
+            "a single linear region"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "impurity",
+      "title": "Impurity and information gain",
+      "terms": [
+        "impurity",
+        "entropy",
+        "gini impurity",
+        "gini index",
+        "information gain",
+        "misclassification error"
+      ],
+      "body": [
+        "Training chooses the splits. A good split makes the two resulting groups **purer**, with each group dominated by one class. For a node whose examples have class proportions p₁, …, p_K, three impurity measures are in use:",
+        {
+          "eqs": [
+            ["Entropy:  H = −Σ p_k log₂ p_k", "0 for a pure node, log₂ K when all classes are equally likely"],
+            ["Gini impurity:  G = 1 − Σ p_k²", "the chance that two random draws from the node have different classes"],
+            ["Misclassification:  E = 1 − max_k p_k", "too coarse to guide the search"]
+          ]
+        },
+        "Entropy and Gini are smooth, strictly concave functions of the proportions, so they reward partial progress that the error rate ignores. They give nearly identical trees in practice.",
+        "For a split that sends N_L of the N examples left and N_R right, the **information gain** is the drop in impurity, with each child weighted by its size:",
+        {
+          "eq": "Gain = I(parent) − (N_L/N) I(left) − (N_R/N) I(right)"
+        },
+        {
+          "example": {
+            "title": "Comparing two splits",
+            "problem": "A node has 6 positive and 4 negative examples. Split A sends (4+, 1−) left and (2+, 3−) right. Split B sends (4+, 0−) left and (2+, 4−) right. Compute the entropy gain and the Gini gain for each.",
+            "solution": [
+              "Parent: H = −0.6 log₂ 0.6 − 0.4 log₂ 0.4 = 0.971. Gini = 1 − 0.36 − 0.16 = 0.48.",
+              "Split A. Left (0.8, 0.2): H = 0.722, G = 0.32. Right (0.4, 0.6): H = 0.971, G = 0.48. Weighted by 5/10 each:",
+              {
+                "eq": [
+                  "entropy gain = 0.971 − (0.5·0.722 + 0.5·0.971) = 0.125",
+                  "Gini gain = 0.48 − (0.5·0.32 + 0.5·0.48) = 0.08"
+                ]
+              },
+              "Split B. Left is pure (H = 0, G = 0). Right (1/3, 2/3): H = 0.918, G = 0.444. Weights 4/10 and 6/10:",
+              {
+                "eq": [
+                  "entropy gain = 0.971 − 0.6·0.918 = 0.420",
+                  "Gini gain = 0.48 − 0.6·0.444 = 0.213"
+                ]
+              },
+              "Both measures prefer split B, which produces a pure child."
+            ]
+          }
+        },
+        {
+          "note": "Information gain with entropy is the mutual information between the split and the class label (see Information Theory in the Mathematics book). Using it, a tree is built to learn as much about the label per question as possible."
+        }
+      ],
+      "check": [
+        {
+          "q": "The Gini impurity of a node with 50% positive and 50% negative examples is",
+          "a": "0.5",
+          "wrong": ["0", "1", "0.25"],
+          "why": "1 − 0.5² − 0.5² = 0.5."
+        },
+        {
+          "q": "A node with proportions (1, 0) has entropy",
+          "a": "0",
+          "wrong": ["1", "0.5", "undefined"]
+        }
+      ]
+    },
+    {
+      "id": "cart",
+      "title": "Growing a tree: CART",
+      "terms": [
+        "cart algorithm",
+        "greedy splitting",
+        "stopping criteria",
+        "best split",
+        "id3",
+        "c4.5"
+      ],
+      "body": [
+        "The CART (classification and regression trees) algorithm grows a tree greedily from the root.",
+        {
+          "list": [
+            "At a node, consider every feature and every candidate threshold. For a numeric feature, sort the values and test the midpoints between consecutive distinct values (at most m − 1 candidates). For a categorical feature, test subsets of categories.",
+            "Choose the split with the largest impurity decrease.",
+            "Recurse on the two children until a stopping rule applies: the node is pure, it has fewer than a minimum number of examples, the depth limit is reached, or the best gain is below a threshold."
+          ],
+          "ordered": true
+        },
+        "After sorting a feature once, the impurity of every threshold can be updated incrementally in a single pass, so one node costs O(n m log m) over n features and m examples. Growing a balanced tree costs O(n m log² m) in all.",
+        {
+          "key": "The procedure is greedy: each split is the best one now, with no look-ahead. Finding the globally smallest tree is NP-hard, and greedy search works well enough in practice."
+        },
+        {
+          "h": "Regression trees"
+        },
+        "For a numeric target, the leaf prediction is the mean of its examples, and the impurity is the sum of squared errors around that mean. A split is chosen to minimize SSE_left + SSE_right.",
+        {
+          "example": {
+            "title": "A regression split",
+            "problem": "Data (x, y): (1, 1.0), (2, 1.2), (3, 0.9), (4, 5.0), (5, 5.2), (6, 4.9). Compare the SSE with no split and with the split x ≤ 3.5.",
+            "solution": [
+              "No split: the mean is 3.033 and SSE = 4.13 + 3.36 + 4.55 + 3.87 + 4.69 + 3.48 = 24.09.",
+              "Split at 3.5: left y = (1.0, 1.2, 0.9) has mean 1.033 and SSE = 0.0011 + 0.0278 + 0.0178 = 0.0467. Right y = (5.0, 5.2, 4.9) has mean 5.033 and SSE = 0.0467. Total SSE = 0.093.",
+              "The split reduces the error from 24.09 to 0.093, and the two leaves predict 1.03 and 5.03: a step function that matches the data."
+            ]
+          }
+        },
+        {
+          "h": "Categorical features and missing values"
+        },
+        {
+          "list": [
+            "A categorical feature with q levels has 2^{q−1} − 1 binary partitions. For two-class or regression problems, sort the levels by mean response and test only the q − 1 cuts along that order, which is optimal.",
+            "Many implementations send missing values down the more common branch, or learn a default direction for them at each split (surrogate splits).",
+            "Trees are invariant to monotone transformations of a feature: taking the logarithm changes nothing. No scaling is needed."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "Why is tree growing called greedy?",
+          "a": "It chooses the best split at each node without considering later splits",
+          "wrong": [
+            "It uses all the data at every node",
+            "It always builds the smallest tree",
+            "It maximizes the training error"
+          ]
+        },
+        {
+          "q": "A regression tree leaf predicts",
+          "a": "the mean target of the training examples in that leaf",
+          "wrong": [
+            "the median feature value",
+            "the majority class",
+            "zero"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pruning",
+      "title": "Overfitting and pruning",
+      "terms": [
+        "pruning",
+        "cost-complexity pruning",
+        "tree depth",
+        "minimum samples per leaf",
+        "weakest link pruning"
+      ],
+      "body": [
+        "A fully grown tree continues until every leaf is pure, which fits the training set perfectly, including its noise: a tree with one leaf per example has zero training error and poor generalization. Two ways to limit complexity:",
+        {
+          "list": [
+            "**Pre-pruning** (early stopping): limit the depth, require a minimum number of examples in a leaf or for a split, or require a minimum gain. Simple, but a split with little gain can lead to an excellent split below it.",
+            "**Post-pruning**: grow a large tree, then remove branches that do not pay for themselves."
+          ]
+        },
+        "In **cost-complexity pruning**, for a penalty α ≥ 0 define",
+        {
+          "eq": "R_α(T) = R(T) + α |T|"
+        },
+        "where R(T) is the training error of the tree T and |T| is its number of leaves. For each α there is a unique smallest subtree minimizing R_α. Collapsing an internal node t into a leaf raises the error from R(T_t) to R(t) and removes |T_t| − 1 leaves, so it pays off once",
+        {
+          "eq": "α ≥ ( R(t) − R(T_t) ) / ( |T_t| − 1 )"
+        },
+        "Repeatedly collapse the 'weakest link' with the smallest such value to obtain a nested sequence of trees, and pick α (and so the tree) by cross-validation.",
+        {
+          "example": {
+            "title": "When to prune a branch",
+            "problem": "A node t as a single leaf has error 0.08. Its subtree T_t has 3 leaves and error 0.05. For which α does pruning the subtree reduce the cost-complexity objective?",
+            "solution": "Collapsing saves 3 − 1 = 2 leaves and costs an extra error of 0.08 − 0.05 = 0.03. It is worthwhile when α · 2 ≥ 0.03, i.e. α ≥ 0.015."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "In cost-complexity pruning, a larger α produces",
+          "a": "a smaller tree",
+          "wrong": ["a deeper tree", "zero training error", "the same tree"]
+        }
+      ]
+    },
+    {
+      "id": "tree-assessment",
+      "title": "Strengths and weaknesses",
+      "terms": [
+        "feature importance",
+        "tree instability",
+        "interpretability",
+        "axis-aligned splits"
+      ],
+      "body": [
+        {
+          "table": {
+            "head": ["Strengths", "Weaknesses"],
+            "rows": [
+              ["Readable as rules", "High variance: a small change in the data can change the root split and everything below"],
+              ["No feature scaling; handles mixed types", "Piecewise-constant predictions; poor at smooth or additive relationships"],
+              ["Captures interactions and nonlinearity", "Axis-aligned splits waste depth on diagonal boundaries"],
+              ["Fast to train and predict", "Greedy search can miss better trees"],
+              ["Robust to outliers in the inputs", "Biased toward features with many possible splits"]
+            ],
+            "caption": "A single decision tree."
+          }
+        },
+        {
+          "h": "Feature importance"
+        },
+        "The importance of a feature is the total impurity decrease (weighted by the fraction of examples reaching each node) over all the splits that use it. It ranks features cheaply, but it favors features with many distinct values and is unreliable when features are correlated. Permutation importance, which measures how much held-out accuracy drops when a feature is shuffled, is more trustworthy.",
+        {
+          "key": "Trees have low bias when deep and high variance. Averaging many different trees reduces variance without raising bias. That observation leads directly to bagging, random forests and boosting."
+        }
+      ],
+      "check": [
+        {
+          "q": "The main weakness of a single deep tree is",
+          "a": "high variance",
+          "wrong": ["high bias", "inability to handle categorical data", "sensitivity to feature scale"]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "A decision tree partitions the feature space into axis-aligned boxes with a constant prediction in each: the majority class or the mean.",
+    "Splits are chosen to reduce impurity: entropy, Gini impurity or (for regression) squared error. Information gain is the parent impurity minus the size-weighted child impurities.",
+    "CART grows the tree greedily, testing all features and thresholds at each node.",
+    "Control overfitting by stopping rules or by cost-complexity pruning, R(T) + α|T|, with α chosen by cross-validation.",
+    "Trees are interpretable, scale-free and flexible but unstable. Ensembles of trees fix the instability."
+  ],
+  "problems": [
+    {
+      "q": "A node has class counts (8, 2). Compute its entropy and Gini impurity.",
+      "solution": "p = (0.8, 0.2). H = −0.8 log₂ 0.8 − 0.2 log₂ 0.2 = 0.8(0.322) + 0.2(2.322) = 0.722. Gini = 1 − 0.64 − 0.04 = 0.32.",
+      "a": "H = 0.722 bits, Gini = 0.32."
+    },
+    {
+      "q": "A parent node has (5+, 5−). A split yields left (4+, 1−) and right (1+, 4−). Compute the Gini gain.",
+      "solution": "Parent Gini = 0.5. Each child has proportions (0.8, 0.2) so Gini = 0.32. Weighted = 0.5(0.32) + 0.5(0.32) = 0.32. Gain = 0.18.",
+      "a": "0.18."
+    },
+    {
+      "q": "Data (x, y): (1, 2), (2, 4), (3, 9), (4, 11). Find the best split threshold for a depth-1 regression tree and the leaf predictions.",
+      "solution": "Candidates: x ≤ 1.5: SSE_left 0, right mean 8, SSE = 16 + 1 + 9 = 26. x ≤ 2.5: left mean 3, SSE 2; right mean 10, SSE 2; total 4. x ≤ 3.5: left mean 5, SSE 9 + 1 + 16 = 26; right 0; total 26. Best: x ≤ 2.5.",
+      "a": "Split at x ≤ 2.5, leaf values 3 and 10, total SSE 4."
+    },
+    {
+      "q": "A tree has 12 leaves and training error 0.04. A pruned subtree has 5 leaves and error 0.075. Find the α at which the two trees have equal cost-complexity, and which tree is preferred for α = 0.01.",
+      "solution": "Equal cost: 0.04 + 12α = 0.075 + 5α, so 7α = 0.035 and α = 0.005. At α = 0.01 the large tree costs 0.04 + 0.12 = 0.16 and the small tree 0.075 + 0.05 = 0.125, so the small tree is preferred.",
+      "a": "α = 0.005; the 5-leaf tree is preferred at α = 0.01."
+    },
+    {
+      "q": "Why can a tree not represent an arbitrary diagonal boundary x₁ = x₂ with a few splits?",
+      "solution": "Each split is axis-aligned, so the boundary must be approximated by a staircase. Accuracy of the approximation grows only with the number of splits (about 1/ε steps for resolution ε).",
+      "a": "Axis-aligned splits approximate a diagonal only by a staircase of many splits."
+    }
+  ]
+}

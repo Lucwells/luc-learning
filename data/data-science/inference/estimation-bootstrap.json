@@ -1,0 +1,308 @@
+{
+  "id": "estimation-bootstrap",
+  "view": "chapter",
+  "title": "Estimation, Confidence Intervals and the Bootstrap",
+  "description": "Point estimates and their uncertainty, confidence intervals from theory, and the bootstrap for statistics without a formula.",
+  "overview": [
+    "An estimate without a statement of its uncertainty is half an answer. 'The conversion rate is 12.3%' means little until we know whether that could easily have been 10% or 15% with a different sample. A confidence interval gives a range of plausible values for the parameter, and its width says how much the data can tell us.",
+    "For a mean or a proportion there are formulas for the interval, based on the central limit theorem. For most other statistics (a median, a ratio, a correlation, the AUC of a classifier) there are none that are simple. The bootstrap solves this with the computer: it resamples the data to simulate the sampling distribution. This chapter covers both, with the care needed to interpret the intervals correctly."
+  ],
+  "objectives": [
+    "Compute a confidence interval for a mean (z and t) and a proportion, and interpret it correctly.",
+    "Explain what the confidence level means, and distinguish confidence, prediction and credible intervals.",
+    "Carry out the bootstrap for the standard error and percentile interval of any statistic.",
+    "Choose the sample size needed for a target interval width.",
+    "State when the bootstrap fails and how to use it in machine learning evaluation."
+  ],
+  "sections": [
+    {
+      "id": "ci",
+      "title": "Confidence intervals",
+      "terms": [
+        "confidence interval",
+        "confidence intervals",
+        "confidence level",
+        "t distribution",
+        "student's t",
+        "degrees of freedom",
+        "margin of error of a mean",
+        "wald interval",
+        "critical value",
+        "point estimate",
+        "estimation and bootstrap"
+      ],
+      "body": [
+        "A **point estimate** (x̄, p̂) is one number. A **confidence interval** (CI) adds a range. By the central limit theorem the sample mean is approximately normal around μ with standard deviation σ/√n (see Limit Theorems), so the probability that x̄ lies within 1.96 standard errors of μ is 95%. Turning this around, the interval x̄ ± 1.96 σ/√n contains μ in 95% of repeated samples.",
+        "The standard deviation σ is usually unknown and is replaced by the sample standard deviation s. This extra uncertainty makes the standardized statistic (x̄ − μ)/(s/√n) follow a **t distribution** with n − 1 **degrees of freedom**, which has heavier tails than the normal for small n. The interval is",
+        {
+          "eq": "x̄ ± t* · s/√n"
+        },
+        "where t* is the critical value of the t distribution (2.064 for 24 degrees of freedom and 95%; 1.96 in the limit of large n). For a proportion the Wald interval is p̂ ± z*√(p̂(1 − p̂)/n).",
+        {
+          "example": {
+            "title": "A confidence interval for a mean",
+            "problem": "From n = 25 customers the average basket is x̄ = 100 dollars with s = 15. Find the 95% interval for the true mean, and compare with the z interval.",
+            "solution": "SE = 15/√25 = 3. With 24 degrees of freedom t* = 2.064, so the interval is 100 ± 2.064(3) = 100 ± 6.19 = (93.8, 106.2). The normal value 1.96 would give 100 ± 5.88, too narrow for such a small sample. With n = 100 the two would nearly agree."
+          }
+        },
+        {
+          "example": {
+            "title": "A confidence interval for a proportion",
+            "problem": "In 100 emails, 30 are flagged by a model. Find a 95% interval for the true flag rate.",
+            "solution": "p̂ = 0.30 and SE = √(0.3 × 0.7/100) = 0.0458. The interval is 0.30 ± 1.96(0.0458) = 0.30 ± 0.090 = (0.21, 0.39). For small samples or p near 0 or 1, the Wald interval performs badly (it can extend below 0); the Wilson or exact (Clopper–Pearson) intervals are better."
+          }
+        },
+        {
+          "h": "What a confidence interval means"
+        },
+        "The 95% refers to the **procedure**: if we repeated the study many times and built an interval each time, about 95% of the intervals would contain the true parameter. For any one computed interval, the parameter is either inside it or not. It is wrong to say 'there is a 95% probability that μ is in (93.8, 106.2)' in the frequentist reading, though many people do; a Bayesian **credible interval** (see Bayesian Methods) does have that meaning, given a prior.",
+        {
+          "list": [
+            "A wider interval means less precision. Width is proportional to s/√n, so quadrupling n halves the width. A higher confidence level (99% instead of 95%) widens the interval.",
+            "Intervals assume a random sample (see Sampling and Experiments), independent observations, and, for small n, approximately normal data. They do not account for bias.",
+            "A **prediction interval** is for a //new observation//, not for the mean: x̄ ± t* s √(1 + 1/n). For the basket example it is 100 ± 2.064 × 15 × √1.04 = 100 ± 31.6, far wider than the interval for the mean, since individual baskets vary much more than the average does.",
+            "Always report an effect with its interval, not only a p-value: the interval shows both the size of the effect and its precision."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "A 95% confidence interval means that",
+          "a": "the procedure that produced it captures the true parameter in 95% of repeated samples",
+          "wrong": [
+            "the parameter lies in this interval with probability 0.95",
+            "95% of the data lie in the interval",
+            "the sample mean is within the interval 95% of the time"
+          ]
+        },
+        {
+          "q": "Compared with a confidence interval for the mean, a prediction interval for a new observation is",
+          "a": "wider, because it must include the variation of individual values",
+          "wrong": [
+            "narrower",
+            "the same width",
+            "undefined"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bootstrap",
+      "title": "The bootstrap",
+      "terms": [
+        "bootstrap",
+        "bootstrap resampling",
+        "bootstrap confidence interval",
+        "percentile interval",
+        "bootstrap standard error",
+        "resampling with replacement",
+        "plug-in principle",
+        "paired bootstrap",
+        "block bootstrap",
+        "bca interval"
+      ],
+      "body": [
+        "To know how a statistic varies from sample to sample we would like to draw many new samples from the population, which we cannot. The **bootstrap** (Efron, 1979) uses the sample itself as a stand-in for the population: draw new samples //from the data// by resampling **with replacement**, compute the statistic on each, and use the spread of these values as the sampling distribution. This is the **plug-in principle**: the empirical distribution of the data estimates the population distribution.",
+        {
+          "list": [
+            "Draw B bootstrap samples (typically B = 1000 to 10,000), each of the same size n as the data, by choosing n observations with replacement.",
+            "Compute the statistic θ̂* on each one.",
+            "The standard deviation of the θ̂* values is the **bootstrap standard error**. The 2.5th and 97.5th percentiles of the θ̂* values form a 95% **percentile interval**."
+          ],
+          "ordered": true
+        },
+        {
+          "example": {
+            "title": "A bootstrap standard error by hand (in distribution)",
+            "problem": "The sample is 3, 5, 7, 9, 11. What is the bootstrap standard error of the mean, and how does it compare with the usual formula?",
+            "solution": "The mean is 7. Resampling from the data, each bootstrap observation has the data's own distribution: mean 7 and variance (1/n)Σ(x − x̄)² = 40/5 = 8. A bootstrap mean of 5 observations therefore has variance 8/5 = 1.6 and standard error √1.6 = 1.265. The usual formula s/√n uses s² = 40/4 = 10: SE = √(10/5) = 1.414. They differ by the factor √((n − 1)/n) = 0.894, a small-sample effect that vanishes as n grows. The point is that the bootstrap needs no formula: the same recipe works for any statistic."
+          }
+        },
+        {
+          "code": [
+            "import numpy as np",
+            "",
+            "rng = np.random.default_rng(0)",
+            "",
+            "def bootstrap(x, stat, B=10000):",
+            "    n = len(x)",
+            "    return np.array([stat(x[rng.integers(0, n, size=n)]) for _ in range(B)])",
+            "",
+            "x = np.array([12.1, 9.8, 15.3, 8.7, 22.4, 10.2, 11.9, 9.5, 31.0, 13.3])",
+            "boots = bootstrap(x, np.median)",
+            "boots.std()                           # bootstrap standard error of the median",
+            "np.percentile(boots, [2.5, 97.5])     # 95% percentile interval for the median"
+          ],
+          "caption": "The bootstrap for the median, a statistic with no simple formula for its standard error."
+        },
+        "The same two lines of code give an interval for a trimmed mean, a ratio of means, a correlation, a regression coefficient, the area under a ROC curve or any metric of a model. Resample **rows** (or whole examples), so that the relationships between columns are preserved.",
+        {
+          "h": "When the bootstrap fails"
+        },
+        {
+          "list": [
+            "**Very small samples** (below about 20 to 30 for a mean, more for skewed data): the empirical distribution is a poor model of the population.",
+            "**Extreme statistics** such as the maximum or minimum: the bootstrap maximum equals the sample maximum with probability 1 − (1 − 1/n)ⁿ ≈ 63%, a degenerate distribution.",
+            "**Dependent data** (time series, clustered or grouped data): ordinary resampling breaks the dependence and understates the uncertainty. Use the **block bootstrap** (resample blocks of consecutive observations) or resample whole clusters (such as all the records of a user).",
+            "**Heavy tails and infinite variance**: the mean does not have a well-behaved sampling distribution.",
+            "**Biased samples**: the bootstrap reflects only the sampling variability, never the bias of the collection process.",
+            "The percentile interval can be inaccurate for skewed statistics; refinements such as the **BCa** (bias-corrected and accelerated) interval help."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "In the bootstrap, each resample is drawn",
+          "a": "with replacement from the observed data, with the same size as the data",
+          "wrong": [
+            "without replacement from the population",
+            "from a normal distribution fitted to the data",
+            "from a random half of the data"
+          ]
+        },
+        {
+          "q": "For a time series with strong autocorrelation, an ordinary bootstrap",
+          "a": "tends to understate the uncertainty, and a block bootstrap should be used",
+          "wrong": [
+            "overstates the uncertainty",
+            "is exact",
+            "cannot be run"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "planning",
+      "title": "Precision and sample-size planning",
+      "terms": [
+        "sample size calculation",
+        "precision of an estimate",
+        "half-width",
+        "sample size for a mean",
+        "effect size",
+        "practical significance"
+      ],
+      "body": [
+        "Before collecting data, decide how precise the answer must be. For a mean, the half-width of the interval is w = z*·σ/√n, so the sample size needed for a target half-width is",
+        {
+          "eq": "n = ( z* σ / w )²"
+        },
+        {
+          "example": {
+            "title": "Planning a measurement study",
+            "problem": "Response times have σ ≈ 15 ms. How many measurements give a 95% interval for the mean with half-width 2 ms?",
+            "solution": "n = (1.96 × 15/2)² = 14.7² = 216.1, so 217 measurements. To get the half-width down to 1 ms requires four times as many (865). A pilot study supplies the estimate of σ."
+          }
+        },
+        {
+          "list": [
+            "For a proportion use σ² = p(1 − p), with p = 0.5 as the cautious choice: n = (1.96 × 0.5/w)² (see Sampling and Experiments).",
+            "**Statistical significance is not practical significance.** With a huge sample even a trivial difference has a tiny p-value, and with a small sample an important effect may be invisible. Interpret the //size// of the effect and its interval in the units of the problem: is a 0.1% increase in conversion worth the cost of the change?",
+            "**Effect sizes** express differences in comparable units: the raw difference, a percentage change, or the standardized difference d = (x̄₁ − x̄₂)/s (Cohen's d: about 0.2 small, 0.5 medium, 0.8 large).",
+            "Precision costs grow as 1/w²: halving the interval width needs four times the data, and so the first improvements are cheap and the last are expensive."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "To halve the width of a confidence interval for a mean you need about",
+          "a": "four times as many observations",
+          "wrong": [
+            "twice as many",
+            "half as many",
+            "the same number with a lower confidence level"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bootstrap-ml",
+      "title": "Uncertainty for machine learning metrics",
+      "terms": [
+        "uncertainty of test metrics",
+        "bootstrap for model evaluation",
+        "comparing models with bootstrap",
+        "bagging and bootstrap",
+        "confidence interval for accuracy"
+      ],
+      "body": [
+        "Test-set metrics are estimates, and the bootstrap gives them intervals without a formula for each metric.",
+        {
+          "code": [
+            "def bootstrap_metric(y_true, y_score, metric, B=2000):",
+            "    n = len(y_true)",
+            "    vals = []",
+            "    for _ in range(B):",
+            "        idx = rng.integers(0, n, size=n)           # resample test examples",
+            "        vals.append(metric(y_true[idx], y_score[idx]))",
+            "    return np.percentile(vals, [2.5, 97.5])",
+            "",
+            "# e.g. bootstrap_metric(y, scores, roc_auc_score) gives a 95% interval for the AUC"
+          ],
+          "caption": "A bootstrap interval for any test metric: resample the test examples and recompute."
+        },
+        {
+          "list": [
+            "**Compare two models on the same test set** with a **paired** bootstrap: for each resample compute the difference between the two models' metrics (the same resampled examples for both). If the interval of the difference excludes 0, the difference is unlikely to be chance. Unpaired intervals that overlap do not mean that the models are equal: the paired comparison is much more sensitive.",
+            "Resample the **unit** that matters: for a model evaluated per patient, resample patients, not individual visits.",
+            "The interval accounts for the finite test set, not for the variation from training the model with a different seed or on different training data. Report both, by repeating training (see Randomness in Computation).",
+            "**Bagging and random forests** apply the same resampling idea to the training data: averaging models fit to bootstrap samples reduces variance (see Ensembles), and the omitted examples provide the out-of-bag error estimate.",
+            "**Cross-validation** estimates generalization error but its folds are not independent, so the naive standard error across folds is too small; the bootstrap and repeated cross-validation are alternatives."
+          ]
+        },
+        {
+          "example": {
+            "title": "Is the new model better?",
+            "problem": "Model B has accuracy 0.84 and model A 0.82 on the same 500 test examples. Paired resampling gives a 95% interval of (−0.005, +0.045) for the difference B − A. What do you conclude?",
+            "solution": "The interval includes 0, so the data are compatible with no difference or with a gain of up to 4.5 points: the two-point gain is within the noise of a test set of 500 (a single accuracy has a margin of ±3.3 points). Conclude that B may be better but the evidence is not conclusive; collect more test data, or accept B if it is also simpler or cheaper."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "A paired bootstrap compares two models by",
+          "a": "resampling the test examples and computing the difference in their metrics on each resample",
+          "wrong": [
+            "training each model on bootstrap samples only",
+            "comparing the two accuracies directly",
+            "adding the two intervals"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "A confidence interval for a mean is x̄ ± t*·s/√n (t with n − 1 degrees of freedom); for a proportion p̂ ± z*√(p̂(1 − p̂)/n). The 95% describes the procedure, not the probability that the parameter is in one computed interval.",
+    "Prediction intervals for a new observation are wider: x̄ ± t*·s√(1 + 1/n). Credible intervals are the Bayesian counterpart.",
+    "The bootstrap resamples the data with replacement B times, computes the statistic each time, and uses the spread (standard error) and percentiles (interval) of the results. It works for statistics with no formula, but fails for tiny samples, extremes, dependent data and bias; use block or cluster resampling for dependence.",
+    "Interval width scales as 1/√n; the sample size for half-width w is n = (z*σ/w)². Report effect sizes with intervals and judge practical significance.",
+    "Bootstrap the test examples to put intervals on model metrics, and use a paired bootstrap to compare models."
+  ],
+  "problems": [
+    {
+      "q": "A sample of n = 16 has x̄ = 50 and s = 8. Give a 95% t interval (t* = 2.131 for 15 degrees of freedom) and the corresponding z interval.",
+      "solution": "SE = 8/4 = 2. t interval: 50 ± 2.131(2) = 50 ± 4.26 = (45.7, 54.3). z interval: 50 ± 1.96(2) = 50 ± 3.92 = (46.1, 53.9).",
+      "a": "(45.7, 54.3) with t; (46.1, 53.9) with z."
+    },
+    {
+      "q": "In a survey of 400 users, 88 clicked on a feature. Give a 95% Wald interval for the click rate.",
+      "solution": "p̂ = 88/400 = 0.22. SE = √(0.22 × 0.78/400) = 0.0207. Interval 0.22 ± 1.96(0.0207) = 0.22 ± 0.041 = (0.179, 0.261).",
+      "a": "(0.179, 0.261)."
+    },
+    {
+      "q": "How many observations are needed to estimate a mean with 95% half-width 0.5 when σ ≈ 4?",
+      "solution": "n = (1.96 × 4/0.5)² = (15.68)² = 245.9, so 246.",
+      "a": "246."
+    },
+    {
+      "q": "A bootstrap of 10,000 resamples of a median gives values with standard deviation 1.8 and 2.5th and 97.5th percentiles 31.2 and 37.9. State the bootstrap standard error and the 95% percentile interval. Why might the normal approximation (median ± 1.96 × 1.8) differ?",
+      "solution": "SE = 1.8; interval (31.2, 37.9). The normal approximation gives median ± 3.5. If the bootstrap distribution is asymmetric about the sample median (for example the median is 33 and the interval extends 1.8 below and 4.9 above), the percentile interval captures the skew, and the symmetric normal interval does not.",
+      "a": "SE 1.8; (31.2, 37.9); the percentile interval accommodates skewness."
+    },
+    {
+      "q": "Why is resampling individual rows wrong when each user contributes 50 correlated rows, and what should be resampled?",
+      "solution": "Rows from the same user are correlated, so the effective sample size is closer to the number of users than the number of rows. Resampling rows treats them as independent and gives intervals that are too narrow. Resample whole users (a cluster bootstrap), taking all of the chosen user's rows each time.",
+      "a": "Resample users (clusters), not rows."
+    }
+  ]
+}

@@ -1,0 +1,510 @@
+{
+  "id": "python",
+  "view": "chapter",
+  "title": "Python for Machine Learning",
+  "description": "The core of the Python language: types, control flow, functions, iterators and generators, classes, errors and files, with examples from data processing and modeling.",
+  "overview": [
+    "Python is the language of machine learning. The research code, the libraries (NumPy, PyTorch, scikit-learn) and most tutorials use it, not because it is fast, since it is not, but because it is quick to write, easy to read and glues together fast compiled code written in C, C++ and CUDA. A Python program is mostly orchestration: it describes the computation, and the libraries run it.",
+    "This chapter covers the parts of Python that machine learning code uses constantly: the built-in data types, functions, comprehensions, iterators and generators (the idea behind data loaders), classes (the idea behind models) and error handling. It assumes you have seen programming before. The next chapter turns to NumPy, where the real numerical work is done."
+  ],
+  "objectives": [
+    "Use the built-in types (numbers, strings, lists, tuples, dictionaries, sets) and explain mutability and aliasing.",
+    "Write functions with default and keyword arguments, and use comprehensions and lambdas.",
+    "Use iterators and generators to process data lazily, as in a mini-batch loader.",
+    "Define classes, including the fit/predict pattern for models, and use dataclasses.",
+    "Handle errors with exceptions, read and write files safely, and organize code into modules."
+  ],
+  "sections": [
+    {
+      "id": "types",
+      "title": "Values, types and collections",
+      "terms": [
+        "tuple",
+        "dictionary",
+        "dict",
+        "mutable",
+        "immutable",
+        "aliasing",
+        "slicing"
+      ],
+      "body": [
+        "Python variables are names that refer to objects, and objects carry their type. The basic types are integers (arbitrary size), floating-point numbers (64-bit), booleans, strings and the empty value None.",
+        {
+          "code": [
+            "n = 10            # int",
+            "x = 3.5           # float",
+            "name = 'ridge'    # str",
+            "ok = n > 5       # bool: True",
+            "7 // 2            # 3   (floor division)",
+            "7 % 2             # 1   (remainder)",
+            "2 ** 10           # 1024",
+            "0.1 + 0.2 == 0.3  # False! binary floating point (see Numerical Computing)"
+          ]
+        },
+        "The collections you will use most:",
+        {
+          "table": {
+            "head": [
+              "Type",
+              "Literal",
+              "Mutable?",
+              "Use"
+            ],
+            "rows": [
+              [
+                "list",
+                "[1, 2, 3]",
+                "yes",
+                "ordered sequence, append and change items"
+              ],
+              [
+                "tuple",
+                "(1, 2, 3)",
+                "no",
+                "fixed record, e.g. a shape (m, n); can be a dictionary key"
+              ],
+              [
+                "dict",
+                "{'lr': 0.1, 'epochs': 20}",
+                "yes",
+                "key → value lookup (hash table)"
+              ],
+              [
+                "set",
+                "{1, 2, 3}",
+                "yes",
+                "unique items, fast membership tests"
+              ],
+              [
+                "str",
+                "'hello'",
+                "no",
+                "text"
+              ]
+            ],
+            "caption": "Built-in collections."
+          }
+        },
+        {
+          "code": [
+            "xs = [10, 20, 30, 40, 50]",
+            "xs[0]        # 10",
+            "xs[-1]       # 50   (negative index counts from the end)",
+            "xs[1:4]      # [20, 30, 40]   (slice: start included, stop excluded)",
+            "xs[::2]      # [10, 30, 50]   (every second item)",
+            "len(xs)      # 5",
+            "",
+            "config = {'lr': 0.1, 'epochs': 20}",
+            "config['lr']                 # 0.1",
+            "config.get('momentum', 0.9)  # 0.9: default if the key is missing",
+            "",
+            "words = 'to be or not to be'.split()",
+            "counts = {}",
+            "for w in words:",
+            "    counts[w] = counts.get(w, 0) + 1",
+            "# counts == {'to': 2, 'be': 2, 'or': 1, 'not': 1}"
+          ],
+          "caption": "Indexing, slicing, dictionaries and a word count."
+        },
+        {
+          "h": "Mutability and aliasing"
+        },
+        "Assignment never copies an object; it makes another name for it. With a mutable object, a change through one name is visible through the other.",
+        {
+          "code": [
+            "a = [1, 2]",
+            "b = a            # b is another name for the same list",
+            "b.append(3)",
+            "# a is now [1, 2, 3]",
+            "",
+            "c = a.copy()     # a new, independent list (shallow copy)",
+            "c.append(4)",
+            "# a is still [1, 2, 3]"
+          ]
+        },
+        {
+          "warn": "Aliasing causes subtle bugs in ML code: modifying a data array in place changes the original, and nested lists need copy.deepcopy. A common trap is a mutable default argument, def f(x, history=[]), where the same list is shared between all calls. Use None as the default and create the list inside the function."
+        }
+      ],
+      "check": [
+        {
+          "q": "After a = [1, 2]; b = a; b.append(3), the value of a is",
+          "a": "[1, 2, 3]",
+          "wrong": [
+            "[1, 2]",
+            "[3]",
+            "an error"
+          ]
+        },
+        {
+          "q": "xs[1:4] on xs = [10, 20, 30, 40, 50] returns",
+          "a": "[20, 30, 40]",
+          "wrong": [
+            "[10, 20, 30, 40]",
+            "[20, 30, 40, 50]",
+            "[30]"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "functions",
+      "title": "Control flow, functions and comprehensions",
+      "terms": [
+        "default argument",
+        "keyword argument",
+        "lambda",
+        "list comprehension",
+        "args and kwargs"
+      ],
+      "body": [
+        "Blocks are defined by indentation. Conditionals use if/elif/else, and loops use for (over any iterable) and while.",
+        {
+          "code": [
+            "def sample_variance(xs):",
+            "    \"\"\"Unbiased sample variance of a list of numbers.\"\"\"",
+            "    n = len(xs)",
+            "    mean = sum(xs) / n",
+            "    total = 0.0",
+            "    for x in xs:",
+            "        total += (x - mean) ** 2",
+            "    return total / (n - 1)",
+            "",
+            "sample_variance([2, 4, 6])   # 4.0"
+          ],
+          "caption": "A function with a docstring. For [2, 4, 6] the mean is 4 and the sum of squares 8, so 8/2 = 4.0."
+        },
+        {
+          "list": [
+            "**Arguments** may have defaults and be passed by keyword: def train(lr=0.1, epochs=10) can be called as train(epochs=50). *args collects extra positional arguments into a tuple, and **kwargs collects extra keyword arguments into a dict.",
+            "Functions are objects: they can be passed to other functions and returned. A **lambda** is a small anonymous function, lambda x: x ** 2.",
+            "**Scope**: variables assigned inside a function are local. Reading a global is fine; assigning to one needs the global keyword, which is almost always a sign of bad design.",
+            "**Recursion**: a function can call itself. Python limits the depth (about 1000) and does no tail-call optimization, so prefer loops for deep recursion."
+          ]
+        },
+        {
+          "h": "Comprehensions"
+        },
+        "A **comprehension** builds a collection from an iterable in one expression. It is more compact and usually faster than appending in a loop.",
+        {
+          "code": [
+            "squares = [x ** 2 for x in range(5)]            # [0, 1, 4, 9, 16]",
+            "evens = [x for x in range(10) if x % 2 == 0]    # [0, 2, 4, 6, 8]",
+            "lookup = {w: len(w) for w in ['a', 'bb', 'ccc']}  # {'a': 1, 'bb': 2, 'ccc': 3}",
+            "unique = {x % 3 for x in range(10)}             # {0, 1, 2}",
+            "",
+            "# Dot product with zip, which pairs up items",
+            "w = [0.5, -1.0, 2.0]",
+            "x = [1.0, 2.0, 3.0]",
+            "dot = sum(wi * xi for wi, xi in zip(w, x))      # 0.5 - 2.0 + 6.0 = 4.5"
+          ],
+          "caption": "List, dictionary and set comprehensions, and a generator expression inside sum."
+        },
+        {
+          "tip": "Useful built-ins: enumerate(xs) gives (index, item) pairs, zip(a, b) pairs items, sorted(xs, key=...) sorts by a key function, max, min, sum, any, all, and reversed. For numerical work, use NumPy instead of loops over lists (next chapter)."
+        }
+      ],
+      "check": [
+        {
+          "q": "What does [x for x in range(10) if x % 3 == 0] produce?",
+          "a": "[0, 3, 6, 9]",
+          "wrong": [
+            "[3, 6, 9]",
+            "[0, 1, 2]",
+            "[1, 4, 7]"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "iterators",
+      "title": "Iterators and generators",
+      "terms": [
+        "iterator",
+        "iterators",
+        "generator",
+        "generators",
+        "lazy evaluation",
+        "data loader",
+        "itertools"
+      ],
+      "body": [
+        "An **iterable** is anything a for loop can go through (lists, strings, files, ranges). An **iterator** produces the items one at a time and remembers its position. A **generator** is the easiest way to write an iterator: a function that uses yield instead of return. It computes each value only when asked, and so it is **lazy**: it can represent a huge or even infinite sequence in constant memory.",
+        {
+          "code": [
+            "def batches(xs, ys, size):",
+            "    \"\"\"Yield (inputs, labels) mini-batches.\"\"\"",
+            "    for start in range(0, len(xs), size):",
+            "        yield xs[start:start + size], ys[start:start + size]",
+            "",
+            "xs = [1, 2, 3, 4, 5]",
+            "ys = [0, 1, 0, 1, 0]",
+            "for xb, yb in batches(xs, ys, 2):",
+            "    print(xb, yb)",
+            "# [1, 2] [0, 1]",
+            "# [3, 4] [0, 1]",
+            "# [5] [0]"
+          ],
+          "caption": "A mini-batch generator. The last batch is shorter."
+        },
+        "This is exactly the idea behind the data loaders of deep learning libraries: a training set too big for memory is streamed in batches, and each batch is loaded, transformed and discarded. A generator expression, (f(x) for x in xs), is a comprehension that is lazy. Reading a file line by line with for line in f also never holds the whole file.",
+        {
+          "code": [
+            "def fibonacci():",
+            "    a, b = 0, 1",
+            "    while True:          # infinite sequence",
+            "        yield a",
+            "        a, b = b, a + b",
+            "",
+            "from itertools import islice",
+            "list(islice(fibonacci(), 8))    # [0, 1, 1, 2, 3, 5, 8, 13]"
+          ],
+          "caption": "An infinite generator, truncated with itertools.islice."
+        },
+        {
+          "list": [
+            "A generator can be consumed only once. Iterating again needs a new generator.",
+            "The itertools module offers building blocks: chain, cycle, islice, product, combinations, groupby.",
+            "Shuffling and batching, prefetching on a background thread and loading in parallel workers are layered on top of this same pattern."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "The main advantage of a generator over building a list is that it",
+          "a": "produces values lazily, using constant memory",
+          "wrong": [
+            "runs faster in every case",
+            "can be indexed",
+            "can be iterated many times"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "classes",
+      "title": "Classes and objects",
+      "terms": [
+        "inheritance",
+        "dataclass",
+        "special methods"
+      ],
+      "body": [
+        "A **class** bundles data (attributes) with the functions that operate on it (methods). The constructor __init__ sets up a new instance, and self refers to the instance. Machine learning libraries are built around this pattern: a model object holds its learned parameters and offers fit and predict methods.",
+        {
+          "code": [
+            "class SimpleLinearRegression:",
+            "    \"\"\"Least squares line y = a + b*x for one feature.\"\"\"",
+            "",
+            "    def __init__(self):",
+            "        self.intercept = None",
+            "        self.slope = None",
+            "",
+            "    def fit(self, x, y):",
+            "        n = len(x)",
+            "        x_mean = sum(x) / n",
+            "        y_mean = sum(y) / n",
+            "        sxy = sum((xi - x_mean) * (yi - y_mean) for xi, yi in zip(x, y))",
+            "        sxx = sum((xi - x_mean) ** 2 for xi in x)",
+            "        self.slope = sxy / sxx",
+            "        self.intercept = y_mean - self.slope * x_mean",
+            "        return self",
+            "",
+            "    def predict(self, x):",
+            "        return [self.intercept + self.slope * xi for xi in x]",
+            "",
+            "model = SimpleLinearRegression().fit([1, 2, 3], [2, 3, 5])",
+            "model.slope          # 1.5",
+            "model.intercept      # 0.3333...",
+            "model.predict([4])   # [6.3333...]"
+          ],
+          "caption": "A model with the fit/predict interface. The data (1, 2), (2, 3), (3, 5) give the line y = 1/3 + 1.5x of the Linear Regression chapter."
+        },
+        {
+          "list": [
+            "**Special methods** (double underscores) let objects behave like built-ins: __len__ for len(obj), __getitem__ for obj[i], __call__ to call an object as a function (a neural-network layer is a callable object), __repr__ for printing.",
+            "**Inheritance**: class Child(Parent) reuses and overrides the parent's methods. Neural-network libraries have a base Module class that your layers extend. Prefer **composition** (an object that holds other objects) to deep inheritance hierarchies.",
+            "A **dataclass** generates the boilerplate for classes that only store data: it writes __init__, __repr__ and equality from the annotated fields."
+          ]
+        },
+        {
+          "code": [
+            "from dataclasses import dataclass",
+            "",
+            "@dataclass",
+            "class TrainConfig:",
+            "    lr: float = 0.1",
+            "    epochs: int = 20",
+            "    batch_size: int = 32",
+            "",
+            "cfg = TrainConfig(epochs=50)",
+            "cfg.lr, cfg.epochs   # (0.1, 50)"
+          ],
+          "caption": "A dataclass for experiment settings."
+        }
+      ],
+      "check": [
+        {
+          "q": "In a method definition def fit(self, x, y), self is",
+          "a": "the instance on which the method is called",
+          "wrong": [
+            "the class itself",
+            "the first training example",
+            "a keyword that must not be used"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "errors-files",
+      "title": "Errors, files and modules",
+      "terms": [
+        "try except",
+        "context manager",
+        "with statement",
+        "csv file",
+        "json module",
+        "pathlib",
+        "virtual environment",
+        "decorator",
+        "type hints"
+      ],
+      "body": [
+        "When something goes wrong at run time Python raises an **exception**. Unhandled, it stops the program with a traceback that names the failing line. Handle the exceptions you can recover from, and let the others stop the program.",
+        {
+          "code": [
+            "def safe_divide(a, b):",
+            "    try:",
+            "        return a / b",
+            "    except ZeroDivisionError:",
+            "        return float('nan')",
+            "",
+            "def load_lr(config):",
+            "    if 'lr' not in config:",
+            "        raise KeyError('config needs a learning rate')",
+            "    return config['lr']"
+          ]
+        },
+        {
+          "h": "Files and context managers"
+        },
+        "A **context manager** (the with statement) guarantees cleanup: the file is closed even if an error occurs.",
+        {
+          "code": [
+            "import csv, json",
+            "from pathlib import Path",
+            "",
+            "path = Path('data') / 'train.csv'          # build paths with /",
+            "with open(path, newline='') as f:",
+            "    rows = list(csv.DictReader(f))           # list of dicts, one per row",
+            "x = [float(r['height']) for r in rows]",
+            "",
+            "with open('config.json', 'w') as f:",
+            "    json.dump({'lr': 0.1, 'epochs': 20}, f)  # save settings"
+          ],
+          "caption": "Reading a CSV file into dictionaries and writing JSON. Libraries such as pandas do the same in one call."
+        },
+        {
+          "h": "Organizing code"
+        },
+        {
+          "list": [
+            "A **module** is a .py file; import it with import module or from module import name. A **package** is a folder of modules. The standard library (math, random, statistics, collections, itertools, json, csv, pathlib) covers a lot before any installation.",
+            "Use a **virtual environment** per project (python -m venv .venv) and pin library versions, so that results can be reproduced (see Software Practice).",
+            "A **decorator** wraps a function to add behavior: @functools.lru_cache caches results, @dataclass transforms a class, and @torch.no_grad() disables gradient tracking.",
+            "**Type hints** (def f(x: float) -> float) document intent and let tools catch errors; Python does not enforce them at run time.",
+            "if __name__ == '__main__': lets a file work both as an importable module and as a script."
+          ]
+        },
+        {
+          "note": "Python is slow for loops over numbers: the interpreter does bookkeeping for every operation. A pure Python loop summing a million numbers takes roughly 50 milliseconds, while NumPy takes about one. Numerical code therefore uses vectorized array operations (next chapter), and the Python layer only coordinates them. Use the timeit module or a profiler to find where time is actually spent before optimizing."
+        }
+      ],
+      "check": [
+        {
+          "q": "What is the main benefit of opening a file with a with statement?",
+          "a": "The file is closed automatically, even if an error occurs",
+          "wrong": [
+            "The file is read faster",
+            "The file is loaded into memory entirely",
+            "Errors in the file are ignored"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Names refer to objects. Lists, dicts and sets are mutable, so aliasing matters: copy when you need independence. Strings and tuples are immutable.",
+    "Functions take positional, default, keyword, *args and **kwargs parameters. Comprehensions build collections concisely; zip, enumerate and sorted cover most loops.",
+    "Generators yield values lazily, which is the model of data loaders that stream batches from disk.",
+    "Classes bundle state and methods. The fit/predict object is the standard model interface; dataclasses hold configuration; special methods like __call__ make objects behave like functions.",
+    "Handle errors with try/except, use with for files, organize code in modules and virtual environments. Python is slow for numerical loops, which motivates NumPy."
+  ],
+  "problems": [
+    {
+      "q": "Write a comprehension that returns the squares of the odd numbers from 1 to 9, and give its value.",
+      "solution": "[x ** 2 for x in range(1, 10) if x % 2 == 1] gives [1, 9, 25, 49, 81].",
+      "a": "[1, 9, 25, 49, 81]."
+    },
+    {
+      "q": "What does sample_variance([1, 2, 3, 4]) return for the function in the text?",
+      "solution": "The mean is 2.5. Squared deviations: 2.25, 0.25, 0.25, 2.25, sum 5. Dividing by n − 1 = 3 gives 1.6667.",
+      "a": "1.6667 (5/3)."
+    },
+    {
+      "q": [
+        "What does the following print?",
+        {
+          "code": [
+            "xs = [3, 1, 2]",
+            "ys = sorted(xs)",
+            "xs.append(4)",
+            "print(xs, ys)"
+          ]
+        }
+      ],
+      "solution": "sorted returns a new list [1, 2, 3], leaving xs unchanged. Then xs.append(4) changes xs to [3, 1, 2, 4] and ys is unaffected.",
+      "a": "[3, 1, 2, 4] [1, 2, 3]"
+    },
+    {
+      "q": "Write a generator moving_average(xs, k) that yields the mean of each window of k consecutive items, and give its output for xs = [1, 2, 3, 4, 5], k = 3.",
+      "solution": [
+        "One solution:",
+        {
+          "code": [
+            "def moving_average(xs, k):",
+            "    for i in range(len(xs) - k + 1):",
+            "        yield sum(xs[i:i + k]) / k"
+          ]
+        },
+        "The windows are [1, 2, 3], [2, 3, 4], [3, 4, 5] with means 2.0, 3.0, 4.0."
+      ],
+      "a": "2.0, 3.0, 4.0."
+    },
+    {
+      "q": [
+        "Why does this function have a bug, and how would you fix it?",
+        {
+          "code": [
+            "def add_item(x, items=[]):",
+            "    items.append(x)",
+            "    return items"
+          ]
+        }
+      ],
+      "solution": [
+        "The default list is created once, when the function is defined, and is shared by every call that omits the argument: add_item(1) and then add_item(2) returns [1, 2] the second time. Fix:",
+        {
+          "code": [
+            "def add_item(x, items=None):",
+            "    if items is None:",
+            "        items = []",
+            "    items.append(x)",
+            "    return items"
+          ]
+        }
+      ],
+      "a": "The mutable default argument is shared between calls; use None and create the list inside."
+    }
+  ]
+}

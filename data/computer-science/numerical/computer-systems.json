@@ -1,0 +1,519 @@
+{
+  "id": "computer-systems",
+  "view": "chapter",
+  "title": "Computer Systems for Machine Learning",
+  "description": "The memory hierarchy, parallelism, GPUs, distributed training and MapReduce: why code runs at the speed it does.",
+  "overview": [
+    "A model that takes a month to train instead of a day is not just inconvenient; it is a different experiment, with a month between ideas. How fast machine learning code runs depends on the hardware as much as on the algorithm. The same matrix multiplication can run at a fraction of the machine's capacity if the data are not where the processor needs them, or at nearly full speed if the computation is arranged to fit the machine.",
+    "This chapter gives the working model of a computer needed to reason about performance: the memory hierarchy, parallelism on CPUs, why GPUs are the engine of deep learning, and how computation and data are spread over many machines. It is the systems background behind batch sizes, mixed precision, data loaders and distributed training."
+  ],
+  "objectives": [
+    "Describe the memory hierarchy with typical latencies, and explain locality and its effect on the speed of loops.",
+    "Use arithmetic intensity and the roofline picture to decide whether an operation is compute-bound or memory-bound.",
+    "Apply Amdahl's law, and describe SIMD, threads, processes and the Python global interpreter lock.",
+    "Explain the design of GPUs, the memory needed to train a model, and the main forms of parallelism for large models.",
+    "Describe MapReduce and data-parallel training with all-reduce, and estimate communication costs."
+  ],
+  "sections": [
+    {
+      "id": "memory-hierarchy",
+      "title": "The memory hierarchy and locality",
+      "terms": [
+        "memory hierarchy",
+        "cache",
+        "cpu cache",
+        "cache line",
+        "cache miss",
+        "locality of reference",
+        "spatial locality",
+        "temporal locality",
+        "latency",
+        "bandwidth",
+        "ram",
+        "virtual memory",
+        "paging",
+        "computer systems"
+      ],
+      "body": [
+        "A processor can do billions of operations per second, but fetching data from main memory takes hundreds of cycles. Computers therefore keep data in a **hierarchy** of memories: small and fast near the processor, large and slow far from it.",
+        {
+          "table": {
+            "head": [
+              "Level",
+              "Typical size",
+              "Latency (approx.)",
+              "Bandwidth"
+            ],
+            "rows": [
+              [
+                "Registers",
+                "a few hundred bytes",
+                "< 1 ns",
+                "—"
+              ],
+              [
+                "L1 cache",
+                "32–64 KB per core",
+                "1 ns",
+                "very high"
+              ],
+              [
+                "L2 cache",
+                "0.25–2 MB per core",
+                "4 ns",
+                "high"
+              ],
+              [
+                "L3 cache",
+                "tens of MB, shared",
+                "15 ns",
+                "high"
+              ],
+              [
+                "Main memory (RAM)",
+                "tens to hundreds of GB",
+                "100 ns",
+                "50–100 GB/s"
+              ],
+              [
+                "SSD",
+                "TB",
+                "100 µs",
+                "1–7 GB/s"
+              ],
+              [
+                "Hard disk",
+                "TB",
+                "10 ms",
+                "0.1–0.2 GB/s"
+              ],
+              [
+                "Network, same data center",
+                "—",
+                "0.5 ms",
+                "1–100 GB/s"
+              ],
+              [
+                "Network, across continents",
+                "—",
+                "100–150 ms",
+                "—"
+              ]
+            ],
+            "caption": "Orders of magnitude for latencies. Each level is roughly 10 to 100 times slower and larger than the one above."
+          }
+        },
+        "Memory is moved in blocks, **cache lines** of 64 bytes. When a program reads one number, the whole line around it is loaded, so the next few numbers come for free. This makes **locality** the central rule of fast code:",
+        {
+          "list": [
+            "**Spatial locality**: access data that are close together in memory (consecutive array elements).",
+            "**Temporal locality**: reuse data soon after they have been loaded, while they are still in the cache.",
+            "A **cache miss** (the data are not in cache) costs a trip to the next level. A program that misses constantly runs at the speed of memory, not of the processor."
+          ]
+        },
+        {
+          "example": {
+            "title": "Row order versus column order",
+            "problem": "A 4096 × 4096 array of float64 is stored row by row (NumPy's default). Summing it by walking along rows or by walking down columns performs the same arithmetic. Which is faster, and why?",
+            "solution": "Along rows the accesses are consecutive: each 64-byte cache line brings in 8 doubles, all of which are used, so only 1 access in 8 misses. Down a column consecutive accesses are 4096 × 8 = 32 KB apart, so every access hits a different cache line, and the data of that line are mostly unused before it is evicted. Memory traffic is up to 8 times larger, and column-order loops are typically 3 to 10 times slower. The same effect decides how nested loops, matrix transposes and tensor layouts should be arranged."
+          }
+        },
+        {
+          "code": [
+            "import numpy as np, time",
+            "",
+            "A = np.random.rand(4096, 4096)            # row-major (C order)",
+            "",
+            "t = time.perf_counter()",
+            "s = sum(A[i, :].sum() for i in range(4096))   # contiguous rows",
+            "t_rows = time.perf_counter() - t",
+            "",
+            "t = time.perf_counter()",
+            "s = sum(A[:, j].sum() for j in range(4096))   # strided columns",
+            "t_cols = time.perf_counter() - t",
+            "# t_cols is typically several times larger than t_rows"
+          ],
+          "caption": "Measuring the cost of strided access."
+        },
+        "**Virtual memory** gives each program the illusion of a large private address space, backed by RAM and, when RAM is full, by disk (**paging** or swapping). A training job that exceeds RAM and starts swapping slows down by orders of magnitude; check memory use against the physical limit (see Random numbers, reproducibility and performance in Array Programming with NumPy)."
+      ],
+      "check": [
+        {
+          "q": "Why is summing a row-major array along its columns slow?",
+          "a": "Consecutive accesses are far apart in memory, so each uses a new cache line",
+          "wrong": [
+            "It does more arithmetic",
+            "Column sums need more precision",
+            "NumPy cannot sum along columns"
+          ]
+        },
+        {
+          "q": "Reading from main memory takes about",
+          "a": "100 ns, roughly 100 times the latency of the L1 cache",
+          "wrong": [
+            "1 ns",
+            "10 ms",
+            "1 µs, the same as L1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "roofline",
+      "title": "Compute-bound or memory-bound?",
+      "terms": [
+        "arithmetic intensity",
+        "roofline model",
+        "compute-bound",
+        "memory-bound",
+        "flops",
+        "memory wall",
+        "operational intensity"
+      ],
+      "body": [
+        "Whether an operation is limited by the processor's arithmetic or by the speed of memory depends on its **arithmetic intensity**: the number of floating-point operations (FLOPs) performed per byte moved between memory and the processor.",
+        {
+          "eq": "intensity = FLOPs / bytes moved"
+        },
+        "A machine has a peak compute rate P (FLOP/s) and a memory bandwidth B (bytes/s). The achievable rate of an operation with intensity I is at most min(P, B·I): the **roofline**. Operations with I below P/B (the machine's balance point) are **memory-bound**: the processor waits for data. Above it they are **compute-bound**.",
+        {
+          "example": {
+            "title": "Matrix multiplication versus an elementwise add",
+            "problem": "A GPU has P = 100 TFLOP/s and B = 2 TB/s. Is (a) adding two vectors of n floats, and (b) multiplying two 4096 × 4096 float32 matrices, memory-bound or compute-bound?",
+            "solution": [
+              "Balance point: P/B = 100/2 = 50 FLOPs per byte.",
+              "(a) One add per element, reading two floats and writing one: 12 bytes. Intensity 1/12 = 0.083 FLOPs/byte ≪ 50: strongly memory-bound. The rate is B·I = 2 × 10¹² × 0.083 = 1.7 × 10¹¹ FLOP/s, under 0.2% of the peak.",
+              "(b) A product of n × n matrices does 2n³ FLOPs on 3n² numbers (12n² bytes), intensity n/6 = 683 FLOPs/byte for n = 4096 ≫ 50: compute-bound, so it can run near the peak. The reason is data reuse: each number loaded takes part in n multiplications."
+            ]
+          }
+        },
+        {
+          "list": [
+            "**Matrix multiplications** (dense layers, attention scores, convolutions) are compute-bound for large sizes. They are why GPUs and tensor cores are so effective for deep learning.",
+            "**Elementwise operations** (activations, normalization, residual additions, softmax) and **embedding lookups** are memory-bound. **Kernel fusion** combines several of them into one pass over memory, so that intermediate results never return to main memory. This is the idea behind compilers such as XLA and torch.compile, and behind FlashAttention, which computes attention in blocks that fit in fast on-chip memory.",
+            "**Batching** raises intensity: processing a batch of 64 examples with the same weights reuses each weight 64 times. Single-example inference of a large model is memory-bound (it must read all the weights for one token), which is why serving systems batch requests.",
+            "Compute grows faster than memory bandwidth in successive hardware generations: the **memory wall**. Reducing memory traffic (lower precision, fusion, caching) often matters more than reducing FLOPs."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "An operation that performs 2 FLOPs on every 8 bytes it reads has intensity",
+          "a": "0.25 FLOPs per byte, so it is memory-bound on typical hardware",
+          "wrong": [
+            "16 FLOPs per byte, compute-bound",
+            "2 FLOPs per byte, compute-bound",
+            "0 FLOPs per byte"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "parallelism",
+      "title": "Parallelism on CPUs",
+      "terms": [
+        "parallelism",
+        "simd",
+        "vectorization in hardware",
+        "multicore",
+        "thread",
+        "threads",
+        "multiprocessing",
+        "global interpreter lock",
+        "gil",
+        "amdahl's law",
+        "race condition",
+        "deadlock",
+        "concurrency"
+      ],
+      "body": [
+        "Hardware gets its speed from doing many things at once, at several levels.",
+        {
+          "list": [
+            "**SIMD** (single instruction, multiple data): one instruction applies the same operation to a vector of 4 to 16 numbers held in a wide register. Compiled numerical libraries use it automatically, and it is a main reason a NumPy operation beats a Python loop.",
+            "**Multiple cores**: a modern CPU has 8 to 128 cores, which run independent **threads** of execution that share memory. **Processes** have separate memory and communicate through messages or shared segments.",
+            "**Python's global interpreter lock (GIL)** lets only one thread run Python bytecode at a time in CPython, so threads do not speed up pure Python computation. Remedies: use libraries that release the lock (NumPy, PyTorch), use **multiprocessing** (separate interpreters, with the cost of copying data), or use threads for waiting on input/output, where the lock is released."
+          ]
+        },
+        {
+          "code": [
+            "from multiprocessing import Pool",
+            "import numpy as np",
+            "",
+            "def score(seed):",
+            "    rng = np.random.default_rng(seed)",
+            "    return rng.normal(size=1_000_000).mean()      # an independent task",
+            "",
+            "if __name__ == '__main__':",
+            "    with Pool(4) as pool:                          # 4 worker processes",
+            "        results = pool.map(score, range(8))        # 8 independent tasks"
+          ],
+          "caption": "Embarrassingly parallel work: independent tasks (cross-validation folds, hyperparameter trials, bootstrap replicates) run in separate processes."
+        },
+        {
+          "h": "Amdahl's law"
+        },
+        "Parallelizing part of a program helps only that part. If a fraction p of the running time can be sped up by a factor s (for example by using s cores) and the rest, 1 − p, cannot, the overall speedup is",
+        {
+          "eq": "speedup = 1 / ( (1 − p) + p/s ) ≤ 1/(1 − p)"
+        },
+        {
+          "example": {
+            "title": "Diminishing returns",
+            "problem": "95% of a program parallelizes perfectly. What speedup do 16 cores give, and what is the limit with unlimited cores?",
+            "solution": "With p = 0.95 and s = 16: 1/(0.05 + 0.95/16) = 1/(0.05 + 0.0594) = 9.14, not 16. With unlimited cores the limit is 1/0.05 = 20. The serial 5% dominates; to scale further, the serial part must shrink (for example by parallelizing the data loading too). In practice, communication and synchronization add further overhead."
+          }
+        },
+        {
+          "list": [
+            "**Race condition**: two threads update shared data and the result depends on the unpredictable order of their steps (both read counter = 5 and write 6, instead of 7). Avoid by not sharing mutable state, or by using locks or atomic operations.",
+            "**Deadlock**: threads wait for each other forever, each holding something the other needs.",
+            "**Data parallelism** (the same operation on different pieces of data) is the easiest and most scalable form, and what machine learning mostly uses."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "If 80% of a program parallelizes perfectly, the largest possible speedup on any number of cores is",
+          "a": "5",
+          "wrong": [
+            "80",
+            "1.25",
+            "infinite"
+          ],
+          "why": "1/(1 − 0.8) = 5."
+        },
+        {
+          "q": "In CPython, threads do not speed up pure-Python numerical loops because of",
+          "a": "the global interpreter lock",
+          "wrong": [
+            "the cache hierarchy",
+            "memory bandwidth limits",
+            "the number of registers"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gpus",
+      "title": "GPUs, accelerators and memory for training",
+      "terms": [
+        "gpu",
+        "graphics processing unit",
+        "tpu",
+        "tensor core",
+        "cuda",
+        "simt",
+        "high bandwidth memory",
+        "gradient checkpointing",
+        "model parallelism",
+        "data parallelism",
+        "pipeline parallelism",
+        "tensor parallelism",
+        "zero optimizer sharding"
+      ],
+      "body": [
+        "A CPU is built to run one thread fast: a few powerful cores with large caches and sophisticated control. A **GPU** (graphics processing unit) is built for throughput: thousands of simple arithmetic units that execute the same instruction on many data elements at once (SIMT), with very high memory bandwidth (1 to 3 TB/s from high-bandwidth memory, against 50 to 100 GB/s for CPU memory). Deep learning is dominated by large matrix multiplications that map ideally onto this design, and **tensor cores** and TPUs go further by implementing small matrix products directly in hardware, in 16-bit or 8-bit arithmetic (see Mixed-precision training).",
+        {
+          "list": [
+            "**Launch overhead and transfers**: a GPU kernel takes some microseconds to launch, and moving data between CPU and GPU over PCIe (about 16 to 64 GB/s) is far slower than the GPU's own memory. Keep data on the GPU, batch work into large kernels, and overlap data loading with computation.",
+            "**Utilization**: a GPU needs enough parallel work to be efficient. A tiny batch or a small layer leaves most of it idle, which is why larger batches often give better throughput.",
+            "**Asynchronous execution**: GPU calls return before the work is done. When timing code, synchronize first (torch.cuda.synchronize()), or the measurement is meaningless."
+          ]
+        },
+        {
+          "h": "How much memory does training need?"
+        },
+        "Memory, not speed, is often the limit. For a model with N parameters trained with the Adam optimizer in mixed precision, each parameter needs:",
+        {
+          "table": {
+            "head": [
+              "Item",
+              "Bytes per parameter"
+            ],
+            "rows": [
+              [
+                "16-bit weights",
+                "2"
+              ],
+              [
+                "16-bit gradients",
+                "2"
+              ],
+              [
+                "32-bit master weights",
+                "4"
+              ],
+              [
+                "Adam first moment m (32-bit)",
+                "4"
+              ],
+              [
+                "Adam second moment v (32-bit)",
+                "4"
+              ],
+              [
+                "Total, before activations",
+                "16"
+              ]
+            ],
+            "caption": "Memory per parameter for mixed-precision Adam training."
+          }
+        },
+        {
+          "example": {
+            "title": "A 7-billion-parameter model",
+            "problem": "How much memory do the weights alone take at inference in 16 bits, and how much does training with Adam need, excluding activations? Does it fit on one 80 GB GPU?",
+            "solution": "Inference: 7 × 10⁹ × 2 bytes = 14 GB. Training: 7 × 10⁹ × 16 = 112 GB, more than 80 GB, so one GPU cannot hold it even before counting activations, which grow with batch size and sequence length. The model must be split over several devices, or states must be sharded."
+          }
+        },
+        {
+          "h": "Parallelism for large models"
+        },
+        {
+          "list": [
+            "**Data parallelism**: every device holds a full copy of the model and processes a different part of the batch; gradients are averaged across devices (all-reduce) before the update. Simple and efficient when the model fits on one device.",
+            "**Sharded data parallelism** (ZeRO, FSDP): split the optimizer states, gradients and even the weights across devices, gathering them layer by layer when needed, which divides the 16 bytes per parameter among the devices.",
+            "**Tensor (model) parallelism**: split each large matrix across devices; the devices exchange partial results at every layer. It needs a very fast interconnect (NVLink).",
+            "**Pipeline parallelism**: put different layers on different devices and stream micro-batches through them.",
+            "**Gradient checkpointing** saves memory by not storing all activations: it keeps some, and recomputes the others during the backward pass, trading about 30% more computation for a large reduction in memory.",
+            "Large runs combine all of these (3D parallelism) on clusters of thousands of accelerators."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "Mixed-precision training with Adam needs about this many bytes per parameter (excluding activations):",
+          "a": "16",
+          "wrong": [
+            "2",
+            "4",
+            "64"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "distributed",
+      "title": "Distributed computing: MapReduce and data-parallel training",
+      "terms": [
+        "mapreduce",
+        "map and reduce",
+        "distributed computing",
+        "all-reduce",
+        "ring all-reduce",
+        "parameter server",
+        "apache spark",
+        "fault tolerance",
+        "data pipeline",
+        "columnar format",
+        "parquet",
+        "shuffle"
+      ],
+      "body": [
+        "When data or computation outgrow one machine, work is spread over many, connected by a network that is far slower than local memory. Two patterns cover most of machine learning.",
+        {
+          "h": "MapReduce"
+        },
+        "**MapReduce** (Google, 2004) processes huge data sets with two user-supplied functions. **Map** is applied independently to each input record, emitting (key, value) pairs. The system **shuffles** the pairs so that all values with the same key meet on one machine. **Reduce** combines the values of each key. Because maps are independent and reduces are independent per key, the framework can run them in parallel on thousands of machines and restart any piece that fails.",
+        {
+          "code": [
+            "from collections import Counter, defaultdict",
+            "",
+            "documents = ['to be or not to be', 'to see or not to see']",
+            "",
+            "def map_fn(doc):                         # one document -> (word, 1) pairs",
+            "    return [(word, 1) for word in doc.split()]",
+            "",
+            "pairs = [kv for doc in documents for kv in map_fn(doc)]",
+            "",
+            "groups = defaultdict(list)               # the shuffle: group values by key",
+            "for word, one in pairs:",
+            "    groups[word].append(one)",
+            "",
+            "def reduce_fn(word, ones):               # combine the values of one key",
+            "    return word, sum(ones)",
+            "",
+            "dict(reduce_fn(w, v) for w, v in groups.items())",
+            "# {'to': 4, 'be': 2, 'or': 2, 'not': 2, 'see': 2}"
+          ],
+          "caption": "Word count in the MapReduce style, simulated on one machine. On a cluster each document is mapped on a different machine."
+        },
+        "Frameworks such as Spark keep intermediate data in memory and offer richer operations (joins, group-bys, machine learning). Statistics that decompose over records (sums, counts, gradients) fit this pattern: map computes a partial result on each partition of the data, and reduce adds them.",
+        {
+          "h": "Data-parallel training and all-reduce"
+        },
+        "In data-parallel SGD each of p workers computes the gradient on its share of the mini-batch, and the gradients are averaged, so that all workers apply the same update. The averaging is an **all-reduce**. In **ring all-reduce** the workers are arranged in a ring, and each gradient vector of N bytes is split into p chunks that circulate around the ring: each worker sends and receives 2(p − 1)/p · N ≈ 2N bytes in total, almost independent of p, and every link is used at once.",
+        {
+          "example": {
+            "title": "Cost of synchronizing gradients",
+            "problem": "A 7-billion-parameter model has 16-bit gradients (14 GB). Workers are linked at 100 GB/s each. Estimate the time of one ring all-reduce, and compare it with a step that takes 1 second of computation.",
+            "solution": "Each worker transfers about 2 × 14 GB = 28 GB, taking 28/100 = 0.28 s. If it is not overlapped with computation, the 1 s step becomes 1.28 s, an efficiency of 78%. Overlapping the communication of one layer's gradients with the backward computation of the earlier layers hides most of it. On a slower network (10 GB/s) the same all-reduce takes 2.8 s and dominates: communication is why large clusters use fast interconnects, and why gradient compression and larger local batches are used."
+          }
+        },
+        {
+          "list": [
+            "A **parameter server** architecture keeps the parameters on dedicated machines to which workers push gradients and from which they pull weights. It allows asynchronous updates, at the cost of stale gradients.",
+            "**Fault tolerance**: with thousands of machines, failures are routine. Long training runs save **checkpoints** and resume; MapReduce re-executes failed tasks.",
+            "**Data pipelines**: reading data is often the bottleneck. Store large data sets in **columnar, compressed binary formats** (Parquet, Arrow) instead of CSV: they are smaller, and let a program read only the columns it needs. Use several loader workers with prefetching so that the GPU never waits (see Iterators and generators).",
+            "**Latency numbers matter**: a network round trip within a data center (0.5 ms) is 5000 times slower than a memory access, so distributed algorithms try to send few, large messages."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "In MapReduce, the shuffle step",
+          "a": "brings together all pairs with the same key on one machine",
+          "wrong": [
+            "randomizes the order of the input",
+            "applies the map function",
+            "writes the final output file"
+          ]
+        },
+        {
+          "q": "A ring all-reduce of N bytes of gradients over p workers makes each worker transfer about",
+          "a": "2N bytes, almost independent of p",
+          "wrong": [
+            "pN bytes",
+            "N/p bytes",
+            "N² bytes"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Memory is a hierarchy from registers (<1 ns) through caches and RAM (100 ns) to SSD (100 µs) and network (ms). Cache lines of 64 bytes make locality decisive: traverse arrays in memory order.",
+    "Arithmetic intensity (FLOPs per byte) against the machine balance decides whether an operation is memory-bound (elementwise ops, small-batch inference) or compute-bound (large matrix multiplications). Fusion and batching raise intensity.",
+    "Parallelism: SIMD, cores and processes; Python's GIL blocks threaded Python loops. Amdahl's law, speedup = 1/((1 − p) + p/s), limits gains to 1/(1 − p).",
+    "GPUs trade single-thread speed for throughput and bandwidth. Training with mixed-precision Adam needs about 16 bytes per parameter, so large models need sharding, tensor and pipeline parallelism, and gradient checkpointing.",
+    "MapReduce (map, shuffle, reduce) handles data-parallel aggregation; data-parallel training averages gradients by ring all-reduce (about 2N bytes per worker). Communication, I/O format and fault tolerance dominate at scale."
+  ],
+  "problems": [
+    {
+      "q": "A GPU has 200 TFLOP/s and 1.5 TB/s of bandwidth. Compute its balance point, and say whether a layer norm with intensity 2 FLOPs/byte is compute- or memory-bound.",
+      "solution": "Balance = 200/1.5 = 133 FLOPs/byte. Intensity 2 ≪ 133: memory-bound. Its speed is B·I = 1.5 TB/s × 2 = 3 TFLOP/s, 1.5% of the peak.",
+      "a": "Balance 133 FLOPs/byte; the layer norm is memory-bound."
+    },
+    {
+      "q": "A pipeline spends 10% of its time in a serial data-loading step and 90% in parallelizable computation. What is the speedup on 8 cores, and what fraction of that ideal 8× is it?",
+      "solution": "1/(0.1 + 0.9/8) = 1/(0.1 + 0.1125) = 4.71. This is 59% of the ideal speedup of 8.",
+      "a": "4.71×, 59% of ideal."
+    },
+    {
+      "q": "How much memory (weights, gradients, Adam states, mixed precision) does a 1.3-billion-parameter model need, and how many 24 GB GPUs would be needed to hold it with full sharding, ignoring activations?",
+      "solution": "1.3 × 10⁹ × 16 bytes = 20.8 GB. With perfect sharding across devices it fits on one 24 GB GPU, barely, leaving only 3 GB for activations; two or more GPUs leave room.",
+      "a": "About 21 GB: one or two 24 GB GPUs."
+    },
+    {
+      "q": "Describe how to compute the mean and variance of a column of 10⁹ numbers split across 100 machines using the map–reduce pattern.",
+      "solution": "Map: each machine computes (n_i, sum_i, sum of squares_i) for its part. Reduce: add the triples to get n, S, Q, then mean = S/n and variance = Q/n − mean² (or combine partial means and variances with the pairwise update formula, which is more numerically stable; see Numerical Computing). Only three numbers per machine are communicated.",
+      "a": "Map to (n, Σx, Σx²) per partition; reduce by summing; compute the moments from the totals."
+    },
+    {
+      "q": "A training step takes 0.4 s of computation, and its gradient all-reduce moves 8 GB per worker (2N for N = 4 GB of gradients) over a 25 GB/s link. If the communication cannot be overlapped, what is the efficiency? If 75% of it can be overlapped with computation?",
+      "solution": "Communication time = 8/25 = 0.32 s. No overlap: step = 0.72 s, efficiency 0.4/0.72 = 56%. With 75% overlapped, 0.08 s of communication remains exposed: step = 0.48 s, efficiency 83%.",
+      "a": "56% without overlap and 83% with 75% overlap."
+    }
+  ]
+}

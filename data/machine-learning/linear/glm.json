@@ -1,0 +1,303 @@
+{
+  "id": "glm",
+  "view": "chapter",
+  "title": "Exponential Families and Generalized Linear Models",
+  "description": "A single recipe that produces linear, logistic, Poisson and softmax regression, and the reason their gradients look alike.",
+  "overview": [
+    "Linear regression predicts a real number with Gaussian noise, and logistic regression predicts a binary label with Bernoulli noise. Their update rules look the same: the gradient is the prediction error times the features. This chapter shows why. Both are special cases of a family of models built from the exponential family of distributions, and the same recipe gives models for counts, positive values and many classes.",
+    "Generalized linear models (GLMs) are used directly in statistics and insurance, and their structure underlies the output layers of neural networks."
+  ],
+  "objectives": [
+    "Write a distribution in exponential family form and identify its natural parameter, sufficient statistic and log-partition function.",
+    "Use the log-partition function to obtain the mean and variance.",
+    "State the three assumptions of a GLM and derive linear, logistic and softmax regression from them.",
+    "Fit a Poisson regression model for counts and interpret its coefficients as multiplicative effects.",
+    "Explain why the log-likelihood of a canonical-link GLM is concave and has the gradient Σ(y − h)x."
+  ],
+  "sections": [
+    {
+      "id": "exp-family",
+      "title": "The exponential family",
+      "terms": [
+        "exponential family",
+        "natural parameter",
+        "sufficient statistic",
+        "log-partition function",
+        "partition function",
+        "exponential family distribution"
+      ],
+      "body": [
+        "A distribution belongs to the **exponential family** if it can be written as",
+        {
+          "eq": "p(y; η) = b(y) exp( ηᵀT(y) − a(η) )"
+        },
+        {
+          "facts": [
+            ["η", "the natural (canonical) parameter"],
+            ["T(y)", "the sufficient statistic; often T(y) = y"],
+            ["a(η)", "the log-partition function, which makes the distribution sum or integrate to 1"],
+            ["b(y)", "the base measure, which does not depend on η"]
+          ]
+        },
+        "Many familiar distributions fit. We check three, with scalar y and T(y) = y.",
+        {
+          "h": "Bernoulli"
+        },
+        "With probability φ of 1, p(y; φ) = φ^y (1 − φ)^{1−y} = exp( y ln(φ/(1 − φ)) + ln(1 − φ) ). So η = ln(φ/(1 − φ)), the log-odds, and since φ = 1/(1 + e^{−η}), a(η) = −ln(1 − φ) = ln(1 + e^η) and b(y) = 1.",
+        {
+          "h": "Gaussian with fixed variance"
+        },
+        "For y ~ N(μ, 1), p(y; μ) = (1/√(2π)) e^{−y²/2} · exp( μy − μ²/2 ). So η = μ, a(η) = η²/2 and b(y) = e^{−y²/2}/√(2π).",
+        {
+          "h": "Poisson"
+        },
+        "For counts with rate λ, p(y; λ) = e^{−λ}λ^y/y! = (1/y!) exp( y ln λ − λ ). So η = ln λ, a(η) = e^η and b(y) = 1/y!.",
+        {
+          "h": "Mean and variance from a(η)"
+        },
+        "Because p integrates to 1, a(η) = ln ∫ b(y) e^{ηy} dy. Differentiating under the integral,",
+        {
+          "eq": [
+            "a′(η) = ∫ y b(y) e^{ηy − a(η)} dy = E[y]",
+            "a″(η) = Var(y)"
+          ]
+        },
+        "The same recipe gives both moments for every family. Check: for the Bernoulli, a′(η) = e^η/(1 + e^η) = φ, and a″(η) = φ(1 − φ). For the Poisson, a′ = a″ = e^η = λ, the known mean and variance. Since a″ = Var ≥ 0, a is convex, which will make the log-likelihood concave.",
+        {
+          "table": {
+            "head": ["Distribution", "η", "a(η)", "Mean a′(η)", "Variance a″(η)"],
+            "rows": [
+              ["Bernoulli(φ)", "ln(φ/(1 − φ))", "ln(1 + e^η)", "φ", "φ(1 − φ)"],
+              ["Gaussian(μ, 1)", "μ", "η²/2", "μ", "1"],
+              ["Poisson(λ)", "ln λ", "e^η", "λ", "λ"],
+              ["Categorical", "ln(φ_k/φ_K)", "ln(1 + Σ e^{η_k})", "φ_k", "φ_k(1 − φ_k)"]
+            ],
+            "caption": "Exponential family members used in this chapter."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "For the Poisson distribution in exponential family form, the natural parameter is",
+          "a": "ln λ",
+          "wrong": ["λ", "e^λ", "1/λ"]
+        },
+        {
+          "q": "In an exponential family, the variance of y equals",
+          "a": "a″(η), the second derivative of the log-partition function",
+          "wrong": ["a′(η)²", "b(y)", "η²"]
+        }
+      ]
+    },
+    {
+      "id": "glm-recipe",
+      "title": "The GLM recipe",
+      "terms": [
+        "generalized linear model",
+        "glm",
+        "generalized linear models",
+        "canonical link",
+        "link function",
+        "response function"
+      ],
+      "body": [
+        "A **generalized linear model** predicts y given x with three assumptions.",
+        {
+          "list": [
+            "**Distribution.** Given x and θ, y follows an exponential family distribution with natural parameter η.",
+            "**Prediction.** The model outputs the expected value, h(x) = E[y | x].",
+            "**Linearity.** The natural parameter is linear in the inputs: η = θᵀx."
+          ],
+          "ordered": true
+        },
+        "The function that maps η to the mean is a′(η), the **response function**. Its inverse, which maps the mean to the linear predictor, is the **link function**. Choosing η = θᵀx makes the link the //canonical// one. Each classical model is a choice of distribution:",
+        {
+          "table": {
+            "head": ["Model", "Distribution of y", "Prediction h(x) = a′(θᵀx)", "Use"],
+            "rows": [
+              ["Linear regression", "Gaussian", "θᵀx", "real values"],
+              ["Logistic regression", "Bernoulli", "1/(1 + e^{−θᵀx})", "binary labels"],
+              ["Poisson regression", "Poisson", "e^{θᵀx}", "counts"],
+              ["Softmax regression", "Categorical", "e^{θ_kᵀx} / Σ_j e^{θ_jᵀx}", "K classes"]
+            ],
+            "caption": "Generalized linear models from the exponential family."
+          }
+        },
+        {
+          "h": "Why the gradients look alike"
+        },
+        "With η = θᵀx and T(y) = y, the log-likelihood of one example is ln b(y) + η y − a(η). Its gradient with respect to θ is",
+        {
+          "eq": "∇_θ ℓ = ( y − a′(θᵀx) ) x = ( y − h_θ(x) ) x"
+        },
+        "For every canonical-link GLM the gradient is the prediction error times the features. Linear regression, logistic regression and Poisson regression all share the update θ ← θ + α (y − h_θ(x)) x. The Hessian is −a″(θᵀx) xxᵀ, which is negative semidefinite because a″ = Var ≥ 0, so the log-likelihood is concave and gradient ascent or Newton's method finds the global maximum.",
+        {
+          "key": "Choose the output distribution to match the data (real, binary, count, category, positive), keep the model linear in the natural parameter, and the gradient, concavity and fitting algorithm come for free."
+        }
+      ],
+      "check": [
+        {
+          "q": "For a canonical-link GLM, the gradient of the log-likelihood for one example is",
+          "a": "(y − h_θ(x)) x",
+          "wrong": [
+            "(h_θ(x) − y)² x",
+            "y x − h_θ(x)",
+            "Always zero"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "poisson",
+      "title": "Poisson regression",
+      "terms": [
+        "poisson regression",
+        "count data",
+        "rate ratio",
+        "log link",
+        "overdispersion"
+      ],
+      "body": [
+        "For a count y = 0, 1, 2, … (arrivals per hour, defects per batch), assume y | x ~ Poisson(λ) with λ = e^{θᵀx}. The exponential response keeps λ positive for every x.",
+        {
+          "eq": [
+            "P(y | x; θ) = λ^y e^{−λ} / y!,    λ = exp(θᵀx)",
+            "ℓ(θ) = Σ [ y^{(i)} θᵀx^{(i)} − exp(θᵀx^{(i)}) − ln y^{(i)}! ]",
+            "∇ℓ(θ) = Σ ( y^{(i)} − exp(θᵀx^{(i)}) ) x^{(i)}"
+          ]
+        },
+        "Because the model is log-linear, effects are multiplicative: increasing x_j by 1 multiplies the expected count by e^{θ_j}, the **rate ratio**.",
+        {
+          "example": {
+            "title": "A Poisson prediction and gradient",
+            "problem": "A model has θ = (0.5, 0.3), with x = (1, 2). Find the expected count and the probability of zero events. If the observed count is y = 5, find the gradient contribution of this example. By what factor does a one-unit increase in x₁ change the expected count?",
+            "solution": [
+              "η = 0.5 + 0.3(2) = 1.1 and λ = e^{1.1} = 3.004.",
+              "P(y = 0) = e^{−3.004} = 0.0497.",
+              "The gradient is (5 − 3.004)(1, 2) = (1.996, 3.992). It pushes both weights up, because the model under-predicts.",
+              "The rate ratio is e^{0.3} = 1.35: a 35% increase in the expected count per unit of x₁."
+            ]
+          }
+        },
+        {
+          "warn": "The Poisson distribution has variance equal to the mean. Real counts are often more variable (**overdispersion**), which makes standard errors too small. Remedies are the negative binomial model or quasi-likelihood methods."
+        },
+        "For counts over different exposures (patients per hospital of different sizes), include ln(exposure) in η with a fixed coefficient of 1, so the model predicts a rate."
+      ],
+      "check": [
+        {
+          "q": "In Poisson regression with a coefficient θ_j = 0.2, increasing x_j by one unit",
+          "a": "multiplies the expected count by e^{0.2} ≈ 1.22",
+          "wrong": [
+            "adds 0.2 to the expected count",
+            "adds 0.2 to the log-odds",
+            "multiplies the variance by 0.2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "softmax-glm",
+      "title": "Softmax from the categorical distribution",
+      "terms": [
+        "categorical distribution",
+        "multinomial glm",
+        "softmax derivation"
+      ],
+      "body": [
+        "For K classes let φ_k = P(y = k), with Σφ_k = 1. Write T(y) as the (K − 1)-vector whose kth entry is 1[y = k] (with T(K) = 0). Then",
+        {
+          "eq": "p(y; φ) = exp( Σ_{k=1}^{K−1} 1[y = k] ln(φ_k/φ_K) + ln φ_K )"
+        },
+        "which is an exponential family form with natural parameters η_k = ln(φ_k/φ_K) and a(η) = −ln φ_K. Invert: setting η_K = 0, e^{η_k} = φ_k/φ_K, and since Σφ_k = 1,",
+        {
+          "eq": "φ_k = e^{η_k} / Σ_{j=1}^{K} e^{η_j}"
+        },
+        "Assuming the natural parameters are linear, η_k = θ_kᵀx, gives the softmax model of the previous chapter. The log-likelihood is Σ ln φ_{y^{(i)}}, the cross-entropy loss, and its gradient with respect to θ_k is (1[y = k] − φ_k) x, again error times features.",
+        {
+          "example": {
+            "title": "From natural parameters to probabilities",
+            "problem": "Three classes have natural parameters η = (1, 0.5, 0). Find the class probabilities.",
+            "solution": "e¹ = 2.718, e^{0.5} = 1.649, e⁰ = 1. The sum is 5.367. The probabilities are (0.507, 0.307, 0.186)."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "The softmax model is the GLM for which distribution?",
+          "a": "Categorical (multinomial with one trial)",
+          "wrong": ["Poisson", "Gaussian", "Exponential"]
+        }
+      ]
+    },
+    {
+      "id": "glm-fitting",
+      "title": "Fitting and extending GLMs",
+      "terms": [
+        "fisher scoring",
+        "non-canonical link",
+        "deviance",
+        "gamma regression",
+        "negative binomial"
+      ],
+      "body": [
+        "All canonical-link GLMs share one fitting algorithm. Newton's method with Hessian −Xᵀ diag(a″) X is iteratively reweighted least squares: at each step solve a weighted least squares problem with weights equal to the current variances. In statistics the variant that uses the expected Hessian is called **Fisher scoring**; for canonical links the two coincide.",
+        {
+          "list": [
+            "**Regularization.** Add λ‖θ‖² or λ‖θ‖₁ to any GLM objective, as for logistic regression. Without it, perfect separation (or zero counts for a feature) makes the maximum likelihood estimate diverge.",
+            "**Deviance.** The GLM analogue of the residual sum of squares is twice the gap between the log-likelihood of a perfect (saturated) model and that of the fitted model. For the Gaussian case it is the sum of squares.",
+            "**Other families.** Gamma regression handles positive, right-skewed values such as claim sizes. The negative binomial handles overdispersed counts. Ordinal and other families fit the same template.",
+            "**Non-canonical links.** One may use any monotone link, such as the probit for binary data; the model is still a GLM, but the gradient loses its simple form."
+          ]
+        },
+        "The GLM view shows how to build a loss for a new kind of output: choose the distribution that matches the data, parameterize its natural parameter or mean with a model, and minimize the negative log-likelihood. This is exactly how neural networks for classification and counting are trained, with the linear predictor replaced by the output of a network."
+      ],
+      "check": [
+        {
+          "q": "Why is the log-likelihood of a canonical-link GLM concave in θ?",
+          "a": "Its Hessian is −a″(θᵀx)xxᵀ and a″ is a variance, which is non-negative",
+          "wrong": [
+            "The link function is linear",
+            "The data are independent",
+            "The gradient is a sum of errors"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "An exponential family distribution has the form b(y) exp(ηᵀT(y) − a(η)). The derivatives of a(η) give the mean and variance.",
+    "A GLM assumes that y follows an exponential family distribution, predicts its mean, and sets the natural parameter η = θᵀx.",
+    "Linear, logistic, Poisson and softmax regression are the Gaussian, Bernoulli, Poisson and categorical cases.",
+    "For canonical links the gradient of the log-likelihood is Σ(y − h)x, the log-likelihood is concave, and fitting is IRLS.",
+    "Poisson regression has a log link: coefficients act as multiplicative rate ratios.",
+    "To model a new type of output, choose the matching distribution and minimize the negative log-likelihood."
+  ],
+  "problems": [
+    {
+      "q": "Show that the variance of the Bernoulli distribution is φ(1 − φ) using a(η) = ln(1 + e^η).",
+      "solution": "a′(η) = e^η/(1 + e^η) = φ. Differentiate again: a″(η) = e^η/(1 + e^η)² = φ(1 − φ).",
+      "a": "Var = a″(η) = φ(1 − φ)."
+    },
+    {
+      "q": "A Poisson model has θ = (−1, 0.5) and x = (1, 4). Find the expected count and P(y = 2).",
+      "solution": "η = −1 + 0.5(4) = 1, so λ = e = 2.718. P(y = 2) = λ² e^{−λ}/2 = (7.389)(0.06598)/2 = 0.244.",
+      "a": "λ = 2.718; P(y = 2) = 0.244."
+    },
+    {
+      "q": "Write the gradient of the Poisson log-likelihood for two examples: x₁ = (1, 0), y₁ = 2 and x₂ = (1, 1), y₂ = 6, at θ = (0, 1).",
+      "solution": "λ₁ = e⁰ = 1, λ₂ = e¹ = 2.718. The gradient is Σ(y − λ)x = (2 − 1)(1, 0) + (6 − 2.718)(1, 1) = (1 + 3.282, 3.282) = (4.282, 3.282).",
+      "a": "(4.28, 3.28)."
+    },
+    {
+      "q": "In a Poisson regression the fitted coefficient on a binary feature 'weekend' is 0.4. Interpret it.",
+      "solution": "The rate ratio is e^{0.4} = 1.49. Weekends have about 49% more expected events than weekdays, other features equal.",
+      "a": "Expected count is multiplied by 1.49 on weekends."
+    },
+    {
+      "q": "Show that the log-likelihood Hessian for logistic regression is −Σ h_i(1 − h_i) x_i x_iᵀ, using the GLM result.",
+      "solution": "For the Bernoulli, a″(η) = h(1 − h). The Hessian of ℓ = Σ[ηy − a(η)] with η = θᵀx is −Σ a″(η_i) x_i x_iᵀ, which equals −Xᵀ S X with S = diag(h_i(1 − h_i)).",
+      "a": "H = −XᵀSX, as stated."
+    }
+  ]
+}

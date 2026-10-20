@@ -1,0 +1,350 @@
+{
+  "id": "gradient-methods",
+  "view": "chapter",
+  "title": "Gradient Methods",
+  "description": "Gradient descent and its convergence, conditioning, momentum and acceleration, Newton and quasi-Newton methods, and stochastic gradient descent.",
+  "overview": [
+    "Nearly every model in machine learning is fit by an iterative method that repeatedly improves a guess using gradients. Gradient descent steps downhill, momentum remembers where it was going, Newton's method uses curvature to rescale the step, and stochastic gradient descent replaces the exact gradient by a cheap noisy estimate. Each has a convergence theory that explains when it works and how fast.",
+    "This chapter states those results for convex functions, derives them for quadratics, where everything can be computed by hand, and explains the practical consequences: why feature scaling matters, why momentum and Adam help, why second-order methods are costly and why SGD is the workhorse of deep learning."
+  ],
+  "objectives": [
+    "State and apply the gradient descent update, the descent lemma and the step size 1/L, and use backtracking line search.",
+    "Derive the convergence rate of gradient descent on a quadratic and relate it to the condition number.",
+    "Explain momentum and Nesterov acceleration and compare the iteration counts.",
+    "Carry out Newton steps, and describe quasi-Newton (BFGS, L-BFGS) methods and their costs.",
+    "State the convergence of SGD, the Robbins–Monro conditions and the effect of the batch size."
+  ],
+  "sections": [
+    {
+      "id": "gd-convergence",
+      "title": "Gradient descent and its convergence",
+      "terms": [
+        "gradient descent convergence",
+        "descent lemma",
+        "backtracking line search",
+        "armijo condition",
+        "step size selection",
+        "line search",
+        "convergence rate",
+        "linear convergence",
+        "iteration complexity",
+        "gradient methods"
+      ],
+      "body": [
+        "To minimize a differentiable f, start at x₀ and iterate",
+        {
+          "eq": "x_{k+1} = x_k − α ∇f(x_k)"
+        },
+        "If f is **L-smooth** (its gradient is L-Lipschitz, so that ∇²f ⪯ LI), the quadratic upper bound gives the **descent lemma**: for g = ∇f(x),",
+        {
+          "eq": "f(x − αg) ≤ f(x) − α(1 − αL/2) ‖g‖²"
+        },
+        "For any step α < 2/L the function value strictly decreases, and the choice α = 1/L gives the guaranteed decrease f(x) − ‖g‖²/(2L). Summing these decreases gives the convergence rates for a convex L-smooth function:",
+        {
+          "list": [
+            "**Convex**: with α = 1/L, f(x_k) − f* ≤ L‖x₀ − x*‖²/(2k). The error falls like 1/k (sublinear), so a hundred times more accuracy needs a hundred times more iterations.",
+            "**μ-strongly convex**: the error falls geometrically, ‖x_k − x*‖² ≤ (1 − μ/L)^k ‖x₀ − x*‖² for α = 1/L. This is **linear convergence** (a straight line on a log plot). The number of iterations to reach accuracy ε is about κ ln(1/ε), where κ = L/μ is the condition number.",
+            "**Non-convex** (neural networks): gradient descent finds a point with small gradient, min_k ‖∇f(x_k)‖² ≤ 2L(f(x₀) − f_min)/k, not necessarily a global minimum."
+          ]
+        },
+        {
+          "h": "Choosing the step size"
+        },
+        "The ideal step needs L, which is usually unknown. **Backtracking line search** adapts it: start with a large α (say 1) and shrink it by a factor (say 0.5) until the **Armijo condition** holds,",
+        {
+          "eq": "f(x − αg) ≤ f(x) − c α ‖g‖²,    c ≈ 10⁻⁴"
+        },
+        "which asks for a decrease proportional to the slope. It costs extra function evaluations but needs no tuning of L. In deep learning the learning rate is tuned by experiment, with schedules (see Training Deep Networks).",
+        {
+          "example": {
+            "title": "The guaranteed decrease",
+            "problem": "f(x) = 5x² has L = 10. From x = 2, take a gradient step with α = 1/L = 0.1, and check the descent lemma.",
+            "solution": "g = 10x = 20, so x⁺ = 2 − 0.1(20) = 0. f drops from 20 to 0. The lemma guarantees a decrease of at least ‖g‖²/(2L) = 400/20 = 20, which is exactly achieved because f is a quadratic with curvature L."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "For a convex L-smooth function, gradient descent with α = 1/L achieves error",
+          "a": "O(1/k) after k iterations",
+          "wrong": [
+            "O(1/k²)",
+            "exponentially small in k",
+            "no decrease"
+          ]
+        },
+        {
+          "q": "For a strongly convex function, the number of gradient descent iterations to reach accuracy ε grows like",
+          "a": "κ ln(1/ε)",
+          "wrong": [
+            "1/ε",
+            "ε",
+            "ln κ"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "conditioning",
+      "title": "Quadratics and the condition number",
+      "terms": [
+        "conditioning",
+        "ill-conditioned",
+        "ill-conditioned problem",
+        "preconditioning",
+        "optimal step size for a quadratic",
+        "feature scaling and conditioning",
+        "zigzag"
+      ],
+      "body": [
+        "Everything can be computed exactly for a quadratic f(x) = ½xᵀHx − bᵀx with H symmetric positive definite, eigenvalues μ = λ_min ≤ … ≤ λ_max = L. The gradient is Hx − b, and the error e_k = x_k − x* evolves linearly:",
+        {
+          "eq": "e_{k+1} = (I − αH) e_k"
+        },
+        "In the eigenbasis of H, the error component along the eigenvector with eigenvalue λ_i is multiplied by (1 − αλ_i) each step. For convergence we need |1 − αλ_i| < 1 for all i, i.e. α < 2/L. The slowest component is whichever factor is closest to 1 in magnitude. The best fixed step balances the extremes, 1 − αμ = −(1 − αL), giving",
+        {
+          "eq": "α* = 2/(L + μ),    rate = (L − μ)/(L + μ) = (κ − 1)/(κ + 1)"
+        },
+        {
+          "svg": "<svg viewBox='0 0 400 270' role='img' aria-label='Error versus iteration on a log scale for gradient descent, accelerated gradient and Newton' font-family='system-ui, sans-serif' font-size='12'><g fill='none' stroke='currentColor' stroke-width='1.5'><path d='M50,20 V200 H360'/></g><g fill='none' stroke='currentColor' stroke-width='1' stroke-dasharray='3 3' opacity='.4'><path d='M50,48 H360 M50,76 H360 M50,104 H360 M50,132 H360 M50,160 H360 M50,188 H360'/></g><path d='M50,20 L350,96.7' fill='none' stroke='currentColor' stroke-width='2.5'/><path d='M50,20 L230,185.5' fill='none' style='stroke:var(--accent)' stroke-width='2.5'/><path d='M50,20 L55,188' fill='none' stroke='currentColor' stroke-width='2.5' stroke-dasharray='6 3'/><g fill='currentColor'><text x='56' y='14'>error (log scale)</text><text x='360' y='222' text-anchor='end'>iterations</text><text x='214' y='132'>gradient descent</text><text x='238' y='180' style='fill:var(--accent)'>Nesterov</text><text x='66' y='150'>Newton</text><text x='30' y='24'>1</text><text x='20' y='192'>10⁻⁶</text></g></svg>",
+          "caption": "Convergence on a quadratic with condition number 10. Gradient descent loses about 0.05 decades per step, Nesterov's accelerated method about 0.17, and Newton's method solves a quadratic in one step. (Schematic, from the rates derived in the text.)"
+        },
+        {
+          "example": {
+            "title": "Gradient descent on a quadratic",
+            "problem": "f(x, y) = ½(x² + 10y²), so H = diag(1, 10), μ = 1, L = 10, κ = 10. Compare α = 1/L with α = 2/(L + μ) in the number of iterations to reduce the error by a factor of 1000.",
+            "solution": [
+              "α = 0.1: the x component shrinks by 1 − 0.1 = 0.9 per step and the y component by 1 − 1 = 0. The slow factor 0.9 needs ln 1000/ln(1/0.9) = 6.908/0.1054 = 66 iterations.",
+              "α = 2/11 = 0.1818: the factors are |1 − 0.1818| = 0.818 for x and |1 − 1.818| = 0.818 for y (the optimum, (κ − 1)/(κ + 1) = 9/11). The iteration count is 6.908/0.2007 = 34."
+            ]
+          }
+        },
+        {
+          "key": "The speed of gradient descent is set by the condition number κ = L/μ, the ratio of the largest to the smallest curvature. When κ is large, the surface is a long narrow valley: any step size small enough to be stable in the steep direction crawls along the shallow one, and the iterates zigzag across the valley."
+        },
+        "The practical remedies all aim to reduce κ. **Standardizing features** makes the Hessian XᵀX/m of least squares better conditioned (κ near 1). **Preconditioning** replaces the gradient by P⁻¹∇f for a matrix P ≈ H, which is what adaptive methods such as Adam do in a diagonal approximation. Normalization layers in deep networks serve a similar purpose. Newton's method is the extreme case P = H."
+      ],
+      "check": [
+        {
+          "q": "For a quadratic with eigenvalues 1 and 100, the best constant step size is",
+          "a": "2/101",
+          "wrong": [
+            "1/100",
+            "2/100",
+            "1/101"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "acceleration",
+      "title": "Momentum and acceleration",
+      "terms": [
+        "heavy ball method",
+        "nesterov acceleration",
+        "accelerated gradient descent",
+        "conjugate gradient",
+        "conjugate gradient method",
+        "momentum method"
+      ],
+      "body": [
+        "Momentum adds a fraction of the previous step to the current one:",
+        {
+          "eq": "x_{k+1} = x_k − α ∇f(x_k) + β ( x_k − x_{k−1} )"
+        },
+        "This is the **heavy ball method**: the iterate behaves like a ball with inertia rolling down the surface. Oscillations across the valley cancel, and the consistent motion along the valley accumulates. For a quadratic, with the best α and β, the convergence factor improves from (κ − 1)/(κ + 1) to about (√κ − 1)/(√κ + 1), so the iteration count improves from κ ln(1/ε) to √κ ln(1/ε).",
+        "**Nesterov's accelerated gradient** evaluates the gradient at a look-ahead point, y_k = x_k + β(x_k − x_{k−1}), then x_{k+1} = y_k − α∇f(y_k). For convex L-smooth functions, it achieves error O(L/k²) instead of O(L/k), which is the best possible rate for any method using only gradients (a matching lower bound exists), and for strongly convex ones the factor (1 − 1/√κ) per step.",
+        {
+          "example": {
+            "title": "How much does acceleration help?",
+            "problem": "κ = 10⁴. Estimate the iterations needed to reduce the error by a factor of 10⁶ with gradient descent and with an accelerated method.",
+            "solution": "ln(10⁶) = 13.8. Gradient descent: about κ ln(1/ε)/2 = 10⁴ × 13.8/2 ≈ 70,000 iterations (using the factor (κ − 1)/(κ + 1) ≈ 1 − 2/κ). Accelerated: factor ≈ 1 − 2/√κ = 0.98, so about 13.8/0.02 ≈ 700 iterations. A hundred times fewer, for the same cost per iteration."
+          }
+        },
+        {
+          "h": "Conjugate gradient"
+        },
+        "For solving the linear system Hx = b with H symmetric positive definite (equivalently, minimizing a quadratic), the **conjugate gradient** method (CG) generates search directions that are conjugate with respect to H (pᵢᵀHp_j = 0), so each step minimizes over a growing Krylov subspace. In exact arithmetic it solves the n-dimensional problem in at most n iterations, and in about √κ ln(1/ε) iterations to accuracy ε. Each iteration needs one matrix–vector product, so CG is the method of choice for large sparse systems, such as the normal equations of huge regression problems or the Newton steps of other solvers.",
+        {
+          "note": "Momentum in deep learning (SGD with momentum, Adam) is the stochastic version of these ideas. The theory of acceleration is cleanest for convex problems, but it works empirically in non-convex training as well."
+        }
+      ],
+      "check": [
+        {
+          "q": "Accelerated gradient descent improves the iteration count for strongly convex problems from about κ to about",
+          "a": "√κ",
+          "wrong": [
+            "κ²",
+            "ln κ",
+            "1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "newton",
+      "title": "Newton and quasi-Newton methods",
+      "terms": [
+        "newton step",
+        "newton's method in many dimensions",
+        "second-order optimization",
+        "quasi-newton method",
+        "bfgs",
+        "l-bfgs",
+        "gauss–newton",
+        "gauss-newton",
+        "trust region"
+      ],
+      "body": [
+        "**Newton's method** minimizes the second-order Taylor model of f at the current point (see Multivariable Calculus):",
+        {
+          "eq": "x_{k+1} = x_k − [ ∇²f(x_k) ]⁻¹ ∇f(x_k)"
+        },
+        "On a quadratic it jumps to the minimizer in one step, whatever the conditioning: the Hessian inverse exactly undoes the curvature. For a smooth strongly convex function it converges **quadratically** near the solution (the error is squared at each step: 10⁻², 10⁻⁴, 10⁻⁸, …), and it is invariant to linear rescaling of the variables.",
+        {
+          "example": {
+            "title": "A Newton step on a quadratic",
+            "problem": "Apply one Newton step to f(x, y) = ½(x² + 10y²) from (4, 1).",
+            "solution": "∇f = (x, 10y) = (4, 10) and H = diag(1, 10), so H⁻¹∇f = (4, 1) and the new point is (0, 0): the exact minimizer after one step. Gradient descent with the best step needs 34 iterations for a thousand-fold reduction."
+          }
+        },
+        "The costs are high: forming the n × n Hessian takes O(n²) memory and the linear solve O(n³) time, which is impossible for n in the millions. Far from the minimum, or at a point where the Hessian is not positive definite, the Newton step can go in a wrong direction; fixes are damping (a line search), adding a multiple of the identity (a **trust region** or Levenberg–Marquardt step) or using a positive definite approximation.",
+        {
+          "h": "Quasi-Newton methods"
+        },
+        "**BFGS** builds an approximation to the (inverse) Hessian from the gradients seen so far, with no second derivatives. After a step s = x_{k+1} − x_k with gradient change y = ∇f(x_{k+1}) − ∇f(x_k), the approximation is updated to satisfy the secant equation B_{k+1}s = y, which is possible when yᵀs > 0 (guaranteed under a line search). Costs per iteration are O(n²). **L-BFGS** stores only the last m (typically 5 to 20) pairs (s, y) and applies the inverse Hessian approximation implicitly, using O(mn) memory and time. It is the standard solver for medium-scale smooth problems, such as logistic regression and CRFs, where it typically converges in tens of iterations.",
+        {
+          "h": "Gauss–Newton"
+        },
+        "For nonlinear least squares f(θ) = ½‖r(θ)‖² with residual vector r and Jacobian J, the Hessian is JᵀJ + Σ r_i∇²r_i. Dropping the second term gives the **Gauss–Newton** step θ ← θ − (JᵀJ)⁻¹Jᵀr, which solves a linear least squares problem at each iteration. The Levenberg–Marquardt method damps it with λI. The related natural gradient method replaces the Hessian by the Fisher information matrix.",
+        {
+          "list": [
+            "Use Newton or L-BFGS when the problem is smooth, of moderate size, and high accuracy is wanted.",
+            "In deep learning, the number of parameters (10⁶ to 10¹²) rules out second-order methods, except through diagonal or low-rank approximations (Adam, Shampoo, K-FAC)."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "Newton's method applied to a quadratic converges in",
+          "a": "one step",
+          "wrong": [
+            "n steps",
+            "κ steps",
+            "it does not converge"
+          ]
+        },
+        {
+          "q": "L-BFGS reduces the cost of BFGS by",
+          "a": "keeping only the last few gradient and step differences instead of a full matrix",
+          "wrong": [
+            "computing the exact Hessian",
+            "using only the sign of the gradient",
+            "ignoring curvature entirely"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sgd-theory",
+      "title": "Stochastic gradient descent",
+      "terms": [
+        "stochastic gradient descent theory",
+        "robbins–monro conditions",
+        "robbins-monro conditions",
+        "gradient noise scale",
+        "variance reduction",
+        "svrg",
+        "mini-batch size tradeoff",
+        "coordinate descent method",
+        "proximal gradient method"
+      ],
+      "body": [
+        "A machine learning objective is an average over m examples, f(x) = (1/m)Σf_i(x). The full gradient costs O(m) per step. **Stochastic gradient descent** uses the gradient of one example (or a mini-batch of b examples), chosen at random:",
+        {
+          "eq": "x_{k+1} = x_k − α_k g_k,    E[g_k | x_k] = ∇f(x_k)"
+        },
+        "The estimate g_k is **unbiased** but noisy, with variance σ²/b for a batch of size b (see the Central Limit Theorem). The noise has two effects.",
+        {
+          "list": [
+            "With a constant step size the iterates do not converge but fluctuate in a ball around the optimum whose radius is proportional to α. The loss plateaus at a noise floor.",
+            "With a decreasing step size the noise is averaged out. The **Robbins–Monro conditions** Σα_k = ∞ (the steps are large enough to travel any distance) and Σα_k² < ∞ (the noise averages out) are sufficient for convergence; α_k = c/k satisfies them."
+          ]
+        },
+        "For a convex function with bounded gradient noise, SGD (with averaging) converges at rate O(1/√k), and for strongly convex functions at O(1/k). Both are //slower// per iteration than gradient descent's rates, and they do not depend on m. So the total cost to reach a modest accuracy ε is O(1/ε²) or O(1/ε) gradient evaluations for SGD, against O(m/ε) or O(mκ ln(1/ε)) for full-batch gradient descent. When m is large and high accuracy is not needed, as in learning, where the statistical error of the estimate is itself about 1/√m, SGD wins by a wide margin.",
+        {
+          "example": {
+            "title": "Cost of reaching a target",
+            "problem": "m = 10⁶ examples. Full gradient descent needs 100 iterations to reach the desired accuracy, and SGD needs 5 passes (epochs) over the data. Compare the number of per-example gradient evaluations.",
+            "solution": "Gradient descent: 100 × 10⁶ = 10⁸. SGD: 5 × 10⁶ = 5 × 10⁶. SGD is 20 times cheaper to reach the same accuracy, because it makes progress from the first example."
+          }
+        },
+        {
+          "h": "Batch size and variance reduction"
+        },
+        {
+          "list": [
+            "A larger batch lowers the noise by 1/√b but multiplies the cost per step by b. Beyond a critical batch size the gain in steps no longer compensates the cost; typical values are 32 to 4096.",
+            "**Variance-reduced methods** (SVRG, SAGA) combine occasional full gradients with stochastic corrections, so that the noise vanishes at the optimum. For strongly convex finite sums they converge linearly at cost O((m + κ) ln(1/ε)).",
+            "In non-convex problems, gradient noise helps: it lets the iterates escape saddle points and sharp minima, and small-batch SGD often finds solutions that generalize better. Adaptive methods (Adam) rescale the noisy gradient coordinatewise.",
+            "**Coordinate descent** updates one variable (or block) at a time with the others fixed. It is very effective for the lasso and for SVM dual problems, because each coordinate update is a one-dimensional problem with a closed form."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "With a constant step size, SGD on a noisy objective",
+          "a": "settles into a region around the minimum, with a noise floor proportional to the step size",
+          "wrong": [
+            "converges exactly to the minimum",
+            "diverges for any step size",
+            "stops after one epoch"
+          ]
+        },
+        {
+          "q": "The Robbins–Monro conditions require that Σα_k diverges and Σα_k²",
+          "a": "converges",
+          "wrong": [
+            "diverges",
+            "equals 1",
+            "is negative"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Gradient descent x ← x − α∇f decreases an L-smooth f for α < 2/L (descent lemma). The rates are O(1/k) for convex and linear, (1 − μ/L)^k, for strongly convex functions: about κ ln(1/ε) iterations. Backtracking line search (Armijo) selects a step automatically.",
+    "On a quadratic the error factor is |1 − αλ_i| per eigen-direction. The optimal step 2/(L + μ) gives the rate (κ − 1)/(κ + 1). Large κ means slow, zigzagging progress; standardization and preconditioning reduce κ.",
+    "Momentum and Nesterov acceleration reduce the iteration count from κ to √κ. Conjugate gradient solves quadratics in at most n steps.",
+    "Newton's method x ← x − H⁻¹∇f solves a quadratic in one step and converges quadratically, but costs O(n³). BFGS builds Hessian approximations from gradients, and L-BFGS keeps only a few pairs.",
+    "SGD uses unbiased noisy gradients: it needs decaying steps (Robbins–Monro), converges at O(1/√k), and is far cheaper than full-batch methods for large m."
+  ],
+  "problems": [
+    {
+      "q": "f(x) = ½(2x₁² + 8x₂²). Find L, μ, κ, the largest stable step size and the best step size, and the per-step contraction with the best step.",
+      "solution": "H = diag(2, 8): μ = 2, L = 8, κ = 4. Stable for α < 2/8 = 0.25. Best α = 2/(8 + 2) = 0.2 with factor (κ − 1)/(κ + 1) = 3/5 = 0.6 (check: |1 − 0.2·2| = 0.6 and |1 − 0.2·8| = 0.6).",
+      "a": "L = 8, μ = 2, κ = 4; α < 0.25; best α = 0.2, factor 0.6."
+    },
+    {
+      "q": "Use Newton's method to minimize f(x) = x⁴ − 4x starting at x₀ = 2, two steps.",
+      "solution": "f′ = 4x³ − 4, f″ = 12x². x₁ = 2 − (32 − 4)/48 = 2 − 0.5833 = 1.4167. x₂ = 1.4167 − (4(2.8433) − 4)/(12(2.0070)) = 1.4167 − 7.3732/24.083 = 1.4167 − 0.3062 = 1.1105. The minimizer is x = 1, and the iterates approach it quickly.",
+      "a": "x₁ = 1.417, x₂ = 1.110 (→ 1)."
+    },
+    {
+      "q": "A Hessian has eigenvalues between 0.05 and 20. Estimate the gradient descent iterations to reduce the error 1000-fold with α = 1/L, and compare with an accelerated method (factor 1 − 1/√κ).",
+      "solution": "κ = 400. GD: factor 1 − 1/400, so iterations ≈ 400 ln 1000 = 400 × 6.91 = 2763. Accelerated: factor 1 − 1/20 = 0.95, iterations ≈ 6.91/0.0513 = 135.",
+      "a": "About 2800 versus about 135 iterations."
+    },
+    {
+      "q": "SGD with step α_k = 0.5/k is run on a noisy objective. Do the Robbins–Monro conditions hold?",
+      "solution": "Σ 0.5/k diverges (the harmonic series) and Σ 0.25/k² = 0.25 × π²/6 converges. Both conditions hold.",
+      "a": "Yes."
+    },
+    {
+      "q": "With backtracking and c = 0.1, f(x) = x² at x = 1 (g = 2), find the first accepted step size among α = 1, 0.5, 0.25 (halving).",
+      "solution": "The test is f(x − αg) ≤ f(x) − cα g² = 1 − 0.4α. α = 1: f(−1) = 1 ≤ 0.6? No. α = 0.5: f(0) = 0 ≤ 1 − 0.2 = 0.8? Yes. So α = 0.5 is accepted (it lands on the minimizer).",
+      "a": "α = 0.5."
+    }
+  ]
+}

@@ -1,0 +1,304 @@
+{
+  "id": "regularization",
+  "view": "chapter",
+  "title": "Regularization: Ridge and Lasso",
+  "description": "Penalized least squares, shrinkage, sparsity, and the Bayesian meaning of the penalty.",
+  "overview": [
+    "Least squares has two weak points. When features are numerous or nearly collinear, the estimate is unstable: small changes in the data produce large changes in θ̂. And a flexible model fits noise. Both problems are cured by the same step: add a penalty on the size of the parameters, trading a little bias for a large reduction in variance.",
+    "This chapter develops the two standard penalties. Ridge shrinks all coefficients smoothly. Lasso sets many exactly to zero and so performs feature selection. We derive their solutions, picture them geometrically, and show that each is a maximum a posteriori estimate under a prior on the weights."
+  ],
+  "objectives": [
+    "Write the ridge and lasso objectives and solve ridge in closed form.",
+    "Explain ridge shrinkage through the SVD and compute effective degrees of freedom.",
+    "Explain geometrically why L1 gives sparse solutions and L2 does not, and compute soft thresholding.",
+    "Interpret each penalty as a prior and relate λ to the noise and prior variances.",
+    "Choose the regularization strength by validation, and prepare features correctly."
+  ],
+  "sections": [
+    {
+      "id": "ridge",
+      "title": "Ridge regression",
+      "terms": [
+        "ridge regression",
+        "l2 regularization",
+        "l2 penalty",
+        "tikhonov regularization",
+        "penalized least squares",
+        "regularization strength",
+        "shrinkage",
+        "effective degrees of freedom"
+      ],
+      "body": [
+        "**Ridge regression** adds the squared L2 norm of the weights to the least squares objective:",
+        {
+          "eq": "J_ridge(θ) = ‖Xθ − y‖² + λ‖θ‖²,    λ ≥ 0"
+        },
+        "The **regularization strength** λ sets the tradeoff. At λ = 0 the objective is ordinary least squares. As λ grows, the weights are pulled toward zero. The intercept θ₀ is normally left out of the penalty, because shifting all labels by a constant should not change the slopes; center y and the features, or exclude θ₀ in the code.",
+        "The gradient is 2Xᵀ(Xθ − y) + 2λθ. Setting it to zero gives the closed form",
+        {
+          "eq": "θ̂_ridge = (XᵀX + λI)⁻¹ Xᵀy"
+        },
+        {
+          "key": "XᵀX is positive semidefinite, so XᵀX + λI has eigenvalues at least λ > 0 and is always invertible. Ridge solves the singularity problem: it works with more features than examples and with collinear features."
+        },
+        {
+          "h": "What ridge does: the SVD view"
+        },
+        "Write X = UΣVᵀ with singular values σ₁ ≥ σ₂ ≥ …. The least squares fit is Xθ̂ = Σ_j u_j (u_jᵀy). The ridge fit is",
+        {
+          "eq": "Xθ̂_ridge = Σ_j u_j · σ_j²/(σ_j² + λ) · (u_jᵀy)"
+        },
+        "Each component of y along a principal direction u_j is shrunk by the factor σ_j²/(σ_j² + λ). Directions with large singular values (well determined by the data) are barely touched, and directions with small singular values (where the data say little and noise dominates) are shrunk heavily. The sum of the shrinkage factors is the **effective degrees of freedom**,",
+        {
+          "eq": "df(λ) = Σ_j σ_j²/(σ_j² + λ),    from n + 1 at λ = 0 down to 0 as λ → ∞"
+        },
+        {
+          "example": {
+            "title": "Shrinkage in one dimension",
+            "problem": "Fit y = θx with no intercept to x = (1, 2, 3), y = (2, 3, 5). Find the least squares and ridge solutions for λ = 7. Then find the effective degrees of freedom of a model whose squared singular values are 10, 1 and 0.1, for λ = 1.",
+            "solution": [
+              "Here XᵀX = 1 + 4 + 9 = 14 and Xᵀy = 2 + 6 + 15 = 23.",
+              {
+                "eq": [
+                  "θ̂_ols = 23/14 = 1.643",
+                  "θ̂_ridge = 23/(14 + 7) = 1.095"
+                ]
+              },
+              "The ridge weight is the least squares weight times 14/21 = 2/3.",
+              "With squared singular values 10, 1, 0.1 and λ = 1, the factors are 10/11 = 0.909, 1/2 = 0.5 and 0.1/1.1 = 0.091, so df = 1.5. The effective model has 1.5 degrees of freedom instead of 3."
+            ]
+          }
+        },
+        {
+          "h": "Bias and variance"
+        },
+        "Ridge is biased: E[θ̂_ridge] = (XᵀX + λI)⁻¹XᵀXθ, which is shorter than θ. Its variance is smaller, and for some λ > 0 its total mean squared error is lower than that of least squares (a theorem of Hoerl and Kennard). The shrinkage example in the Generalization chapter shows the mechanism in the simplest setting."
+      ],
+      "check": [
+        {
+          "q": "Why is XᵀX + λI invertible for any λ > 0?",
+          "a": "Its eigenvalues are all at least λ, so none is zero",
+          "wrong": [
+            "XᵀX has full rank for any data",
+            "Adding λI makes the matrix diagonal",
+            "λI cancels the zero eigenvalues of XᵀX exactly"
+          ]
+        },
+        {
+          "q": "In ridge regression, which directions are shrunk the most?",
+          "a": "Those with small singular values",
+          "wrong": [
+            "Those with large singular values",
+            "All directions equally",
+            "Only the intercept direction"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lasso",
+      "title": "The lasso and sparsity",
+      "terms": [
+        "lasso",
+        "l1 regularization",
+        "l1 penalty",
+        "sparsity",
+        "sparse solution",
+        "soft thresholding",
+        "feature selection",
+        "elastic net",
+        "coordinate descent"
+      ],
+      "body": [
+        "The **lasso** (least absolute shrinkage and selection operator) penalizes the L1 norm:",
+        {
+          "eq": "J_lasso(θ) = ½‖Xθ − y‖² + λ‖θ‖₁ = ½‖Xθ − y‖² + λ Σ_j |θ_j|"
+        },
+        "The L1 penalty has a corner at zero, so the lasso sets many coefficients //exactly// to zero. The solution is **sparse**, which makes the model interpretable and performs **feature selection** automatically. There is no closed form in general, but the problem is convex and is solved by **coordinate descent** (update one coefficient at a time with the others fixed) or proximal gradient methods.",
+        {
+          "h": "Why L1 gives zeros: geometry"
+        },
+        "An equivalent view minimizes the squared error subject to a bound on the penalty, ‖θ‖ ≤ t. The error contours are ellipses centered at the least squares solution. The solution is the first point where an ellipse touches the constraint region. The L2 ball is round, and the touching point is generic, with all coordinates non-zero. The L1 ball is a diamond with vertices on the axes, and an ellipse usually meets it first at a vertex, where some coordinates are zero. In high dimensions the L1 ball has even more corners and edges.",
+        {
+          "svg": "<svg viewBox='0 0 440 200' role='img' aria-label='Ridge circle and lasso diamond constraint regions with error ellipses' font-family='system-ui, sans-serif' font-size='12'><g fill='none' stroke='currentColor' stroke-width='1' opacity='.55'><path d='M30,130 H190 M110,200 V10 M250,130 H410 M330,200 V10'/></g><circle cx='110' cy='130' r='60' fill='none' style='stroke:var(--accent)' stroke-width='2.5'/><path d='M330,70 L390,130 L330,190 L270,130 Z' fill='none' style='stroke:var(--accent)' stroke-width='2.5'/><g fill='none' stroke='currentColor' stroke-width='1.5' stroke-dasharray='5 3'><ellipse cx='190' cy='60' rx='52' ry='40'/><ellipse cx='385' cy='60' rx='64' ry='20'/></g><g fill='currentColor'><circle cx='156' cy='91' r='4'/><circle cx='330' cy='70' r='4'/><text x='110' y='196' text-anchor='middle'>ridge (L2): both weights non-zero</text><text x='330' y='196' text-anchor='middle'>lasso (L1): one weight zero</text><text x='196' y='124'>θ₁</text><text x='408' y='124'>θ₁</text><text x='116' y='20'>θ₂</text><text x='336' y='20'>θ₂</text></g></svg>",
+          "caption": "Error contours (dashed) meet the constraint region (solid). The diamond's corner lies on an axis, which sets θ₁ = 0."
+        },
+        {
+          "h": "Soft thresholding"
+        },
+        "When the columns of X are orthonormal (XᵀX = I) the problems separate by coordinate. With z = Xᵀy the least squares coefficients, the penalized solutions are",
+        {
+          "eqs": [
+            ["θ̂_j (ols) = z_j", "no penalty"],
+            ["θ̂_j (ridge) = z_j / (1 + λ)", "uniform shrinkage"],
+            ["θ̂_j (lasso) = sign(z_j) · max(|z_j| − λ, 0)", "soft thresholding: subtract λ, and clip to zero"]
+          ]
+        },
+        {
+          "example": {
+            "title": "Ridge versus lasso on orthonormal features",
+            "problem": "The least squares coefficients are z = (3.0, −0.4, 1.2). Apply ridge and lasso with λ = 0.5 (and X orthonormal).",
+            "solution": [
+              {
+                "eq": [
+                  "ridge:  z/1.5 = (2.0, −0.267, 0.8)",
+                  "lasso:  sign(z)·max(|z| − 0.5, 0) = (2.5, 0, 0.7)"
+                ]
+              },
+              "Ridge shrinks every coefficient proportionally and keeps the small one. The lasso subtracts a fixed amount, which removes the small coefficient altogether and shrinks the large one by only 0.5."
+            ]
+          }
+        },
+        {
+          "h": "Elastic net and other variants"
+        },
+        {
+          "list": [
+            "**Elastic net** uses λ₁‖θ‖₁ + λ₂‖θ‖₂². It keeps the lasso's sparsity but, unlike the lasso, tends to select or drop groups of correlated features together instead of picking one arbitrarily.",
+            "The lasso selects at most m features when n > m.",
+            "The **group lasso** penalizes the norms of groups of coefficients, so a whole group (such as all dummy variables for one category) enters or leaves together.",
+            "The **L0 penalty**, the count of non-zero weights, gives true subset selection, but the problem is combinatorial."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "Lasso coefficients are z = (1.4, 0.3, −0.9) from orthonormal features. With λ = 0.5, how many are exactly zero?",
+          "a": "1",
+          "wrong": ["0", "2", "3"],
+          "why": "Soft thresholding gives (0.9, 0, −0.4). Only the entry with |z| ≤ 0.5 is zeroed."
+        },
+        {
+          "q": "Why does the lasso produce sparse solutions while ridge does not?",
+          "a": "The L1 ball has corners on the axes, where some coordinates are zero",
+          "wrong": [
+            "The L2 penalty is not convex",
+            "The lasso uses a smaller learning rate",
+            "Ridge penalizes only the intercept"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "map",
+      "title": "Regularization as a prior",
+      "terms": [
+        "map estimation",
+        "maximum a posteriori",
+        "prior distribution",
+        "gaussian prior",
+        "laplace prior",
+        "weight decay"
+      ],
+      "body": [
+        "The penalty has a Bayesian reading. Treat θ as a random vector with a **prior** distribution p(θ) that expresses beliefs before seeing data. Bayes' rule gives the posterior p(θ | data) ∝ p(data | θ) p(θ). The **maximum a posteriori** (MAP) estimate maximizes the posterior, which is the same as maximizing log-likelihood plus log-prior:",
+        {
+          "eq": "θ̂_MAP = argmax_θ [ log p(y | X, θ) + log p(θ) ]"
+        },
+        "With Gaussian noise of variance σ², the log-likelihood is −‖y − Xθ‖²/(2σ²) up to a constant. Now consider two priors.",
+        {
+          "list": [
+            "**Gaussian prior** θ_j ~ N(0, τ²): log p(θ) = −‖θ‖²/(2τ²) + const. Multiplying the objective by 2σ² gives ridge with **λ = σ²/τ²**.",
+            "**Laplace prior** p(θ_j) ∝ exp(−|θ_j|/b): log p(θ) = −‖θ‖₁/b + const. The MAP estimate is the lasso: multiplying the negative log posterior by σ² gives ½‖y − Xθ‖² + λ‖θ‖₁ with λ = σ²/b."
+          ]
+        },
+        {
+          "example": {
+            "title": "Reading λ from the prior",
+            "problem": "Labels have noise variance σ² = 1, and we believe each weight is roughly within ±0.5 of zero (standard deviation τ = 0.5). What ridge λ corresponds?",
+            "solution": "λ = σ²/τ² = 1/0.25 = 4. A tighter prior (smaller τ) gives a larger λ and stronger shrinkage; more noise also gives a larger λ, because the data deserve less trust relative to the prior."
+          }
+        },
+        "As the data set grows, the likelihood term (a sum over m examples) dominates the fixed prior term, and the MAP estimate approaches the maximum likelihood estimate. The same objective in neural network training is called **weight decay**, and it is implemented by shrinking the weights a little at every update. The Bayesian Methods chapter treats the full posterior instead of only its peak."
+      ],
+      "check": [
+        {
+          "q": "A Gaussian prior on the weights corresponds to which penalty?",
+          "a": "Squared L2 (ridge)",
+          "wrong": ["L1 (lasso)", "L0 (count of non-zero weights)", "No penalty"]
+        },
+        {
+          "q": "With noise variance σ² = 2 and prior variance τ² = 0.5, the ridge parameter is",
+          "a": "4",
+          "wrong": ["1", "0.25", "2"],
+          "why": "λ = σ²/τ² = 2/0.5 = 4."
+        }
+      ]
+    },
+    {
+      "id": "choosing-lambda",
+      "title": "Choosing and using the penalty",
+      "terms": [
+        "regularization path",
+        "choosing lambda",
+        "lambda selection",
+        "standardizing features for regularization"
+      ],
+      "body": [
+        "The strength λ is a hyperparameter, so choose it by validation.",
+        {
+          "list": [
+            "Fit the model over a grid of λ values spaced geometrically (for example 10⁻⁴ to 10²), and evaluate each by cross-validation. The plot of the coefficients against λ is the **regularization path**: coefficients shrink toward zero as λ increases, and for the lasso they hit zero one by one.",
+            "Pick the λ with the lowest validation error, or the largest λ within one standard error of the best (the 'one-standard-error rule'), which gives a simpler model of nearly equal quality.",
+            "At λ = 0 the training error is smallest. As λ grows, training error rises monotonically, while validation error traces the usual U shape."
+          ]
+        },
+        {
+          "warn": "The penalty depends on the scale of each feature. A feature measured in meters needs a coefficient 1000 times larger than the same feature in millimeters, and so is penalized differently. Standardize all features (using training-set statistics) before applying ridge or lasso, and do not penalize the intercept."
+        },
+        {
+          "tip": "Use the lasso when you believe only a few features matter or need an interpretable short list. Use ridge when many features each carry a little signal. Use the elastic net when features are correlated and you also want sparsity."
+        },
+        {
+          "h": "Regularization outside linear models"
+        },
+        "Penalties on the weights appear throughout machine learning: the soft-margin parameter C of a support vector machine plays the role of 1/λ, weight decay is applied to neural networks, and trees are regularized by limiting depth. The shared principle is that restricting a model's effective complexity reduces variance, and the amount of restriction is tuned on held-out data."
+      ],
+      "check": [
+        {
+          "q": "Why standardize features before ridge or lasso?",
+          "a": "The penalty treats all weights equally, so it depends on feature scale",
+          "wrong": [
+            "Standardization makes the penalty zero",
+            "The intercept would otherwise be penalized",
+            "Standardization changes the number of features"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Ridge minimizes ‖Xθ − y‖² + λ‖θ‖². The solution (XᵀX + λI)⁻¹Xᵀy always exists and shrinks each singular direction by σ²/(σ² + λ).",
+    "The lasso minimizes ½‖Xθ − y‖² + λ‖θ‖₁. It sets coefficients exactly to zero because the L1 ball has corners on the axes. With orthonormal features it is soft thresholding.",
+    "Ridge is the MAP estimate under a Gaussian prior with λ = σ²/τ², and the lasso under a Laplace prior.",
+    "Penalties trade bias for variance. Choose λ by cross-validation on a log grid, standardize the features, and do not penalize the intercept.",
+    "The elastic net combines both penalties and is useful with correlated features."
+  ],
+  "problems": [
+    {
+      "q": "Ridge with λ = 3 is fit to a one-feature model with XᵀX = 12 and Xᵀy = 30. Find the least squares and ridge slopes and the shrinkage factor.",
+      "solution": "θ̂_ols = 30/12 = 2.5. θ̂_ridge = 30/(12 + 3) = 2. The shrinkage factor is 12/15 = 0.8.",
+      "a": "2.5 and 2.0; shrinkage factor 0.8."
+    },
+    {
+      "q": "Squared singular values of X are 16, 4 and 1. Compute the effective degrees of freedom of ridge for λ = 4.",
+      "solution": "Factors: 16/20 = 0.8, 4/8 = 0.5, 1/5 = 0.2. Their sum is 1.5.",
+      "a": "df = 1.5."
+    },
+    {
+      "q": "OLS coefficients on orthonormal features are (−2.2, 0.9, 0.2, 1.6). Find the lasso solution for λ = 1.",
+      "solution": "Soft threshold: −2.2 → −1.2; 0.9 → 0 (since 0.9 < 1); 0.2 → 0; 1.6 → 0.6.",
+      "a": "(−1.2, 0, 0, 0.6)."
+    },
+    {
+      "q": "Show that with more features than examples (n > m) the matrix XᵀX is singular but XᵀX + λI is not.",
+      "solution": "rank(XᵀX) = rank(X) ≤ m < n, and XᵀX is n×n, so it has a zero eigenvalue. XᵀX is positive semidefinite, so all its eigenvalues are ≥ 0, and those of XᵀX + λI are ≥ λ > 0. A matrix with no zero eigenvalue is invertible.",
+      "a": "XᵀX has a zero eigenvalue. Adding λI moves every eigenvalue up by λ."
+    },
+    {
+      "q": "A lasso path shows a coefficient that becomes non-zero only when λ falls below 0.8. Another becomes non-zero below 0.3. Which feature does the model consider more important, and why?",
+      "solution": "The first. The lasso retains a feature only if its gradient correlation with the residual exceeds λ. A feature that enters at the larger λ has the stronger association with the response, given the features already chosen.",
+      "a": "The first feature (entering at λ = 0.8)."
+    }
+  ]
+}

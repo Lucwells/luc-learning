@@ -1,0 +1,291 @@
+{
+  "id": "clustering",
+  "view": "chapter",
+  "title": "Clustering",
+  "description": "Finding groups without labels: k-means, hierarchical clustering, density-based clustering and how to judge a clustering.",
+  "overview": [
+    "In unsupervised learning there are no labels to predict. The data are only inputs x^{(1)}, …, x^{(m)}, and the task is to find structure in them. The most common structure is a division into groups of similar points. Marketers cluster customers, biologists cluster genes and cells, and search engines cluster documents.",
+    "There is no single right answer, since what counts as a cluster depends on the notion of similarity and on the purpose. This chapter presents the three main families (centroid-based, hierarchical and density-based), shows when each fails, and discusses how to evaluate a result that has no ground truth."
+  ],
+  "objectives": [
+    "Write the k-means objective and run Lloyd's algorithm by hand.",
+    "Prove that k-means converges, and explain why it only finds a local minimum.",
+    "Choose k with the elbow method and the silhouette score.",
+    "Build a dendrogram with single, complete and average linkage.",
+    "Describe DBSCAN and decide which clustering method suits a data set."
+  ],
+  "sections": [
+    {
+      "id": "kmeans",
+      "title": "k-means",
+      "terms": [
+        "clustering",
+        "k-means",
+        "k-means clustering",
+        "lloyd's algorithm",
+        "centroid",
+        "cluster assignment",
+        "within-cluster sum of squares",
+        "k-means++",
+        "inertia"
+      ],
+      "body": [
+        "**k-means** partitions m points into k clusters, each represented by its mean, the **centroid** μ_j. It minimizes the **within-cluster sum of squares** (the inertia):",
+        {
+          "eq": "J(c, μ) = Σ_{i=1}^{m} ‖ x^{(i)} − μ_{c^{(i)}} ‖²"
+        },
+        "where c^{(i)} ∈ {1, …, k} is the cluster assigned to point i. Minimizing over both the assignments and the centroids at once is NP-hard, but alternating between the two is easy, because each is simple with the other held fixed. **Lloyd's algorithm**:",
+        {
+          "list": [
+            "Initialize the centroids μ₁, …, μ_k (for example, k random data points).",
+            "**Assignment step**: assign each point to its nearest centroid, c^{(i)} = argmin_j ‖x^{(i)} − μ_j‖².",
+            "**Update step**: move each centroid to the mean of its assigned points, μ_j = (1/|C_j|) Σ_{i ∈ C_j} x^{(i)}.",
+            "Repeat until the assignments stop changing."
+          ],
+          "ordered": true
+        },
+        {
+          "key": "Each step cannot increase J. The assignment step picks the best c for fixed μ. The update step picks the best μ for fixed c: the mean minimizes the sum of squared distances to a set of points. J is bounded below by 0 and there are finitely many partitions, so the algorithm converges in finitely many steps, to a local minimum (not necessarily the global one)."
+        },
+        {
+          "example": {
+            "title": "k-means on six points",
+            "problem": "The data are 1, 2, 3, 10, 11, 12 and k = 2. Start with centroids 2 and 3. Run the algorithm to convergence and report J.",
+            "solution": [
+              "**Assign**: 1 and 2 are nearer to 2, and 3, 10, 11, 12 are nearer to 3. Clusters {1, 2} and {3, 10, 11, 12}.",
+              "**Update**: μ₁ = 1.5, μ₂ = (3 + 10 + 11 + 12)/4 = 9. Here J = (0.25 + 0.25) + (36 + 1 + 4 + 9) = 50.5.",
+              "**Assign**: now 3 is nearer to 1.5 (distance 1.5) than to 9 (distance 6). Clusters {1, 2, 3} and {10, 11, 12}.",
+              "**Update**: μ₁ = 2, μ₂ = 11. J = (1 + 0 + 1) + (1 + 0 + 1) = 4. The next assignment changes nothing, so the algorithm stops. J fell from 50.5 to 4."
+            ]
+          }
+        },
+        {
+          "h": "Practical issues"
+        },
+        {
+          "list": [
+            "**Initialization**: poor starting centroids give poor local minima. Run the algorithm several times from different starts and keep the lowest J. **k-means++** picks the first centroid at random and each next one with probability proportional to its squared distance from the nearest centroid already chosen, which spreads the starts out and carries a provable guarantee on the expected cost (within a factor of O(log k) of optimal).",
+            "**Cost**: each iteration takes O(mkn) time for n features, which scales to millions of points.",
+            "**Scale**: use standardized features, because the distance is dominated by large-range features.",
+            "**Assumptions**: k-means finds compact, roughly spherical clusters of similar size, since it uses Euclidean distance to a mean. It fails on elongated or ring-shaped clusters, and is sensitive to outliers (use k-medoids, which uses an actual data point as the center, to be robust).",
+            "**Hard assignment**: each point belongs to exactly one cluster. The next chapter's Gaussian mixture gives soft assignments, and k-means is its limiting case."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "In the update step of k-means, the new centroid is",
+          "a": "the mean of the points assigned to it",
+          "wrong": [
+            "the median of all points",
+            "a random point in the cluster",
+            "the point nearest to the old centroid"
+          ]
+        },
+        {
+          "q": "Why does k-means always converge?",
+          "a": "Each step does not increase the objective, which is bounded below, and there are finitely many partitions",
+          "wrong": [
+            "It always finds the global minimum",
+            "The centroids are fixed after initialization",
+            "The data are assumed Gaussian"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "choosing-k",
+      "title": "Choosing the number of clusters",
+      "terms": [
+        "elbow method",
+        "silhouette score",
+        "silhouette coefficient",
+        "number of clusters",
+        "cluster validity",
+        "adjusted rand index",
+        "internal evaluation"
+      ],
+      "body": [
+        "The number of clusters k is a hyperparameter, and J always decreases as k increases (at k = m, J = 0), so J alone cannot choose it.",
+        {
+          "h": "The elbow method"
+        },
+        "Plot the optimal J against k. Adding clusters helps a lot until the true structure is captured and then yields only small gains, so the curve bends at an 'elbow'. The bend is often ambiguous in real data.",
+        {
+          "svg": "<svg viewBox='0 0 440 250' role='img' aria-label='Within-cluster sum of squares versus the number of clusters, bending at k = 3' font-family='system-ui, sans-serif' font-size='12'><g fill='none' stroke='currentColor' stroke-width='1.5'><path d='M50,220 H410 M50,220 V20'/></g><path fill='none' style='stroke:var(--accent)' stroke-width='2.5' d='M60,40 L120,121 L180,184 L240,189.4 L300,193 L360,195.7'/><g style='fill:var(--accent)'><circle cx='60' cy='40' r='4'/><circle cx='120' cy='121' r='4'/><circle cx='180' cy='184' r='4'/><circle cx='240' cy='189.4' r='4'/><circle cx='300' cy='193' r='4'/><circle cx='360' cy='195.7' r='4'/></g><g fill='currentColor' text-anchor='middle'><text x='60' y='238'>1</text><text x='120' y='238'>2</text><text x='180' y='238'>3</text><text x='240' y='238'>4</text><text x='300' y='238'>5</text><text x='360' y='238'>6</text><text x='230' y='160'>elbow</text><text x='56' y='14' text-anchor='start'>J</text><text x='410' y='250' text-anchor='end'>k</text></g></svg>",
+          "caption": "J falls steeply up to k = 3 and slowly afterward: the elbow suggests three clusters."
+        },
+        {
+          "h": "The silhouette score"
+        },
+        "For a point i, let a(i) be the average distance to the other points in its own cluster, and b(i) the smallest average distance to the points of any other cluster. The **silhouette** is",
+        {
+          "eq": "s(i) = ( b(i) − a(i) ) / max( a(i), b(i) ),    −1 ≤ s(i) ≤ 1"
+        },
+        "It is near +1 when a point sits well inside its cluster, near 0 on a boundary, and negative when it is probably in the wrong cluster. The average silhouette over all points is maximized to choose k.",
+        {
+          "example": {
+            "title": "A silhouette value",
+            "problem": "A point has an average distance of 1.0 to its own cluster mates and an average distance of 4.0 to the nearest other cluster. Find its silhouette.",
+            "solution": "s = (4.0 − 1.0)/max(1.0, 4.0) = 3/4 = 0.75, a well-clustered point."
+          }
+        },
+        {
+          "h": "Other measures"
+        },
+        {
+          "list": [
+            "**External** measures compare a clustering with known labels when they exist, such as the adjusted Rand index (1 for perfect agreement, about 0 for random) and normalized mutual information.",
+            "**Stability**: cluster resampled versions of the data and check that the groups persist.",
+            "**Usefulness**: ultimately, ask whether the clusters make sense to a domain expert and serve the purpose, for example marketing segments that lead to different actions."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "Why can the minimum of J not be used to choose k?",
+          "a": "J decreases as k increases, reaching 0 when every point is its own cluster",
+          "wrong": [
+            "J is undefined for k > 2",
+            "J increases with k",
+            "J is the same for every k"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hierarchical",
+      "title": "Hierarchical clustering",
+      "terms": [
+        "hierarchical clustering",
+        "agglomerative clustering",
+        "dendrogram",
+        "single linkage",
+        "complete linkage",
+        "average linkage",
+        "ward's method",
+        "linkage"
+      ],
+      "body": [
+        "Hierarchical clustering produces a tree of nested clusters instead of a single partition, so k need not be chosen in advance. **Agglomerative** clustering starts with every point as its own cluster and repeatedly merges the two closest clusters until only one remains. The record of merges, drawn as a tree with the merge distance as the height, is a **dendrogram**. Cutting the tree at a chosen height gives a flat clustering.",
+        "The result depends on the **linkage**, the definition of the distance between two clusters A and B:",
+        {
+          "eqs": [
+            ["single: d(A, B) = min d(a, b)", "nearest members; can chain clusters together through a bridge of points"],
+            ["complete: d(A, B) = max d(a, b)", "farthest members; compact clusters of similar diameter"],
+            ["average: d(A, B) = mean d(a, b)", "a compromise"],
+            ["Ward: merge the pair that least increases total within-cluster variance", "like k-means; prefers round clusters"]
+          ]
+        },
+        {
+          "example": {
+            "title": "Single versus complete linkage",
+            "problem": "Points on a line at 1, 2, 6, 7 and 15. Build the dendrogram with single and with complete linkage.",
+            "solution": [
+              "In both methods, {1, 2} merges at height 1 and {6, 7} merges at height 1.",
+              "**Single**: the distance between {1, 2} and {6, 7} is min = 6 − 2 = 4, so they merge at 4. Then 15 joins at 15 − 7 = 8.",
+              "**Complete**: the distance between {1, 2} and {6, 7} is max = 7 − 1 = 6, so they merge at 6. Then 15 joins at 15 − 1 = 14.",
+              "The merge order is the same here, but the heights differ, and on larger data sets the cluster shapes would differ too: single linkage forms long chains, complete linkage forms tight groups."
+            ]
+          }
+        },
+        "The naive algorithm costs O(m³) time (O(m² log m) with a priority queue) and O(m²) memory, so it suits thousands, not millions, of points. Its strength is the dendrogram, which shows the structure at every scale and is the standard display in genomics and taxonomy."
+      ],
+      "check": [
+        {
+          "q": "Which linkage can chain together long, thin clusters through a line of intermediate points?",
+          "a": "Single linkage",
+          "wrong": ["Complete linkage", "Ward's method", "None of them"]
+        }
+      ]
+    },
+    {
+      "id": "density",
+      "title": "Density-based and spectral clustering",
+      "terms": [
+        "dbscan",
+        "density-based clustering",
+        "core point",
+        "noise points",
+        "spectral clustering",
+        "graph laplacian"
+      ],
+      "body": [
+        "k-means and Ward's method find round blobs. A cluster can instead be defined as a region of high density separated from other regions by low density, which may have any shape.",
+        {
+          "h": "DBSCAN"
+        },
+        "**DBSCAN** has two parameters: a radius ε and a count minPts. A point is a **core point** if at least minPts points (itself included) lie within distance ε. Core points within ε of each other are linked into one cluster. A non-core point within ε of a core point joins that cluster as a border point. All remaining points are **noise**.",
+        {
+          "list": [
+            "It finds arbitrarily shaped clusters, determines the number of clusters itself, and labels outliers explicitly.",
+            "It struggles when clusters have very different densities, since one ε cannot fit them all, and in high dimensions, where distances concentrate (see the Curse of Dimensionality).",
+            "A common choice of ε comes from the 'knee' in the sorted distances to the minPts-th neighbor."
+          ]
+        },
+        {
+          "h": "Spectral clustering"
+        },
+        "**Spectral clustering** treats the data as a graph with edge weights W_ij = exp(−‖x_i − x_j‖²/(2σ²)), and cuts the graph into pieces with few strong edges between them. The graph Laplacian is L = D − W, where D is the diagonal matrix of row sums of W. The eigenvectors of L with the smallest eigenvalues give a low-dimensional embedding in which the clusters become compact, and k-means is then run on this embedding. The number of zero eigenvalues of L equals the number of connected components of the graph.",
+        "Spectral clustering handles ring-shaped and intertwined clusters that defeat k-means, at the cost of an eigendecomposition of an m × m matrix (O(m³) naively; sparse and approximate methods scale further).",
+        {
+          "table": {
+            "head": ["Method", "Cluster shape", "Needs k?", "Handles outliers?", "Scale"],
+            "rows": [
+              ["k-means", "Round, similar size", "Yes", "Poorly", "Very large"],
+              ["Hierarchical", "Depends on linkage", "No (cut the tree)", "Single linkage poorly", "Thousands"],
+              ["DBSCAN", "Any", "No", "Yes (noise label)", "Large, in low dimension"],
+              ["Spectral", "Any connected shape", "Yes", "Somewhat", "Moderate"]
+            ],
+            "caption": "Choosing a clustering method."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "In DBSCAN, a point that has fewer than minPts neighbors within ε and is not near a core point is",
+          "a": "labeled noise",
+          "wrong": [
+            "a new cluster",
+            "a centroid",
+            "assigned to the nearest cluster"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Clustering groups unlabeled points. k-means minimizes the within-cluster sum of squares by alternating assignment to the nearest centroid and recomputing the centroids as means.",
+    "k-means always converges, but to a local minimum. Use several random starts or k-means++. It assumes round, similar-sized clusters and needs scaled features.",
+    "Choose k with the elbow of J(k), the silhouette score, stability and the purpose of the analysis.",
+    "Agglomerative clustering merges the closest clusters and yields a dendrogram. Single linkage chains, complete linkage makes compact groups, and Ward's method resembles k-means.",
+    "DBSCAN finds dense regions of any shape and marks noise. Spectral clustering uses graph Laplacian eigenvectors to separate non-convex clusters."
+  ],
+  "problems": [
+    {
+      "q": "Run one iteration of k-means on the points 0, 2, 3, 9, 10 with k = 2 and initial centroids 0 and 10. Give the assignments, new centroids and J.",
+      "solution": "Assignment: 0 and 2 go to centroid 0 (3 is at distance 3 from 0 and 7 from 10, so also to 0); 9 and 10 go to 10. Clusters {0, 2, 3} and {9, 10}. New centroids: 5/3 = 1.667 and 9.5. J = (1.667² + 0.333² + 1.333²) + (0.25 + 0.25) = (2.778 + 0.111 + 1.778) + 0.5 = 5.17.",
+      "a": "{0, 2, 3} and {9, 10}; centroids 1.67 and 9.5; J ≈ 5.17."
+    },
+    {
+      "q": "A point has a(i) = 2.0 and b(i) = 1.5. Compute its silhouette and interpret it.",
+      "solution": "s = (1.5 − 2.0)/max(2.0, 1.5) = −0.5/2 = −0.25. A negative value means the point is closer, on average, to another cluster than to its own: it is probably misassigned.",
+      "a": "s = −0.25; likely in the wrong cluster."
+    },
+    {
+      "q": "Points on a line: 0, 1, 4, 5, 11. Using complete linkage, give the merge sequence and heights.",
+      "solution": "{0, 1} at 1 and {4, 5} at 1 (these tie). Then the distance between {0, 1} and {4, 5} is max = 5 − 0 = 5; between {4, 5} and 11 it is 11 − 4 = 7; between {0, 1} and 11 it is 11. So {0, 1} and {4, 5} merge at 5. Then 11 joins at 11 − 0 = 11.",
+      "a": "Merges at heights 1, 1, 5, 11."
+    },
+    {
+      "q": "Show that for a fixed cluster of points the centroid (the mean) minimizes the sum of squared distances.",
+      "solution": "Let f(μ) = Σ ‖x_i − μ‖². The gradient is −2 Σ (x_i − μ). Setting it to zero gives μ = (1/N) Σ x_i. The Hessian is 2N I, positive definite, so this is the unique minimum.",
+      "a": "μ = mean of the points."
+    },
+    {
+      "q": "k-means with k = 2 is run on data from a ring of radius 5 around a dense blob at the center. Predict what happens, and name a method that can separate them.",
+      "solution": "Both groups have the same center, so no line through two centroids separates them. k-means cuts the data by a line, mixing parts of the ring with the blob. DBSCAN or spectral clustering, which follow density or connectivity, can separate the blob from the ring.",
+      "a": "k-means splits the data with a straight line and fails; use DBSCAN or spectral clustering."
+    }
+  ]
+}

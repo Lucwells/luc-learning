@@ -1,0 +1,341 @@
+{
+  "id": "eigen",
+  "view": "chapter",
+  "title": "Eigenvalues, Eigenvectors and Positive Definite Matrices",
+  "description": "Eigenvalues and diagonalization, the spectral theorem for symmetric matrices, quadratic forms, positive definite matrices and power iteration.",
+  "overview": [
+    "Most matrices turn most vectors into vectors pointing elsewhere. An eigenvector is a direction that the matrix leaves unchanged, apart from stretching: Av = λv. Along such directions the matrix acts as a simple number, and a matrix that has enough of them can be understood completely as independent stretches along different axes.",
+    "Eigenvalues determine whether an iteration converges (a Markov chain, gradient descent, a recurrent network), how curved a loss surface is in each direction (the Hessian), and which directions carry the most variance (PCA). Symmetric matrices, which are the common case in machine learning, have especially clean eigenstructure."
+  ],
+  "objectives": [
+    "Find eigenvalues and eigenvectors of a small matrix from the characteristic polynomial.",
+    "Diagonalize a matrix, and use A = PDP⁻¹ to compute powers and to analyze iterations.",
+    "State the spectral theorem and use A = QΛQᵀ for symmetric matrices.",
+    "Test whether a symmetric matrix is positive definite, and relate this to quadratic forms, covariance matrices and Hessians.",
+    "Use the Rayleigh quotient, the condition number and power iteration."
+  ],
+  "sections": [
+    {
+      "id": "eigenvalues",
+      "title": "Eigenvalues and eigenvectors",
+      "terms": [
+        "eigenvalue",
+        "eigenvalues",
+        "eigenvector",
+        "eigenvectors",
+        "characteristic polynomial",
+        "eigendecomposition",
+        "complex eigenvalues",
+        "eigenvalues, eigenvectors and positive definite matrices"
+      ],
+      "body": [
+        "A non-zero vector v is an **eigenvector** of the square matrix A with **eigenvalue** λ if",
+        {
+          "eq": "A v = λ v"
+        },
+        "Rewrite as (A − λI)v = 0. A non-zero solution exists only if A − λI is singular, so the eigenvalues are the roots of the **characteristic polynomial** det(A − λI) = 0. For each eigenvalue, the eigenvectors are the non-zero vectors of the null space of A − λI. For a 2 × 2 matrix the polynomial is λ² − (tr A)λ + det A. In general, tr A = Σλ_i and det A = Πλ_i.",
+        {
+          "svg": "<svg viewBox='0 0 400 230' role='img' aria-label='A circle mapped to an ellipse whose axes are the eigenvectors' font-family='system-ui, sans-serif' font-size='12'><defs><marker id='arr' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='7' markerHeight='7' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='currentColor'/></marker></defs><circle cx='200' cy='115' r='30' fill='none' stroke='currentColor' stroke-width='1.5' stroke-dasharray='4 3'/><ellipse cx='200' cy='115' rx='90' ry='30' fill='none' style='stroke:var(--accent)' stroke-width='2.5' transform='rotate(-45 200 115)'/><path d='M200,115 L263.6,51.4' fill='none' stroke='currentColor' stroke-width='2' marker-end='url(#arr)'/><path d='M200,115 L221.2,136.2' fill='none' stroke='currentColor' stroke-width='2' marker-end='url(#arr)'/><g fill='currentColor'><text x='268' y='50'>λ = 3, v = (1, 1)</text><text x='226' y='150'>λ = 1, v = (1, −1)</text><text x='20' y='215'>A = [[2, 1], [1, 2]] maps the unit circle (dashed) to the ellipse</text></g></svg>",
+          "caption": "The matrix A = [[2, 1], [1, 2]] stretches by 3 along (1, 1) and by 1 along (1, −1). The unit circle becomes an ellipse whose axes are the eigenvectors."
+        },
+        {
+          "example": {
+            "title": "Eigenvalues of a 2 × 2 matrix",
+            "problem": "Find the eigenvalues and eigenvectors of A = [[2, 1], [1, 2]].",
+            "solution": [
+              "tr A = 4, det A = 3, so λ² − 4λ + 3 = 0 and λ = 3 or 1.",
+              "λ = 3: (A − 3I)v = [[−1, 1], [1, −1]]v = 0 gives v = (1, 1). λ = 1: [[1, 1], [1, 1]]v = 0 gives v = (1, −1).",
+              "Check: A(1, 1) = (3, 3) = 3(1, 1) ✓ and A(1, −1) = (1, −1) ✓. The eigenvalues satisfy 3 + 1 = tr A and 3 · 1 = det A."
+            ]
+          }
+        },
+        {
+          "h": "Complex eigenvalues and special cases"
+        },
+        {
+          "list": [
+            "A real matrix can have complex eigenvalues. The rotation by 90°, [[0, −1], [1, 0]], has characteristic polynomial λ² + 1 = 0 and eigenvalues ±i: no real direction is preserved. Complex eigenvalues of a real matrix come in conjugate pairs and describe rotation combined with scaling; their magnitude controls growth.",
+            "The eigenvalues of a triangular matrix are its diagonal entries.",
+            "A is singular exactly when 0 is an eigenvalue.",
+            "Eigenvectors for distinct eigenvalues are linearly independent."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "A 2 × 2 matrix has trace 5 and determinant 6. Its eigenvalues are",
+          "a": "2 and 3",
+          "wrong": [
+            "1 and 6",
+            "5 and 6",
+            "−2 and −3"
+          ]
+        },
+        {
+          "q": "A matrix with an eigenvalue 0",
+          "a": "is singular",
+          "wrong": [
+            "is the identity",
+            "is orthogonal",
+            "has determinant 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "diagonalization",
+      "title": "Diagonalization and powers",
+      "terms": [
+        "diagonalization",
+        "diagonalizable",
+        "matrix power",
+        "defective matrix",
+        "markov chain",
+        "stationary distribution",
+        "spectral radius"
+      ],
+      "body": [
+        "If A has n linearly independent eigenvectors, put them in the columns of P and the eigenvalues on the diagonal of D. Then AP = PD, so",
+        {
+          "eq": "A = P D P⁻¹"
+        },
+        "A is then **diagonalizable**: in the basis of its eigenvectors it is the diagonal matrix D (see Change of basis). Powers become easy:",
+        {
+          "eq": "Aᵏ = P Dᵏ P⁻¹"
+        },
+        "To compute Aᵏx, expand x = c₁v₁ + … + c_nv_n in the eigenvectors; then Aᵏx = c₁λ₁ᵏv₁ + … + c_nλ_nᵏv_n. The behavior of a repeated map is controlled by the eigenvalues: if all |λ_i| < 1 then Aᵏx → 0; if one has |λ| > 1 the iteration blows up along its eigenvector, and the eigenvalue of largest magnitude dominates for large k. The largest magnitude is the **spectral radius**.",
+        {
+          "example": {
+            "title": "A Markov chain",
+            "problem": "A user is either active or inactive. Each day an active user stays active with probability 0.9, and an inactive user becomes active with probability 0.5. Find the long-run fraction of active days.",
+            "solution": [
+              "The state distribution evolves by p ← Tp with T = [[0.9, 0.5], [0.1, 0.5]] (each column sums to 1).",
+              "tr T = 1.4 and det T = 0.45 − 0.05 = 0.4, so λ² − 1.4λ + 0.4 = 0 gives λ = 1 and 0.4.",
+              "The component along the λ = 0.4 eigenvector decays like 0.4ᵏ; what survives is the λ = 1 eigenvector, the stationary distribution: (T − I)p = 0 gives −0.1p₁ + 0.5p₂ = 0, so p₁ = 5p₂, and with p₁ + p₂ = 1, p = (5/6, 1/6). In the long run a user is active 83% of the time, whatever the start. The error shrinks by 0.4 per step."
+            ]
+          }
+        },
+        {
+          "example": {
+            "title": "Gradient descent seen through eigenvalues",
+            "problem": "Minimize f(x) = ½xᵀHx with H having eigenvalues 10 and 1. The update is x ← (I − αH)x. What is the largest stable α, and the best α?",
+            "solution": "In the eigenbasis the error components shrink by |1 − αλ| with λ = 10 and 1. Stability needs |1 − 10α| < 1, so α < 0.2. The best α balances the two: 1 − α = −(1 − 10α), i.e. α = 2/11 = 0.182, giving factors ±0.818 per step. The convergence rate is (κ − 1)/(κ + 1) with condition number κ = 10."
+          }
+        },
+        {
+          "warn": "Not every matrix is diagonalizable. [[1, 1], [0, 1]] has the repeated eigenvalue 1 and only one independent eigenvector (1, 0): it is **defective**. Its powers grow linearly, [[1, k], [0, 1]], which diagonal matrices cannot produce. Symmetric matrices are never defective."
+        }
+      ],
+      "check": [
+        {
+          "q": "If A = PDP⁻¹, then A¹⁰ equals",
+          "a": "P D¹⁰ P⁻¹",
+          "wrong": [
+            "P¹⁰ D P⁻¹⁰",
+            "10 PDP⁻¹",
+            "D¹⁰"
+          ]
+        },
+        {
+          "q": "An iteration x ← Ax converges to 0 for every starting x when",
+          "a": "every eigenvalue satisfies |λ| < 1",
+          "wrong": [
+            "every eigenvalue is positive",
+            "the trace is zero",
+            "det A = 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spectral",
+      "title": "The spectral theorem",
+      "terms": [
+        "spectral theorem",
+        "spectral decomposition",
+        "symmetric matrices eigenvalues",
+        "orthogonal diagonalization",
+        "real symmetric matrix"
+      ],
+      "body": [
+        "Symmetric matrices (Aᵀ = A) are the matrices of covariances, Gram matrices, Hessians and AᵀA, and they have the best possible eigenstructure.",
+        {
+          "key": "Spectral theorem. A real symmetric n × n matrix has real eigenvalues, and has n orthonormal eigenvectors. It can be written A = QΛQᵀ, with Q orthogonal (its columns are the eigenvectors) and Λ = diag(λ₁, …, λ_n)."
+        },
+        "Equivalently, A = Σ_i λ_i q_iq_iᵀ: a sum of rank-one projections, each scaled by an eigenvalue. Eigenvectors for different eigenvalues are automatically orthogonal. **Proof sketch** of this orthogonality: if Av = λv and Aw = μw with λ ≠ μ, then λ(vᵀw) = (Av)ᵀw = vᵀAᵀw = vᵀAw = μ(vᵀw), so (λ − μ)vᵀw = 0 and vᵀw = 0.",
+        {
+          "example": {
+            "title": "Spectral decomposition",
+            "problem": "Write A = [[2, 1], [1, 2]] as QΛQᵀ.",
+            "solution": "The eigenvectors (1, 1) and (1, −1) are orthogonal; normalize them: q₁ = (1, 1)/√2, q₂ = (1, −1)/√2. Then A = 3q₁q₁ᵀ + 1q₂q₂ᵀ = 3 · ½[[1, 1], [1, 1]] + ½[[1, −1], [−1, 1]] = [[2, 1], [1, 2]] ✓."
+          }
+        },
+        "Consequences: the inverse is A⁻¹ = QΛ⁻¹Qᵀ, a power is Aᵏ = QΛᵏQᵀ, and a function f(A) = Qf(Λ)Qᵀ (such as the matrix exponential or square root). The determinant is Πλ_i, and the operator norm ‖A‖₂ = max|λ_i|. For PCA, the covariance matrix is diagonalized and the principal components are its eigenvectors."
+      ],
+      "check": [
+        {
+          "q": "The eigenvectors of a real symmetric matrix",
+          "a": "can be chosen orthonormal",
+          "wrong": [
+            "are always parallel",
+            "are complex",
+            "are not defined"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "positive-definite",
+      "title": "Quadratic forms and positive definite matrices",
+      "terms": [
+        "positive definite",
+        "positive definite matrix",
+        "positive semidefinite",
+        "positive semidefinite matrix",
+        "quadratic form",
+        "rayleigh quotient",
+        "condition number",
+        "cholesky decomposition",
+        "gram matrix"
+      ],
+      "body": [
+        "A **quadratic form** is the scalar xᵀAx for a symmetric A. It is how the curvature of a loss, the variance of a projection and the squared length in a weighted norm are written. A symmetric matrix is **positive definite** (PD) if xᵀAx > 0 for every x ≠ 0, and **positive semidefinite** (PSD) if xᵀAx ≥ 0.",
+        {
+          "list": [
+            "**Eigenvalue test**: A is PD iff all eigenvalues are > 0, and PSD iff all are ≥ 0. (In the eigenbasis, xᵀAx = Σλ_ic_i².)",
+            "**Pivot / minor test**: A is PD iff all leading principal minors (the determinants of the top-left 1 × 1, 2 × 2, … blocks) are positive.",
+            "**Cholesky**: A is PD iff A = LLᵀ for an invertible lower triangular L.",
+            "**Gram matrices**: for any matrix B, BᵀB is PSD, because xᵀBᵀBx = ‖Bx‖² ≥ 0; it is PD iff B has independent columns. Covariance matrices and the Hessian of least squares are of this kind."
+          ]
+        },
+        {
+          "example": {
+            "title": "Testing definiteness",
+            "problem": "Is [[2, −1], [−1, 2]] PD? Is [[1, 2], [2, 1]]?",
+            "solution": "First: the minors are 2 and 4 − 1 = 3, both positive, so it is PD (eigenvalues 1 and 3). Second: det = 1 − 4 = −3 < 0, so one eigenvalue is negative: its eigenvalues are 3 and −1 and the matrix is indefinite. The form is negative along (1, −1): xᵀAx = 1 + 1 − 4 = −2."
+          }
+        },
+        {
+          "h": "Geometry and optimization"
+        },
+        "For a PD matrix A the set {x : xᵀAx = 1} is an ellipsoid whose axes point along the eigenvectors, with semi-axis lengths 1/√λ_i. The **Rayleigh quotient** R(x) = xᵀAx/xᵀx lies between the smallest and largest eigenvalues, attaining them at the corresponding eigenvectors:",
+        {
+          "eq": "λ_min ≤ xᵀAx / xᵀx ≤ λ_max"
+        },
+        "So maximizing the variance uᵀΣu of a projection over unit vectors gives the top eigenvector of Σ: this is PCA.",
+        "The **condition number** of a PD matrix is κ = λ_max/λ_min. It measures how elongated the ellipsoid is, how much the solution of Ax = b can be amplified by errors in b (relative error up to κ times larger), and how slowly gradient descent converges on ½xᵀAx (the rate is (κ − 1)/(κ + 1)). A matrix is ill-conditioned when κ is large.",
+        {
+          "example": {
+            "title": "Convergence rate from the condition number",
+            "problem": "A quadratic has Hessian eigenvalues 100 and 1. How fast does gradient descent with the best fixed step converge, and how many steps reduce the error by a factor of 1000?",
+            "solution": "κ = 100, so the factor per step is (100 − 1)/(100 + 1) = 0.9802. Then 0.9802ⁿ = 10⁻³ gives n = ln(1000)/(−ln 0.9802) = 6.908/0.02 = 345 steps. With κ = 1 (a perfectly round bowl) one step would suffice."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "BᵀB is always",
+          "a": "positive semidefinite",
+          "wrong": [
+            "positive definite",
+            "diagonal",
+            "orthogonal"
+          ]
+        },
+        {
+          "q": "The Rayleigh quotient xᵀAx/xᵀx for a symmetric A is bounded above by",
+          "a": "the largest eigenvalue",
+          "wrong": [
+            "the trace",
+            "the determinant",
+            "the smallest eigenvalue"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "eigen-computation",
+      "title": "Computing eigenvalues: power iteration and applications",
+      "terms": [
+        "power iteration",
+        "power method",
+        "pagerank",
+        "qr algorithm",
+        "dominant eigenvector",
+        "eigenvalue computation",
+        "lanczos"
+      ],
+      "body": [
+        "Eigenvalues are not found in practice from the characteristic polynomial (its roots are extremely sensitive to errors, and it cannot be solved in closed form beyond degree 4). The **QR algorithm** (iterated QR factorizations) is the standard dense method and costs O(n³). For the top eigenvector of a huge sparse matrix, use **power iteration**: repeatedly apply A and normalize,",
+        {
+          "eq": "x_{k+1} = A x_k / ‖A x_k‖"
+        },
+        "Expanding x₀ in the eigenvectors, Aᵏx₀ is dominated by the term with the largest |λ|, so x_k converges to the dominant eigenvector at rate |λ₂/λ₁|. The Rayleigh quotient estimates the eigenvalue.",
+        {
+          "example": {
+            "title": "Power iteration",
+            "problem": "Apply power iteration to A = [[2, 1], [1, 2]] from x₀ = (1, 0), without normalizing, for three steps.",
+            "solution": "x₁ = (2, 1), x₂ = A(2, 1) = (5, 4), x₃ = A(5, 4) = (14, 13). The direction approaches (1, 1). The Rayleigh quotient at x₂ is (5, 4)·(14, 13)/41 = 122/41 = 2.976, close to the dominant eigenvalue 3. The error shrinks by |λ₂/λ₁| = 1/3 per step."
+          }
+        },
+        {
+          "h": "Where eigenvectors are used"
+        },
+        {
+          "list": [
+            "**PageRank**: the importance of web pages is the stationary distribution (the dominant eigenvector, with λ = 1) of a Markov chain that follows random links, computed by power iteration on a matrix with billions of rows.",
+            "**PCA and the SVD**: eigenvectors of the covariance matrix (see the next chapter for the SVD).",
+            "**Spectral clustering**: eigenvectors of the graph Laplacian (see Clustering).",
+            "**Stability of recurrent networks**: the largest singular value of the recurrent weight matrix decides whether gradients vanish or explode (see Sequence Models).",
+            "**Optimization**: the Hessian's eigenvalues give the curvature in each direction, the largest stable learning rate 2/λ_max and the condition number."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "Power iteration converges to",
+          "a": "the eigenvector with the largest-magnitude eigenvalue",
+          "wrong": [
+            "the eigenvector with the smallest eigenvalue",
+            "a random vector",
+            "the null space"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Av = λv. Eigenvalues are the roots of det(A − λI) = 0; their sum is the trace and their product is the determinant.",
+    "A diagonalizable matrix is A = PDP⁻¹, so Aᵏ = PDᵏP⁻¹. Iterations converge when the spectral radius is below 1, at a rate set by the second-largest eigenvalue. Stationary distributions of Markov chains are eigenvectors with λ = 1.",
+    "Spectral theorem: a real symmetric matrix is A = QΛQᵀ with real eigenvalues and orthonormal eigenvectors.",
+    "A symmetric matrix is positive definite iff all eigenvalues are positive (equivalently, positive leading minors or A = LLᵀ). BᵀB is PSD. The Rayleigh quotient lies between λ_min and λ_max, which gives PCA. The condition number κ = λ_max/λ_min governs gradient descent and error amplification.",
+    "Compute top eigenvectors by power iteration; dense eigenproblems use the QR algorithm."
+  ],
+  "problems": [
+    {
+      "q": "Find the eigenvalues and eigenvectors of A = [[4, 1], [2, 3]].",
+      "solution": "tr = 7, det = 10, so λ² − 7λ + 10 = 0 and λ = 5, 2. For λ = 5: (A − 5I) = [[−1, 1], [2, −2]] gives v = (1, 1). For λ = 2: [[2, 1], [2, 1]] gives v = (1, −2).",
+      "a": "λ = 5 with (1, 1); λ = 2 with (1, −2)."
+    },
+    {
+      "q": "For A = [[2, 1], [1, 2]], compute A⁵ using the eigendecomposition.",
+      "solution": "A = 3q₁q₁ᵀ + q₂q₂ᵀ, so A⁵ = 3⁵q₁q₁ᵀ + q₂q₂ᵀ = 243 · ½[[1, 1], [1, 1]] + ½[[1, −1], [−1, 1]] = [[122, 121], [121, 122]].",
+      "a": "[[122, 121], [121, 122]]."
+    },
+    {
+      "q": "Is [[4, 2], [2, 1]] positive definite or semidefinite? Give its eigenvalues.",
+      "solution": "det = 4 − 4 = 0 and trace 5, so the eigenvalues are 5 and 0. It is positive semidefinite but not definite. Indeed xᵀAx = (2x₁ + x₂)² vanishes along (1, −2).",
+      "a": "Positive semidefinite; eigenvalues 5 and 0."
+    },
+    {
+      "q": "A Hessian has eigenvalues 0.01, 1 and 50. Find the condition number, the largest stable learning rate, and the rate per step with the optimal fixed step.",
+      "solution": "κ = 50/0.01 = 5000. Stability needs α < 2/50 = 0.04. The best fixed step gives a factor (κ − 1)/(κ + 1) = 4999/5001 = 0.9996 per step, so hundreds of thousands of steps would be needed: the problem is badly conditioned and needs preconditioning or a second-order method.",
+      "a": "κ = 5000; α < 0.04; 0.9996 per step."
+    },
+    {
+      "q": "Show that the eigenvalues of a positive semidefinite matrix are non-negative.",
+      "solution": "If Av = λv with ‖v‖ = 1 then λ = vᵀAv ≥ 0 by positive semidefiniteness.",
+      "a": "λ = vᵀAv ≥ 0."
+    }
+  ]
+}

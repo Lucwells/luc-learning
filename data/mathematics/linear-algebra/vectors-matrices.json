@@ -1,0 +1,400 @@
+{
+  "id": "vectors-matrices",
+  "view": "chapter",
+  "title": "Vectors, Matrices and Linear Systems",
+  "description": "Vectors and norms, matrices as linear maps, matrix products, Gaussian elimination, inverses, determinants and LU factorization.",
+  "overview": [
+    "Linear algebra is the language of data. A data point is a vector, a data set is a matrix, a linear model is a matrix–vector product, and a layer of a neural network is a matrix multiplication followed by a nonlinearity. Solving least squares, running PCA and analyzing the stability of gradient descent all reduce to questions about matrices.",
+    "This chapter covers the mechanics: vectors, norms and angles; matrices and their products from several viewpoints; solving linear systems by elimination; inverses and determinants; and the LU factorization that is used in practice. The next chapters give the structure behind these mechanics: subspaces, orthogonality, eigenvalues and the singular value decomposition."
+  ],
+  "objectives": [
+    "Compute dot products, norms, distances and angles of vectors, and state the Cauchy–Schwarz and triangle inequalities.",
+    "Multiply matrices, interpret the product as composition of linear maps, and use the column and outer-product views.",
+    "Solve a linear system by Gaussian elimination and decide whether it has no, one or infinitely many solutions.",
+    "Compute a 2×2 inverse and a determinant, and state what the determinant means geometrically.",
+    "Factor a matrix as LU and use it to solve systems."
+  ],
+  "sections": [
+    {
+      "id": "vectors",
+      "title": "Vectors, dot products and norms",
+      "terms": [
+        "dot product",
+        "inner product of vectors",
+        "norm",
+        "norms",
+        "euclidean norm",
+        "l1 norm",
+        "l2 norm",
+        "cauchy–schwarz inequality",
+        "cauchy-schwarz inequality",
+        "triangle inequality",
+        "cosine of the angle",
+        "unit vector",
+        "linear combination",
+        "vectors, matrices and linear systems"
+      ],
+      "body": [
+        "A **vector** in ℝⁿ is an ordered list of n real numbers, x = (x₁, …, x_n). It can be viewed as a point, or as an arrow from the origin. Vectors are added and scaled component by component, and a **linear combination** is a sum c₁v₁ + … + c_kv_k. In machine learning a vector holds the features of an example, or the weights of a model.",
+        "The **dot product** (inner product) of x and y is",
+        {
+          "eq": "x · y = xᵀy = Σ_i x_i y_i = ‖x‖ ‖y‖ cos θ"
+        },
+        "where θ is the angle between them. It is zero exactly when the vectors are perpendicular (orthogonal). A linear model's prediction wᵀx is a dot product, a measure of how well the input aligns with the weights.",
+        {
+          "h": "Norms"
+        },
+        "A **norm** ‖x‖ measures length. The standard ones are",
+        {
+          "eqs": [
+            [
+              "‖x‖₂ = √(Σ x_i²) = √(xᵀx)",
+              "Euclidean (ℓ2) norm"
+            ],
+            [
+              "‖x‖₁ = Σ |x_i|",
+              "ℓ1 norm, the sum of absolute values; promotes sparsity when penalized"
+            ],
+            [
+              "‖x‖_∞ = max_i |x_i|",
+              "the largest entry"
+            ]
+          ]
+        },
+        "Each satisfies ‖x‖ ≥ 0 with equality only for x = 0, ‖cx‖ = |c|‖x‖, and the **triangle inequality** ‖x + y‖ ≤ ‖x‖ + ‖y‖. The distance between x and y is ‖x − y‖. A **unit vector** has norm 1. The **Cauchy–Schwarz inequality** bounds the dot product:",
+        {
+          "eq": "| x · y | ≤ ‖x‖₂ ‖y‖₂"
+        },
+        "It is what makes cos θ = x·y/(‖x‖‖y‖) lie between −1 and 1, and so makes the angle well defined. The cosine of the angle is the cosine similarity used to compare documents and embeddings.",
+        {
+          "example": {
+            "title": "Norms and angles",
+            "problem": "For x = (3, −4) find the three norms. For u = (1, 1, 0) and v = (1, 0, 1), find the angle.",
+            "solution": [
+              "‖x‖₁ = 7, ‖x‖₂ = √(9 + 16) = 5, ‖x‖_∞ = 4.",
+              "u · v = 1, ‖u‖ = ‖v‖ = √2, so cos θ = 1/2 and θ = 60°."
+            ]
+          }
+        },
+        {
+          "tip": "Normalizing a vector to unit length (dividing by its norm) turns the dot product into the cosine similarity, and Euclidean distance between unit vectors into √(2 − 2cos θ): the two comparisons rank pairs in the same order."
+        }
+      ],
+      "check": [
+        {
+          "q": "The vectors (2, 1, −2) and (1, 2, 2) are",
+          "a": "orthogonal",
+          "wrong": [
+            "parallel",
+            "equal in norm",
+            "at an angle of 60°"
+          ],
+          "why": "2 + 2 − 4 = 0."
+        },
+        {
+          "q": "‖(1, −2, 2)‖₂ is",
+          "a": "3",
+          "wrong": [
+            "5",
+            "√5",
+            "1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "matrices",
+      "title": "Matrices and matrix products",
+      "terms": [
+        "matrix multiplication",
+        "matrix product",
+        "transpose",
+        "identity matrix",
+        "diagonal matrix",
+        "symmetric matrix",
+        "linear map",
+        "linear transformation",
+        "outer product"
+      ],
+      "body": [
+        "An m × n **matrix** A is a rectangular array with m rows and n columns. It can be read in two ways: as a table of data (rows are examples, columns are features), or as a **linear map** x ↦ Ax from ℝⁿ to ℝᵐ. The map is linear: A(cx + dy) = cAx + dAy. Every linear map between finite-dimensional spaces is a matrix.",
+        "The **product** AB of an m × k matrix and a k × n matrix is the m × n matrix whose entries are dot products of rows of A with columns of B:",
+        {
+          "eq": "(AB)_ij = Σ_{l=1}^{k} A_il B_lj"
+        },
+        "The product corresponds to composing the maps: (AB)x = A(Bx). The inner dimensions must match. Matrix multiplication is associative, (AB)C = A(BC), and distributive, but **not commutative**: in general AB ≠ BA.",
+        {
+          "example": {
+            "title": "A product that does not commute",
+            "problem": "For A = [[1, 2], [3, 4]] and B = [[0, 1], [1, 0]] find AB and BA.",
+            "solution": "AB = [[1·0 + 2·1, 1·1 + 2·0], [3·0 + 4·1, 3·1 + 4·0]] = [[2, 1], [4, 3]]: B swaps the columns of A. BA = [[3, 4], [1, 2]]: B swaps the rows. So AB ≠ BA."
+          }
+        },
+        {
+          "h": "Three ways to see a product"
+        },
+        {
+          "list": [
+            "**Entry view**: each entry is a row-times-column dot product.",
+            "**Column view**: Ax is a linear combination of the columns of A, with coefficients from x: Ax = x₁a₁ + … + x_na_n. So the set of possible outputs is the span of the columns. Each column of AB is A times a column of B.",
+            "**Outer-product view**: AB = Σ_l (column l of A)(row l of B), a sum of rank-one matrices. The outer product uvᵀ of two vectors is a matrix with entries u_iv_j. This is how the gradient of a weight matrix, δaᵀ, arises in backpropagation."
+          ]
+        },
+        {
+          "h": "Transpose and special matrices"
+        },
+        "The **transpose** Aᵀ swaps rows and columns: (Aᵀ)_ij = A_ji, with (AB)ᵀ = BᵀAᵀ (order reverses). Some special matrices:",
+        {
+          "list": [
+            "The **identity matrix** I has ones on the diagonal and zeros elsewhere; AI = IA = A.",
+            "A **diagonal matrix** has non-zeros only on the diagonal. Multiplying by diag(d) scales each coordinate. Powers are cheap: diag(d)ᵏ = diag(dᵏ).",
+            "A **symmetric** matrix satisfies Aᵀ = A. Covariance matrices, XᵀX and Hessians are symmetric.",
+            "An **orthogonal** matrix has QᵀQ = I: its columns are orthonormal, and it preserves lengths and angles (a rotation or reflection).",
+            "A **triangular** matrix has zeros above or below the diagonal; systems with triangular matrices are solved easily by substitution."
+          ]
+        },
+        "The **trace** tr(A) = Σ A_ii sums the diagonal; it satisfies tr(AB) = tr(BA) and equals the sum of the eigenvalues.",
+        {
+          "example": {
+            "title": "A layer as a matrix product",
+            "problem": "A batch of m = 100 examples with n = 20 features is stored in X (100 × 20). A layer has 50 units, with weights W (20 × 50). What are the shapes of XW, and how many multiply–adds does it take?",
+            "solution": "XW is 100 × 50. Each of its 5000 entries is a dot product of length 20, so the cost is 100 · 20 · 50 = 100,000 multiply–adds. In general, an (m × k)(k × n) product costs mkn."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "If A is 3 × 4 and B is 4 × 2, then AB has shape",
+          "a": "3 × 2",
+          "wrong": [
+            "4 × 4",
+            "2 × 3",
+            "AB is not defined"
+          ]
+        },
+        {
+          "q": "(AB)ᵀ equals",
+          "a": "BᵀAᵀ",
+          "wrong": [
+            "AᵀBᵀ",
+            "ABᵀ",
+            "BA"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "elimination",
+      "title": "Linear systems and Gaussian elimination",
+      "terms": [
+        "linear system",
+        "linear systems",
+        "system of linear equations",
+        "gaussian elimination",
+        "row operations",
+        "row echelon form",
+        "back substitution",
+        "pivot"
+      ],
+      "body": [
+        "A **linear system** of m equations in n unknowns is Ax = b. The row picture is that each equation is a hyperplane and a solution lies on all of them. The column picture is that we look for coefficients x for which b is a linear combination of the columns of A.",
+        {
+          "svg": "<svg viewBox='0 0 380 230' role='img' aria-label='Two lines in the plane meeting at the solution (2, 1)' font-family='system-ui, sans-serif' font-size='12'><g fill='none' stroke='currentColor' stroke-width='1.2' opacity='.6'><path d='M80,215 V10 M20,180 H360'/></g><path d='M92,12 L260,180' fill='none' stroke='currentColor' stroke-width='2.5'/><path d='M110,210 L308,12' fill='none' style='stroke:var(--accent)' stroke-width='2.5'/><circle cx='200' cy='120' r='5' fill='currentColor'/><g fill='currentColor'><text x='208' y='116'>(2, 1)</text><text x='262' y='176'>x + y = 3</text><text x='312' y='20' style='fill:var(--accent)'>x − y = 1</text></g></svg>",
+          "caption": "Each equation is a line. The system x + y = 3, x − y = 1 has exactly one solution, where the lines cross."
+        },
+        "**Gaussian elimination** turns Ax = b into an equivalent triangular system by **row operations**: swap two rows, scale a row, or add a multiple of one row to another. These do not change the solutions. Use the first equation to eliminate x₁ from the others, the next to eliminate x₂, and so on. The leading non-zero entry of each row is a **pivot**. The triangular system is then solved by **back substitution**, from the last equation upward.",
+        {
+          "example": {
+            "title": "Solving a 3 × 3 system",
+            "problem": "Solve x + y + z = 3, 2x + 3y + z = 6, x + 2y + 3z = 6.",
+            "solution": [
+              "Eliminate x: R₂ − 2R₁ gives y − z = 0. R₃ − R₁ gives y + 2z = 3.",
+              "Eliminate y: (R₃ − R₁) − (R₂ − 2R₁) gives 3z = 3, so z = 1.",
+              "Back substitute: y − 1 = 0 gives y = 1, and x + 1 + 1 = 3 gives x = 1. The solution is (1, 1, 1)."
+            ]
+          }
+        },
+        "A system has no solution when elimination produces an equation 0 = c with c ≠ 0 (the equations are inconsistent), exactly one solution when every unknown has a pivot, and infinitely many when some unknown has no pivot (a **free variable**). Counting pivots gives the **rank**, discussed in the next chapter. Elimination on an n × n system costs about (2/3)n³ operations, so that doubling n multiplies the time by 8.",
+        {
+          "example": {
+            "title": "No solution and infinitely many solutions",
+            "problem": "Classify x + y = 2, 2x + 2y = 5, and x + y = 2, 2x + 2y = 4.",
+            "solution": "In the first system, subtracting twice the first equation from the second gives 0 = 1: inconsistent, no solution (two parallel lines). In the second, the same step gives 0 = 0: the equations are the same line, y is free, and the solutions are (2 − y, y) for any y."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "After elimination a system contains the row 0x + 0y = 3. The system has",
+          "a": "no solution",
+          "wrong": [
+            "one solution",
+            "infinitely many solutions",
+            "the solution (0, 0)"
+          ]
+        },
+        {
+          "q": "Gaussian elimination on an n × n system costs about",
+          "a": "(2/3)n³ operations",
+          "wrong": [
+            "n operations",
+            "n² operations",
+            "2ⁿ operations"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "inverse-det",
+      "title": "Inverses and determinants",
+      "terms": [
+        "matrix inverse",
+        "inverse matrix",
+        "invertible matrix",
+        "singular matrix",
+        "nonsingular",
+        "determinant",
+        "determinants"
+      ],
+      "body": [
+        "A square matrix A is **invertible** if there is a matrix A⁻¹ with A⁻¹A = AA⁻¹ = I. Then Ax = b has the unique solution x = A⁻¹b. A matrix with no inverse is **singular**. Useful rules: (AB)⁻¹ = B⁻¹A⁻¹ and (Aᵀ)⁻¹ = (A⁻¹)ᵀ. For a 2 × 2 matrix,",
+        {
+          "eq": "[[a, b], [c, d]]⁻¹ = (1/(ad − bc)) [[d, −b], [−c, a]]"
+        },
+        {
+          "example": {
+            "title": "A 2 × 2 inverse",
+            "problem": "Invert A = [[2, 1], [5, 3]] and use it to solve Ax = (1, 2).",
+            "solution": "ad − bc = 6 − 5 = 1, so A⁻¹ = [[3, −1], [−5, 2]]. Check: A A⁻¹ = [[6 − 5, −2 + 2], [15 − 15, −5 + 6]] = I. Then x = A⁻¹(1, 2) = (3 − 2, −5 + 4) = (1, −1)."
+          }
+        },
+        "The **determinant** det A is a number that tests invertibility and measures volume change. For 2 × 2 it is ad − bc. For larger matrices, it is computed by elimination: det A is the product of the pivots, up to the sign changes caused by row swaps.",
+        {
+          "list": [
+            "**A is invertible if and only if det A ≠ 0.**",
+            "The linear map x ↦ Ax scales volumes by |det A|, and the sign records whether orientation is reversed. A det of 0 means the map squashes space onto a lower dimension, and information is lost.",
+            "det(AB) = det A · det B, det Aᵀ = det A, det(A⁻¹) = 1/det A, and for a triangular matrix det is the product of the diagonal.",
+            "det A is the product of the eigenvalues."
+          ]
+        },
+        {
+          "example": {
+            "title": "Determinant from pivots",
+            "problem": "Find the determinant of the coefficient matrix [[1, 1, 1], [2, 3, 1], [1, 2, 3]] from the earlier example.",
+            "solution": "The pivots found during elimination are 1, 1 and 3, so det = 1 · 1 · 3 = 3 (no row swaps). The matrix is invertible, as we saw from the unique solution."
+          }
+        },
+        {
+          "warn": "Avoid computing A⁻¹ explicitly to solve Ax = b. Solving by elimination or an LU factorization is faster and more accurate. The inverse appears in formulas such as (XᵀX)⁻¹Xᵀy, but is implemented as a solve."
+        }
+      ],
+      "check": [
+        {
+          "q": "A matrix with determinant 0 is",
+          "a": "singular (not invertible)",
+          "wrong": [
+            "orthogonal",
+            "the identity",
+            "always symmetric"
+          ]
+        },
+        {
+          "q": "det [[2, 0], [0, 5]] is",
+          "a": "10",
+          "wrong": [
+            "7",
+            "0",
+            "3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lu",
+      "title": "LU factorization",
+      "terms": [
+        "lu factorization",
+        "lu decomposition",
+        "triangular factorization",
+        "forward substitution",
+        "cholesky factorization",
+        "matrix factorization methods"
+      ],
+      "body": [
+        "Elimination can be recorded as a factorization. Gaussian elimination reduces A to an upper triangular matrix U, and the multipliers used are stored in a lower triangular matrix L with ones on its diagonal:",
+        {
+          "eq": "A = L U"
+        },
+        {
+          "example": {
+            "title": "LU of the earlier matrix",
+            "problem": "Factor A = [[1, 1, 1], [2, 3, 1], [1, 2, 3]].",
+            "solution": [
+              "In the elimination above the multipliers were 2 (for R₂ − 2R₁), 1 (for R₃ − R₁) and 1 (for R₃ − R₂). They go below the diagonal of L:",
+              {
+                "eq": [
+                  "L = [[1, 0, 0], [2, 1, 0], [1, 1, 1]]",
+                  "U = [[1, 1, 1], [0, 1, −1], [0, 0, 3]]"
+                ]
+              },
+              "Check row 2 of LU: 2(1, 1, 1) + 1(0, 1, −1) = (2, 3, 1) ✓, and row 3: (1, 1, 1) + (0, 1, −1) + (0, 0, 3) = (1, 2, 3) ✓."
+            ]
+          }
+        },
+        "To solve Ax = b, solve two triangular systems: first Ly = b by **forward substitution**, and then Ux = y by back substitution. Each costs only O(n²). The O((2/3)n³) factorization is done once, so a new right-hand side is cheap, which is useful when the same matrix is used with many b's. In practice rows are swapped for numerical stability (partial pivoting), giving PA = LU with a permutation matrix P.",
+        {
+          "list": [
+            "For a symmetric positive definite matrix, such as XᵀX or a covariance matrix, the **Cholesky factorization** A = LLᵀ is twice as fast as LU and numerically stable. It is the standard way to solve the normal equations and to sample from a multivariate Gaussian.",
+            "The determinant is the product of the diagonal of U (and the sign of P).",
+            "Orthogonal factorizations (QR, SVD) are more stable for least squares and are covered in the next chapters."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "Once A = LU is known, solving Ax = b for a new b costs",
+          "a": "O(n²), two triangular solves",
+          "wrong": [
+            "O(n³) again",
+            "O(1)",
+            "O(n⁴)"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "A vector is a list of numbers. The dot product x·y = ‖x‖‖y‖cos θ; norms ‖·‖₁, ‖·‖₂, ‖·‖_∞; triangle and Cauchy–Schwarz inequalities.",
+    "A matrix is a linear map. The product AB composes maps, costs mkn, is associative but not commutative, and (AB)ᵀ = BᵀAᵀ. View it by entries, by columns (linear combinations) or as a sum of outer products.",
+    "Gaussian elimination solves Ax = b with row operations and back substitution, at cost about (2/3)n³. Solutions may be none, one or infinitely many.",
+    "A is invertible iff det A ≠ 0; |det A| is the volume scale factor. Do not form inverses explicitly; solve.",
+    "A = LU stores elimination so that new right-hand sides cost O(n²). Cholesky A = LLᵀ is used for symmetric positive definite matrices."
+  ],
+  "problems": [
+    {
+      "q": "Solve 2x + y = 5 and x − y = 1 by elimination.",
+      "solution": "Add the equations: 3x = 6, so x = 2. Then y = x − 1 = 1.",
+      "a": "(2, 1)."
+    },
+    {
+      "q": "Compute AB and BA for A = [[1, 2, 0], [0, 1, 1]] (2 × 3) and B = [[1, 0], [2, 1], [0, 3]] (3 × 2), if defined.",
+      "solution": "AB is 2 × 2: row 1 · columns: (1·1 + 2·2 + 0, 0 + 2·1 + 0) = (5, 2); row 2: (0 + 2 + 0, 0 + 1 + 3) = (2, 4). So AB = [[5, 2], [2, 4]]. BA is 3 × 3: [[1, 2, 0], [2, 5, 1], [0, 3, 3]].",
+      "a": "AB = [[5, 2], [2, 4]]; BA = [[1, 2, 0], [2, 5, 1], [0, 3, 3]]."
+    },
+    {
+      "q": "Show that the matrix [[1, 2], [2, 4]] is singular and describe the solutions of [[1, 2], [2, 4]]x = (3, 6).",
+      "solution": "det = 4 − 4 = 0. The second equation is twice the first, so there is one independent equation x + 2y = 3 with infinitely many solutions (3 − 2y, y).",
+      "a": "Singular (det 0); infinitely many solutions on the line x + 2y = 3."
+    },
+    {
+      "q": "A and B are 2 × 2 with det A = 3 and det B = −2. Find det(AB), det(A⁻¹) and det(2A).",
+      "solution": "det(AB) = 3(−2) = −6. det(A⁻¹) = 1/3. For a 2 × 2 matrix, scaling by 2 multiplies each of the two rows by 2, so det(2A) = 2² · 3 = 12.",
+      "a": "−6, 1/3 and 12."
+    },
+    {
+      "q": "Using A = LU with L = [[1, 0], [2, 1]] and U = [[1, 3], [0, −2]], solve Ax = (1, 4).",
+      "solution": "Forward: Ly = b gives y₁ = 1 and 2y₁ + y₂ = 4, so y₂ = 2. Back: Ux = y gives −2x₂ = 2, so x₂ = −1, and x₁ + 3(−1) = 1, so x₁ = 4.",
+      "a": "x = (4, −1)."
+    }
+  ]
+}

@@ -1,0 +1,264 @@
+{
+  "id": "pca-dimensionality",
+  "view": "chapter",
+  "title": "PCA and Dimensionality Reduction",
+  "description": "Principal component analysis from variance and from reconstruction error, its SVD computation, and related methods: factor analysis, ICA, matrix factorization and nonlinear embeddings.",
+  "overview": [
+    "Data with hundreds or thousands of features often lie close to a surface of much lower dimension: neighboring pixels are nearly equal, genes act in coordinated groups, and correlated measurements repeat the same information. Finding that low-dimensional description compresses the data, removes noise, speeds up later learning, defeats the curse of dimensionality and allows us to plot data in two dimensions.",
+    "Principal component analysis (PCA) is the standard linear method. It is derived in two equivalent ways, computed with the singular value decomposition, and is the starting point for several other methods in this chapter."
+  ],
+  "objectives": [
+    "Derive PCA as variance maximization and as reconstruction error minimization, and compute it from the covariance matrix.",
+    "Compute PCA with the SVD and choose the number of components by explained variance.",
+    "Apply PCA to a small data set by hand.",
+    "State the limitations of PCA and when to standardize the data.",
+    "Describe factor analysis, ICA, matrix factorization, autoencoders and t-SNE."
+  ],
+  "sections": [
+    {
+      "id": "pca-derivation",
+      "title": "Principal component analysis",
+      "terms": [
+        "principal component analysis",
+        "pca",
+        "principal components",
+        "principal component",
+        "dimensionality reduction",
+        "covariance matrix",
+        "variance maximization",
+        "reconstruction error"
+      ],
+      "body": [
+        "Let the data x^{(1)}, …, x^{(m)} ∈ ℝⁿ be centered, so that the mean is zero (subtract the mean from every point first). Their **covariance matrix** is Σ = (1/m) Σ_i x^{(i)} x^{(i)ᵀ} = XᵀX/m, a symmetric positive semidefinite n × n matrix.",
+        "**PCA** looks for a direction u (a unit vector) along which the data vary the most. The projection of a point onto u is uᵀx, and the variance of the projections is",
+        {
+          "eq": "(1/m) Σ_i (uᵀx^{(i)})² = uᵀ Σ u"
+        },
+        "Maximize uᵀΣu subject to uᵀu = 1. With a Lagrange multiplier, ∇(uᵀΣu − λ(uᵀu − 1)) = 2Σu − 2λu = 0, so Σu = λu: u must be an eigenvector of Σ, and the variance there equals the eigenvalue λ (uᵀΣu = λuᵀu = λ). So the direction of greatest variance is the eigenvector with the largest eigenvalue. The next direction maximizes variance among those orthogonal to the first, giving the eigenvector with the second-largest eigenvalue, and so on.",
+        {
+          "key": "The principal components are the eigenvectors u₁, u₂, … of the covariance matrix, ordered by eigenvalue λ₁ ≥ λ₂ ≥ …. The eigenvalue λ_j is the variance of the data along u_j. Keeping the top k gives the k-dimensional representation z = (u₁ᵀx, …, u_kᵀx) = U_kᵀx."
+        },
+        {
+          "svg": "<svg viewBox='0 0 400 220' role='img' aria-label='Correlated 2D data with the first and second principal axes' font-family='system-ui, sans-serif' font-size='12'><g fill='currentColor'><circle cx='134' cy='179' r='3.5'/><circle cx='133' cy='155' r='3.5'/><circle cx='161' cy='160' r='3.5'/><circle cx='159' cy='139' r='3.5'/><circle cx='176' cy='136' r='3.5'/><circle cx='176' cy='113' r='3.5'/><circle cx='201' cy='123' r='3.5'/><circle cx='202' cy='104' r='3.5'/><circle cx='222' cy='108' r='3.5'/><circle cx='217' cy='83' r='3.5'/><circle cx='238' cy='85' r='3.5'/><circle cx='236' cy='63' r='3.5'/><circle cx='260' cy='69' r='3.5'/><circle cx='263' cy='48' r='3.5'/><circle cx='282' cy='52' r='3.5'/></g><defs><marker id='arr' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='7' markerHeight='7' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='currentColor'/></marker></defs><path d='M110,189 L295,25' fill='none' style='stroke:var(--accent)' stroke-width='2.5' marker-end='url(#arr)'/><path d='M200,110 L229,143' fill='none' style='stroke:var(--accent)' stroke-width='2.5' marker-end='url(#arr)' stroke-dasharray='4 2'/><g fill='currentColor'><text x='300' y='30' style='fill:var(--accent)'>u₁: most variance</text><text x='234' y='156' style='fill:var(--accent)'>u₂</text></g></svg>",
+          "caption": "The first principal component u₁ points along the direction of greatest spread. The second, u₂, is perpendicular to it and captures the remaining variance."
+        },
+        {
+          "h": "The second view: reconstruction error"
+        },
+        "Project onto the k-dimensional subspace spanned by orthonormal vectors u₁, …, u_k and map back: x̃ = Σ_{j≤k} (u_jᵀx) u_j. Minimizing the mean squared reconstruction error (1/m) Σ ‖x − x̃‖² over subspaces gives exactly the same answer. By the Pythagorean theorem, ‖x‖² = ‖x̃‖² + ‖x − x̃‖², so for centered data, minimizing the error equals maximizing the retained variance. The error of the best rank-k reconstruction is the sum of the discarded eigenvalues, Σ_{j>k} λ_j.",
+        {
+          "example": {
+            "title": "PCA on four points",
+            "problem": "The centered data are (3, 2), (−3, −2), (1, 2), (−1, −2). Find the principal components, the share of variance of the first, and the projection of (3, 2) on it.",
+            "solution": [
+              "Σ = (1/4) [[9 + 9 + 1 + 1, 6 + 6 + 2 + 2], [16, 4 + 4 + 4 + 4]] = (1/4)[[20, 16], [16, 16]] = [[5, 4], [4, 4]].",
+              "The characteristic equation λ² − 9λ + 4 = 0 gives λ = (9 ± √65)/2 = 8.531 and 0.469.",
+              "For λ₁ = 8.531, (5 − 8.531)v₁ + 4v₂ = 0, so v₂ = 0.883v₁. Normalized, u₁ = (0.750, 0.662). The second component is u₂ = (−0.662, 0.750).",
+              "The first component carries 8.531/9 = 94.8% of the total variance. The projection of (3, 2) onto u₁ is 3(0.750) + 2(0.662) = 3.57. Reducing the 2D data to this one number keeps almost all the variance."
+            ]
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "The variance of the data along the j-th principal component equals",
+          "a": "the j-th largest eigenvalue of the covariance matrix",
+          "wrong": [
+            "the j-th coordinate of the mean",
+            "the norm of the j-th data point",
+            "the number of points divided by j"
+          ]
+        },
+        {
+          "q": "Why must the data be centered before PCA?",
+          "a": "The covariance and the variance directions are defined around the mean",
+          "wrong": [
+            "Eigenvectors only exist for centered data",
+            "Centering reduces the number of components",
+            "It standardizes the variances"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pca-svd",
+      "title": "Computing PCA with the SVD",
+      "terms": [
+        "pca via svd",
+        "explained variance",
+        "explained variance ratio",
+        "scree plot",
+        "eigenfaces",
+        "whitening",
+        "low-rank approximation"
+      ],
+      "body": [
+        "Forming XᵀX squares the condition number and is wasteful when m ≪ n. Instead use the singular value decomposition (see the Mathematics book) of the centered data matrix X (m × n):",
+        {
+          "eq": "X = U Σ_s Vᵀ,    XᵀX/m = V (Σ_s²/m) Vᵀ"
+        },
+        "The columns of V are the principal components. The eigenvalues are λ_j = σ_j²/m, with σ_j the singular values. The projected data ('scores') are Z = XV_k = U_kΣ_k. The best rank-k approximation of X in the least squares sense is X_k = U_kΣ_kV_kᵀ (the Eckart–Young theorem), which is the PCA reconstruction.",
+        {
+          "h": "How many components?"
+        },
+        "The **explained variance ratio** of component j is λ_j / Σ_l λ_l. Plot the eigenvalues in decreasing order (a **scree plot**) and look for an elbow, or keep enough components to explain a target such as 90% to 95% of the total variance. Or choose k by the performance of a downstream model on a validation set.",
+        {
+          "example": {
+            "title": "Choosing k from eigenvalues",
+            "problem": "The covariance eigenvalues are 5, 3, 1, 0.5 and 0.5. How much variance do the first two components explain, and how many are needed for 90%?",
+            "solution": "The total is 10. The first component explains 50%, the first two explain 80%, and the first three explain 90%. So k = 3 reaches 90%. The reconstruction error with k = 3 is the sum of the discarded eigenvalues, 1.0, which is 10% of the total."
+          }
+        },
+        {
+          "h": "Uses"
+        },
+        {
+          "list": [
+            "**Compression**: store the k scores per point (and the shared components) instead of n numbers.",
+            "**Denoising**: noise is spread over all directions, but signal concentrates in the top components. Reconstructing from the top k removes much of the noise.",
+            "**Visualization**: plot the first two or three scores.",
+            "**Preprocessing**: decorrelated inputs for a regression or classifier, and fewer features against overfitting. **Whitening** divides each score by √λ_j, giving unit variance in every direction.",
+            "**Eigenfaces**: the principal components of face images are ghostly face-like patterns, and each face is well described by a combination of the top few hundred."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "In terms of the SVD X = UΣVᵀ of centered data, the principal components are",
+          "a": "the columns of V",
+          "wrong": ["the columns of U", "the diagonal of Σ", "the rows of X"]
+        }
+      ]
+    },
+    {
+      "id": "pca-limits",
+      "title": "Limits of PCA",
+      "terms": [
+        "limitations of pca",
+        "standardize before pca",
+        "nonlinear dimensionality reduction",
+        "kernel pca"
+      ],
+      "body": [
+        {
+          "list": [
+            "**Scale matters.** PCA maximizes variance, so a feature measured in large units dominates. Standardize each feature (mean 0, variance 1) unless the units are meaningfully comparable, as in pixels of an image.",
+            "**Variance is not relevance.** The direction of greatest variance may be unrelated to the outcome, and an important low-variance direction may be thrown away. PCA does not use labels. Supervised alternatives are linear discriminant analysis or partial least squares.",
+            "**It is linear.** Data on a curved surface (a spiral, a ring) cannot be unrolled by a linear projection. Use kernel PCA, manifold methods or autoencoders.",
+            "**Sensitivity to outliers**, which inflate variance. Robust PCA separates a low-rank matrix from sparse errors.",
+            "**Ambiguity**: components are determined up to sign, and are not unique when two eigenvalues are equal.",
+            "**Interpretability**: each component mixes all the features, so is harder to explain than an original feature. Sparse PCA constrains the loadings."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "A data set has one feature in meters (range 0 to 1) and another in millimeters (range 0 to 1000). Without standardizing, the first principal component will",
+          "a": "point almost entirely along the millimeter feature",
+          "wrong": [
+            "average the two features equally",
+            "point along the meter feature",
+            "be undefined"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "other-methods",
+      "title": "Related methods",
+      "terms": [
+        "factor analysis",
+        "probabilistic pca",
+        "independent component analysis",
+        "ica",
+        "matrix factorization",
+        "latent factor model",
+        "recommender system",
+        "autoencoder",
+        "t-sne",
+        "umap",
+        "manifold learning",
+        "singular value decomposition for recommendation"
+      ],
+      "body": [
+        {
+          "h": "Factor analysis and probabilistic PCA"
+        },
+        "Both describe the data by a generative latent variable model: x = μ + Wz + ε, where z ~ N(0, I_k) is a low-dimensional latent vector, W is an n × k loading matrix, and the noise ε ~ N(0, Ψ). In **factor analysis** Ψ is a general diagonal matrix, so each feature has its own noise level. In **probabilistic PCA** Ψ = σ²I, and the maximum likelihood solution is exactly PCA (with eigenvalues shrunk by σ²). The latent variable form can be fitted with EM, handles missing data, and gives a likelihood for model comparison.",
+        {
+          "h": "Independent component analysis"
+        },
+        "PCA finds uncorrelated directions. **ICA** finds directions that are statistically independent, which is a stronger requirement when the sources are non-Gaussian. The classic example is the cocktail party problem: several microphones each record a mixture of several speakers, and ICA recovers the individual voices. It works because mixtures tend to look more Gaussian than their sources, so maximizing non-Gaussianity separates them.",
+        {
+          "h": "Matrix factorization for recommendation"
+        },
+        "A ratings matrix R (users × items) is mostly missing. Approximate it by a low-rank product R ≈ PQᵀ, where row p_u ∈ ℝ^k describes user u and q_i ∈ ℝ^k describes item i. The predicted rating is r̂_ui = p_uᵀq_i, for example (1.2, 0.5)·(2, −1) = 2.4 − 0.5 = 1.9. The factors are found by minimizing the squared error over the observed entries plus a ridge penalty, using alternating least squares or SGD. This is the basis of collaborative filtering, and of embedding methods more widely.",
+        {
+          "h": "Autoencoders"
+        },
+        "An **autoencoder** is a neural network trained to reproduce its input through a narrow middle layer: an encoder z = f(x) and a decoder x̃ = g(z), trained to minimize ‖x − x̃‖². With linear layers and squared error, it learns the PCA subspace. With nonlinear layers it learns curved low-dimensional surfaces, and the middle layer is a learned nonlinear embedding. Denoising and variational autoencoders are described in Generative Models.",
+        {
+          "h": "t-SNE and UMAP for visualization"
+        },
+        "Nonlinear **manifold learning** methods map points to 2D so that neighbors in the original space remain neighbors. **t-SNE** converts distances to probabilities of being neighbors (Gaussian in the high-dimensional space and Student-t in the plot) and minimizes the KL divergence between the two. **UMAP** has a similar goal and is faster. They produce striking cluster plots.",
+        {
+          "warn": "t-SNE and UMAP plots are for exploration only. Distances between clusters, cluster sizes and shapes are not reliable, the result depends on hyperparameters (perplexity or number of neighbors) and on the random seed, and the methods do not give a reusable mapping for new points in the same way PCA does."
+        }
+      ],
+      "check": [
+        {
+          "q": "A linear autoencoder with squared error and a k-unit bottleneck learns",
+          "a": "the same subspace as the top k principal components",
+          "wrong": [
+            "an unrelated random subspace",
+            "the k largest data points",
+            "a nonlinear manifold"
+          ]
+        },
+        {
+          "q": "Matrix factorization of a ratings matrix predicts the rating of user u for item i as",
+          "a": "the inner product p_uᵀq_i of learned user and item vectors",
+          "wrong": [
+            "the average rating of the item only",
+            "the distance between the user and the item",
+            "the larger of the two vectors' norms"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "PCA finds orthonormal directions of greatest variance: the eigenvectors of the covariance matrix of centered data, with variances equal to the eigenvalues. Equivalently, it gives the best linear reconstruction, with error equal to the sum of discarded eigenvalues.",
+    "Compute PCA with the SVD: the components are the columns of V, λ_j = σ_j²/m, scores are XV_k. Choose k by the explained variance ratio or a scree plot.",
+    "Standardize features first. PCA is linear, unsupervised and sensitive to outliers.",
+    "Probabilistic PCA and factor analysis give PCA a latent variable form. ICA finds independent non-Gaussian sources. Matrix factorization powers recommender systems. Autoencoders generalize PCA to curved subspaces.",
+    "t-SNE and UMAP produce 2D pictures for exploration, not for measurement."
+  ],
+  "problems": [
+    {
+      "q": "A covariance matrix is [[3, 1], [1, 3]]. Find its eigenvalues and eigenvectors, and the share of variance carried by the first principal component.",
+      "solution": "The eigenvalues are 3 ± 1 = 4 and 2. For λ = 4 the eigenvector is (1, 1)/√2, and for λ = 2 it is (1, −1)/√2. The first component carries 4/6 = 66.7% of the variance.",
+      "a": "λ = 4 and 2; u₁ = (1, 1)/√2; 66.7%."
+    },
+    {
+      "q": "The centered points (2, 2), (−2, −2), (1, −1), (−1, 1) are projected onto the first principal component. Find that component and the reconstruction error of the projection on it.",
+      "solution": "Σ = (1/4)[[4 + 4 + 1 + 1, 4 + 4 − 1 − 1], [6, 10]] = [[2.5, 1.5], [1.5, 2.5]]. Eigenvalues 4 and 1, with u₁ = (1, 1)/√2. The total variance is 5, so the mean squared reconstruction error of the rank-1 projection is the discarded eigenvalue, 1.",
+      "a": "u₁ = (1, 1)/√2; mean squared error 1 (20% of the variance)."
+    },
+    {
+      "q": "A data matrix has singular values 10, 6, 2 and 1 and m = 100 points. Find the eigenvalues of the covariance matrix, and the number of components for 95% of the variance.",
+      "solution": "λ_j = σ_j²/m = 1.00, 0.36, 0.04, 0.01. The total is 1.41. Cumulative shares: 70.9%, 96.5%, 99.3%, 100%. Two components exceed 95%.",
+      "a": "λ = (1, 0.36, 0.04, 0.01); k = 2."
+    },
+    {
+      "q": "Predict the rating for a user vector p = (0.5, 1.0, −0.2) and an item vector q = (2, 1, 3).",
+      "solution": "p·q = 1.0 + 1.0 − 0.6 = 1.4.",
+      "a": "1.4."
+    },
+    {
+      "q": "Why does PCA on raw pixel intensities of images work without standardizing each pixel, while PCA on a table of age, income and height needs it?",
+      "solution": "Pixels all share the same units and scale, so differences in their variance are meaningful signal. Age, income and height have unrelated units and scales; without standardization the feature with the largest numeric range, income, would dominate the first component regardless of importance.",
+      "a": "Pixels are on a common scale; the table's features are not."
+    }
+  ]
+}

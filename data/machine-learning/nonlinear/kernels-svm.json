@@ -1,0 +1,422 @@
+{
+  "id": "kernels-svm",
+  "view": "chapter",
+  "title": "Support Vector Machines and Kernels",
+  "description": "Maximum-margin classifiers, duality, soft margins, the kernel trick and kernelized regression.",
+  "overview": [
+    "Many hyperplanes can separate two classes. Logistic regression picks one by maximum likelihood. The support vector machine (SVM) picks the one with the largest gap to the nearest training points, on the intuition that a wide margin leaves the most room for error on new data. The resulting classifier depends only on a few critical points, the support vectors.",
+    "The second idea of the chapter is the kernel trick. The SVM's solution can be written in terms of inner products between examples alone, so replacing the inner product with a kernel function lets a linear method work in an enormous (even infinite-dimensional) feature space at the cost of computing a function on pairs of examples."
+  ],
+  "objectives": [
+    "Define functional and geometric margins and write the hard-margin SVM as a constrained optimization problem.",
+    "Derive the dual problem and identify support vectors from the KKT conditions.",
+    "Write the soft-margin SVM as hinge loss with a penalty, and interpret the parameter C.",
+    "Apply the kernel trick, check that a function is a valid kernel, and use polynomial and RBF kernels.",
+    "Use kernels in other methods, such as kernel ridge regression, and tune an SVM in practice."
+  ],
+  "sections": [
+    {
+      "id": "margins",
+      "title": "Margins and the maximum-margin classifier",
+      "terms": [
+        "margin",
+        "functional margin",
+        "geometric margin",
+        "maximum-margin classifier",
+        "hard-margin svm",
+        "support vector machine",
+        "svm",
+        "separating hyperplane",
+        "kernels and support vector machines"
+      ],
+      "body": [
+        "In this chapter labels are y ∈ {−1, +1} and the classifier is f(x) = wᵀx + b, predicting the sign of f. The intercept b is written separately. The hyperplane is wᵀx + b = 0.",
+        "The **functional margin** of an example is y f(x). It is positive exactly when the example is classified correctly, and larger values signal more confidence. But multiplying (w, b) by 10 multiplies all functional margins by 10 without changing the classifier. The **geometric margin** removes that freedom by dividing by ‖w‖:",
+        {
+          "eq": "γ_i = y^{(i)} (wᵀx^{(i)} + b) / ‖w‖"
+        },
+        "It is the signed distance from the example to the hyperplane. The margin of the classifier is the smallest γ_i over the training set. For separable data the **maximum-margin classifier** chooses (w, b) to maximize it. Since scaling does not matter, fix the scale so that the closest points have functional margin exactly 1. The margin is then 1/‖w‖, the width of the margin band is 2/‖w‖, and maximizing it means minimizing ‖w‖:",
+        {
+          "eq": [
+            "minimize  ½‖w‖²",
+            "subject to  y^{(i)} (wᵀx^{(i)} + b) ≥ 1,    i = 1, …, m"
+          ]
+        },
+        "This is a convex quadratic program with a unique solution.",
+        {
+          "svg": "<svg viewBox='0 0 400 250' role='img' aria-label='Maximum margin separating line with support vectors on the margin lines' font-family='system-ui, sans-serif' font-size='12'><path d='M70,190 L350,50' fill='none' style='stroke:var(--accent)' stroke-width='2.5'/><g fill='none' stroke='currentColor' stroke-width='1.5' stroke-dasharray='5 3'><path d='M70,162 L350,22'/><path d='M70,218 L350,78'/></g><g fill='currentColor'><circle cx='150' cy='122' r='5'/><circle cx='240' cy='60' r='5'/><circle cx='300' cy='35' r='5'/><rect x='195' y='148' width='10' height='10'/><rect x='125' y='210' width='10' height='10'/><rect x='265' y='155' width='10' height='10'/><rect x='315' y='135' width='10' height='10'/><text x='20' y='240'>● class +1    ■ class −1</text><text x='84' y='110'>margin 2/‖w‖</text></g><g fill='none' stroke='currentColor' stroke-width='1.5'><circle cx='150' cy='122' r='11'/><rect x='191' y='144' width='18' height='18' rx='9'/></g><text x='164' y='100' fill='currentColor' font-size='11'>support vectors</text></svg>",
+          "caption": "The maximum-margin hyperplane (solid) has the widest band (dashed lines) free of data. Only the circled support vectors lie on the edges of the band."
+        },
+        {
+          "note": "Why a wide margin? A classifier with a large margin must put every training point far from the boundary, so small perturbations or new points near the training data are classified in the same way. Learning theory gives generalization bounds that depend on the margin, not on the dimension of the feature space."
+        }
+      ],
+      "check": [
+        {
+          "q": "If w = (3, 4), the width of the margin band when the nearest points have functional margin 1 is",
+          "a": "0.4",
+          "wrong": [
+            "5",
+            "2.5",
+            "0.2"
+          ],
+          "why": "‖w‖ = 5 and the band width is 2/‖w‖ = 0.4."
+        },
+        {
+          "q": "Why is the optimization written as minimizing ‖w‖² with margin constraints?",
+          "a": "Fixing the closest functional margin at 1 makes the geometric margin 1/‖w‖",
+          "wrong": [
+            "Smaller ‖w‖ means fewer misclassified points",
+            "It makes the problem non-convex",
+            "It sets b to zero"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "svm-dual",
+      "title": "The dual problem and support vectors",
+      "terms": [
+        "svm dual",
+        "dual problem",
+        "support vectors",
+        "support vector",
+        "lagrange multipliers",
+        "complementary slackness",
+        "kkt conditions"
+      ],
+      "body": [
+        "Introduce a Lagrange multiplier α_i ≥ 0 for each constraint (see Constrained Optimization in the Mathematics book). The Lagrangian is",
+        {
+          "eq": "L(w, b, α) = ½‖w‖² − Σ α_i [ y^{(i)}(wᵀx^{(i)} + b) − 1 ]"
+        },
+        "Setting the derivatives with respect to w and b to zero gives",
+        {
+          "eq": [
+            "w = Σ α_i y^{(i)} x^{(i)}",
+            "Σ α_i y^{(i)} = 0"
+          ]
+        },
+        "Substituting back removes w and b and leaves the **dual problem**, which depends on the data only through inner products x^{(i)}ᵀx^{(j)}:",
+        {
+          "eq": [
+            "maximize  W(α) = Σ_i α_i − ½ Σ_i Σ_j α_i α_j y^{(i)} y^{(j)} ⟨x^{(i)}, x^{(j)}⟩",
+            "subject to  α_i ≥ 0,  Σ α_i y^{(i)} = 0"
+          ]
+        },
+        "At the optimum, complementary slackness (one of the KKT conditions) says α_i [ y^{(i)}(wᵀx^{(i)} + b) − 1 ] = 0. So either α_i = 0 or the example sits exactly on the margin. The examples with α_i > 0 are the **support vectors**. All other points have no effect on the solution: remove them and the hyperplane does not change.",
+        {
+          "key": "The weight vector is a combination of the support vectors only, w = Σ_{SV} α_i y^{(i)} x^{(i)}. Prediction needs only inner products with them: f(x) = Σ_{SV} α_i y^{(i)} ⟨x^{(i)}, x⟩ + b."
+        },
+        {
+          "example": {
+            "title": "A two-point SVM",
+            "problem": "Two points in one dimension: x₁ = 0 with y₁ = −1 and x₂ = 2 with y₂ = +1. Find the maximum-margin classifier from the dual.",
+            "solution": [
+              "The equality constraint is −α₁ + α₂ = 0, so α₁ = α₂ = α. The dual objective is",
+              {
+                "eq": "W = 2α − ½ (α²)(x₂²) = 2α − 2α²"
+              },
+              "Only the cross term contributes, since x₁ = 0. Setting dW/dα = 2 − 4α = 0 gives α = 1/2. Then w = Σ α_i y_i x_i = (1/2)(1)(2) = 1. The constraint at x₂ is active: 1·(2) + b = 1 gives b = −1.",
+              "The classifier f(x) = x − 1 has boundary x = 1, midway between the points, with margin 1 on each side. Check: ½w² = 0.5 equals W(α) = 1 − 0.5 = 0.5, as strong duality requires."
+            ]
+          }
+        },
+        {
+          "h": "Solving it"
+        },
+        "The dual is a quadratic program with one linear equality constraint. The sequential minimal optimization (SMO) algorithm solves it by repeatedly optimizing the smallest possible subproblem, two α's at a time, in closed form. It is the method behind libraries such as LIBSVM. Training cost is between O(m²) and O(m³), which limits kernel SVMs to roughly 10⁵ examples."
+      ],
+      "check": [
+        {
+          "q": "A training point has α_i = 0. What can you say about it?",
+          "a": "It lies outside the margin (or on it) and does not affect the classifier",
+          "wrong": [
+            "It is misclassified",
+            "It is a support vector",
+            "It lies exactly on the decision boundary"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "soft-margin",
+      "title": "Soft margins and hinge loss",
+      "terms": [
+        "soft margin",
+        "soft-margin svm",
+        "slack variables",
+        "slack variable",
+        "hinge loss",
+        "regularization parameter c"
+      ],
+      "body": [
+        "Real data are rarely separable, and one outlier can force a hard-margin SVM to use a tiny margin or fail. The **soft-margin** SVM lets examples violate the margin, at a price. Introduce a **slack variable** ξ_i ≥ 0 for each example:",
+        {
+          "eq": [
+            "minimize  ½‖w‖² + C Σ_i ξ_i",
+            "subject to  y^{(i)}(wᵀx^{(i)} + b) ≥ 1 − ξ_i,   ξ_i ≥ 0"
+          ]
+        },
+        "The slack ξ_i is zero for a point outside the margin, between 0 and 1 for a point inside the margin but correctly classified, and above 1 for a misclassified point. Eliminating ξ shows the problem is a regularized loss minimization:",
+        {
+          "eq": "minimize  ½‖w‖² + C Σ_i max( 0, 1 − y^{(i)} f(x^{(i)}) )"
+        },
+        "The function max(0, 1 − yf) is the **hinge loss**. It is zero when the example has margin at least 1 and grows linearly when it does not. Compare it with the other classification losses as functions of the margin z = y f(x):",
+        {
+          "table": {
+            "head": [
+              "Loss",
+              "Formula",
+              "Notes"
+            ],
+            "rows": [
+              [
+                "Zero-one",
+                "1[z ≤ 0]",
+                "What we want; not convex"
+              ],
+              [
+                "Hinge",
+                "max(0, 1 − z)",
+                "SVM; convex, zero beyond the margin"
+              ],
+              [
+                "Logistic",
+                "ln(1 + e^{−z})",
+                "Logistic regression; smooth, never exactly zero"
+              ],
+              [
+                "Squared",
+                "(1 − z)²",
+                "Penalizes confident correct predictions too"
+              ]
+            ],
+            "caption": "Convex surrogates for the zero-one loss."
+          }
+        },
+        "The dual of the soft-margin problem is the same as before except that the multipliers are bounded, 0 ≤ α_i ≤ C. Points with α_i = 0 are outside the margin; points with 0 < α_i < C are on the margin; points with α_i = C violate it.",
+        {
+          "h": "The parameter C"
+        },
+        "C sets the tradeoff between a wide margin and few violations; it plays the role of 1/λ in ridge regression. A large C punishes violations heavily and produces a narrow margin that fits the training data closely (low bias, high variance). A small C allows many violations for a wide margin (high bias, low variance). Choose it by cross-validation on a log scale.",
+        {
+          "example": {
+            "title": "Hinge loss values",
+            "problem": "A classifier outputs f(x) = 0.3, 1.5, −0.5 for examples with y = +1, +1, +1. Find each hinge loss. Then find it for f = 0.3 with y = −1.",
+            "solution": "For y = +1 and f = 0.3: max(0, 1 − 0.3) = 0.7. For f = 1.5: max(0, −0.5) = 0. For f = −0.5: 1.5. For y = −1 and f = 0.3: max(0, 1 + 0.3) = 1.3."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "In the soft-margin SVM, increasing C",
+          "a": "penalizes margin violations more, producing a narrower margin and a closer fit to the training data",
+          "wrong": [
+            "widens the margin and ignores outliers",
+            "removes the support vectors",
+            "makes the data separable"
+          ]
+        },
+        {
+          "q": "A correctly classified point inside the margin has slack ξ",
+          "a": "between 0 and 1",
+          "wrong": [
+            "equal to 0",
+            "greater than 1",
+            "negative"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "kernel-trick",
+      "title": "The kernel trick",
+      "terms": [
+        "kernel",
+        "kernel trick",
+        "kernel function",
+        "mercer's theorem",
+        "gram matrix",
+        "kernel matrix",
+        "polynomial kernel",
+        "rbf kernel",
+        "gaussian kernel",
+        "radial basis function",
+        "feature space"
+      ],
+      "body": [
+        "A linear classifier cannot separate two concentric rings. After mapping each point to a feature vector φ(x), including terms such as x₁² and x₂², a linear classifier in feature space can. The cost is computing in a high-dimensional space. The dual SVM avoids it. Everything depends on the data through ⟨x^{(i)}, x^{(j)}⟩, so replace this with ⟨φ(x^{(i)}), φ(x^{(j)})⟩ = K(x^{(i)}, x^{(j)}). If K can be evaluated directly, φ never has to be computed.",
+        {
+          "eq": [
+            "Dual:  maximize  Σ α_i − ½ΣΣ α_i α_j y_i y_j K(x_i, x_j)",
+            "Prediction:  f(x) = Σ_{SV} α_i y_i K(x_i, x) + b"
+          ]
+        },
+        {
+          "example": {
+            "title": "The quadratic kernel computes an inner product in feature space",
+            "problem": "For x, z ∈ ℝ² let K(x, z) = (xᵀz)². Show that K(x, z) = ⟨φ(x), φ(z)⟩ with φ(x) = (x₁², √2 x₁x₂, x₂²), and check it for x = (1, 2) and z = (3, 1).",
+            "solution": [
+              "(xᵀz)² = (x₁z₁ + x₂z₂)² = x₁²z₁² + 2x₁x₂z₁z₂ + x₂²z₂² = ⟨φ(x), φ(z)⟩.",
+              "For the given points xᵀz = 3 + 2 = 5, so K = 25. In feature space φ(x) = (1, 2√2, 4) and φ(z) = (9, 3√2, 1), and the inner product is 9 + 12 + 4 = 25. The kernel needs 2 multiplications and a square, instead of building 3-vectors."
+            ]
+          }
+        },
+        {
+          "h": "Common kernels"
+        },
+        {
+          "table": {
+            "head": [
+              "Kernel",
+              "K(x, z)",
+              "Feature space"
+            ],
+            "rows": [
+              [
+                "Linear",
+                "xᵀz",
+                "the original space"
+              ],
+              [
+                "Polynomial",
+                "(xᵀz + c)^d",
+                "all monomials up to degree d"
+              ],
+              [
+                "RBF (Gaussian)",
+                "exp(−‖x − z‖²/(2σ²)) = exp(−γ‖x − z‖²)",
+                "infinite-dimensional"
+              ]
+            ],
+            "caption": "Kernels in common use."
+          }
+        },
+        "The RBF kernel measures similarity: it equals 1 when x = z and decays toward 0 with distance. For ‖x − z‖² = 4 and σ = 1 it is e^{−2} = 0.135. The width σ sets the scale of 'near'. A small σ (large γ) makes each training point influential only in its immediate neighborhood, giving a wiggly boundary that can overfit. A large σ gives a smooth, nearly linear boundary.",
+        {
+          "h": "Which functions are kernels?"
+        },
+        "K is a valid kernel if and only if the **Gram matrix** G_ij = K(x_i, x_j) is symmetric and positive semidefinite for every finite set of points (**Mercer's theorem**). For two points this requires K(x, x)K(z, z) ≥ K(x, z)². New kernels can be built from old ones: sums, products, positive scalings, and K(x, z) = f(x)f(z)K′(x, z) are all valid.",
+        {
+          "warn": "Kernels are not limited to vectors. There are kernels for strings, graphs and sets, which let an SVM classify objects that have no natural feature vector."
+        }
+      ],
+      "check": [
+        {
+          "q": "What does the kernel trick avoid?",
+          "a": "Computing the high-dimensional feature vectors φ(x) explicitly",
+          "wrong": [
+            "Training the model",
+            "Choosing the regularization parameter",
+            "Storing any training data"
+          ]
+        },
+        {
+          "q": "A very small RBF width σ tends to produce",
+          "a": "an overfit, wiggly decision boundary",
+          "wrong": [
+            "a nearly linear boundary",
+            "zero support vectors",
+            "an invalid kernel"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "kernel-methods",
+      "title": "Kernel methods beyond SVMs",
+      "terms": [
+        "kernel ridge regression",
+        "representer theorem",
+        "kernel methods",
+        "kernelization",
+        "kernel perceptron"
+      ],
+      "body": [
+        "The kernel trick works for any algorithm that can be written with inner products. A general reason is the **representer theorem**: for a regularized loss Σℓ(y_i, f(x_i)) + λ‖f‖², the minimizer in the feature space can be written as f(x) = Σ_i α_i K(x_i, x). The infinite-dimensional problem collapses to m coefficients.",
+        {
+          "h": "Kernel ridge regression"
+        },
+        "Ridge regression in feature space has the solution θ = Φᵀ(ΦΦᵀ + λI)⁻¹y, where ΦΦᵀ = K is the Gram matrix. The prediction is",
+        {
+          "eq": [
+            "α = (K + λI)⁻¹ y",
+            "f(x) = Σ_i α_i K(x_i, x)"
+          ]
+        },
+        {
+          "example": {
+            "title": "Kernel ridge on two points",
+            "problem": "Use the RBF kernel with K(x, x) = 1 and K(x₁, x₂) = 0.5 between two points, targets y = (1, 3), and λ = 0.5. Find α, and the prediction at a point with kernel values (0.8, 0.4) to the two training points.",
+            "solution": [
+              "K + λI = [[1.5, 0.5], [0.5, 1.5]], with determinant 2.25 − 0.25 = 2, and inverse (1/2)[[1.5, −0.5], [−0.5, 1.5]].",
+              "α = (1/2)(1.5 − 1.5, −0.5 + 4.5) = (0, 2). Then f = 0·0.8 + 2·0.4 = 0.8."
+            ]
+          }
+        },
+        {
+          "h": "Practical notes"
+        },
+        {
+          "list": [
+            "Kernel methods store and compute with the m×m Gram matrix: O(m²) memory and O(m³) time for ridge. For large m use low-rank approximations (Nyström, random Fourier features) or switch to a neural network.",
+            "Always scale the features before an RBF kernel, since the distance sums over all of them.",
+            "Tune C and γ (or σ) together on a log grid by cross-validation. Start from a wide grid, such as C ∈ {10⁻², …, 10³} and γ ∈ {10⁻⁴, …, 10¹}, then refine.",
+            "For multiple classes, use one-vs-rest or one-vs-one. Support vector regression (SVR) uses an ε-insensitive loss that ignores errors smaller than ε.",
+            "SVM outputs are scores, not probabilities. Calibrate them (Platt scaling) if probabilities are needed."
+          ]
+        },
+        {
+          "tip": "A linear SVM or logistic regression on well-chosen features is often as good as a kernel SVM and scales far better. Use an RBF kernel when the number of examples is moderate and the boundary is clearly curved."
+        }
+      ],
+      "check": [
+        {
+          "q": "The representer theorem says the minimizer of a regularized loss can be written as",
+          "a": "f(x) = Σ α_i K(x_i, x), a combination of kernels centered at the training points",
+          "wrong": [
+            "a polynomial of degree m",
+            "a function of the support vectors only for every loss",
+            "a constant function"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "The maximum-margin classifier minimizes ½‖w‖² subject to y(wᵀx + b) ≥ 1. The margin band has width 2/‖w‖.",
+    "The dual depends only on inner products, and w = Σα_i y_i x_i. Support vectors, the points with α_i > 0, lie on the margin and are the only ones that matter.",
+    "The soft-margin SVM adds slack, equivalent to hinge loss plus an L2 penalty; C trades margin width against violations, with 0 ≤ α_i ≤ C.",
+    "A kernel K(x, z) = ⟨φ(x), φ(z)⟩ replaces inner products, giving nonlinear classifiers at no extra feature cost. Valid kernels have positive semidefinite Gram matrices. The RBF kernel is the standard choice.",
+    "Kernel ridge regression, f(x) = Σα_iK(x_i, x) with α = (K + λI)⁻¹y, is a kernelized regression. Kernel methods scale as O(m²) to O(m³) in the number of examples.",
+    "Tune C and γ together by cross-validation, and scale the features."
+  ],
+  "problems": [
+    {
+      "q": "Points (1, 1) with y = +1 and (−1, −1) with y = −1. Find the hard-margin SVM from the dual solution α = (0.25, 0.25).",
+      "solution": "w = Σ α_i y_i x_i = 0.25(1)(1, 1) + 0.25(−1)(−1, −1) = (0.5, 0.5). The point (1, 1) is a support vector: wᵀx + b = 1 gives 1 + b = 1, so b = 0. Check the other point: y(wᵀx + b) = (−1)(−1) = 1. Constraint Σα y = 0.25 − 0.25 = 0 holds. The margin width is 2/‖w‖ = 2/0.707 = 2.83, the distance between the points.",
+      "a": "w = (0.5, 0.5), b = 0, margin width 2.83."
+    },
+    {
+      "q": "Compute the polynomial kernel (xᵀz + 1)² for x = (1, 2) and z = (0, 1).",
+      "solution": "xᵀz = 0 + 2 = 2, so K = (2 + 1)² = 9.",
+      "a": "9."
+    },
+    {
+      "q": "A 2×2 symmetric matrix [[1, k], [k, 1]] is a Gram matrix. For which k is it a valid kernel matrix?",
+      "solution": "Its eigenvalues are 1 ± k. Both are non-negative exactly when |k| ≤ 1.",
+      "a": "−1 ≤ k ≤ 1."
+    },
+    {
+      "q": "A soft-margin SVM has w = (2, 0), b = −1. For the examples (x, y): ((1, 5), +1), ((0.3, 2), +1), ((0, 0), −1), ((1.2, 3), −1), compute f(x), the hinge loss for each, and the total.",
+      "solution": "f = 2x₁ − 1. Example 1: f = 1, margin 1, loss 0. Example 2: f = −0.4, y f = −0.4, loss 1.4. Example 3: f = −1, y f = 1, loss 0. Example 4: f = 1.4, y f = −1.4, loss 2.4. Total 3.8.",
+      "a": "Losses 0, 1.4, 0, 2.4; total 3.8."
+    },
+    {
+      "q": "With the RBF kernel K = exp(−γ‖x − z‖²), find K for ‖x − z‖² = 4 with γ = 0.5 and with γ = 2. Which setting treats the two points as more similar?",
+      "solution": "γ = 0.5: e^{−2} = 0.135. γ = 2: e^{−8} = 0.000335. The smaller γ (wider kernel) gives larger similarity.",
+      "a": "0.135 and 0.000335; γ = 0.5."
+    }
+  ]
+}

@@ -1,0 +1,521 @@
+{
+  "id": "data-structures",
+  "view": "chapter",
+  "title": "Data Structures",
+  "description": "Arrays and linked lists, stacks and queues, hash tables, binary search trees and heaps, with their costs and where machine learning uses them.",
+  "overview": [
+    "A data structure organizes data so that the operations a program needs are fast. The same collection of numbers can be stored in an array, a hash table or a tree, and the choice decides whether looking something up takes a nanosecond or a minute. Choosing a structure is choosing which operations to make cheap.",
+    "This chapter covers the structures that every programmer uses: arrays and linked lists, stacks and queues, hash tables, search trees and heaps. For each it gives the costs, a short implementation in Python and an example where machine learning depends on it: dictionaries for vocabularies and feature hashing, heaps for beam search and top-k retrieval, trees for decision trees and spatial indices, queues for data loaders."
+  ],
+  "objectives": [
+    "State the cost of the main operations on arrays, linked lists, hash tables, binary search trees and heaps.",
+    "Implement and use stacks and queues, and recognize problems that need them.",
+    "Explain how a hash table works, how collisions are handled, and why lookup is O(1) on average.",
+    "Describe binary search trees and balanced trees, tree traversals, and the binary heap with its sift operations.",
+    "Choose the right structure for a given set of operations."
+  ],
+  "sections": [
+    {
+      "id": "arrays-lists",
+      "title": "Arrays and linked lists",
+      "terms": [
+        "linked list"
+      ],
+      "body": [
+        "An **abstract data type** (ADT) defines a collection by the operations it supports (insert, delete, find) without saying how it is stored. A **data structure** is a concrete implementation with costs.",
+        "An **array** stores items contiguously in memory, so the i-th item is found by arithmetic on its address: **random access** is O(1). Insertion or deletion in the middle requires shifting everything after it, O(n). Appending at the end is O(1) amortized for a dynamic array (see Algorithm Analysis). Arrays are cache-friendly, since neighboring items are adjacent in memory, which makes them far faster in practice than their operation counts suggest. NumPy arrays and tensors are arrays.",
+        "A **linked list** stores each item in a **node** with a **pointer** (reference) to the next node. Inserting or removing after a known node is O(1), with no shifting, but reaching the i-th item requires following i pointers, O(i), and the nodes are scattered in memory.",
+        {
+          "table": {
+            "head": [
+              "Operation",
+              "Array (dynamic)",
+              "Linked list"
+            ],
+            "rows": [
+              [
+                "Access item i",
+                "O(1)",
+                "O(i)"
+              ],
+              [
+                "Search for a value",
+                "O(n)",
+                "O(n)"
+              ],
+              [
+                "Insert/delete at the end",
+                "O(1) amortized",
+                "O(1) with a tail pointer"
+              ],
+              [
+                "Insert/delete at the front",
+                "O(n)",
+                "O(1)"
+              ],
+              [
+                "Insert/delete in the middle (position known)",
+                "O(n)",
+                "O(1)"
+              ],
+              [
+                "Memory per item",
+                "just the item",
+                "item plus pointer(s)"
+              ]
+            ],
+            "caption": "Arrays versus linked lists."
+          }
+        },
+        {
+          "code": [
+            "class Node:",
+            "    def __init__(self, value, next=None):",
+            "        self.value = value",
+            "        self.next = next",
+            "",
+            "# build 1 -> 2 -> 3",
+            "head = Node(1, Node(2, Node(3)))",
+            "",
+            "def to_list(head):",
+            "    out, node = [], head",
+            "    while node is not None:     # follow the pointers",
+            "        out.append(node.value)",
+            "        node = node.next",
+            "    return out",
+            "",
+            "to_list(head)       # [1, 2, 3]"
+          ],
+          "caption": "A singly linked list."
+        },
+        {
+          "tip": "In practice, arrays win almost always. Fast access and cache locality outweigh the cheaper insertion of linked lists, except where many insertions and deletions happen at known positions (the doubly linked list inside an LRU cache)."
+        }
+      ],
+      "check": [
+        {
+          "q": "Accessing the 500th item of a linked list takes",
+          "a": "about 500 pointer steps, O(i)",
+          "wrong": [
+            "O(1)",
+            "O(log n)",
+            "one multiplication"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "stacks-queues",
+      "title": "Stacks and queues",
+      "terms": [
+        "lifo",
+        "fifo"
+      ],
+      "body": [
+        "A **stack** is last in, first out (LIFO): push adds to the top, pop removes the top, both O(1). A **queue** is first in, first out (FIFO): enqueue adds at the back and dequeue removes from the front, O(1). A **deque** (double-ended queue) supports both ends.",
+        {
+          "code": [
+            "stack = []",
+            "stack.append(1); stack.append(2)   # push",
+            "stack.pop()                        # 2  (last in, first out)",
+            "",
+            "from collections import deque",
+            "queue = deque()",
+            "queue.append('a'); queue.append('b')   # enqueue",
+            "queue.popleft()                    # 'a' (first in, first out)"
+          ],
+          "caption": "A Python list works as a stack. Use collections.deque for a queue, because list.pop(0) is O(n)."
+        },
+        {
+          "example": {
+            "title": "Balanced parentheses",
+            "problem": "Check that brackets in an expression are balanced, such as '{[()]}' (yes) and '{[(])}' (no).",
+            "solution": [
+              "Scan the string. Push each opening bracket. For a closing bracket, pop and check that the popped bracket matches. At the end the stack must be empty.",
+              {
+                "code": [
+                  "def balanced(s):",
+                  "    pairs = {')': '(', ']': '[', '}': '{'}",
+                  "    stack = []",
+                  "    for ch in s:",
+                  "        if ch in '([{':",
+                  "            stack.append(ch)",
+                  "        elif ch in pairs:",
+                  "            if not stack or stack.pop() != pairs[ch]:",
+                  "                return False",
+                  "    return not stack"
+                ]
+              },
+              "balanced('{[()]}') is True; for '{[(])}' the ']' meets a '(' on top, so it returns False. Each character is handled once: O(n). The stack remembers the innermost unfinished bracket."
+            ]
+          }
+        },
+        {
+          "list": [
+            "**Stacks** appear in the call stack of function calls (which recursion uses, and why recursion can overflow), in undo histories, in parsing expressions, and in depth-first search.",
+            "**Queues** model waiting lines and appear in breadth-first search, task scheduling and the buffers between a data loader and a training loop, which hold prefetched batches.",
+            "A **priority queue** serves the item with the highest priority first, not the oldest. It is implemented by a heap (below) and is used in Dijkstra's algorithm, beam search and scheduling."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "Depth-first search uses a stack and breadth-first search uses a",
+          "a": "queue",
+          "wrong": [
+            "heap",
+            "hash table",
+            "linked list of lists"
+          ]
+        },
+        {
+          "q": "In Python, list.pop(0) is slow for large lists because",
+          "a": "all remaining items must shift one place, O(n)",
+          "wrong": [
+            "it sorts the list",
+            "it copies the list to disk",
+            "it follows pointers"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hash-tables",
+      "title": "Hash tables",
+      "terms": [
+        "chaining",
+        "open addressing",
+        "load factor",
+        "feature hashing",
+        "bloom filter"
+      ],
+      "body": [
+        "A **hash table** stores key–value pairs and finds a value by its key in O(1) on average, by computing where to look instead of searching. A **hash function** h maps a key to an integer, and the key is stored in slot h(key) mod M of an array with M slots. Python's dict and set are hash tables.",
+        "Because the number of possible keys exceeds the number of slots, two keys can land in the same slot: a **collision** (unavoidable by the pigeonhole principle, and common by the birthday paradox). Two standard remedies:",
+        {
+          "list": [
+            "**Chaining**: each slot holds a list of the items that hashed to it.",
+            "**Open addressing**: on a collision, probe other slots in a fixed sequence (the next slot, or a pseudo-random sequence) until a free one is found."
+          ]
+        },
+        {
+          "example": {
+            "title": "A hash table with chaining",
+            "problem": "Insert the keys 10, 22, 31, 4, 15, 28 into a table of M = 7 slots with h(k) = k mod 7. Show the table and the load factor.",
+            "solution": [
+              "10 mod 7 = 3; 22 mod 7 = 1; 31 mod 7 = 3 (collides with 10); 4 mod 7 = 4; 15 mod 7 = 1 (collides with 22); 28 mod 7 = 0.",
+              {
+                "table": {
+                  "head": [
+                    "Slot",
+                    "0",
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                    "6"
+                  ],
+                  "rows": [
+                    [
+                      "Chain",
+                      "28",
+                      "22 → 15",
+                      "—",
+                      "10 → 31",
+                      "4",
+                      "—",
+                      "—"
+                    ]
+                  ]
+                }
+              },
+              "The **load factor** is α = (number of items)/(number of slots) = 6/7 = 0.86, and the average chain length is α. A lookup costs O(1 + α)."
+            ]
+          }
+        },
+        "If the hash function spreads keys evenly, a lookup, insert or delete costs O(1 + α) on average. The table is kept efficient by resizing (doubling M and rehashing everything) whenever α passes a threshold such as 0.75, which costs O(1) amortized per insertion. A poor hash function, for example one that maps all keys to a few slots, degrades the table to O(n). Python uses randomized hashes for strings so that an adversary cannot easily cause collisions.",
+        {
+          "code": [
+            "def two_sum(nums, target):",
+            "    \"\"\"Return indices i < j with nums[i] + nums[j] == target, in O(n).\"\"\"",
+            "    seen = {}                        # value -> index",
+            "    for j, x in enumerate(nums):",
+            "        if target - x in seen:       # O(1) lookup",
+            "            return seen[target - x], j",
+            "        seen[x] = j",
+            "    return None",
+            "",
+            "two_sum([2, 7, 11, 15], 9)           # (0, 1)"
+          ],
+          "caption": "A hash table turns an O(n²) search over pairs into an O(n) pass."
+        },
+        {
+          "h": "Hashing in machine learning"
+        },
+        {
+          "list": [
+            "**Vocabularies**: a dictionary maps each word or token to an integer id (and back).",
+            "**Feature hashing** (the hashing trick): map features to indices of a fixed-size vector by h(feature) mod M, with no dictionary at all. It handles huge or unbounded feature spaces (every word pair, every URL) in fixed memory, at the price of occasional collisions.",
+            "**Bloom filters** answer 'have I seen this?' using a few hash functions and a bit array: no false negatives, a controllable rate of false positives. They deduplicate large corpora cheaply.",
+            "**Locality-sensitive hashing** uses hash functions for which similar items collide, to find approximate nearest neighbors (see Nearest Neighbors)."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "For a hash table with 100 slots and 250 stored items (chaining), the load factor and average chain length are",
+          "a": "2.5 each",
+          "wrong": [
+            "0.4 each",
+            "250 and 100",
+            "1 and 2.5"
+          ]
+        },
+        {
+          "q": "Hash table lookups are O(1) on average only if",
+          "a": "the hash function spreads the keys evenly and the table is resized as it fills",
+          "wrong": [
+            "the keys are sorted",
+            "no two keys ever collide",
+            "the table has exactly one slot"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "trees-heaps",
+      "title": "Binary search trees and heaps",
+      "terms": [
+        "binary search tree",
+        "bst",
+        "balanced tree",
+        "avl tree",
+        "red-black tree",
+        "b-tree",
+        "inorder traversal",
+        "binary heap",
+        "heapify",
+        "heapsort",
+        "sift down"
+      ],
+      "body": [
+        "A **binary search tree** (BST) stores keys in nodes so that for every node, all keys in its left subtree are smaller and all in its right subtree are larger. Searching compares the target with the root and goes left or right, discarding half of the remaining tree, like binary search. The cost is O(h), proportional to the tree's **height** h.",
+        {
+          "code": [
+            "class BST:",
+            "    def __init__(self, key):",
+            "        self.key, self.left, self.right = key, None, None",
+            "",
+            "    def insert(self, key):",
+            "        if key < self.key:",
+            "            if self.left is None: self.left = BST(key)",
+            "            else: self.left.insert(key)",
+            "        else:",
+            "            if self.right is None: self.right = BST(key)",
+            "            else: self.right.insert(key)",
+            "",
+            "    def contains(self, key):",
+            "        if key == self.key: return True",
+            "        child = self.left if key < self.key else self.right",
+            "        return child is not None and child.contains(key)",
+            "",
+            "    def inorder(self):                  # left, node, right: sorted order",
+            "        if self.left:  yield from self.left.inorder()",
+            "        yield self.key",
+            "        if self.right: yield from self.right.inorder()",
+            "",
+            "root = BST(5)",
+            "for k in [3, 8, 1, 4]: root.insert(k)",
+            "list(root.inorder())      # [1, 3, 4, 5, 8]"
+          ],
+          "caption": "A binary search tree. An in-order traversal visits the keys in sorted order."
+        },
+        "If the keys arrive in random order the height is about 2 log₂ n, so operations are O(log n). But inserting 1, 2, 3, 4, 5 in sorted order builds a chain of height 4, and every operation takes O(n). **Self-balancing trees** (AVL trees, red-black trees) rotate nodes after insertions to keep the height O(log n), guaranteeing O(log n) search, insert and delete. **B-trees**, which have many keys per node, are the structure behind database indexes and file systems, because one node matches one disk block.",
+        {
+          "list": [
+            "**Traversals** visit every node: pre-order (node, left, right), in-order (left, node, right), post-order (left, right, node) and level-order (by depth, using a queue). Post-order evaluates an expression tree or backpropagates through a tree; pre-order copies a tree.",
+            "Compared with a hash table, a BST keeps keys **ordered**: it supports range queries ('all keys between 10 and 20'), predecessor and successor, and sorted iteration, which a hash table does not."
+          ]
+        },
+        {
+          "h": "The binary heap and priority queues"
+        },
+        "A **binary heap** is a complete binary tree stored in an array, in which every node is no larger than its children (a min-heap). The smallest item is always at the root. The children of the item at index i are at 2i + 1 and 2i + 2, and its parent at (i − 1)//2, so no pointers are needed.",
+        {
+          "list": [
+            "**Insert**: put the item at the end and **sift up** (swap with its parent while it is smaller): O(log n).",
+            "**Extract-min**: take the root, move the last item to the root, and **sift down** (swap with the smaller child while larger): O(log n).",
+            "**Peek** at the minimum: O(1). **Build a heap** from n items by sifting down from the middle: O(n)."
+          ]
+        },
+        {
+          "example": {
+            "title": "Heap operations",
+            "problem": "Insert 5, 3, 8, 1 into an empty min-heap, then extract the minimum.",
+            "solution": "Insert 5: [5]. Insert 3: appended as [5, 3], swapped with its parent: [3, 5]. Insert 8: [3, 5, 8]. Insert 1: appended at index 3 as [3, 5, 8, 1]; its parent is index 1 (value 5), swap → [3, 1, 8, 5]; its parent is index 0 (value 3), swap → [1, 3, 8, 5]. Extract-min returns 1 and moves the last item 5 to the root: [5, 3, 8]; the smaller child 3 is below 5, so swap → [3, 5, 8]."
+          }
+        },
+        {
+          "code": [
+            "import heapq",
+            "",
+            "h = []",
+            "for x in [5, 3, 8, 1]:",
+            "    heapq.heappush(h, x)",
+            "heapq.heappop(h)              # 1",
+            "",
+            "# The 3 largest of a long stream, in O(n log 3):",
+            "heapq.nlargest(3, [7, 2, 9, 4, 11, 6])   # [11, 9, 7]"
+          ],
+          "caption": "Python's heapq module implements a min-heap on a list."
+        },
+        "Heaps give **heapsort** (build a heap, then repeatedly extract the minimum: O(n log n), in place) and priority queues. In machine learning, a heap of size k holds the best k candidates in **beam search** over a language model's outputs, and tracks the top-k results of a similarity search, and the priority queue drives Dijkstra's shortest paths and A* search."
+      ],
+      "check": [
+        {
+          "q": "In a min-heap stored in an array, the parent of the item at index 5 is at index",
+          "a": "2",
+          "wrong": [
+            "1",
+            "3",
+            "10"
+          ],
+          "why": "(5 − 1)//2 = 2."
+        },
+        {
+          "q": "Inserting keys in sorted order into a plain (unbalanced) BST produces",
+          "a": "a chain of height n − 1, with O(n) operations",
+          "wrong": [
+            "a perfectly balanced tree",
+            "a heap",
+            "a hash table"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "choosing-structure",
+      "title": "Choosing a data structure",
+      "terms": [
+        "union-find",
+        "disjoint set",
+        "inverted index"
+      ],
+      "body": [
+        "Pick the structure whose cheap operations are the ones you need most.",
+        {
+          "table": {
+            "head": [
+              "Need",
+              "Structure",
+              "Cost"
+            ],
+            "rows": [
+              [
+                "Index by position, scan, vector math",
+                "array",
+                "O(1) access"
+              ],
+              [
+                "Look up by key, count, deduplicate",
+                "hash table (dict, set)",
+                "O(1) average"
+              ],
+              [
+                "Keep keys sorted; range queries",
+                "balanced BST / B-tree",
+                "O(log n)"
+              ],
+              [
+                "Repeatedly take the smallest/largest",
+                "heap",
+                "O(log n) per operation"
+              ],
+              [
+                "Process in arrival order; BFS",
+                "queue (deque)",
+                "O(1)"
+              ],
+              [
+                "Undo, backtracking, DFS",
+                "stack",
+                "O(1)"
+              ],
+              [
+                "Nearest neighbor in low dimension",
+                "k-d tree, ball tree",
+                "about O(log n) query"
+              ],
+              [
+                "Which document contains a word?",
+                "inverted index (dict from word to list of documents)",
+                "proportional to the matches"
+              ]
+            ],
+            "caption": "Matching needs to structures."
+          }
+        },
+        {
+          "list": [
+            "A **trie** stores strings by their characters along a path from the root, so that all words with a common prefix share nodes. It supports autocomplete and fast prefix search, and underlies the tokenizers of language models.",
+            "**Union–find** (disjoint sets) maintains a partition of items into groups, with near-constant-time 'union two groups' and 'are these in the same group?'. It is used in clustering (Kruskal's minimum spanning tree and single-linkage clustering) and connected components.",
+            "**Composite structures** are common: an LRU cache combines a hash table (fast lookup) with a doubly linked list (fast reordering); a dictionary of lists represents a graph; an inverted index is a hash table of sorted lists."
+          ]
+        },
+        {
+          "example": {
+            "title": "Top-k of a stream",
+            "problem": "You must report the k = 5 highest-scoring items from a stream of 10⁸ scores. Compare sorting everything with using a heap.",
+            "solution": "Sorting costs O(n log n) time and needs all n scores in memory. A min-heap of size k = 5 keeps the best 5 seen so far: each new score is compared with the heap's minimum, and replaces it (O(log k)) if larger. The total is O(n log k), with O(k) memory: here about 2 comparisons per item instead of 26, and constant memory."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "To keep the k largest of a stream of n values, the best structure is",
+          "a": "a min-heap of size k",
+          "wrong": [
+            "a sorted array of size n",
+            "a hash table",
+            "a stack"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Arrays give O(1) access and are cache-friendly. Dynamic arrays append in O(1) amortized. Linked lists insert in O(1) at a known node but access in O(i).",
+    "Stacks are LIFO and queues are FIFO, both O(1). Stacks power recursion and DFS; queues power BFS and data pipelines; a priority queue serves the smallest item first.",
+    "A hash table maps keys to slots by a hash function: O(1) on average with chaining or open addressing and resizing at a load factor threshold. Machine learning uses dictionaries for vocabularies, feature hashing, Bloom filters and LSH.",
+    "A BST gives O(h) search, which is O(log n) when balanced (AVL, red-black, B-trees) and O(n) when degenerate; in-order traversal is sorted. A binary heap stores a complete tree in an array with O(log n) insert and extract-min and O(n) build; it implements priority queues, top-k and heapsort.",
+    "Match the structure to the operations: hash for lookup, tree for order, heap for extremes, queue and stack for processing order."
+  ],
+  "problems": [
+    {
+      "q": "Insert the keys 12, 5, 18, 3, 7 in this order into a BST. Give the in-order traversal and the height (in edges).",
+      "solution": "12 is the root; 5 goes left; 18 goes right; 3 goes left of 5; 7 goes right of 5. In-order: 3, 5, 7, 12, 18. Height: the longest root-to-leaf path is 12 → 5 → 3 (2 edges).",
+      "a": "3, 5, 7, 12, 18; height 2."
+    },
+    {
+      "q": "A hash table with M = 11 slots uses h(k) = k mod 11 with chaining. Insert 15, 26, 37, 4. Which keys collide?",
+      "solution": "15 mod 11 = 4; 26 mod 11 = 4; 37 mod 11 = 4; 4 mod 11 = 4. All four keys land in slot 4 and form a chain of length 4, a worst case: lookups cost O(n). This is why the hash function must spread the keys well; here the keys differ by multiples of 11.",
+      "a": "All four collide in slot 4."
+    },
+    {
+      "q": "Starting with the min-heap [2, 5, 4, 9, 7], insert 1 and give the resulting array.",
+      "solution": "Append 1 at index 5: [2, 5, 4, 9, 7, 1]. Its parent is index 2 (4): swap → [2, 5, 1, 9, 7, 4]. Its parent is index 0 (2): swap → [1, 5, 2, 9, 7, 4].",
+      "a": "[1, 5, 2, 9, 7, 4]."
+    },
+    {
+      "q": "How many comparisons does a heap of size k = 10 use to process a stream of 10⁶ items in the worst case, as an order of magnitude, compared with sorting?",
+      "solution": "Each item needs at most one comparison with the root and, if it replaces the root, about log₂ 10 ≈ 3 sift steps: around 4 × 10⁶ operations. Sorting costs about 10⁶ log₂ 10⁶ ≈ 2 × 10⁷ and needs all the data in memory.",
+      "a": "About 4 × 10⁶ for the heap versus 2 × 10⁷ for sorting."
+    },
+    {
+      "q": "Why is a BST better than a hash table for finding all keys between 100 and 200?",
+      "solution": "A BST keeps the keys ordered: find 100 in O(log n) and walk in-order until 200, in time O(log n + r) for r results. A hash table scatters keys with no order and would need a full scan, O(n).",
+      "a": "The BST keeps keys in order, so range queries are efficient."
+    }
+  ]
+}

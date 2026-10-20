@@ -5,7 +5,7 @@ let errors = 0;
 const fail = (msg) => { console.error(`  ✗ ${msg}`); errors++; };
 const readJSON = async (path) => JSON.parse(await readFile(`data/${path}`, 'utf8'));
 
-const BLOCKS = ['h', 'eq', 'list', 'facts', 'eqs', 'def', 'table', 'svg', 'example', 'key', 'warn', 'tip', 'note'];
+const BLOCKS = ['h', 'code', 'eq', 'list', 'facts', 'eqs', 'def', 'table', 'svg', 'example', 'key', 'warn', 'tip', 'note'];
 
 function checkBlocks(blocks, where) {
   for (const b of [].concat(blocks ?? [])) {
@@ -118,7 +118,7 @@ for (const bookPath of manifest.books) {
 
     const claim = (s) => {
       for (const t of [s.title, ...(s.terms ?? [])]) {
-        const k = String(t).toLowerCase();
+        const k = `${book.id}:${String(t).toLowerCase()}`;
         if (termOwners.has(k) && termOwners.get(k) !== `${d.id}/${s.id}`) notes.push(`"${t}": ${termOwners.get(k)} (used) vs ${d.id}/${s.id}`);
         else termOwners.set(k, `${d.id}/${s.id}`);
       }

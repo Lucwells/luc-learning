@@ -1,0 +1,439 @@
+{
+  "id": "evaluation",
+  "view": "chapter",
+  "title": "Evaluating Models",
+  "description": "Metrics for classification and regression, ROC and precision–recall curves, imbalanced data, calibration, and the uncertainty in an evaluation.",
+  "overview": [
+    "A model is only as good as the measurement used to judge it. Accuracy, the fraction of correct predictions, looks natural and is often misleading: a model that always predicts the majority class can be 99% accurate on rare-disease data and useless. The right metric depends on what mistakes cost.",
+    "This chapter introduces the standard metrics, the curves that show a classifier across all its thresholds, the treatment of imbalanced classes and probability calibration, and the statistics of how much an estimate of performance can be trusted."
+  ],
+  "objectives": [
+    "Compute accuracy, precision, recall, specificity and F1 from a confusion matrix, and choose among them for a given problem.",
+    "Construct an ROC curve and compute AUC, and explain its probabilistic meaning.",
+    "Handle imbalanced classes with appropriate metrics, weights and thresholds.",
+    "Compute and interpret MSE, RMSE, MAE and R² for regression, and log loss and calibration for probabilistic predictions.",
+    "Put a confidence interval on a test-set accuracy and decide how large a test set must be."
+  ],
+  "sections": [
+    {
+      "id": "confusion",
+      "title": "The confusion matrix and its metrics",
+      "terms": [
+        "confusion matrix",
+        "accuracy",
+        "precision",
+        "recall",
+        "sensitivity",
+        "specificity",
+        "f1 score",
+        "false positive",
+        "false negative",
+        "true positive",
+        "true negative",
+        "evaluating models"
+      ],
+      "body": [
+        "For a binary classifier with a positive and a negative class, every prediction falls into one of four cells.",
+        {
+          "table": {
+            "head": [
+              "",
+              "Predicted positive",
+              "Predicted negative"
+            ],
+            "rows": [
+              [
+                "Actually positive",
+                "True positive (TP)",
+                "False negative (FN)"
+              ],
+              [
+                "Actually negative",
+                "False positive (FP)",
+                "True negative (TN)"
+              ]
+            ],
+            "caption": "The confusion matrix."
+          }
+        },
+        {
+          "eqs": [
+            [
+              "accuracy = (TP + TN) / (TP + TN + FP + FN)",
+              "fraction of all predictions that are correct"
+            ],
+            [
+              "precision = TP / (TP + FP)",
+              "of the examples called positive, the fraction that are"
+            ],
+            [
+              "recall = sensitivity = TP / (TP + FN)",
+              "of the actual positives, the fraction found"
+            ],
+            [
+              "specificity = TN / (TN + FP)",
+              "of the actual negatives, the fraction correctly rejected"
+            ],
+            [
+              "F1 = 2PR / (P + R) = 2TP / (2TP + FP + FN)",
+              "harmonic mean of precision P and recall R"
+            ]
+          ]
+        },
+        "Precision answers: when the model raises an alarm, how often is it right? Recall answers: how many of the real cases does it catch? They pull against each other. A model that flags everything has perfect recall and poor precision, and a model that flags only the most certain cases has high precision and poor recall. The F1 score is the harmonic mean, which stays low unless both are high.",
+        {
+          "example": {
+            "title": "A disease screening test",
+            "problem": "Of 1000 patients, 60 have the disease. The test gives TP = 40, FN = 20, FP = 10, TN = 930. Compute accuracy, precision, recall, specificity and F1. Compare accuracy with a rule that always says healthy.",
+            "solution": [
+              {
+                "eq": [
+                  "accuracy = (40 + 930)/1000 = 0.970",
+                  "precision = 40/(40 + 10) = 0.800",
+                  "recall = 40/(40 + 20) = 0.667",
+                  "specificity = 930/(930 + 10) = 0.989",
+                  "F1 = 2(40)/(2(40) + 10 + 20) = 80/110 = 0.727"
+                ]
+              },
+              "The always-healthy rule has TP = 0 and TN = 940, so its accuracy is 940/1000 = 0.94. The test's 0.97 looks like a small gain over it, but the test finds two-thirds of the sick patients and the rule finds none. Accuracy hides this; recall exposes it."
+            ]
+          }
+        },
+        {
+          "h": "Choosing a metric"
+        },
+        {
+          "list": [
+            "When a miss is costly (cancer screening, fraud, safety), prioritize **recall** and accept more false alarms.",
+            "When a false alarm is costly (blocking a legitimate email, an unnecessary surgery), prioritize **precision**.",
+            "When both matter and classes are skewed, use **F1**, or the F-beta score F_β = (1 + β²)PR / (β²P + R), which weights recall β times as much as precision.",
+            "With more than two classes, compute the metric per class, then average: **macro** average (each class equal) or **micro** average (each example equal)."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "TP = 30, FP = 10, FN = 20, TN = 140. What is the precision?",
+          "a": "0.75",
+          "wrong": [
+            "0.60",
+            "0.80",
+            "0.86"
+          ],
+          "why": "Precision = TP/(TP + FP) = 30/40 = 0.75. Recall would be 30/50 = 0.60."
+        },
+        {
+          "q": "A spam filter must almost never block a legitimate email. Which metric should be held high?",
+          "a": "Precision on the spam class",
+          "wrong": [
+            "Recall on the spam class",
+            "Accuracy only",
+            "Specificity on the legitimate class can be ignored"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "roc",
+      "title": "Thresholds, ROC curves and AUC",
+      "terms": [
+        "decision threshold",
+        "roc curve",
+        "roc",
+        "auc",
+        "area under the curve",
+        "precision-recall curve",
+        "precision–recall curve",
+        "true positive rate",
+        "false positive rate"
+      ],
+      "body": [
+        "Most classifiers output a score s(x), such as a probability, and predict positive when s(x) exceeds a **threshold** τ. Moving τ trades false positives for false negatives. The confusion matrix and everything derived from it depend on the choice of τ.",
+        "The **ROC curve** (receiver operating characteristic) traces the whole tradeoff. For each threshold it plots the **true positive rate** (TPR = recall) against the **false positive rate** (FPR = FP / (FP + TN) = 1 − specificity). A random classifier gives the diagonal. A perfect one reaches the top-left corner.",
+        {
+          "svg": "<svg viewBox='0 0 340 270' role='img' aria-label='ROC curve for six scored examples rising above the diagonal' font-family='system-ui, sans-serif' font-size='12'><g fill='none' stroke='currentColor' stroke-width='1.5'><path d='M60,220 H300 M60,220 V20'/></g><path fill='none' stroke='currentColor' stroke-width='1' stroke-dasharray='4 3' opacity='.55' d='M60,220 L300,20'/><path fill='none' style='stroke:var(--accent)' stroke-width='2.5' d='M60,220 L60,153.3 L140,153.3 L140,20 L300,20'/><g fill='currentColor'><text x='180' y='252' text-anchor='middle'>false positive rate</text><text x='54' y='224' text-anchor='end'>0</text><text x='54' y='26' text-anchor='end'>1</text><text x='300' y='238' text-anchor='middle'>1</text><text x='62' y='14'>true positive rate</text><text x='200' y='170'>random</text></g></svg>",
+          "caption": "ROC curve for the six scored examples in the worked example. The area under it is 7/9."
+        },
+        "The **area under the ROC curve** (AUC) summarizes the curve in one number from 0.5 (random) to 1 (perfect). It has a direct meaning: AUC is the probability that a randomly chosen positive example receives a higher score than a randomly chosen negative one. It measures ranking quality and does not depend on any threshold or on the class balance.",
+        {
+          "example": {
+            "title": "AUC by counting pairs",
+            "problem": "Three positives have scores 0.9, 0.7, 0.4 and three negatives have scores 0.8, 0.3, 0.2. Find the AUC.",
+            "solution": [
+              "There are 3 × 3 = 9 positive–negative pairs. Count those in which the positive scores higher.",
+              "Positive 0.9 beats all three negatives (3). Positive 0.7 beats 0.3 and 0.2 but not 0.8 (2). Positive 0.4 beats 0.3 and 0.2 (2).",
+              {
+                "eq": "AUC = (3 + 2 + 2)/9 = 7/9 ≈ 0.778"
+              }
+            ]
+          }
+        },
+        {
+          "h": "Precision–recall curves"
+        },
+        "When positives are rare, the false positive rate can look tiny even when the false positives outnumber the true ones: 100 false alarms among 100,000 negatives is an FPR of 0.001. The **precision–recall curve** plots precision against recall across thresholds and reflects this problem directly. For imbalanced tasks, report the area under the precision–recall curve (average precision) alongside, or instead of, ROC AUC.",
+        {
+          "h": "Choosing the operating point"
+        },
+        "The curve gives the options, but a deployed model uses one threshold. Select it from the cost of each kind of error. If a false negative costs c_FN and a false positive costs c_FP, the best threshold on a calibrated probability p is to predict positive when p > c_FP / (c_FP + c_FN)."
+      ],
+      "check": [
+        {
+          "q": "An AUC of 0.5 means",
+          "a": "The classifier ranks positives above negatives no better than chance",
+          "wrong": [
+            "The classifier is correct half of the time at every threshold",
+            "Half of the positives are lost",
+            "The classifier is perfectly calibrated"
+          ]
+        },
+        {
+          "q": "False negatives cost 9 times as much as false positives. With calibrated probabilities, predict positive when p exceeds",
+          "a": "0.1",
+          "wrong": [
+            "0.5",
+            "0.9",
+            "0.01"
+          ],
+          "why": "c_FP/(c_FP + c_FN) = 1/(1 + 9) = 0.1."
+        }
+      ]
+    },
+    {
+      "id": "imbalance",
+      "title": "Imbalanced classes",
+      "terms": [
+        "class imbalance",
+        "imbalanced data",
+        "imbalanced classes",
+        "class weights",
+        "oversampling",
+        "undersampling",
+        "base rate"
+      ],
+      "body": [
+        "Fraud, defects, rare diseases and clicks on ads all have a positive class that is a tiny fraction of the data. Three things go wrong with default practice.",
+        {
+          "list": [
+            "Accuracy rewards ignoring the minority class.",
+            "Training objectives, which average over examples, are dominated by the majority class, so the model has little incentive to find the minority.",
+            "Metrics such as precision depend on the **base rate** (the share of positives). A test with 99% sensitivity and 99% specificity for a disease that affects 1 in 1000 people has a precision of only about 9%."
+          ]
+        },
+        {
+          "example": {
+            "title": "Why a good test gives mostly false alarms",
+            "problem": "A disease has prevalence 0.1%. A test has sensitivity 0.99 and specificity 0.99. Of 100,000 people, how many test positive, and what fraction of those are sick?",
+            "solution": [
+              "There are 100 sick people and 99,900 healthy people. True positives: 0.99 × 100 = 99. False positives: 0.01 × 99,900 = 999.",
+              {
+                "eq": "precision = 99/(99 + 999) = 0.090"
+              },
+              "About 91% of positive results are false alarms, because healthy people so greatly outnumber sick people. This is Bayes' rule at work (see Probability)."
+            ]
+          }
+        },
+        {
+          "h": "Remedies"
+        },
+        {
+          "list": [
+            "**Use the right metrics**: precision, recall, F1 and average precision, not accuracy.",
+            "**Class weights**: multiply the loss on minority examples by a weight, usually the inverse class frequency. This changes what the objective rewards without touching the data.",
+            "**Resampling**: oversample the minority class (duplicate or synthesize examples) or undersample the majority. Resample only the training folds, never the validation or test data.",
+            "**Move the threshold**: train normally, then choose the threshold on a validation set to reach the target precision or recall.",
+            "**Collect more minority examples**, or use anomaly detection when positives are too rare to learn from."
+          ]
+        },
+        {
+          "warn": "If you reweight or resample the classes, the predicted probabilities no longer match the real base rate. Recalibrate them before using the numbers as probabilities."
+        }
+      ],
+      "check": [
+        {
+          "q": "Why does precision fall as a condition becomes rarer, with sensitivity and specificity fixed?",
+          "a": "The false positives come from a much larger group of negatives",
+          "wrong": [
+            "Sensitivity drops automatically",
+            "Specificity drops automatically",
+            "The model changes its threshold"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "regression-metrics",
+      "title": "Regression and probabilistic metrics",
+      "terms": [
+        "mean squared error",
+        "root mean squared error",
+        "mean absolute error",
+        "r-squared",
+        "coefficient of determination",
+        "log loss",
+        "calibration",
+        "brier score",
+        "calibrated"
+      ],
+      "body": [
+        "For a regression model with predictions ŷ_i and targets y_i over m examples:",
+        {
+          "eqs": [
+            [
+              "MSE = (1/m) Σ (y_i − ŷ_i)²",
+              "mean squared error; penalizes large errors heavily"
+            ],
+            [
+              "RMSE = √MSE",
+              "same units as y"
+            ],
+            [
+              "MAE = (1/m) Σ |y_i − ŷ_i|",
+              "mean absolute error; less sensitive to outliers"
+            ],
+            [
+              "R² = 1 − Σ (y_i − ŷ_i)² / Σ (y_i − ȳ)²",
+              "fraction of the variance of y that the model explains"
+            ]
+          ]
+        },
+        "R² compares the model with the baseline that always predicts the mean ȳ. R² = 1 is perfect, R² = 0 matches the baseline, and R² can be negative on held-out data when the model is worse than the baseline.",
+        {
+          "example": {
+            "title": "Regression metrics",
+            "problem": "Targets are 3, 5, 7, 9 and predictions are 2.5, 5.5, 6.5, 9.5. Compute MSE, RMSE, MAE and R².",
+            "solution": [
+              "The errors are all ±0.5, so squared errors sum to 4(0.25) = 1.",
+              {
+                "eq": [
+                  "MSE = 1/4 = 0.25",
+                  "RMSE = 0.5",
+                  "MAE = 0.5",
+                  "ȳ = 6, Σ(y − ȳ)² = 9 + 1 + 1 + 9 = 20",
+                  "R² = 1 − 1/20 = 0.95"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "h": "Evaluating probabilities"
+        },
+        "Many classifiers output a probability p̂ that the label is 1. The **log loss** (cross-entropy) scores the probabilities themselves:",
+        {
+          "eq": "log loss = −(1/m) Σ [ y_i ln p̂_i + (1 − y_i) ln(1 − p̂_i) ]"
+        },
+        "A confident wrong answer is punished severely: with y = 1, p̂ = 0.8 costs −ln 0.8 = 0.223, while y = 0 with p̂ = 0.8 costs −ln 0.2 = 1.609. The **Brier score** is the mean squared error between p̂ and the 0/1 outcome and is bounded, which makes it less sensitive to extreme errors.",
+        "A model is **calibrated** if, among all examples assigned probability p̂, a fraction p̂ are in fact positive. A weather forecast that says 70% on days when it rains 70% of the time is calibrated. Plot the observed frequency against the predicted probability in bins to see the **reliability diagram**. Calibration matters whenever the probability feeds a decision. Overconfident networks can be fixed with a one-parameter rescaling (temperature scaling) or isotonic regression fit on validation data."
+      ],
+      "check": [
+        {
+          "q": "A regression model has R² = −0.2 on test data. This means",
+          "a": "It predicts worse than always guessing the test mean",
+          "wrong": [
+            "It explains 20% of the variance",
+            "Its predictions are negatively correlated with the target",
+            "The metric is undefined"
+          ]
+        },
+        {
+          "q": "Which metric is less affected by one huge outlier error?",
+          "a": "MAE",
+          "wrong": [
+            "MSE",
+            "RMSE",
+            "The sum of squared errors"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "uncertainty",
+      "title": "How sure is the estimate?",
+      "terms": [
+        "test set size",
+        "confidence interval for accuracy",
+        "comparing models",
+        "evaluation uncertainty"
+      ],
+      "body": [
+        "A test-set accuracy is itself an estimate from a finite sample. If the true accuracy is p and the m test examples are independent, the number of correct predictions is Binomial(m, p), and the observed accuracy p̂ has standard error",
+        {
+          "eq": "SE = √( p̂ (1 − p̂) / m )"
+        },
+        "An approximate 95% confidence interval is p̂ ± 1.96 SE.",
+        {
+          "example": {
+            "title": "Confidence interval for accuracy",
+            "problem": "A model classifies 340 of 400 test examples correctly. Give a 95% confidence interval for its accuracy, and find how many test examples are needed for a half-width of 1% when the accuracy is near 0.90.",
+            "solution": [
+              "p̂ = 340/400 = 0.85 and SE = √(0.85 × 0.15/400) = 0.0179. The interval is 0.85 ± 1.96 × 0.0179 = 0.85 ± 0.035, or [0.815, 0.885].",
+              "For a half-width of 0.01 with p ≈ 0.9: 1.96 √(0.9 × 0.1/m) = 0.01 gives m = 1.96² × 0.09/0.0001 = 3457."
+            ]
+          }
+        },
+        "This calculation explains why differences of a percentage point between two models on a few hundred test examples mean nothing. When comparing two models, test them on the same examples and look at the examples where they disagree; a paired test, such as McNemar's test, uses only those. Repeating training with different random seeds and splits shows a second source of variance, in the model itself.",
+        {
+          "h": "Hyperparameter search and experiment hygiene"
+        },
+        {
+          "list": [
+            "**Grid search** tries every combination from a fixed grid. **Random search** samples combinations at random, and is more efficient when only a few hyperparameters matter, because it tries more distinct values of each.",
+            "Search learning rates and penalty strengths on a log scale.",
+            "Always compare against a simple baseline, and against the same model with one component removed (an **ablation**) to see what each part contributes.",
+            "Do **error analysis**: read a sample of the mistakes, group them, and fix the largest group. This is usually more productive than another round of tuning.",
+            "Check that evaluation data resemble deployment data. A model evaluated on last year's customers may fail on this year's; this is **distribution shift**.",
+            "Evaluate by subgroup. An overall metric can hide a group for which the model is much worse; fairness metrics compare error rates across groups."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "How does the standard error of accuracy change if the test set grows by a factor of 4?",
+          "a": "It halves",
+          "wrong": [
+            "It falls by a factor of 4",
+            "It stays the same",
+            "It doubles"
+          ],
+          "why": "SE is proportional to 1/√m."
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "The confusion matrix gives accuracy, precision, recall, specificity and F1. Choose the metric that matches the cost of each kind of error; accuracy misleads on imbalanced data.",
+    "ROC curves plot TPR against FPR over all thresholds. AUC is the probability that a random positive outranks a random negative. Precision–recall curves are better for rare positives.",
+    "With imbalance, use class weights, resampling of training data and a tuned threshold. Precision depends on the base rate.",
+    "MSE, RMSE, MAE and R² evaluate regression. Log loss and Brier score evaluate probabilities, and calibration checks that probabilities mean what they say.",
+    "A test metric is an estimate with a standard error of about √(p(1 − p)/m). Small differences on small test sets are noise.",
+    "Use baselines, ablations, error analysis and subgroup checks."
+  ],
+  "problems": [
+    {
+      "q": "A classifier produces TP = 45, FP = 15, FN = 5, TN = 135. Compute accuracy, precision, recall and F1.",
+      "solution": "Total 200. Accuracy = (45 + 135)/200 = 0.90. Precision = 45/60 = 0.75. Recall = 45/50 = 0.90. F1 = 2(45)/(2(45) + 15 + 5) = 90/110 = 0.818.",
+      "a": "Accuracy 0.90, precision 0.75, recall 0.90, F1 0.82."
+    },
+    {
+      "q": "Positives have scores 0.95, 0.6, 0.55 and negatives have scores 0.7, 0.5, 0.3, 0.1. Compute the AUC.",
+      "solution": "There are 3 × 4 = 12 pairs. Positive 0.95 beats all 4. Positive 0.6 beats 0.5, 0.3, 0.1 (3) but not 0.7. Positive 0.55 beats 0.5, 0.3, 0.1 (3). Total 10, so AUC = 10/12.",
+      "a": "AUC = 5/6 ≈ 0.833."
+    },
+    {
+      "q": "A fraud rate is 0.5%. A detector has recall 0.80 and false positive rate 0.02. Of 200,000 transactions, how many are flagged, and what is the precision?",
+      "solution": "Fraudulent: 1000; legitimate: 199,000. True positives: 0.80 × 1000 = 800. False positives: 0.02 × 199,000 = 3980. Flagged: 4780. Precision = 800/4780.",
+      "a": "4780 flagged; precision ≈ 0.167."
+    },
+    {
+      "q": "A model scores 0.78 accuracy on a test set of 250. Give an approximate 95% confidence interval. Can you conclude it beats a model with 0.75 accuracy?",
+      "solution": "SE = √(0.78 × 0.22/250) = √(0.0006864) = 0.0262. The interval is 0.78 ± 0.051, or [0.729, 0.831]. It contains 0.75, so the data do not show that the model is better.",
+      "a": "[0.73, 0.83]; no, the difference is within the noise."
+    },
+    {
+      "q": "For labels 1 and 0 with predicted probabilities 0.9 and 0.4, compute the log loss.",
+      "solution": "The losses are −ln 0.9 = 0.105 for the first example and −ln(1 − 0.4) = −ln 0.6 = 0.511 for the second. The mean is (0.105 + 0.511)/2 = 0.308.",
+      "a": "Log loss ≈ 0.308."
+    }
+  ]
+}

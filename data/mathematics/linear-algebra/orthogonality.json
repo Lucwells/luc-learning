@@ -1,0 +1,310 @@
+{
+  "id": "orthogonality",
+  "view": "chapter",
+  "title": "Orthogonality, Projections and Least Squares",
+  "description": "Orthogonal vectors and subspaces, projections, the geometry of least squares, Gram–Schmidt and the QR factorization.",
+  "overview": [
+    "Perpendicularity is the most useful geometric idea in applied linear algebra. Orthogonal directions do not interfere, so a vector's coordinates along orthonormal axes are simply dot products. The closest point to a vector in a subspace is found by dropping a perpendicular, and that is exactly what least squares does. The numerically stable way to compute it, the QR factorization, comes from orthogonalizing the columns of the data matrix.",
+    "This chapter develops orthogonal subspaces, projections, the geometric derivation of the normal equations, Gram–Schmidt and QR, and the expansion of vectors in orthonormal bases."
+  ],
+  "objectives": [
+    "Test vectors and subspaces for orthogonality and state the orthogonality of the four fundamental subspaces.",
+    "Compute the projection of a vector onto a line and onto a subspace.",
+    "Derive the normal equations geometrically and fit a line by least squares by hand.",
+    "Apply Gram–Schmidt to obtain a QR factorization and use it to solve least squares.",
+    "Expand a vector in an orthonormal basis and use Parseval's identity."
+  ],
+  "sections": [
+    {
+      "id": "orthogonal",
+      "title": "Orthogonal vectors, subspaces and matrices",
+      "terms": [
+        "orthogonal vectors",
+        "orthogonality",
+        "orthonormal",
+        "orthonormal basis",
+        "orthogonal matrix",
+        "orthogonal complement",
+        "orthogonal subspaces",
+        "rotation matrix",
+        "orthogonality and least squares"
+      ],
+      "body": [
+        "Two vectors are **orthogonal** if x·y = 0. A set is **orthonormal** if its vectors are mutually orthogonal and each has unit length. Orthogonal non-zero vectors are automatically linearly independent. Two subspaces are orthogonal if every vector in one is orthogonal to every vector in the other. The **orthogonal complement** V^⊥ of a subspace V is the set of all vectors orthogonal to V; dim V + dim V^⊥ = n and every vector splits uniquely as x = x_V + x_{V⊥}.",
+        {
+          "key": "The four fundamental subspaces come in orthogonal pairs. The null space N(A) is the orthogonal complement of the row space, and the left null space N(Aᵀ) is the orthogonal complement of the column space. Proof: Ax = 0 says that every row of A has zero dot product with x."
+        },
+        "A square matrix Q with orthonormal columns is an **orthogonal matrix**: QᵀQ = I, so Q⁻¹ = Qᵀ. It preserves lengths and angles:",
+        {
+          "eq": "‖Qx‖² = (Qx)ᵀ(Qx) = xᵀQᵀQx = ‖x‖²"
+        },
+        "Orthogonal matrices are rotations (det = +1) and reflections (det = −1). In 2D, a rotation by θ is Q = [[cos θ, −sin θ], [sin θ, cos θ]]. They are numerically ideal: multiplying by Q neither amplifies nor shrinks errors, which is why orthogonal factorizations are preferred in numerical linear algebra.",
+        {
+          "example": {
+            "title": "Orthogonality of the null space and the row space",
+            "problem": "For A = [[1, 2, 3]], find N(A) and check that it is orthogonal to the row space.",
+            "solution": "The row space is the line spanned by (1, 2, 3). N(A) is the plane x + 2y + 3z = 0, spanned by (−2, 1, 0) and (−3, 0, 1). Check: (1, 2, 3)·(−2, 1, 0) = 0 and (1, 2, 3)·(−3, 0, 1) = 0 ✓. The dimensions 1 + 2 = 3."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "An orthogonal matrix Q satisfies",
+          "a": "QᵀQ = I, so it preserves lengths",
+          "wrong": [
+            "Q = Qᵀ always",
+            "det Q = 0",
+            "Q has orthogonal rows only if it is symmetric"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "projections",
+      "title": "Projections",
+      "terms": [
+        "projection",
+        "projections",
+        "orthogonal projection",
+        "projection matrix",
+        "idempotent",
+        "projection onto a line",
+        "projection onto a subspace"
+      ],
+      "body": [
+        "The **projection** of b onto the line spanned by a is the point p = x̂a on the line closest to b. The error e = b − p must be perpendicular to a: aᵀ(b − x̂a) = 0, so",
+        {
+          "eq": [
+            "x̂ = aᵀb / aᵀa",
+            "p = (aᵀb/aᵀa) a = P b,    P = aaᵀ / aᵀa"
+          ]
+        },
+        {
+          "svg": "<svg viewBox='0 0 400 220' role='img' aria-label='Projection of b onto the line through a, with a perpendicular error' font-family='system-ui, sans-serif' font-size='12'><defs><marker id='arr' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='7' markerHeight='7' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='currentColor'/></marker></defs><path d='M40,190 L360,30' fill='none' stroke='currentColor' stroke-width='1.2' opacity='.5'/><path d='M60,180 L240,100' fill='none' stroke='currentColor' stroke-width='2.5' marker-end='url(#arr)'/><path d='M60,180 L200,60' fill='none' style='stroke:var(--accent)' stroke-width='2.5' marker-end='url(#arr)'/><path d='M200,60 L220,108' fill='none' stroke='currentColor' stroke-width='2' stroke-dasharray='4 3' opacity='0'/><path d='M200,60 L240,100' fill='none' stroke='currentColor' stroke-width='2' stroke-dasharray='4 3'/><path d='M228,88 L236,96 L244,88' fill='none' stroke='currentColor' stroke-width='1' opacity='0'/><g fill='currentColor'><text x='244' y='108'>p = x̂a</text><text x='204' y='56' style='fill:var(--accent)'>b</text><text x='350' y='28'>a</text><text x='232' y='72'>e = b − p</text></g></svg>",
+          "caption": "The projection p of b onto the line along a is the closest point on the line. The error e = b − p is perpendicular to the line."
+        },
+        {
+          "example": {
+            "title": "Projection onto a line",
+            "problem": "Project b = (1, 2, 3) onto a = (1, 1, 1).",
+            "solution": "aᵀb = 6 and aᵀa = 3, so x̂ = 2 and p = 2a = (2, 2, 2). The error e = b − p = (−1, 0, 1) satisfies a·e = 0 ✓. The projection of b onto the all-ones direction is the vector of its mean (2) repeated, and the error is the deviation from the mean."
+          }
+        },
+        {
+          "h": "Projection onto a subspace"
+        },
+        "Let the columns of A be a basis of a subspace. The projection of b is p = Ax̂ where the error b − Ax̂ is orthogonal to every column: Aᵀ(b − Ax̂) = 0. This gives the normal equations AᵀAx̂ = Aᵀb, and",
+        {
+          "eq": [
+            "x̂ = (AᵀA)⁻¹ Aᵀ b",
+            "p = A(AᵀA)⁻¹Aᵀ b = P b,    P = A(AᵀA)⁻¹Aᵀ"
+          ]
+        },
+        "The projection matrix P is **symmetric** (Pᵀ = P) and **idempotent** (P² = P: projecting twice does nothing more). Its eigenvalues are 0 and 1. The matrix I − P projects onto the orthogonal complement. With an orthonormal basis Q for the subspace the formula simplifies to P = QQᵀ, with no inverse needed."
+      ],
+      "check": [
+        {
+          "q": "A projection matrix P satisfies",
+          "a": "P² = P and Pᵀ = P",
+          "wrong": [
+            "P² = I",
+            "P⁻¹ = Pᵀ",
+            "P = 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "least-squares-geometry",
+      "title": "Least squares as projection",
+      "terms": [
+        "least squares geometry",
+        "least squares problem",
+        "line fitting",
+        "best fit line",
+        "residual vector",
+        "orthogonality principle"
+      ],
+      "body": [
+        "When Ax = b has no solution because b is not in the column space of A, the closest we can get is to the point of the column space nearest to b. That is the projection p = Ax̂, and the minimizer of ‖Ax − b‖² satisfies the normal equations AᵀAx̂ = Aᵀb. The **residual** r = b − Ax̂ is orthogonal to the column space (Aᵀr = 0): the fit has extracted everything the features can explain. This is the **orthogonality principle**.",
+        "Calculus gives the same equations: the gradient of ‖Ax − b‖² is 2Aᵀ(Ax − b) (see Matrix Calculus). The geometry explains them.",
+        {
+          "example": {
+            "title": "Fitting a line through three points",
+            "problem": "Fit b = C + Dt to the points (t, b) = (0, 6), (1, 0), (2, 0).",
+            "solution": [
+              "A = [[1, 0], [1, 1], [1, 2]] and b = (6, 0, 0). AᵀA = [[3, 3], [3, 5]] and Aᵀb = (6, 0).",
+              "det(AᵀA) = 6, and (AᵀA)⁻¹ = (1/6)[[5, −3], [−3, 3]]. So x̂ = (1/6)(30, −18) = (5, −3): the line is b = 5 − 3t.",
+              "The projection is p = Ax̂ = (5, 2, −1), and the residual e = b − p = (1, −2, 1). Check orthogonality: (1, 1, 1)·e = 0 and (0, 1, 2)·e = −2 + 2 = 0 ✓. The squared error is ‖e‖² = 6, which no other line can beat."
+            ]
+          }
+        },
+        {
+          "list": [
+            "The residuals of a regression with an intercept sum to zero, since the all-ones column is in the column space and r is orthogonal to it.",
+            "The fitted values ŷ = Hy use the hat matrix H = X(XᵀX)⁻¹Xᵀ, a projection.",
+            "The Pythagorean theorem gives ‖b‖² = ‖p‖² + ‖e‖², which is the decomposition of the total sum of squares into explained and residual parts used to define R² (see Evaluating Models)."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "In least squares, the residual vector is orthogonal to",
+          "a": "every column of the data matrix",
+          "wrong": [
+            "the target vector b",
+            "the weight vector only",
+            "nothing in particular"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gram-schmidt",
+      "title": "Gram–Schmidt and the QR factorization",
+      "terms": [
+        "gram–schmidt",
+        "gram-schmidt",
+        "gram-schmidt process",
+        "qr factorization",
+        "qr decomposition",
+        "householder reflections",
+        "condition number of least squares"
+      ],
+      "body": [
+        "Given independent vectors a₁, …, a_n, the **Gram–Schmidt process** builds orthonormal vectors q₁, …, q_n with the same spans. Take the first vector and normalize it. For each next vector, subtract its components along the earlier q's and normalize what remains:",
+        {
+          "eq": [
+            "q₁ = a₁/‖a₁‖",
+            "v_k = a_k − Σ_{j<k} (q_jᵀa_k) q_j,    q_k = v_k/‖v_k‖"
+          ]
+        },
+        {
+          "example": {
+            "title": "Gram–Schmidt on three vectors",
+            "problem": "Orthonormalize a₁ = (1, 1, 0), a₂ = (1, 0, 1), a₃ = (0, 1, 1).",
+            "solution": [
+              "q₁ = (1, 1, 0)/√2 = (0.707, 0.707, 0).",
+              "q₁ᵀa₂ = 0.707, so v₂ = a₂ − 0.707q₁ = (0.5, −0.5, 1), with norm √1.5 = 1.225 and q₂ = (0.408, −0.408, 0.816).",
+              "q₁ᵀa₃ = 0.707 and q₂ᵀa₃ = 0.408, so v₃ = a₃ − 0.707q₁ − 0.408q₂ = (−0.667, 0.667, 0.667), with norm 1.155 and q₃ = (−0.577, 0.577, 0.577).",
+              "The numbers r_jk = q_jᵀa_k (and r_kk = ‖v_k‖) are the entries of the upper triangular R: r₁₁ = 1.414, r₁₂ = r₁₃ = 0.707, r₂₂ = 1.225, r₂₃ = 0.408, r₃₃ = 1.155."
+            ]
+          }
+        },
+        "Recording the coefficients gives the **QR factorization** A = QR, where Q has orthonormal columns and R is upper triangular. (Each a_k is a combination of q₁, …, q_k only, hence the triangular shape.)",
+        {
+          "h": "Least squares by QR"
+        },
+        "Substituting A = QR into the normal equations: AᵀA = RᵀQᵀQR = RᵀR and Aᵀb = RᵀQᵀb, so",
+        {
+          "eq": "R x̂ = Qᵀ b"
+        },
+        "which is solved by back substitution, with no explicit inverse and no products AᵀA.",
+        {
+          "warn": "Forming AᵀA squares the condition number: κ(AᵀA) = κ(A)². If κ(A) = 10⁴, then κ(AᵀA) = 10⁸, and in double precision (about 16 digits) 8 digits are lost. QR works with κ(A), so it is the standard method for least squares. For rank-deficient or very ill-conditioned problems use the SVD."
+        },
+        "Classical Gram–Schmidt loses orthogonality in floating point when columns are nearly dependent. **Modified Gram–Schmidt** (subtracting each component from the running remainder, not from the original vector) is better, and **Householder reflections**, which build Q as a product of reflections, are the most stable and are used in libraries."
+      ],
+      "check": [
+        {
+          "q": "In the QR factorization A = QR, the matrix R is",
+          "a": "upper triangular",
+          "wrong": [
+            "orthogonal",
+            "diagonal",
+            "symmetric"
+          ]
+        },
+        {
+          "q": "Why is QR preferred to the normal equations for least squares?",
+          "a": "It avoids forming AᵀA, which squares the condition number",
+          "wrong": [
+            "It needs less memory than any method",
+            "It never needs back substitution",
+            "It works only for square matrices"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "orthonormal-expansion",
+      "title": "Orthonormal expansions and inner product spaces",
+      "terms": [
+        "orthonormal expansion",
+        "parseval's identity",
+        "fourier series",
+        "inner product space",
+        "inner product",
+        "function space",
+        "bessel's inequality"
+      ],
+      "body": [
+        "In an orthonormal basis q₁, …, q_n, the coordinates of a vector are just dot products:",
+        {
+          "eq": [
+            "x = Σ_i (q_iᵀx) q_i",
+            "‖x‖² = Σ_i (q_iᵀx)²    (Parseval's identity)"
+          ]
+        },
+        "No linear system needs to be solved. The squared length splits into the squared coordinates. Keeping only the first k terms gives the projection onto the span of q₁, …, q_k, and the squared error is the sum of the discarded squared coordinates. This is exactly how PCA picks a low-dimensional description: the retained variance is the sum of the squared coordinates along the kept components.",
+        {
+          "example": {
+            "title": "An orthonormal expansion",
+            "problem": "Expand x = (3, 1) in the orthonormal basis q₁ = (1, 1)/√2, q₂ = (1, −1)/√2, and check Parseval.",
+            "solution": "c₁ = q₁ᵀx = 4/√2 = 2.828 and c₂ = q₂ᵀx = 2/√2 = 1.414. Then c₁² + c₂² = 8 + 2 = 10 = ‖x‖² ✓. Dropping q₂ approximates x by the projection (2, 2), with squared error c₂² = 2."
+          }
+        },
+        {
+          "h": "Beyond ℝⁿ"
+        },
+        "An **inner product** on any vector space is a symmetric, bilinear, positive definite pairing ⟨x, y⟩, with a norm ‖x‖ = √⟨x, x⟩ and angles defined as before. For functions on an interval, ⟨f, g⟩ = ∫ f(x)g(x) dx. The functions sin(kx) and cos(kx) are orthogonal in this inner product, so the **Fourier series** is an orthonormal expansion, and the coefficients are inner products. Orthogonal polynomials, wavelets and the eigenfunctions of kernels play the same role.",
+        "Kernel methods rest on this idea: a kernel k(x, z) is an inner product in a feature space, and the whole geometry of this chapter (lengths, angles and projections) carries over to that space without ever writing down the feature vectors. Gaussian processes and kernel ridge regression are projections in such a space."
+      ],
+      "check": [
+        {
+          "q": "In an orthonormal basis, the coordinate of x along q_i is",
+          "a": "the dot product q_iᵀx",
+          "wrong": [
+            "‖x‖/‖q_i‖",
+            "the solution of a linear system",
+            "x_i²"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Vectors are orthogonal when x·y = 0. N(A) ⟂ C(Aᵀ) and N(Aᵀ) ⟂ C(A). Orthogonal matrices (QᵀQ = I) preserve lengths.",
+    "The projection onto a line is P = aaᵀ/aᵀa, and onto a column space P = A(AᵀA)⁻¹Aᵀ, with P² = P and Pᵀ = P. With an orthonormal basis, P = QQᵀ.",
+    "Least squares projects b onto C(A). The normal equations AᵀAx̂ = Aᵀb say that the residual is orthogonal to the columns.",
+    "Gram–Schmidt orthonormalizes the columns, giving A = QR; then Rx̂ = Qᵀb is solved stably and avoids squaring the condition number.",
+    "In an orthonormal basis coordinates are dot products and ‖x‖² = Σc_i² (Parseval); truncation gives the best low-dimensional approximation. The same geometry holds in any inner product space, including kernel feature spaces."
+  ],
+  "problems": [
+    {
+      "q": "Project b = (3, 4) onto a = (1, 2) and find the error vector.",
+      "solution": "aᵀb = 3 + 8 = 11 and aᵀa = 5, so p = (11/5)(1, 2) = (2.2, 4.4). The error e = (0.8, −0.4) and a·e = 0.8 − 0.8 = 0 ✓.",
+      "a": "p = (2.2, 4.4); e = (0.8, −0.4)."
+    },
+    {
+      "q": "Fit the least squares line b = C + Dt to (t, b) = (1, 1), (2, 2), (3, 2).",
+      "solution": "A = [[1, 1], [1, 2], [1, 3]], b = (1, 2, 2). AᵀA = [[3, 6], [6, 14]], Aᵀb = (5, 11). det = 6, inverse (1/6)[[14, −6], [−6, 3]]. x̂ = (1/6)(70 − 66, −30 + 33) = (4/6, 3/6) = (2/3, 1/2). The line is b = 0.667 + 0.5t.",
+      "a": "b = 2/3 + t/2."
+    },
+    {
+      "q": "Show that a projection matrix P satisfies P² = P.",
+      "solution": "P = A(AᵀA)⁻¹Aᵀ. Then P² = A(AᵀA)⁻¹AᵀA(AᵀA)⁻¹Aᵀ = A(AᵀA)⁻¹Aᵀ = P, because AᵀA(AᵀA)⁻¹ = I.",
+      "a": "P² = A(AᵀA)⁻¹(AᵀA)(AᵀA)⁻¹Aᵀ = P."
+    },
+    {
+      "q": "Orthonormalize (3, 4) and (1, 0) by Gram–Schmidt.",
+      "solution": "q₁ = (3, 4)/5 = (0.6, 0.8). q₁ᵀa₂ = 0.6, so v₂ = (1, 0) − 0.6(0.6, 0.8) = (0.64, −0.48), with norm 0.8, so q₂ = (0.8, −0.6).",
+      "a": "q₁ = (0.6, 0.8), q₂ = (0.8, −0.6)."
+    },
+    {
+      "q": "A matrix A has condition number 10⁶. Estimate how many significant digits remain in double precision (16 digits) when solving least squares by the normal equations and by QR.",
+      "solution": "Normal equations: κ(AᵀA) = 10¹², leaving about 16 − 12 = 4 digits. QR: κ = 10⁶, leaving about 16 − 6 = 10 digits.",
+      "a": "About 4 digits versus about 10 digits."
+    }
+  ]
+}

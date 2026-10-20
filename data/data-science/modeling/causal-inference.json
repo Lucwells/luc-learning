@@ -1,0 +1,339 @@
+{
+  "id": "causal-inference",
+  "view": "chapter",
+  "title": "Causal Inference",
+  "description": "Potential outcomes, confounding and selection bias, adjustment and propensity scores, causal diagrams, and quasi-experimental designs.",
+  "overview": [
+    "Does a training program raise wages, does a drug cure, did the new feature increase retention? These are questions about what would happen if we intervened, and they are not answered by prediction alone. A model can predict wages very well from whether someone attended the program, and still say nothing about what the program does, because the people who attend differ from those who do not. Causal inference is the study of when, and with what assumptions, an effect can be learned from data.",
+    "This chapter introduces the potential outcomes framework, shows why a naive comparison is biased, explains what randomization and adjustment each achieve, presents causal diagrams for deciding what to adjust for (and what not to), and describes designs that exploit natural experiments: difference-in-differences, regression discontinuity and instrumental variables."
+  ],
+  "objectives": [
+    "Define potential outcomes and the average treatment effect, and decompose the naive difference into effect plus selection bias.",
+    "State the assumptions (exchangeability, positivity, consistency) under which an effect is identified.",
+    "Estimate an effect by stratification, regression adjustment and inverse probability weighting with propensity scores.",
+    "Use causal diagrams to identify confounders, mediators and colliders, and apply the backdoor criterion.",
+    "Compute difference-in-differences and instrumental variable estimates, and describe regression discontinuity."
+  ],
+  "sections": [
+    {
+      "id": "potential-outcomes",
+      "title": "Potential outcomes and the fundamental problem",
+      "terms": [
+        "causal inference",
+        "potential outcomes",
+        "rubin causal model",
+        "average treatment effect",
+        "ate",
+        "treatment effect",
+        "counterfactual",
+        "fundamental problem of causal inference",
+        "selection bias in causal inference"
+      ],
+      "body": [
+        "Let T = 1 if a unit receives the treatment and T = 0 otherwise. Each unit has two **potential outcomes**: Y(1), what would happen under treatment, and Y(0), what would happen without it. The causal effect for the unit is Y(1) − Y(0). The **fundamental problem of causal inference** is that we observe only one of the two: the outcome under the treatment actually received. The other is a **counterfactual**, never seen.",
+        "We can still hope to learn averages. The **average treatment effect** (ATE) is E[Y(1) − Y(0)]. The obvious estimate is the difference in observed means between the treated and untreated, E[Y | T = 1] − E[Y | T = 0]. It equals the ATE only if the two groups would have had the same outcomes absent treatment. In general",
+        {
+          "eq": "E[Y | T=1] − E[Y | T=0] = ATT + ( E[Y(0) | T=1] − E[Y(0) | T=0] )"
+        },
+        "the average effect on the treated plus a **selection bias** term: the difference in the untreated outcomes of the two groups.",
+        {
+          "example": {
+            "title": "Selection bias with four units",
+            "problem": "Four units have these potential outcomes (never all observable): A: Y(0) = 3, Y(1) = 5; B: 5, 6; C: 7, 9; D: 9, 10. Units C and D, the healthier ones, take the treatment; A and B do not. What are the true ATE and the naive difference?",
+            "solution": [
+              "True effects: 2, 1, 2, 1, so ATE = 1.5.",
+              "Observed: A and B untreated (Y = 3, 5; mean 4). C and D treated (Y = 9, 10; mean 9.5). The naive difference is 9.5 − 4 = 5.5, more than three times the true effect.",
+              "The effect on the treated (C and D) is (2 + 1)/2 = 1.5, and the selection bias is E[Y(0) | treated] − E[Y(0) | untreated] = 8 − 4 = 4, so 1.5 + 4 = 5.5. The treated were better off anyway."
+            ]
+          }
+        },
+        {
+          "h": "What is needed to identify an effect"
+        },
+        {
+          "list": [
+            "**Exchangeability** (ignorability, no unmeasured confounding): given the measured covariates X, treatment is independent of the potential outcomes, so that the treated and untreated are comparable within each X-stratum. Randomization guarantees it. In observational data it is an assumption that cannot be tested.",
+            "**Positivity** (overlap): every kind of unit has a chance of both treatment and no treatment, 0 < P(T = 1 | X) < 1. Where no comparable untreated units exist, the data say nothing about the effect.",
+            "**Consistency and no interference** (SUTVA): the observed outcome under the treatment received equals the potential outcome, treatment is well defined, and one unit's treatment does not affect another's outcome."
+          ]
+        },
+        {
+          "note": "Questions about effects need assumptions that the data alone cannot verify. A good causal analysis states them, argues for them with subject-matter knowledge and tests their sensitivity (how strong would an unmeasured confounder have to be to explain away the result?)."
+        }
+      ],
+      "check": [
+        {
+          "q": "The fundamental problem of causal inference is that",
+          "a": "for each unit we observe only one of its two potential outcomes",
+          "wrong": [
+            "treatments cannot be assigned",
+            "outcomes are always random",
+            "correlations are always zero"
+          ]
+        },
+        {
+          "q": "The naive treated-minus-untreated difference equals the effect on the treated plus",
+          "a": "the difference in their untreated outcomes (selection bias)",
+          "wrong": [
+            "the average treatment effect",
+            "the standard error",
+            "a term that is always zero"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "randomization-adjustment",
+      "title": "Randomization, stratification and propensity scores",
+      "terms": [
+        "propensity score",
+        "inverse probability weighting",
+        "stratification",
+        "standardization",
+        "covariate adjustment",
+        "unmeasured confounding",
+        "doubly robust"
+      ],
+      "body": [
+        "In a randomized experiment treatment is independent of the potential outcomes by design, so the selection bias is zero and the naive difference estimates the ATE (see Sampling and Experiments). With observational data we try to make the groups comparable by conditioning on the confounders X.",
+        {
+          "h": "Stratification (standardization)"
+        },
+        "Compare treated and untreated units //within// strata of X, then average the stratum effects with the weights of a common population. This is exactly the resolution of Simpson's paradox.",
+        {
+          "example": {
+            "title": "Adjusting the kidney stone data",
+            "problem": "In the kidney stone data (see the Data Science Process chapter) treatment A succeeded in 93.1% of 87 small-stone cases and 73.0% of 263 large-stone cases; B in 86.7% of 270 small and 68.8% of 80 large. Compute the success rates standardized to the combined population of 357 small and 343 large stones.",
+            "solution": "A: (357 × 0.931 + 343 × 0.730)/700 = (332.4 + 250.4)/700 = 83.3%. B: (357 × 0.867 + 343 × 0.688)/700 = (309.4 + 235.8)/700 = 77.9%. Adjusted for stone size, A is better by 5.4 points, the reverse of the naive overall comparison (78% versus 83%), because the naive comparison mixed up different case mixes."
+          }
+        },
+        {
+          "h": "Regression adjustment"
+        },
+        "Fit a regression of the outcome on the treatment and the confounders: the treatment coefficient is the adjusted effect (see Regression for Inference). It requires the model to be correctly specified, and does not warn when treated and untreated units overlap too little (it extrapolates).",
+        {
+          "h": "Propensity scores"
+        },
+        "When there are many confounders, stratifying on all of them is impossible. Rosenbaum and Rubin (1983) showed it is enough to condition on one number, the **propensity score**: e(x) = P(T = 1 | X = x), the probability of treatment given the covariates. It is estimated by a classifier (logistic regression, gradient boosting). It is used in three ways:",
+        {
+          "list": [
+            "**Matching**: pair each treated unit with an untreated unit of similar propensity.",
+            "**Stratification** into propensity quantiles.",
+            "**Inverse probability weighting** (IPW): weight each unit by the inverse of the probability of the treatment it received, 1/e(x) for treated and 1/(1 − e(x)) for untreated units. The weighted groups mimic a population in which treatment was randomized. The effect estimate is the difference of the weighted means."
+          ]
+        },
+        {
+          "example": {
+            "title": "Inverse probability weights",
+            "problem": "In a stratum of patients, 80% receive the treatment (e = 0.8). What weights do treated and untreated patients get, and what does this do?",
+            "solution": "Treated: 1/0.8 = 1.25. Untreated: 1/0.2 = 5. The few untreated patients in this stratum stand in for the many that would be untreated if the treatment had been given at random, so they count five times. Units with propensities near 0 or 1 get huge weights and make the estimate unstable (a symptom of poor overlap); weights are often trimmed. Check that after weighting the covariates are balanced between the groups, and plot the propensity distribution in both groups."
+          }
+        },
+        {
+          "warn": "All these methods adjust only for //measured// confounders. If an important cause of both treatment and outcome (motivation, genetics, severity recorded only in a doctor's notes) is missing, the estimate is biased however sophisticated the method. Doubly robust estimators and 'causal machine learning' (double machine learning, causal forests) combine outcome models and propensity models to reduce the dependence on correct modeling, but they do not remove the need for no unmeasured confounding."
+        }
+      ],
+      "check": [
+        {
+          "q": "In inverse probability weighting, a treated unit with propensity score 0.25 receives weight",
+          "a": "4",
+          "wrong": [
+            "0.25",
+            "0.75",
+            "1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dags",
+      "title": "Causal diagrams: confounders, mediators and colliders",
+      "terms": [
+        "causal diagram",
+        "causal dag",
+        "confounder",
+        "mediator",
+        "collider bias",
+        "backdoor criterion",
+        "berkson's paradox",
+        "bad control",
+        "directed acyclic graph for causation"
+      ],
+      "body": [
+        "A **causal diagram** is a directed acyclic graph in which an arrow X → Y says that X is a direct cause of Y (see d-separation in Graphical Models). It encodes the analyst's assumptions about the data-generating process, and tells us what to adjust for. Three basic patterns on the path between a treatment T and an outcome Y:",
+        {
+          "table": {
+            "head": [
+              "Pattern",
+              "Diagram",
+              "Example",
+              "Adjust for Z?"
+            ],
+            "rows": [
+              [
+                "Confounder (common cause)",
+                "T ← Z → Y",
+                "exercise causes both vitamin use and health",
+                "Yes: it opens a non-causal 'backdoor' path"
+              ],
+              [
+                "Mediator (on the causal path)",
+                "T → Z → Y",
+                "a drug lowers blood pressure, which lowers heart attacks",
+                "No for the total effect: it removes part of the effect"
+              ],
+              [
+                "Collider (common effect)",
+                "T → Z ← Y",
+                "talent and looks both cause being a celebrity",
+                "No: conditioning on it creates a spurious association"
+              ]
+            ],
+            "caption": "Three structures and what to do about them."
+          }
+        },
+        {
+          "key": "Backdoor criterion: the effect of T on Y is identified by adjusting for a set of variables Z if Z blocks every non-causal path from T to Y that begins with an arrow into T, and contains no descendant of T. Adjusting for common causes is right; adjusting for mediators, colliders and other consequences of the treatment is wrong."
+        },
+        {
+          "example": {
+            "title": "Collider bias (Berkson's paradox)",
+            "problem": "Among hospital patients, two unrelated diseases appear negatively associated. Why?",
+            "solution": "Hospitalization is caused by either disease (a collider: A → H ← B). Restricting the data to patients means conditioning on H. Among the hospitalized, a patient who does not have disease A must have a reason to be there, so is more likely to have B: the diseases look negatively correlated although they are independent in the population. Similarly, among admitted students, test scores and extracurricular achievement are negatively correlated if admission needs either. Selecting a sample on an outcome or on a consequence of the variables of interest can create associations out of nothing."
+          }
+        },
+        {
+          "list": [
+            "**'Control for everything' is a bad strategy.** Adding every available variable to a regression can include colliders and mediators and make the estimate worse. Draw the diagram first.",
+            "**Post-treatment variables** (measured after treatment) are rarely safe to adjust for. In an experiment, comparing groups defined by a post-treatment variable (the 'responders') breaks the randomization.",
+            "The diagram expresses assumptions from domain knowledge; the data can test some of its implications (conditional independencies) but not the arrows themselves.",
+            "**Mediation analysis** separates the direct effect of T on Y from the effect through the mediator Z, with additional assumptions."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "Which variable should be adjusted for when estimating the total effect of T on Y?",
+          "a": "A common cause of T and Y (a confounder)",
+          "wrong": [
+            "A variable caused by both T and Y (a collider)",
+            "A variable on the causal path from T to Y (a mediator)",
+            "Any variable in the data set"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "quasi",
+      "title": "Natural experiments: difference-in-differences, discontinuities and instruments",
+      "terms": [
+        "difference-in-differences",
+        "regression discontinuity",
+        "instrumental variable",
+        "instrumental variables",
+        "natural experiment",
+        "quasi-experiment",
+        "parallel trends",
+        "local average treatment effect",
+        "two-stage least squares",
+        "wald estimator"
+      ],
+      "body": [
+        "When confounders cannot all be measured and an experiment is impossible, a **quasi-experimental** design may exploit a feature of how treatment was assigned that is as good as random for some purpose.",
+        {
+          "h": "Difference-in-differences"
+        },
+        "A policy is introduced in one region (treated) and not in another (control). Compare the change over time in the treated region with the change in the control region. The control's change estimates what would have happened to the treated region without the policy, so that fixed differences between the regions and common time trends cancel:",
+        {
+          "eq": "DiD = ( Ȳ_treated,after − Ȳ_treated,before ) − ( Ȳ_control,after − Ȳ_control,before )"
+        },
+        {
+          "example": {
+            "title": "A difference-in-differences estimate",
+            "problem": "Average employment (in thousands) in a state that raised its minimum wage: 10 before, 16 after. In a neighboring state without the change: 8 before, 11 after. Estimate the effect.",
+            "solution": "Treated change: 16 − 10 = +6. Control change: 11 − 8 = +3. DiD = 6 − 3 = +3. The naive before–after comparison (+6) would attribute the common upward trend (+3) to the policy. The estimate rests on the **parallel trends** assumption: without the policy both states would have changed by the same amount. Check by comparing the trends in the periods before the policy."
+          }
+        },
+        {
+          "h": "Regression discontinuity"
+        },
+        "When treatment is assigned by a threshold on a continuous score (a scholarship for a test score of at least 80, a drug for blood pressure above a cutoff), people just above and just below the cutoff are nearly identical, differing only by chance in which side they fall. The jump in the outcome at the cutoff estimates the effect for units near it. It needs that the score cannot be precisely manipulated, and gives a local estimate.",
+        {
+          "h": "Instrumental variables"
+        },
+        "An **instrument** Z affects the treatment T, affects the outcome Y only through T (the exclusion restriction), and is unrelated to the unmeasured confounders. Examples: a random encouragement, a lottery (the draft lottery for military service), distance to a college. Because Z is as good as random, it creates variation in T that is free of confounding. With a binary instrument the **Wald estimator** is the effect of Z on Y divided by the effect of Z on T:",
+        {
+          "eq": "effect = ( E[Y | Z=1] − E[Y | Z=0] ) / ( E[T | Z=1] − E[T | Z=0] )"
+        },
+        {
+          "example": {
+            "title": "An instrumental variable estimate",
+            "problem": "Half the people receive a random reminder (Z = 1) to take a training course. Average earnings are 2.0 higher in the reminded group, and course take-up is 40% higher (60% versus 20%). What is the effect of the course?",
+            "solution": "The reminder changes take-up by 0.4 and earnings by 2.0, so each additional person who takes the course because of the reminder gains 2.0/0.4 = 5.0. This is the **local average treatment effect** for those whose behavior the instrument changes (compliers), not necessarily the effect for people who would take the course regardless. The estimate is only as credible as the exclusion restriction: the reminder must affect earnings only by way of the course. In regression form it is two-stage least squares."
+          }
+        },
+        {
+          "list": [
+            "Each design buys credibility with a specific, checkable-in-part assumption (parallel trends, no manipulation of the score, the exclusion restriction) and answers a narrower question.",
+            "**Heterogeneous effects**: the effect often varies across people. Estimate it by subgroups or with causal ML (causal forests, meta-learners). **Uplift modeling** targets those for whom the treatment helps most (send the offer to customers whose purchase probability rises because of it, not those who would buy anyway).",
+            "**Prediction is not intervention**: a model that predicts churn well says who will leave, not who can be retained by an offer. Decisions about actions need causal estimates, typically from experiments."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "Difference-in-differences assumes that",
+          "a": "without the intervention the treated and control groups would have followed parallel trends",
+          "wrong": [
+            "the two groups are identical before the intervention",
+            "the intervention has the same effect on everyone",
+            "outcomes are never affected by time"
+          ]
+        },
+        {
+          "q": "An instrument must affect the outcome",
+          "a": "only through the treatment",
+          "wrong": [
+            "directly, bypassing the treatment",
+            "not at all, not even through the treatment",
+            "only for the control group"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Potential outcomes Y(1), Y(0): only one is observed per unit. The ATE is E[Y(1) − Y(0)]. The naive difference equals the effect on the treated plus selection bias, which can be large and of either sign.",
+    "Effects are identified under exchangeability (no unmeasured confounding), positivity and consistency. Randomization guarantees exchangeability.",
+    "With observational data adjust for measured confounders by stratification, regression, matching or inverse probability weights 1/e(x), 1/(1 − e(x)) using the propensity score. Unmeasured confounding remains a threat; check balance and overlap.",
+    "Causal diagrams show what to adjust for: confounders yes (backdoor criterion), mediators and colliders no. Conditioning on a collider creates spurious associations (Berkson's paradox).",
+    "Natural experiments: difference-in-differences (parallel trends), regression discontinuity (jump at a threshold) and instrumental variables (Wald: effect of Z on Y divided by effect of Z on T). Prediction and causation are different tasks."
+  ],
+  "problems": [
+    {
+      "q": "A job-training program is voluntary. Participants earn $42,000 on average a year later, non-participants $35,000. List two reasons the $7,000 difference may not be the program's effect, and one design that would give a credible estimate.",
+      "solution": "Participants may be more motivated or skilled (selection bias: they would have earned more anyway), and those who enrolled may differ in age or education. A credible design: randomize who is offered a place (or randomly select from oversubscribed applicants), or use the randomized offer as an instrument.",
+      "a": "Selection on motivation and background; a randomized offer."
+    },
+    {
+      "q": "Treated region: crime rate 50 before, 44 after a new policy. Control region: 40 before, 38 after. Compute the difference-in-differences estimate.",
+      "solution": "Treated change = −6, control change = −2, so DiD = −6 − (−2) = −4: the policy is estimated to have reduced the crime rate by 4 points, compared with the −6 of the naive before–after comparison.",
+      "a": "−4."
+    },
+    {
+      "q": "In a randomized encouragement design, those encouraged earn on average 1.2 more, and 30% more of them enroll in a program than among the not encouraged. Estimate the effect of the program on compliers.",
+      "solution": "Wald estimator: 1.2/0.30 = 4.0.",
+      "a": "4.0."
+    },
+    {
+      "q": "Draw the diagram for: smoking → tar deposits → lung cancer, and a genotype that causes both smoking and cancer. Which variables must be adjusted for to estimate the total effect of smoking on cancer?",
+      "solution": "Smoking ← Genotype → Cancer is a backdoor path: adjust for the genotype if measured. Tar deposits are a mediator on the path smoking → tar → cancer: do not adjust for them if the total effect is wanted. (If the genotype is unmeasured, the effect is not identified by adjustment alone; a front-door argument through tar, or an instrument, could help.)",
+      "a": "Adjust for genotype (the confounder); do not adjust for tar (the mediator)."
+    },
+    {
+      "q": "Treatment is more likely for sicker patients, who also have worse outcomes. In a data set, treated patients have worse outcomes than the untreated. Does the treatment harm? What could you do?",
+      "solution": "Not necessarily: this is confounding by indication. Severity causes both treatment and poor outcomes. Compare patients of similar severity (stratify, regress on severity, weight by propensity scores based on severity), check overlap, and, if possible, use a randomized study or an instrument (such as hospital practice patterns).",
+      "a": "Not necessarily; adjust for severity or use randomization."
+    }
+  ]
+}

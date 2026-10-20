@@ -1,0 +1,450 @@
+{
+  "id": "randomized-algorithms",
+  "view": "chapter",
+  "title": "Randomness in Computation",
+  "description": "Pseudorandom generators, sampling methods, Monte Carlo and MCMC, and randomized algorithms and sketches.",
+  "overview": [
+    "Randomness is a computational resource. A randomized algorithm can be simpler or faster than a deterministic one: quicksort with a random pivot avoids bad inputs, a hash function chosen at random defeats adversaries, and a random projection compresses data while keeping its geometry. Monte Carlo methods turn integrals and expectations into averages of random samples. And machine learning itself uses randomness everywhere: initialization, mini-batch sampling, dropout, data augmentation, bootstrap and random forests.",
+    "Yet computers are deterministic machines. This chapter explains how they generate numbers that behave as if random, how to draw samples from the distributions we need, how Monte Carlo and Markov chain Monte Carlo work, and the family of randomized algorithms and sketches that trade a small chance of error for large savings."
+  ],
+  "objectives": [
+    "Explain how a pseudorandom number generator works, why it is reproducible, and how to manage seeds in experiments and parallel code.",
+    "Sample from a distribution by inverse transform, rejection sampling and importance sampling, and shuffle and subsample correctly.",
+    "Implement Metropolis–Hastings and explain what makes a Markov chain sample the target distribution.",
+    "Distinguish Las Vegas from Monte Carlo algorithms, and describe universal hashing, random projections and sketches.",
+    "Reduce the variance of a Monte Carlo estimate with antithetic variates."
+  ],
+  "sections": [
+    {
+      "id": "prng",
+      "title": "Pseudorandom number generators",
+      "terms": [
+        "pseudorandom number generator",
+        "random number generator algorithm",
+        "linear congruential generator",
+        "mersenne twister",
+        "pcg generator",
+        "seed",
+        "period of a generator",
+        "cryptographic randomness",
+        "counter-based generator",
+        "randomness in computation"
+      ],
+      "body": [
+        "A **pseudorandom number generator** (PRNG) is a deterministic algorithm that expands a short **seed** into a long sequence of numbers that pass statistical tests for randomness. The simplest is the **linear congruential generator** (LCG):",
+        {
+          "eq": "x_{n+1} = (a·x_n + c) mod m,    u_n = x_n / m"
+        },
+        {
+          "example": {
+            "title": "A tiny LCG",
+            "problem": "Take m = 16, a = 5, c = 3 and seed x₀ = 7. Generate the sequence.",
+            "solution": "7, 6, 1, 8, 11, 10, 5, 12, 15, 14, 9, 0, 3, 2, 13, 4, then 7 again. The sequence visits all 16 values and then repeats: its **period** is 16 (the maximum, since c is odd and a − 1 is divisible by 4). Real generators use huge moduli: after 2^m outputs they repeat. The same seed always gives the same sequence, which is what makes experiments reproducible."
+          }
+        },
+        {
+          "list": [
+            "LCGs are fast but have weak structure (consecutive values fall on planes) and short periods for small m. Modern default generators are better: the **Mersenne Twister** (period 2¹⁹⁹³⁷ − 1, used by Python's random module and, historically, NumPy), **PCG** and **xoshiro** (small state, fast, good statistical quality; NumPy's default_rng uses PCG64), and **counter-based generators** (Philox, Threefry), which compute the n-th number directly from a key and a counter, ideal for parallel hardware and used by JAX and GPU libraries.",
+            "A statistical generator is not secure: its internal state can be inferred from a few outputs. For passwords, keys and tokens use the operating system's **cryptographic** generator (Python's secrets module).",
+            "**Parallel streams**: giving every worker the same seed produces identical 'random' numbers, and giving them consecutive integers as seeds can produce correlated streams. Use a generator designed to spawn independent streams: numpy.random.SeedSequence(seed).spawn(n), or split keys in JAX.",
+            "**Reproducibility**: record the seed, the generator type and the library version. GPU kernels and multi-threaded code can add non-determinism beyond the seed (see Software Practice)."
+          ]
+        },
+        {
+          "code": [
+            "import numpy as np",
+            "",
+            "ss = np.random.SeedSequence(12345)",
+            "child_seeds = ss.spawn(4)                        # four independent streams",
+            "rngs = [np.random.default_rng(s) for s in child_seeds]",
+            "[r.random() for r in rngs]                       # different numbers, reproducible"
+          ],
+          "caption": "Independent, reproducible random streams for four workers."
+        }
+      ],
+      "check": [
+        {
+          "q": "The same seed given to a pseudorandom generator produces",
+          "a": "the same sequence of numbers every time",
+          "wrong": [
+            "a different sequence each time",
+            "a cryptographically secure sequence",
+            "an infinite sequence without repetition"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sampling",
+      "title": "Sampling from distributions, shuffling and streams",
+      "terms": [
+        "rejection sampling",
+        "importance sampling",
+        "fisher–yates shuffle",
+        "fisher-yates shuffle",
+        "reservoir sampling",
+        "alias method",
+        "box–muller transform",
+        "sampling from a discrete distribution",
+        "stratified sampling",
+        "sampling without replacement"
+      ],
+      "body": [
+        "Given uniform random numbers on [0, 1), how do we draw from other distributions? We saw **inverse transform sampling** in Random Variables: if U is uniform, F⁻¹(U) has CDF F. Other methods:",
+        {
+          "h": "Rejection sampling"
+        },
+        "To sample from a density f that is hard to invert but easy to evaluate, find a simple proposal density g and a constant M with f(x) ≤ M·g(x) everywhere. Draw x from g, draw u uniform, and accept x if u ≤ f(x)/(M g(x)); otherwise try again. The accepted samples have density f, and the acceptance rate is 1/M.",
+        {
+          "example": {
+            "title": "Sampling a Beta(2, 2) variable",
+            "problem": "Sample from f(x) = 6x(1 − x) on [0, 1] using the uniform proposal g = 1.",
+            "solution": "The maximum of f is 1.5 (at x = 0.5), so M = 1.5. Draw x uniform and accept with probability f(x)/1.5 = 4x(1 − x): x = 0.5 is accepted always, x = 0.1 with probability 0.36, and x near 0 or 1 almost never. The acceptance rate is 1/M = 2/3, so 1.5 proposals per sample on average. In high dimensions M grows exponentially, and rejection sampling becomes useless: this is why MCMC is needed."
+          }
+        },
+        {
+          "h": "Discrete distributions, normals and importance weights"
+        },
+        {
+          "list": [
+            "**Discrete distribution** with probabilities p₁, …, p_K: draw u, and pick the first k with p₁ + … + p_k ≥ u (the inverse CDF, found by binary search in O(log K)). The **alias method** samples in O(1) after O(K) preprocessing, which matters for large vocabularies.",
+            "**Normal variables**: the Box–Muller transform converts two uniforms into two independent standard normals, Z₁ = √(−2 ln U₁) cos(2πU₂) and Z₂ = √(−2 ln U₁) sin(2πU₂).",
+            "**Importance sampling** estimates E_p[g(X)] using samples from a different distribution q, with weights w = p(x)/q(x): E_p[g] = E_q[g·p/q]. It is used when sampling from p is hard, or to emphasize rare but important events, and in off-policy reinforcement learning. The variance explodes if q has lighter tails than p."
+          ]
+        },
+        {
+          "h": "Shuffling and subsampling"
+        },
+        "The correct shuffle is the **Fisher–Yates** algorithm: for i from n − 1 down to 1, swap item i with a uniformly random item from positions 0..i. It produces each of the n! permutations with equal probability.",
+        {
+          "code": [
+            "import random",
+            "",
+            "def shuffle(xs):",
+            "    for i in range(len(xs) - 1, 0, -1):",
+            "        j = random.randint(0, i)        # inclusive: a random position among 0..i",
+            "        xs[i], xs[j] = xs[j], xs[i]",
+            "    return xs",
+            "",
+            "def reservoir_sample(stream, k):",
+            "    \"\"\"k items chosen uniformly from a stream of unknown length, in one pass.\"\"\"",
+            "    sample = []",
+            "    for i, x in enumerate(stream, start=1):",
+            "        if i <= k:",
+            "            sample.append(x)",
+            "        else:",
+            "            j = random.randint(1, i)    # keep x with probability k/i",
+            "            if j <= k:",
+            "                sample[j - 1] = x",
+            "    return sample"
+          ],
+          "caption": "Fisher–Yates shuffle and reservoir sampling."
+        },
+        {
+          "warn": "The tempting alternative, swapping each position with a random position in 0..n−1, is biased: it has nⁿ equally likely outcomes, which cannot be divided evenly among the n! permutations (for n = 3: 27 outcomes and 6 permutations, so some permutations are more likely than others). Subtle bias in a shuffle silently skews every epoch of training."
+        },
+        "**Reservoir sampling** keeps a uniform sample of k items from a stream whose length is unknown and which is too large to store: the i-th item replaces a random slot with probability k/i. For k = 1 the probability that item i is the final survivor is (1/i)·Π_{j>i}(1 − 1/j) = (1/i)·(i/n) = 1/n for every i, as required. It is used to sample from logs, from data on disk, and from the output of a data pipeline."
+      ],
+      "check": [
+        {
+          "q": "In rejection sampling with f ≤ M·g, the expected fraction of proposals that are accepted is",
+          "a": "1/M",
+          "wrong": [
+            "M",
+            "1/2",
+            "f/g"
+          ]
+        },
+        {
+          "q": "Reservoir sampling is useful because it",
+          "a": "draws a uniform sample from a stream of unknown length in one pass with O(k) memory",
+          "wrong": [
+            "sorts the stream",
+            "needs the whole data set in memory",
+            "can sample only once"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "monte-carlo-mcmc",
+      "title": "Monte Carlo and Markov chain Monte Carlo",
+      "terms": [
+        "monte carlo integration",
+        "antithetic variates",
+        "variance reduction techniques",
+        "markov chain monte carlo",
+        "metropolis–hastings algorithm",
+        "metropolis-hastings algorithm",
+        "gibbs sampling",
+        "burn-in",
+        "stationary distribution of a markov chain",
+        "control variate"
+      ],
+      "body": [
+        "**Monte Carlo** estimates an expectation E[g(X)] by the average of g over random samples, with standard error σ/√n (see Limit Theorems). The error shrinks slowly, but independently of the dimension. **Variance reduction** lowers σ for the same n. In **antithetic variates**, pair each sample u with its mirror 1 − u: the two estimates are negatively correlated, and their average has smaller variance.",
+        {
+          "example": {
+            "title": "Antithetic variates",
+            "problem": "Estimate ∫₀¹ eˣ dx = 1.71828 by averaging eᵁ over uniform U. Compare two independent samples with the antithetic pair (U, 1 − U).",
+            "solution": "Var(eᵁ) = (e² − 1)/2 − (e − 1)² = 3.1945 − 2.9525 = 0.2420. The mean of two independent samples has variance 0.2420/2 = 0.121. For the antithetic pair, Cov(eᵁ, e^{1−U}) = e − (e − 1)² = −0.2342, so the variance of the pair average is (0.2420 − 0.2342)/2 = 0.0039: 31 times smaller, for the same two function evaluations. Other tools: **control variates** (subtract a correlated quantity of known mean), stratified sampling and importance sampling."
+          }
+        },
+        {
+          "h": "Markov chain Monte Carlo"
+        },
+        "How can we sample from a distribution p(x) that is known only up to a normalizing constant, as a Bayesian posterior or a partition-function-free model is, and in many dimensions, where rejection sampling is hopeless? Construct a **Markov chain** whose **stationary distribution** is p, run it, and use its states as (correlated) samples. This is **Markov chain Monte Carlo** (MCMC).",
+        "**Metropolis–Hastings**: from the current state x, propose x′ from a distribution q(x′ | x) and accept it with probability",
+        {
+          "eq": "α = min( 1,  p(x′) q(x | x′) / ( p(x) q(x′ | x) ) )"
+        },
+        "otherwise stay at x. For a symmetric proposal such as x′ = x + noise, the q terms cancel and α = min(1, p(x′)/p(x)): always move uphill, move downhill with probability equal to the density ratio. Only ratios of p are needed, so the unknown normalizing constant cancels. This acceptance rule makes the chain satisfy **detailed balance** with respect to p, which implies that p is stationary.",
+        {
+          "code": [
+            "import numpy as np",
+            "",
+            "def metropolis(log_p, x0, n_steps, step=1.0, seed=0):",
+            "    rng = np.random.default_rng(seed)",
+            "    x, samples = x0, []",
+            "    for _ in range(n_steps):",
+            "        proposal = x + step * rng.uniform(-1, 1)           # symmetric random-walk proposal",
+            "        if np.log(rng.random()) < log_p(proposal) - log_p(x):   # accept with prob min(1, ratio)",
+            "            x = proposal",
+            "        samples.append(x)",
+            "    return np.array(samples)",
+            "",
+            "samples = metropolis(lambda x: -0.5 * x ** 2, x0=5.0, n_steps=20000)",
+            "samples[2000:].mean(), samples[2000:].std()     # about 0 and 1: a standard normal"
+          ],
+          "caption": "Metropolis sampling of a standard normal, working with log densities for stability. The first 2000 steps are discarded as burn-in."
+        },
+        {
+          "example": {
+            "title": "An acceptance probability",
+            "problem": "The target is N(0, 1) and the chain is at x = 0. A proposal x′ = 0.8 is made. What is the acceptance probability? What if the current state is 2 and the proposal 0.8?",
+            "solution": "p(0.8)/p(0) = exp(−0.32) = 0.726, so accept with probability 0.726. From x = 2: p(0.8)/p(2) = exp(−0.32 + 2) = 5.4 > 1, so the move is always accepted: uphill moves are free."
+          }
+        },
+        {
+          "list": [
+            "The samples are **correlated**: the effective sample size is smaller than the number of steps. A proposal step that is too small gives high acceptance but slow exploration, and one that is too large gives frequent rejection; an acceptance rate of 20% to 40% is a common target in many dimensions.",
+            "The early part of the chain depends on the starting point and is discarded as **burn-in**. Convergence is checked by running several chains and comparing them (the R-hat statistic) and by inspecting trace plots.",
+            "**Gibbs sampling** updates one variable at a time from its conditional distribution given the others, an MH step with acceptance probability 1; it is used in topic models and many graphical models.",
+            "**Hamiltonian Monte Carlo** and its adaptive version NUTS use gradient information to make long, efficient proposals, and are the engine of Stan and PyMC.",
+            "**Uses**: Bayesian posteriors (see Bayesian Methods), sampling from energy-based and graphical models, simulated annealing for optimization, and generating molecules and configurations in physics."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "Why can Metropolis–Hastings be used when the target density is known only up to a constant?",
+          "a": "The acceptance probability depends only on ratios of the density",
+          "wrong": [
+            "The constant is estimated from the samples",
+            "The target must be uniform",
+            "It never evaluates the density"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "randomized-algs",
+      "title": "Randomized algorithms and sketches",
+      "terms": [
+        "randomized algorithm",
+        "las vegas algorithm",
+        "monte carlo algorithm",
+        "universal hashing",
+        "random projection",
+        "johnson–lindenstrauss lemma",
+        "johnson-lindenstrauss lemma",
+        "count-min sketch",
+        "sketching",
+        "randomized svd",
+        "min-hash"
+      ],
+      "body": [
+        "A **randomized algorithm** uses random bits to make choices. Two kinds:",
+        {
+          "list": [
+            "A **Las Vegas** algorithm always returns the correct answer, but its running time is random (randomized quicksort: always sorted, expected O(n log n)).",
+            "A **Monte Carlo** algorithm has a fixed running time and may return a wrong answer with small probability, which can be driven down by repetition: if one run errs with probability ≤ 1/4 and runs are independent, the majority of k runs errs with probability exponentially small in k. (The primality test of Miller–Rabin is of this type.)"
+          ]
+        },
+        {
+          "h": "Hashing"
+        },
+        "A fixed hash function has inputs that make it collide. **Universal hashing** picks the function at random from a family, so that for any two distinct keys the collision probability is at most 1/M, whatever the keys. For example, h(x) = ((a·x + b) mod p) mod M with a random a ≠ 0 and b, p a prime larger than any key. Then no input set is bad for all choices, and the expected chain length is O(1 + α). Bloom filters, feature hashing and min-hash for estimating set similarity build on this.",
+        {
+          "h": "Random projections: the Johnson–Lindenstrauss lemma"
+        },
+        "High-dimensional data can be compressed by multiplying with a random matrix without destroying distances. **Johnson–Lindenstrauss lemma**: for any m points in ℝᵈ and ε ∈ (0, 1), a random linear map to ℝᵏ with k ≥ 4 ln m / (ε²/2 − ε³/3) preserves all pairwise distances within a factor 1 ± ε, with high probability. The target dimension depends on the number of points and the accuracy, not on d. A matrix of independent Gaussian entries N(0, 1/k) works.",
+        {
+          "example": {
+            "title": "How many dimensions are needed?",
+            "problem": "How large must k be to embed m = 10⁶ points with distortion ε = 0.1?",
+            "solution": "k ≥ 4 ln(10⁶)/(0.005 − 0.000333) = 4(13.82)/0.004667 ≈ 11,800, whatever the original dimension (which might be 10⁷). The bound is conservative; k of a few hundred often works for moderate m. Random projection is a fast, data-independent alternative to PCA, used before nearest-neighbor search and clustering."
+          }
+        },
+        {
+          "h": "Sketching large data"
+        },
+        {
+          "list": [
+            "A **count-min sketch** estimates how often each item occurs in a stream using a small table of counters and several hash functions: the count of an item is the minimum of its counters. It never underestimates, and overestimates by at most εN (N is the stream length) with probability 1 − δ, using w = ⌈e/ε⌉ columns and d = ⌈ln(1/δ)⌉ rows. For ε = 0.001 and δ = 0.01 that is 2719 × 5 ≈ 13,600 counters, however many distinct items the stream contains.",
+            "**HyperLogLog** estimates the number of distinct items in a stream with a few kilobytes and a few percent error.",
+            "**Min-hash** estimates the Jaccard similarity of two sets, from which near-duplicate documents are found at scale.",
+            "**Randomized linear algebra**: a randomized SVD or sketched least squares first multiplies by a random matrix to reduce the dimension, then solves the small problem, speeding up the SVD of huge matrices from O(mn·min(m, n)) to O(mn·k) for a rank-k approximation.",
+            "**Locality-sensitive hashing**: hash functions under which similar points collide with high probability, for approximate nearest neighbor search."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "The Johnson–Lindenstrauss target dimension k depends on",
+          "a": "the number of points and the distortion, not on the original dimension",
+          "wrong": [
+            "only the original dimension",
+            "the norm of each data point",
+            "the labels of the points"
+          ]
+        },
+        {
+          "q": "A Las Vegas algorithm",
+          "a": "always gives the correct answer but its running time is random",
+          "wrong": [
+            "has a fixed running time but may be wrong",
+            "uses no randomness",
+            "gives an approximate answer"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "randomness-ml",
+      "title": "Randomness in machine learning",
+      "terms": [
+        "stochastic training",
+        "random initialization",
+        "random seeds variance",
+        "randomized smoothing",
+        "sources of randomness in training"
+      ],
+      "body": [
+        "A training run involves many random choices, and each is a source of variation in the result.",
+        {
+          "table": {
+            "head": [
+              "Source",
+              "Role",
+              "Effect"
+            ],
+            "rows": [
+              [
+                "Weight initialization",
+                "break symmetry; set the scale",
+                "different local minima; training stability"
+              ],
+              [
+                "Data shuffling and mini-batch sampling",
+                "unbiased stochastic gradients (SGD)",
+                "noise in the path; some regularization"
+              ],
+              [
+                "Dropout and other noise",
+                "regularization",
+                "different sub-networks each step"
+              ],
+              [
+                "Data augmentation",
+                "synthetic variants of examples",
+                "invariances; regularization"
+              ],
+              [
+                "Train/validation split, bootstrap, cross-validation folds",
+                "estimate performance",
+                "variation in the evaluation"
+              ],
+              [
+                "Random forests and bagging",
+                "decorrelated models",
+                "variance reduction"
+              ],
+              [
+                "Sampling in generation (temperature, top-k)",
+                "diverse outputs",
+                "different text per run"
+              ],
+              [
+                "Exploration in reinforcement learning",
+                "try new actions",
+                "different experience"
+              ]
+            ],
+            "caption": "Where randomness enters machine learning."
+          }
+        },
+        {
+          "list": [
+            "**Report spread**: train with several seeds and report the mean and standard deviation of the metric. Differences smaller than the seed-to-seed variation are not evidence of an improvement (see Evaluating Models).",
+            "**Controlled comparisons** use the same seed (data order and initialization) for the methods compared, so that differences are due to the methods.",
+            "**Treat randomness as a regularizer and a tool**: SGD noise helps escape sharp minima, dropout averages over an ensemble, and random search over hyperparameters beats grid search when few of them matter.",
+            "**Seed hygiene**: set separate seeds for data splitting, initialization and augmentation, so that changing one does not change the others, and keep the test split fixed across experiments."
+          ]
+        },
+        {
+          "example": {
+            "title": "How many seeds?",
+            "problem": "Final accuracy over 5 seeds is 91.2, 90.5, 91.8, 90.9, 91.4. Find the mean, the standard deviation and the standard error. Is an alternative model with 91.6 clearly better?",
+            "solution": "Mean = 455.8/5 = 91.16. Deviations: 0.04, −0.66, 0.64, −0.26, 0.24; squares 0.0016, 0.4356, 0.4096, 0.0676, 0.0576, sum 0.972. Sample variance 0.972/4 = 0.243, standard deviation 0.493, standard error 0.493/√5 = 0.22. The alternative model's 91.6 is only 0.44 above the mean, about 2 standard errors; with a single run of it that gap is within the run-to-run spread (0.49). More seeds are needed to decide."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "To compare two training methods fairly, you should",
+          "a": "run each with several seeds and compare the averages against the seed-to-seed spread",
+          "wrong": [
+            "run each once with its best seed",
+            "run only the new method",
+            "change the test set between methods"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "A PRNG expands a seed deterministically (LCG: x ← (ax + c) mod m; modern: PCG, xoshiro, Mersenne Twister, counter-based generators). Same seed gives the same sequence. Use spawned independent streams for parallel work and secrets for security.",
+    "Sample by inverse transform, rejection sampling (accept with f/(Mg), rate 1/M), Box–Muller, the alias method and importance weights. Shuffle with Fisher–Yates, and sample a stream with reservoir sampling.",
+    "Monte Carlo error is σ/√n whatever the dimension; antithetic and control variates reduce σ. MCMC (Metropolis–Hastings with acceptance min(1, p(x′)/p(x))) samples from densities known up to a constant, with burn-in and correlated samples.",
+    "Las Vegas algorithms are always correct, and Monte Carlo algorithms are fast but may err. Universal hashing, random projections (JL: k ≈ 4 ln m/ε²), count-min sketches and min-hash use randomness to compress and estimate.",
+    "Machine learning is full of randomness: report spread over seeds and control seeds in comparisons."
+  ],
+  "problems": [
+    {
+      "q": "With the LCG x_{n+1} = (5x_n + 3) mod 16 and seed 2, list the first five outputs after the seed and the corresponding uniform values u = x/16.",
+      "solution": "x₁ = 13 → 0.8125; x₂ = (65 + 3) mod 16 = 68 mod 16 = 4 → 0.25; x₃ = 23 mod 16 = 7 → 0.4375; x₄ = 38 mod 16 = 6 → 0.375; x₅ = 33 mod 16 = 1 → 0.0625.",
+      "a": "13, 4, 7, 6, 1, i.e. u = 0.8125, 0.25, 0.4375, 0.375, 0.0625."
+    },
+    {
+      "q": "Use inverse transform sampling to generate a variable with density f(x) = 2x on [0, 1] from U = 0.36.",
+      "solution": "F(x) = x², so F⁻¹(u) = √u. For u = 0.36, x = 0.6.",
+      "a": "x = 0.6."
+    },
+    {
+      "q": "Reservoir sampling with k = 2 over a stream of 4 items. What is the probability that the first item is in the final sample?",
+      "solution": "The first two items fill the reservoir. Item 3 replaces a random slot with probability 2/3 (so item 1 survives it with probability 1 − (2/3)(1/2) = 2/3). Item 4 replaces with probability 2/4 = 1/2, and picks item 1's slot with probability 1/2, so item 1 survives with probability 1 − 1/4 = 3/4. Overall (2/3)(3/4) = 1/2 = k/n.",
+      "a": "1/2 (= k/n, as for every item)."
+    },
+    {
+      "q": "A Monte Carlo algorithm gives the right answer with probability 3/4 on each independent run. Using the majority of 5 runs for a yes/no question, what is the probability of a wrong final answer?",
+      "solution": "The majority is wrong if at least 3 of the 5 runs are wrong (each with probability 1/4): C(5,3)(1/4)³(3/4)² + C(5,4)(1/4)⁴(3/4) + (1/4)⁵ = 10(0.015625)(0.5625) + 5(0.00390625)(0.75) + 0.000977 = 0.0879 + 0.0146 + 0.0010 = 0.1035.",
+      "a": "About 0.10 (from 0.25 for a single run)."
+    },
+    {
+      "q": "A Metropolis chain targets p(x) ∝ exp(−x²/2). At x = 1, a symmetric proposal x′ = 2.5 is made. Give the acceptance probability.",
+      "solution": "p(x′)/p(x) = exp(−(6.25 − 1)/2) = exp(−2.625) = 0.0724.",
+      "a": "0.072."
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "id": "computer-science",
+  "title": "Computer Science for Machine Learning",
+  "kicker": "Textbook",
+  "color": "#b45309",
+  "subtitle": "Programming, algorithms, numerical computing, systems and automatic differentiation.",
+  "preface": [
+    "This book is the computer science that the Machine Learning book uses. It covers Python and NumPy, software practice, discrete mathematics, algorithms and data structures, numerical computing, computer systems and automatic differentiation. It matches the first courses at Berkeley (CS 61A, 61B, 70, 170) and Stanford (CS 106B, 107, 161), taken at the pace of a reader who already programs a little.",
+    "Examples are in Python because machine learning is written in Python, but the ideas apply to any language. Complexity claims are proved or derived. Numerical claims are checked.",
+    "Read the Programming part first. The Algorithms and Numerical parts can be read in either order, and Automatic Differentiation is best read just before Backpropagation in the Machine Learning book."
+  ],
+  "links": [
+    "mathematics",
+    "machine-learning",
+    "data-science"
+  ],
+  "parts": [
+    {
+      "title": "Programming",
+      "blurb": "Python, array programming with NumPy, and the habits that keep code correct.",
+      "chapters": [
+        "computer-science/programming/python",
+        "computer-science/programming/numpy",
+        "computer-science/programming/software-practice"
+      ]
+    },
+    {
+      "title": "Discrete Mathematics and Algorithms",
+      "blurb": "Proofs, counting, complexity, data structures and the standard algorithm design techniques.",
+      "chapters": [
+        "computer-science/algorithms/discrete-math",
+        "computer-science/algorithms/complexity",
+        "computer-science/algorithms/data-structures",
+        "computer-science/algorithms/sorting-searching",
+        "computer-science/algorithms/dynamic-programming",
+        "computer-science/algorithms/graph-algorithms"
+      ]
+    },
+    {
+      "title": "Numerical Computing and Systems",
+      "blurb": "How computers represent numbers, how hardware runs code, and how derivatives are computed automatically.",
+      "chapters": [
+        "computer-science/numerical/numerical-computing",
+        "computer-science/numerical/randomized-algorithms",
+        "computer-science/numerical/computer-systems",
+        "computer-science/numerical/automatic-differentiation"
+      ]
+    }
+  ]
+}

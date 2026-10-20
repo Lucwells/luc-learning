@@ -1,0 +1,359 @@
+{
+  "id": "transformers",
+  "view": "chapter",
+  "title": "Attention and Transformers",
+  "description": "Scaled dot-product attention, multi-head self-attention, the transformer block, pretraining of language models and scaling.",
+  "overview": [
+    "Recurrent networks read a sequence one step at a time, so information from far back must survive many updates, and the computation cannot be parallelized across the sequence. The transformer (Vaswani et al., 2017) drops recurrence. Every position directly looks at every other position through attention, which weighs the other tokens by relevance and mixes their information. The whole sequence is processed at once, which suits GPUs, and the path between any two positions has length one.",
+    "Transformers are the architecture behind large language models, and they are now standard for text, images, audio, protein structure and more. This chapter builds attention from a simple idea, assembles the transformer, and describes how such models are pretrained."
+  ],
+  "objectives": [
+    "Compute scaled dot-product attention for a small example by hand.",
+    "Explain why the scores are divided by √d_k and how causal masking works.",
+    "Describe multi-head self-attention, positional encoding, and the structure of a transformer block.",
+    "Count the parameters and the attention cost of a transformer layer.",
+    "Distinguish encoder (BERT), decoder (GPT) and encoder–decoder models, and describe pretraining, fine-tuning and scaling laws."
+  ],
+  "sections": [
+    {
+      "id": "attention",
+      "title": "Scaled dot-product attention",
+      "terms": [
+        "attention",
+        "attention mechanism",
+        "scaled dot-product attention",
+        "attention weights",
+        "softmax attention"
+      ],
+      "body": [
+        "Attention is a soft lookup in a table. Each item has a **key** and a **value**. A **query** is compared with every key, the comparison scores are converted to weights by a softmax, and the output is the weighted average of the values. Items whose keys match the query contribute most.",
+        {
+          "svg": "<svg viewBox='0 0 440 150' role='img' aria-label='Attention computation flow: scores, softmax, weighted sum of values' font-family='system-ui, sans-serif' font-size='12'><defs><marker id='arr' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='7' markerHeight='7' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='currentColor'/></marker></defs><g fill='none' stroke='currentColor' stroke-width='1.5'><rect x='10' y='20' width='50' height='30' rx='4'/><rect x='10' y='95' width='50' height='30' rx='4'/><rect x='95' y='45' width='90' height='40' rx='4'/><rect x='215' y='45' width='70' height='40' rx='4'/><rect x='315' y='45' width='50' height='40' rx='4'/><rect x='315' y='105' width='50' height='30' rx='4'/><path d='M60,35 L93,58 M60,110 L93,72 M185,65 L213,65 M285,65 L313,65 M340,105 L340,87 M365,65 L395,65' marker-end='url(#arr)'/></g><g fill='currentColor' text-anchor='middle'><text x='35' y='40'>Q</text><text x='35' y='115'>K</text><text x='140' y='62'>QKᵀ</text><text x='140' y='77'>÷ √d_k</text><text x='250' y='70'>softmax</text><text x='340' y='70'>× V</text><text x='340' y='124'>V</text><text x='418' y='70'>out</text></g></svg>",
+          "caption": "Attention(Q, K, V) = softmax(QKᵀ/√d_k) V."
+        },
+        "For n queries, m keys and values, with queries and keys of dimension d_k, stack them as matrices Q (n × d_k), K (m × d_k) and V (m × d_v):",
+        {
+          "eq": "Attention(Q, K, V) = softmax( Q Kᵀ / √d_k ) V"
+        },
+        "The matrix QKᵀ has one row per query and one column per key. The softmax acts on each row, so each query's weights are positive and sum to one.",
+        {
+          "example": {
+            "title": "Attention for one query",
+            "problem": "d_k = 2. The query is q = (1, 0). Keys: k₁ = (1, 0), k₂ = (0, 1), k₃ = (1, 1). Values: v₁ = (2, 0), v₂ = (0, 2), v₃ = (1, 1). Compute the output.",
+            "solution": [
+              "Scores qᵀk = (1, 0, 1). Dividing by √2 gives (0.707, 0, 0.707).",
+              "exp = (2.028, 1, 2.028), sum 5.056, so the weights are (0.401, 0.198, 0.401).",
+              {
+                "eq": "output = 0.401(2, 0) + 0.198(0, 2) + 0.401(1, 1) = (1.203, 0.797)"
+              },
+              "The query matches keys 1 and 3 equally well, so those values dominate the output."
+            ]
+          }
+        },
+        {
+          "h": "Why divide by √d_k?"
+        },
+        "If the components of q and k are independent with mean 0 and variance 1, then qᵀk is a sum of d_k such products and has variance d_k. For d_k = 64 the standard deviation of a score is 8. Large scores push the softmax toward a one-hot vector, where its gradients are nearly zero and learning stalls. Dividing by √d_k restores unit variance.",
+        {
+          "note": "Attention in its first form (Bahdanau, 2014) used a small network to score each decoder state against each encoder state. The dot-product form is faster because it reduces to one matrix multiplication."
+        }
+      ],
+      "check": [
+        {
+          "q": "In attention, the weights applied to the values are obtained from",
+          "a": "a softmax over the scaled query–key dot products",
+          "wrong": [
+            "the values themselves",
+            "a sigmoid of the keys",
+            "a fixed average over positions"
+          ]
+        },
+        {
+          "q": "Why are the scores divided by √d_k?",
+          "a": "Dot products grow in variance with d_k, which would saturate the softmax and shrink gradients",
+          "wrong": [
+            "To make the weights sum to 1",
+            "To reduce the number of parameters",
+            "To make the output the same length as the input"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "self-attention",
+      "title": "Self-attention, multiple heads and masking",
+      "terms": [
+        "self-attention",
+        "multi-head attention",
+        "multi-head self-attention",
+        "attention head",
+        "causal mask",
+        "masked attention",
+        "cross-attention"
+      ],
+      "body": [
+        "In **self-attention**, the queries, keys and values all come from the same sequence. With the sequence of vectors X (n × d), learn three projection matrices:",
+        {
+          "eq": [
+            "Q = X W_Q,   K = X W_K,   V = X W_V",
+            "SelfAttn(X) = softmax( QKᵀ/√d_k ) V"
+          ]
+        },
+        "Each token forms a query asking 'which other tokens matter to me?', and gathers a weighted mix of their values. In the sentence 'The animal did not cross the street because it was tired', the representation of 'it' can attend strongly to 'animal'. Unlike an RNN, every pair of positions interacts directly, and all positions are computed at once.",
+        {
+          "h": "Multiple heads"
+        },
+        "One attention pattern is limiting. **Multi-head attention** runs h attention operations in parallel, each with its own projections into a smaller dimension d_k = d/h, then concatenates the results and mixes them with an output matrix W_O:",
+        {
+          "eq": "MultiHead(X) = [ head₁; …; head_h ] W_O,    head_i = Attention(XW_Q^{i}, XW_K^{i}, XW_V^{i})"
+        },
+        "Different heads learn different relationships: one may track syntactic dependencies, another nearby words, another the previous occurrence of a token. The cost is about the same as one full-size head.",
+        {
+          "h": "Masking"
+        },
+        "A model that generates text must not look at the future. A **causal mask** adds −∞ to the scores of every position j > i before the softmax, so token i can only attend to tokens up to i, and their weights become exactly zero. During training this lets all positions of a sequence be predicted in a single parallel pass.",
+        {
+          "h": "Cost"
+        },
+        "The score matrix has n² entries for a sequence of n tokens, so the time and memory of attention grow quadratically with the length: doubling the context quadruples the attention cost. Long-context models use tricks such as memory-efficient exact attention kernels (FlashAttention), sparse or windowed patterns, and cached keys and values (the KV cache) during generation."
+      ],
+      "check": [
+        {
+          "q": "A causal mask ensures that",
+          "a": "each token attends only to itself and earlier tokens",
+          "wrong": [
+            "each token attends only to later tokens",
+            "all heads share the same weights",
+            "the sequence has a fixed length"
+          ]
+        },
+        {
+          "q": "If the context length doubles, the attention score matrix grows by a factor of",
+          "a": "4",
+          "wrong": [
+            "2",
+            "8",
+            "1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "transformer-block",
+      "title": "The transformer architecture",
+      "terms": [
+        "transformer",
+        "transformers",
+        "transformer block",
+        "positional encoding",
+        "feed-forward network",
+        "layer normalization in transformers",
+        "residual stream"
+      ],
+      "body": [
+        "Attention alone is blind to order: shuffling the tokens shuffles the outputs identically. **Positional encodings** inject position. The original transformer adds a fixed vector to each token embedding,",
+        {
+          "eq": [
+            "PE(pos, 2i) = sin( pos / 10000^{2i/d} )",
+            "PE(pos, 2i + 1) = cos( pos / 10000^{2i/d} )"
+          ]
+        },
+        "Each dimension is a sinusoid with a different wavelength, so relative offsets are easy to compute. For d = 4 and pos = 1, the encoding is (sin 1, cos 1, sin 0.01, cos 0.01) = (0.841, 0.540, 0.010, 1.000). Modern models often use learned positions or rotary embeddings (RoPE), which rotate queries and keys by position-dependent angles.",
+        {
+          "h": "The block"
+        },
+        "A **transformer block** has two sub-layers, each wrapped in a residual connection and a layer normalization:",
+        {
+          "list": [
+            "**Multi-head self-attention** mixes information across positions.",
+            "A **position-wise feed-forward network**, two fully connected layers with a nonlinearity (ReLU or GELU) applied to each position separately: FFN(x) = W₂ g(W₁x + b₁) + b₂, typically with an inner width of 4d. It transforms each token's representation."
+          ]
+        },
+        {
+          "eq": [
+            "x ← x + MultiHead( LN(x) )",
+            "x ← x + FFN( LN(x) )"
+          ]
+        },
+        "Normalizing before each sub-layer (pre-LN, shown above) trains more stably than the original post-LN placement. The residual stream x carries information through the stack, and each sub-layer reads from it and adds to it (see Residual networks). A model stacks 6 to 100+ such blocks.",
+        {
+          "example": {
+            "title": "Parameters of a transformer layer",
+            "problem": "A model has width d = 768 and a feed-forward inner width 4d. Count the weights in one block (ignoring biases and normalization), and estimate a 12-layer model with a 30,522-token vocabulary.",
+            "solution": [
+              "Attention: four d × d matrices (W_Q, W_K, W_V, W_O) = 4d² = 2,359,296. Feed-forward: d × 4d and 4d × d = 8d² = 4,718,592. One block: 12d² = 7,077,888.",
+              "Twelve blocks: 84.9 million. The token embedding table is 30,522 × 768 = 23.4 million. The total is about 108 million, which matches the size of BERT-base (110 million)."
+            ]
+          }
+        },
+        {
+          "h": "Three variants"
+        },
+        {
+          "table": {
+            "head": [
+              "Variant",
+              "Attention",
+              "Training objective",
+              "Examples",
+              "Typical use"
+            ],
+            "rows": [
+              [
+                "Encoder only",
+                "Bidirectional",
+                "Masked token prediction",
+                "BERT",
+                "Classification, retrieval, tagging"
+              ],
+              [
+                "Decoder only",
+                "Causal",
+                "Next-token prediction",
+                "GPT family, Llama",
+                "Text generation, chat"
+              ],
+              [
+                "Encoder–decoder",
+                "Encoder bidirectional; decoder causal with cross-attention to the encoder",
+                "Sequence-to-sequence",
+                "T5, original transformer",
+                "Translation, summarization"
+              ]
+            ],
+            "caption": "Transformer families."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Why are positional encodings needed?",
+          "a": "Self-attention alone does not depend on the order of the tokens",
+          "wrong": [
+            "They reduce the number of heads",
+            "They normalize the activations",
+            "They replace the feed-forward network"
+          ]
+        },
+        {
+          "q": "The weights of one block of width d (ignoring biases) number about",
+          "a": "12d²",
+          "wrong": [
+            "4d²",
+            "d³",
+            "2d"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pretraining",
+      "title": "Pretraining, fine-tuning and scaling",
+      "terms": [
+        "pretraining",
+        "pre-training",
+        "large language model",
+        "large language models",
+        "bert",
+        "gpt",
+        "masked language modeling",
+        "in-context learning",
+        "scaling laws",
+        "instruction tuning",
+        "foundation model"
+      ],
+      "body": [
+        "Transformers are trained in two stages. **Pretraining** uses a huge unlabeled corpus and a self-supervised objective.",
+        {
+          "list": [
+            "**Autoregressive** (GPT-style): predict the next token from the previous ones, minimizing cross-entropy. Perplexity measures progress (see Sequence Models).",
+            "**Masked language modeling** (BERT-style): hide about 15% of the tokens and predict them from the context on both sides.",
+            "**Span corruption and denoising** (T5), and contrastive objectives for images and text (CLIP)."
+          ]
+        },
+        "The pretrained model has learned grammar, facts and patterns of reasoning, and can be **fine-tuned** with a small labeled data set (add a classification head, or continue training with a small learning rate), or prompted directly. Large decoder models show **in-context learning**: given a few examples in the prompt, they perform a new task without any weight update.",
+        {
+          "h": "From a language model to an assistant"
+        },
+        "A raw language model continues text. To make it follow instructions, it is further trained on examples of desired behavior (**instruction tuning**), and then by reinforcement learning from human preferences (RLHF) or related methods, in which people rank outputs and the model is trained to produce preferred ones (see Reinforcement Learning).",
+        {
+          "h": "Scaling laws"
+        },
+        "Empirically, the loss of a language model falls as a smooth **power law** in the number of parameters N, the amount of training data D and the compute C, over many orders of magnitude (Kaplan et al., 2020): L ∝ N^{−α} with a small exponent. For a fixed compute budget there is a best split between model size and data; the 'Chinchilla' analysis (Hoffmann et al., 2022) found that many models were too large for their data and that roughly 20 training tokens per parameter is near optimal. These laws make it possible to predict the performance of a large run from small ones, and to plan experiments.",
+        {
+          "example": {
+            "title": "A compute-optimal estimate",
+            "problem": "Using about 20 tokens per parameter, how many tokens would a 7-billion-parameter model be trained on? Training compute is roughly 6ND floating-point operations. Estimate it.",
+            "solution": "D = 20 × 7 × 10⁹ = 1.4 × 10¹¹ tokens. Compute ≈ 6 × 7 × 10⁹ × 1.4 × 10¹¹ = 5.9 × 10²⁰ FLOPs. (In practice, models are often trained on much more data than this to make them cheaper to use.)"
+          }
+        },
+        {
+          "h": "Limits"
+        },
+        {
+          "list": [
+            "Language models generate plausible text, not verified facts. They can **hallucinate** and they reflect biases in their training data.",
+            "The context window is finite, and attention cost grows quadratically.",
+            "Training needs very large data sets and compute, which concentrates the capability in a few organizations; fine-tuning and distillation of smaller models are accessible alternatives.",
+            "Evaluate with held-out tasks and beware of benchmark contamination, where test items appear in the training data."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "BERT is pretrained by",
+          "a": "predicting masked tokens using context on both sides",
+          "wrong": [
+            "predicting the next token only",
+            "classifying images",
+            "translating sentences"
+          ]
+        },
+        {
+          "q": "In-context learning means a model",
+          "a": "adapts to a new task from examples in its prompt, with no weight updates",
+          "wrong": [
+            "retrains itself on every query",
+            "stores the examples in its weights permanently",
+            "needs a labeled data set of 10,000 examples"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Attention computes softmax(QKᵀ/√d_k)V: a query is compared with all keys, and the output is the weighted average of the values. The √d_k keeps the softmax from saturating.",
+    "Self-attention takes Q, K and V from the same sequence. Multi-head attention runs several in parallel. A causal mask blocks attention to the future. Cost grows as n².",
+    "A transformer block is multi-head attention plus a position-wise feed-forward network, each with a residual connection and layer normalization. Positional encodings supply order. A block has about 12d² weights.",
+    "Encoder-only (BERT), decoder-only (GPT) and encoder–decoder (T5) models differ in masking and objective.",
+    "Models are pretrained on unlabeled text, then fine-tuned or prompted. Loss follows power laws in parameters, data and compute; roughly 20 tokens per parameter is compute-optimal.",
+    "Language models can hallucinate and are limited by context length and data quality."
+  ],
+  "problems": [
+    {
+      "q": "With d_k = 4, q = (1, 1, 0, 0) and keys k₁ = (2, 0, 0, 0), k₂ = (0, 0, 2, 0), compute the attention weights.",
+      "solution": "Scores: q·k₁ = 2, q·k₂ = 0. Scaled by √4 = 2: (1, 0). Softmax: e/(e + 1) = 0.731 and 1/(e + 1) = 0.269.",
+      "a": "(0.731, 0.269)."
+    },
+    {
+      "q": "If a causal mask is applied to a 3-token sequence with all-equal raw scores, what are the attention weights of the second token?",
+      "solution": "The second token can attend to tokens 1 and 2 only; token 3 gets weight 0. With equal scores the weights are (1/2, 1/2, 0).",
+      "a": "(0.5, 0.5, 0)."
+    },
+    {
+      "q": "A model has d = 1024, 24 layers, a 4d feed-forward width, and a vocabulary of 50,000 tokens (embedding shared with the output). Estimate its parameters.",
+      "solution": "Per layer 12d² = 12 × 1,048,576 = 12.58 million. Times 24 = 302 million. Embeddings: 50,000 × 1024 = 51.2 million. Total ≈ 353 million.",
+      "a": "About 350 million parameters."
+    },
+    {
+      "q": "Attention over a sequence of 4096 tokens with 16 heads stores a score matrix per head. How many score entries are there per layer, and how does that compare with a 1024-token sequence?",
+      "solution": "Per head 4096² = 16.8 million; for 16 heads, 268 million. For 1024 tokens: 1024² × 16 = 16.8 million. The ratio is 4² = 16.",
+      "a": "268 million entries, 16 times as many as for 1024 tokens."
+    },
+    {
+      "q": "Show that without positional information, permuting the input tokens permutes the self-attention output in the same way.",
+      "solution": "Let P be a permutation matrix. Replacing X by PX gives Q → PQ, K → PK, V → PV. The scores become PQKᵀPᵀ/√d_k. Softmax acts on rows, so softmax(PSPᵀ) = P softmax(S) Pᵀ. Then the output is P softmax(S)PᵀPV = P softmax(S)V, which is P times the original output.",
+      "a": "The output is permuted by the same P, so attention cannot tell order without positional encodings."
+    }
+  ]
+}

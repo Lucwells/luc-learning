@@ -1,0 +1,335 @@
+{
+  "id": "multivariate",
+  "view": "chapter",
+  "title": "Multivariate Probability and the Gaussian",
+  "description": "Joint, marginal and conditional distributions, covariance, the multivariate Gaussian, conditional expectation and transformations of random vectors.",
+  "overview": [
+    "Data have many features, and the features are related. To model that, we need joint distributions: the probability of several random variables together. From the joint we can read off the distribution of any subset (marginalization) and the distribution of some given others (conditioning), and measure how variables move together with covariance.",
+    "The multivariate Gaussian is the central example. It is described by a mean vector and a covariance matrix, its marginals and conditionals are again Gaussian with explicit formulas, and linear transformations keep it Gaussian. Those properties make it the basis of linear regression, Gaussian discriminant analysis, PCA, Gaussian processes and Kalman filters."
+  ],
+  "objectives": [
+    "Compute marginal and conditional distributions from a joint distribution, and test independence.",
+    "Compute covariance, correlation and the covariance matrix, and explain why uncorrelated does not mean independent.",
+    "Write the multivariate Gaussian density, interpret its contours, and compute Mahalanobis distances.",
+    "Derive the distribution of a linear transformation, and the marginal and conditional distributions of a Gaussian.",
+    "Use the laws of total expectation and total variance, and sample a Gaussian with the Cholesky factor."
+  ],
+  "sections": [
+    {
+      "id": "joint",
+      "title": "Joint, marginal and conditional distributions",
+      "terms": [
+        "joint distribution",
+        "joint probability",
+        "marginal distribution",
+        "marginalization",
+        "conditional distribution",
+        "joint density",
+        "independent random variables",
+        "multivariate probability"
+      ],
+      "body": [
+        "The **joint distribution** of two random variables X and Y gives the probability of every combination: p(x, y) = P(X = x, Y = y) for discrete variables, or a joint density f(x, y) with P((X, Y) ∈ A) = ∬_A f dx dy. The **marginal** distribution of X is obtained by summing (or integrating) out Y, which is the law of total probability:",
+        {
+          "eq": [
+            "p_X(x) = Σ_y p(x, y)    (or  f_X(x) = ∫ f(x, y) dy)"
+          ]
+        },
+        "The **conditional** distribution of Y given X = x is a slice of the joint, renormalized:",
+        {
+          "eq": "p(y | x) = p(x, y) / p_X(x)"
+        },
+        "Rearranged, p(x, y) = p(x)p(y | x), the chain rule, and with the roles exchanged Bayes' rule p(x | y) = p(y | x)p(x)/p(y). X and Y are **independent** if p(x, y) = p_X(x)p_Y(y) for all x, y, equivalently if p(y | x) = p(y).",
+        {
+          "example": {
+            "title": "A joint table",
+            "problem": "X and Y are binary with P(0, 0) = 0.3, P(0, 1) = 0.2, P(1, 0) = 0.1, P(1, 1) = 0.4. Find the marginals, P(Y = 1 | X = 1) and P(Y = 1 | X = 0), and decide whether they are independent.",
+            "solution": "Marginals: P(X = 1) = 0.1 + 0.4 = 0.5 and P(Y = 1) = 0.2 + 0.4 = 0.6. Conditionals: P(Y = 1 | X = 1) = 0.4/0.5 = 0.8 and P(Y = 1 | X = 0) = 0.2/0.5 = 0.4. Since they differ (and 0.4 ≠ 0.5 × 0.6 = 0.3 for the cell (1, 1)), X and Y are dependent: learning X changes the odds for Y."
+          }
+        },
+        "For n variables the same ideas hold: marginalizing removes variables by summing over them, and conditioning fixes some. The number of entries in a joint table grows exponentially with n, which is why we impose structure: independence (a product), conditional independence (graphical models) or a parametric family such as the Gaussian."
+      ],
+      "check": [
+        {
+          "q": "To get the marginal distribution of X from p(x, y), we",
+          "a": "sum (or integrate) over y",
+          "wrong": [
+            "divide by p(y)",
+            "multiply by p(y)",
+            "take the maximum over y"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "covariance",
+      "title": "Covariance and correlation",
+      "terms": [
+        "covariance",
+        "correlation",
+        "correlation coefficient",
+        "covariance matrix",
+        "uncorrelated",
+        "sample covariance",
+        "variance of a sum"
+      ],
+      "body": [
+        "The **covariance** of X and Y measures whether they vary together:",
+        {
+          "eq": "Cov(X, Y) = E[(X − μ_X)(Y − μ_Y)] = E[XY] − E[X]E[Y]"
+        },
+        "It is positive when large values of X go with large values of Y, and negative when they go with small ones. Cov(X, X) = Var(X). The variance of a sum includes the covariance:",
+        {
+          "eq": "Var(X + Y) = Var(X) + Var(Y) + 2 Cov(X, Y)"
+        },
+        "The **correlation coefficient** ρ = Cov(X, Y)/(σ_Xσ_Y) is the covariance rescaled to be free of units, with −1 ≤ ρ ≤ 1 (by the Cauchy–Schwarz inequality), and |ρ| = 1 exactly when Y is a linear function of X.",
+        {
+          "example": {
+            "title": "Covariance from a joint table",
+            "problem": "For the joint table of the previous section, compute Cov(X, Y) and ρ.",
+            "solution": "E[X] = 0.5, E[Y] = 0.6, E[XY] = P(1, 1) = 0.4, so Cov = 0.4 − 0.3 = 0.1. Var(X) = 0.25 and Var(Y) = 0.6 × 0.4 = 0.24. ρ = 0.1/√(0.25 × 0.24) = 0.1/0.245 = 0.41, a moderate positive correlation."
+          }
+        },
+        {
+          "warn": "Independent variables are uncorrelated, but uncorrelated variables need not be independent. Correlation measures only linear dependence. Let X be uniform on {−1, 0, 1} and Y = X². Then E[XY] = E[X³] = 0 and E[X] = 0, so Cov = 0, yet Y is completely determined by X."
+        },
+        {
+          "h": "The covariance matrix"
+        },
+        "For a random vector X = (X₁, …, X_n) with mean μ, the **covariance matrix** Σ has entries Σ_ij = Cov(X_i, X_j):",
+        {
+          "eq": "Σ = E[ (X − μ)(X − μ)ᵀ ]"
+        },
+        "It is symmetric and positive semidefinite, since for any vector w, wᵀΣw = Var(wᵀX) ≥ 0. A linear combination wᵀX of the components has variance wᵀΣw. From data x^{(1)}, …, x^{(m)}, the **sample covariance** is Σ̂ = (1/(m − 1)) Σ (x^{(i)} − x̄)(x^{(i)} − x̄)ᵀ, which equals XᵀX/(m − 1) for centered data (PCA diagonalizes it; see PCA).",
+        {
+          "example": {
+            "title": "Variance of a combination",
+            "problem": "X has covariance matrix Σ = [[4, 2], [2, 3]]. Find the variance of X₁ + X₂ and the eigenvalues of Σ.",
+            "solution": "With w = (1, 1): wᵀΣw = 4 + 3 + 2(2) = 11. The eigenvalues satisfy λ² − 7λ + 8 = 0, giving λ = (7 ± √17)/2 = 5.56 and 1.44. The largest variance of any unit-length combination is 5.56, in the direction of the top eigenvector."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "If X and Y are independent, then Cov(X, Y) is",
+          "a": "0",
+          "wrong": [
+            "1",
+            "Var(X)Var(Y)",
+            "−1"
+          ]
+        },
+        {
+          "q": "Var(X + Y) = Var(X) + Var(Y) holds when",
+          "a": "Cov(X, Y) = 0",
+          "wrong": [
+            "always",
+            "X = Y",
+            "E[X] = E[Y]"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mvn",
+      "title": "The multivariate Gaussian",
+      "terms": [
+        "multivariate gaussian",
+        "multivariate normal",
+        "multivariate gaussian distribution",
+        "mahalanobis distance",
+        "bivariate normal",
+        "gaussian conditional",
+        "gaussian marginal"
+      ],
+      "body": [
+        "A random vector X ∈ ℝⁿ has a **multivariate Gaussian** distribution N(μ, Σ), with mean vector μ and a symmetric positive definite covariance matrix Σ, if its density is",
+        {
+          "eq": "p(x) = (2π)^{−n/2} |Σ|^{−1/2} exp( −½ (x − μ)ᵀ Σ⁻¹ (x − μ) )"
+        },
+        "The exponent contains the squared **Mahalanobis distance** d²(x, μ) = (x − μ)ᵀΣ⁻¹(x − μ), the distance from μ measured in units of the spread of the distribution in that direction. The contours of constant density are ellipsoids d² = c: centered at μ, with axes along the eigenvectors of Σ and lengths proportional to √λ_i. When Σ = σ²I they are spheres, and when Σ is diagonal the components are independent.",
+        {
+          "svg": "<svg viewBox='0 0 400 230' role='img' aria-label='Tilted elliptical contours of a correlated two-dimensional Gaussian' font-family='system-ui, sans-serif' font-size='12'><g fill='none' stroke='currentColor' stroke-width='1.5'><ellipse cx='200' cy='115' rx='50' ry='20' transform='rotate(-30 200 115)'/><ellipse cx='200' cy='115' rx='100' ry='40' transform='rotate(-30 200 115)'/><ellipse cx='200' cy='115' rx='150' ry='60' transform='rotate(-30 200 115)'/></g><path d='M70,190 L330,40' fill='none' style='stroke:var(--accent)' stroke-width='2' stroke-dasharray='5 3'/><g fill='currentColor'><circle cx='200' cy='115' r='3'/><text x='296' y='34' style='fill:var(--accent)'>top eigenvector of Σ</text><text x='20' y='220'>contours of N(μ, Σ) with positively correlated components</text></g></svg>",
+          "caption": "Contours of a bivariate Gaussian with positive correlation. The ellipses are tilted along the leading eigenvector of Σ."
+        },
+        {
+          "example": {
+            "title": "Mahalanobis distance",
+            "problem": "For Σ = [[4, 2], [2, 3]] and μ = 0, compute d² for x = (2, 0) and x = (0, 2).",
+            "solution": "Σ⁻¹ = (1/8)[[3, −2], [−2, 4]] since det Σ = 8. For x = (2, 0): d² = (1/8)(3 · 4) = 1.5. For x = (0, 2): d² = (1/8)(4 · 4) = 2. Although both points are at Euclidean distance 2, the second is 'farther' in the Mahalanobis sense because the variance along x₂ is smaller and the covariance with x₁ makes the point unusual."
+          }
+        },
+        {
+          "h": "Closure properties"
+        },
+        {
+          "list": [
+            "**Linear maps**: if X ~ N(μ, Σ), then AX + b ~ N(Aμ + b, AΣAᵀ). In particular a scalar wᵀX is N(wᵀμ, wᵀΣw). This is why a linear model with Gaussian noise produces Gaussian outputs.",
+            "**Marginals** are Gaussian: drop the unwanted rows and columns of μ and Σ.",
+            "**Conditionals** are Gaussian. Partition X = (X₁, X₂) with Σ = [[Σ₁₁, Σ₁₂], [Σ₂₁, Σ₂₂]]; the conditional distribution is given by the formula below.",
+            "**Uncorrelated implies independent**, for jointly Gaussian variables only."
+          ]
+        },
+        {
+          "eq": [
+            "X₁ | X₂ = x₂ ~ N( μ₁ + Σ₁₂Σ₂₂⁻¹(x₂ − μ₂),  Σ₁₁ − Σ₁₂Σ₂₂⁻¹Σ₂₁ )"
+          ]
+        },
+        "The conditional mean is a linear function of the observed x₂ (this is linear regression), and the conditional variance does not depend on the value of x₂ and is smaller than the marginal variance: observing X₂ can only reduce uncertainty about X₁. Gaussian processes (see Bayesian Methods) are this formula applied to many variables.",
+        {
+          "example": {
+            "title": "A conditional Gaussian",
+            "problem": "μ = 0 and Σ = [[4, 2], [2, 3]]. Find the distribution of X₁ given X₂ = 3.",
+            "solution": "Σ₁₂Σ₂₂⁻¹ = 2/3. The conditional mean is (2/3)(3) = 2 and the conditional variance is 4 − 2²/3 = 2.667 (compared with 4 unconditionally). In the standardized case with unit variances and correlation ρ, X₁ | X₂ = x₂ ~ N(ρx₂, 1 − ρ²): for ρ = 0.8 and x₂ = 1 it is N(0.8, 0.36)."
+          }
+        },
+        {
+          "h": "Sampling"
+        },
+        "To sample from N(μ, Σ), factor Σ = LLᵀ (Cholesky, see LU factorization), draw z ~ N(0, I) with independent components, and set x = μ + Lz. Then Cov(x) = L I Lᵀ = Σ. For Σ = [[4, 2], [2, 3]], L = [[2, 0], [1, 1.414]]; for z = (1, −1) and μ = 0, x = (2, 1 − 1.414) = (2, −0.414)."
+      ],
+      "check": [
+        {
+          "q": "If X ~ N(μ, Σ), then AX + b is distributed as",
+          "a": "N(Aμ + b, AΣAᵀ)",
+          "wrong": [
+            "N(Aμ + b, AΣ)",
+            "N(Aμ, Σ)",
+            "N(μ + b, AΣA)"
+          ]
+        },
+        {
+          "q": "Conditioning on X₂ in a Gaussian changes the variance of X₁ to",
+          "a": "a smaller value that does not depend on the observed x₂",
+          "wrong": [
+            "a larger value that grows with x₂",
+            "zero",
+            "the same value as before"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "total-expectation",
+      "title": "Conditional expectation and total variance",
+      "terms": [
+        "conditional expectation",
+        "law of total expectation",
+        "law of total variance",
+        "tower property",
+        "regression function",
+        "iterated expectation"
+      ],
+      "body": [
+        "The **conditional expectation** E[Y | X] is the mean of Y given X; as a function of X it is itself a random variable. Two laws relate it to the unconditional moments.",
+        {
+          "eq": [
+            "E[Y] = E[ E[Y | X] ]",
+            "Var(Y) = E[ Var(Y | X) ] + Var( E[Y | X] )"
+          ]
+        },
+        "The second, the **law of total variance**, splits the variance into the average spread within each value of X and the spread of the group means between values of X.",
+        {
+          "example": {
+            "title": "A two-group mixture",
+            "problem": "With probability 1/2 a measurement comes from group A, where Y has mean 0 and variance 1, and with probability 1/2 from group B, where Y has mean 4 and variance 1. Find E[Y] and Var(Y).",
+            "solution": "E[Y] = ½(0) + ½(4) = 2. E[Var(Y | group)] = 1. The group means 0 and 4 have variance (2² + 2²)/2 = 4. So Var(Y) = 1 + 4 = 5."
+          }
+        },
+        {
+          "key": "The function m(x) = E[Y | X = x], the regression function, is the best predictor of Y from X in the squared-error sense: it minimizes E[(Y − g(X))²] over all functions g. The minimum value is E[Var(Y | X)], the irreducible noise. This is the target that every regression method in the Machine Learning book tries to estimate, and the identity behind the bias–variance decomposition."
+        },
+        "A short proof of the first claim: for any g, E[(Y − g(X))²] = E[(Y − m(X))²] + E[(m(X) − g(X))²], because the cross term vanishes by the tower property E[(Y − m(X))h(X)] = E[E[Y − m(X) | X] h(X)] = 0. So the minimum is at g = m."
+      ],
+      "check": [
+        {
+          "q": "The law of total variance says Var(Y) equals",
+          "a": "E[Var(Y | X)] + Var(E[Y | X])",
+          "wrong": [
+            "Var(E[Y | X]) only",
+            "E[Var(Y | X)] − Var(E[Y | X])",
+            "E[Y | X]²"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "transforms-vectors",
+      "title": "Functions of random vectors",
+      "terms": [
+        "sum of random variables",
+        "convolution of densities",
+        "jacobian transformation of densities",
+        "whitening transformation",
+        "dirichlet distribution",
+        "multinomial distribution"
+      ],
+      "body": [
+        "If Y = g(X) with g an invertible, differentiable map of ℝⁿ, the density transforms with the absolute determinant of the Jacobian (see Multiple Integrals):",
+        {
+          "eq": "f_Y(y) = f_X( g⁻¹(y) ) · | det J_{g⁻¹}(y) |"
+        },
+        "For a linear map Y = AX + b (A invertible), |det J_{g⁻¹}| = 1/|det A|. Normalizing flows build complex densities as compositions of invertible maps and track these determinants.",
+        {
+          "list": [
+            "**Sums**: the density of X + Y for independent X and Y is the convolution f(z) = ∫f_X(x)f_Y(z − x)dx. Sums of independent Poisson variables are Poisson with added rates, and sums of independent Gaussians are Gaussian with added means and variances.",
+            "**Whitening**: for X ~ N(μ, Σ) with Σ = LLᵀ, the vector Z = L⁻¹(X − μ) has covariance I. PCA gives another whitening, Σ^{−1/2} = QΛ^{−1/2}Qᵀ. Whitened features are uncorrelated with unit variance.",
+            "**Multinomial**: the counts of K categories in n independent draws with probabilities p_k follow the multinomial distribution, P(n₁, …, n_K) = (n!/(n₁!⋯n_K!)) Πp_k^{n_k}. Its conjugate prior is the **Dirichlet** distribution, the multivariate generalization of the Beta."
+          ]
+        },
+        {
+          "example": {
+            "title": "Density scaling",
+            "problem": "X is uniform on the unit square [0, 1]² (density 1). Y = AX with A = [[2, 0], [0, 3]]. Find the density of Y.",
+            "solution": "Y is uniform on the rectangle [0, 2] × [0, 3] of area 6. The density is 1/|det A| = 1/6 there. The density falls by the factor by which areas grow, so the total probability remains 1."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "For Y = AX, the density of Y at y is the density of X at A⁻¹y multiplied by",
+          "a": "1/|det A|",
+          "wrong": [
+            "|det A|",
+            "det A",
+            "‖A‖"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "A joint distribution gives the marginal by summing out and the conditional by slicing: p(y | x) = p(x, y)/p(x). Independence means the joint factorizes.",
+    "Cov(X, Y) = E[XY] − E[X]E[Y]; the correlation ρ is between −1 and 1. Independent implies uncorrelated, but not conversely. The covariance matrix Σ is symmetric positive semidefinite, with Var(wᵀX) = wᵀΣw.",
+    "The multivariate Gaussian N(μ, Σ) has elliptical contours defined by Mahalanobis distance. It is closed under linear maps (AX + b ~ N(Aμ + b, AΣAᵀ)), marginalization and conditioning: the conditional mean is linear and the conditional variance is a Schur complement. Sample with x = μ + Lz.",
+    "E[Y] = E[E[Y | X]] and Var(Y) = E[Var(Y | X)] + Var(E[Y | X]). The conditional mean E[Y | X] is the best squared-error predictor.",
+    "Densities of transformed random vectors scale by 1/|det A|; sums of independent variables convolve."
+  ],
+  "problems": [
+    {
+      "q": "X and Y have joint probabilities P(0, 0) = 0.25, P(0, 1) = 0.25, P(1, 0) = 0.25, P(1, 1) = 0.25. Are they independent? Compute Cov(X, Y).",
+      "solution": "Each marginal is 0.5, and 0.5 × 0.5 = 0.25 matches every cell, so they are independent, and Cov = 0.",
+      "a": "Independent; covariance 0."
+    },
+    {
+      "q": "Var(X) = 9, Var(Y) = 16 and ρ = −0.5. Find Cov(X, Y) and Var(X − Y).",
+      "solution": "Cov = ρσ_Xσ_Y = −0.5 × 3 × 4 = −6. Var(X − Y) = 9 + 16 − 2(−6) = 37.",
+      "a": "Cov = −6; Var(X − Y) = 37."
+    },
+    {
+      "q": "X ~ N(0, Σ) with Σ = [[1, 0.6], [0.6, 1]]. Find the distribution of X₁ given X₂ = −2.",
+      "solution": "Conditional mean = 0.6/1 × (−2) = −1.2. Conditional variance = 1 − 0.6²/1 = 0.64.",
+      "a": "N(−1.2, 0.64)."
+    },
+    {
+      "q": "X ~ N(μ, Σ) with Σ = [[2, 1], [1, 2]]. Find the distribution of Y = X₁ − X₂.",
+      "solution": "With w = (1, −1): variance wᵀΣw = 2 + 2 − 2(1) = 2. The mean is μ₁ − μ₂. So Y ~ N(μ₁ − μ₂, 2).",
+      "a": "N(μ₁ − μ₂, 2)."
+    },
+    {
+      "q": "Customers are of two types: 30% spend on average $20 with variance 25, and 70% spend on average $50 with variance 100. Find the mean and variance of spending.",
+      "solution": "Mean = 0.3(20) + 0.7(50) = 41. E[Var] = 0.3(25) + 0.7(100) = 77.5. Var(E) = 0.3(20 − 41)² + 0.7(50 − 41)² = 0.3(441) + 0.7(81) = 132.3 + 56.7 = 189. Total variance = 77.5 + 189 = 266.5.",
+      "a": "Mean 41; variance 266.5."
+    }
+  ]
+}

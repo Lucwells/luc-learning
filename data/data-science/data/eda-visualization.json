@@ -1,0 +1,400 @@
+{
+  "id": "eda-visualization",
+  "view": "chapter",
+  "title": "Exploratory Data Analysis and Visualization",
+  "description": "Summary statistics, distributions, relationships and the principles of effective graphics.",
+  "overview": [
+    "Before fitting a model, look at the data. Exploratory data analysis (EDA), a term and a philosophy due to John Tukey, is the practice of examining data with summaries and pictures to see its shape, spot errors and surprises, and form hypotheses. A model can only find what its assumptions permit; a plot can show what you did not think to look for.",
+    "This chapter covers the numbers that summarize a variable (center, spread, shape), the plots that show distributions and relationships, correlation and its limits, the principles that make a graphic honest and readable, and a checklist for exploring a new data set."
+  ],
+  "objectives": [
+    "Compute and interpret measures of center and spread, and choose robust or non-robust summaries appropriately.",
+    "Construct and read histograms, box plots, scatter plots and quantile plots.",
+    "Compute Pearson and Spearman correlation, and explain why correlation does not imply causation and why summaries can hide structure.",
+    "Apply principles of good visual design and recognize misleading charts.",
+    "Follow a systematic EDA workflow for a new data set."
+  ],
+  "sections": [
+    {
+      "id": "summaries",
+      "title": "Summary statistics",
+      "terms": [
+        "summary statistics",
+        "sample mean",
+        "sample median",
+        "quartile",
+        "quartiles",
+        "interquartile range",
+        "iqr",
+        "median absolute deviation",
+        "robust statistics",
+        "percentile",
+        "five-number summary",
+        "skewness of data",
+        "exploratory data analysis and visualization"
+      ],
+      "body": [
+        "A single variable is summarized by its **center**, **spread** and **shape**.",
+        {
+          "eqs": [
+            [
+              "mean: x̄ = (1/n) Σ x_i",
+              "the balance point; pulled by extreme values"
+            ],
+            [
+              "median",
+              "the middle value of the sorted data; half the data lie below it"
+            ],
+            [
+              "variance: s² = (1/(n − 1)) Σ (x_i − x̄)²,   s = √s²",
+              "average squared distance from the mean; s is in the units of x"
+            ],
+            [
+              "IQR = Q₃ − Q₁",
+              "the spread of the middle half of the data (Q₁ and Q₃ are the 25th and 75th percentiles)"
+            ],
+            [
+              "MAD = median(|x_i − median|)",
+              "median absolute deviation; a robust measure of spread"
+            ]
+          ]
+        },
+        "The mean and standard deviation use every value, so a single extreme observation can move them a great deal. The median, IQR and MAD depend on the order of the values, and are **robust**: they barely change if a few values are extreme.",
+        {
+          "example": {
+            "title": "An outlier changes the mean but not the median",
+            "problem": "Six annual incomes in thousands are 30, 32, 35, 38, 40, 250. Summarize them.",
+            "solution": [
+              "Mean = 425/6 = 70.8. Median = (35 + 38)/2 = 36.5. The mean is almost double the median and exceeds five of the six values.",
+              "Standard deviation: the squared deviations from 70.8 sum to 38,589, so s² = 38,589/5 = 7718 and s = 87.9. IQR: Q₁ = 32 and Q₃ = 40 (medians of the lower and upper halves), so IQR = 8. MAD: the absolute deviations from the median are 6.5, 4.5, 1.5, 1.5, 3.5, 213.5, whose median is 4.",
+              "The robust measures (median 36.5, IQR 8, MAD 4) describe the typical person and the typical spread. The mean and SD describe a distribution dominated by one value. For skewed quantities such as income, house prices and response times, report the median and quantiles."
+            ]
+          }
+        },
+        {
+          "list": [
+            "The **five-number summary** is the minimum, Q₁, median, Q₃ and maximum. The **percentiles** generalize it: the p-th percentile is the value below which p% of the data lie.",
+            "**Skewness**: a right-skewed distribution has a long tail to the right and mean > median. A logarithm often makes such data more symmetric (see below).",
+            "Compare mean and median as a quick check for skew or outliers.",
+            "The **mode** (most common value) is meaningful for categorical and discrete data.",
+            "Report the **sample size** and the number of missing values with every summary."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "Which measure of spread is least affected by one huge outlier?",
+          "a": "The interquartile range",
+          "wrong": [
+            "The variance",
+            "The standard deviation",
+            "The range"
+          ]
+        },
+        {
+          "q": "For a right-skewed distribution, the mean is typically",
+          "a": "larger than the median",
+          "wrong": [
+            "smaller than the median",
+            "equal to the median",
+            "unrelated to the median"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "distributions",
+      "title": "Distributions: histograms, box plots and quantile plots",
+      "terms": [
+        "histogram",
+        "box plot",
+        "boxplot",
+        "density plot",
+        "kernel density estimate",
+        "bin width",
+        "empirical cdf",
+        "quantile-quantile plot",
+        "q-q plot",
+        "log transformation",
+        "outlier rule"
+      ],
+      "body": [
+        "A **histogram** divides the range into bins and shows the count (or fraction) in each. It reveals the shape: symmetric or skewed, one peak or several (multimodal: often a sign of mixed subpopulations), gaps, and spikes at particular values (rounding, default values, sentinel codes). The bin width is a tuning choice: too wide hides structure, too narrow shows noise. Rules of thumb: Sturges' rule uses ⌈log₂ n⌉ + 1 bins (11 bins for n = 1000), and the Freedman–Diaconis rule uses a width of 2·IQR·n^{−1/3}. Always try several. A **kernel density estimate** is a smoothed histogram, with bandwidth playing the role of the bin width. The **empirical CDF** (the fraction of data ≤ x) needs no binning.",
+        {
+          "svg": "<svg viewBox='0 0 420 130' role='img' aria-label='Box plot of six incomes with one outlier' font-family='system-ui, sans-serif' font-size='12'><path d='M40,100 H410' fill='none' stroke='currentColor' stroke-width='1.5'/><g fill='none' stroke='currentColor' stroke-width='1.5'><path d='M55,60 H58'/><rect x='58' y='45' width='12' height='30' rx='1'/></g><path d='M64.75,45 V75' fill='none' style='stroke:var(--accent)' stroke-width='3'/><path d='M88,35 V95' fill='none' stroke='currentColor' stroke-width='1' stroke-dasharray='4 3' opacity='.6'/><circle cx='385' cy='60' r='4' fill='currentColor'/><g fill='currentColor' text-anchor='middle'><text x='55' y='116'>30</text><text x='70' y='116'>40</text><text x='385' y='116'>250</text><text x='385' y='46'>outlier</text><text x='88' y='28'>fence 52</text><text x='64' y='34'>median 36.5</text></g></svg>",
+          "caption": "A box plot of the incomes 30, 32, 35, 38, 40 and 250. The box spans the quartiles, the line is the median, and the whisker reaches the farthest point within 1.5 IQR of the box. The point 250 lies beyond the upper fence 40 + 1.5 × 8 = 52 and is drawn separately as an outlier."
+        },
+        "A **box plot** shows the five-number summary compactly: a box from Q₁ to Q₃ with a line at the median, whiskers extending to the most extreme data points within 1.5·IQR of the box, and points beyond the whiskers drawn individually as potential **outliers**. It is ideal for comparing the distribution of a variable across several groups side by side.",
+        {
+          "list": [
+            "The 1.5 × IQR rule flags values below Q₁ − 1.5·IQR or above Q₃ + 1.5·IQR. It is a screen, not a verdict: flagged values may be errors or the most interesting cases.",
+            "A **log transformation** compresses a long right tail: income, prices, counts and durations are often closer to bell-shaped after taking logarithms, which also turns multiplicative effects into additive ones. Plot on a log axis, or transform the variable (log1p handles zeros).",
+            "A **quantile–quantile (Q–Q) plot** compares the quantiles of the data with those of a reference distribution (usually the normal). Points close to a straight line mean the data resemble the reference. Curvature signals skew, and S-shapes signal heavy or light tails. It is the standard check of normality assumptions, such as the Gaussian noise of regression."
+          ]
+        },
+        {
+          "code": [
+            "import matplotlib.pyplot as plt",
+            "import numpy as np",
+            "",
+            "rng = np.random.default_rng(0)",
+            "income = rng.lognormal(mean=10.5, sigma=0.8, size=2000)      # skewed data",
+            "",
+            "fig, ax = plt.subplots(1, 3, figsize=(10, 3))",
+            "ax[0].hist(income, bins=40);          ax[0].set_title('income')",
+            "ax[1].hist(np.log(income), bins=40);  ax[1].set_title('log income')",
+            "ax[2].boxplot([income], vert=False);   ax[2].set_title('box plot')",
+            "plt.tight_layout()"
+          ],
+          "caption": "A right-skewed variable looks symmetric after a log transform."
+        }
+      ],
+      "check": [
+        {
+          "q": "In a standard box plot, a point drawn beyond the whiskers is a value that lies",
+          "a": "more than 1.5 IQR beyond the nearer quartile",
+          "wrong": [
+            "beyond the mean plus 3 standard deviations",
+            "above the median",
+            "in the top 1% of the data"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "relationships",
+      "title": "Relationships between variables and correlation",
+      "terms": [
+        "scatter plot",
+        "pearson correlation",
+        "spearman correlation",
+        "correlation matrix",
+        "correlation does not imply causation",
+        "anscombe's quartet",
+        "overplotting",
+        "contingency table",
+        "lurking variable"
+      ],
+      "body": [
+        "The basic picture of two numeric variables is a **scatter plot**: look for the direction (positive or negative), the form (linear, curved, clustered), the strength, and outliers. For large data, points overlap (**overplotting**), which hides the density: use transparency, small markers, 2D histograms or hexbin plots.",
+        {
+          "h": "Correlation"
+        },
+        "The **Pearson correlation coefficient** summarizes linear association:",
+        {
+          "eq": "r = Σ (x_i − x̄)(y_i − ȳ) / √( Σ (x_i − x̄)² · Σ (y_i − ȳ)² )"
+        },
+        "It lies between −1 and 1, is unitless, and is unchanged by rescaling or shifting either variable. r = ±1 means a perfect linear relationship, and r = 0 means no //linear// association (not no association). The **Spearman correlation** is the Pearson correlation of the ranks: it captures any monotone relationship and is robust to outliers.",
+        {
+          "example": {
+            "title": "Computing correlations",
+            "problem": "Compute Pearson's r for x = (1, 2, 3, 4, 5) and y = (2, 4, 5, 4, 5). Then compare Pearson and Spearman correlation for y = x² on x = 1, …, 5.",
+            "solution": [
+              "x̄ = 3, ȳ = 4. Σ(x − x̄)(y − ȳ) = (−2)(−2) + (−1)(0) + 0(1) + (1)(0) + (2)(1) = 6. Σ(x − x̄)² = 10, Σ(y − ȳ)² = 4 + 0 + 1 + 0 + 1 = 6. So r = 6/√60 = 0.775.",
+              "For y = x² = (1, 4, 9, 16, 25): ȳ = 11, Σ(x − x̄)(y − ȳ) = 60, Σ(y − ȳ)² = 374, so r = 60/√3740 = 0.981. The relationship is perfectly monotone and the ranks agree exactly, so the Spearman correlation is 1.0; Pearson is below 1 because the relationship is curved."
+            ]
+          }
+        },
+        {
+          "warn": "A single number cannot describe a relationship. Anscombe's quartet (1973) consists of four small data sets with the same means, variances, correlation (r = 0.816) and regression line (y = 3 + 0.5x), yet one is a clean linear trend, one a smooth curve, one a perfect line with a single outlier, and one a vertical cluster with a single influential point. Always plot the data before computing or trusting a summary."
+        },
+        {
+          "list": [
+            "**Correlation does not imply causation.** An association between X and Y can arise because X causes Y, Y causes X, a third variable causes both (a confounder), or by chance (see Causal Inference). Ice cream sales and drownings are correlated through temperature.",
+            "**Correlation matrices and heatmaps** show all pairwise correlations at once and reveal groups of redundant features (multicollinearity, a problem for linear models, see Regression for Inference). They show only linear (or monotone) pairwise relations.",
+            "**Categorical variables**: compare a numeric variable across groups with side-by-side box plots or histograms; for two categorical variables use a **contingency table** (counts for each combination) and compare conditional proportions.",
+            "**Time series**: a line plot against time shows trend, seasonality (regular cycles) and breaks. Plot raw and smoothed series, and look at the data on the scale (log or linear) where effects are additive."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "A correlation of 0 between X and Y means",
+          "a": "there is no linear association, but there may be a nonlinear one",
+          "wrong": [
+            "X and Y are independent",
+            "X and Y are unrelated in every way",
+            "the relationship is causal"
+          ]
+        },
+        {
+          "q": "Anscombe's quartet shows that",
+          "a": "data sets with identical summary statistics can look completely different, so one must plot",
+          "wrong": [
+            "correlation always equals 0.816",
+            "outliers do not affect regression lines",
+            "four variables cannot be compared"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "design",
+      "title": "Principles of effective visualization",
+      "terms": [
+        "data visualization",
+        "visualization principles",
+        "chartjunk",
+        "small multiples",
+        "color scales",
+        "colorblind-safe",
+        "truncated axis",
+        "misleading graph",
+        "data-ink ratio",
+        "perceptual ranking"
+      ],
+      "body": [
+        "A good graphic makes a comparison easy to see and impossible to misread.",
+        {
+          "h": "What the eye does well"
+        },
+        "Cleveland and McGill (1984) ranked how accurately people judge different visual encodings. From most to least accurate: position along a common scale, position along non-aligned scales, length, angle or slope, area, volume, and colour saturation or hue. So encode the most important comparison with position (a dot plot or a bar chart with a common baseline), and avoid pie charts and 3D charts, where the viewer must compare angles, areas or volumes.",
+        {
+          "list": [
+            "**Choose the chart for the question**: distributions (histogram, box plot), relationships (scatter), comparisons across categories (bars or dots, sorted by value), trends over time (lines), parts of a whole (a few stacked bars; a pie only for two or three parts).",
+            "**Bars must start at zero**, since their length encodes the value. Truncating the axis exaggerates differences. Lines and dots may use a non-zero range when the focus is change, but say so.",
+            "**Label everything**: a title that states the finding, axis labels with units, a legend only when needed (labeling the lines directly is better), the data source and the sample size.",
+            "**Maximize the data-ink ratio** (Tufte): remove chartjunk (heavy gridlines, decorative backgrounds, 3D effects, redundant legends), keep what carries information.",
+            "**Small multiples**: a grid of the same plot repeated for each subgroup supports comparison without clutter, and handles many categories better than overlaid lines.",
+            "**Color**: use a sequential scale (light to dark) for ordered magnitudes, a diverging scale (two hues around a neutral midpoint) for values with a meaningful center such as correlations, and a small set of distinct hues for categories. About 8% of men have a color vision deficiency; avoid red–green contrast, check with a colorblind-safe palette, and never rely on color alone.",
+            "**Aspect ratio and scale**: the slope of a line chart depends on its shape. Use a log scale for quantities that grow multiplicatively, and say so.",
+            "**Show uncertainty**: error bars, confidence bands and the sample size, so that noise is not read as signal."
+          ]
+        },
+        {
+          "h": "Misleading graphics"
+        },
+        {
+          "list": [
+            "Truncated axes and cherry-picked time windows, which make small changes look large or hide trends.",
+            "Dual axes with independent scales, which can make any two series appear to track each other.",
+            "Area and volume scaled by the wrong dimension: doubling the radius of a circle quadruples its area.",
+            "Omitting the denominator (counts instead of rates): a city with more people has more of everything.",
+            "Smoothing or aggregation that hides variation, and averages across groups that behave differently (Simpson's paradox)."
+          ]
+        },
+        {
+          "example": {
+            "title": "An exaggerating axis",
+            "problem": "A bar chart shows sales of 98 and 100 units with the vertical axis running from 97 to 101. What does it suggest, and how large is the real difference?",
+            "solution": "The bar for 100 appears four times as tall as the bar for 98 (3 units above the baseline against 1), suggesting a 300% difference. The real difference is 2/98 = 2%. Starting the axis at zero makes the bars look nearly equal, which is what the data say."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Which visual encoding is judged most accurately by viewers?",
+          "a": "Position along a common scale",
+          "wrong": [
+            "Area",
+            "Color saturation",
+            "Angle in a pie chart"
+          ]
+        },
+        {
+          "q": "A bar chart with a truncated y-axis is misleading because",
+          "a": "bar length encodes the value, so the heights no longer show the ratio of values",
+          "wrong": [
+            "bars cannot show negative values",
+            "truncation removes data",
+            "it makes the chart harder to color"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "eda-workflow",
+      "title": "An EDA workflow",
+      "terms": [
+        "eda workflow",
+        "exploratory data analysis",
+        "data profiling",
+        "univariate analysis",
+        "bivariate analysis",
+        "seaborn",
+        "matplotlib",
+        "sanity checks"
+      ],
+      "body": [
+        "A systematic routine for a new data set:",
+        {
+          "list": [
+            "**Structure**: shape, column names and types, a few rows, the unit of observation, the primary key and whether it is unique (see Data Science Process).",
+            "**Quality**: counts and patterns of missing values, duplicates, impossible values, inconsistent categories, suspicious spikes in histograms (default values, sentinels), units.",
+            "**One variable at a time (univariate)**: the summary and a histogram or bar chart of each. Note skew, outliers, constant or near-constant columns, categories with very few rows, and variables that need transformation (log, categories).",
+            "**Pairs (bivariate)**: each predictor against the target, and predictors against each other; a correlation matrix; group comparisons. Look for relationships, interactions, redundancy and leakage (a feature that is almost perfectly related to the target and would not be known in advance).",
+            "**Over time and groups**: does the distribution drift with time, location or source? Training and test data must come from the same distribution.",
+            "**Target**: its distribution, class balance, and how it was defined and measured.",
+            "**Write down** what you found, what you changed and what questions remain."
+          ],
+          "ordered": true
+        },
+        {
+          "code": [
+            "import pandas as pd, seaborn as sns, matplotlib.pyplot as plt",
+            "",
+            "df = pd.read_csv('houses.csv')",
+            "df.info(); df.describe(); df.isna().mean().sort_values(ascending=False).head()",
+            "",
+            "sns.histplot(df['price'], bins=40, log_scale=True)          # skewed target on a log axis",
+            "sns.boxplot(data=df, x='neighborhood', y='price')           # comparison across groups",
+            "sns.heatmap(df.select_dtypes('number').corr(), cmap='coolwarm', center=0, annot=True)",
+            "sns.scatterplot(data=df, x='area', y='price', alpha=0.3)    # transparency against overplotting"
+          ],
+          "caption": "Typical first plots for a house-price data set."
+        },
+        {
+          "tip": "Plots that surprise you are the point of EDA. Whenever something looks odd (a spike at exactly 0, two clusters, a straight line of points), find out why before modeling: it is often a data problem or a hidden subgroup, and always informative."
+        },
+        {
+          "note": "EDA must not become a way to find a pattern and then claim to have predicted it. Looking at many plots and tests is a form of multiple comparisons: with enough views, chance patterns appear. Reserve a test set that you do not explore, and treat patterns found in exploration as hypotheses to be confirmed (see Hypothesis Testing)."
+        }
+      ],
+      "check": [
+        {
+          "q": "Why keep a test set unexplored during EDA?",
+          "a": "Patterns found by exploring many views can be chance, so they need confirming on untouched data",
+          "wrong": [
+            "plots cannot be drawn from test data",
+            "exploration is too slow on large data",
+            "the test set has no labels"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Summarize a variable by center, spread and shape. The mean and standard deviation are sensitive to outliers, while the median, IQR and MAD are robust. Skewed variables such as income are best summarized by quantiles, and often analyzed on a log scale.",
+    "Histograms (bin width matters), box plots (1.5 IQR rule), density estimates and Q–Q plots show distributions. Spikes and multiple peaks signal data issues and subgroups.",
+    "Scatter plots show relationships; Pearson r measures linear association and Spearman monotone association. Correlation is not causation, and Anscombe's quartet shows why to plot.",
+    "Effective graphics use position and length, start bars at zero, label clearly, remove clutter, use small multiples and sensible color, and show uncertainty. Beware truncated axes, dual axes and distorted areas.",
+    "Explore systematically: structure, quality, univariate, bivariate, over time, target. Keep a test set unexplored and treat findings as hypotheses."
+  ],
+  "problems": [
+    {
+      "q": "Data: 3, 5, 7, 8, 10, 12, 40. Compute the mean, median, Q₁, Q₃, IQR, and the 1.5 IQR upper fence. Is 40 an outlier?",
+      "solution": "Mean = 85/7 = 12.14. Median = 8. Q₁ is the median of 3, 5, 7 = 5; Q₃ is the median of 10, 12, 40 = 12. IQR = 7. Upper fence = 12 + 10.5 = 22.5. Since 40 > 22.5, it is flagged as an outlier.",
+      "a": "Mean 12.14, median 8, Q₁ 5, Q₃ 12, IQR 7, fence 22.5; 40 is an outlier."
+    },
+    {
+      "q": "For x = (1, 2, 3) and y = (3, 2, 1), what are the Pearson and Spearman correlations? And for x = (1, 2, 3, 4) and y = (1, 4, 9, 16)?",
+      "solution": "The first pair is perfectly linear and decreasing: r = −1, and the ranks are exactly reversed: Spearman = −1. In the second pair the ranks agree exactly (Spearman = 1) but the relationship is curved: Pearson is 0.984.",
+      "a": "−1 and −1; then Spearman 1 and Pearson 0.984."
+    },
+    {
+      "q": "A histogram of 1000 response times shows a long right tail and mean 4.2 s, median 2.9 s. What do these tell you, and how would you analyze them?",
+      "solution": "The mean above the median indicates right skew. Report the median and percentiles (such as the 90th and 99th, which matter for user experience), and consider analyzing the log of the response time, where the distribution is likely closer to symmetric and multiplicative differences become additive.",
+      "a": "Right-skewed; use the median, percentiles and a log transform."
+    },
+    {
+      "q": "Using Sturges' rule, how many histogram bins for n = 5000? What is the Freedman–Diaconis width if IQR = 20 and n = 1000?",
+      "solution": "Sturges: ⌈log₂ 5000⌉ + 1 = ⌈12.29⌉ + 1 = 14 bins. Freedman–Diaconis: 2 × 20 × 1000^{−1/3} = 40/10 = 4.",
+      "a": "14 bins; width 4."
+    },
+    {
+      "q": "A line chart shows a company's revenue growth as steep because the y-axis runs from 9.5 to 10.5 million. Revenue rose from 9.8 to 10.2 million. What is the real percentage change, and how would you redraw the chart?",
+      "solution": "The real change is (10.2 − 9.8)/9.8 = 4.1%. Redraw with the y-axis from zero (or show the percentage change directly), and state the scale. A line chart may use a non-zero baseline if clearly labeled, but the choice must not exaggerate.",
+      "a": "4.1%; use a zero-based axis or show the percent change."
+    }
+  ]
+}

@@ -1,0 +1,433 @@
+{
+  "id": "random-variables",
+  "view": "chapter",
+  "title": "Random Variables and Distributions",
+  "description": "Discrete and continuous random variables, expectation and variance, the standard distributions, and transformations of random variables.",
+  "overview": [
+    "A random variable turns the outcome of an experiment into a number: the label of an example, a measurement error, the number of clicks, the weight of a neural network at initialization. A distribution says how the possible values are spread. Expectation and variance summarize a distribution by its center and spread.",
+    "This chapter defines discrete and continuous random variables, develops expectation and variance, introduces the distributions that machine learning uses most (Bernoulli, binomial, Poisson, exponential and above all the Gaussian), and shows how to find the distribution of a function of a random variable."
+  ],
+  "objectives": [
+    "Describe a random variable with a probability mass function, density or cumulative distribution function.",
+    "Compute expectations and variances, using linearity and the shortcut Var(X) = E[X²] − (E[X])².",
+    "Use the Bernoulli, binomial, geometric, Poisson, uniform, exponential and Gaussian distributions.",
+    "Standardize a Gaussian and compute probabilities with the standard normal table.",
+    "Derive the density of a function of a random variable and generate samples by inverse transform."
+  ],
+  "sections": [
+    {
+      "id": "rv",
+      "title": "Random variables, mass and density",
+      "terms": [
+        "random variable",
+        "random variables",
+        "probability mass function",
+        "pmf",
+        "probability density function",
+        "pdf",
+        "cumulative distribution function",
+        "cdf",
+        "discrete random variable",
+        "continuous random variable",
+        "random variables and distributions"
+      ],
+      "body": [
+        "A **random variable** X is a function from outcomes to numbers. It is **discrete** if it takes countably many values and **continuous** if it takes values in an interval.",
+        "A discrete variable is described by its **probability mass function** (PMF) p(x) = P(X = x), with p(x) ≥ 0 and Σ_x p(x) = 1. A continuous variable has probability zero at every single point. Instead it has a **probability density function** (PDF) f(x) ≥ 0 with ∫f(x)dx = 1, and probabilities are areas under the density:",
+        {
+          "eq": "P(a ≤ X ≤ b) = ∫_a^b f(x) dx"
+        },
+        "A density is not a probability and can exceed 1: the uniform density on [0, 0.1] equals 10. What cannot exceed 1 is its integral.",
+        "The **cumulative distribution function** (CDF) F(x) = P(X ≤ x) works for both kinds. It rises from 0 to 1, F′(x) = f(x) for a continuous variable, and P(a < X ≤ b) = F(b) − F(a). The CDF is the bridge to simulation (see Transformations below).",
+        {
+          "example": {
+            "title": "A density and its CDF",
+            "problem": "X has density f(x) = 2x on [0, 1] and 0 elsewhere. Check that it is a density, and find F and P(0.5 ≤ X ≤ 0.8).",
+            "solution": "∫₀¹ 2x dx = 1 ✓. F(x) = x² for 0 ≤ x ≤ 1. P(0.5 ≤ X ≤ 0.8) = F(0.8) − F(0.5) = 0.64 − 0.25 = 0.39."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "For a continuous random variable, P(X = 3) is",
+          "a": "0",
+          "wrong": [
+            "f(3)",
+            "F(3)",
+            "1"
+          ]
+        },
+        {
+          "q": "A PDF value can be",
+          "a": "greater than 1, as long as the total area is 1",
+          "wrong": [
+            "never greater than 1",
+            "negative",
+            "equal to the CDF"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "expectation",
+      "title": "Expectation, variance and moments",
+      "terms": [
+        "expectation",
+        "expected value",
+        "standard deviation",
+        "linearity of expectation",
+        "skewness"
+      ],
+      "body": [
+        "The **expectation** (mean) of X is the probability-weighted average of its values:",
+        {
+          "eq": [
+            "E[X] = Σ_x x p(x)    (discrete)",
+            "E[X] = ∫ x f(x) dx    (continuous)"
+          ]
+        },
+        "For a function g, the law of the unconscious statistician says E[g(X)] = Σ g(x)p(x) (or ∫g(x)f(x)dx) without first finding the distribution of g(X). The most important property is **linearity**, which holds whether or not the variables are independent:",
+        {
+          "eq": "E[aX + bY + c] = a E[X] + b E[Y] + c"
+        },
+        "The **variance** measures spread: the expected squared deviation from the mean. Its square root is the **standard deviation** σ, in the units of X.",
+        {
+          "eq": [
+            "Var(X) = E[(X − μ)²] = E[X²] − (E[X])²",
+            "Var(aX + b) = a² Var(X)"
+          ]
+        },
+        "Adding a constant does not change the spread, and scaling by a scales the variance by a². For //independent// X and Y, Var(X + Y) = Var(X) + Var(Y). (For dependent variables, add twice the covariance; see the next chapter.)",
+        {
+          "example": {
+            "title": "A fair die",
+            "problem": "Find the mean and variance of a fair six-sided die.",
+            "solution": "E[X] = (1 + 2 + … + 6)/6 = 3.5. E[X²] = (1 + 4 + 9 + 16 + 25 + 36)/6 = 91/6 = 15.167. Var = 15.167 − 3.5² = 15.167 − 12.25 = 2.917 = 35/12, and σ = 1.708."
+          }
+        },
+        {
+          "example": {
+            "title": "Variance of an average",
+            "problem": "X₁, …, X_n are independent with variance σ². Find the variance of their mean.",
+            "solution": "Var((1/n)ΣX_i) = (1/n²)Σ Var(X_i) = σ²/n. The standard deviation of the mean is σ/√n, so averaging more samples shrinks the noise as 1/√n. This is why the error of an estimate falls like 1/√m with m examples, as in the learning theory and ensemble chapters of the Machine Learning book."
+          }
+        },
+        {
+          "list": [
+            "The **median** is the value with F(x) = 1/2, and the **mode** is the most probable value. For skewed distributions (income, response times) the mean can be far from the median.",
+            "The k-th **moment** is E[X^k]. The third standardized moment E[(X − μ)³]/σ³ is the **skewness**, and the fourth measures tail weight (kurtosis).",
+            "The mean minimizes the expected squared error E[(X − c)²], and the median minimizes the expected absolute error E|X − c|. This is why squared loss estimates the mean and absolute loss estimates the median."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "If Var(X) = 4, then Var(3X + 2) equals",
+          "a": "36",
+          "wrong": [
+            "12",
+            "14",
+            "38"
+          ]
+        },
+        {
+          "q": "Linearity of expectation E[X + Y] = E[X] + E[Y] requires",
+          "a": "no independence assumption",
+          "wrong": [
+            "X and Y to be independent",
+            "X and Y to have the same distribution",
+            "X and Y to be discrete"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "discrete-dists",
+      "title": "Discrete distributions",
+      "terms": [
+        "bernoulli distribution",
+        "binomial distribution",
+        "geometric distribution",
+        "poisson distribution",
+        "categorical distribution in probability",
+        "bernoulli trial",
+        "poisson limit"
+      ],
+      "body": [
+        {
+          "table": {
+            "head": [
+              "Distribution",
+              "PMF",
+              "Mean",
+              "Variance",
+              "Models"
+            ],
+            "rows": [
+              [
+                "Bernoulli(p)",
+                "p^x(1 − p)^{1−x}, x ∈ {0, 1}",
+                "p",
+                "p(1 − p)",
+                "one yes/no trial"
+              ],
+              [
+                "Binomial(n, p)",
+                "C(n, k) p^k (1 − p)^{n−k}",
+                "np",
+                "np(1 − p)",
+                "successes in n independent trials"
+              ],
+              [
+                "Geometric(p)",
+                "(1 − p)^{k−1} p, k ≥ 1",
+                "1/p",
+                "(1 − p)/p²",
+                "trials until the first success"
+              ],
+              [
+                "Poisson(λ)",
+                "e^{−λ}λ^k/k!",
+                "λ",
+                "λ",
+                "counts of rare events"
+              ],
+              [
+                "Categorical(p₁, …, p_K)",
+                "p_k",
+                "—",
+                "—",
+                "one of K classes"
+              ]
+            ],
+            "caption": "The main discrete distributions."
+          }
+        },
+        "The binomial is a sum of n independent Bernoulli variables, so its mean and variance are n times those of one trial. The categorical is the multi-class generalization of the Bernoulli, and the multinomial counts the categories in n draws.",
+        {
+          "example": {
+            "title": "A binomial probability",
+            "problem": "A classifier has 70% accuracy on each of 10 independent test items. Find the probability that exactly 3 are wrong, and the mean and standard deviation of the number wrong.",
+            "solution": "The number wrong is Binomial(10, 0.3). P(3) = C(10, 3)(0.3)³(0.7)⁷ = 120 × 0.027 × 0.0824 = 0.267. The mean is np = 3 and the variance is np(1 − p) = 2.1, so σ = 1.45."
+          }
+        },
+        {
+          "h": "The Poisson distribution"
+        },
+        "When n is large and p is small with np = λ fixed, the binomial becomes the **Poisson**: C(n, k)p^k(1 − p)^{n−k} → e^{−λ}λ^k/k!. It models the number of arrivals in a fixed interval when events occur independently at a constant average rate (requests per second, typos per page, mutations per genome).",
+        {
+          "example": {
+            "title": "Poisson probabilities",
+            "problem": "A server gets on average 2 requests per second. Find the probability of 0, 1, 2 and at least 3 requests in a second.",
+            "solution": "P(0) = e⁻² = 0.135, P(1) = 2e⁻² = 0.271, P(2) = 2e⁻² = 0.271. These sum to 0.677, so P(≥ 3) = 1 − 0.677 = 0.323."
+          }
+        },
+        {
+          "note": "Poisson regression, the Poisson GLM, and the Poisson-based models of counts in the Machine Learning book use this distribution, and the Bernoulli and categorical distributions are the output distributions of logistic and softmax regression."
+        }
+      ],
+      "check": [
+        {
+          "q": "The mean and variance of Binomial(100, 0.2) are",
+          "a": "20 and 16",
+          "wrong": [
+            "20 and 20",
+            "20 and 4",
+            "16 and 20"
+          ]
+        },
+        {
+          "q": "A Poisson variable with λ = 3 has variance",
+          "a": "3",
+          "wrong": [
+            "9",
+            "√3",
+            "1/3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "continuous-dists",
+      "title": "Continuous distributions and the Gaussian",
+      "terms": [
+        "uniform distribution",
+        "exponential distribution",
+        "gaussian distribution",
+        "normal distribution",
+        "standard normal",
+        "z-score",
+        "memoryless property",
+        "gamma distribution",
+        "beta distribution in probability"
+      ],
+      "body": [
+        {
+          "table": {
+            "head": [
+              "Distribution",
+              "PDF",
+              "Mean",
+              "Variance"
+            ],
+            "rows": [
+              [
+                "Uniform(a, b)",
+                "1/(b − a) on [a, b]",
+                "(a + b)/2",
+                "(b − a)²/12"
+              ],
+              [
+                "Exponential(λ)",
+                "λe^{−λx}, x ≥ 0",
+                "1/λ",
+                "1/λ²"
+              ],
+              [
+                "Gaussian N(μ, σ²)",
+                "(1/(σ√(2π))) exp(−(x − μ)²/(2σ²))",
+                "μ",
+                "σ²"
+              ]
+            ],
+            "caption": "Three continuous distributions."
+          }
+        },
+        "The **exponential** distribution models waiting times between Poisson events. Its tail is P(X > t) = e^{−λt}, and it is **memoryless**: P(X > s + t | X > s) = P(X > t). Having waited s already does not change the remaining wait. With λ = 0.5 (mean wait 2), P(X > 3) = e^{−1.5} = 0.223.",
+        {
+          "h": "The Gaussian distribution"
+        },
+        "The **Gaussian** (normal) distribution N(μ, σ²) is the most important distribution in statistics and machine learning. The reasons are the central limit theorem (see Limit Theorems): sums and averages of many independent contributions are approximately Gaussian, whatever the individual distribution; it is the maximum entropy distribution for a given mean and variance; and it is mathematically convenient: linear transformations and sums of Gaussians are Gaussian.",
+        {
+          "svg": "<svg viewBox='0 0 440 230' role='img' aria-label='Normal density with the region within one standard deviation shaded' font-family='system-ui, sans-serif' font-size='12'><path d='M170,200 L170,103 L182,80 L195,58.8 L207,46 L220,40 L232,46 L245,58.8 L258,80 L270,103 L270,200 Z' style='fill:var(--accent)' fill-opacity='.25' stroke='none'/><path fill='none' stroke='currentColor' stroke-width='2.5' d='M70,198 L95,193 L120,178 L145,148 L170,103 L195,58.8 L220,40 L245,58.8 L270,103 L295,148 L320,178 L345,193 L370,198'/><path d='M40,200 H400' fill='none' stroke='currentColor' stroke-width='1.5'/><g fill='currentColor' text-anchor='middle'><text x='220' y='218'>μ</text><text x='170' y='218'>μ − σ</text><text x='270' y='218'>μ + σ</text><text x='120' y='218'>μ − 2σ</text><text x='320' y='218'>μ + 2σ</text><text x='220' y='130'>68%</text></g></svg>",
+          "caption": "The normal density. About 68% of the probability lies within one standard deviation of the mean, 95% within two and 99.7% within three."
+        },
+        "If X ~ N(μ, σ²), then Z = (X − μ)/σ is **standard normal** N(0, 1), the **z-score**. Probabilities are read from the standard normal CDF Φ: P(X ≤ x) = Φ((x − μ)/σ). Useful values: Φ(1) = 0.841, Φ(2) = 0.977, Φ(1.96) = 0.975, Φ(3) = 0.9987, and Φ(−z) = 1 − Φ(z).",
+        {
+          "example": {
+            "title": "A normal probability",
+            "problem": "Scores are N(100, 15²). Find the probability that a score exceeds 130, and the middle 95% range.",
+            "solution": "z = (130 − 100)/15 = 2, so P(X > 130) = 1 − Φ(2) = 0.0228. The middle 95% is μ ± 1.96σ = 100 ± 29.4 = (70.6, 129.4)."
+          }
+        },
+        {
+          "list": [
+            "Linear maps: if X ~ N(μ, σ²) then aX + b ~ N(aμ + b, a²σ²).",
+            "Sums: if X ~ N(μ₁, σ₁²) and Y ~ N(μ₂, σ₂²) are independent, then X + Y ~ N(μ₁ + μ₂, σ₁² + σ₂²).",
+            "Weights of neural networks are initialized from Gaussians, noise in linear regression is modeled as Gaussian, and the negative log of the Gaussian density gives the squared error loss."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "If X ~ N(50, 4²), then P(X < 42) is",
+          "a": "Φ(−2) ≈ 0.023",
+          "wrong": [
+            "Φ(2) ≈ 0.977",
+            "Φ(−8) ≈ 0",
+            "0.5"
+          ]
+        },
+        {
+          "q": "The exponential distribution is called memoryless because",
+          "a": "the remaining waiting time does not depend on how long we have already waited",
+          "wrong": [
+            "its mean is zero",
+            "its density is constant",
+            "it forgets the parameter λ"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "transformations",
+      "title": "Functions of random variables and sampling",
+      "terms": [
+        "change of variables for densities",
+        "transformation of random variables",
+        "inverse transform sampling",
+        "inverse cdf",
+        "log-normal distribution",
+        "reparameterization"
+      ],
+      "body": [
+        "If X has density f_X and Y = g(X) with g strictly monotone and differentiable, then",
+        {
+          "eq": "f_Y(y) = f_X( g⁻¹(y) ) · | d g⁻¹(y) / dy |"
+        },
+        "The factor is the Jacobian: the stretching of the axis that changes the density. (For several variables, replace the derivative by the absolute determinant of the Jacobian matrix, see Multiple Integrals.)",
+        {
+          "example": {
+            "title": "The square of a uniform variable",
+            "problem": "X ~ Uniform(0, 1) and Y = X². Find the density of Y.",
+            "solution": "g⁻¹(y) = √y and d√y/dy = 1/(2√y), so f_Y(y) = 1 · 1/(2√y) for 0 < y < 1. It is large near 0, because squaring packs many small values together. Check: ∫₀¹ 1/(2√y) dy = [√y]₀¹ = 1 ✓."
+          }
+        },
+        {
+          "example": {
+            "title": "A linear map of a Gaussian",
+            "problem": "Show that Y = aX + b with X ~ N(0, 1) has density N(b, a²).",
+            "solution": "g⁻¹(y) = (y − b)/a and |dg⁻¹/dy| = 1/|a|. So f_Y(y) = (1/|a|)(1/√(2π)) exp(−(y − b)²/(2a²)), the N(b, a²) density. This is the reparameterization trick of variational autoencoders: z = μ + σε."
+          }
+        },
+        {
+          "h": "Inverse transform sampling"
+        },
+        "If U ~ Uniform(0, 1) and F is a CDF, then X = F⁻¹(U) has CDF F: P(F⁻¹(U) ≤ x) = P(U ≤ F(x)) = F(x). So any distribution with an invertible CDF can be sampled from uniform random numbers.",
+        {
+          "example": {
+            "title": "Sampling an exponential",
+            "problem": "Generate an Exponential(λ = 2) sample from U = 0.3.",
+            "solution": "F(x) = 1 − e^{−2x}. Solving u = F(x): x = −ln(1 − u)/2 = −ln(0.7)/2 = 0.357/2 = 0.178."
+          }
+        },
+        "Gaussian samples are generated from uniform ones by the Box–Muller transform (Z = √(−2 ln U₁) cos 2πU₂). A log-normal variable e^X, with X Gaussian, models positive skewed quantities such as sizes and prices."
+      ],
+      "check": [
+        {
+          "q": "In inverse transform sampling, to draw from a distribution with CDF F you compute",
+          "a": "F⁻¹(U) for U uniform on (0, 1)",
+          "wrong": [
+            "F(U)",
+            "the derivative of F",
+            "U squared"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "A random variable has a PMF (discrete) or a PDF (continuous), and a CDF F(x) = P(X ≤ x). Probabilities of intervals are integrals of the density.",
+    "E[X] is the weighted average, with linearity E[aX + bY] = aE[X] + bE[Y] always. Var(X) = E[X²] − (E[X])², Var(aX + b) = a²Var(X), and variances of independent variables add, so the mean of n samples has variance σ²/n.",
+    "Bernoulli, binomial (np, np(1 − p)), geometric, Poisson (λ, λ), uniform, exponential (1/λ, memoryless) and Gaussian are the standard distributions.",
+    "The Gaussian is standardized by z = (x − μ)/σ; about 68%, 95%, 99.7% of the mass lies within 1, 2, 3 standard deviations. Linear maps and independent sums of Gaussians are Gaussian.",
+    "The density of Y = g(X) is f_X(g⁻¹(y))|dg⁻¹/dy|. Inverse transform sampling generates X = F⁻¹(U)."
+  ],
+  "problems": [
+    {
+      "q": "X takes values 0, 1, 2 with probabilities 0.2, 0.5, 0.3. Find E[X], Var(X) and E[3X² + 1].",
+      "solution": "E[X] = 0.5 + 0.6 = 1.1. E[X²] = 0.5 + 1.2 = 1.7. Var = 1.7 − 1.21 = 0.49. E[3X² + 1] = 3(1.7) + 1 = 6.1.",
+      "a": "1.1; 0.49; 6.1."
+    },
+    {
+      "q": "A coin lands heads with probability 0.6. In 5 flips, find P(exactly 3 heads) and P(at least 1 head).",
+      "solution": "P(3) = C(5, 3)(0.6)³(0.4)² = 10 × 0.216 × 0.16 = 0.3456. P(at least 1) = 1 − 0.4⁵ = 1 − 0.01024 = 0.98976.",
+      "a": "0.3456 and 0.9898."
+    },
+    {
+      "q": "Heights are N(170, 8²) cm. Find the probability that a person is between 162 and 186 cm.",
+      "solution": "z-scores: (162 − 170)/8 = −1 and (186 − 170)/8 = 2. P = Φ(2) − Φ(−1) = 0.9772 − 0.1587 = 0.8185.",
+      "a": "0.8185."
+    },
+    {
+      "q": "The time between customer arrivals is exponential with mean 4 minutes. Find P(wait > 6) and P(wait > 10 | wait > 4).",
+      "solution": "λ = 1/4. P(X > 6) = e^{−1.5} = 0.223. By memorylessness, P(X > 10 | X > 4) = P(X > 6) = 0.223.",
+      "a": "0.223 and 0.223."
+    },
+    {
+      "q": "X has density f(x) = 3x² on [0, 1]. Find the density of Y = X³ and identify it.",
+      "solution": "x = y^{1/3}, dx/dy = (1/3)y^{−2/3}. f_Y(y) = 3y^{2/3} · (1/3)y^{−2/3} = 1 on [0, 1]: Y is uniform. (This is the probability integral transform: the CDF F(x) = x³ applied to X gives a uniform variable.)",
+      "a": "f_Y(y) = 1 on [0, 1], the uniform distribution."
+    }
+  ]
+}

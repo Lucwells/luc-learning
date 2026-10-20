@@ -1,0 +1,383 @@
+{
+  "id": "ethics-communication",
+  "view": "chapter",
+  "title": "Ethics, Fairness, Privacy and Communication",
+  "description": "Bias and fairness in data and models, privacy, responsible deployment, and communicating results honestly to the people who must act on them.",
+  "overview": [
+    "Data science decides who gets a loan, which resumes are read, which neighborhoods are policed and which patients are flagged. A technically excellent model can still do harm: it can encode and amplify past discrimination, expose people's private information, be used for something it was never validated for, or be reported in a way that misleads. The responsibility for those outcomes does not lie with the algorithm; it lies with the people who build, deploy and describe it.",
+    "This chapter covers the main sources of unfairness and how to measure it, the limits of anonymization and the idea of differential privacy, the practices of responsible deployment and reproducible research, and the skill of communicating results with the right amount of confidence. It is meant to be used as a checklist for every project in this library."
+  ],
+  "objectives": [
+    "Identify sources of bias in data and models, and compute demographic parity, equalized odds and disparate impact from a confusion matrix.",
+    "Explain why common fairness criteria conflict, and what that means for design choices.",
+    "Describe the risks of re-identification, k-anonymity and the idea of differential privacy with the Laplace mechanism.",
+    "Apply practices for responsible deployment: documentation, monitoring, human oversight and explanation.",
+    "Communicate quantitative results clearly and honestly, including uncertainty, absolute versus relative risk and limitations."
+  ],
+  "sections": [
+    {
+      "id": "fairness",
+      "title": "Bias and fairness",
+      "terms": [
+        "algorithmic fairness",
+        "fairness in machine learning",
+        "bias in data",
+        "demographic parity",
+        "equalized odds",
+        "equal opportunity",
+        "disparate impact",
+        "four-fifths rule",
+        "protected attribute",
+        "proxy variable",
+        "calibration across groups",
+        "historical bias"
+      ],
+      "body": [
+        "A model learns the patterns of the data it is given, including the patterns of past discrimination. Bias can enter at every stage.",
+        {
+          "list": [
+            "**Historical bias**: the world that generated the data was unfair. A model trained on past hiring decisions learns to reproduce them.",
+            "**Representation bias**: some groups are under-represented in the training data, so the model performs worse for them (see Sampling Bias in Machine Learning).",
+            "**Measurement bias**: the recorded variable is a flawed proxy for what matters. Arrests measure policing as much as crime; health spending measures access to care as much as illness. A model that predicts the proxy faithfully inherits the distortion.",
+            "**Aggregation bias**: one model for groups with different relationships between inputs and outputs fits none of them well.",
+            "**Evaluation bias**: test data and benchmarks that do not represent the people affected.",
+            "**Deployment bias**: a model used in a different setting or for a different purpose than it was designed for, or whose outputs are interpreted wrongly by users."
+          ]
+        },
+        "Dropping the **protected attribute** (race, sex, age, disability) does not make a model fair: other variables (postal code, school, purchase history) act as **proxies** and let the model reconstruct it. Auditing requires the protected attribute, in order to measure outcomes by group.",
+        {
+          "h": "Measuring fairness"
+        },
+        "Several statistical criteria compare the model's behavior across groups. Let Ŷ be the prediction, Y the true outcome and G the group.",
+        {
+          "table": {
+            "head": ["Criterion", "Requires", "Meaning"],
+            "rows": [
+              ["Demographic parity", "P(Ŷ = 1 | G = a) = P(Ŷ = 1 | G = b)", "equal rates of favorable decisions"],
+              ["Equal opportunity", "equal true positive rates across groups", "equal chance of a favorable decision for qualified people"],
+              ["Equalized odds", "equal true positive and false positive rates", "equal error rates of both kinds"],
+              ["Calibration (predictive parity)", "P(Y = 1 | score, G) the same across groups", "a score means the same thing for every group"]
+            ],
+            "caption": "Group fairness criteria."
+          }
+        },
+        {
+          "example": {
+            "title": "Auditing a classifier",
+            "problem": "A screening model is applied to 300 people in each of two groups. Group A: 100 qualified; the model approves 70 of them and 40 of the 200 unqualified. Group B: 50 qualified; it approves 35 of them and 25 of the 250 unqualified. Compute selection rates, true and false positive rates, precision, and the disparate impact ratio.",
+            "solution": [
+              {
+                "table": {
+                  "head": ["", "Selected", "TPR", "FPR", "Precision"],
+                  "rows": [
+                    ["Group A", "110/300 = 36.7%", "70/100 = 0.70", "40/200 = 0.20", "70/110 = 0.64"],
+                    ["Group B", "60/300 = 20.0%", "35/50 = 0.70", "25/250 = 0.10", "35/60 = 0.58"]
+                  ]
+                }
+              },
+              "Equal opportunity holds (both TPR = 0.70) but equalized odds does not: the false positive rate is twice as high for group A. Demographic parity fails too. The **disparate impact ratio** is 0.20/0.367 = 0.55, below the 0.8 of the 'four-fifths rule' used in US employment guidelines to flag adverse impact. Part of the gap comes from the different base rates (33% of group A are qualified, 17% of group B), which is exactly what makes the criteria conflict."
+            ]
+          }
+        },
+        {
+          "key": "Impossibility results (Kleinberg, Mullainathan and Raghavan; Chouldechova, 2016): when the base rates of the outcome differ across groups, a non-perfect classifier cannot simultaneously satisfy calibration and equal false positive and false negative rates. Fairness criteria are value choices, not technical details: which one is appropriate depends on the harms involved (a wrongful denial versus a wrongful approval) and on legal and social context."
+        },
+        {
+          "list": [
+            "Interventions: collect more representative data; audit before and after deployment, by subgroup and intersection of subgroups; adjust thresholds by group, reweight, or constrain training to meet a criterion (each has costs and legal limits); and ask whether the task or the label is appropriate at all.",
+            "Fairness measured only on the model's outputs misses the larger question of what the decision does to people, and the possibility of feedback loops (a predictive policing model sends police where past arrests occurred, producing more arrests there).",
+            "Include affected people and domain experts in the design and review."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "Removing the race column from the features guarantees a fair model.",
+          "a": "False: other features can act as proxies and reproduce the same bias",
+          "wrong": [
+            "True, because the model cannot see race",
+            "True if the data set is large",
+            "False because race is required for training"
+          ]
+        },
+        {
+          "q": "When the base rates differ between groups, a classifier that is not perfect",
+          "a": "cannot in general satisfy calibration and equal error rates at the same time",
+          "wrong": [
+            "can always satisfy all fairness criteria at once",
+            "must have equal base rates",
+            "cannot be evaluated"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "privacy",
+      "title": "Privacy",
+      "terms": [
+        "privacy",
+        "re-identification",
+        "k-anonymity",
+        "differential privacy",
+        "laplace mechanism",
+        "personally identifiable information",
+        "pii",
+        "anonymization",
+        "gdpr",
+        "membership inference",
+        "federated learning",
+        "quasi-identifier"
+      ],
+      "body": [
+        "Data about people are sensitive. Removing names is not enough to protect them, because combinations of ordinary attributes identify individuals. Latanya Sweeney showed that about 87% of the US population is uniquely identified by the triple (ZIP code, birth date, sex); she identified the medical records of the governor of Massachusetts in a supposedly anonymized hospital data set by matching it to the voter roll. The Netflix Prize data set, released without names, was re-identified by matching ratings with public reviews. **Quasi-identifiers** (attributes that identify in combination) must be treated like names.",
+        {
+          "list": [
+            "**k-anonymity** requires that each combination of quasi-identifier values be shared by at least k records, by generalizing (age 47 → 40–49) or suppressing values. It protects against linking by the quasi-identifiers but not against attackers with other information, and not against homogeneity (if all k people in a group share the same sensitive value, it is revealed).",
+            "**Data minimization**: collect only what the purpose needs, keep it only as long as needed, restrict access, and aggregate where possible.",
+            "**Law and consent**: regulations such as the GDPR (European Union) and CCPA (California) require a lawful basis, purpose limitation, rights of access and deletion, and impose penalties. Data collected for one purpose may not be reused freely for another.",
+            "**Models leak**: a trained model can reveal information about its training data (membership inference: was this person in the training set?; extraction of memorized text and images from large models). Overfitted models leak more."
+          ]
+        },
+        {
+          "h": "Differential privacy"
+        },
+        "**Differential privacy** (Dwork et al., 2006) gives a mathematical guarantee. A randomized algorithm M is ε-differentially private if for any two data sets D and D′ that differ in one person's record, and any set of outputs S,",
+        {
+          "eq": "P( M(D) ∈ S ) ≤ e^{ε} · P( M(D′) ∈ S )"
+        },
+        "So the output distribution hardly depends on whether any single person is in the data: whatever an observer learns, they would have learned about almost as well without that person. Smaller ε means stronger privacy. The **Laplace mechanism** achieves it for a numerical query f by adding noise whose scale is the query's **sensitivity** Δ (the largest change in f from one person) divided by ε:",
+        {
+          "eq": "M(D) = f(D) + Laplace(0, Δ/ε)"
+        },
+        {
+          "example": {
+            "title": "A private count",
+            "problem": "A count of patients with a condition has sensitivity 1 (one person changes it by at most 1). Release it with ε = 0.5 and with ε = 0.1. What are the noise scales and the typical error?",
+            "solution": "Scale b = Δ/ε = 2 for ε = 0.5, and 10 for ε = 0.1. The Laplace distribution has standard deviation √2·b: 2.8 and 14.1. A true count of 1000 would be released as about 1000 ± 3 or 1000 ± 14: accurate for large counts, but useless for a count of 5. Privacy costs accuracy, most for small groups; and every further query consumes more of the **privacy budget** (the ε's add up)."
+          }
+        },
+        {
+          "list": [
+            "Differential privacy is used in the US Census and by large technology companies for statistics. **DP-SGD** trains neural networks by clipping each example's gradient and adding Gaussian noise, bounding what the model can reveal.",
+            "**Federated learning** trains a model on users' devices and shares only updates, not data; it reduces data movement but does not by itself guarantee privacy (updates can leak), and is combined with secure aggregation and differential privacy."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "Why is removing names from a data set not enough to anonymize it?",
+          "a": "Combinations of other attributes (ZIP code, birth date, sex) can uniquely identify people",
+          "wrong": [
+            "Names are never in data sets",
+            "Other attributes cannot be matched with outside data",
+            "The law forbids removing names"
+          ]
+        },
+        {
+          "q": "In the Laplace mechanism, a smaller ε means",
+          "a": "more noise and stronger privacy",
+          "wrong": ["less noise and stronger privacy", "more noise and weaker privacy", "no noise"]
+        }
+      ]
+    },
+    {
+      "id": "responsible",
+      "title": "Responsible practice: documentation, explanation and deployment",
+      "terms": [
+        "model card",
+        "datasheet for datasets",
+        "explainability",
+        "interpretability",
+        "shap",
+        "lime",
+        "human oversight",
+        "model monitoring",
+        "accountability",
+        "algorithmic accountability",
+        "adversarial examples",
+        "research integrity",
+        "pre-registration"
+      ],
+      "body": [
+        {
+          "h": "Document what you built"
+        },
+        "A **datasheet** for a data set records how it was collected, by whom and for what purpose, what it contains and omits, who is represented, which uses are appropriate and which are not. A **model card** records a model's intended use, training data, evaluation by subgroup, known limitations and failure modes. These documents make it possible for someone else to judge whether a model is suitable for their situation, and they force the authors to ask the questions.",
+        {
+          "h": "Explanation"
+        },
+        "People affected by a decision, and the people responsible for it, often need to know why. Simple models (linear, small trees) can be read directly. For complex models, post-hoc tools estimate the contribution of each input to a prediction: **permutation importance** and partial dependence plots globally, **LIME** (a local linear approximation) and **SHAP** (Shapley values from cooperative game theory, which attribute the difference between a prediction and the average prediction to the features, fairly and additively) for a single case.",
+        {
+          "list": [
+            "Explanations describe the model, not the world: a feature with a large attribution is important for the prediction, but not necessarily causal.",
+            "They can be unstable or manipulated, and give a false sense of understanding. Where stakes are high and a simple model performs nearly as well, prefer the simple one.",
+            "Some decisions carry a legal right to an explanation or to contest an automated decision."
+          ]
+        },
+        {
+          "h": "Deployment"
+        },
+        {
+          "list": [
+            "**Fit for purpose**: validate the model on the population and the task where it will be used, not only on historical data. A model trained to predict who will repay is not validated for pricing.",
+            "**Human oversight**: decide who can override the model, how errors are reported and corrected, and how affected people can appeal. Automation bias (people over-trusting a model's output) must be managed in the design of the interface.",
+            "**Monitoring**: track input distributions, performance and fairness metrics after launch; the world changes (see dataset shift), and a model that was good can become harmful. Define when to retrain, restrict or retire it.",
+            "**Feedback loops**: watch for ways the model changes the data it later learns from.",
+            "**Security**: models can be attacked by adversarial examples (small input changes that flip a prediction), data poisoning, model extraction and, for language models, malicious instructions hidden in the input. Test for them.",
+            "**Weigh harms and benefits** for everyone affected, including the cost of errors in each direction, and be willing to decide that a model should not be built or used."
+          ]
+        },
+        {
+          "h": "Research integrity"
+        },
+        "Report all analyses run, not only those that worked. Pre-register hypotheses and analysis plans when testing them. Share data and code where privacy allows, so that others can check the results. Distinguish exploratory findings from confirmed ones. Be candid about the limits of the data and the model. These practices are the remedy for p-hacking and for the replication crisis (see Hypothesis Testing)."
+      ],
+      "check": [
+        {
+          "q": "SHAP values explain a single prediction by",
+          "a": "attributing the difference from the average prediction among the input features",
+          "wrong": [
+            "retraining the model without the example",
+            "showing the training labels",
+            "proving the feature is causal"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "communication",
+      "title": "Communicating results",
+      "terms": [
+        "communicating results",
+        "data storytelling",
+        "absolute risk",
+        "relative risk",
+        "number needed to treat",
+        "stakeholders",
+        "limitations of analysis",
+        "uncertainty communication"
+      ],
+      "body": [
+        "An analysis that no one understands or acts on has failed. Communication is part of the work.",
+        {
+          "list": [
+            "**Know your audience and their decision.** A manager needs the recommendation, its size and the confidence in it; a colleague needs the method and the code. Put the answer first, then the evidence, then the details.",
+            "**State the question and the answer in plain language.** Avoid jargon; define the terms that you cannot avoid ('p-value', 'odds ratio').",
+            "**Show uncertainty, not false precision.** Give intervals (the estimated lift is 3 points, between 0 and 6) instead of a point estimate alone, and round to the precision that the data support: '3%' is better than '3.14159%'. Say what would change your conclusion.",
+            "**Give the denominator and the base rate.** Numbers without context mislead.",
+            "**Separate what the data show from what you infer or recommend**, and be explicit about assumptions and the causal status of any claim ('associated with' versus 'causes').",
+            "**State the limitations**: who is in the data, what is missing, what was not checked. Reporting limitations builds trust.",
+            "**Use visuals that serve the message** (see the principles in Exploratory Data Analysis), with titles that state the finding.",
+            "**Make it reproducible**: provide the code and the data (or a way to obtain them), so that others can check."
+          ]
+        },
+        {
+          "h": "Absolute versus relative risk"
+        },
+        {
+          "example": {
+            "title": "A headline that doubles the risk",
+            "problem": "A study reports that a medication doubles the risk of a side effect. The baseline risk is 1 in 10,000. How should it be reported?",
+            "solution": "The relative risk is 2 (a 100% increase), which sounds alarming. The absolute risk rises from 0.01% to 0.02%, an increase of 0.01 percentage points: 1 extra case per 10,000 people treated. The **number needed to harm** is 1/0.0001 = 10,000. Whether this matters depends on the benefit of the medication. Always give both the relative and the absolute change, and put them in natural frequencies ('1 more in 10,000')."
+          }
+        },
+        {
+          "example": {
+            "title": "A recommendation with its uncertainty",
+            "problem": "An A/B test shows a 3-point lift in conversion with 95% interval (0.1, 5.9), and the new version costs $2 million to build. How would you present it?",
+            "solution": "Lead with the decision: 'The new design probably increases conversion, but we cannot yet say by how much.' Report the estimate (+3 points, from nearly zero to about 6) and what it means in revenue under the low and high ends, compared with the cost. Say what was tested (the duration, users, and any caveats such as novelty effects), and propose a next step: either launch if even the low end covers the cost, or extend the test to narrow the interval."
+          }
+        },
+        {
+          "tip": "Before sharing, ask: could this be misread? Is the most important number the easiest to find? What is the most likely objection, and have I answered it? Have I shown what I know and what I do not?"
+        }
+      ],
+      "check": [
+        {
+          "q": "A treatment lowers the risk of an event from 2% to 1%. The relative risk reduction and the absolute risk reduction are",
+          "a": "50% and 1 percentage point",
+          "wrong": [
+            "1% and 50 percentage points",
+            "50% and 50 percentage points",
+            "1% and 1 percentage point"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "checklist",
+      "title": "A checklist for every project",
+      "terms": [
+        "ethics checklist",
+        "project checklist",
+        "responsible data science"
+      ],
+      "body": [
+        "A short list to ask at each stage, using the ideas of this book and of the Machine Learning book.",
+        {
+          "table": {
+            "head": ["Stage", "Questions"],
+            "rows": [
+              ["Question", "Who is affected by the decision this supports? Is a model the right tool? What would a harmful outcome look like?"],
+              ["Data", "Where did the data come from, and who is missing? Is the use consistent with the consent and purpose of collection? What are the privacy risks? What do the labels actually measure?"],
+              ["Preparation", "Are there leakage and proxy variables? How are missing values and outliers handled, and does it affect groups differently?"],
+              ["Modeling", "Is the evaluation set representative? Are errors measured by subgroup? Is a simpler model good enough? Is the effect causal, or only a prediction?"],
+              ["Inference", "Are the intervals honest about sampling variability and multiple testing? Have the assumptions been checked?"],
+              ["Communication", "Are uncertainty, limitations and alternatives stated? Are the numbers in context?"],
+              ["Deployment", "Who is accountable? Can people appeal? What is monitored, and what triggers a rollback? Is the model documented?"]
+            ],
+            "caption": "Questions for each stage of a project."
+          }
+        },
+        {
+          "note": "These questions do not have mechanical answers. They require judgment, domain knowledge and discussion with the people affected. The technical tools in this library make some harms easier to measure and some risks easier to reduce, but they cannot decide what is fair or acceptable for a society to do with data."
+        }
+      ],
+      "check": [
+        {
+          "q": "Who should help decide whether a model's error rates across groups are acceptable?",
+          "a": "The practitioners together with domain experts and those affected, since it is a value judgment as well as a technical one",
+          "wrong": [
+            "The algorithm itself",
+            "Only the data scientist who built it",
+            "Nobody: a single metric settles it"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Bias enters through history, representation, measurement, aggregation, evaluation and deployment. Dropping the protected attribute does not remove it, since proxies remain. Group criteria (demographic parity, equal opportunity, equalized odds, calibration) can be computed from confusion matrices; with different base rates they cannot all hold, so fairness involves value choices.",
+    "Anonymization by removing names fails: quasi-identifiers re-identify people. k-anonymity helps against linkage; differential privacy gives a formal guarantee, via noise of scale Δ/ε (Laplace mechanism), at a cost in accuracy and a privacy budget. Models can leak their training data.",
+    "Document data and models (datasheets, model cards), explain predictions with care (SHAP, LIME; explanation is not causation), keep humans in the loop, monitor after deployment, test for attacks and weigh harms.",
+    "Communicate for the decision: answer first, plain language, uncertainty and base rates, absolute as well as relative risk, limitations and reproducibility.",
+    "Use a checklist at every stage, with judgment and the people affected."
+  ],
+  "problems": [
+    {
+      "q": "A model approves 45 of 150 applicants from group X and 60 of 120 from group Y. Compute the selection rates, the disparate impact ratio, and say whether the four-fifths rule flags it.",
+      "solution": "Selection rates: X = 45/150 = 0.30, Y = 60/120 = 0.50. The ratio of the lower to the higher rate is 0.30/0.50 = 0.60 < 0.8, so the four-fifths rule flags adverse impact against X. Whether it is unjustified depends on the qualifications of the applicants; the flag calls for investigation.",
+      "a": "0.30 and 0.50; ratio 0.60; flagged."
+    },
+    {
+      "q": "For a classifier, group 1 has TPR 0.85 and FPR 0.10, and group 2 has TPR 0.85 and FPR 0.18. Which fairness criteria hold?",
+      "solution": "Equal opportunity (equal TPR) holds. Equalized odds requires equal FPR as well, which fails (0.10 versus 0.18). Demographic parity cannot be determined from these numbers alone, since it also depends on the base rates.",
+      "a": "Equal opportunity holds; equalized odds does not."
+    },
+    {
+      "q": "A table has 1000 records with the quasi-identifiers (ZIP, age band). One combination, (02138, 40–49), appears only once. What is the k of the data set at most, and what can be done?",
+      "solution": "The data are at most 1-anonymous, since a record is unique, so that person can be re-identified by anyone who knows their ZIP and age band. Generalize the ZIP (to 021**) or the age band (to 40–59), or suppress the record, until every combination appears at least k times.",
+      "a": "k = 1; generalize or suppress."
+    },
+    {
+      "q": "A count query has sensitivity 1 and is released with the Laplace mechanism with ε = 1. How large is the typical noise (standard deviation), and how does it compare with true counts of 20 and 20,000?",
+      "solution": "Scale b = 1/1 = 1, standard deviation √2 ≈ 1.4. Relative to 20 this is 7%, a noticeable distortion; relative to 20,000 it is 0.007%, negligible.",
+      "a": "About ±1.4: significant for the small count, negligible for the large one."
+    },
+    {
+      "q": "A news report says a food 'increases the risk of cancer by 18%'. The baseline lifetime risk is 5%. Express the change in absolute terms and as natural frequencies.",
+      "solution": "Relative increase 18%: the risk rises from 5% to 5.9%, an absolute increase of 0.9 percentage points. Per 1000 people: from 50 to 59 cases, nine additional cases.",
+      "a": "+0.9 percentage points: 9 more cases per 1000 people."
+    }
+  ]
+}

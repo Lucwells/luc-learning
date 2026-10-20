@@ -1,0 +1,389 @@
+{
+  "id": "neural-networks",
+  "view": "chapter",
+  "title": "Neural Networks",
+  "description": "Neurons, layers and activations; the forward pass; what networks can represent; output layers and losses.",
+  "overview": [
+    "A linear model draws a straight boundary. A kernel method draws a curved one by fixing a feature map in advance. A neural network learns the features: it stacks simple units in layers, each layer computing new features from the previous one, so the model itself discovers the representation that makes the task easy.",
+    "This chapter defines the network and its forward computation, shows why the nonlinearity between layers is essential, states what networks can and cannot be proved to represent, and fixes the output layers and losses used for regression and classification. The next chapter derives how to train them."
+  ],
+  "objectives": [
+    "Write the computation of a single neuron and of a multilayer network in scalar and matrix form.",
+    "Compare the common activation functions and explain why a nonlinearity is needed.",
+    "Carry out a forward pass by hand and count the parameters of a network.",
+    "State the universal approximation theorem and explain why depth helps.",
+    "Choose the output layer and loss for regression, binary classification and multiclass classification."
+  ],
+  "sections": [
+    {
+      "id": "neuron",
+      "title": "The artificial neuron and activation functions",
+      "terms": [
+        "neural network",
+        "neural networks",
+        "artificial neuron",
+        "neuron",
+        "activation function",
+        "activation functions",
+        "relu",
+        "tanh",
+        "pre-activation"
+      ],
+      "body": [
+        "An **artificial neuron** (or unit) computes a weighted sum of its inputs plus a bias and passes the result through a nonlinear **activation function** g:",
+        {
+          "eq": "a = g(z),    z = wᵀx + b"
+        },
+        "With g the sigmoid this is exactly a logistic regression unit, and with g a hard threshold it is a perceptron. The sum z is the **pre-activation** and a is the activation, or output.",
+        {
+          "table": {
+            "head": [
+              "Activation",
+              "g(z)",
+              "g′(z)",
+              "Range and notes"
+            ],
+            "rows": [
+              [
+                "Sigmoid",
+                "1/(1 + e^{−z})",
+                "g(1 − g) ≤ 0.25",
+                "(0, 1); saturates for large |z|, slows learning"
+              ],
+              [
+                "Tanh",
+                "(e^z − e^{−z})/(e^z + e^{−z})",
+                "1 − g²",
+                "(−1, 1); zero-centered; still saturates"
+              ],
+              [
+                "ReLU",
+                "max(0, z)",
+                "1 if z > 0, else 0",
+                "[0, ∞); cheap, does not saturate for z > 0; units can die"
+              ],
+              [
+                "Leaky ReLU",
+                "max(0.01z, z)",
+                "1 or 0.01",
+                "Avoids dead units"
+              ],
+              [
+                "GELU",
+                "z Φ(z)",
+                "smooth",
+                "Used in transformers; Φ is the normal CDF"
+              ]
+            ],
+            "caption": "Common activation functions."
+          }
+        },
+        "The **rectified linear unit** (ReLU) is the default for hidden layers: it is fast and keeps gradients alive in deep networks (see Backpropagation). Sigmoid and softmax appear mostly in output layers.",
+        {
+          "key": "Without a nonlinearity, a network is just a linear model. Two linear layers compose into one: W₂(W₁x) = (W₂W₁)x. Depth adds power only because of the nonlinearity between the layers."
+        }
+      ],
+      "check": [
+        {
+          "q": "If every activation in a 5-layer network is the identity, the network computes",
+          "a": "a single linear function of the input",
+          "wrong": [
+            "a degree-5 polynomial",
+            "a more powerful function than one layer",
+            "a constant"
+          ]
+        },
+        {
+          "q": "The derivative of ReLU at z = 2 is",
+          "a": "1",
+          "wrong": [
+            "0",
+            "2",
+            "0.25"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mlp",
+      "title": "Multilayer networks and the forward pass",
+      "terms": [
+        "multilayer perceptron",
+        "mlp",
+        "feedforward network",
+        "hidden layer",
+        "hidden layers",
+        "forward pass",
+        "forward propagation",
+        "fully connected layer",
+        "deep neural network",
+        "weight matrix"
+      ],
+      "body": [
+        "A **multilayer perceptron** (feedforward network) arranges neurons in layers. Every neuron in one layer feeds every neuron in the next, which makes it a **fully connected** layer. Layers between the input and the output are **hidden layers**. Number the layers l = 1, …, L, write a^{[0]} = x for the input, and let n_l be the number of units in layer l. Then",
+        {
+          "eq": [
+            "z^{[l]} = W^{[l]} a^{[l−1]} + b^{[l]}",
+            "a^{[l]} = g^{[l]}(z^{[l]})"
+          ]
+        },
+        "Here W^{[l]} is an n_l × n_{l−1} **weight matrix** and b^{[l]} an n_l-vector of biases. The prediction is the last activation a^{[L]}. Computing it from the input is the **forward pass**.",
+        {
+          "svg": "<svg viewBox='0 0 420 230' role='img' aria-label='A network with inputs, two hidden layers and two outputs' font-family='system-ui, sans-serif' font-size='12'><path fill='none' stroke='currentColor' stroke-width='1' opacity='.35' d='M60,65 L160,40 M60,65 L160,90 M60,65 L160,140 M60,65 L160,190 M60,115 L160,40 M60,115 L160,90 M60,115 L160,140 M60,115 L160,190 M60,165 L160,40 M60,165 L160,90 M60,165 L160,140 M60,165 L160,190 M160,40 L260,40 M160,40 L260,90 M160,40 L260,140 M160,40 L260,190 M160,90 L260,40 M160,90 L260,90 M160,90 L260,140 M160,90 L260,190 M160,140 L260,40 M160,140 L260,90 M160,140 L260,140 M160,140 L260,190 M160,190 L260,40 M160,190 L260,90 M160,190 L260,140 M160,190 L260,190 M260,40 L360,90 M260,40 L360,140 M260,90 L360,90 M260,90 L360,140 M260,140 L360,90 M260,140 L360,140 M260,190 L360,90 M260,190 L360,140'/><g fill='var(--bg, #fff)' stroke='currentColor' stroke-width='1.5'><circle cx='60' cy='65' r='9'/><circle cx='60' cy='115' r='9'/><circle cx='60' cy='165' r='9'/><circle cx='160' cy='40' r='9'/><circle cx='160' cy='90' r='9'/><circle cx='160' cy='140' r='9'/><circle cx='160' cy='190' r='9'/><circle cx='260' cy='40' r='9'/><circle cx='260' cy='90' r='9'/><circle cx='260' cy='140' r='9'/><circle cx='260' cy='190' r='9'/><circle cx='360' cy='90' r='9' style='stroke:var(--accent)'/><circle cx='360' cy='140' r='9' style='stroke:var(--accent)'/></g><g fill='currentColor' text-anchor='middle'><text x='60' y='222'>input x</text><text x='160' y='222'>hidden 1</text><text x='260' y='222'>hidden 2</text><text x='360' y='222'>output</text></g></svg>",
+          "caption": "A 3–4–4–2 network. Each line is one weight; each node computes a weighted sum and an activation."
+        },
+        {
+          "example": {
+            "title": "A forward pass",
+            "problem": "A network has input x = (1, 2), one hidden layer of two ReLU units, and one sigmoid output unit. W^{[1]} = [[0.5, −1], [1, 0.5]], b^{[1]} = (0, 0.5), W^{[2]} = [1, −0.5], b^{[2]} = 0.2. Compute the output.",
+            "solution": [
+              "z^{[1]} = W^{[1]}x + b^{[1]} = (0.5 − 2, 1 + 1) + (0, 0.5) = (−1.5, 2.5).",
+              "a^{[1]} = ReLU(z^{[1]}) = (0, 2.5).",
+              "z^{[2]} = 1(0) − 0.5(2.5) + 0.2 = −1.05, and the output is σ(−1.05) = 1/(1 + e^{1.05}) = 0.259."
+            ]
+          }
+        },
+        {
+          "h": "Counting parameters"
+        },
+        "Layer l has n_l(n_{l−1} + 1) parameters. A network with 784 inputs, hidden layers of 128 and 64 units, and 10 outputs has (784·128 + 128) + (128·64 + 64) + (64·10 + 10) = 100,480 + 8,256 + 650 = 109,386 parameters.",
+        {
+          "h": "Batches"
+        },
+        "To process m examples at once, stack them as the columns of a matrix A^{[0]} ∈ ℝ^{n_0×m}. The same equations hold with Z^{[l]} = W^{[l]}A^{[l−1]} + b^{[l]}1ᵀ, so the forward pass is a sequence of matrix multiplications. This is why networks run well on GPUs."
+      ],
+      "check": [
+        {
+          "q": "How many parameters does a fully connected layer from 100 inputs to 20 units have?",
+          "a": "2020",
+          "wrong": [
+            "2000",
+            "120",
+            "20"
+          ],
+          "why": "20 × (100 + 1) = 2020: 2000 weights and 20 biases."
+        }
+      ]
+    },
+    {
+      "id": "xor",
+      "title": "What a hidden layer buys: the XOR example",
+      "terms": [
+        "xor",
+        "xor problem",
+        "linearly inseparable",
+        "feature learning"
+      ],
+      "body": [
+        "The XOR function (output 1 when exactly one input is 1) cannot be computed by any linear classifier, because the points (0, 1) and (1, 0) cannot be separated from (0, 0) and (1, 1) by a line. This limitation of single-layer perceptrons, pointed out by Minsky and Papert in 1969, stalled the field for a decade. One hidden layer solves it.",
+        {
+          "example": {
+            "title": "Computing XOR with two ReLU units",
+            "problem": "Let h₁ = ReLU(x₁ + x₂), h₂ = ReLU(x₁ + x₂ − 1), and the output y = h₁ − 2h₂. Verify that y is XOR.",
+            "solution": [
+              {
+                "table": {
+                  "head": [
+                    "(x₁, x₂)",
+                    "h₁",
+                    "h₂",
+                    "y = h₁ − 2h₂"
+                  ],
+                  "rows": [
+                    [
+                      "(0, 0)",
+                      "0",
+                      "0",
+                      "0"
+                    ],
+                    [
+                      "(1, 0)",
+                      "1",
+                      "0",
+                      "1"
+                    ],
+                    [
+                      "(0, 1)",
+                      "1",
+                      "0",
+                      "1"
+                    ],
+                    [
+                      "(1, 1)",
+                      "2",
+                      "1",
+                      "0"
+                    ]
+                  ]
+                }
+              },
+              "The hidden layer maps the four inputs to new coordinates (h₁, h₂): (0, 0), (1, 0), (1, 0), (2, 1). In this space the two positive cases coincide at (1, 0) and a linear function separates them from the negatives. The hidden layer has learned a feature map that makes the problem linear."
+            ]
+          }
+        },
+        "This is the central idea of deep learning: the last layer is a linear (or logistic) model on features a^{[L−1]}, and the earlier layers learn those features. Compare a kernel method, where the feature map is chosen by hand, and boosting, where features are added one at a time."
+      ],
+      "check": [
+        {
+          "q": "Why can a single linear layer not compute XOR?",
+          "a": "The positive and negative cases cannot be separated by a line",
+          "wrong": [
+            "XOR needs three inputs",
+            "The sigmoid cannot output 0 or 1",
+            "There are too few training examples"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "expressivity",
+      "title": "Expressive power and the value of depth",
+      "terms": [
+        "universal approximation theorem",
+        "universal approximation",
+        "expressive power",
+        "width and depth",
+        "piecewise linear function"
+      ],
+      "body": [
+        "How large a family of functions do networks cover? The **universal approximation theorem** (Cybenko 1989, Hornik 1991) states that a network with one hidden layer of enough units and a non-polynomial activation can approximate any continuous function on a bounded domain to any desired accuracy.",
+        {
+          "warn": "The theorem is an existence result. It does not say how many units are needed (possibly exponentially many), that gradient descent will find the weights, or that the learned function will generalize."
+        },
+        "A ReLU network computes a **piecewise linear function**. A single hidden layer of N units can create about N linear pieces in one dimension. A deeper network composes functions, and the number of pieces can grow exponentially with the depth. For example, a function such as the sawtooth, which folds the interval repeatedly, needs only a few units per layer but exponentially many units if forced into one hidden layer.",
+        {
+          "list": [
+            "**Depth** lets a network reuse intermediate features: edges combine into textures, textures into parts, parts into objects. Many natural functions are compositions of simple pieces, which deep networks represent with far fewer parameters than shallow ones.",
+            "**Width** adds capacity at one level of abstraction. Very wide networks behave in some regimes like kernel machines.",
+            "In practice, depth is increased with the help of design tricks such as residual connections and normalization (see the next chapters)."
+          ]
+        },
+        {
+          "note": "Empirically, networks with far more parameters than training examples can fit random labels, yet still generalize on real data. How they avoid overfitting is a research question (see Generalization on double descent and Learning Theory)."
+        }
+      ],
+      "check": [
+        {
+          "q": "The universal approximation theorem guarantees that",
+          "a": "a wide enough one-hidden-layer network can approximate any continuous function on a bounded domain",
+          "wrong": [
+            "gradient descent will find the best weights",
+            "a small network suffices for every function",
+            "networks never overfit"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "output-losses",
+      "title": "Output layers and losses",
+      "terms": [
+        "output layer",
+        "loss function for neural networks",
+        "mean squared error loss",
+        "multi-label classification",
+        "logits"
+      ],
+      "body": [
+        "The output layer and loss follow from the type of target, by the same maximum likelihood logic as the generalized linear models.",
+        {
+          "table": {
+            "head": [
+              "Task",
+              "Output activation",
+              "Loss",
+              "Assumed distribution"
+            ],
+            "rows": [
+              [
+                "Regression",
+                "identity",
+                "squared error (1/2)(y − ŷ)²",
+                "Gaussian"
+              ],
+              [
+                "Binary classification",
+                "sigmoid",
+                "binary cross-entropy −[y ln p + (1 − y) ln(1 − p)]",
+                "Bernoulli"
+              ],
+              [
+                "Multiclass (one label)",
+                "softmax",
+                "cross-entropy −ln p_true",
+                "Categorical"
+              ],
+              [
+                "Multi-label (several labels)",
+                "sigmoid per label",
+                "sum of binary cross-entropies",
+                "Independent Bernoulli"
+              ],
+              [
+                "Counts",
+                "exp",
+                "Poisson negative log-likelihood",
+                "Poisson"
+              ]
+            ],
+            "caption": "Matching the output layer and loss to the target."
+          }
+        },
+        "The raw scores before the output activation are the **logits**. For classification it is numerically safer to compute the loss directly from the logits (the log-sum-exp form of cross-entropy) than to apply softmax and then take a logarithm.",
+        {
+          "example": {
+            "title": "Loss for the forward-pass example",
+            "problem": "The network in the forward-pass example outputs p = 0.259. Find the binary cross-entropy if the true label is y = 1 and if it is y = 0.",
+            "solution": "For y = 1: −ln 0.259 = 1.35. For y = 0: −ln(1 − 0.259) = −ln 0.741 = 0.30. The network leans toward class 0, so it is penalized heavily when the label is 1."
+          }
+        },
+        "To train, minimize the average loss over the training set, plus any regularization penalty. Because the model is no longer linear in its parameters, this objective is not convex, and gradient-based training only finds a local minimum. In practice, local minima of large networks are usually good enough. The next chapter shows how to compute the gradient efficiently."
+      ],
+      "check": [
+        {
+          "q": "A network classifies images into one of 1000 classes. The output layer and loss are",
+          "a": "softmax with cross-entropy",
+          "wrong": [
+            "sigmoid with squared error",
+            "identity with absolute error",
+            "ReLU with hinge loss"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "A neuron computes g(wᵀx + b). A layer applies this to every unit, and a network chains layers: z^{[l]} = W^{[l]}a^{[l−1]} + b^{[l]}, a^{[l]} = g(z^{[l]}).",
+    "The nonlinearity is essential: without it the network is linear. ReLU is the standard hidden activation; sigmoid and softmax are used at the output.",
+    "A hidden layer learns features that make the task linearly solvable, as in the XOR example. Parameter counts are n_l(n_{l−1} + 1) per layer.",
+    "One-hidden-layer networks are universal approximators, but the theorem says nothing about size or learnability. Depth gives efficient compositional representations.",
+    "Choose the output and loss by the target: identity and squared error for regression, sigmoid and cross-entropy for binary labels, softmax and cross-entropy for classes. The training objective is non-convex."
+  ],
+  "problems": [
+    {
+      "q": "Compute the forward pass for x = (1, −1), W^{[1]} = [[1, 1], [−1, 2]], b^{[1]} = (0, 1), ReLU hidden units, and output z = 2a₁ + a₂ − 1 with a linear output unit.",
+      "solution": "z^{[1]} = (1 − 1, −1 − 2) + (0, 1) = (0, −2). a^{[1]} = (0, 0). Output = 2(0) + 0 − 1 = −1.",
+      "a": "−1."
+    },
+    {
+      "q": "A network has layer sizes 10–50–50–3. Count its parameters.",
+      "solution": "Layer 1: 50(10 + 1) = 550. Layer 2: 50(50 + 1) = 2550. Layer 3: 3(50 + 1) = 153. Total 3253.",
+      "a": "3253 parameters."
+    },
+    {
+      "q": "Show that the XOR network h₁ = ReLU(x₁ + x₂), h₂ = ReLU(x₁ + x₂ − 1), y = h₁ − 2h₂ gives y = 0 at (1, 1) and y = 1 at (0, 1).",
+      "solution": "At (1, 1): h₁ = 2, h₂ = 1, y = 2 − 2 = 0. At (0, 1): h₁ = 1, h₂ = ReLU(0) = 0, y = 1.",
+      "a": "y = 0 at (1, 1) and y = 1 at (0, 1)."
+    },
+    {
+      "q": "A softmax output has logits (2, 0, −1) and the true class is the first. Find the probabilities and the cross-entropy loss.",
+      "solution": "exp: 7.389, 1, 0.368; sum 8.757. Probabilities (0.844, 0.114, 0.042). Loss = −ln 0.844 = 0.170.",
+      "a": "Loss ≈ 0.170."
+    },
+    {
+      "q": "Why can a deep ReLU network represent a function with exponentially many linear pieces using only a polynomial number of units?",
+      "solution": "Each layer can apply a fold to the output of the previous one (for example the map x → 2 min(x, 1 − x) on [0, 1], which takes two ReLU units). Composing k such layers gives a sawtooth with 2^k pieces using about 2k units. A single hidden layer would need about 2^k units to create 2^k pieces.",
+      "a": "Composition multiplies the number of pieces layer by layer, while width only adds pieces."
+    }
+  ]
+}

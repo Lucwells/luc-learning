@@ -1,0 +1,431 @@
+{
+  "id": "regression-inference",
+  "view": "chapter",
+  "title": "Regression for Inference",
+  "description": "Linear regression as a tool for understanding: standard errors and tests for coefficients, adjusting for other variables, diagnostics, and logistic regression odds ratios.",
+  "overview": [
+    "The Machine Learning book treats regression as prediction: fit a function and measure its error on new data. Statisticians use the same models for a different purpose: to describe how an outcome depends on explanatory variables, with an honest account of uncertainty. How much does the price rise per extra square meter, with other features fixed? Is the coefficient distinguishable from zero? How wide is the interval? The answers need standard errors, which depend on assumptions that must be checked.",
+    "This chapter develops regression for inference: the simple and multiple linear model, the sampling distribution of the coefficients, interpretation 'holding other variables fixed', the diagnostics that test the assumptions, multicollinearity, and logistic regression's odds ratios. It also marks where inference and prediction diverge."
+  ],
+  "objectives": [
+    "Fit a simple regression by hand, and compute R², the residual standard error, a standard error and a confidence interval for the slope.",
+    "State the assumptions of the linear model, and use residual plots and influence measures to check them.",
+    "Interpret multiple-regression coefficients, dummy variables and interactions, and explain adjustment for confounders.",
+    "Diagnose and describe the effects of multicollinearity (variance inflation factor).",
+    "Interpret logistic regression coefficients as odds ratios, and explain why model selection invalidates naive p-values."
+  ],
+  "sections": [
+    {
+      "id": "slr",
+      "title": "Simple linear regression: estimation and inference",
+      "terms": [
+        "simple linear regression",
+        "regression coefficient",
+        "slope and intercept",
+        "residual standard error",
+        "standard error of the slope",
+        "r-squared in regression",
+        "coefficient of determination in regression",
+        "fitted values",
+        "regression line",
+        "least squares line",
+        "regression for inference"
+      ],
+      "body": [
+        "The linear model is y_i = β₀ + β₁x_i + ε_i with errors ε_i independent, mean zero and variance σ². The least squares estimates (see Linear Regression in the Machine Learning book) are",
+        {
+          "eq": [
+            "β̂₁ = S_xy / S_xx,    β̂₀ = ȳ − β̂₁ x̄",
+            "S_xy = Σ(x − x̄)(y − ȳ),   S_xx = Σ(x − x̄)²"
+          ]
+        },
+        "The residuals are e_i = y_i − ŷ_i. The error variance is estimated by s² = SSE/(n − 2), with SSE = Σe_i², using n − 2 degrees of freedom since two parameters were fit. Then the standard error of the slope is",
+        {
+          "eq": "SE(β̂₁) = s / √S_xx"
+        },
+        "and (β̂₁ − β₁)/SE(β̂₁) follows a t distribution with n − 2 degrees of freedom, when the errors are normal (and approximately for large n otherwise). That gives a confidence interval β̂₁ ± t*·SE and a test of H₀: β₁ = 0 (is there any linear relationship?).",
+        {
+          "example": {
+            "title": "A complete small regression",
+            "problem": "Fit y on x for x = 1, 2, 3, 4, 5 and y = 2, 4, 5, 4, 5. Report the line, R², s, the standard error of the slope, and a 95% interval and test for the slope.",
+            "solution": [
+              "x̄ = 3, ȳ = 4, S_xy = 6, S_xx = 10, so β̂₁ = 0.6 and β̂₀ = 4 − 1.8 = 2.2. The line is ŷ = 2.2 + 0.6x.",
+              "Fitted values 2.8, 3.4, 4.0, 4.6, 5.2; residuals −0.8, 0.6, 1.0, −0.6, −0.2 (summing to 0), SSE = 0.64 + 0.36 + 1.0 + 0.36 + 0.04 = 2.4. Total SS = Σ(y − ȳ)² = 6, so R² = 1 − 2.4/6 = 0.60 (= r², with r = 0.775).",
+              "s² = 2.4/3 = 0.8, s = 0.894. SE(β̂₁) = 0.894/√10 = 0.283. The t statistic is 0.6/0.283 = 2.12 with 3 degrees of freedom, p ≈ 0.12. The 95% interval is 0.6 ± 3.182(0.283) = (−0.30, 1.50), which includes 0.",
+              "With only 5 points the slope is not distinguishable from zero, although R² = 0.6: a good fit measure does not imply a significant coefficient at small n."
+            ]
+          }
+        },
+        {
+          "list": [
+            "**R²** = 1 − SSE/SST is the fraction of the variation in y explained by the model. It always rises when predictors are added; **adjusted R²** = 1 − (1 − R²)(n − 1)/(n − p − 1) penalizes the number p of predictors (R² = 0.60, n = 50, p = 5 gives 0.555).",
+            "The **residual standard error** s is in the units of y and measures the typical size of a prediction error: it is often more interpretable than R².",
+            "A **confidence interval for the mean response** at x₀ estimates the average y at that x, and a **prediction interval** for a new observation adds the error variance: it is much wider (see Estimation and Bootstrap).",
+            "Standard errors shrink with n, with the spread of x (more variation in the predictor gives a better-determined slope: S_xx in the denominator) and with a smaller σ."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "In simple regression with n = 20 observations, the t statistic for the slope has how many degrees of freedom?",
+          "a": "18",
+          "wrong": [
+            "20",
+            "19",
+            "2"
+          ]
+        },
+        {
+          "q": "How does the standard error of the slope depend on the spread of the x values?",
+          "a": "It is smaller when the x values are more spread out",
+          "wrong": [
+            "It is larger when the x values are more spread out",
+            "It does not depend on it",
+            "It depends only on the mean of x"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "multiple",
+      "title": "Multiple regression and adjustment",
+      "terms": [
+        "multiple regression",
+        "multiple linear regression",
+        "adjusting for covariates",
+        "partial regression coefficient",
+        "dummy variable",
+        "indicator variable",
+        "interaction effect",
+        "reference category",
+        "f-test",
+        "controlling for"
+      ],
+      "body": [
+        "With several predictors, y = β₀ + β₁x₁ + … + β_px_p + ε, in matrix form y = Xβ + ε, the estimate is β̂ = (XᵀX)⁻¹Xᵀy, and its covariance is σ²(XᵀX)⁻¹. The standard errors are the square roots of its diagonal, with σ² estimated by SSE/(n − p − 1).",
+        {
+          "key": "A coefficient β_j is the expected change in y per unit increase in x_j **holding the other predictors in the model fixed**. This 'adjusted' effect can be very different from the effect of x_j alone, because the other variables may be correlated with x_j and with y."
+        },
+        {
+          "example": {
+            "title": "Adjustment can remove an association",
+            "problem": "A regression of health score on vitamin use alone gives a coefficient of +5 points (p < 0.001). Adding weekly hours of exercise changes the vitamin coefficient to +0.5 (p = 0.6) and the exercise coefficient is +3 per hour. What happened?",
+            "solution": "People who take vitamins also exercise more, and exercise raises health. Exercise is a confounder, and the unadjusted vitamin coefficient absorbed its effect. Comparing people with the same exercise level, vitamin use is associated with only a half-point difference, which is not distinguishable from zero. Adjustment can also work the other way (as in Simpson's paradox) and reveal an effect hidden by confounding. Which variables to adjust for is a causal question, not a statistical one (see Causal Inference): adjusting for a //consequence// of the treatment, or for a collider, introduces bias."
+          }
+        },
+        {
+          "h": "Categorical predictors and interactions"
+        },
+        {
+          "list": [
+            "A categorical variable with k levels enters as k − 1 **dummy** (indicator) variables, each 1 for one level and 0 otherwise; the omitted level is the **reference category**. A coefficient is the difference from the reference level, holding the others fixed. (Include all k dummies and an intercept and the columns are perfectly collinear.)",
+            "An **interaction** x₁x₂ lets the effect of one variable depend on another: in y = β₀ + β₁·dose + β₂·female + β₃·dose·female, the slope of dose is β₁ for males and β₁ + β₃ for females. Interpret main effects with care in the presence of an interaction.",
+            "The **F-test** tests whether a group of coefficients is jointly zero (for example all the dummies of one categorical variable): F = [(SSE_reduced − SSE_full)/q]/[SSE_full/(n − p − 1)], with q the number of coefficients tested. The overall F-test asks whether any predictor matters.",
+            "Transform when the relationships suggest it: log y for multiplicative effects (a coefficient b then means a change of about 100·b percent), polynomial terms for curvature, splines for flexible shapes."
+          ]
+        },
+        {
+          "code": [
+            "import statsmodels.formula.api as smf",
+            "",
+            "model = smf.ols('price ~ area + bedrooms + C(neighborhood) + area:bedrooms', data=df).fit()",
+            "model.summary()        # coefficients, standard errors, t statistics, p-values, R-squared, F-test",
+            "model.conf_int()       # 95% confidence intervals for the coefficients",
+            "",
+            "new = df.iloc[:3]",
+            "model.get_prediction(new).summary_frame(alpha=0.05)   # mean and prediction intervals"
+          ],
+          "caption": "Linear regression for inference in statsmodels. The formula syntax declares categoricals with C() and interactions with a colon."
+        }
+      ],
+      "check": [
+        {
+          "q": "A multiple regression coefficient for x₁ is interpreted as",
+          "a": "the change in expected y per unit change in x₁, holding the other predictors fixed",
+          "wrong": [
+            "the correlation between x₁ and y",
+            "the change in y with all other variables ignored",
+            "the probability that x₁ matters"
+          ]
+        },
+        {
+          "q": "A categorical variable with 4 levels is coded with",
+          "a": "3 dummy variables and an intercept",
+          "wrong": [
+            "4 dummies and an intercept",
+            "one numeric column 1–4",
+            "no columns"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "multicollinearity",
+      "title": "Multicollinearity",
+      "terms": [
+        "multicollinearity in regression",
+        "variance inflation factor",
+        "vif",
+        "collinear predictors",
+        "condition index"
+      ],
+      "body": [
+        "When predictors are strongly correlated with each other, their separate effects are hard to disentangle: the data contain little independent variation in each. The standard errors of their coefficients become large, the estimates unstable and signs may flip with small changes in the data, even though the model's predictions may remain good. This is **multicollinearity**.",
+        "The **variance inflation factor** of predictor j is",
+        {
+          "eq": "VIF_j = 1 / (1 − R_j²)"
+        },
+        "where R_j² is the R² of a regression of x_j on all the other predictors. The variance of β̂_j is inflated by VIF_j compared with the case of uncorrelated predictors, and its standard error by √VIF_j. A VIF above about 5 to 10 is a warning sign.",
+        {
+          "example": {
+            "title": "Cost of collinearity",
+            "problem": "Height in centimeters and height in inches are both included as predictors, or two predictors have R_j² = 0.90 against the others. What is the VIF, and how are the standard errors affected?",
+            "solution": "R_j² = 0.90 gives VIF = 1/0.1 = 10, so the standard error is √10 = 3.2 times larger than it would be without the correlation: a coefficient that would be estimated as 2.0 ± 0.3 becomes 2.0 ± 0.95, no longer significant. In the extreme case of exact duplicates (R² = 1) XᵀX is singular and the coefficients are not identified at all."
+          }
+        },
+        {
+          "list": [
+            "**Consequences**: wide intervals for the correlated coefficients, instability, difficulty interpreting individual effects. The joint effect of the group (and predictions within the range of the data) are still well determined.",
+            "**Remedies**: drop or combine redundant predictors (a score averaging them, or the first principal component); collect data that vary the predictors independently; or use ridge regression, which stabilizes the estimates at the cost of some bias (see Regularization).",
+            "Pairwise correlations may not reveal it: a predictor can be a combination of several others without being highly correlated with any one, so check VIFs or the condition number of the design matrix.",
+            "Collinearity does not violate the assumptions of the model and does not bias the coefficients; it inflates their variance."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "A VIF of 25 for a predictor means its coefficient's standard error is inflated by a factor of about",
+          "a": "5",
+          "wrong": [
+            "25",
+            "2.5",
+            "625"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "diagnostics",
+      "title": "Checking the assumptions: residual diagnostics",
+      "terms": [
+        "residual plot",
+        "regression diagnostics",
+        "heteroscedasticity",
+        "homoscedasticity",
+        "leverage",
+        "influential point",
+        "cook's distance",
+        "robust standard errors",
+        "weighted least squares",
+        "residuals versus fitted"
+      ],
+      "body": [
+        "The inference of the previous sections is valid only if the model's assumptions hold, and the main tool for checking them is the plot of the residuals.",
+        {
+          "table": {
+            "head": [
+              "Assumption",
+              "How to check",
+              "A violation looks like",
+              "Remedy"
+            ],
+            "rows": [
+              [
+                "Linearity (the mean of y is linear in the predictors)",
+                "residuals versus fitted values or versus each predictor",
+                "a curve or systematic pattern in the residuals",
+                "add polynomial terms or splines; transform variables"
+              ],
+              [
+                "Independent errors",
+                "residuals against time or order; the Durbin–Watson statistic",
+                "runs of positive or negative residuals; autocorrelation",
+                "time series or mixed models; cluster-robust standard errors"
+              ],
+              [
+                "Constant variance (homoscedasticity)",
+                "residuals versus fitted values",
+                "a funnel: spread grows with the fitted value",
+                "transform y (log); weighted least squares; heteroscedasticity-robust (HC) standard errors"
+              ],
+              [
+                "Normal errors (matters for small n and prediction intervals)",
+                "Q–Q plot of residuals",
+                "points curving away from the line, heavy tails",
+                "transform; robust regression; rely on the CLT for large n"
+              ]
+            ],
+            "caption": "Assumptions of the linear model and their diagnostics."
+          }
+        },
+        {
+          "h": "Leverage and influence"
+        },
+        "A single observation can dominate a regression. **Leverage** h_ii measures how unusual a point's predictor values are (the average leverage is (p + 1)/n; values above two or three times that deserve a look). A point with high leverage //and// a large residual is **influential**: removing it changes the fit. **Cook's distance** combines both; values above about 1 (or 4/n) are flagged. Anscombe's quartet (see Exploratory Data Analysis) includes a data set whose entire regression line is determined by one high-leverage point.",
+        {
+          "example": {
+            "title": "A high-leverage point",
+            "problem": "Four points are (1, 2), (2, 3), (3, 4), (4, 5), on the line y = x + 1. A fifth point (20, 5) is added. What happens to the slope?",
+            "solution": "Without the fifth point the slope is exactly 1. With it, x̄ = 6 and ȳ = 3.8; S_xy = Σ(x − 6)(y − 3.8) = (−5)(−1.8) + (−4)(−0.8) + (−3)(0.2) + (−2)(1.2) + (14)(1.2) = 9 + 3.2 − 0.6 − 2.4 + 16.8 = 26; S_xx = 25 + 16 + 9 + 4 + 196 = 250; the slope is 26/250 = 0.10. A single remote point flattens the slope by a factor of 10, because the least squares line is pulled toward the point that is far out in x."
+          }
+        },
+        {
+          "list": [
+            "**Heteroscedasticity** does not bias the coefficients but makes the usual standard errors wrong. **Robust (HC) standard errors** fix them without changing the fit, and are a sensible default in applied work.",
+            "**Clustered data** (repeated measurements on the same person or school) violate independence; use cluster-robust standard errors or a mixed (multilevel) model. Ignoring clustering makes intervals too narrow.",
+            "**Outliers**: investigate before removing. Report the analysis with and without an influential point. Robust regression (Huber loss, least absolute deviations) reduces their influence.",
+            "**Extrapolation**: a regression describes the range of the data; predictions far outside it are unsupported."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "A residual plot shows a funnel shape, with the spread of residuals growing as the fitted value increases. This indicates",
+          "a": "non-constant variance (heteroscedasticity)",
+          "wrong": [
+            "nonlinearity of the mean",
+            "perfect fit",
+            "independence of errors"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "logistic-inference",
+      "title": "Logistic regression for inference, and the limits of inference",
+      "terms": [
+        "odds ratio",
+        "logistic regression coefficients",
+        "wald test",
+        "likelihood ratio test",
+        "deviance in logistic regression",
+        "post-selection inference",
+        "stepwise selection",
+        "inference versus prediction"
+      ],
+      "body": [
+        "For a binary outcome, logistic regression models the log-odds as a linear function of the predictors (see Logistic Regression). In inference we interpret the coefficients as **odds ratios**: increasing x_j by one unit multiplies the odds of the outcome by e^{β_j}, holding the other predictors fixed.",
+        {
+          "example": {
+            "title": "Reading a logistic regression",
+            "problem": "A model for the probability of default has a coefficient 0.7 on 'number of late payments' with standard error 0.2. Report the odds ratio with a 95% interval, and test the coefficient.",
+            "solution": "Odds ratio e^{0.7} = 2.01: each additional late payment roughly doubles the odds of default. A 95% interval for the coefficient is 0.7 ± 1.96 × 0.2 = (0.31, 1.09), so for the odds ratio (e^{0.31}, e^{1.09}) = (1.36, 2.97). The Wald statistic is z = 0.7/0.2 = 3.5 (p < 0.001). Odds are not probabilities: if the base probability is 5% (odds 0.053), doubling the odds gives 0.105, a probability of 9.5%, not 10%."
+          }
+        },
+        {
+          "list": [
+            "Coefficient standard errors come from the Fisher information (see Parameter Estimation): the inverse of the Hessian of the negative log-likelihood. The **Wald test** is z = β̂/SE; the **likelihood ratio test** compares the log-likelihoods (the deviance) of nested models and is more reliable for small samples and for several coefficients at once.",
+            "Separation (a predictor that perfectly predicts the outcome) makes the maximum likelihood estimate infinite; use a penalty (see Regularization).",
+            "Poisson regression for counts (rate ratios) and other generalized linear models follow the same pattern (see Generalized Linear Models)."
+          ]
+        },
+        {
+          "h": "Inference versus prediction"
+        },
+        "The same models are used for two goals, and the tools differ.",
+        {
+          "table": {
+            "head": [
+              "",
+              "Inference",
+              "Prediction"
+            ],
+            "rows": [
+              [
+                "Goal",
+                "understand the relationship; estimate effects with uncertainty",
+                "forecast new outcomes accurately"
+              ],
+              [
+                "Judged by",
+                "unbiased, interpretable coefficients; valid intervals",
+                "error on held-out data"
+              ],
+              [
+                "Model choice",
+                "driven by the question and subject knowledge",
+                "driven by validation performance"
+              ],
+              [
+                "Regularization",
+                "introduces bias into coefficients",
+                "improves accuracy"
+              ],
+              [
+                "Collinearity",
+                "a problem: unstable coefficients",
+                "usually harmless"
+              ],
+              [
+                "Black-box models",
+                "of little use",
+                "often the best choice"
+              ]
+            ],
+            "caption": "Inference versus prediction."
+          }
+        },
+        {
+          "warn": "Choosing the predictors by looking at the same data (stepwise selection, keeping the variables with p < 0.05) invalidates the usual p-values and intervals: the selected coefficients are biased away from zero, the standard errors too small, and the final model overfits. This is the problem of **post-selection inference**. Fix the model from theory before looking at the outcome, or split the data (select on one part, estimate and test on another), or use methods designed for it (the lasso with selective inference), and report all the models tried."
+        },
+        {
+          "tip": "For a coefficient to be read as a causal effect, regression is not enough: you also need to argue that all confounders are measured and adjusted for, and that adjusted variables are not consequences of the treatment (see Causal Inference). 'Controlling for' variables does not turn an observational association into a cause."
+        }
+      ],
+      "check": [
+        {
+          "q": "A logistic regression coefficient of −0.35 on a predictor means a one-unit increase",
+          "a": "multiplies the odds of the outcome by e^{−0.35} ≈ 0.70",
+          "wrong": [
+            "reduces the probability by 0.35",
+            "multiplies the probability by 0.70",
+            "subtracts 0.35 from the odds"
+          ]
+        },
+        {
+          "q": "Why are p-values after stepwise variable selection unreliable?",
+          "a": "The same data chose the variables and test them, so the selected effects look stronger than they are",
+          "wrong": [
+            "Stepwise procedures remove all noise",
+            "The number of predictors is always too small",
+            "The p-values are always exactly 0.05"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "OLS slope β̂₁ = S_xy/S_xx, with s² = SSE/(n − 2) and SE(β̂₁) = s/√S_xx. (β̂₁ − β₁)/SE follows a t distribution with n − 2 degrees of freedom, giving intervals and tests. R² is the explained fraction of variance; adjusted R² penalizes extra predictors.",
+    "In multiple regression β̂ = (XᵀX)⁻¹Xᵀy with covariance σ²(XᵀX)⁻¹. Coefficients are effects with the other predictors held fixed; adjustment can remove or reveal associations through confounders. Categorical predictors need k − 1 dummies; interactions let slopes differ.",
+    "Multicollinearity inflates variances by VIF = 1/(1 − R_j²). It destabilizes coefficients, not predictions; remedies are removing or combining predictors and ridge.",
+    "Check linearity, independence, constant variance and normality with residual plots and a Q–Q plot. High-leverage, high-residual points are influential (Cook's distance). Use robust or cluster-robust standard errors when variance is not constant or data are clustered.",
+    "Logistic coefficients are log odds ratios: e^{β} multiplies the odds. Inference and prediction have different goals; selecting variables from the data invalidates naive p-values, and adjustment alone does not give causal effects."
+  ],
+  "problems": [
+    {
+      "q": "Fit y on x for x = (1, 2, 3, 4) and y = (3, 5, 4, 8). Give the line and R².",
+      "solution": "x̄ = 2.5, ȳ = 5. S_xy = (−1.5)(−2) + (−0.5)(0) + (0.5)(−1) + (1.5)(3) = 3 + 0 − 0.5 + 4.5 = 7. S_xx = 2.25 + 0.25 + 0.25 + 2.25 = 5. β̂₁ = 1.4, β̂₀ = 5 − 3.5 = 1.5. Fitted: 2.9, 4.3, 5.7, 7.1; residuals 0.1, 0.7, −1.7, 0.9; SSE = 0.01 + 0.49 + 2.89 + 0.81 = 4.2. SST = 4 + 0 + 1 + 9 = 14. R² = 1 − 4.2/14 = 0.70.",
+      "a": "ŷ = 1.5 + 1.4x; R² = 0.70."
+    },
+    {
+      "q": "A regression with n = 40 and p = 4 predictors has R² = 0.55. Compute the adjusted R² and the overall F statistic.",
+      "solution": "Adjusted R² = 1 − 0.45 × 39/35 = 1 − 0.5014 = 0.499. F = (R²/p)/((1 − R²)/(n − p − 1)) = (0.55/4)/(0.45/35) = 0.1375/0.012857 = 10.7.",
+      "a": "Adjusted R² = 0.50; F = 10.7."
+    },
+    {
+      "q": "A coefficient is 3.2 with standard error 1.1 in a model with 60 residual degrees of freedom (t* = 2.0). Test H₀: β = 0 and give a 95% interval.",
+      "solution": "t = 3.2/1.1 = 2.91 > 2.0, so reject at 0.05 (p ≈ 0.005). Interval: 3.2 ± 2.0(1.1) = (1.0, 5.4).",
+      "a": "t = 2.91, p ≈ 0.005; interval (1.0, 5.4)."
+    },
+    {
+      "q": "Two predictors have a correlation of 0.95. What is the VIF of each (with just these two predictors), and the inflation of the standard errors?",
+      "solution": "R_j² = 0.95² = 0.9025, VIF = 1/(1 − 0.9025) = 10.3. The standard errors are inflated by √10.3 = 3.2.",
+      "a": "VIF ≈ 10.3; standard errors about 3.2 times larger."
+    },
+    {
+      "q": "In a logistic regression, 'treatment' has coefficient 0.4 (SE 0.15). Give the odds ratio and a 95% interval, and translate into probability for a baseline risk of 10%.",
+      "solution": "OR = e^{0.4} = 1.49. Interval for the coefficient 0.4 ± 0.294 = (0.106, 0.694), so for the OR (1.11, 2.00). Baseline odds 0.1/0.9 = 0.111; times 1.49 = 0.166, i.e. a probability 0.166/1.166 = 14.2%.",
+      "a": "OR 1.49 with interval (1.11, 2.00); the risk rises from 10% to about 14%."
+    }
+  ]
+}

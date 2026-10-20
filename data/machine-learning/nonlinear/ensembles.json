@@ -1,0 +1,397 @@
+{
+  "id": "ensembles",
+  "view": "chapter",
+  "title": "Ensembles: Bagging, Random Forests and Boosting",
+  "description": "Combining many weak or unstable models into one strong model, by averaging them (bagging) or by building them in sequence (boosting).",
+  "overview": [
+    "A committee often decides better than any member. In machine learning, an ensemble combines many models so that their errors partly cancel. Two strategies dominate. Bagging trains many deep, unstable models on resampled data and averages them, which reduces variance. Boosting trains many shallow models one after another, each correcting its predecessors, which reduces bias.",
+    "Random forests (bagging with an extra decorrelating trick) and gradient-boosted trees are the strongest general-purpose methods for tabular data, and they are the usual winners of such competitions."
+  ],
+  "objectives": [
+    "Derive the variance of an average of correlated predictors and explain why decorrelation matters.",
+    "Describe bootstrap aggregation and compute the out-of-bag fraction.",
+    "Explain how random forests decorrelate trees and how to tune them.",
+    "Run AdaBoost by hand and state its training error bound.",
+    "Explain gradient boosting as gradient descent in function space and compute a boosting step for squared loss."
+  ],
+  "sections": [
+    {
+      "id": "averaging",
+      "title": "Why averaging helps",
+      "terms": [
+        "ensemble",
+        "ensemble learning",
+        "ensemble methods",
+        "model averaging",
+        "variance of an average",
+        "ensembles"
+      ],
+      "body": [
+        "Suppose B predictors each have prediction variance σ² at a point x, and any two are correlated with coefficient ρ. The variance of their average is",
+        {
+          "eq": [
+            "Var( (1/B) Σ f̂_b ) = (1/B²) [ Bσ² + B(B − 1)ρσ² ]",
+            "= ρσ² + (1 − ρ) σ² / B"
+          ]
+        },
+        "The second term vanishes as B grows, but the first does not. The benefit of averaging is limited by the correlation between the members. If they were independent (ρ = 0) the variance would fall as 1/B. If they were identical (ρ = 1) averaging would gain nothing.",
+        {
+          "svg": "<svg viewBox='0 0 440 262' role='img' aria-label='Variance of an average versus the number of models for two correlations' font-family='system-ui, sans-serif' font-size='12'><g fill='none' stroke='currentColor' stroke-width='1.5'><path d='M60,220 H410 M60,220 V15'/></g><path fill='none' stroke='currentColor' stroke-width='2.5' stroke-dasharray='6 3' d='M60,20 L102.4,120 L178.5,180 L230,200 L281.5,210 L357.6,216 L400,218'/><path fill='none' style='stroke:var(--accent)' stroke-width='2.5' d='M60,20 L102.4,90 L178.5,132 L230,146 L281.5,153 L357.6,157.2 L400,158.6'/><g fill='currentColor'><text x='62' y='12'>variance of the average</text><text x='408' y='256' text-anchor='end'>number of models B (log scale)</text><text x='60' y='238'>1</text><text x='226' y='238'>10</text><text x='396' y='238'>100</text><text x='260' y='188'>ρ = 0: falls like 1/B</text><text x='270' y='140' style='fill:var(--accent)'>ρ = 0.3: stops near 0.3</text></g></svg>",
+          "caption": "Variance of an average of B predictors with σ² = 1. Correlation sets a floor ρσ² that more models cannot remove."
+        },
+        {
+          "example": {
+            "title": "A floor on the variance",
+            "problem": "Predictors have variance σ² = 1 and pairwise correlation ρ = 0.3. Find the variance of an average of B = 10 and of B = 100 predictors.",
+            "solution": "B = 10: 0.3 + 0.7/10 = 0.37. B = 100: 0.3 + 0.7/100 = 0.307. Ten times as many models cut the variance by only 17%, because the correlated part remains."
+          }
+        },
+        "Averaging does not change the bias of the individual models. So the best candidates to average are low-bias, high-variance models, such as deep decision trees. Ensembling also helps only if the members make different errors."
+      ],
+      "check": [
+        {
+          "q": "For an average of many identically distributed predictors with correlation ρ and variance σ², the variance approaches",
+          "a": "ρσ² as the number of models grows",
+          "wrong": [
+            "0",
+            "σ²",
+            "σ²/ρ"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bagging",
+      "title": "Bagging",
+      "terms": [
+        "bagging",
+        "bootstrap aggregation",
+        "bootstrap aggregating",
+        "bootstrap sample",
+        "out-of-bag",
+        "out-of-bag error",
+        "oob error"
+      ],
+      "body": [
+        "We cannot draw new training sets from the population, but the **bootstrap** imitates it: draw m examples //with replacement// from the training set. **Bagging** (bootstrap aggregating, Breiman 1996) trains one model on each of B bootstrap samples and averages their predictions (for regression) or takes a majority vote (for classification):",
+        {
+          "eq": "f̂_bag(x) = (1/B) Σ_{b=1}^{B} f̂_b(x)"
+        },
+        "A bootstrap sample omits some examples. The probability that a given example is missing from a sample of size m is (1 − 1/m)^m, which tends to 1/e = 0.368. So each sample contains about 63.2% of the distinct examples; for m = 10 the omitted fraction is 0.9¹⁰ = 0.349.",
+        {
+          "key": "The omitted examples give a free validation set. For each training example, average the predictions of only the models that did not see it. The resulting out-of-bag (OOB) error estimates the test error without a separate validation split or cross-validation."
+        },
+        "Bagging is most effective for unstable procedures such as deep trees, where a small change in the data changes the model a lot. For stable procedures such as linear regression or k-NN with large k it gives little gain. It never hurts bias noticeably, it parallelizes trivially, and adding more models does not cause overfitting (the variance floor of the previous section is reached and stays)."
+      ],
+      "check": [
+        {
+          "q": "In a bootstrap sample of size m (large), the fraction of distinct training examples included is about",
+          "a": "63%",
+          "wrong": [
+            "50%",
+            "37%",
+            "100%"
+          ]
+        },
+        {
+          "q": "The out-of-bag error is obtained by",
+          "a": "predicting each example using only the trees that did not train on it",
+          "wrong": [
+            "predicting each example with every tree",
+            "holding out the last 20% of the data",
+            "training one more tree on the test set"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "random-forests",
+      "title": "Random forests",
+      "terms": [
+        "random forest",
+        "random forests",
+        "feature subsampling",
+        "permutation importance",
+        "extremely randomized trees"
+      ],
+      "body": [
+        "Trees grown on bootstrap samples of the same data are still strongly correlated: if one feature is very predictive, every tree splits on it near the root. By the formula above, this correlation limits the gain. A **random forest** decorrelates the trees by a second randomization: at each split, consider only a random subset of m_{try} of the n features and choose the best split among them.",
+        {
+          "list": [
+            "Typical defaults are m_{try} ≈ √n for classification (10 of 100 features) and n/3 for regression.",
+            "Grow each tree deep, with little or no pruning: low bias, high variance, then rely on averaging.",
+            "Use a few hundred trees. More trees never hurt accuracy; they only cost time.",
+            "The out-of-bag error provides a built-in estimate of test error, and features can be ranked by **permutation importance**: the increase in OOB error when a feature's values are shuffled."
+          ]
+        },
+        "Small m_{try} gives less correlated trees (lower ρ) but weaker individual trees (higher bias). It is the main tuning parameter, along with the minimum leaf size.",
+        {
+          "tip": "A random forest with default settings is a strong first model on tabular data. It needs no feature scaling, handles mixed types, resists overfitting, and gives feature importances."
+        },
+        {
+          "h": "Limitations"
+        },
+        {
+          "list": [
+            "Predictions cannot extrapolate beyond the range of training targets, because they are averages of training labels.",
+            "Large forests are slow and memory-hungry to store and evaluate compared with a linear model.",
+            "A forest is not interpretable the way one tree is, although importance measures and partial dependence plots help."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "What does feature subsampling at each split accomplish?",
+          "a": "It reduces the correlation between trees",
+          "wrong": [
+            "It reduces the bias of each tree",
+            "It removes the need for bootstrap samples",
+            "It guarantees the trees are pruned"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "adaboost",
+      "title": "Boosting and AdaBoost",
+      "terms": [
+        "boosting",
+        "adaboost",
+        "weak learner",
+        "weak learners",
+        "exponential loss",
+        "sample weights"
+      ],
+      "body": [
+        "**Boosting** builds an ensemble sequentially. Each new model concentrates on the examples that the current ensemble gets wrong. A **weak learner** is any model slightly better than guessing; boosting turns weak learners into a strong one, often with decision stumps (one-split trees) as the learners.",
+        "**AdaBoost** (adaptive boosting, Freund and Schapire) for labels y ∈ {−1, +1}:",
+        {
+          "list": [
+            "Initialize the weights w_i = 1/m.",
+            "For t = 1, …, T: fit a weak learner h_t to the weighted data. Compute its weighted error ε_t = Σ w_i 1[h_t(x_i) ≠ y_i]. Set the vote weight α_t = ½ ln((1 − ε_t)/ε_t).",
+            "Update w_i ← w_i exp(−α_t y_i h_t(x_i)) and normalize to sum 1. Misclassified examples gain weight and correct ones lose it.",
+            "Output H(x) = sign( Σ_t α_t h_t(x) )."
+          ],
+          "ordered": true
+        },
+        "A learner with ε_t = 0.5 (no better than chance) gets weight α_t = 0, and one with lower error gets a larger weight.",
+        {
+          "example": {
+            "title": "One round of AdaBoost",
+            "problem": "There are five examples with equal weights 0.2. The first weak learner misclassifies exactly one of them. Compute α₁ and the new weights.",
+            "solution": [
+              "ε₁ = 0.2, so α₁ = ½ ln(0.8/0.2) = ½ ln 4 = 0.693.",
+              "The misclassified example's weight is multiplied by e^{0.693} = 2 and becomes 0.4. Each of the four correct examples is multiplied by e^{−0.693} = 0.5 and becomes 0.1. The sum is 0.4 + 0.4 = 0.8.",
+              "After normalizing, the misclassified example has weight 0.4/0.8 = 0.5, and each correct example has 0.1/0.8 = 0.125. The hard example now carries half the total weight, so the next learner must get it right."
+            ]
+          }
+        },
+        {
+          "h": "Why it works"
+        },
+        "AdaBoost minimizes the **exponential loss** Σ exp(−y_i F(x_i)) of the additive model F = Σ α_t h_t by stagewise optimization. The normalizer in each round is Z_t = 2√(ε_t(1 − ε_t)), and the training error is bounded by the product ΠZ_t. In the example above Z₁ = 2√0.16 = 0.8. If each round has ε_t = 0.2, then after T rounds the training error is at most 0.8^T, which is 0.107 after T = 10 and 0.011 after T = 20. In general it falls exponentially, as exp(−2Σγ_t²) with edge γ_t = ½ − ε_t.",
+        "Boosting drives down bias by adding capacity round after round. Unlike bagging, it can overfit if run too long on noisy labels, because the exponential loss puts large weight on mislabeled points. Use shallow learners, limit the rounds, and tune on validation data."
+      ],
+      "check": [
+        {
+          "q": "A weak learner with weighted error 0.5 receives a vote weight of",
+          "a": "0",
+          "wrong": [
+            "1",
+            "0.5",
+            "ln 2"
+          ],
+          "why": "α = ½ ln((1 − 0.5)/0.5) = ½ ln 1 = 0."
+        },
+        {
+          "q": "In AdaBoost, after each round the weights of misclassified examples",
+          "a": "increase relative to correctly classified examples",
+          "wrong": [
+            "decrease relative to correct ones",
+            "are set to zero",
+            "stay the same"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gradient-boosting",
+      "title": "Gradient boosting",
+      "terms": [
+        "gradient boosting",
+        "gradient boosted trees",
+        "gbm",
+        "xgboost",
+        "lightgbm",
+        "shrinkage learning rate",
+        "functional gradient descent",
+        "pseudo-residuals"
+      ],
+      "body": [
+        "Gradient boosting generalizes AdaBoost to any differentiable loss ℓ. Think of the model F(x) as the unknown function and minimize the total loss L(F) = Σ ℓ(y_i, F(x_i)) by gradient descent in function space. The negative gradient at each training point,",
+        {
+          "eq": "r_i = − ∂ℓ(y_i, F(x_i)) / ∂F(x_i)"
+        },
+        "gives the direction in which each prediction should move. A tree h_t is fit to these **pseudo-residuals**, so that it approximates the gradient across the whole input space, and the model takes a step: F_t = F_{t−1} + ν h_t, where ν ∈ (0, 1] is the **learning rate** (shrinkage).",
+        {
+          "list": [
+            "**Squared loss**: ℓ = ½(y − F)², so r_i = y_i − F(x_i): each tree fits the ordinary residuals.",
+            "**Logistic loss**: r_i = y_i − σ(F(x_i)), the probability error (see Logistic Regression), with F the log-odds.",
+            "**Absolute loss** and **Huber loss** give robust regression; ranking losses give learning to rank."
+          ]
+        },
+        {
+          "example": {
+            "title": "Two boosting steps with squared loss",
+            "problem": "Targets are y = (1, 3, 8). Start with F₀ = mean(y). A tree of one split separates the first two points from the third. Use ν = 0.5 and compute F₁, and the mean squared error before and after.",
+            "solution": [
+              "F₀ = 4 for all points, with residuals (−3, −1, 4) and MSE = (9 + 1 + 16)/3 = 8.67.",
+              "The tree predicts the mean residual in each group: −2 for the first two points and 4 for the third. With ν = 0.5 the model moves half-way: F₁ = (4 − 1, 4 − 1, 4 + 2) = (3, 3, 6).",
+              "New residuals are (−2, 0, 2), so MSE = (4 + 0 + 4)/3 = 2.67. The next tree would fit these."
+            ]
+          }
+        },
+        {
+          "h": "Regularization"
+        },
+        {
+          "list": [
+            "**Learning rate** ν: small values (0.01 to 0.1) need more trees but generalize much better than ν = 1.",
+            "**Number of trees**: choose by early stopping on a validation set, since boosting overfits if run too long.",
+            "**Tree depth**: shallow trees (depth 3 to 8) capture low-order interactions; a depth-1 stump gives an additive model.",
+            "**Subsampling** rows (stochastic gradient boosting) and columns per tree, and penalties on leaf values (L2 and a minimum gain), as in XGBoost and LightGBM."
+          ]
+        },
+        "XGBoost, LightGBM and CatBoost implement this method with second-order (Newton) steps that use the Hessian of the loss, histogram-based split finding, native handling of missing values and categorical features, and parallelism. They are the default choice for structured data when the best accuracy is needed."
+      ],
+      "check": [
+        {
+          "q": "For squared loss, each gradient boosting tree is fit to",
+          "a": "the current residuals y − F(x)",
+          "wrong": [
+            "the original labels y",
+            "the squared errors",
+            "the previous tree's predictions"
+          ]
+        },
+        {
+          "q": "A smaller learning rate ν typically requires",
+          "a": "more trees, and usually generalizes better",
+          "wrong": [
+            "fewer trees and worse accuracy",
+            "no validation set",
+            "deeper trees"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "stacking",
+      "title": "Choosing and combining ensembles",
+      "terms": [
+        "stacking",
+        "stacked generalization",
+        "blending",
+        "bagging versus boosting"
+      ],
+      "body": [
+        {
+          "table": {
+            "head": [
+              "",
+              "Random forest (bagging)",
+              "Gradient boosting"
+            ],
+            "rows": [
+              [
+                "Trees",
+                "Deep, independent",
+                "Shallow, sequential"
+              ],
+              [
+                "Reduces",
+                "Variance",
+                "Bias (and some variance)"
+              ],
+              [
+                "Overfitting with more trees",
+                "No",
+                "Yes; stop early"
+              ],
+              [
+                "Parallel training",
+                "Easy",
+                "Harder (sequential)"
+              ],
+              [
+                "Tuning",
+                "Few knobs; good defaults",
+                "More knobs; best accuracy when tuned"
+              ],
+              [
+                "Noisy labels",
+                "Robust",
+                "Sensitive"
+              ]
+            ],
+            "caption": "Two ensembles of trees."
+          }
+        },
+        {
+          "h": "Stacking"
+        },
+        "**Stacking** combines models of different kinds (a forest, a neural network, a linear model). A meta-model takes their predictions as inputs and learns how much to trust each one. To avoid overfitting, the meta-model must be trained on out-of-fold predictions: each base model predicts examples it did not train on, through cross-validation. A simple average or weighted average (blending) is often almost as good.",
+        {
+          "tip": "Ensembling helps most when the members are individually good and diverse. An average of five similar gradient-boosting models gains little. A boosted tree model and a neural network on the same data usually gain more."
+        },
+        "The price of an ensemble is cost and complexity: more memory, slower prediction, and a loss of interpretability. For deployment, one may compress an ensemble into a single smaller model (distillation) by training the small model to imitate the ensemble's outputs."
+      ],
+      "check": [
+        {
+          "q": "Why must a stacking meta-model be trained on out-of-fold predictions?",
+          "a": "Predictions on a base model's own training data are over-optimistic, so the meta-model would trust the wrong models",
+          "wrong": [
+            "Out-of-fold predictions are always more accurate",
+            "It reduces the number of base models",
+            "The meta-model cannot use the labels otherwise"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "The variance of an average of correlated predictors is ρσ² + (1 − ρ)σ²/B. Averaging reduces variance but leaves the bias, and correlation sets a floor.",
+    "Bagging averages models trained on bootstrap samples. Each sample leaves out about 36.8% of the data, which gives the out-of-bag error estimate for free.",
+    "Random forests add random feature subsets at each split to decorrelate the trees. They are robust and need little tuning.",
+    "AdaBoost reweights examples and weights learners by α = ½ ln((1 − ε)/ε); its training error falls exponentially. Boosting reduces bias but can overfit noise.",
+    "Gradient boosting fits each new tree to the negative gradient of the loss (the residuals for squared loss) and steps with a small learning rate. XGBoost-style implementations dominate tabular tasks.",
+    "Stacking and blending combine different model families when their errors differ."
+  ],
+  "problems": [
+    {
+      "q": "An ensemble of B = 25 predictors has σ² = 4 and correlation ρ = 0.2. Compute the variance of the average.",
+      "solution": "ρσ² + (1 − ρ)σ²/B = 0.2(4) + 0.8(4)/25 = 0.8 + 0.128 = 0.928.",
+      "a": "0.928, compared with 4 for a single predictor."
+    },
+    {
+      "q": "A forest is built from 200 bootstrap samples of a data set with m = 1000 examples. About how many trees leave out a specific example, on average?",
+      "solution": "Each tree omits the example with probability (1 − 1/1000)^{1000} ≈ 0.368. Expected number of trees: 200 × 0.368 ≈ 74.",
+      "a": "About 74 trees, which are used for its out-of-bag prediction."
+    },
+    {
+      "q": "In AdaBoost, a weak learner has weighted error 0.1. Compute α, and the factor by which misclassified and correctly classified weights are multiplied before normalization.",
+      "solution": "α = ½ ln(0.9/0.1) = ½ ln 9 = 1.099. Misclassified: e^{1.099} = 3. Correct: e^{−1.099} = 1/3. Normalizer Z = 0.1(3) + 0.9(1/3) = 0.6, which equals 2√(0.1 · 0.9) = 0.6.",
+      "a": "α = 1.10; factors 3 and 1/3; Z = 0.6."
+    },
+    {
+      "q": "Gradient boosting with squared loss and ν = 0.1 starts with F₀ = 10 at a point whose target is y = 16. The first tree predicts the residual exactly. Compute F₁, and the number of trees needed before the error at this point falls below 0.1, assuming each tree fits the current residual exactly.",
+      "solution": "The residual is 6, and F₁ = 10 + 0.1(6) = 10.6, leaving residual 5.4. Each tree shrinks the residual by the factor 0.9, so after t trees it is 6(0.9)^t. Setting 6(0.9)^t < 0.1 gives t > ln(60)/(−ln 0.9) = 4.094/0.1054 = 38.9.",
+      "a": "F₁ = 10.6; 39 trees."
+    },
+    {
+      "q": "A random forest on data with n = 64 features uses m_{try} = √n. How many features are considered at each split, and what happens to tree correlation if m_{try} is raised to 64?",
+      "solution": "√64 = 8 features per split. With m_{try} = 64 every split considers all features, so trees depend only on the bootstrap sampling and become more correlated, which reduces the gain from averaging (the method becomes plain bagging).",
+      "a": "8 features; the forest becomes ordinary bagging with more correlated trees."
+    }
+  ]
+}

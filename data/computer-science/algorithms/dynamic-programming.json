@@ -1,0 +1,372 @@
+{
+  "id": "dynamic-programming",
+  "view": "chapter",
+  "title": "Dynamic Programming and Greedy Algorithms",
+  "description": "Optimal substructure and overlapping subproblems, memoization and tabulation, classic problems, greedy algorithms and their proofs, and the dynamic programs inside machine learning.",
+  "overview": [
+    "Some problems can be solved by combining the solutions of smaller instances of the same problem, but the smaller instances overlap: the naive recursion solves the same subproblem many times. Dynamic programming (DP) solves each subproblem once, stores its answer, and looks it up when needed. It turns exponential recursions into polynomial algorithms, and it is the method behind sequence alignment, shortest paths, the Viterbi algorithm for hidden Markov models and value iteration in reinforcement learning.",
+    "Greedy algorithms take the opposite approach: at each step make the locally best choice and never reconsider. They are fast and simple, and correct only when the problem has a special structure, which must be proved. This chapter develops both, with the recipe for designing a dynamic program and the exchange argument for proving a greedy one."
+  ],
+  "objectives": [
+    "Recognize optimal substructure and overlapping subproblems, and explain how memoization changes the running time.",
+    "Design a dynamic program: state, recurrence, base cases, order of evaluation and answer extraction.",
+    "Solve knapsack, longest common subsequence, edit distance and coin change by DP and fill in the tables by hand.",
+    "Prove a greedy algorithm correct with an exchange argument, and recognize when greedy fails.",
+    "Identify dynamic programs in machine learning: Viterbi, forward algorithm, value iteration, sequence alignment and backpropagation."
+  ],
+  "sections": [
+    {
+      "id": "overlapping",
+      "title": "Overlapping subproblems and memoization",
+      "terms": [
+        "dynamic programming",
+        "overlapping subproblems",
+        "optimal substructure",
+        "memoization",
+        "tabulation",
+        "bottom-up",
+        "top-down dynamic programming",
+        "lru_cache"
+      ],
+      "body": [
+        "Consider the Fibonacci numbers, F(n) = F(n − 1) + F(n − 2) with F(0) = 0, F(1) = 1. The direct recursion recomputes the same values over and over: F(5) calls F(4) and F(3), and F(4) calls F(3) again.",
+        {
+          "code": [
+            "def fib_naive(n):                    # exponential time",
+            "    return n if n < 2 else fib_naive(n - 1) + fib_naive(n - 2)",
+            "",
+            "from functools import lru_cache",
+            "",
+            "@lru_cache(maxsize=None)             # memoization: remember results",
+            "def fib_memo(n):",
+            "    return n if n < 2 else fib_memo(n - 1) + fib_memo(n - 2)",
+            "",
+            "def fib_table(n):                    # bottom-up: fill a table from small to large",
+            "    a, b = 0, 1",
+            "    for _ in range(n):",
+            "        a, b = b, a + b",
+            "    return a"
+          ],
+          "caption": "Three Fibonacci implementations. Only the first is exponential."
+        },
+        {
+          "example": {
+            "title": "How bad is the naive recursion?",
+            "problem": "Compare the number of calls fib_naive(30) makes with the work of the memoized version.",
+            "solution": "The number of calls satisfies C(n) = C(n − 1) + C(n − 2) + 1, which grows like 1.618ⁿ: fib_naive(30) makes 2,692,537 calls. The memoized version computes each of F(0), …, F(30) once: 31 distinct subproblems, each in O(1) after its predecessors: O(n). Exponential time became linear."
+          }
+        },
+        "Dynamic programming applies when a problem has two properties.",
+        {
+          "list": [
+            "**Optimal substructure**: an optimal solution is built from optimal solutions to subproblems (the shortest path from A to C through B consists of a shortest path from A to B and one from B to C).",
+            "**Overlapping subproblems**: the same subproblems recur, so storing their solutions saves work. (Divide and conquer, in contrast, has independent subproblems: merge sort never solves the same sub-array twice.)"
+          ]
+        },
+        "There are two ways to organize the computation. **Top-down with memoization** writes the natural recursion and caches results (a dictionary or lru_cache). **Bottom-up tabulation** fills a table from the smallest subproblems upward, in an order that guarantees dependencies are ready. Bottom-up avoids recursion overhead and lets you discard parts of the table that are no longer needed (Fibonacci needs only two values: O(1) space)."
+      ],
+      "check": [
+        {
+          "q": "Memoization speeds up the Fibonacci recursion from exponential to linear time because it",
+          "a": "solves each distinct subproblem only once",
+          "wrong": [
+            "makes each call faster",
+            "removes the recursion entirely",
+            "uses less memory"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dp-recipe",
+      "title": "A recipe for dynamic programming",
+      "terms": [
+        "dp recipe",
+        "state definition",
+        "recurrence for dynamic programming",
+        "knapsack problem",
+        "0/1 knapsack",
+        "coin change problem",
+        "dp table"
+      ],
+      "body": [
+        "To design a dynamic program:",
+        {
+          "list": [
+            "**Define the subproblems**: a precise meaning for the table entry, with its indices. This is the creative step.",
+            "**Write the recurrence** that expresses an entry through smaller entries, considering the choices for the last decision.",
+            "**State the base cases.**",
+            "**Choose an evaluation order** in which each entry's dependencies are computed first.",
+            "**Read the answer** from the table, and track the choices if you need the solution itself, not just its value.",
+            "**Count the cost**: (number of entries) × (work per entry)."
+          ],
+          "ordered": true
+        },
+        {
+          "h": "Coin change"
+        },
+        "What is the fewest coins that make an amount a with coin values c₁, …, c_k? Let dp[a] be the answer. The last coin used is some c_i, leaving a − c_i, so dp[a] = 1 + min_i dp[a − c_i] with dp[0] = 0. The cost is O(a · k).",
+        {
+          "example": {
+            "title": "Coin change with coins {1, 3, 4}",
+            "problem": "Find the minimum number of coins for 6.",
+            "solution": [
+              {
+                "table": {
+                  "head": ["a", "0", "1", "2", "3", "4", "5", "6"],
+                  "rows": [["dp[a]", "0", "1", "2", "1", "1", "2", "2"]]
+                }
+              },
+              "dp[5] = 1 + min(dp[4], dp[2], dp[1]) = 2. dp[6] = 1 + min(dp[5], dp[3], dp[2]) = 1 + min(2, 1, 2) = 2: the coins 3 + 3. A greedy choice (take the largest coin first) would pick 4 + 1 + 1 = 3 coins, which is worse."
+            ]
+          }
+        },
+        {
+          "h": "The 0/1 knapsack"
+        },
+        "Given items with weights w_i and values v_i and a capacity W, choose a subset of maximum total value whose weight fits. Let K[i][c] be the best value using the first i items with capacity c. For item i either skip it or take it:",
+        {
+          "eq": "K[i][c] = max( K[i − 1][c],  v_i + K[i − 1][c − w_i] )    (second option only if w_i ≤ c)"
+        },
+        {
+          "code": [
+            "def knapsack(weights, values, W):",
+            "    n = len(weights)",
+            "    K = [[0] * (W + 1) for _ in range(n + 1)]",
+            "    for i in range(1, n + 1):",
+            "        for c in range(W + 1):",
+            "            K[i][c] = K[i - 1][c]                        # skip item i",
+            "            if weights[i - 1] <= c:                      # or take it",
+            "                K[i][c] = max(K[i][c], values[i - 1] + K[i - 1][c - weights[i - 1]])",
+            "    return K[n][W]",
+            "",
+            "knapsack([1, 3, 4, 5], [1, 4, 5, 7], 7)   # 9"
+          ],
+          "caption": "0/1 knapsack in O(nW) time and space. The optimum for capacity 7 is items (3, 4) and (4, 5): weight 7, value 9."
+        },
+        {
+          "note": "The running time O(nW) is polynomial in the numeric value of W, not in the number of bits needed to write it, so it is called pseudo-polynomial. Knapsack is NP-hard, but this DP is efficient whenever W is modest."
+        }
+      ],
+      "check": [
+        {
+          "q": "A knapsack DP table with 100 items and capacity 1000 has about this many entries:",
+          "a": "100,000",
+          "wrong": ["1,100", "100", "2¹⁰⁰"],
+          "why": "n × W = 100 × 1000 (plus a row and column)."
+        }
+      ]
+    },
+    {
+      "id": "sequences",
+      "title": "Sequence problems: LCS and edit distance",
+      "terms": [
+        "longest common subsequence",
+        "lcs",
+        "edit distance",
+        "levenshtein distance",
+        "sequence alignment",
+        "dynamic time warping",
+        "word error rate"
+      ],
+      "body": [
+        "A **subsequence** of a string keeps some characters in order (not necessarily adjacent). The **longest common subsequence** (LCS) of X and Y measures their similarity, and is the idea behind the diff tool and DNA comparison. Let L[i][j] be the LCS length of the first i characters of X and the first j of Y. If the last characters match, they extend the LCS of the prefixes; otherwise one of them can be dropped:",
+        {
+          "eq": [
+            "L[i][j] = L[i − 1][j − 1] + 1    if X[i] = Y[j]",
+            "L[i][j] = max( L[i − 1][j], L[i][j − 1] )    otherwise,    L[0][·] = L[·][0] = 0"
+          ]
+        },
+        {
+          "example": {
+            "title": "LCS table",
+            "problem": "Compute the LCS of X = ABCD and Y = ACBD.",
+            "solution": [
+              {
+                "table": {
+                  "head": ["", "(empty)", "A", "C", "B", "D"],
+                  "rows": [
+                    ["(empty)", "0", "0", "0", "0", "0"],
+                    ["A", "0", "1", "1", "1", "1"],
+                    ["B", "0", "1", "1", "2", "2"],
+                    ["C", "0", "1", "2", "2", "2"],
+                    ["D", "0", "1", "2", "2", "3"]
+                  ]
+                }
+              },
+              "The bottom-right entry, 3, is the LCS length (for example ABD or ACD). Following the matches back from that corner recovers the subsequence. The table has |X||Y| entries, each computed in O(1): O(mn) time, against the exponential cost of checking all 2^m subsequences."
+            ]
+          }
+        },
+        {
+          "h": "Edit distance"
+        },
+        "The **edit distance** (Levenshtein distance) between strings is the minimum number of single-character insertions, deletions and substitutions that turns one into the other. With D[i][j] the distance between the first i characters of X and the first j of Y:",
+        {
+          "eq": "D[i][j] = min( D[i − 1][j] + 1,  D[i][j − 1] + 1,  D[i − 1][j − 1] + [X[i] ≠ Y[j]] )"
+        },
+        "with D[i][0] = i and D[0][j] = j. For 'kitten' and 'sitting' the distance is 3 (substitute k → s, substitute e → i, insert g). It is used in spell-checking, fuzzy matching of names, and the **word error rate** of speech recognition: the edit distance between the reference and the recognized word sequences, divided by the length of the reference. **Dynamic time warping** is the same recurrence applied to numeric time series, allowing stretched or compressed time, and **sequence alignment** in bioinformatics (Needleman–Wunsch, Smith–Waterman) adds gap penalties and similarity scores.",
+        {
+          "code": [
+            "def edit_distance(x, y):",
+            "    m, n = len(x), len(y)",
+            "    D = [[0] * (n + 1) for _ in range(m + 1)]",
+            "    for i in range(m + 1): D[i][0] = i",
+            "    for j in range(n + 1): D[0][j] = j",
+            "    for i in range(1, m + 1):",
+            "        for j in range(1, n + 1):",
+            "            cost = 0 if x[i - 1] == y[j - 1] else 1",
+            "            D[i][j] = min(D[i - 1][j] + 1, D[i][j - 1] + 1, D[i - 1][j - 1] + cost)",
+            "    return D[m][n]",
+            "",
+            "edit_distance('kitten', 'sitting')    # 3"
+          ],
+          "caption": "Edit distance, O(mn) time and space."
+        }
+      ],
+      "check": [
+        {
+          "q": "The edit distance between 'cat' and 'cut' is",
+          "a": "1",
+          "wrong": ["0", "2", "3"]
+        }
+      ]
+    },
+    {
+      "id": "greedy",
+      "title": "Greedy algorithms",
+      "terms": [
+        "greedy algorithm",
+        "greedy algorithms",
+        "greedy choice property",
+        "exchange argument",
+        "interval scheduling",
+        "huffman algorithm",
+        "activity selection"
+      ],
+      "body": [
+        "A **greedy algorithm** builds a solution step by step, always taking the choice that looks best right now, and never undoing it. Greedy algorithms are simple and fast, but they are correct only for problems with the **greedy-choice property**: some optimal solution begins with the greedy choice. Many problems look greedy and are not, so a proof is required.",
+        {
+          "example": {
+            "title": "Interval scheduling",
+            "problem": "Given jobs as intervals (start, finish), choose the maximum number of non-overlapping jobs: (1,4), (3,5), (0,6), (5,7), (3,9), (5,9), (6,10), (8,11), (8,12), (2,14), (12,16).",
+            "solution": [
+              "Greedy rule: sort by finish time and repeatedly take the job that finishes earliest among those compatible with the jobs already chosen.",
+              "(1,4) is first. Next compatible: (5,7). Then (8,11). Then (12,16). The answer is 4 jobs: (1,4), (5,7), (8,11), (12,16).",
+              "The other plausible rules fail: taking the shortest job, or the earliest start, can give fewer jobs (the interval (2,14) starts early and blocks everything)."
+            ]
+          }
+        },
+        {
+          "h": "The exchange argument"
+        },
+        "To prove the earliest-finish rule optimal, let g be the greedy first job and O any optimal schedule with first job o. Since g finishes no later than o, replacing o by g in O leaves a valid schedule of the same size (g cannot overlap the rest, which start after o finished). So some optimal solution contains g. The remaining problem, scheduling the jobs that start after g finishes, has the same form, and induction completes the proof. This **exchange argument** (swap the optimal solution's choice for the greedy one without losing) is the standard technique.",
+        {
+          "h": "When greedy fails"
+        },
+        "For coin change with coins {1, 3, 4} and amount 6, always taking the largest coin gives 4 + 1 + 1 (three coins) while 3 + 3 uses two. Greedy is correct for some coin systems (the US denominations 1, 5, 10, 25), but not in general, and there dynamic programming is needed. Greedy also fails for the 0/1 knapsack (taking the highest value-to-weight ratio first can leave capacity wasted), but works for the fractional knapsack where items can be split.",
+        {
+          "list": [
+            "**Huffman coding** is greedy: repeatedly merge the two least probable symbols into one, building the code tree from the bottom. It is optimal (see Information Theory).",
+            "**Kruskal's and Prim's algorithms** for minimum spanning trees are greedy (see Graph Algorithms), as is Dijkstra's shortest path algorithm for non-negative weights.",
+            "In machine learning, greedy methods are common heuristics where the exact problem is NP-hard: decision trees choose the best split at each node, forward feature selection adds the most helpful feature each time, boosting adds the best weak learner, and beam search with beam width 1 is greedy decoding. They are fast and often good, without optimality guarantees."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "For coins {1, 3, 4}, the greedy algorithm for amount 6 uses",
+          "a": "3 coins, although 2 suffice",
+          "wrong": ["2 coins, which is optimal", "4 coins", "6 coins"]
+        },
+        {
+          "q": "An exchange argument proves a greedy algorithm correct by showing that",
+          "a": "any optimal solution can be changed to include the greedy choice without getting worse",
+          "wrong": [
+            "the algorithm runs in polynomial time",
+            "the greedy choice is always unique",
+            "the optimal solution does not exist"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dp-ml",
+      "title": "Dynamic programming in machine learning",
+      "terms": [
+        "viterbi algorithm as dynamic programming",
+        "forward algorithm as dynamic programming",
+        "bellman equation as dynamic programming",
+        "beam search",
+        "backpropagation as dynamic programming",
+        "cky parsing"
+      ],
+      "body": [
+        "The idea of reusing subproblem solutions runs through machine learning.",
+        {
+          "list": [
+            "**Viterbi and forward algorithms** for hidden Markov models are dynamic programs over the sequence. The score of the best path ending in state j at time t is δ_t(j) = max_i δ_{t−1}(i)A_ij · B_j(x_t) (see Graphical Models). Without DP the number of state sequences is Nᵀ; with it the cost is O(TN²).",
+            "**Value iteration and policy evaluation** solve the Bellman equation by DP over states (see Markov Decision Processes). The Bellman equation is exactly the recurrence of optimal substructure.",
+            "**Backpropagation** is dynamic programming on the computational graph: the gradient at a node is computed once and reused by all its parents. Without caching, naive differentiation would repeat the work for each path through the graph, which grows exponentially (see Automatic Differentiation).",
+            "**Parsing and sequence labeling**: the CKY algorithm parses sentences with a grammar in O(n³); linear-chain CRFs use the forward–backward DP.",
+            "**Alignment and metrics**: edit distance for word error rate, dynamic time warping for comparing time series, CTC loss for speech recognition (a DP over alignments), and BLEU or edit-based metrics.",
+            "**Beam search** is a pruned dynamic program for decoding: keep only the B best partial sequences at each step. With B = 1 it is greedy decoding, and with unlimited B it is exhaustive search.",
+            "**Optimal binary search trees, matrix-chain multiplication order, and hyperparameter schedules** are further DP problems."
+          ]
+        },
+        {
+          "example": {
+            "title": "Counting paths with and without a table",
+            "problem": "A robot moves right or down on a 10 × 10 grid from the top-left to the bottom-right corner. How many paths exist, and how can DP count them?",
+            "solution": "Let P[i][j] be the number of paths to cell (i, j): P[i][j] = P[i − 1][j] + P[i][j − 1], with P = 1 along the first row and column. The table has 100 entries. The answer is C(18, 9) = 48,620 paths (9 rights and 9 downs among 18 moves). Enumerating all paths one by one would visit 48,620 × 18 cells, and for a 30 × 30 grid, about 10¹⁶ paths, which the DP still handles with 900 additions."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Backpropagation can be seen as dynamic programming because",
+          "a": "gradients of shared intermediate nodes are computed once and reused",
+          "wrong": [
+            "it uses a table of weights",
+            "it solves a knapsack problem",
+            "it makes greedy choices"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Dynamic programming stores the solutions of overlapping subproblems with optimal substructure. Memoization (top-down) or tabulation (bottom-up) turns exponential recursions, such as naive Fibonacci with 1.6ⁿ calls, into polynomial ones.",
+    "Recipe: define the subproblem, write the recurrence, give base cases and an order, read the answer, count the cost (entries × work per entry).",
+    "Coin change dp[a] = 1 + min dp[a − c]; knapsack K[i][c] = max(skip, take) in O(nW); LCS and edit distance fill an m × n table in O(mn).",
+    "Greedy algorithms take the locally best choice. They are correct under the greedy-choice property, proved by an exchange argument (interval scheduling by earliest finish), and fail for general coin change and 0/1 knapsack.",
+    "Dynamic programming appears in Viterbi, the forward algorithm, value iteration, backpropagation, alignment and beam search; greedy heuristics build decision trees and select features."
+  ],
+  "problems": [
+    {
+      "q": "Compute the minimum number of coins for amount 7 with coins {1, 3, 4}, and the number of ways to make 4 with coins {1, 2, 3} in which order does not matter.",
+      "solution": "Coin change: dp[7] = 1 + min(dp[6], dp[4], dp[3]) = 1 + min(2, 1, 1) = 2 (3 + 4). Ways to make 4 from {1, 2, 3}: 1+1+1+1, 1+1+2, 2+2, 1+3: 4 ways.",
+      "a": "2 coins (3 + 4); 4 ways."
+    },
+    {
+      "q": "Fill in the knapsack table or find the optimum for items (weight, value) = (2, 3), (3, 4), (4, 5), (5, 6) and capacity 5.",
+      "solution": "Options within weight 5: item 1 + item 2 (weights 2 + 3 = 5, value 7); item 4 alone (value 6); item 3 alone (5). The best is items 1 and 2 with value 7.",
+      "a": "7 (items of weight 2 and 3)."
+    },
+    {
+      "q": "Compute the LCS length of 'AGGTAB' and 'GXTXAYB'.",
+      "solution": "The LCS is 'GTAB': G, T, A and B appear in both in this order. No common subsequence of length 5 exists. The length is 4.",
+      "a": "4 ('GTAB')."
+    },
+    {
+      "q": "Compute the edit distance between 'flaw' and 'lawn'.",
+      "solution": "Delete 'f' (flaw → law), then insert 'n' at the end (law → lawn): 2 operations. A lower bound: the strings differ at several aligned positions and have different multisets of letters, so 1 is impossible.",
+      "a": "2."
+    },
+    {
+      "q": "Intervals: (1,3), (2,5), (4,6), (6,8), (5,9). Use the earliest-finish greedy rule to choose a maximum set of non-overlapping intervals.",
+      "solution": "Sorted by finish: (1,3), (2,5), (4,6), (6,8), (5,9). Take (1,3). (2,5) overlaps; (4,6) starts after 3, take it. (6,8) starts at 6 ≥ 6, take it. (5,9) overlaps. The set is (1,3), (4,6), (6,8): 3 intervals.",
+      "a": "(1,3), (4,6), (6,8)."
+    }
+  ]
+}

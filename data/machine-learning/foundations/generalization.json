@@ -1,0 +1,384 @@
+{
+  "id": "generalization",
+  "view": "chapter",
+  "title": "Generalization, Bias and Variance",
+  "description": "Why a model that fits the training data can fail on new data, the bias–variance decomposition, and how to choose model complexity.",
+  "overview": [
+    "Every learner faces the same tension. A rigid model cannot capture the true pattern, so it errs on training and new data alike. A flexible model can capture the pattern and also the accidents of the sample, so it looks excellent on the training set and disappoints on new data. Choosing the level of flexibility is the most common decision in applied machine learning.",
+    "This chapter makes that tension precise. We separate underfitting from overfitting, decompose prediction error into bias, variance and noise, and then show the practical tools that follow: validation sets, cross-validation, learning curves and capacity control."
+  ],
+  "objectives": [
+    "Recognize underfitting and overfitting from training and validation error.",
+    "Derive the bias–variance decomposition of squared error and compute it for a simple estimator.",
+    "Split data correctly into training, validation and test sets, and carry out k-fold cross-validation.",
+    "Read a learning curve and decide whether more data, more features or more regularization will help.",
+    "Describe double descent and why classical intuition about interpolation fails for very large models."
+  ],
+  "sections": [
+    {
+      "id": "fitting-regimes",
+      "title": "Underfitting and overfitting",
+      "terms": [
+        "underfitting",
+        "overfitting",
+        "overfit",
+        "underfit",
+        "model complexity",
+        "capacity",
+        "generalization gap",
+        "generalization and bias-variance"
+      ],
+      "body": [
+        "Fit polynomials of increasing degree d to the same noisy data. At d = 1 the curve is a line that misses the bend in the data. At d = 3 it follows the trend. At d = 15 it threads through every training point and oscillates between them.",
+        "A model **underfits** when it is too simple to capture the pattern, so error is high on both training and new data. A model **overfits** when it fits noise specific to the training sample, so training error is low and error on new data is much higher. The difference between test and training error is the **generalization gap**.",
+        {
+          "svg": "<svg viewBox='0 0 440 260' role='img' aria-label='Training error falls with model complexity while validation error falls then rises' font-family='system-ui, sans-serif' font-size='12'><g fill='none' stroke='currentColor' stroke-width='1.5'><path d='M50,20 V220 H410'/></g><path fill='none' stroke='currentColor' stroke-width='2.5' stroke-dasharray='6 3' d='M55,70 C120,130 200,185 405,208'/><path fill='none' style='stroke:var(--accent)' stroke-width='2.5' d='M55,60 C110,120 170,150 230,152 C300,154 350,120 405,60'/><path fill='none' stroke='currentColor' stroke-width='1' stroke-dasharray='3 3' opacity='.55' d='M230,220 V40'/><g fill='currentColor'><text x='56' y='14'>error</text><text x='408' y='238' text-anchor='end'>model complexity</text><text x='100' y='198'>underfitting</text><text x='318' y='198'>overfitting</text><text x='238' y='36'>best complexity</text><text x='300' y='214' >training</text><text x='356' y='88' style='fill:var(--accent)'>validation</text></g></svg>",
+          "caption": "Training error (dashed) keeps falling with complexity. Validation error (solid) falls, reaches a minimum, and rises."
+        },
+        "The minimum of validation error marks the complexity that best balances the two failures. The next section explains why the curve has this shape.",
+        {
+          "note": "The word capacity names how rich a hypothesis class is: the number of parameters is a rough proxy, and learning theory gives sharper measures (VC dimension, Rademacher complexity)."
+        }
+      ],
+      "check": [
+        {
+          "q": "Training error is 2% and validation error is 25%. The model is most likely",
+          "a": "overfitting",
+          "wrong": [
+            "underfitting",
+            "well calibrated",
+            "limited by label noise only"
+          ],
+          "why": "A large gap with low training error indicates the model fits the training sample's idiosyncrasies."
+        },
+        {
+          "q": "Training error is 30% and validation error is 31%. The model is most likely",
+          "a": "underfitting",
+          "wrong": [
+            "overfitting",
+            "memorizing",
+            "perfectly fit"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bias-variance",
+      "title": "The bias–variance decomposition",
+      "terms": [
+        "bias-variance",
+        "bias–variance",
+        "bias-variance tradeoff",
+        "bias–variance tradeoff",
+        "irreducible error"
+      ],
+      "body": [
+        "Suppose labels are generated as y = f(x) + ε, where f is the true function and ε is noise with E[ε] = 0 and Var(ε) = σ², independent of everything else. We fit a model to a random training set D and obtain a predictor f̂.Because D is random, f̂(x) at a fixed point x is a random variable. We measure the expected squared error at x over both the draw of D and the noise in a new label y:",
+        {
+          "eq": "E[(y − f̂(x))²]"
+        },
+        "Write f̄(x) = E_D[f̂(x)] for the prediction averaged over training sets. Add and subtract f(x) and f̄(x):",
+        {
+          "eq": [
+            "y − f̂ = ε + (f − f̄) + (f̄ − f̂)"
+          ]
+        },
+        "Square and take expectations. The three terms are ε (mean zero and independent of D), (f − f̄), which is a constant at fixed x, and (f̄ − f̂), which has mean zero over D. Every cross term has expectation zero, which leaves",
+        {
+          "eq": "E[(y − f̂(x))²] = σ² + (f̄(x) − f(x))² + E_D[(f̂(x) − f̄(x))²]"
+        },
+        {
+          "list": [
+            "**Noise** σ²: the **irreducible error**. No model can remove it.",
+            "**Bias²** (f̄ − f)²: how far the average prediction is from the truth. It is large when the model class cannot represent f.",
+            "**Variance** E_D[(f̂ − f̄)²]: how much the prediction changes from one training set to another. It is large when the model is flexible and the data are few."
+          ]
+        },
+        {
+          "key": "Expected error = noise + bias² + variance. Making a model more flexible lowers bias and raises variance. The best model sits at the sum's minimum, which is the bias–variance tradeoff."
+        },
+        {
+          "h": "Why the validation curve has a U shape"
+        },
+        "Low-complexity models have high bias and low variance, so error is dominated by bias. High-complexity models have low bias and high variance. The sum of the two is U-shaped in complexity, which is the validation curve of the previous section.",
+        {
+          "example": {
+            "title": "Shrinking an estimate lowers its error",
+            "problem": "Samples x₁, …, x₉ are drawn independently from a distribution with mean μ = 2 and standard deviation σ = 3. Compare the mean squared error of the sample mean x̄ and of the shrunk estimate 0.8·x̄ as estimators of μ.",
+            "solution": [
+              "The sample mean is unbiased, and its variance is σ²/n = 9/9 = 1. So MSE(x̄) = 0 + 1 = 1.",
+              "For 0.8·x̄ the expected value is 0.8 · 2 = 1.6, so the bias is 1.6 − 2 = −0.4 and bias² = 0.16. The variance is 0.8² · 1 = 0.64.",
+              {
+                "eq": "MSE(0.8x̄) = 0.16 + 0.64 = 0.80"
+              },
+              "The biased estimator has lower mean squared error (0.80 versus 1). Accepting a little bias removed more variance than it cost. This is the principle behind regularization."
+            ]
+          }
+        },
+        {
+          "warn": "The decomposition is for squared loss. Other losses, such as zero-one loss, have decompositions with different forms, but the same qualitative tradeoff."
+        }
+      ],
+      "check": [
+        {
+          "q": "A model class cannot represent the true function, no matter how much data it sees. Which term is large?",
+          "a": "bias",
+          "wrong": [
+            "variance",
+            "noise",
+            "the generalization gap only"
+          ]
+        },
+        {
+          "q": "Which change generally reduces variance?",
+          "a": "Collecting more training data",
+          "wrong": [
+            "Adding more features",
+            "Using a more flexible model class",
+            "Removing regularization"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "validation",
+      "title": "Validation and cross-validation",
+      "terms": [
+        "validation set",
+        "holdout",
+        "cross-validation",
+        "k-fold cross-validation",
+        "leave-one-out cross-validation",
+        "nested cross-validation",
+        "data leakage",
+        "model selection"
+      ],
+      "body": [
+        "To pick the complexity, the regularization strength or any other hyperparameter, we need an honest estimate of error for each candidate. The training error cannot supply it, because it favors the most flexible model.",
+        {
+          "h": "Three-way split"
+        },
+        "Split the data randomly into three disjoint sets.",
+        {
+          "list": [
+            "**Training set**: used to fit the parameters.",
+            "**Validation set**: used to compare models and choose hyperparameters.",
+            "**Test set**: used once, at the end, to report the performance of the chosen model."
+          ]
+        },
+        "Typical splits are 60/20/20 or 80/10/10. For very large data sets, a few thousand validation examples suffice.",
+        {
+          "h": "k-fold cross-validation"
+        },
+        "A single validation set is wasteful and noisy when data are scarce. In **k-fold cross-validation**, partition the training data into k folds of equal size. For each fold in turn, train on the other k − 1 folds and measure the error on the held-out fold. The average of the k errors estimates the generalization error of the whole procedure.",
+        {
+          "example": {
+            "title": "Counting the work in cross-validation",
+            "problem": "There are m = 100 labeled examples, and 10 values of a hyperparameter to compare using 5-fold cross-validation. How large are the training and validation sets, and how many models are trained?",
+            "solution": [
+              "Each fold has 100/5 = 20 examples. Every fit trains on 80 and validates on 20.",
+              "Each hyperparameter value requires 5 fits, so 10 × 5 = 50 fits. After choosing the best value, one more fit on all 100 examples produces the final model, for 51 in all."
+            ]
+          }
+        },
+        {
+          "list": [
+            "Common choices are k = 5 or 10. Larger k means less bias in the estimate and more computation.",
+            "**Leave-one-out cross-validation** sets k = m. It is nearly unbiased but expensive, and its estimates can have high variance.",
+            "**Stratified** folds keep the class proportions the same in each fold, which matters for imbalanced classes.",
+            "For time series, use forward-chaining splits: always train on the past and validate on the future. Random folds leak future information."
+          ]
+        },
+        {
+          "h": "Leakage and nested validation"
+        },
+        "**Data leakage** is any path by which information from the validation or test labels reaches the training procedure. Common sources are: normalizing with statistics computed on all the data, selecting features using all the labels before splitting, duplicate or near-duplicate examples on both sides of the split, and features that encode the outcome.",
+        {
+          "warn": "Fit every data-dependent step (scaling, imputation, feature selection) inside each training fold, using only that fold's training data. Computing them before the split makes validation error optimistic."
+        },
+        "If cross-validation is used to choose hyperparameters, its best score is optimistically biased for the same reason that the best of many test scores is. **Nested cross-validation** wraps the whole selection procedure in an outer loop and measures its error honestly."
+      ],
+      "check": [
+        {
+          "q": "For 10-fold cross-validation on 500 examples, each model is trained on",
+          "a": "450 examples",
+          "wrong": [
+            "50 examples",
+            "500 examples",
+            "10 examples"
+          ]
+        },
+        {
+          "q": "Why must a feature scaler be fit inside each cross-validation training fold?",
+          "a": "Otherwise statistics from the held-out fold leak into training",
+          "wrong": [
+            "Scaling must be repeated to reduce variance",
+            "The scaler needs at least 10 folds",
+            "A scaler cannot be fit on a held-out fold"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "learning-curves",
+      "title": "Diagnosing with learning curves",
+      "terms": [
+        "learning curve",
+        "learning curves",
+        "high bias",
+        "high variance",
+        "diagnostics"
+      ],
+      "body": [
+        "A **learning curve** plots training error and validation error against the size of the training set. Its shape tells you which failure you have and what to try.",
+        {
+          "table": {
+            "head": [
+              "Observation",
+              "Diagnosis",
+              "What helps"
+            ],
+            "rows": [
+              [
+                "Training and validation errors both high and close together",
+                "High bias (underfitting)",
+                "A richer model, more or better features, less regularization"
+              ],
+              [
+                "Training error low, validation error much higher; the gap narrows as m grows",
+                "High variance (overfitting)",
+                "More data, a simpler model, more regularization, fewer features, early stopping"
+              ],
+              [
+                "Both errors low and close",
+                "Good fit",
+                "Evaluate once on the test set"
+              ],
+              [
+                "Both high, and the error plateaus above what a human achieves",
+                "High bias, or noisy labels",
+                "A richer model; check label quality"
+              ]
+            ],
+            "caption": "Reading learning curves."
+          }
+        },
+        {
+          "h": "Why more data does not always help"
+        },
+        "More data reduces variance. It does not reduce bias: a straight line fit to a curved relationship stays wrong with a million points. Before spending effort on data collection, check the curves. If the validation error has already flattened and training error is close to it, more data will not help, and a more expressive model will.",
+        {
+          "h": "A sanity check on the target"
+        },
+        "Estimate the best achievable error, called the **Bayes error**, by the error of human experts or by the label noise. Training error well above this level means the model can improve on the training set itself (a bias problem). Training error near it and validation error far above means the model is overfitting (a variance problem)."
+      ],
+      "check": [
+        {
+          "q": "A learning curve shows training and validation errors both stuck at 20% as m increases, while human error is 2%. What should you try?",
+          "a": "A more expressive model or better features",
+          "wrong": [
+            "Collecting ten times more data",
+            "Adding stronger regularization",
+            "Reducing the number of training examples"
+          ],
+          "why": "The errors agree and stay high: the model cannot fit the pattern, which is high bias."
+        }
+      ]
+    },
+    {
+      "id": "capacity-control",
+      "title": "Controlling capacity",
+      "terms": [
+        "capacity control",
+        "early stopping",
+        "regularization",
+        "occam's razor"
+      ],
+      "body": [
+        "The tools for fighting overfitting all reduce effective capacity.",
+        {
+          "list": [
+            "**Fewer parameters or features.** Pick a simpler model class, lower the polynomial degree, or drop features.",
+            "**Regularization.** Add a penalty on the size of the parameters to the objective. The Regularization chapter derives ridge and lasso, which shrink the weights toward zero and trade a little bias for a larger drop in variance, as in the shrinkage example above.",
+            "**Early stopping.** Train iteratively and stop when validation error stops improving. Because the weights begin small and grow during training, stopping early keeps them small.",
+            "**More data and data augmentation.** Create extra labeled examples by transformations that do not change the label, such as flipping an image.",
+            "**Averaging.** Combine many models. Averaging lowers variance without raising bias (see Ensembles).",
+            "**Noise and dropout.** Inject randomness during training so the model cannot rely on narrow patterns."
+          ]
+        },
+        "A guiding principle is **Occam's razor**: among models that fit the data equally well, prefer the simpler. The tradeoff is made quantitative by every method above: the regularization strength or stopping time is a hyperparameter chosen on validation data."
+      ],
+      "check": [
+        {
+          "q": "Which technique lowers variance without changing the model class?",
+          "a": "Early stopping or averaging several models",
+          "wrong": [
+            "Adding polynomial features",
+            "Removing the validation set",
+            "Training for more epochs after validation error rises"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "double-descent",
+      "title": "Double descent",
+      "terms": [
+        "double descent",
+        "interpolation threshold",
+        "overparameterized",
+        "overparameterization",
+        "benign overfitting"
+      ],
+      "body": [
+        "The U-shaped curve describes models with fewer parameters than data. Modern networks have far more parameters than training examples, and they often fit the training set perfectly and still generalize. The test error as a function of model size then behaves as follows: it follows the classical U, peaks near the **interpolation threshold** where the model has just enough parameters to fit the data exactly, and then falls again as the model keeps growing. This shape is called **double descent**.",
+        "At the threshold there is only one interpolating solution, and fitting the noise forces it to be erratic. Past the threshold there are many interpolating solutions, and the learning algorithm chooses a smooth one. Gradient descent started near zero finds the interpolating solution of smallest norm, a built-in preference for simplicity. Large overparameterized models can therefore overfit //benignly//.",
+        {
+          "note": "Double descent does not repeal the bias–variance decomposition, which holds exactly. It shows that variance need not grow monotonically with parameter count, because the effective complexity of the fit depends on the algorithm and not only on the number of parameters."
+        },
+        "In practice the lesson is the same: measure held-out error. Model size, regularization, training time and data size all move the curve, and only validation data tell you where you are on it."
+      ],
+      "check": [
+        {
+          "q": "In double descent, test error is typically worst",
+          "a": "Near the interpolation threshold, where the model just fits the training data",
+          "wrong": [
+            "For the smallest models only",
+            "For the largest models",
+            "Exactly where training error is largest"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Underfitting means high error everywhere because the model is too simple. Overfitting means low training error but high error on new data because the model fit the sample's noise.",
+    "Expected squared error = noise + bias² + variance. More flexible models trade lower bias for higher variance, giving the U-shaped validation curve.",
+    "Use training, validation and test sets. Use k-fold cross-validation when data are scarce, and fit all data-dependent preprocessing inside each fold to avoid leakage.",
+    "Learning curves separate high bias (both errors high and close) from high variance (a large gap that narrows with more data).",
+    "Capacity is controlled by model size, regularization, early stopping, data augmentation and averaging.",
+    "Very large models can show double descent, but held-out error remains the arbiter."
+  ],
+  "problems": [
+    {
+      "q": "An estimator θ̂ of θ = 5 has E[θ̂] = 4.5 and Var(θ̂) = 0.25. Find its bias and its mean squared error.",
+      "solution": "Bias = E[θ̂] − θ = −0.5. MSE = bias² + variance = 0.25 + 0.25 = 0.5.",
+      "a": "Bias −0.5; MSE 0.5."
+    },
+    {
+      "q": "Samples are drawn independently with mean μ and standard deviation σ = 4, n = 16. For which constants c does c·x̄ have lower mean squared error than x̄ for μ = 3? Find the best c.",
+      "solution": "Var(x̄) = σ²/n = 1. MSE(c x̄) = (c − 1)²μ² + c²·1 = 9(c − 1)² + c². Setting the derivative 18(c − 1) + 2c = 0 gives c = 18/20 = 0.9, for an MSE of 9(0.01) + 0.81 = 0.9. The MSE is below 1 when 9(c − 1)² + c² < 1, i.e. 10c² − 18c + 8 < 0, i.e. 0.8 < c < 1.",
+      "a": "Any c between 0.8 and 1; the best is c = 0.9 with MSE 0.9."
+    },
+    {
+      "q": "A 5-fold cross-validation of a model gives validation errors 0.12, 0.10, 0.15, 0.11 and 0.12. Report the cross-validation estimate and its standard error.",
+      "solution": "Mean = (0.12 + 0.10 + 0.15 + 0.11 + 0.12)/5 = 0.60/5 = 0.12. Deviations: 0, −0.02, 0.03, −0.01, 0, with squares 0, 0.0004, 0.0009, 0.0001, 0, total 0.0014. Sample variance = 0.0014/4 = 0.00035, standard deviation 0.0187, standard error = 0.0187/√5 = 0.0084.",
+      "a": "Estimate 0.12 with standard error about 0.008."
+    },
+    {
+      "q": "A preprocessing script subtracts the mean of the entire data set from each feature, then splits the data into folds. Why is the resulting validation error biased, and how big is the effect likely to be for simple scaling?",
+      "solution": "The mean used for centering includes the held-out examples, so a small amount of information about them reaches training. For centering and scaling the leak is small and usually harmless. It is serious for steps that use the labels, such as selecting the features most correlated with y, where it can make a model look accurate on pure noise.",
+      "a": "Held-out data influenced the preprocessing. The effect is small for scaling and large for label-based selection."
+    }
+  ]
+}

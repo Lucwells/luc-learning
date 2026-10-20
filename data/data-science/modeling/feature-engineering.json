@@ -1,0 +1,380 @@
+{
+  "id": "feature-engineering",
+  "view": "chapter",
+  "title": "Feature Engineering",
+  "description": "Turning raw data into model inputs: scaling and transforming numbers, encoding categories, dates and text, leakage-safe pipelines and feature selection.",
+  "overview": [
+    "A model sees only the columns it is given. The same information, presented differently, can make a problem easy or nearly impossible: a linear model cannot use a date, but it can use the day of the week; it cannot see that two postal codes are neighbors, but it can use their distance; it cannot compare 3 and 3,000,000 on one scale, but it can compare their logarithms. Feature engineering is the craft of building these representations, and for tabular data it is often worth more than the choice of algorithm.",
+    "This chapter covers the standard transformations of numeric, categorical, temporal and text features, the construction of pipelines that apply them without leaking information from the test data, and the selection of features. Deep learning learns many representations automatically (see Neural Networks), but for tables and small data sets, careful features still matter."
+  ],
+  "objectives": [
+    "Scale and transform numeric features appropriately for the model type, and fit the transformations on training data only.",
+    "Encode categorical variables with one-hot, ordinal, target and frequency encoding, and explain the leakage risk of target encoding.",
+    "Extract features from dates, times and text (cyclical encodings, lags, TF–IDF).",
+    "Build a pipeline in which every data-dependent step is fit inside the training folds.",
+    "Select features with filter, wrapper and embedded methods, and avoid selecting on the test set."
+  ],
+  "sections": [
+    {
+      "id": "numeric",
+      "title": "Numeric features: scaling and transformation",
+      "terms": [
+        "feature engineering",
+        "feature scaling in practice",
+        "standardization of features",
+        "min-max scaling",
+        "robust scaling",
+        "power transform",
+        "box-cox transform",
+        "binning of numeric features",
+        "polynomial and interaction features",
+        "winsorizing"
+      ],
+      "body": [
+        "Different features have different scales and shapes, and many models care.",
+        {
+          "list": [
+            "**Standardization** subtracts the mean and divides by the standard deviation: z = (x − μ)/σ. The result has mean 0 and variance 1. Use it for models that depend on distances or gradients: k-nearest neighbors, k-means, SVMs, linear and logistic regression with regularization, neural networks, PCA.",
+            "**Min–max scaling** maps to [0, 1]: (x − min)/(max − min). It is sensitive to outliers (one extreme value squeezes the rest into a narrow range).",
+            "**Robust scaling** uses the median and IQR instead of the mean and standard deviation, so outliers matter less.",
+            "**Tree-based models** (decision trees, random forests, gradient boosting) are unaffected by monotone rescaling of a feature, because they split on order. They need no scaling."
+          ]
+        },
+        {
+          "example": {
+            "title": "Two scalings",
+            "problem": "Scale x = (2, 4, 6, 8) by standardization (population standard deviation) and by min–max.",
+            "solution": "Mean 5, deviations (−3, −1, 1, 3), variance (9 + 1 + 1 + 9)/4 = 5, standard deviation 2.236. Standardized: (−1.342, −0.447, 0.447, 1.342). Min–max: (x − 2)/6 = (0, 0.333, 0.667, 1). If the value 80 were added, min–max would squeeze the original four into [0, 0.077], while the robust scaling by median and IQR would hardly change them."
+          }
+        },
+        {
+          "h": "Transformations"
+        },
+        {
+          "list": [
+            "**Logarithm** for right-skewed positive variables (income, prices, counts, durations): it compresses the tail, and turns multiplicative relationships into additive ones. Use log(1 + x) when zeros occur. **Power transforms** (Box–Cox, Yeo–Johnson) choose an exponent that makes the distribution closer to normal.",
+            "**Clipping or winsorizing** replaces extreme values by chosen percentiles (say the 1st and 99th), limiting the influence of outliers and erroneous values.",
+            "**Binning** turns a numeric variable into categories (age groups). It lets a linear model capture non-monotone effects but discards within-bin information; keep the original too, or use splines.",
+            "**Polynomial and interaction features** (x², x₁x₂) let a linear model represent curvature and combined effects (see Linear Regression). The number grows quickly (degree 2 on n features gives about n²/2 terms), so regularize.",
+            "**Ratios and differences** of columns often carry the real signal: debt/income, price per square meter, time since last event. Domain knowledge suggests them.",
+            "**Domain-specific transforms**: distance between two locations, body-mass index from weight and height, the angle between two vectors."
+          ]
+        },
+        {
+          "warn": "Compute the mean, standard deviation, minimum, maximum, medians and every other statistic used for scaling on the **training data only**, then apply those same numbers to the validation and test data. Using the whole data set leaks information about the test set into training (see Generalization)."
+        }
+      ],
+      "check": [
+        {
+          "q": "Which model does NOT need its numeric features standardized?",
+          "a": "A random forest",
+          "wrong": ["k-nearest neighbors", "A support vector machine", "k-means"]
+        }
+      ]
+    },
+    {
+      "id": "categorical",
+      "title": "Categorical features",
+      "terms": [
+        "one-hot encoding",
+        "dummy encoding",
+        "ordinal encoding",
+        "target encoding",
+        "mean encoding",
+        "frequency encoding",
+        "high-cardinality categorical",
+        "rare categories",
+        "embedding for categories"
+      ],
+      "body": [
+        "Models need numbers, and how a category is turned into numbers determines what the model can learn.",
+        {
+          "table": {
+            "head": ["Encoding", "How", "Good for", "Watch out"],
+            "rows": [
+              ["One-hot (dummy)", "one 0/1 column per category", "nominal variables with few levels; linear models, neural networks", "many columns for high cardinality; drop one column for linear models with intercept"],
+              ["Ordinal (integer)", "map ordered categories to 1, 2, 3, …", "truly ordered variables (small, medium, large); tree models", "imposes equal spacing; wrong for nominal categories with linear models"],
+              ["Frequency / count", "replace by how often the category appears", "high-cardinality variables; a rough signal of popularity", "different categories with the same count collide"],
+              ["Target (mean) encoding", "replace by the mean of the target within the category", "high-cardinality variables strongly related to the target", "leaks the target; needs smoothing and out-of-fold computation"],
+              ["Hashing", "hash the category to one of M columns", "huge or unbounded vocabularies; streaming", "collisions; not interpretable"],
+              ["Learned embedding", "a trainable vector per category", "very high cardinality in neural networks (user ids, words)", "needs enough data per category"]
+            ],
+            "caption": "Ways to encode a categorical feature."
+          }
+        },
+        "A nominal variable encoded as integers (red = 1, blue = 2, green = 3) tells a linear model that green is 'three times' red and that blue is between them: wrong. **One-hot** encoding avoids this. For a category with many levels, such as a postal code or a product id, one-hot creates thousands of sparse columns.",
+        {
+          "h": "Target encoding and its danger"
+        },
+        "**Target encoding** replaces each category by the average of the outcome within it. It compresses a high-cardinality variable into one informative number. But if the average for a row is computed using that row's own label, the feature contains the answer, and the model will overfit it: **target leakage**. Two safeguards: compute the encoding **out of fold** (for each row, from the other folds), and **smooth** towards the global mean so that rare categories do not get extreme values:",
+        {
+          "eq": "encoded = ( n_c · mean_c + m · mean_global ) / ( n_c + m )"
+        },
+        {
+          "example": {
+            "title": "Smoothing a target encoding",
+            "problem": "A category appears 5 times with an average outcome of 0.8. The global average is 0.3 and the smoothing weight is m = 10. What is the encoding? What for a category with 500 rows and average 0.8?",
+            "solution": "(5 × 0.8 + 10 × 0.3)/(5 + 10) = (4 + 3)/15 = 0.467: the small category is pulled most of the way to the global mean, since 5 observations give an unreliable average. For n = 500: (400 + 3)/510 = 0.790: nearly the raw mean. Smoothing is the shrinkage of ridge regression applied to category means."
+          }
+        },
+        {
+          "list": [
+            "**Rare categories**: group levels with very few examples into 'other', so that the model does not fit to them, and handle **unseen categories** at prediction time (a new user id) explicitly.",
+            "**Missing values** can be their own category.",
+            "Tree-based libraries such as LightGBM and CatBoost handle categories natively (CatBoost uses an ordered form of target encoding that avoids the leak)."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "Why is a nominal variable like 'color' poorly encoded as 1, 2, 3 for a linear model?",
+          "a": "It imposes an order and equal spacing that the categories do not have",
+          "wrong": [
+            "It uses too much memory",
+            "Linear models cannot take integers",
+            "It makes the model nonlinear"
+          ]
+        },
+        {
+          "q": "Target encoding needs out-of-fold computation and smoothing because",
+          "a": "a row's own label would otherwise leak into its feature, and rare categories give unreliable means",
+          "wrong": [
+            "the target has missing values",
+            "categories must be sorted",
+            "it makes the model faster"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "time-text",
+      "title": "Dates, time series and text",
+      "terms": [
+        "cyclical encoding",
+        "lag features",
+        "rolling window features",
+        "tf-idf",
+        "bag of words",
+        "n-gram",
+        "text features",
+        "temporal leakage",
+        "date features",
+        "word embeddings as features"
+      ],
+      "body": [
+        {
+          "h": "Dates and times"
+        },
+        "A timestamp is rarely useful as a number. Extract components that match how the world varies: hour of day, day of week, month, whether it is a weekend or a holiday, time since an event, age of an account. Periodic variables should be encoded so that the end of the cycle is next to the beginning: hour 23 is next to hour 0 and 1, but as the integers 23 and 1 they look far apart. A **cyclical encoding** uses two features,",
+        {
+          "eq": "sin(2π h/24),    cos(2π h/24)"
+        },
+        {
+          "example": {
+            "title": "Cyclical encoding of the hour",
+            "problem": "Compare the distance between hours 23 and 1 with the integer encoding and with the sine/cosine encoding.",
+            "solution": "As integers the distance is 22. With (sin, cos): hour 23 → (−0.259, 0.966), hour 1 → (0.259, 0.966). The Euclidean distance is 0.518, the same as between hours 11 and 13 (hour 11: (0.259, −0.966), hour 13: (−0.259, −0.966); distance 0.518). The encoding respects the circular structure."
+          }
+        },
+        {
+          "h": "Time series features and temporal leakage"
+        },
+        {
+          "list": [
+            "**Lag features** (the value 1, 7, 28 steps ago) and **rolling window statistics** (the mean, standard deviation or count over the last 7 days) summarize recent history. **Seasonal** and **trend** components can be extracted.",
+            "Every feature must use only information that was **available at the time of the prediction**. A rolling mean that includes the current day, a lag of −1 (the future), or an aggregate computed over the whole data set, leaks the future into the past and produces models that look excellent in validation and fail in production.",
+            "Split by **time**: train on the past, validate on the future (see Validation and Cross-validation); never shuffle a time series into random folds."
+          ]
+        },
+        {
+          "h": "Text"
+        },
+        "A **bag of words** represents a document by the counts of its words, ignoring order. **TF–IDF** (term frequency–inverse document frequency) weights each word by how often it occurs in the document and downweights words that occur in many documents (like 'the'):",
+        {
+          "eq": "tf-idf(t, d) = tf(t, d) × ln( N / df(t) )"
+        },
+        {
+          "example": {
+            "title": "A TF–IDF weight",
+            "problem": "There are N = 100 documents. The word 'refund' appears 3 times in one document and in 10 documents overall; 'the' appears 20 times in the document and in all 100 documents. Compare their weights.",
+            "solution": "'refund': 3 × ln(100/10) = 3 × 2.30 = 6.9. 'the': 20 × ln(100/100) = 0. The common word gets zero weight; the discriminating one gets a high weight."
+          }
+        },
+        {
+          "list": [
+            "**N-grams** (pairs and triples of consecutive words) capture some order: 'not good' differs from 'good'. **Character n-grams** are robust to misspellings.",
+            "**Preprocessing**: lowercasing, removing punctuation, stop words, stemming or lemmatization. Modern pipelines let the tokenizer handle most of it.",
+            "**Embeddings** from a pretrained language model give dense vectors that capture meaning, and are the strong default for text features today (see Attention and Transformers). Averaged word vectors or sentence embeddings can feed a simple classifier.",
+            "Other raw data: images (pixels, or features of a pretrained network), audio (spectrograms), geographic coordinates (distance to a landmark, density of points of interest, region clusters), and graphs (degrees, PageRank)."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "A word that appears in every document receives a TF–IDF weight of",
+          "a": "zero",
+          "wrong": ["its raw count", "one", "infinity"]
+        }
+      ]
+    },
+    {
+      "id": "pipelines",
+      "title": "Leakage-safe pipelines",
+      "terms": [
+        "pipeline",
+        "scikit-learn pipeline",
+        "columntransformer",
+        "data leakage",
+        "target leakage",
+        "train-test contamination",
+        "fit_transform",
+        "feature store"
+      ],
+      "body": [
+        "Every transformation that learns something from the data (a mean, a vocabulary, a category mapping, an imputation value, a selected feature set) must be **fit on the training data only** and then applied unchanged to validation and test data. In cross-validation this means refitting the transformation inside each training fold. The standard way is a **pipeline** that bundles the preprocessing and the model into one object, which is then fit and evaluated as a whole.",
+        {
+          "code": [
+            "from sklearn.pipeline import Pipeline",
+            "from sklearn.compose import ColumnTransformer",
+            "from sklearn.preprocessing import StandardScaler, OneHotEncoder",
+            "from sklearn.impute import SimpleImputer",
+            "from sklearn.linear_model import LogisticRegression",
+            "from sklearn.model_selection import cross_val_score",
+            "",
+            "numeric = ['age', 'income']",
+            "categorical = ['city', 'plan']",
+            "",
+            "pre = ColumnTransformer([",
+            "    ('num', Pipeline([('impute', SimpleImputer(strategy='median')),",
+            "                      ('scale', StandardScaler())]), numeric),",
+            "    ('cat', OneHotEncoder(handle_unknown='ignore'), categorical),",
+            "])",
+            "model = Pipeline([('prep', pre), ('clf', LogisticRegression(max_iter=1000))])",
+            "",
+            "scores = cross_val_score(model, X, y, cv=5)   # preprocessing is refit inside each training fold"
+          ],
+          "caption": "A pipeline: median imputation and scaling for the numeric columns, one-hot encoding for the categorical ones, then logistic regression. Cross-validation refits every step on each training fold."
+        },
+        {
+          "h": "Kinds of leakage"
+        },
+        {
+          "list": [
+            "**Train–test contamination**: preprocessing fitted on all the data before splitting (the scaler example above), or duplicates and near-duplicates appearing in both sets.",
+            "**Target leakage**: a feature that contains or is computed from the label, or from something that happens after the outcome. Example: predicting hospital readmission with 'discharge medication' recorded at the end of the readmission stay. Features that are too good to be true usually are.",
+            "**Temporal leakage**: features that use future information, or random splits of data with a time order.",
+            "**Group leakage**: the same patient, user or device appearing in training and test data under different rows; split by group.",
+            "**Selection leakage**: choosing features, hyperparameters or models by looking at test results (see Evaluating Models)."
+          ]
+        },
+        {
+          "tip": "A useful test for leakage: examine the most important features of a fitted model. If a feature that you would not know at prediction time (or that looks suspiciously predictive) tops the list, you have found the leak. Also compare validation performance with the performance after deployment, or on a later time period."
+        },
+        {
+          "list": [
+            "In production the same transformations must run at prediction time exactly as in training. Save the fitted pipeline with the model, or use a **feature store** that computes each feature identically offline and online. A mismatch ('training-serving skew') silently degrades the model.",
+            "Document each feature: its definition, source, the time at which it becomes available and who owns it."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "Why wrap preprocessing and the model in one pipeline for cross-validation?",
+          "a": "So that every learned preprocessing step is refit inside each training fold, without seeing the validation fold",
+          "wrong": [
+            "To make the model more accurate",
+            "To avoid writing code",
+            "Because cross-validation requires a single column"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "selection",
+      "title": "Feature selection",
+      "terms": [
+        "feature selection methods",
+        "filter methods",
+        "wrapper methods",
+        "embedded methods",
+        "recursive feature elimination",
+        "variance threshold",
+        "mutual information for selection",
+        "permutation importance of features"
+      ],
+      "body": [
+        "More features are not always better. Irrelevant or redundant features add noise, slow training, complicate interpretation and, for small data sets, increase the risk of overfitting (see the curse of dimensionality in Nearest Neighbors). Three families of selection methods:",
+        {
+          "list": [
+            "**Filter methods** score each feature independently of any model and keep the best: remove features with almost no variance; keep those with the highest correlation, mutual information or test statistic with the target (see Information Theory). Fast, but they ignore interactions and redundancy among features.",
+            "**Wrapper methods** search over subsets of features using a model's validation performance: forward selection (add the best feature at each step), backward elimination, **recursive feature elimination** (fit, drop the weakest features, repeat). They find useful combinations but are expensive and prone to overfitting the validation set.",
+            "**Embedded methods** select features as part of training: the L1 penalty of the lasso sets weights to zero (see Regularization), and tree ensembles give feature importances."
+          ]
+        },
+        {
+          "warn": "Feature selection is part of the model and must be done inside the cross-validation loop (or on the training set only). Selecting the 20 features most correlated with the label from 10,000 noise features using all the data, and then cross-validating, will report an accuracy far above chance even though there is no signal at all: the selection step has seen the labels of the validation folds."
+        },
+        {
+          "example": {
+            "title": "Selection on pure noise",
+            "problem": "A data set has 50 examples with 1000 features of pure noise and random binary labels. A classifier is built on the 10 features most correlated with the label, then cross-validated. Is the accuracy near 50%?",
+            "solution": "No. With 1000 candidate features, the 10 most correlated with the label in the full data set will, by chance, correlate strongly with the labels of every fold, and cross-validated accuracy can reach 75% or more. Performing the selection inside each training fold, the accuracy returns to about 50%, as it should for noise. This is a real and common error in genomics and other high-dimensional fields."
+          }
+        },
+        {
+          "list": [
+            "**Permutation importance** (the drop in validation score when a feature's values are shuffled) is model-agnostic and measures how much the model relies on a feature. It can mislead when features are correlated (the model uses the substitutes).",
+            "**Dimensionality reduction** (PCA, autoencoders) creates new features from combinations of the old ones, instead of choosing among them.",
+            "Stability: if the selected set changes a lot between resamples of the data, the evidence for any particular feature is weak.",
+            "Prefer simple, interpretable features and a small set when explanations matter; prefer regularization and a larger set for pure prediction."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "Selecting features using the labels of the full data set before cross-validation",
+          "a": "makes the cross-validated estimate optimistic, because the selection has seen the validation labels",
+          "wrong": [
+            "has no effect on the estimate",
+            "makes the estimate pessimistic",
+            "is required for valid cross-validation"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Features are the model's view of the world. Standardize for distance- and gradient-based models (trees need no scaling), use log transforms for skewed positive variables, clip outliers, and add ratios, interactions and polynomial terms from domain knowledge.",
+    "One-hot encode nominal categories; use ordinal encoding only for ordered ones. Target encoding is powerful but leaks the label unless computed out of fold and smoothed: (n·mean + m·global)/(n + m). Group rare categories and handle unseen ones.",
+    "Extract date components and cyclical sin/cos encodings; build lag and rolling features using only past information; represent text by TF–IDF, n-grams or embeddings.",
+    "Fit every data-dependent transformation on the training data only, ideally inside a pipeline that is refit in each cross-validation fold. Guard against train–test, target, temporal and group leakage.",
+    "Select features with filters, wrappers or embedded methods, always inside the validation loop; selection on the full data makes noise look predictive."
+  ],
+  "problems": [
+    {
+      "q": "A feature has values 10, 20, 30, 100 in the training set. Compute the standardized value (population SD) of a test observation x = 50.",
+      "solution": "Mean = 40. Deviations −30, −20, −10, 60; squares 900, 400, 100, 3600, sum 5000, variance 1250, SD = 35.36. z = (50 − 40)/35.36 = 0.283. The mean and SD come from the training data only.",
+      "a": "z = 0.283."
+    },
+    {
+      "q": "A city category has 8 rows with outcome mean 0.25 in a data set whose overall mean is 0.40. With m = 20, what is the smoothed target encoding?",
+      "solution": "(8 × 0.25 + 20 × 0.40)/(8 + 20) = (2 + 8)/28 = 0.357.",
+      "a": "0.357."
+    },
+    {
+      "q": "Give the cyclical features for month = 3 (March, with period 12), and say why month 12 and month 1 end up close.",
+      "solution": "sin(2π·3/12) = sin(π/2) = 1 and cos(π/2) = 0: (1, 0). December: (sin 2π, cos 2π) = (0, 1); January: (sin(π/6), cos(π/6)) = (0.5, 0.866). The distance between them is √(0.25 + 0.018) = 0.52, small, compared with the 11-month gap in the integer encoding.",
+      "a": "(1, 0); December and January are neighbors on the circle."
+    },
+    {
+      "q": "A corpus of 1000 documents; the term 'neural' appears in 50 of them and 4 times in document D. Compute its TF–IDF in D with the natural logarithm.",
+      "solution": "idf = ln(1000/50) = ln 20 = 3.00. TF–IDF = 4 × 3.00 = 11.98.",
+      "a": "≈ 12.0."
+    },
+    {
+      "q": "A churn model predicts from features including 'number of support calls in the 30 days after the prediction date'. Why is its validation accuracy misleading?",
+      "solution": "The feature is computed from information after the prediction date, which is not available when the prediction would be made, and it is itself affected by whether the customer churns (customers who are leaving call to cancel). This is temporal and target leakage. The feature must be restricted to the period before the prediction date.",
+      "a": "It uses future information that depends on the outcome, so it leaks the label."
+    }
+  ]
+}

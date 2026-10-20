@@ -1,0 +1,437 @@
+{
+  "id": "complexity",
+  "view": "chapter",
+  "title": "Algorithm Analysis and Computational Complexity",
+  "description": "Asymptotic notation, analyzing loops and recursions, amortized analysis, and the classes P and NP.",
+  "overview": [
+    "Two programs can solve the same problem, one in a second and one in a year. The difference is rarely the programming language or the machine; it is the algorithm and how its cost grows with the size of the input. Algorithm analysis gives a language for that growth, so that we can predict how a method will behave on ten times more data, before running it.",
+    "This chapter introduces the model of computation, big-O notation, the standard techniques for analyzing loops and recursive algorithms, amortized analysis, and the classes P and NP that separate problems we can solve efficiently from those we believe we cannot. The costs of the methods in the Machine Learning book (k-nearest neighbors, kernel methods, attention, tree building) are all stated in this language."
+  ],
+  "objectives": [
+    "Count the basic operations of an algorithm and express its running time as a function of input size.",
+    "Define and use O, Ω and Θ, and compare growth rates.",
+    "Analyze nested loops and solve recurrences by the recursion tree and the master theorem.",
+    "Perform an amortized analysis of a dynamic array.",
+    "Distinguish P, NP and NP-completeness, and state the consequences for machine learning."
+  ],
+  "sections": [
+    {
+      "id": "cost-model",
+      "title": "Measuring cost",
+      "terms": [
+        "worst-case analysis",
+        "average-case analysis",
+        "ram model",
+        "algorithm analysis"
+      ],
+      "body": [
+        "To compare algorithms independently of hardware, we count **basic operations** (arithmetic, comparisons, assignments, memory accesses) in an idealized machine, the **RAM model**, where each takes one unit of time. The **running time** T(n) is the number of operations as a function of the **input size** n: the length of a list, the number of examples, the number of bits of a number.",
+        {
+          "code": [
+            "def linear_search(xs, target):",
+            "    for i in range(len(xs)):      # at most n iterations",
+            "        if xs[i] == target:       # 1 comparison each",
+            "            return i",
+            "    return -1"
+          ],
+          "caption": "Linear search does between 1 and n comparisons."
+        },
+        "The same algorithm can behave differently on different inputs of the same size. We usually report:",
+        {
+          "list": [
+            "the **worst case**, the maximum over all inputs of size n (a guarantee; here n comparisons, when the target is last or absent),",
+            "the **best case** (here 1; usually uninformative),",
+            "the **average case** under an assumption about the input distribution (here about n/2 if the target is equally likely to be anywhere).",
+            "**Space complexity** counts the memory used, besides the input."
+          ]
+        },
+        "Exact counts depend on details (how many operations is one comparison?) and on machine constants. For growth, only the shape matters: doubling n roughly doubles the work of linear search and quadruples the work of an algorithm that compares all pairs."
+      ],
+      "check": [
+        {
+          "q": "The worst case of linear search on a list of n items takes about",
+          "a": "n comparisons",
+          "wrong": [
+            "1 comparison",
+            "log n comparisons",
+            "n² comparisons"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "asymptotics",
+      "title": "Asymptotic notation",
+      "terms": [
+        "big-o notation",
+        "big o",
+        "big-omega",
+        "big-theta",
+        "asymptotic notation",
+        "order of growth",
+        "polynomial time",
+        "exponential time"
+      ],
+      "body": [
+        "Asymptotic notation describes the growth of a function for large n, ignoring constant factors and lower-order terms.",
+        {
+          "list": [
+            "**f(n) = O(g(n))** (an upper bound): there are constants c > 0 and n₀ such that f(n) ≤ c·g(n) for all n ≥ n₀.",
+            "**f(n) = Ω(g(n))** (a lower bound): f(n) ≥ c·g(n) for all n ≥ n₀.",
+            "**f(n) = Θ(g(n))** (a tight bound): both, so f grows exactly like g up to constants."
+          ]
+        },
+        {
+          "example": {
+            "title": "Dropping constants and lower-order terms",
+            "problem": "Show that 3n² + 5n + 2 = Θ(n²).",
+            "solution": "For n ≥ 1: 3n² + 5n + 2 ≤ 3n² + 5n² + 2n² = 10n², so it is O(n²) with c = 10. Also 3n² + 5n + 2 ≥ 3n², so it is Ω(n²) with c = 3. Hence Θ(n²). The dominant term decides."
+          }
+        },
+        {
+          "svg": "<svg viewBox='0 0 400 240' role='img' aria-label='Growth of n, n log n, n squared and 2 to the n' font-family='system-ui, sans-serif' font-size='12'><g fill='none' stroke='currentColor' stroke-width='1.5'><path d='M50,220 H350 M50,220 V10'/></g><g fill='none' stroke-width='2.5'><path stroke='currentColor' d='M50,208 L80,206 L110,204 L140,202 L170,200 L200,198 L230,196 L260,194 L290,192 L320,190'/><path stroke='currentColor' stroke-dasharray='6 3' d='M50,210 L80,206 L110,200.5 L140,194 L170,186.8 L200,179 L230,170.7 L260,162 L290,152.9 L320,143.6'/><path style='stroke:var(--accent)' d='M50,208 L80,202 L110,192 L140,178 L170,160 L200,138 L230,112 L260,82 L290,48 L320,10'/><path stroke='currentColor' stroke-dasharray='2 3' d='M50,206 L80,202 L110,194 L140,178 L170,146 L200,82 L217,10'/></g><g fill='currentColor'><text x='324' y='188'>n</text><text x='324' y='142'>n log n</text><text x='300' y='24' style='fill:var(--accent)'>n²</text><text x='222' y='26'>2ⁿ</text><text x='200' y='238'>input size n</text></g></svg>",
+          "caption": "Growth of common running times for small n. Even at n = 10 the exponential and quadratic curves have left the page, while n and n log n stay low."
+        },
+        {
+          "table": {
+            "head": [
+              "Class",
+              "Name",
+              "Example",
+              "n = 10⁶ at 10⁹ operations per second"
+            ],
+            "rows": [
+              [
+                "O(1)",
+                "constant",
+                "array index, hash lookup",
+                "instant"
+              ],
+              [
+                "O(log n)",
+                "logarithmic",
+                "binary search",
+                "20 ns"
+              ],
+              [
+                "O(n)",
+                "linear",
+                "scan, mean of a data set",
+                "1 ms"
+              ],
+              [
+                "O(n log n)",
+                "linearithmic",
+                "sorting, FFT",
+                "20 ms"
+              ],
+              [
+                "O(n²)",
+                "quadratic",
+                "all pairs, naive distance matrix",
+                "17 minutes"
+              ],
+              [
+                "O(n³)",
+                "cubic",
+                "matrix inversion, naive matrix product",
+                "32 years"
+              ],
+              [
+                "O(2ⁿ)",
+                "exponential",
+                "all subsets, brute-force search",
+                "n = 40: 18 minutes; n = 60: 36 years"
+              ]
+            ],
+            "caption": "How long different growth rates take on a machine doing 10⁹ simple operations per second."
+          }
+        },
+        {
+          "list": [
+            "Logarithm bases do not matter inside O(): log₂ n and ln n differ by a constant factor.",
+            "Polynomial time, O(nᵏ), is the standard notion of 'efficient'. Exponential time is infeasible beyond small n.",
+            "O is an upper bound only: saying an algorithm is O(n²) does not say it is slow, only that it is not worse. Use Θ when you mean 'exactly'.",
+            "Constants do matter in practice. An O(n log n) algorithm with a large constant can lose to an O(n²) algorithm for small n, which is why library sorts switch to insertion sort for short arrays."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "Which is Θ(n²)?",
+          "a": "7n² + 100n log n",
+          "wrong": [
+            "n log n + 5000n",
+            "2ⁿ + n²",
+            "√n · n"
+          ]
+        },
+        {
+          "q": "An O(n²) algorithm takes 1 second for n = 1000. For n = 10,000 it takes about",
+          "a": "100 seconds",
+          "wrong": [
+            "10 seconds",
+            "1000 seconds",
+            "2 seconds"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "analyzing",
+      "title": "Analyzing loops and recursion",
+      "terms": [
+        "loop analysis",
+        "nested loops",
+        "recurrence relation",
+        "master theorem",
+        "recursion tree",
+        "divide and conquer analysis",
+        "binary search analysis"
+      ],
+      "body": [
+        {
+          "h": "Loops"
+        },
+        "Multiply the cost of the body by the number of iterations, and add sequential parts. A loop that halves the problem each time runs about log₂ n times. A double loop over pairs i < j runs Σ_{i=1}^{n} (n − i) = n(n − 1)/2 = Θ(n²) times (see the sum of integers in Discrete Mathematics).",
+        {
+          "code": [
+            "def count_pairs(xs):                  # Theta(n^2)",
+            "    total = 0",
+            "    for i in range(len(xs)):",
+            "        for j in range(i + 1, len(xs)):",
+            "            total += xs[i] * xs[j]",
+            "    return total",
+            "",
+            "def halvings(n):                      # Theta(log n)",
+            "    steps = 0",
+            "    while n > 1:",
+            "        n //= 2",
+            "        steps += 1",
+            "    return steps"
+          ],
+          "caption": "A quadratic double loop and a logarithmic loop."
+        },
+        {
+          "h": "Recurrences"
+        },
+        "A recursive algorithm's running time satisfies a **recurrence** that describes the cost on size n in terms of the cost on smaller sizes. Merge sort splits the input in two, sorts each half recursively and merges them in linear time:",
+        {
+          "eq": "T(n) = 2 T(n/2) + cn,    T(1) = c"
+        },
+        "Draw the **recursion tree**. Level k has 2ᵏ subproblems of size n/2ᵏ, each costing c·n/2ᵏ, so every level costs cn in total. There are log₂ n + 1 levels. The total is cn(log₂ n + 1) = Θ(n log n). For n = 1024 (10 levels of merging) with c = 1 this is about 11,264 operations, against n²/2 ≈ 524,000 for a quadratic sort.",
+        {
+          "key": "**Master theorem.** For T(n) = aT(n/b) + Θ(nᵈ) with a ≥ 1, b > 1: if d < log_b a then T(n) = Θ(n^{log_b a}); if d = log_b a then T(n) = Θ(nᵈ log n); if d > log_b a then T(n) = Θ(nᵈ). The three cases say whether the leaves, every level equally, or the root dominates the cost."
+        },
+        {
+          "table": {
+            "head": [
+              "Algorithm",
+              "Recurrence",
+              "a, b, d",
+              "Result"
+            ],
+            "rows": [
+              [
+                "Binary search",
+                "T(n) = T(n/2) + 1",
+                "1, 2, 0",
+                "Θ(log n)"
+              ],
+              [
+                "Merge sort",
+                "T(n) = 2T(n/2) + n",
+                "2, 2, 1",
+                "Θ(n log n)"
+              ],
+              [
+                "Karatsuba multiplication",
+                "T(n) = 3T(n/2) + n",
+                "3, 2, 1",
+                "Θ(n^{1.585})"
+              ],
+              [
+                "Strassen matrix product",
+                "T(n) = 7T(n/2) + n²",
+                "7, 2, 2",
+                "Θ(n^{2.807})"
+              ],
+              [
+                "Naive Fibonacci",
+                "T(n) = T(n−1) + T(n−2) + 1",
+                "—",
+                "exponential, about 1.618ⁿ"
+              ]
+            ],
+            "caption": "Standard recurrences."
+          }
+        },
+        "The master theorem does not cover recurrences such as T(n) = T(n − 1) + T(n − 2) of the naive Fibonacci function, which recomputes the same values again and again; dynamic programming (see Dynamic Programming and Greedy Algorithms) reduces it to O(n)."
+      ],
+      "check": [
+        {
+          "q": "By the master theorem, T(n) = 4T(n/2) + n has solution",
+          "a": "Θ(n²)",
+          "wrong": [
+            "Θ(n log n)",
+            "Θ(n)",
+            "Θ(n³)"
+          ],
+          "why": "a = 4, b = 2, d = 1 < log₂ 4 = 2, so the leaves dominate: n^{log_b a} = n²."
+        },
+        {
+          "q": "A loop that does `n //= 2` until n = 1 runs about",
+          "a": "log₂ n times",
+          "wrong": [
+            "n times",
+            "n/2 times",
+            "√n times"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "amortized",
+      "title": "Amortized analysis",
+      "terms": [
+        "amortized analysis",
+        "amortized cost",
+        "aggregate analysis",
+        "doubling strategy"
+      ],
+      "body": [
+        "Some operations are usually cheap and occasionally expensive. The worst case of a single operation then overstates the cost of a long sequence. **Amortized analysis** bounds the average cost per operation over a worst-case sequence.",
+        "The classic example is the **dynamic array** (Python's list, C++'s vector). It stores items in a fixed block of memory. When the block is full, it allocates a new block of twice the size and copies everything over. Appending to a full array of n items costs n copies, but that is rare.",
+        {
+          "example": {
+            "title": "Amortized cost of append",
+            "problem": "Show that n appends to an initially empty dynamic array with doubling cost O(n) in total.",
+            "solution": [
+              "Each append writes one item: n writes in all. Copying happens when the array grows from size 1, 2, 4, …, up to at most n, so the total number of items copied is 1 + 2 + 4 + … + 2^{⌊log₂ n⌋} < 2n (a geometric series).",
+              "The total is less than n + 2n = 3n operations, so the **amortized cost** per append is at most 3 = O(1), though one append can cost Θ(n)."
+            ]
+          }
+        },
+        {
+          "list": [
+            "The doubling factor matters. If the array grew by a fixed amount (say 10 items) each time, the copying cost would be 10 + 20 + … = Θ(n²/10) and each append would cost Θ(n) amortized. Growth by a constant factor gives the geometric series.",
+            "Hash tables resize in the same way, which is why insertions are O(1) amortized.",
+            "The same idea appears in the **accounting method** (each cheap operation pays a small credit toward the expensive one) and the **potential method**.",
+            "In machine learning, the cost of training is typically stated per epoch or amortized over a mini-batch, and one-time costs such as building an index are amortized over many queries."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "A dynamic array that grows by doubling has an append with amortized cost",
+          "a": "O(1)",
+          "wrong": [
+            "O(n)",
+            "O(log n)",
+            "O(n²)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "np",
+      "title": "Hard problems: P, NP and beyond",
+      "terms": [
+        "p versus np",
+        "np-complete",
+        "np-hard",
+        "complexity class p",
+        "complexity class np",
+        "polynomial reduction",
+        "satisfiability",
+        "traveling salesman problem",
+        "approximation algorithm"
+      ],
+      "body": [
+        "Some problems have efficient algorithms, and for others none is known. Complexity theory classifies them by the best possible running time.",
+        {
+          "list": [
+            "**P** is the class of decision problems (yes/no questions) solvable in polynomial time. Sorting, shortest paths, linear programming and matrix multiplication are in P.",
+            "**NP** is the class of decision problems whose yes-answers can be //checked// in polynomial time given a certificate (a proposed solution). Does this graph have a route visiting every city with total length at most L? Given a route, checking is easy. Finding it seems to require trying exponentially many. Every problem in P is in NP.",
+            "A problem is **NP-hard** if every problem in NP reduces to it in polynomial time, and **NP-complete** if it is also in NP. If any NP-complete problem had a polynomial algorithm, all of NP would, so P = NP. Whether P = NP is the main open problem of the field; most researchers believe the answer is no."
+          ]
+        },
+        {
+          "example": {
+            "title": "Easy to check, hard to find",
+            "problem": "A Boolean formula (x₁ ∨ ¬x₂) ∧ (¬x₁ ∨ x₃) ∧ (x₂ ∨ ¬x₃) is given. How hard is it to check a proposed assignment versus to find one?",
+            "solution": "Checking the assignment (x₁, x₂, x₃) = (T, T, T): the first clause is true (x₁), the second is true (x₃), the third is true (x₂). Checking takes time linear in the formula. Finding one by brute force tries up to 2ⁿ assignments for n variables: 2⁵⁰ ≈ 10¹⁵ is already out of reach. Satisfiability (SAT) is the first problem shown to be NP-complete (Cook, 1971), and it is nonetheless solved routinely in practice for many structured instances by modern solvers."
+          }
+        },
+        {
+          "h": "Why it matters for machine learning"
+        },
+        {
+          "list": [
+            "Many natural learning problems are NP-hard in the worst case: finding the best k-means clustering, the smallest decision tree, the best subset of features, training even a small neural network to zero error, and exact inference in general graphical models.",
+            "This does not make machine learning impossible. We use **heuristics** (greedy tree growing, Lloyd's algorithm, gradient descent) that run quickly and give good, not provably optimal, answers, and **convex relaxations** (the lasso replaces the NP-hard best-subset selection by an L1 penalty, and the hinge loss replaces the 0–1 loss).",
+            "**Approximation algorithms** guarantee a solution within a known factor of the optimum (k-means++ gives an O(log k)-approximation).",
+            "When a problem is proven NP-hard, stop looking for an exact efficient algorithm, and ask what restricted version, which approximation or which heuristic is acceptable."
+          ]
+        },
+        {
+          "note": "Not all hard problems are in NP. Some are undecidable: no algorithm can solve them for all inputs. The halting problem (does this program terminate?) is the classic example, by a diagonal argument of Turing (1936). It implies that general program verification is impossible, and it separates what can be computed from what cannot."
+        }
+      ],
+      "check": [
+        {
+          "q": "A problem in NP is one whose solutions can be",
+          "a": "verified in polynomial time",
+          "wrong": [
+            "found in polynomial time",
+            "found in exponential time only",
+            "verified only by brute force"
+          ]
+        },
+        {
+          "q": "In machine learning, the lasso is used instead of exact best-subset selection because",
+          "a": "best-subset selection is NP-hard, while the lasso is a convex problem",
+          "wrong": [
+            "the lasso gives more accurate predictions in every case",
+            "subset selection is undecidable",
+            "the lasso needs no data"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Running time T(n) counts basic operations in the RAM model as a function of input size, usually the worst case. Space complexity counts memory.",
+    "O, Ω and Θ give upper, lower and tight bounds ignoring constants and lower-order terms. The ladder: 1, log n, n, n log n, n², n³, 2ⁿ. At 10⁹ operations per second, n² on a million items takes 17 minutes, and exponential algorithms are hopeless beyond n ≈ 50.",
+    "Analyze loops by multiplying and adding. Solve divide-and-conquer recurrences with the recursion tree or the master theorem: T(n) = aT(n/b) + nᵈ. Merge sort is Θ(n log n); binary search is Θ(log n).",
+    "Amortized analysis averages expensive rare operations over sequences: a doubling dynamic array has O(1) amortized append.",
+    "P is efficiently solvable, NP is efficiently checkable. NP-complete problems (SAT, travelling salesman) are believed intractable. Many learning problems are NP-hard, and practice uses heuristics, relaxations and approximations."
+  ],
+  "problems": [
+    {
+      "q": "Give the running time in Θ-notation of: for i in range(n): for j in range(n): for k in range(j): ... (constant work in the body).",
+      "solution": "For each i (n values) and each j, the inner loop runs j times: Σ_j j = n(n − 1)/2. Total n · n(n − 1)/2 = Θ(n³).",
+      "a": "Θ(n³)."
+    },
+    {
+      "q": "Solve T(n) = 2T(n/2) + n² with the master theorem and explain which term dominates.",
+      "solution": "a = 2, b = 2, d = 2. log_b a = 1 < d, so the root dominates: T(n) = Θ(n²).",
+      "a": "Θ(n²); the work at the root dominates."
+    },
+    {
+      "q": "An algorithm takes 2 seconds on an input of size 10⁴. Estimate the time for 10⁵ if its complexity is O(n), O(n log n) and O(n²).",
+      "solution": "Linear: 20 s. n log n: ratio (10⁵ · 16.6)/(10⁴ · 13.3) = 12.5, so about 25 s. Quadratic: 100 times, 200 s.",
+      "a": "20 s, about 25 s and 200 s."
+    },
+    {
+      "q": "A dynamic array grows by a factor of 1.5 instead of 2. Is the amortized cost of append still O(1)?",
+      "solution": "Yes. The sizes at which copying occurs form a geometric series with ratio 1/1.5, so the total copying is at most n(1/(1 − 2/3)) = 3n, a constant per append. Any constant growth factor greater than 1 gives O(1) amortized, with a larger constant for smaller factors.",
+      "a": "Yes, amortized O(1)."
+    },
+    {
+      "q": "The brute-force search over all subsets of m features for the best regression model takes how many model fits? If one fit takes 1 ms, how long for m = 40?",
+      "solution": "There are 2^m − 1 non-empty subsets. For m = 40: 2⁴⁰ ≈ 1.1 × 10¹², so 1.1 × 10⁹ seconds ≈ 35 years.",
+      "a": "2^m − 1 fits; about 35 years for m = 40."
+    }
+  ]
+}

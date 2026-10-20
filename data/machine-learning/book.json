@@ -1,0 +1,95 @@
+{
+  "id": "machine-learning",
+  "title": "Machine Learning",
+  "kicker": "Textbook",
+  "color": "#5b2a86",
+  "subtitle": "From linear models to transformers and reinforcement learning, at the depth of Stanford CS229 and Berkeley CS189.",
+  "preface": [
+    "This book covers the core of a graduate-level introduction to machine learning: supervised learning, kernel methods and trees, neural networks, unsupervised and generative models, probabilistic modeling, learning theory and reinforcement learning. The coverage follows the topics of Stanford CS229 and Berkeley CS189/289A, with the deep learning material of CS230 and CS182 and the reinforcement learning basics of CS234 added at the end.",
+    "Every method is derived, not just stated. Each chapter starts from a problem, builds a model, defines a loss, and then solves it, so you can see where each formula comes from and which assumptions it carries.",
+    "Machine learning rests on three subjects, and each has its own book in this library. Mathematics supplies linear algebra, calculus, probability and optimization. Computer Science supplies programming, algorithms, numerical computing and automatic differentiation. Data Science supplies data handling, statistical inference and experimental design. A term that is explained in any of these books is linked where it appears, so you can follow it back to its source and return with the Back button.",
+    "A reading order that works: read Linear Algebra and Probability in the Mathematics book first, then Parts I and II here, then Optimization, then the rest."
+  ],
+  "links": [
+    "mathematics",
+    "computer-science",
+    "data-science"
+  ],
+  "parts": [
+    {
+      "title": "Foundations",
+      "blurb": "What learning means, why models fail on new data, and how to measure them.",
+      "chapters": [
+        "machine-learning/foundations/introduction",
+        "machine-learning/foundations/generalization",
+        "machine-learning/foundations/evaluation"
+      ]
+    },
+    {
+      "title": "Linear Models",
+      "blurb": "Regression and classification with models that are linear in their parameters.",
+      "chapters": [
+        "machine-learning/linear/linear-regression",
+        "machine-learning/linear/regularization",
+        "machine-learning/linear/logistic-regression",
+        "machine-learning/linear/glm",
+        "machine-learning/linear/generative-classifiers"
+      ]
+    },
+    {
+      "title": "Kernels, Neighbors and Trees",
+      "blurb": "Nonlinear methods that do not use neural networks: support vector machines, nearest neighbors, decision trees and ensembles.",
+      "chapters": [
+        "machine-learning/nonlinear/kernels-svm",
+        "machine-learning/nonlinear/nearest-neighbors",
+        "machine-learning/nonlinear/decision-trees",
+        "machine-learning/nonlinear/ensembles"
+      ]
+    },
+    {
+      "title": "Deep Learning",
+      "blurb": "Neural networks, backpropagation, training practice, convolutional networks, sequence models and transformers.",
+      "chapters": [
+        "machine-learning/deep/neural-networks",
+        "machine-learning/deep/backpropagation",
+        "machine-learning/deep/training-deep",
+        "machine-learning/deep/cnn",
+        "machine-learning/deep/sequence-models",
+        "machine-learning/deep/transformers"
+      ]
+    },
+    {
+      "title": "Unsupervised and Generative Learning",
+      "blurb": "Finding structure without labels, and learning to generate data.",
+      "chapters": [
+        "machine-learning/unsupervised/clustering",
+        "machine-learning/unsupervised/em-mixtures",
+        "machine-learning/unsupervised/pca-dimensionality",
+        "machine-learning/unsupervised/generative-models"
+      ]
+    },
+    {
+      "title": "Probabilistic Modeling",
+      "blurb": "Bayesian methods, Gaussian processes and graphical models.",
+      "chapters": [
+        "machine-learning/probabilistic/bayesian-methods",
+        "machine-learning/probabilistic/graphical-models"
+      ]
+    },
+    {
+      "title": "Learning Theory",
+      "blurb": "When and why learning from finite data works.",
+      "chapters": [
+        "machine-learning/theory/learning-theory"
+      ]
+    },
+    {
+      "title": "Reinforcement Learning",
+      "blurb": "Learning to act from reward.",
+      "chapters": [
+        "machine-learning/rl/mdp",
+        "machine-learning/rl/rl-algorithms"
+      ]
+    }
+  ]
+}

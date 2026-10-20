@@ -1,0 +1,395 @@
+{
+  "id": "training-deep",
+  "view": "chapter",
+  "title": "Training Deep Networks",
+  "description": "Optimizers, learning rate schedules, initialization, normalization, dropout and a practical recipe for getting a network to train.",
+  "overview": [
+    "Backpropagation supplies gradients, but turning them into a working model takes more. The loss surface of a network is non-convex, badly scaled and full of flat regions and ravines. A vanilla gradient step often crawls, oscillates or diverges. Over the past decade a set of techniques has made training of very deep networks routine: better optimizers, careful initialization, normalization layers and regularization such as dropout.",
+    "This chapter explains what each technique does, with the arithmetic that justifies it, and ends with a practical recipe."
+  ],
+  "objectives": [
+    "Write the update rules of SGD with momentum, RMSProp and Adam, and explain what each fixes.",
+    "Choose a learning rate schedule, including warmup and cosine decay.",
+    "Derive Xavier and He initialization from the requirement of constant activation variance.",
+    "Compute batch normalization and explain its behavior at training and test time.",
+    "Apply dropout, weight decay and early stopping, and debug a network that does not train."
+  ],
+  "sections": [
+    {
+      "id": "optimizers",
+      "title": "Optimizers",
+      "terms": [
+        "optimizer",
+        "momentum",
+        "sgd with momentum",
+        "nesterov momentum",
+        "rmsprop",
+        "adam",
+        "adamw",
+        "adaptive learning rate",
+        "mini-batch sgd",
+        "batch size"
+      ],
+      "body": [
+        "The loss J is an average over examples, so mini-batch SGD estimates its gradient g_t from a random batch (see Linear Regression for the basic update). The estimate is noisy and the ravines of the loss surface are narrow, so plain SGD oscillates across steep directions while advancing slowly along shallow ones.",
+        {
+          "svg": "<svg viewBox='0 0 400 200' role='img' aria-label='SGD zigzagging across a narrow valley versus momentum moving smoothly' font-family='system-ui, sans-serif' font-size='12'><g fill='none' stroke='currentColor' stroke-width='1' opacity='.4'><ellipse cx='300' cy='100' rx='60' ry='20'/><ellipse cx='300' cy='100' rx='120' ry='40'/><ellipse cx='300' cy='100' rx='190' ry='62'/></g><path fill='none' stroke='currentColor' stroke-width='2' stroke-dasharray='5 3' d='M50,50 L90,140 L130,60 L170,135 L210,72 L250,125 L290,92 L300,100'/><path fill='none' style='stroke:var(--accent)' stroke-width='2.5' d='M50,50 C110,125 200,105 300,100'/><g fill='currentColor'><text x='56' y='188'>dashed: SGD zigzags across the valley   solid: momentum</text></g></svg>",
+          "caption": "On an elongated loss surface, plain SGD oscillates in the steep direction. Momentum averages the oscillations out and builds speed along the valley."
+        },
+        {
+          "h": "Momentum"
+        },
+        "Momentum keeps a running average of past gradients, v ← βv + g_t, and steps along it:",
+        {
+          "eq": [
+            "v_t = β v_{t−1} + g_t",
+            "θ_t = θ_{t−1} − α v_t"
+          ]
+        },
+        "Oscillating components cancel in the average, while consistent components add up. If the gradient is constant at g, then v approaches g/(1 − β), so with β = 0.9 the effective step along a consistent direction is 10 times larger.",
+        {
+          "h": "Adaptive methods: RMSProp and Adam"
+        },
+        "Different parameters need different step sizes. **RMSProp** divides each coordinate's step by a running average of its recent squared gradients, so steep, noisy coordinates take small steps and flat ones take larger steps. **Adam** combines this with momentum and corrects the bias of the running averages at the start:",
+        {
+          "eq": [
+            "m_t = β₁ m_{t−1} + (1 − β₁) g_t",
+            "v_t = β₂ v_{t−1} + (1 − β₂) g_t²",
+            "m̂_t = m_t/(1 − β₁^t),    v̂_t = v_t/(1 − β₂^t)",
+            "θ_t = θ_{t−1} − α m̂_t / ( √v̂_t + ε )"
+          ]
+        },
+        "The usual defaults are α = 10⁻³, β₁ = 0.9, β₂ = 0.999 and ε = 10⁻⁸.",
+        {
+          "example": {
+            "title": "The first Adam step",
+            "problem": "At t = 1 a parameter has gradient g = 0.1. Compute m̂, v̂ and the step, with the default constants. What happens if g = 10 instead?",
+            "solution": [
+              "m₁ = 0.1 · 0.1 = 0.01 and v₁ = 0.001 · 0.01 = 10⁻⁵. Bias correction divides by 1 − 0.9 = 0.1 and 1 − 0.999 = 0.001: m̂ = 0.1, v̂ = 0.01.",
+              "The step is α · 0.1/(√0.01 + 10⁻⁸) = α · 0.1/0.1 = α.",
+              "For g = 10 the same calculation gives m̂ = 10, v̂ = 100, and a step of α · 10/10 = α. The first step has size α in the direction of the gradient's sign, whatever the gradient's scale. Adam is nearly invariant to the scale of the gradients."
+            ]
+          }
+        },
+        {
+          "list": [
+            "**AdamW** applies weight decay directly to the weights, θ ← θ − α(m̂/(√v̂ + ε) + λθ), instead of adding λθ to the gradient. This decoupling regularizes properly and is the default for transformers.",
+            "**SGD with momentum** often generalizes slightly better than Adam in image classification, and needs more learning rate tuning.",
+            "**Batch size**: larger batches give less noisy gradients and better hardware use. When the batch size is multiplied by k, the learning rate is commonly multiplied by k too (the linear scaling rule), up to a limit, with a warmup period."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "With momentum β = 0.9 and a constant gradient, the velocity approaches",
+          "a": "10 times the gradient",
+          "wrong": ["0.9 times the gradient", "the gradient itself", "zero"],
+          "why": "v → g/(1 − β) = 10g."
+        },
+        {
+          "q": "Why does Adam use bias correction?",
+          "a": "The running averages start at zero and are biased toward zero in the first steps",
+          "wrong": [
+            "To make the learning rate decay",
+            "To remove the noise from the gradient",
+            "To guarantee convergence of the loss"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lr-schedule",
+      "title": "Learning rate schedules",
+      "terms": [
+        "learning rate schedule",
+        "learning rate decay",
+        "warmup",
+        "learning rate warmup",
+        "cosine annealing",
+        "cosine decay",
+        "step decay"
+      ],
+      "body": [
+        "The learning rate is the single most important hyperparameter. Too large, and the loss oscillates or diverges. Too small, and training is slow and may stall. A good value usually changes during training: large early to move quickly, small later to settle into a minimum.",
+        {
+          "list": [
+            "**Step decay**: multiply α by 0.1 every fixed number of epochs.",
+            "**Cosine decay**: α_t = α_min + ½(α_max − α_min)(1 + cos(πt/T)) over T steps. Smooth, widely used. At the midpoint t = T/2, α is the average of α_max and α_min.",
+            "**Warmup**: raise α linearly from near zero over the first few hundred or thousand steps. Early in training, the weights and the Adam statistics are poorly calibrated and large steps are dangerous. Warmup is standard for transformers.",
+            "**Reduce on plateau**: cut α when the validation loss stops improving."
+          ]
+        },
+        {
+          "tip": "To find a learning rate, run a short test that increases α exponentially from 10⁻⁷ to 1 while recording the loss. Choose a value about a factor of 10 below the point where the loss starts to rise sharply."
+        },
+        {
+          "example": {
+            "title": "A cosine schedule",
+            "problem": "With α_max = 10⁻³, α_min = 0 and T = 1000 steps, find α at steps 0, 250, 500 and 1000.",
+            "solution": "α = ½ · 10⁻³ · (1 + cos(πt/1000)). t = 0: 10⁻³. t = 250: ½(1 + 0.707)10⁻³ = 8.5 × 10⁻⁴. t = 500: 5 × 10⁻⁴. t = 1000: 0."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Why is learning rate warmup used?",
+          "a": "Early in training, the weights and optimizer statistics are unreliable, so large steps can destabilize training",
+          "wrong": [
+            "It speeds up the final convergence",
+            "It reduces the number of parameters",
+            "It replaces regularization"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "init",
+      "title": "Initialization",
+      "terms": [
+        "weight initialization",
+        "initialization",
+        "xavier initialization",
+        "glorot initialization",
+        "he initialization",
+        "symmetry breaking"
+      ],
+      "body": [
+        "Initial weights must be random, because if all the weights in a layer were equal, every unit in it would compute the same value and receive the same gradient, and they would never differ (**symmetry breaking**). They must also have the right scale. If the weights are too large the activations and gradients explode with depth, and if too small they vanish.",
+        "Consider a layer z = Σ_{j=1}^{n_in} w_j x_j with independent weights of mean 0 and variance Var(w), and inputs with mean 0. Then",
+        {
+          "eq": "Var(z) = n_in · Var(w) · E[x²]"
+        },
+        "To keep Var(z) equal to E[x²], so that the signal neither grows nor shrinks from layer to layer, choose Var(w) = 1/n_in. Considering the backward pass, the same argument suggests 1/n_out. **Xavier (Glorot) initialization**, designed for tanh or linear layers, compromises:",
+        {
+          "eq": "Var(w) = 2/(n_in + n_out)"
+        },
+        "A ReLU zeroes half of its inputs, halving E[x²] on average. **He initialization** compensates by doubling the variance:",
+        {
+          "eq": "Var(w) = 2/n_in"
+        },
+        {
+          "example": {
+            "title": "He initialization in numbers",
+            "problem": "A ReLU layer has n_in = 512 inputs. What standard deviation should the weights have? What happens to the signal after 10 such layers if instead the weights had standard deviation 0.1?",
+            "solution": [
+              "He: σ = √(2/512) = 0.0625.",
+              "With σ = 0.1, Var(w) = 0.01 and the signal's variance changes per ReLU layer by the factor n_in · Var(w)/2 = 512(0.01)/2 = 2.56. After 10 layers the variance has grown by 2.56¹⁰ ≈ 12,000 (and the standard deviation by about 110), so activations and gradients blow up."
+            ]
+          }
+        },
+        "Biases are usually initialized to zero. Modern residual and normalized networks are less sensitive to initialization, but a wrong scale still damages training."
+      ],
+      "check": [
+        {
+          "q": "Why can weights not all be initialized to the same value?",
+          "a": "All units in a layer would compute identical outputs and get identical gradients, so they would stay identical",
+          "wrong": [
+            "The loss would be infinite",
+            "The weights would be zero after one step",
+            "The gradient would not exist"
+          ]
+        },
+        {
+          "q": "He initialization uses variance 2/n_in rather than 1/n_in because",
+          "a": "ReLU sets half of the pre-activations to zero, which halves the signal's second moment",
+          "wrong": [
+            "ReLU doubles the weights",
+            "Biases are initialized at zero",
+            "The learning rate is larger"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "normalization",
+      "title": "Normalization layers",
+      "terms": [
+        "batch normalization",
+        "batchnorm",
+        "layer normalization",
+        "layernorm",
+        "internal covariate shift",
+        "normalization layer"
+      ],
+      "body": [
+        "Normalization layers re-center and re-scale activations during training, which stabilizes the signal, permits larger learning rates and reduces sensitivity to initialization.",
+        {
+          "h": "Batch normalization"
+        },
+        "For one feature, compute the mean μ_B and variance σ_B² over the current mini-batch, standardize, and then apply a learned scale γ and shift β so that the layer can still represent any mean and variance it needs:",
+        {
+          "eq": [
+            "x̂ = (x − μ_B) / √(σ_B² + ε)",
+            "y = γ x̂ + β"
+          ]
+        },
+        {
+          "example": {
+            "title": "Batch normalization of four values",
+            "problem": "A feature takes the values 1, 2, 3, 6 in a batch. Normalize it (γ = 1, β = 0, ε ≈ 0).",
+            "solution": "μ = 3. σ² = ((−2)² + (−1)² + 0 + 3²)/4 = 14/4 = 3.5, σ = 1.871. x̂ = (−1.069, −0.535, 0, 1.604), which has mean 0 and variance 1."
+          }
+        },
+        "At test time there may be a single example, so the layer uses running averages of μ and σ² collected during training. This difference between training and inference behavior is a common source of bugs (forgetting to switch the model to evaluation mode). Batch normalization also adds a little noise through the batch statistics, which acts as a mild regularizer, and it works poorly with very small batches.",
+        {
+          "h": "Layer normalization"
+        },
+        "Layer normalization computes the mean and variance across the features of a single example, not across the batch. It does not depend on the batch size, behaves the same in training and testing, and is standard in transformers and recurrent networks.",
+        {
+          "note": "The original explanation, that batch normalization reduces 'internal covariate shift', is disputed. Later work suggests that it mainly makes the loss surface smoother and the gradients more predictable."
+        }
+      ],
+      "check": [
+        {
+          "q": "At inference time, batch normalization uses",
+          "a": "running averages of the mean and variance from training",
+          "wrong": [
+            "the statistics of the test batch only",
+            "zero mean and unit variance fixed in advance",
+            "no normalization at all"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "reg-deep",
+      "title": "Regularization for deep networks",
+      "terms": [
+        "dropout",
+        "inverted dropout",
+        "data augmentation",
+        "label smoothing",
+        "weight decay in neural networks",
+        "early stopping in deep learning"
+      ],
+      "body": [
+        "Deep networks have enough capacity to memorize their training set, so they need regularization (see Generalization and Regularization).",
+        {
+          "list": [
+            "**Weight decay** (L2 penalty): add λ‖θ‖² to the loss, or use AdamW. Typical λ is 10⁻⁴ to 10⁻².",
+            "**Early stopping**: stop at the epoch with the lowest validation loss and keep that checkpoint.",
+            "**Data augmentation**: transform each training example randomly in ways that preserve the label: flips, crops, rotations, color jitter for images; noise, speed changes and masking for audio; back-translation or word masking for text. It is among the most effective regularizers.",
+            "**Label smoothing**: replace the hard target (1, 0, 0) with (1 − ε, ε/2, ε/2). It stops the network from becoming extremely overconfident.",
+            "**Dropout**: described next."
+          ]
+        },
+        {
+          "h": "Dropout"
+        },
+        "During training, **dropout** sets each hidden activation to zero independently with probability p and rescales the survivors by 1/(1 − p) (inverted dropout), so that the expected activation is unchanged. At test time the layer does nothing. Each step trains a different random sub-network, which prevents units from co-adapting and relying on specific partners; the full network at test time acts like an average of exponentially many sub-networks.",
+        {
+          "example": {
+            "title": "Inverted dropout",
+            "problem": "A unit has activation 4 and p = 0.5. What values can it take during training, and what is its expectation?",
+            "solution": "With probability 0.5 it is dropped (0), and otherwise it is scaled to 4/(1 − 0.5) = 8. The expectation is 0.5(0) + 0.5(8) = 4, the same as the test-time value."
+          }
+        },
+        "Typical dropout rates are 0.1 to 0.5, more for large fully connected layers and less (or none) for convolutional layers and layers followed by batch normalization. Very large transformers are often trained with little dropout, since huge, diverse data sets already regularize.",
+        {
+          "warn": "Dropout, batch normalization and other layers behave differently in training and evaluation. Always set the model to evaluation mode when measuring validation performance or predicting."
+        }
+      ],
+      "check": [
+        {
+          "q": "In inverted dropout, surviving units are multiplied by 1/(1 − p) so that",
+          "a": "the expected activation matches test time, when no units are dropped",
+          "wrong": [
+            "the total number of weights is unchanged",
+            "the gradient is always larger",
+            "the dropped units can be restored"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "recipe",
+      "title": "A practical recipe",
+      "terms": [
+        "training recipe",
+        "debugging neural networks",
+        "overfit a single batch",
+        "loss curve",
+        "mixed precision"
+      ],
+      "body": [
+        "Following Karpathy's 'recipe for training neural networks', proceed from simple to complex and check each stage.",
+        {
+          "list": [
+            "**Look at the data.** Inspect examples, labels and class balance. Check that inputs and labels line up.",
+            "**Build a baseline** with a trivial or classical model, and a pipeline that trains and evaluates end to end on a small subset.",
+            "**Check the initial loss.** For K-class classification with random weights it should be near ln K (2.30 for 10 classes). A very different value indicates a bug.",
+            "**Overfit a tiny batch** (a handful of examples) to near-zero loss. If the network cannot, there is a bug in the model, the loss or the data pipeline.",
+            "**Train on the full data** with a small, simple model first. Watch the training and validation loss each epoch.",
+            "**Tune the learning rate first**, then batch size and architecture size, then regularization. Use random search on a log scale.",
+            "**Regularize** when the validation loss separates from the training loss: augmentation, weight decay, dropout, more data.",
+            "**Squeeze out the rest** with ensembling, longer training with a decaying schedule, and mixed-precision arithmetic (16-bit numbers for speed, with loss scaling to avoid underflow)."
+          ],
+          "ordered": true
+        },
+        {
+          "h": "Reading the loss curves"
+        },
+        {
+          "table": {
+            "head": ["Symptom", "Likely cause"],
+            "rows": [
+              ["Loss is NaN or explodes", "Learning rate too high, bad initialization, log of zero, missing clipping"],
+              ["Loss does not decrease", "Learning rate too low, bug in the gradient or labels, dead ReLUs"],
+              ["Training loss falls, validation loss rises", "Overfitting: add regularization or data"],
+              ["Both losses high and flat", "Underfitting: a larger model, a longer schedule, better features"],
+              ["Loss is noisy", "Batch too small or learning rate too high; average over more steps"],
+              ["Validation much worse than training right from the start", "Data leakage between splits, or a train/eval mode mismatch"]
+            ],
+            "caption": "Diagnosing training from the loss curves."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "A 10-class classifier with random initialization shows an initial cross-entropy loss near 25. This suggests",
+          "a": "a bug or bad scaling, since the expected value is about ln 10 = 2.3",
+          "wrong": [
+            "the model is already very accurate",
+            "the learning rate is too small",
+            "the data are well balanced"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Momentum averages gradients to damp oscillation. Adam adds per-parameter scaling by the root of the running squared gradient, with bias correction, and its first step has size about α. AdamW decouples weight decay.",
+    "The learning rate matters most. Use warmup, then a decaying schedule such as cosine decay. Find a starting value with a range test.",
+    "Initialize weights randomly with variance 2/n_in for ReLU (He) or 2/(n_in + n_out) for tanh (Xavier), to keep activations at a stable scale.",
+    "Batch normalization standardizes activations over the batch (with running statistics at test time); layer normalization works per example.",
+    "Regularize with weight decay, early stopping, data augmentation, label smoothing and dropout. Remember to switch to evaluation mode.",
+    "Debug by checking the initial loss, overfitting a tiny batch, and reading the loss curves."
+  ],
+  "problems": [
+    {
+      "q": "SGD with momentum β = 0.9, α = 0.1 and a constant gradient g = 2. Starting from v₀ = 0, compute v₁, v₂, v₃ and the limit of v.",
+      "solution": "v₁ = 2; v₂ = 0.9(2) + 2 = 3.8; v₃ = 0.9(3.8) + 2 = 5.42. The limit is g/(1 − β) = 20, giving an eventual step of α · 20 = 2 per iteration.",
+      "a": "v = 2, 3.8, 5.42, … → 20."
+    },
+    {
+      "q": "A tanh layer has n_in = 300 and n_out = 100. Find the Xavier variance and standard deviation of its weights.",
+      "solution": "Var = 2/(300 + 100) = 0.005 and σ = √0.005 = 0.0707.",
+      "a": "Var = 0.005, σ ≈ 0.071."
+    },
+    {
+      "q": "Batch normalize the values (2, 4, 6, 8) with γ = 1, β = 0 and ε = 0.",
+      "solution": "μ = 5, σ² = (9 + 1 + 1 + 9)/4 = 5, σ = 2.236. x̂ = (−3, −1, 1, 3)/2.236 = (−1.342, −0.447, 0.447, 1.342).",
+      "a": "(−1.342, −0.447, 0.447, 1.342)."
+    },
+    {
+      "q": "With dropout probability p = 0.2 on a layer with 50 units, how many units are active on average during training, and by what factor are the survivors scaled?",
+      "solution": "Expected active units: 50(0.8) = 40. Survivors are multiplied by 1/0.8 = 1.25.",
+      "a": "40 active units; scale factor 1.25."
+    },
+    {
+      "q": "A cosine schedule with α_max = 0.1, α_min = 0.001 runs for T = 100 epochs. What is α at epoch 50, and at epoch 25?",
+      "solution": "At t = 50 it is the midpoint (0.1 + 0.001)/2 = 0.0505. At t = 25, cos(π/4) = 0.7071, so α = 0.001 + 0.5(0.099)(1.7071) = 0.001 + 0.0845 = 0.0855.",
+      "a": "0.0505 at epoch 50; 0.0855 at epoch 25."
+    }
+  ]
+}

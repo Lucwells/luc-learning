@@ -1,0 +1,504 @@
+{
+  "id": "introduction",
+  "view": "chapter",
+  "title": "What Is Machine Learning?",
+  "description": "The learning problem, its main variants, and the vocabulary and notation used in the rest of the book.",
+  "overview": [
+    "A conventional program is a list of rules written by a person. A learned program is a rule that was found by a computer from examples. Writing rules for recognizing a spoken word, a tumor in a scan or a spam message is nearly hopeless, because nobody can state what makes the sound, the tissue or the message what it is. Collecting thousands of labeled examples is easy by comparison, and a learning algorithm can turn them into a rule.",
+    "This chapter fixes the problem that the rest of the book solves. We define learning, separate its main variants, set up the supervised learning problem in symbols, and meet the three ideas that appear in every later chapter: a hypothesis class, a loss function and generalization."
+  ],
+  "objectives": [
+    "State what it means for a program to learn, and distinguish supervised, unsupervised and reinforcement learning.",
+    "Write a supervised learning problem in the notation of data, hypothesis class, loss and risk.",
+    "Explain empirical risk minimization and why minimizing training error is not the real goal.",
+    "Explain why a learner with no assumptions cannot generalize.",
+    "Describe the stages of a machine learning project and where each chapter of this book fits."
+  ],
+  "sections": [
+    {
+      "id": "learning-defined",
+      "title": "What it means to learn",
+      "terms": [
+        "learning algorithm",
+        "learning problem",
+        "learning from data"
+      ],
+      "body": [
+        "Tom Mitchell gave the standard definition: a program **learns** from experience //E// with respect to a task //T// and a performance measure //P// if its performance at //T//, measured by //P//, improves with //E//. Each part must be specific before a problem is a learning problem.",
+        {
+          "facts": [
+            [
+              "Task T",
+              "Classify an email as spam or not spam."
+            ],
+            [
+              "Experience E",
+              "A set of emails, each labeled by a person."
+            ],
+            [
+              "Performance P",
+              "The fraction of new emails classified correctly."
+            ]
+          ]
+        },
+        "The word //new// in the last line is the heart of the matter. A program that memorizes every training email would score perfectly on them and gain nothing. Learning means doing well on inputs that were not in the experience.",
+        {
+          "h": "How machine learning relates to its neighbors"
+        },
+        {
+          "list": [
+            "**Statistics** studies the same estimation problems but emphasizes inference: confidence intervals, hypothesis tests and interpretable parameters. Machine learning emphasizes prediction on new data, and accepts models that are hard to interpret when they predict better.",
+            "**Optimization** supplies the algorithms that fit models. Most learning problems are optimization problems with a statistical twist: the objective is only a proxy for the goal.",
+            "**Artificial intelligence** is the broader aim of building intelligent behavior. Machine learning is now the main method used to achieve it.",
+            "**Data science** covers the whole process of drawing conclusions from data, including collection and communication. Machine learning is its prediction toolkit."
+          ]
+        },
+        {
+          "note": "The Mathematics book supplies linear algebra, calculus, probability and optimization. The Data Science book covers data handling and inference. The Computer Science book covers programming, numerical computing and automatic differentiation."
+        }
+      ],
+      "check": [
+        {
+          "q": "A program memorizes every training example and scores 100% on them. By Mitchell's definition, has it learned?",
+          "a": "Not necessarily; performance must improve on the task for new inputs",
+          "wrong": [
+            "Yes, because its performance measure is perfect",
+            "Yes, because it used experience",
+            "No, because learning needs a neural network"
+          ],
+          "why": "The performance measure must be evaluated on inputs outside the experience for the program to count as having learned a rule."
+        }
+      ]
+    },
+    {
+      "id": "kinds",
+      "title": "Kinds of learning",
+      "terms": [
+        "supervised learning",
+        "unsupervised learning",
+        "reinforcement learning",
+        "self-supervised learning",
+        "semi-supervised learning",
+        "labeled data"
+      ],
+      "body": [
+        "Learning problems differ in what the data contain and what the learner is asked to produce.",
+        {
+          "h": "Supervised learning"
+        },
+        "Each training example is an input with the correct output attached, supplied by a human or measured. The goal is a function that predicts the output for new inputs. Two cases dominate:",
+        {
+          "list": [
+            "**Regression**: the output is a real number or a vector of them, such as the price of a house or the position of an object.",
+            "**Classification**: the output is one of a finite set of categories, such as the digit in an image. With two categories it is binary classification."
+          ]
+        },
+        {
+          "h": "Unsupervised learning"
+        },
+        "The data have no outputs. The learner must find structure in the inputs themselves: groups of similar points (clustering), a low-dimensional description (dimensionality reduction), or a model of how the data are distributed (density estimation and generative modeling). There is no single right answer to check against, so these methods are judged by usefulness.",
+        {
+          "h": "Reinforcement learning"
+        },
+        "An agent acts in an environment, observes the result and receives a scalar reward. No one tells it the right action. It must discover, by trial and error, which sequence of actions earns the most reward over time. Choices made now change which data it sees later, which makes this setting different from the other two.",
+        {
+          "h": "Hybrids"
+        },
+        {
+          "list": [
+            "**Semi-supervised learning** uses a few labeled examples and many unlabeled ones.",
+            "**Self-supervised learning** invents labels from the data itself, for example by hiding a word in a sentence and training the model to predict it. Large language models are trained this way.",
+            "**Weak supervision** uses noisy or indirect labels, such as hashtags standing in for image categories."
+          ]
+        },
+        {
+          "table": {
+            "head": [
+              "Setting",
+              "Data",
+              "Goal",
+              "Example"
+            ],
+            "rows": [
+              [
+                "Supervised",
+                "Inputs with correct outputs",
+                "Predict outputs for new inputs",
+                "Predict a tumor type from a scan"
+              ],
+              [
+                "Unsupervised",
+                "Inputs only",
+                "Find structure",
+                "Group customers by purchases"
+              ],
+              [
+                "Reinforcement",
+                "Rewards from actions",
+                "Maximize long-run reward",
+                "Play a game, control a robot"
+              ],
+              [
+                "Self-supervised",
+                "Inputs with labels made from the inputs",
+                "Learn representations",
+                "Predict the next word"
+              ]
+            ],
+            "caption": "The main learning settings."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Predicting tomorrow's temperature in degrees from today's weather is",
+          "a": "regression",
+          "wrong": [
+            "binary classification",
+            "clustering",
+            "reinforcement learning"
+          ],
+          "why": "The output is a real number, and each training example has a known output."
+        },
+        {
+          "q": "A robot receives +1 when it reaches a goal and nothing otherwise, and nobody labels its moves. This is",
+          "a": "reinforcement learning",
+          "wrong": [
+            "supervised learning",
+            "unsupervised clustering",
+            "semi-supervised learning"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "setup",
+      "title": "The supervised learning problem",
+      "terms": [
+        "training set",
+        "training example",
+        "feature vector",
+        "hypothesis",
+        "design matrix",
+        "notation"
+      ],
+      "body": [
+        "Supervised learning is the setting of most of this book, so we give it precise notation. All vectors are columns.",
+        {
+          "facts": [
+            [
+              "x^{(i)} ∈ ℝ^{n}",
+              "The input (feature vector) of example i, with n features."
+            ],
+            [
+              "y^{(i)}",
+              "The label of example i: a real number for regression, a class for classification."
+            ],
+            [
+              "m",
+              "The number of training examples."
+            ],
+            [
+              "{(x^{(i)}, y^{(i)}) : i = 1, …, m}",
+              "The training set."
+            ],
+            [
+              "X ∈ ℝ^{m×n}",
+              "The design matrix, whose row i is x^{(i)}ᵀ."
+            ],
+            [
+              "y ∈ ℝ^{m}",
+              "The vector of labels."
+            ]
+          ]
+        },
+        "A **feature** is a number computed from the raw input. For a house, features might be the floor area, the number of bedrooms and the year built. Turning raw data into features is called feature engineering, and deep learning largely automates it.",
+        {
+          "h": "Data are assumed to come from a distribution"
+        },
+        "We assume each example is a draw from a fixed but unknown joint distribution P(x, y), and that examples are independent of each other. These two assumptions together are called //independent and identically distributed//, or **i.i.d.** The training set and any future test point come from the same P. Without such a link between past and future data, nothing learned from the past could be trusted.",
+        {
+          "h": "Hypotheses and loss"
+        },
+        "A **hypothesis** is a function h that maps an input to a prediction. The **hypothesis class** ℋ is the set of functions the learner is allowed to choose from. A line is one hypothesis; the set of all lines is a hypothesis class.",
+        "A **loss function** ℓ(ŷ, y) measures the cost of predicting ŷ when the truth is y. Two standard choices:",
+        {
+          "eqs": [
+            [
+              "ℓ(ŷ, y) = (ŷ − y)²",
+              "squared loss, for regression"
+            ],
+            [
+              "ℓ(ŷ, y) = 1[ŷ ≠ y]",
+              "zero-one loss, for classification: 1 for a mistake and 0 otherwise"
+            ]
+          ]
+        },
+        {
+          "h": "Risk and empirical risk"
+        },
+        "The quantity we care about is the **risk** (also called the generalization error or true error): the expected loss on a fresh example,",
+        {
+          "eq": "R(h) = E_{(x,y)~P} [ ℓ(h(x), y) ]"
+        },
+        "We cannot compute R(h), since P is unknown. We can compute its average over the training set, the **empirical risk**:",
+        {
+          "eq": "R̂(h) = (1/m) Σ_{i=1}^{m} ℓ(h(x^{(i)}), y^{(i)})"
+        },
+        "**Empirical risk minimization** (ERM) picks the hypothesis in ℋ with the lowest empirical risk. Most methods in this book are ERM, possibly with a penalty added, and the central question of the field is how close R̂(h) is to R(h). That is the subject of the next chapter.",
+        {
+          "example": {
+            "title": "Empirical risk of two lines",
+            "problem": "The training set is (1, 2), (2, 3), (3, 5). Compare the squared-loss empirical risk of h₁(x) = x + 1 and h₂(x) = 1.5x + 0.5.",
+            "solution": [
+              "For h₁ the predictions are 2, 3, 4, so the errors are 0, 0, 1 and",
+              {
+                "eq": "R̂(h₁) = (0 + 0 + 1)/3 = 0.333"
+              },
+              "For h₂ the predictions are 2, 3.5, 5, so the errors are 0, −0.5, 0 and",
+              {
+                "eq": "R̂(h₂) = (0 + 0.25 + 0)/3 = 0.0833"
+              },
+              "ERM prefers h₂. The best line of all has slope 1.5 and intercept 1/3, with R̂ = 1/18 = 0.0556. The next chapter on linear regression derives it."
+            ]
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Why can the risk R(h) not be computed directly?",
+          "a": "It is an expectation over the unknown distribution P",
+          "wrong": [
+            "It requires infinitely many hypotheses",
+            "The loss function is not differentiable",
+            "It is always equal to the empirical risk"
+          ]
+        },
+        {
+          "q": "In the design matrix X ∈ ℝ^{m×n}, what is the size of one row?",
+          "a": "n, the number of features",
+          "wrong": [
+            "m, the number of examples",
+            "m × n",
+            "1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "generalization-goal",
+      "title": "Fitting is not learning",
+      "terms": [
+        "generalization",
+        "test set",
+        "training error",
+        "test error",
+        "memorization"
+      ],
+      "body": [
+        "A learner that returns the lowest-empirical-risk hypothesis from a rich enough class can reach zero training error by memorizing. Fit a polynomial of degree m − 1 through m points with distinct x values and every training point is hit exactly. The curve between the points may swing wildly.",
+        "The goal is **generalization**: low risk on data not seen in training. We cannot measure R(h) exactly, but we can estimate it by holding out part of the data. A **test set** is data that the learner never sees during fitting or tuning. The average loss on it, the **test error**, is an unbiased estimate of the risk for a hypothesis chosen without looking at the test set.",
+        {
+          "svg": "<svg viewBox='0 0 440 250' role='img' aria-label='Three points with a straight line and a high-degree curve through them' font-family='system-ui, sans-serif' font-size='12'><g fill='none' stroke='currentColor' stroke-width='1.5'><path d='M40,210 H410 M40,210 V20'/></g><path fill='none' style='stroke:var(--accent)' stroke-width='2.5' d='M60,180 L400,60'/><path fill='none' stroke='currentColor' stroke-width='2' stroke-dasharray='5 3' d='M60,175 C100,60 140,60 170,110 C200,170 230,190 260,130 C290,60 320,40 350,100 C370,140 385,150 400,100'/><g fill='currentColor'><circle cx='100' cy='160' r='4'/><circle cx='190' cy='140' r='4'/><circle cx='260' cy='130' r='4'/><circle cx='340' cy='95' r='4'/><text x='60' y='16'>y</text><text x='400' y='232'>x</text><text x='284' y='54' style='fill:var(--accent)'>simple model</text><text x='136' y='56'>flexible model</text></g></svg>",
+          "caption": "A simple model (solid) misses some points. A flexible model (dashed) passes through all of them but is unlikely to predict a new point well."
+        },
+        {
+          "warn": "Never tune on the test set. Each decision made after looking at test error, such as choosing among models, leaks information from the test set into the model. The estimate then becomes optimistic. Use a separate validation set for decisions, and touch the test set once, at the end."
+        }
+      ],
+      "check": [
+        {
+          "q": "A model reaches zero training error and 30% test error. The most likely description is",
+          "a": "The model memorized the training data and generalizes poorly",
+          "wrong": [
+            "The model is the best possible",
+            "The test set is too small to be informative",
+            "The loss function is wrong"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "inductive-bias",
+      "title": "Inductive bias and no free lunch",
+      "terms": [
+        "inductive bias",
+        "no free lunch",
+        "no free lunch theorem",
+        "hypothesis class restriction"
+      ],
+      "body": [
+        "Why should a rule found on training data hold on new data at all? Because the learner brings assumptions. These assumptions are its **inductive bias**.",
+        {
+          "example": {
+            "title": "A learner with no assumptions",
+            "problem": "Inputs are 3-bit strings, so there are 8 possible inputs. The target is some unknown function from the 8 inputs to {0, 1}. You are shown the correct labels for 5 inputs. How many functions agree with those 5 labels, and what does that say about the other 3?",
+            "solution": [
+              "There are 2⁸ = 256 functions in all. A function that agrees with the 5 labeled inputs may do anything on the remaining 3, giving 2³ = 8 consistent functions.",
+              "Every labeling of the 3 unseen inputs is equally consistent with the data. Half of the 8 consistent functions say 1 on each unseen input, and half say 0, so any prediction is right for exactly half of them. The data alone cannot decide."
+            ]
+          }
+        },
+        "This is the idea behind the **no free lunch theorem** (Wolpert, 1996). Averaged over all possible target functions, every learning algorithm has the same expected accuracy on unseen inputs. An algorithm can beat another only on problems whose structure suits its assumptions.",
+        "Real problems are not drawn uniformly from all functions. Natural images, language and physical systems have structure: nearby inputs tend to have similar outputs, small sets of features carry most of the signal, and effects are often additive. Every method in this book builds in assumptions of this kind:",
+        {
+          "list": [
+            "Linear models assume the output depends on a weighted sum of the features.",
+            "Nearest-neighbor methods assume that similar inputs have similar outputs.",
+            "Decision trees assume the output depends on a few features through threshold rules.",
+            "Convolutional networks assume the same pattern can appear anywhere in an image.",
+            "Regularization assumes simpler functions are more likely than complicated ones."
+          ]
+        },
+        {
+          "key": "There is no best learning algorithm. The skill is in matching the model's assumptions to the structure of the problem, and verifying the match on held-out data."
+        }
+      ],
+      "check": [
+        {
+          "q": "What does the no free lunch theorem say?",
+          "a": "Averaged over all possible problems, no algorithm is better than any other",
+          "wrong": [
+            "More training data never helps",
+            "Complex models always overfit",
+            "Every algorithm needs the same amount of data"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pipeline",
+      "title": "The shape of a machine learning project",
+      "terms": [
+        "machine learning pipeline",
+        "hyperparameters",
+        "optimization problem"
+      ],
+      "body": [
+        "A learning method has three ingredients, and this book organizes every algorithm around them.",
+        {
+          "list": [
+            "**Model** (the hypothesis class): the form of the function, with parameters θ. Example: h_θ(x) = θᵀx.",
+            "**Objective**: a loss averaged over the data, plus possibly a penalty. Example: J(θ) = (1/m) Σ (θᵀx^{(i)} − y^{(i)})².",
+            "**Optimizer**: an algorithm that searches for the θ that minimizes the objective. Example: gradient descent."
+          ]
+        },
+        "**Parameters** are learned by the optimizer. **Hyperparameters** are set outside it, by the user or by a search: the learning rate, the strength of a penalty, the number of layers. Hyperparameters are chosen using a validation set.",
+        {
+          "h": "A project in practice"
+        },
+        {
+          "list": [
+            "**Define the task** and the performance measure that matches the real goal.",
+            "**Collect and clean data**; split it into training, validation and test sets before looking at the outcome.",
+            "**Build a baseline**, such as predicting the average label or a simple linear model. Any complex model must beat it.",
+            "**Choose features and a model**, then train.",
+            "**Diagnose**: compare training and validation error to see whether the problem is high bias or high variance (next chapter).",
+            "**Iterate**, then evaluate once on the test set and deploy and monitor, since the world drifts away from the training distribution."
+          ],
+          "ordered": true
+        },
+        {
+          "tip": "Most of the gains in practical work come from the data and the problem definition, not from the choice of algorithm. Spend time on both before reaching for a bigger model."
+        },
+        {
+          "h": "Where each part of this book fits"
+        },
+        {
+          "table": {
+            "head": [
+              "Part",
+              "Contribution"
+            ],
+            "rows": [
+              [
+                "I Foundations",
+                "Generalization, model selection and evaluation"
+              ],
+              [
+                "II Linear models",
+                "The simplest models; objectives and optimizers made explicit"
+              ],
+              [
+                "III Kernels, neighbors, trees",
+                "Nonlinear models without neural networks"
+              ],
+              [
+                "IV Deep learning",
+                "Neural networks and how to train them"
+              ],
+              [
+                "V Unsupervised",
+                "Clustering, latent variables, dimensionality reduction, generation"
+              ],
+              [
+                "VI Probabilistic",
+                "Uncertainty, priors and structured models"
+              ],
+              [
+                "VII Theory",
+                "Why learning from finite data works"
+              ],
+              [
+                "VIII Reinforcement",
+                "Learning to act from reward"
+              ]
+            ],
+            "caption": "Map of the book."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Which is a hyperparameter?",
+          "a": "The learning rate",
+          "wrong": [
+            "A weight in a linear model",
+            "The predicted label of a test example",
+            "The bias term learned by gradient descent"
+          ],
+          "why": "Hyperparameters are set outside the optimizer, often by trying values on a validation set."
+        },
+        {
+          "q": "Why build a baseline first?",
+          "a": "It shows how much value a complex model actually adds",
+          "wrong": [
+            "It removes the need for a validation set",
+            "It guarantees the final model generalizes",
+            "It reduces the size of the training set"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "A program learns when its performance on a task improves with experience, and the performance that counts is on new inputs.",
+    "Supervised learning fits a function from labeled examples (regression for numbers, classification for categories). Unsupervised learning finds structure without labels. Reinforcement learning maximizes reward through trial and error.",
+    "A supervised problem is a training set of (x, y) pairs drawn i.i.d. from P, a hypothesis class, and a loss. The risk is the expected loss; the empirical risk is its training-set average.",
+    "Empirical risk minimization can overfit, so a held-out test set estimates the risk and must not be used for tuning.",
+    "No algorithm wins on all problems. Inductive bias, the set of assumptions built into a method, is what makes generalization possible.",
+    "Every method in this book has a model, an objective and an optimizer. Parameters are learned; hyperparameters are chosen by validation."
+  ],
+  "problems": [
+    {
+      "q": "Data (0, 1), (1, 3), (2, 4) are fit by h(x) = 1.5x + 1.5 under squared loss. Compute the empirical risk R̂(h).",
+      "solution": "Predictions: h(0) = 1.5, h(1) = 3, h(2) = 4.5. Errors: 1 − 1.5 = −0.5, 0, 4 − 4.5 = −0.5. Squares: 0.25, 0, 0.25. Mean: 0.5/3 = 1/6.",
+      "a": "R̂(h) = 1/6 ≈ 0.167."
+    },
+    {
+      "q": "A binary classifier makes 12 mistakes on a test set of 200 examples. Find the zero-one test error and the accuracy.",
+      "solution": "Zero-one loss averages 1[mistake]: 12/200 = 0.06. Accuracy is 1 − 0.06.",
+      "a": "Test error 6%, accuracy 94%."
+    },
+    {
+      "q": "Inputs are 4-bit strings. How many distinct Boolean functions are there? If labels are known on 10 inputs, how many functions are consistent with them?",
+      "solution": "There are 2⁴ = 16 inputs, so 2^{16} = 65,536 functions. Six inputs are unlabeled, so 2⁶ = 64 functions are consistent with the 10 known labels.",
+      "a": "65,536 functions in all; 64 consistent."
+    },
+    {
+      "q": "A data scientist tries 50 different models and reports the test error of the best one as an estimate of how it will do in production. Explain the problem.",
+      "solution": "Choosing the best of 50 by test error selects the model that was luckiest on that test set. The reported error is biased downward, since the selection used the test labels. The choice should be made on a validation set, and the test set used once for the final model.",
+      "a": "The estimate is optimistic because the test set was used for model selection."
+    }
+  ]
+}

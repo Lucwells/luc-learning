@@ -1,0 +1,333 @@
+{
+  "id": "svd",
+  "view": "chapter",
+  "title": "The Singular Value Decomposition",
+  "description": "The SVD of any matrix, its geometry, low-rank approximation, the pseudoinverse and its uses in machine learning.",
+  "overview": [
+    "Eigendecomposition applies only to square matrices, and only some of them. The singular value decomposition (SVD) applies to every matrix, rectangular or not, and reveals its structure completely: every matrix is a rotation, followed by a stretch along coordinate axes, followed by another rotation. The stretches, the singular values, say how much each direction matters.",
+    "The SVD is the most useful single factorization in applied mathematics. It computes PCA, gives the best low-rank approximation of a matrix, defines the pseudoinverse for least squares, measures the conditioning of a problem, and underlies recommender systems, text analysis, image compression and the low-rank adaptation of neural networks."
+  ],
+  "objectives": [
+    "State the SVD A = UΣVᵀ, compute it for a small matrix and describe it geometrically.",
+    "Relate singular values and vectors to the eigendecomposition of AᵀA and AAᵀ and to the four fundamental subspaces.",
+    "State the Eckart–Young theorem and compute the best low-rank approximation and its error.",
+    "Define the pseudoinverse and use it for minimum-norm least squares.",
+    "Apply the SVD to PCA, matrix norms and compression."
+  ],
+  "sections": [
+    {
+      "id": "svd-def",
+      "title": "The singular value decomposition",
+      "terms": [
+        "singular value decomposition",
+        "svd",
+        "singular values",
+        "singular value",
+        "singular vectors",
+        "left singular vectors",
+        "right singular vectors",
+        "full svd",
+        "compact svd"
+      ],
+      "body": [
+        "Every m × n real matrix A can be factored as",
+        {
+          "eq": "A = U Σ Vᵀ"
+        },
+        {
+          "list": [
+            "U is an m × m orthogonal matrix whose columns u_i are the **left singular vectors**.",
+            "V is an n × n orthogonal matrix whose columns v_i are the **right singular vectors**.",
+            "Σ is an m × n matrix, zero except for the **singular values** σ₁ ≥ σ₂ ≥ … ≥ σ_r > 0 on its diagonal, where r is the rank."
+          ]
+        },
+        "In terms of action on vectors: Vᵀ rotates (or reflects) the input into a new coordinate system, Σ stretches the i-th coordinate by σ_i (and discards or adds coordinates if m ≠ n), and U rotates the result into the output space. The unit sphere is mapped to an ellipsoid whose semi-axes have lengths σ_i and directions u_i. Equivalently, A maps v_i to σ_iu_i: Av_i = σ_iu_i.",
+        "Dropping the zero blocks gives the **compact SVD**, and expanding the product gives A as a sum of rank-one matrices, ordered by importance:",
+        {
+          "eq": "A = Σ_{i=1}^{r} σ_i u_i v_iᵀ"
+        },
+        {
+          "h": "Connection to eigenvalues"
+        },
+        "From the factorization, AᵀA = VΣᵀΣVᵀ and AAᵀ = UΣΣᵀUᵀ. So the right singular vectors are the eigenvectors of AᵀA, the left singular vectors are the eigenvectors of AAᵀ, and the singular values are the square roots of the eigenvalues: σ_i = √λ_i(AᵀA). This is also how the existence of the SVD is proved: AᵀA is symmetric and positive semidefinite, so it has an orthonormal eigenbasis (the spectral theorem) with non-negative eigenvalues, which define V and σ, and then u_i = Av_i/σ_i.",
+        {
+          "example": {
+            "title": "SVD of a 2 × 2 matrix",
+            "problem": "Compute the SVD of A = [[3, 0], [4, 5]].",
+            "solution": [
+              "AᵀA = [[25, 20], [20, 25]] has eigenvalues 45 and 5 with eigenvectors (1, 1)/√2 and (1, −1)/√2. So σ₁ = √45 = 6.708, σ₂ = √5 = 2.236, v₁ = (1, 1)/√2, v₂ = (1, −1)/√2.",
+              "u₁ = Av₁/σ₁ = (3, 9)/(√2 · 6.708) = (0.316, 0.949), and u₂ = Av₂/σ₂ = (3, −1)/(√2 · 2.236) = (0.949, −0.316).",
+              "Check: σ₁σ₂ = 15 = |det A| ✓ (the product of singular values is the volume scaling), and u₁ ⟂ u₂ ✓."
+            ]
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "The singular values of A are",
+          "a": "the square roots of the eigenvalues of AᵀA",
+          "wrong": [
+            "the eigenvalues of A",
+            "the entries of A",
+            "the squares of the eigenvalues of AᵀA"
+          ]
+        },
+        {
+          "q": "In the SVD of a rank-r matrix, how many singular values are non-zero?",
+          "a": "r",
+          "wrong": [
+            "min(m, n)",
+            "1",
+            "m"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "svd-subspaces",
+      "title": "The SVD and the four fundamental subspaces",
+      "terms": [
+        "svd and subspaces",
+        "numerical rank",
+        "frobenius norm",
+        "spectral norm",
+        "matrix norm",
+        "nuclear norm"
+      ],
+      "body": [
+        "The SVD gives orthonormal bases for all four subspaces at once (see Vector Spaces):",
+        {
+          "table": {
+            "head": [
+              "Subspace",
+              "Orthonormal basis"
+            ],
+            "rows": [
+              [
+                "Column space C(A)",
+                "u₁, …, u_r"
+              ],
+              [
+                "Left null space N(Aᵀ)",
+                "u_{r+1}, …, u_m"
+              ],
+              [
+                "Row space C(Aᵀ)",
+                "v₁, …, v_r"
+              ],
+              [
+                "Null space N(A)",
+                "v_{r+1}, …, v_n"
+              ]
+            ],
+            "caption": "Bases from the SVD."
+          }
+        },
+        "The rank is the number of non-zero singular values. In floating point, a singular value is never exactly zero, so the **numerical rank** counts the singular values above a tolerance (about σ₁ · max(m, n) · 10⁻¹⁶). This is the reliable way to find the rank of a data matrix.",
+        {
+          "h": "Matrix norms"
+        },
+        "Singular values define the important matrix norms:",
+        {
+          "eqs": [
+            [
+              "‖A‖₂ = σ₁",
+              "the spectral norm: the largest factor by which A stretches a vector, max ‖Ax‖/‖x‖"
+            ],
+            [
+              "‖A‖_F = √(Σ A_ij²) = √(σ₁² + … + σ_r²)",
+              "the Frobenius norm"
+            ],
+            [
+              "‖A‖_* = σ₁ + … + σ_r",
+              "the nuclear norm, a convex surrogate for rank used in matrix completion"
+            ],
+            [
+              "κ(A) = σ₁/σ_r",
+              "the condition number of A, for the 2-norm"
+            ]
+          ]
+        },
+        {
+          "example": {
+            "title": "Norms from singular values",
+            "problem": "A has singular values 5, 3, 0.4. Find its spectral norm, Frobenius norm and condition number.",
+            "solution": "‖A‖₂ = 5, ‖A‖_F = √(25 + 9 + 0.16) = 5.844, κ = 5/0.4 = 12.5."
+          }
+        },
+        "The condition number tells how much relative error in b or A can be amplified in the solution of Ax = b. A matrix with κ = 10⁸ loses about 8 of the 16 digits of double precision, and a matrix with σ_r near zero is nearly singular."
+      ],
+      "check": [
+        {
+          "q": "The spectral norm ‖A‖₂ equals",
+          "a": "the largest singular value",
+          "wrong": [
+            "the sum of the singular values",
+            "the trace of A",
+            "the determinant of A"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "low-rank",
+      "title": "Low-rank approximation",
+      "terms": [
+        "low-rank approximation",
+        "eckart–young theorem",
+        "eckart-young theorem",
+        "truncated svd",
+        "best rank-k approximation",
+        "image compression",
+        "latent semantic analysis",
+        "lora"
+      ],
+      "body": [
+        "Keep only the k largest terms of the sum A = Σσ_iu_iv_iᵀ to get the **truncated SVD**",
+        {
+          "eq": "A_k = Σ_{i=1}^{k} σ_i u_i v_iᵀ"
+        },
+        {
+          "key": "Eckart–Young theorem. Among all matrices of rank at most k, A_k is the closest to A in both the spectral and the Frobenius norm. The errors are ‖A − A_k‖₂ = σ_{k+1} and ‖A − A_k‖_F = √(σ_{k+1}² + … + σ_r²)."
+        },
+        "This is why the SVD is the tool for compression and noise reduction: the discarded part is exactly the part of smallest 'energy'. It is also the proof that PCA is optimal: for a centered data matrix X, the best rank-k approximation of X is X_k, and its row space is spanned by the top k principal components.",
+        {
+          "example": {
+            "title": "Compression of an image",
+            "problem": "A grayscale image is a 1000 × 1000 matrix with 10⁶ entries. How many numbers does a rank-50 approximation need, and how much of the energy ‖A‖_F² is retained if the squared singular values beyond 50 sum to 4% of the total?",
+            "solution": "A_k needs the k singular values and the k vectors u_i (1000 numbers) and v_i (1000 numbers): 50(1000 + 1000 + 1) = 100,050 numbers, about 10% of the original. The retained energy is 96%. Photographs have rapidly decaying singular values, so a small k looks nearly identical."
+          }
+        },
+        {
+          "example": {
+            "title": "Approximation error",
+            "problem": "A has singular values 10, 4, 2, 1. Find the error of the best rank-2 approximation in the two norms.",
+            "solution": "Spectral: σ₃ = 2. Frobenius: √(2² + 1²) = √5 = 2.236, compared with ‖A‖_F = √(100 + 16 + 4 + 1) = 11.0, so the relative error is 20%."
+          }
+        },
+        {
+          "h": "Where low rank is used"
+        },
+        {
+          "list": [
+            "**PCA and latent semantic analysis**: a term–document matrix is approximated by a few concepts, so that similar documents get similar low-dimensional codes.",
+            "**Recommender systems**: a ratings matrix is modeled as a product of a user matrix and an item matrix (see PCA and Dimensionality Reduction in the Machine Learning book).",
+            "**Denoising**: low-rank signal plus full-rank noise; truncation removes most of the noise.",
+            "**Efficient fine-tuning of large networks (LoRA)**: instead of updating a d × k weight matrix W, learn a low-rank update ΔW = BA with B of size d × r and A of size r × k. For d = k = 4096 and r = 8, this is 8(4096 + 4096) = 65,536 parameters instead of 16.8 million, 0.39% of the original.",
+            "**Compression of trained networks** by factorizing weight matrices."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "By the Eckart–Young theorem, the spectral-norm error of the best rank-k approximation of A is",
+          "a": "σ_{k+1}",
+          "wrong": [
+            "σ_k",
+            "σ₁ − σ_k",
+            "the sum of σ₁, …, σ_k"
+          ]
+        },
+        {
+          "q": "A rank-k approximation of an m × n matrix can be stored using about",
+          "a": "k(m + n + 1) numbers",
+          "wrong": [
+            "mn numbers",
+            "k² numbers",
+            "k(m·n) numbers"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pseudoinverse",
+      "title": "The pseudoinverse and least squares",
+      "terms": [
+        "pseudoinverse",
+        "moore–penrose pseudoinverse",
+        "moore-penrose pseudoinverse",
+        "minimum norm solution",
+        "minimum-norm least squares",
+        "truncated svd regularization",
+        "ridge regression via svd"
+      ],
+      "body": [
+        "When A is not square or not invertible, the **pseudoinverse** A⁺ gives the best substitute. From the SVD, invert the non-zero singular values and leave the zeros:",
+        {
+          "eq": "A⁺ = V Σ⁺ Uᵀ = Σ_{i=1}^{r} (1/σ_i) v_i u_iᵀ"
+        },
+        "The vector x̂ = A⁺b solves the least squares problem min ‖Ax − b‖, and when there are many minimizers (A has a non-trivial null space), it is the one of **minimum norm**. When A has independent columns, A⁺ = (AᵀA)⁻¹Aᵀ, the least squares solution of the earlier chapters; when A is invertible, A⁺ = A⁻¹.",
+        {
+          "example": {
+            "title": "A rank-one pseudoinverse",
+            "problem": "Find x = A⁺b for A = [[1, 1], [1, 1]] and b = (2, 2).",
+            "solution": "A has rank 1: A = σuvᵀ with σ = 2 and u = v = (1, 1)/√2. Then A⁺ = (1/σ)vuᵀ = ¼[[1, 1], [1, 1]] and x = A⁺b = ¼(4, 4) = (1, 1). Among all solutions of x₁ + x₂ = 2, the point (1, 1) is the closest to the origin, i.e. has the minimum norm."
+          }
+        },
+        {
+          "h": "Regularization through the SVD"
+        },
+        "Solving by the SVD shows how errors enter. The least squares solution is x̂ = Σ (u_iᵀb/σ_i) v_i. Small singular values divide by tiny numbers, which amplify noise in b enormously. Two cures:",
+        {
+          "list": [
+            "**Truncated SVD**: drop components with σ_i below a threshold (use a rank-k pseudoinverse).",
+            "**Ridge regression**: replace 1/σ_i by σ_i/(σ_i² + λ). This damps small singular values smoothly and equals (AᵀA + λI)⁻¹Aᵀb (see the Regularization chapter)."
+          ]
+        },
+        {
+          "example": {
+            "title": "Noise amplification",
+            "problem": "A has singular values 10 and 0.001. The right-hand side b has a noise component of size 0.01 along u₂. By how much does the solution change, and what does ridge with λ = 0.01 do to that component?",
+            "solution": "The component of x̂ along v₂ changes by 0.01/0.001 = 10, a thousand times the noise. With ridge the factor σ/(σ² + λ) = 0.001/(10⁻⁶ + 0.01) ≈ 0.1, so the change is 0.01 × 0.1 = 0.001: the noise is no longer amplified."
+          }
+        },
+        "In practice, library routines for least squares (`lstsq`) use the SVD or a rank-revealing QR, so they work even when X is rank deficient, unlike the explicit normal equations."
+      ],
+      "check": [
+        {
+          "q": "The pseudoinverse solution A⁺b, when many least squares solutions exist, is the one with",
+          "a": "the smallest norm",
+          "wrong": [
+            "the largest norm",
+            "all entries equal",
+            "the fewest non-zero entries"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Every matrix factors as A = UΣVᵀ with orthogonal U, V and non-negative singular values σ₁ ≥ … ≥ σ_r > 0. Geometrically it rotates, stretches along axes and rotates again, mapping v_i to σ_iu_i.",
+    "σ_i² are the eigenvalues of AᵀA and AAᵀ. The SVD gives orthonormal bases of all four fundamental subspaces, and the rank is the number of non-zero singular values (numerical rank uses a tolerance).",
+    "‖A‖₂ = σ₁, ‖A‖_F² = Σσ_i², κ = σ₁/σ_r.",
+    "Eckart–Young: the truncated SVD A_k is the best rank-k approximation, with errors σ_{k+1} (spectral) and √Σ_{i>k}σ_i² (Frobenius). This yields PCA, compression, denoising and LoRA.",
+    "The pseudoinverse A⁺ = VΣ⁺Uᵀ gives minimum-norm least squares. Truncation and ridge regularization tame small singular values."
+  ],
+  "problems": [
+    {
+      "q": "Find the singular values of A = [[1, 2], [2, 4]] and its rank.",
+      "solution": "AᵀA = [[5, 10], [10, 20]] has trace 25 and determinant 0, so its eigenvalues are 25 and 0. The singular values are 5 and 0, so the rank is 1.",
+      "a": "σ = 5, 0; rank 1."
+    },
+    {
+      "q": "A = [[0, 2], [−3, 0]]. Find its singular values and ‖A‖₂, ‖A‖_F.",
+      "solution": "AᵀA = diag(9, 4), so σ = 3 and 2. ‖A‖₂ = 3 and ‖A‖_F = √13 = 3.606. (det A = 6 = 3 · 2 ✓.)",
+      "a": "σ = 3, 2; ‖A‖₂ = 3; ‖A‖_F = 3.606."
+    },
+    {
+      "q": "A matrix has singular values 8, 6, 3, 1, 0.5. How many are needed to retain at least 95% of the squared Frobenius norm?",
+      "solution": "Squares: 64, 36, 9, 1, 0.25, total 110.25. Cumulative: 64/110.25 = 58.0%; 100/110.25 = 90.7%; 109/110.25 = 98.9%. Three singular values retain 98.9%, and two only 90.7%, so k = 3.",
+      "a": "k = 3."
+    },
+    {
+      "q": "Compute the least-squares solution of minimum norm to Ax = b for A = [[2, 0], [0, 0]] and b = (4, 1).",
+      "solution": "A⁺ = [[0.5, 0], [0, 0]], so x = A⁺b = (2, 0). The second equation 0 = 1 cannot be satisfied, and x₂ is free; the minimum-norm choice is x₂ = 0.",
+      "a": "x = (2, 0)."
+    },
+    {
+      "q": "A weight matrix is 1024 × 1024. How many parameters does a rank-16 factorization BA have, and what fraction of the full matrix is that?",
+      "solution": "16(1024 + 1024) = 32,768 parameters. The full matrix has 1,048,576, so the fraction is 3.1%.",
+      "a": "32,768 parameters, 3.1%."
+    }
+  ]
+}

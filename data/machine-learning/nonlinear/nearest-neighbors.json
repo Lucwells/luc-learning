@@ -1,0 +1,298 @@
+{
+  "id": "nearest-neighbors",
+  "view": "chapter",
+  "title": "Nearest Neighbors and Kernel Smoothing",
+  "description": "Prediction by similarity: the k-nearest-neighbor rule, distance metrics, the curse of dimensionality and kernel regression.",
+  "overview": [
+    "The simplest learning algorithm does no training. It stores the data, and to predict for a new point it looks up the most similar stored points and copies their labels. This is nearest-neighbor classification. Despite its simplicity it is a strong baseline, it has a clean theoretical guarantee, and it makes the dependence of learning on the geometry of the data easy to see.",
+    "The method also shows clearly what fails in high dimensions: when there are many features, no points are close to each other, and local methods starve for data."
+  ],
+  "objectives": [
+    "Apply the k-nearest-neighbor rule for classification and regression, and see how k controls bias and variance.",
+    "Choose and scale a distance metric appropriately.",
+    "State the Cover–Hart bound relating 1-NN error to the Bayes error.",
+    "Explain the curse of dimensionality quantitatively.",
+    "Compute a kernel-weighted (Nadaraya–Watson) estimate and describe how nearest-neighbor search is accelerated."
+  ],
+  "sections": [
+    {
+      "id": "knn-rule",
+      "title": "The k-nearest-neighbor rule",
+      "terms": [
+        "k-nearest neighbors",
+        "k-nearest-neighbor",
+        "nearest neighbor",
+        "nearest neighbors",
+        "knn",
+        "1-nn",
+        "instance-based learning",
+        "lazy learning",
+        "voronoi diagram"
+      ],
+      "body": [
+        "Given a query x, find the k training points closest to it under a distance d, the neighbors N_k(x). Then:",
+        {
+          "list": [
+            "**Classification**: predict the most common label among the neighbors (a majority vote).",
+            "**Regression**: predict the average of the neighbors' labels, ŷ = (1/k) Σ_{i ∈ N_k(x)} y^{(i)}.",
+            "**Weighted** versions give closer neighbors more weight, for example w_i ∝ 1/d(x, x^{(i)})."
+          ]
+        },
+        "This is **instance-based** or **lazy** learning: there is no training phase and no parameters, but the whole data set must be stored and each prediction scans it. For k = 1 the decision regions are the cells of the **Voronoi diagram** of the training points: each cell is the set of points closer to one training point than to any other. The boundary between classes is piecewise linear and can be very irregular.",
+        {
+          "svg": "<svg viewBox='0 0 300 240' role='img' aria-label='Query point with its three nearest neighbors inside a circle' font-family='system-ui, sans-serif' font-size='12'><circle cx='160' cy='100' r='80' fill='none' stroke='currentColor' stroke-width='1.5' stroke-dasharray='5 3'/><g fill='currentColor'><circle cx='80' cy='180' r='5'/><circle cx='120' cy='180' r='5'/><circle cx='160' cy='140' r='5'/><rect x='195' y='55' width='10' height='10'/><rect x='235' y='95' width='10' height='10'/></g><path d='M160,92 l8,8 l-8,8 l-8,-8 z' style='fill:var(--accent)'/><g fill='currentColor'><text x='172' y='96' style='fill:var(--accent)'>query (3, 3)</text><text x='20' y='230'>● red    ■ blue    dashed circle: the 3 nearest neighbors</text></g></svg>",
+          "caption": "A query and its k = 3 neighbors: one red point and two blue points, so the vote is blue."
+        },
+        {
+          "example": {
+            "title": "The prediction depends on k",
+            "problem": "Training points: red at (1, 1), (2, 1), (3, 2) and blue at (4, 4), (5, 3). Classify the query (3, 3) with k = 1, 3 and 5 using Euclidean distance.",
+            "solution": [
+              "Distances to the query: (3, 2) red, 1.00; (4, 4) blue, 1.41; (5, 3) blue, 2.00; (2, 1) red, 2.24; (1, 1) red, 2.83.",
+              {
+                "eq": [
+                  "k = 1: nearest is red → red",
+                  "k = 3: red, blue, blue → blue",
+                  "k = 5: three red, two blue → red"
+                ]
+              },
+              "The prediction flips with k. A small k follows individual points (low bias, high variance), and a large k averages over a wide region."
+            ]
+          }
+        },
+        {
+          "h": "Choosing k"
+        },
+        "k is the hyperparameter that sets the complexity. With k = 1 the training error is zero (each point is its own nearest neighbor) and the model is highly variable. As k grows the boundary smooths; at k = m the prediction is the global majority. Choose k by cross-validation, typically an odd number to avoid ties in two-class problems."
+      ],
+      "check": [
+        {
+          "q": "With k = 1, the training error of a nearest-neighbor classifier (with no duplicate points of different labels) is",
+          "a": "zero",
+          "wrong": ["the Bayes error", "one half", "equal to the test error"]
+        },
+        {
+          "q": "Increasing k generally",
+          "a": "increases bias and decreases variance",
+          "wrong": [
+            "decreases bias and increases variance",
+            "decreases both",
+            "does not affect either"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "metrics",
+      "title": "Distance and similarity",
+      "terms": [
+        "euclidean distance",
+        "manhattan distance",
+        "cosine similarity",
+        "mahalanobis distance",
+        "distance metric",
+        "minkowski distance"
+      ],
+      "body": [
+        "The method is only as good as its notion of similarity. Common distances between x and z:",
+        {
+          "eqs": [
+            ["d₂(x, z) = ‖x − z‖₂ = √Σ(x_j − z_j)²", "Euclidean distance"],
+            ["d₁(x, z) = Σ|x_j − z_j|", "Manhattan distance; less sensitive to a single large difference"],
+            ["d_p(x, z) = (Σ|x_j − z_j|^p)^{1/p}", "Minkowski distance"],
+            ["cos(x, z) = xᵀz / (‖x‖ ‖z‖)", "cosine similarity; compares direction and ignores length, common for text"],
+            ["d_M(x, z) = √((x − z)ᵀ Σ⁻¹ (x − z))", "Mahalanobis distance; accounts for scale and correlation of the features"]
+          ]
+        },
+        {
+          "warn": "Features on larger scales dominate the distance. If income is in dollars (up to 10⁵) and age in years (up to 100), income alone decides who is near. Standardize every feature, or learn a metric, before using nearest neighbors. Irrelevant features add noise to every distance, so select features carefully."
+        },
+        "Categorical features need a different measure, such as the Hamming distance (count of mismatches). For complex objects, a learned embedding (from a neural network) often supplies a distance in which Euclidean or cosine similarity works well. This is how modern image search and retrieval systems work."
+      ],
+      "check": [
+        {
+          "q": "Two documents are far apart in Euclidean distance only because one is much longer. Which measure ignores length?",
+          "a": "Cosine similarity",
+          "wrong": ["Manhattan distance", "Euclidean distance", "Hamming distance"]
+        }
+      ]
+    },
+    {
+      "id": "cover-hart",
+      "title": "How good can it be? The Cover–Hart bound",
+      "terms": [
+        "cover-hart",
+        "cover–hart",
+        "cover-hart bound",
+        "asymptotic error of nearest neighbor",
+        "consistency"
+      ],
+      "body": [
+        "The Bayes error R* is the lowest error any classifier can achieve (see Generative Classifiers). For two classes, Cover and Hart (1967) showed that as the number of training points m → ∞ the error of the 1-nearest-neighbor rule satisfies",
+        {
+          "eq": "R* ≤ R_{1NN} ≤ 2R*(1 − R*) ≤ 2R*"
+        },
+        "Without any model assumptions, the simplest rule is never more than twice as bad as the best possible classifier. The intuition: as m grows the nearest neighbor of x becomes arbitrarily close to x, so its label is a draw from the same conditional distribution P(y | x). It errs when the neighbor's label differs from the query's, with probability 2p(1 − p), where p = P(y = 1 | x), compared with the Bayes rule's min(p, 1 − p).",
+        {
+          "example": {
+            "title": "The bound in numbers",
+            "problem": "If the Bayes error is 10%, what are the possible asymptotic errors of 1-NN? What if the Bayes error is 25%?",
+            "solution": "For R* = 0.10: 2(0.1)(0.9) = 0.18, so 1-NN has error between 10% and 18%. For R* = 0.25: 2(0.25)(0.75) = 0.375, so the error is between 25% and 37.5%."
+          }
+        },
+        "With k growing slowly with m (k → ∞ and k/m → 0) the k-NN rule is **consistent**: its error converges to the Bayes error for every distribution. Few methods have this property. The catch is that convergence can need an astronomical number of points when n is large, as the next section shows."
+      ],
+      "check": [
+        {
+          "q": "If the Bayes error is 5%, the asymptotic 1-NN error is at most",
+          "a": "9.5%",
+          "wrong": ["5%", "10%", "2.5%"],
+          "why": "2(0.05)(0.95) = 0.095."
+        }
+      ]
+    },
+    {
+      "id": "dimensionality",
+      "title": "The curse of dimensionality",
+      "terms": [
+        "curse of dimensionality",
+        "high-dimensional data",
+        "distance concentration",
+        "dimensionality"
+      ],
+      "body": [
+        "Intuition built in two and three dimensions fails in high dimensions. Local methods assume that points exist near the query, and that assumption breaks down.",
+        {
+          "h": "Neighborhoods are not local"
+        },
+        "Suppose data are uniform in the unit cube [0, 1]ⁿ. To capture a fraction r of the data with a cube centered at the query, the cube's side must be r^{1/n}.",
+        {
+          "table": {
+            "head": ["Dimension n", "Side needed for 1% of the data", "Side needed for 10%"],
+            "rows": [
+              ["2", "0.10", "0.32"],
+              ["10", "0.63", "0.79"],
+              ["100", "0.955", "0.977"],
+              ["1000", "0.9954", "0.9977"]
+            ],
+            "caption": "Side length (as a fraction of the range of each coordinate) of the cube holding a given share of uniform data: r^{1/n}."
+          }
+        },
+        "In 10 dimensions a neighborhood containing only 1% of the data spans 63% of the range of every variable. It is not local at all.",
+        {
+          "h": "Distances concentrate"
+        },
+        "For random points in high dimensions, the ratio of the farthest to the nearest distance from a query tends to 1: all points are almost equally far. Nearest and farthest neighbors become indistinguishable, and the neighbor voting becomes unreliable.",
+        {
+          "h": "Data requirements explode"
+        },
+        "Covering each axis with 10 sample points takes 10ⁿ points in n dimensions. Real data usually lie near a lower-dimensional surface (an image of a face has far fewer degrees of freedom than pixels), which is why nearest neighbors can still work on real high-dimensional data, but only if the metric reflects that structure.",
+        {
+          "key": "Remedies: reduce the dimension first (PCA or a learned embedding), select only relevant features, learn a metric, or use a model that makes assumptions (such as linearity) so that it does not depend on local data."
+        }
+      ],
+      "check": [
+        {
+          "q": "In 100 dimensions, a cube holding 1% of uniform data has side about",
+          "a": "0.955 of the range of each coordinate",
+          "wrong": [
+            "0.01 of the range",
+            "0.1 of the range",
+            "0.5 of the range"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "kernel-smoothing",
+      "title": "Kernel regression and fast search",
+      "terms": [
+        "kernel regression",
+        "nadaraya-watson",
+        "nadaraya–watson",
+        "kernel smoothing",
+        "kernel density estimation",
+        "k-d tree",
+        "approximate nearest neighbor",
+        "locality-sensitive hashing"
+      ],
+      "body": [
+        "A hard cutoff at k neighbors makes ŷ jump as the query moves. **Kernel regression** (the Nadaraya–Watson estimator) replaces it with a smooth weighting of all points by a kernel of the distance:",
+        {
+          "eq": "ŷ(x) = Σ_i K_h(x − x^{(i)}) y^{(i)} / Σ_i K_h(x − x^{(i)}),    K_h(u) = exp(−‖u‖²/(2h²))"
+        },
+        "The bandwidth h plays the role of k: small h tracks the data closely, and large h averages broadly. It is a weighted average with weights that sum to one. (Locally weighted regression in the Linear Regression chapter fits a line instead of a constant at each query.)",
+        {
+          "example": {
+            "title": "Kernel regression at a query",
+            "problem": "Data (x, y): (0, 2), (1, 4), (3, 10). Estimate y at x = 1.5 with a Gaussian kernel of bandwidth h = 1.",
+            "solution": [
+              "The distances are 1.5, 0.5 and 1.5, so the weights are exp(−1.125) = 0.3247, exp(−0.125) = 0.8825 and exp(−1.125) = 0.3247. Their sum is 1.5319.",
+              {
+                "eq": "ŷ = (0.3247·2 + 0.8825·4 + 0.3247·10) / 1.5319 = 7.426 / 1.5319 = 4.85"
+              },
+              "The estimate lies between the observed values and is closest to the nearest point's label, 4."
+            ]
+          }
+        },
+        "The same idea applied to the data points themselves, with the average taken over the kernel values, estimates a probability density. This is **kernel density estimation**: p̂(x) = (1/m) Σ K_h(x − x^{(i)}) with the kernel normalized to integrate to one.",
+        {
+          "h": "Making search fast"
+        },
+        "Brute-force search costs O(mn) per query. Alternatives:",
+        {
+          "list": [
+            "**k-d trees** and **ball trees** split space recursively and prune branches that cannot contain a nearer point. They give roughly O(log m) queries in low dimension (n below about 20) but degrade to brute force in high dimension.",
+            "**Approximate nearest neighbor** methods trade a small chance of missing the true neighbors for large speedups: locality-sensitive hashing (similar points collide in hash buckets), graph-based indexes (HNSW) and product quantization. These power vector search over billions of embeddings.",
+            "Reduce m by keeping only prototypes or condensing the training set."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "In Nadaraya–Watson regression, the prediction is",
+          "a": "a weighted average of the training labels, with weights from the kernel",
+          "wrong": [
+            "the label of the single nearest point",
+            "a straight line fit to all points",
+            "the median label"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "k-NN predicts by majority vote (classification) or average (regression) of the k closest training points. There is no training, but each query scans the data. 1-NN gives Voronoi cells.",
+    "k controls complexity: small k has low bias and high variance. Choose it by cross-validation. Scale the features, since the metric defines similarity.",
+    "Cover–Hart: asymptotically, R* ≤ R_1NN ≤ 2R*(1 − R*). With k → ∞ slowly, k-NN is consistent.",
+    "The curse of dimensionality makes neighborhoods non-local and distances similar. Reduce dimension or learn a metric.",
+    "Kernel regression is a smooth weighted average of labels; the bandwidth plays the role of k. Search is accelerated with trees or approximate methods."
+  ],
+  "problems": [
+    {
+      "q": "Training points: class A at (0, 0), (1, 0); class B at (3, 3), (4, 3), (4, 4). Classify (2, 1) with k = 3.",
+      "solution": "Distances to (2, 1): (1, 0): √2 = 1.41 (A); (3, 3): √5 = 2.24 (B); (0, 0): √5 = 2.24 (A); (4, 3): √8 = 2.83 (B). The three nearest are (1, 0) A, then (3, 3) B and (0, 0) A tied at 2.24. The vote is A, A, B.",
+      "a": "Class A."
+    },
+    {
+      "q": "Features: age (range 20–70) and income (range 20,000–120,000). Two people differ by 10 years and by 5,000 in income. Compare each difference's contribution to the squared distance before and after scaling each feature to the range [0, 1].",
+      "solution": "Before: age 10² = 100, income 5000² = 25,000,000, so income dominates by a factor of 250,000. After scaling: age 10/50 = 0.2 → 0.04; income 5000/100,000 = 0.05 → 0.0025. Age now contributes more.",
+      "a": "Unscaled income dominates by 250,000×; scaled, age contributes 0.04 and income 0.0025."
+    },
+    {
+      "q": "A 1-NN classifier has asymptotic error 0.32. What is the largest the Bayes error R* could be, and the smallest?",
+      "solution": "From 2R*(1 − R*) ≥ 0.32 we get R*² − R* + 0.16 ≤ 0, so R* ≥ (1 − √(1 − 0.64))/2 = (1 − 0.6)/2 = 0.2. Also R* ≤ R_1NN = 0.32.",
+      "a": "R* is between 0.2 and 0.32."
+    },
+    {
+      "q": "What side length of the cube is needed to hold 5% of uniform data in 20 dimensions?",
+      "solution": "r^{1/n} = 0.05^{0.05} = exp(0.05 ln 0.05) = exp(0.05 × (−2.996)) = exp(−0.1498) = 0.861.",
+      "a": "About 0.86 of the range of each variable."
+    },
+    {
+      "q": "Data (0, 1), (2, 5). Estimate y at x = 1 with kernel regression and any symmetric kernel.",
+      "solution": "x = 1 is equidistant from both points, so the weights are equal and ŷ = (1 + 5)/2 = 3.",
+      "a": "3."
+    }
+  ]
+}

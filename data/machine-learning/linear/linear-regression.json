@@ -1,0 +1,374 @@
+{
+  "id": "linear-regression",
+  "view": "chapter",
+  "title": "Linear Regression",
+  "description": "Least squares, the normal equations, gradient descent, the probabilistic view, nonlinear features and locally weighted regression.",
+  "overview": [
+    "Linear regression is the simplest supervised learning method and the template for the rest. It has a model (a weighted sum of the features), a loss (squared error), a closed-form solution (the normal equations) and an iterative one (gradient descent), and it can be justified as maximum likelihood under Gaussian noise. Almost every later chapter modifies one of these pieces.",
+    "This chapter assumes the linear algebra of the Mathematics book, in particular matrix products, the transpose, the inverse and gradients of scalar functions of vectors."
+  ],
+  "objectives": [
+    "Write the linear model and the least squares objective in matrix form.",
+    "Derive the normal equations and solve them for a small data set, and explain the geometry of the solution.",
+    "Apply batch, stochastic and mini-batch gradient descent, and explain how the learning rate and feature scaling affect convergence.",
+    "Show that least squares is maximum likelihood under Gaussian noise.",
+    "Fit nonlinear relationships with feature maps, and describe locally weighted regression."
+  ],
+  "sections": [
+    {
+      "id": "model-loss",
+      "title": "The linear model and least squares",
+      "terms": [
+        "linear regression",
+        "linear model",
+        "least squares",
+        "ordinary least squares",
+        "squared error",
+        "residual",
+        "intercept",
+        "bias term"
+      ],
+      "body": [
+        "Given a feature vector x ∈ ℝⁿ, a **linear model** predicts a weighted sum of the features:",
+        {
+          "eq": "h_θ(x) = θ₀ + θ₁x₁ + … + θₙxₙ = θᵀx"
+        },
+        "The last form uses the convention x₀ = 1, so that θ₀ is the **intercept** and x ∈ ℝ^{n+1} from now on. The vector θ holds the parameters, also called weights.",
+        "The **least squares** objective sums the squared **residuals** y^{(i)} − h_θ(x^{(i)}) over the training set:",
+        {
+          "eq": "J(θ) = (1/2m) Σ_{i=1}^{m} ( θᵀx^{(i)} − y^{(i)} )²"
+        },
+        "The factor 1/2 cancels the 2 that appears on differentiating, and the 1/m keeps the objective on the scale of an average. Neither changes the minimizer. In matrix form, with X the m×(n+1) design matrix and y the vector of labels,",
+        {
+          "eq": "J(θ) = (1/2m) ‖Xθ − y‖²"
+        },
+        "Squared error is chosen for convenience and for a statistical reason that appears below. It penalizes large errors more than small ones, so a few outliers can pull the fit strongly.",
+        {
+          "svg": "<svg viewBox='0 0 440 250' role='img' aria-label='Three data points, the least squares line and the vertical residuals' font-family='system-ui, sans-serif' font-size='12'><g fill='none' stroke='currentColor' stroke-width='1.5'><path d='M60,220 H400 M60,220 V20'/></g><path fill='none' style='stroke:var(--accent)' stroke-width='2.5' d='M60,208.9 L364,18.9'/><g fill='none' stroke='currentColor' stroke-width='1.5' stroke-dasharray='3 2'><path d='M140,153.3 V158.9'/><path d='M220,120 V108.9'/><path d='M300,53.3 V58.9'/></g><g fill='currentColor'><circle cx='140' cy='153.3' r='4'/><circle cx='220' cy='120' r='4'/><circle cx='300' cy='53.3' r='4'/><text x='62' y='14'>y</text><text x='396' y='238' text-anchor='end'>x</text><text x='316' y='36' style='fill:var(--accent)'>y = 1.5x + 1/3</text></g></svg>",
+          "caption": "The least squares line for the points (1, 2), (2, 3), (3, 5). The dashed segments are the residuals; the line minimizes the sum of their squares."
+        }
+      ],
+      "check": [
+        {
+          "q": "Why is x₀ = 1 added to every feature vector?",
+          "a": "So that θ₀ acts as the intercept inside the single product θᵀx",
+          "wrong": [
+            "To make the features independent",
+            "To normalize the labels",
+            "To guarantee that XᵀX is invertible"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "normal-equations",
+      "title": "The normal equations",
+      "terms": [
+        "normal equations",
+        "normal equation",
+        "closed-form solution",
+        "pseudoinverse solution",
+        "hat matrix",
+        "projection onto the column space"
+      ],
+      "body": [
+        "J is a convex quadratic in θ, so its minimum is where the gradient vanishes. Expand the squared norm:",
+        {
+          "eq": [
+            "‖Xθ − y‖² = θᵀXᵀXθ − 2θᵀXᵀy + yᵀy",
+            "∇_θ ‖Xθ − y‖² = 2XᵀXθ − 2Xᵀy"
+          ]
+        },
+        "Setting the gradient to zero gives the **normal equations**:",
+        {
+          "eq": [
+            "XᵀX θ = Xᵀy",
+            "θ̂ = (XᵀX)⁻¹ Xᵀy"
+          ]
+        },
+        "The inverse exists when the columns of X are linearly independent, which needs m ≥ n + 1 and no feature that is a combination of the others. When XᵀX is singular, the equations still have solutions, and the minimum-norm one is θ̂ = X⁺y, using the pseudoinverse.",
+        {
+          "example": {
+            "title": "Solving the normal equations",
+            "problem": "Fit a line to (1, 2), (2, 3), (3, 5).",
+            "solution": [
+              "The design matrix has a column of ones and a column of x values:",
+              {
+                "eq": [
+                  "X = [[1, 1], [1, 2], [1, 3]],   y = (2, 3, 5)ᵀ",
+                  "XᵀX = [[3, 6], [6, 14]],   Xᵀy = (10, 23)ᵀ"
+                ]
+              },
+              "det(XᵀX) = 3(14) − 6(6) = 6, so (XᵀX)⁻¹ = (1/6) [[14, −6], [−6, 3]]. Then",
+              {
+                "eq": "θ̂ = (1/6) (14·10 − 6·23,  −6·10 + 3·23)ᵀ = (1/6)(2, 9)ᵀ = (1/3, 3/2)ᵀ"
+              },
+              "The line is y = 1/3 + 1.5x, as in the figure. Check: the residuals are 0.167, −0.333, 0.167, which sum to zero and are orthogonal to the x column, as the next paragraph explains."
+            ]
+          }
+        },
+        {
+          "h": "Geometry"
+        },
+        "Rewrite the normal equations as Xᵀ(y − Xθ̂) = 0. The residual vector r = y − Xθ̂ is orthogonal to every column of X. So Xθ̂ is the **orthogonal projection** of y onto the column space of X, and the fitted values are ŷ = Hy with the **hat matrix** H = X(XᵀX)⁻¹Xᵀ. Least squares finds the point in the column space closest to y. The constant column forces the residuals to sum to zero.",
+        {
+          "note": "Solving the normal equations by forming XᵀX squares the condition number of the problem. Numerical libraries instead use a QR factorization or the SVD of X (see Numerical Computing). The cost is O(mn² + n³) in either case, which is why iterative methods are used when n is large."
+        }
+      ],
+      "check": [
+        {
+          "q": "The residual vector of the least squares fit is orthogonal to",
+          "a": "every column of X",
+          "wrong": ["y", "the fitted values only for the intercept", "the parameter vector θ̂"]
+        },
+        {
+          "q": "When is XᵀX not invertible?",
+          "a": "When some feature is a linear combination of the others, or m < n + 1",
+          "wrong": [
+            "When the labels have large variance",
+            "When the residuals are non-zero",
+            "Whenever m > n"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gradient-descent",
+      "title": "Gradient descent",
+      "terms": [
+        "gradient descent",
+        "batch gradient descent",
+        "stochastic gradient descent",
+        "mini-batch",
+        "learning rate",
+        "step size",
+        "lms update rule",
+        "feature scaling",
+        "standardization"
+      ],
+      "body": [
+        "When n or m is too large to solve the normal equations, minimize J iteratively. **Gradient descent** repeatedly steps opposite the gradient, the direction of steepest decrease:",
+        {
+          "eq": [
+            "θ ← θ − α ∇J(θ)",
+            "∇J(θ) = (1/m) Xᵀ(Xθ − y) = (1/m) Σ ( h_θ(x^{(i)}) − y^{(i)} ) x^{(i)}"
+          ]
+        },
+        "The **learning rate** α sets the step length. Each coordinate update is θ_j ← θ_j − α (1/m) Σ (h_θ(x^{(i)}) − y^{(i)}) x_j^{(i)}. This is the LMS (least mean squares) rule: each example adjusts the weights in proportion to its error times its feature value.",
+        {
+          "example": {
+            "title": "One gradient step",
+            "problem": "For the data (1, 2), (2, 3), (3, 5) start at θ = (0, 0) with α = 0.1. Compute θ after one step of batch gradient descent.",
+            "solution": [
+              "At θ = 0 the predictions are zero, so Xθ − y = −y and",
+              {
+                "eq": [
+                  "∇J = (1/3) Xᵀ(−y) = −(1/3)(10, 23)ᵀ = (−3.333, −7.667)ᵀ",
+                  "θ ← (0, 0) − 0.1(−3.333, −7.667) = (0.333, 0.767)"
+                ]
+              },
+              "The intercept and slope both move up. The target is (0.333, 1.5)."
+            ]
+          }
+        },
+        {
+          "h": "Why the learning rate and the scaling of features matter"
+        },
+        "J is a quadratic with Hessian H = XᵀX/m. Gradient descent on a quadratic converges if α < 2/λ_max(H), and the error along the eigenvector with eigenvalue λ shrinks by the factor |1 − αλ| per step. The slowest direction belongs to λ_min, so the number of steps needed scales with the **condition number** κ = λ_max/λ_min.",
+        "For the data above, H = [[1, 2], [2, 4.667]] has eigenvalues 5.55 and 0.12, so κ ≈ 46 and α must stay below 2/5.55 = 0.36. Even at α = 0.3 the small-eigenvalue direction shrinks by only 1 − 0.3(0.12) = 0.964 per step, so hundreds of steps are required.",
+        {
+          "tip": "Standardize each feature to mean 0 and standard deviation 1 before using gradient methods. This makes the eigenvalues of H comparable (κ near 1), allows a larger α, and speeds convergence by large factors. Use the training set's mean and standard deviation for the test data too."
+        },
+        {
+          "h": "Stochastic and mini-batch variants"
+        },
+        {
+          "list": [
+            "**Batch** gradient descent uses all m examples per step. The cost per step is O(mn).",
+            "**Stochastic gradient descent** (SGD) uses one randomly chosen example per step, θ ← θ − α (h_θ(x^{(i)}) − y^{(i)}) x^{(i)}. The step is noisy but its expectation is the true gradient, and it makes progress long before a full pass over the data.",
+            "**Mini-batch** SGD uses b examples (typically 32 to 512). It reduces noise, and it maps well onto hardware that processes many examples at once."
+          ]
+        },
+        "With a fixed α, SGD hovers around the minimum instead of settling. Decreasing α over time (for example α_t ∝ 1/t) lets it converge. Least squares is convex, so every minimum is global and the starting point does not matter; that is no longer true for neural networks."
+      ],
+      "check": [
+        {
+          "q": "Gradient descent on a quadratic diverges when",
+          "a": "α > 2/λ_max of the Hessian",
+          "wrong": [
+            "α < 2/λ_max of the Hessian",
+            "the condition number equals one",
+            "the batch size is larger than m"
+          ]
+        },
+        {
+          "q": "Why standardize features before gradient descent?",
+          "a": "It lowers the condition number, so one learning rate works for all directions",
+          "wrong": [
+            "It makes the objective non-convex",
+            "It removes the need for an intercept",
+            "It guarantees a global minimum for any loss"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "probabilistic",
+      "title": "The probabilistic interpretation",
+      "terms": [
+        "gaussian noise",
+        "probabilistic interpretation",
+        "likelihood",
+        "log-likelihood",
+        "maximum likelihood"
+      ],
+      "body": [
+        "Why squared error? Suppose the labels are generated by a linear function plus noise,",
+        {
+          "eq": "y^{(i)} = θᵀx^{(i)} + ε^{(i)},    ε^{(i)} ~ N(0, σ²) independently"
+        },
+        "Equivalently, y^{(i)} | x^{(i)}; θ ~ N(θᵀx^{(i)}, σ²). The **likelihood** is the probability of the observed labels as a function of θ:",
+        {
+          "eq": "L(θ) = Π_{i} (1/(√(2π) σ)) exp( −(y^{(i)} − θᵀx^{(i)})² / (2σ²) )"
+        },
+        "Take logs, which turn the product into a sum and do not change the maximizer:",
+        {
+          "eq": "ℓ(θ) = log L(θ) = −m log(√(2π) σ) − (1/(2σ²)) Σ ( y^{(i)} − θᵀx^{(i)} )²"
+        },
+        "The first term does not depend on θ. Maximizing ℓ(θ) is the same as minimizing Σ(y − θᵀx)², the least squares objective. So least squares is **maximum likelihood** estimation under independent Gaussian noise. Setting the derivative with respect to σ² to zero gives the estimated noise variance σ̂² = (1/m) Σ (residual)².",
+        {
+          "key": "The loss function encodes a noise model. Squared error assumes Gaussian noise. Absolute error corresponds to Laplace noise and gives the median instead of the mean. The Gaussian assumption is also what justifies confidence intervals and tests for the coefficients (see Regression for Inference)."
+        },
+        {
+          "example": {
+            "title": "Estimated noise variance",
+            "problem": "For the fit y = 1/3 + 1.5x to (1, 2), (2, 3), (3, 5), estimate σ² by maximum likelihood.",
+            "solution": "The residuals are 0.1667, −0.3333, 0.1667, with squares 0.0278, 0.1111, 0.0278 summing to 1/6. So σ̂² = (1/6)/3 = 1/18 = 0.0556. The unbiased estimate divides by m − (n + 1) = 1 instead of 3 and equals 1/6."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Least squares is the maximum likelihood estimator when the noise is",
+          "a": "independent Gaussian with constant variance",
+          "wrong": [
+            "uniform",
+            "Laplace distributed",
+            "zero everywhere only"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nonlinear-features",
+      "title": "Nonlinear relationships with feature maps",
+      "terms": [
+        "feature map",
+        "basis functions",
+        "polynomial regression",
+        "polynomial features",
+        "interaction terms"
+      ],
+      "body": [
+        "A linear model is linear in the parameters θ, not necessarily in the input. Apply a **feature map** φ to the raw input and fit a linear model to φ(x):",
+        {
+          "eq": "h_θ(x) = θᵀφ(x)"
+        },
+        "For a single input x, φ(x) = (1, x, x², …, x^d) gives **polynomial regression** of degree d. For two inputs, degree 2 adds x₁², x₂² and the **interaction term** x₁x₂. Other choices include logarithms, indicators for categories, sines and cosines for periodic data, and radial functions centered at fixed points. The normal equations and gradient descent apply unchanged with X built from φ.",
+        {
+          "list": [
+            "The number of polynomial features of degree ≤ d in n variables is C(n + d, d). For n = 2 and d = 2 this is 6: 1, x₁, x₂, x₁², x₁x₂, x₂². For n = 100 and d = 3 it is 176,851.",
+            "Higher d lowers training error and raises variance (see Generalization). With m points, degree m − 1 fits exactly.",
+            "Polynomial terms of large inputs are huge, so standardize before expanding."
+          ]
+        },
+        "The feature map is where domain knowledge enters. A good choice makes a simple model sufficient, and kernels (see Kernels and Support Vector Machines) let a model use a very large φ without computing it. Neural networks learn φ from data."
+      ],
+      "check": [
+        {
+          "q": "How many features does a full degree-3 polynomial in 2 variables (including the constant) have?",
+          "a": "10",
+          "wrong": ["6", "8", "12"],
+          "why": "C(2 + 3, 3) = C(5, 3) = 10: 1, x₁, x₂, x₁², x₁x₂, x₂², x₁³, x₁²x₂, x₁x₂², x₂³."
+        }
+      ]
+    },
+    {
+      "id": "lwr",
+      "title": "Locally weighted regression",
+      "terms": [
+        "locally weighted regression",
+        "nonparametric",
+        "non-parametric",
+        "bandwidth",
+        "parametric"
+      ],
+      "body": [
+        "A **parametric** model keeps a fixed number of parameters and can discard the training data after fitting. A **nonparametric** model keeps the data, and its complexity grows with m. **Locally weighted regression** (LWR) is a simple nonparametric method. To predict at a query point x, fit a line by weighted least squares, with weights that decay with distance from x:",
+        {
+          "eq": [
+            "w^{(i)} = exp( −‖x^{(i)} − x‖² / (2τ²) )",
+            "θ(x) = argmin_θ Σ_i w^{(i)} ( y^{(i)} − θᵀx^{(i)} )²",
+            "θ(x) = (XᵀWX)⁻¹ XᵀWy,    W = diag(w^{(1)}, …, w^{(m)})",
+            "ŷ(x) = θ(x)ᵀx"
+          ]
+        },
+        "The **bandwidth** τ controls how local the fit is. A small τ follows the data closely (high variance), and a large τ approaches ordinary least squares (high bias). The model solves a new regression for every query, so prediction costs O(mn²) and the whole training set must be kept.",
+        {
+          "example": {
+            "title": "Weights",
+            "problem": "With τ = 1 and a query at x = 2, find the weights of training points at x = 2, 3 and 4.",
+            "solution": "w = exp(−0/2) = 1 for x = 2. For x = 3, w = exp(−1/2) = 0.607. For x = 4, w = exp(−4/2) = 0.135. Distant points count much less."
+          }
+        },
+        "LWR fits curved data with no feature design. Its cost and its need for the full training set limit it to modest data sizes, but it introduces ideas that return in nearest neighbors, kernel regression and Gaussian processes."
+      ],
+      "check": [
+        {
+          "q": "Increasing the bandwidth τ in locally weighted regression makes the fit",
+          "a": "smoother and closer to ordinary linear regression",
+          "wrong": [
+            "more wiggly, with higher variance",
+            "unable to use the training data",
+            "independent of the query point"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "A linear model predicts θᵀx. Least squares minimizes J(θ) = (1/2m)‖Xθ − y‖².",
+    "The normal equations XᵀXθ = Xᵀy give θ̂ = (XᵀX)⁻¹Xᵀy. Geometrically, Xθ̂ is the projection of y onto the column space of X, and the residual is orthogonal to the columns.",
+    "Gradient descent θ ← θ − α∇J works for large problems. It converges when α < 2/λ_max, at a speed set by the condition number, so standardize features. SGD and mini-batch SGD use a few examples per step.",
+    "Least squares is maximum likelihood under independent Gaussian noise; the loss encodes a noise model.",
+    "Feature maps φ(x) make a linear model fit nonlinear relationships, at the cost of more parameters and more variance.",
+    "Locally weighted regression fits a weighted line at each query and trades bias against variance through its bandwidth."
+  ],
+  "problems": [
+    {
+      "q": "Fit y = θ₀ + θ₁x to (0, 1), (1, 2), (2, 2) with the normal equations.",
+      "solution": "X = [[1, 0], [1, 1], [1, 2]], y = (1, 2, 2). XᵀX = [[3, 3], [3, 5]], Xᵀy = (5, 6). det = 15 − 9 = 6, inverse (1/6)[[5, −3], [−3, 3]]. θ̂ = (1/6)(25 − 18, −15 + 18) = (7/6, 1/2). Residuals −1/6, 1/3, −1/6 sum to zero and are orthogonal to x.",
+      "a": "θ̂ = (7/6, 1/2): y = 1.167 + 0.5x."
+    },
+    {
+      "q": "For the data in the previous problem, perform one step of batch gradient descent from θ = (0, 0) with α = 0.5.",
+      "solution": "∇J = (1/3)Xᵀ(Xθ − y) = −(1/3)(5, 6) = (−1.667, −2). θ ← (0, 0) − 0.5(−1.667, −2) = (0.833, 1).",
+      "a": "θ = (0.833, 1.0)."
+    },
+    {
+      "q": "The Hessian of J has eigenvalues 8 and 0.5. What is the largest stable learning rate, and what is the convergence factor per step along each eigendirection at α = 0.2?",
+      "solution": "Stability needs α < 2/8 = 0.25. At α = 0.2 the factors are |1 − 0.2(8)| = 0.6 and |1 − 0.2(0.5)| = 0.9. The slow direction needs about ln(0.001)/ln(0.9) ≈ 66 steps to drop by a factor of 1000.",
+      "a": "α < 0.25; factors 0.6 and 0.9."
+    },
+    {
+      "q": "Labels are modeled as y_i ~ N(θ, 1), independently, so the model is the constant h(x) = θ. Show that the maximum likelihood estimate of θ is the sample mean of the labels.",
+      "solution": "The log-likelihood is −(1/2)Σ(y_i − θ)² plus a constant. Setting the derivative Σ(y_i − θ) to zero gives θ = (1/m)Σ y_i.",
+      "a": "θ̂ = ȳ, the sample mean."
+    },
+    {
+      "q": "A model has n = 20 raw features. How many features does a degree-2 polynomial map (including the constant) produce, and how many examples are needed at minimum for the normal equations to have an invertible matrix?",
+      "solution": "C(20 + 2, 2) = C(22, 2) = 231 features. XᵀX is a 231×231 matrix of rank at most m, so at least m = 231 examples are needed (and the columns must be independent).",
+      "a": "231 features; m ≥ 231."
+    }
+  ]
+}

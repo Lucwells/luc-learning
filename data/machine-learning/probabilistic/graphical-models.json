@@ -1,0 +1,328 @@
+{
+  "id": "graphical-models",
+  "view": "chapter",
+  "title": "Graphical Models and Hidden Markov Models",
+  "description": "Bayesian networks, conditional independence and d-separation, exact inference, hidden Markov models and undirected models.",
+  "overview": [
+    "A joint distribution over n binary variables has 2ⁿ − 1 free parameters, which is hopeless for n = 50. Real problems have structure: most variables depend directly on only a few others. A probabilistic graphical model uses a graph to record which variables depend on which, and in doing so factors the joint distribution into small, manageable pieces. The graph also tells us, by inspection, which variables are independent of which others, and organizes the computation of the probabilities we want.",
+    "This chapter covers directed models (Bayesian networks), the inference calculations on them, the most important sequence model (the hidden Markov model), and undirected models."
+  ],
+  "objectives": [
+    "Write the factorization of a joint distribution from a Bayesian network and count its parameters.",
+    "Read conditional independence from a graph using d-separation, and explain explaining away.",
+    "Compute marginals and posteriors by variable elimination on small examples.",
+    "Run the forward and Viterbi algorithms of a hidden Markov model.",
+    "Describe Markov random fields and conditional random fields."
+  ],
+  "sections": [
+    {
+      "id": "bayes-nets",
+      "title": "Bayesian networks",
+      "terms": [
+        "bayesian network",
+        "bayesian networks",
+        "belief network",
+        "directed graphical model",
+        "probabilistic graphical model",
+        "graphical model",
+        "graphical models",
+        "conditional probability table",
+        "parents"
+      ],
+      "body": [
+        "A **Bayesian network** is a directed acyclic graph with one node per random variable. Each node has a conditional distribution given its **parents** in the graph, and the joint distribution is the product:",
+        {
+          "eq": "P(x₁, …, x_n) = Π_i P( x_i | parents(x_i) )"
+        },
+        "For discrete variables each factor is a **conditional probability table**. The saving is large: if each of 30 binary variables has at most 3 parents, the network needs at most 30 × 2³ = 240 numbers instead of 2³⁰ − 1 (over a billion).",
+        {
+          "example": {
+            "title": "A three-variable chain",
+            "problem": "A → B → C, with P(A = 1) = 0.6, P(B = 1 | A = 1) = 0.9, P(B = 1 | A = 0) = 0.2, P(C = 1 | B = 1) = 0.7, P(C = 1 | B = 0) = 0.1. Find P(C = 1) and the number of parameters.",
+            "solution": [
+              "Sum out A: P(B = 1) = 0.6(0.9) + 0.4(0.2) = 0.54 + 0.08 = 0.62.",
+              "Sum out B: P(C = 1) = 0.62(0.7) + 0.38(0.1) = 0.434 + 0.038 = 0.472.",
+              "Parameters: 1 for A, 2 for B (one per value of A), 2 for C: 5 instead of 2³ − 1 = 7. The saving grows quickly with the number of variables."
+            ]
+          }
+        },
+        "Familiar models are Bayesian networks. **Naive Bayes** has a class variable as the parent of every feature. A **hidden Markov model** is a chain of hidden states, each with one observation. A **mixture model** has a latent variable pointing to the observed variables. The graph makes the assumptions explicit.",
+        {
+          "h": "Learning"
+        },
+        "With fully observed data, each conditional table is estimated independently by counting: P(x_i = a | parents = b) = count(a, b)/count(b), usually with Laplace smoothing (a Dirichlet prior). If some variables are latent, use EM (see Mixture Models and EM). Learning the structure itself is harder: score structures with BIC or the marginal likelihood and search over graphs, or use independence tests. Causal reading of the arrows needs extra assumptions (see Causal Inference in the Data Science book)."
+      ],
+      "check": [
+        {
+          "q": "A Bayesian network over 20 binary variables, each with at most 2 parents, needs at most how many probabilities?",
+          "a": "80",
+          "wrong": ["20", "40", "2²⁰ − 1"],
+          "why": "20 variables × 2² parent configurations = 80 numbers."
+        }
+      ]
+    },
+    {
+      "id": "d-separation",
+      "title": "Conditional independence and d-separation",
+      "terms": [
+        "conditional independence",
+        "d-separation",
+        "explaining away",
+        "collider",
+        "markov blanket",
+        "common cause",
+        "causal chain"
+      ],
+      "body": [
+        "The graph's main message is which variables are independent given others. There are three building blocks for a path through a node.",
+        {
+          "svg": "<svg viewBox='0 0 440 150' role='img' aria-label='Three small graphs: chain, fork and collider' font-family='system-ui, sans-serif' font-size='12'><defs><marker id='arr' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='7' markerHeight='7' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='currentColor'/></marker></defs><g fill='none' stroke='currentColor' stroke-width='1.5'><circle cx='30' cy='50' r='14'/><circle cx='80' cy='50' r='14'/><circle cx='130' cy='50' r='14'/><path d='M44,50 L64,50 M94,50 L114,50' marker-end='url(#arr)'/><circle cx='200' cy='50' r='14'/><circle cx='250' cy='80' r='14'/><circle cx='300' cy='50' r='14'/><path d='M210,60 L240,74 M290,60 L260,74' marker-end='url(#arr)' transform='translate(0,0)'/><circle cx='350' cy='30' r='14'/><circle cx='400' cy='80' r='14'/><circle cx='350' cy='130' r='14'/></g><g fill='currentColor' text-anchor='middle'><text x='30' y='54'>A</text><text x='80' y='54'>B</text><text x='130' y='54'>C</text><text x='200' y='54'>A</text><text x='250' y='84'>B</text><text x='300' y='54'>C</text><text x='80' y='110'>chain: A → B → C</text><text x='250' y='125'>collider: A → B ← C</text></g></svg>",
+          "caption": "A chain A → B → C and a collider A → B ← C. In the chain, B blocks the path when observed. In the collider, B blocks the path until it (or a descendant) is observed."
+        },
+        {
+          "list": [
+            "**Chain** A → B → C and **fork** A ← B → C: A and C are dependent, but become independent once B is observed (B 'blocks' the path). Example: smoking → tar in lungs → cancer; given tar, smoking carries no further information about cancer.",
+            "**Collider** A → B ← C: A and C are independent when B is not observed, but become **dependent** once B (or any descendant of B) is observed."
+          ]
+        },
+        "**d-separation** generalizes this: two sets of variables are conditionally independent given a set Z if every path between them is blocked by Z, where a path is blocked by a chain or fork node in Z, or by a collider that is not in Z and has no descendant in Z. The **Markov blanket** of a node (its parents, children and its children's other parents) makes it independent of all the rest.",
+        {
+          "example": {
+            "title": "Explaining away",
+            "problem": "An alarm A rings if there is a burglary B or an earthquake E (A = B OR E). B and E are independent, each with probability 0.1. Find P(B | A) and P(B | A, E).",
+            "solution": [
+              "P(A) = 1 − 0.9 × 0.9 = 0.19. Burglary implies the alarm, so P(B | A) = P(B)/P(A) = 0.1/0.19 = 0.526.",
+              "Now we learn there was also an earthquake. The alarm is already explained, so the burglary is no more probable than usual: P(B | A, E) = P(B) = 0.1.",
+              "B and E are independent a priori, but become dependent given the alarm: learning one lowers belief in the other. This 'explaining away' is the signature of a collider."
+            ]
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "In the collider A → B ← C, observing B makes A and C",
+          "a": "dependent",
+          "wrong": ["independent", "identical", "unconnected in the graph"]
+        },
+        {
+          "q": "In the chain A → B → C, observing B makes A and C",
+          "a": "conditionally independent",
+          "wrong": ["dependent", "equal", "unrelated to B"]
+        }
+      ]
+    },
+    {
+      "id": "inference",
+      "title": "Exact inference",
+      "terms": [
+        "variable elimination",
+        "belief propagation",
+        "sum-product algorithm",
+        "message passing",
+        "junction tree",
+        "treewidth",
+        "marginal inference",
+        "approximate inference in graphical models"
+      ],
+      "body": [
+        "Inference means computing a marginal or a conditional probability, such as P(disease | symptoms). The brute-force way sums the joint over all other variables, which costs exponentially many terms. **Variable elimination** instead pushes the sums inside the product of factors and removes one variable at a time. For the chain A → B → C, P(C) = Σ_B P(C | B) Σ_A P(B | A)P(A): each sum is a small table, as in the earlier example.",
+        {
+          "list": [
+            "On a **tree** or chain, the **sum-product** algorithm (belief propagation) computes all the marginals at once by passing messages along the edges in two sweeps, in time linear in the number of nodes.",
+            "On a general graph, the cost of variable elimination depends on the **treewidth**, the size of the largest table created, which is the number of variables in the largest clique of the best triangulation. The junction tree algorithm packages this. For graphs with large treewidth, exact inference is NP-hard.",
+            "Then use **approximate** inference: sampling (MCMC, importance sampling), variational methods (see Bayesian Methods), or loopy belief propagation, which runs message passing on a graph with cycles and often works well in practice."
+          ]
+        },
+        {
+          "example": {
+            "title": "A posterior by Bayes' rule on the chain",
+            "problem": "In the A → B → C chain above, C is observed to be 1. Find P(A = 1 | C = 1).",
+            "solution": [
+              "P(C = 1 | A = 1) = P(B = 1 | A = 1)(0.7) + P(B = 0 | A = 1)(0.1) = 0.9(0.7) + 0.1(0.1) = 0.64.",
+              "P(C = 1 | A = 0) = 0.2(0.7) + 0.8(0.1) = 0.22.",
+              "By Bayes' rule, P(A = 1 | C = 1) = 0.6(0.64) / (0.6(0.64) + 0.4(0.22)) = 0.384/(0.384 + 0.088) = 0.814, up from the prior 0.6."
+            ]
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "Belief propagation is exact on graphs that are",
+          "a": "trees (no cycles in the undirected skeleton)",
+          "wrong": [
+            "complete graphs",
+            "graphs with colliders only",
+            "all graphs"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hmm",
+      "title": "Hidden Markov models",
+      "terms": [
+        "hidden markov model",
+        "hidden markov models",
+        "hmm",
+        "markov chain",
+        "transition matrix",
+        "emission probability",
+        "forward algorithm",
+        "viterbi algorithm",
+        "baum-welch",
+        "speech recognition"
+      ],
+      "body": [
+        "A **hidden Markov model** (HMM) describes a sequence in which an unobserved state s_t evolves as a Markov chain (the next state depends only on the current state), and each state emits an observation x_t. It is parameterized by",
+        {
+          "list": [
+            "the initial distribution π_i = P(s₁ = i),",
+            "the **transition matrix** A_ij = P(s_{t+1} = j | s_t = i),",
+            "the **emission** probabilities B_i(x) = P(x_t = x | s_t = i)."
+          ]
+        },
+        "The joint distribution is P(s, x) = π_{s₁} B_{s₁}(x₁) Π_{t≥2} A_{s_{t−1}s_t} B_{s_t}(x_t). HMMs were the standard model for speech recognition (states are phonemes, observations are acoustic features), part-of-speech tagging, gene finding and many other sequence tasks. There are three problems.",
+        {
+          "h": "Evaluation: the forward algorithm"
+        },
+        "How likely is an observation sequence? Summing over all N^T state sequences is infeasible, but the **forward** variable α_t(i) = P(x₁, …, x_t, s_t = i) satisfies a recursion that costs O(TN²):",
+        {
+          "eq": [
+            "α₁(i) = π_i B_i(x₁)",
+            "α_{t+1}(j) = [ Σ_i α_t(i) A_ij ] B_j(x_{t+1})",
+            "P(x₁, …, x_T) = Σ_i α_T(i)"
+          ]
+        },
+        {
+          "example": {
+            "title": "Forward algorithm for a weather HMM",
+            "problem": "Two hidden states, Rain and Sun. π = (0.5, 0.5), transitions: stay with probability 0.7, switch with 0.3. Emissions: P(umbrella | Rain) = 0.9, P(umbrella | Sun) = 0.2. We see umbrella on two consecutive days. Find the probability of the observations and the probability that day 2 is rainy.",
+            "solution": [
+              "α₁(Rain) = 0.5 · 0.9 = 0.45, α₁(Sun) = 0.5 · 0.2 = 0.10.",
+              "α₂(Rain) = (0.45 · 0.7 + 0.10 · 0.3) · 0.9 = 0.345 · 0.9 = 0.3105.",
+              "α₂(Sun) = (0.45 · 0.3 + 0.10 · 0.7) · 0.2 = 0.205 · 0.2 = 0.0410.",
+              "P(observations) = 0.3105 + 0.0410 = 0.3515, and P(day 2 rainy | observations) = 0.3105/0.3515 = 0.883. This conditional is the filtering distribution."
+            ]
+          }
+        },
+        {
+          "h": "Decoding: the Viterbi algorithm"
+        },
+        "What is the most likely hidden state sequence? Replace the sums by maxima: δ_{t+1}(j) = max_i [δ_t(i) A_ij] B_j(x_{t+1}), remember which i achieved the maximum, and trace back from the best final state.",
+        {
+          "example": {
+            "title": "Viterbi on the same data",
+            "problem": "Find the most likely state sequence for the two umbrella days.",
+            "solution": "δ₁ = (0.45, 0.10). δ₂(Rain) = max(0.45 · 0.7, 0.10 · 0.3) · 0.9 = 0.315 · 0.9 = 0.2835, reached from Rain. δ₂(Sun) = max(0.45 · 0.3, 0.10 · 0.7) · 0.2 = 0.135 · 0.2 = 0.027, also from Rain. The best final state is Rain (0.2835), so the path is Rain, Rain."
+          }
+        },
+        {
+          "h": "Learning: Baum–Welch"
+        },
+        "Given only observations, estimate π, A and B by EM, called the **Baum–Welch** algorithm. The E-step uses the forward and a backward recursion to compute the posterior probability of each state, and of each pair of consecutive states, at every time. The M-step re-estimates each parameter from these expected counts: A_ij is the expected number of transitions i → j divided by the expected number of visits to i.",
+        {
+          "note": "HMMs have been largely replaced in speech and language by recurrent networks and transformers, which model long-range structure better, but state-space models (Kalman filters for continuous states, HMMs for discrete) remain central in tracking, control, bioinformatics and time-series analysis."
+        }
+      ],
+      "check": [
+        {
+          "q": "The forward algorithm computes P(observations) in time",
+          "a": "O(T N²) for T steps and N states",
+          "wrong": ["O(N^T)", "O(T)", "O(N)"]
+        },
+        {
+          "q": "Viterbi differs from the forward algorithm in that it",
+          "a": "takes maxima instead of sums, to find the single best state sequence",
+          "wrong": [
+            "uses a different transition matrix",
+            "needs labeled states",
+            "computes the likelihood of the data"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mrf",
+      "title": "Undirected models: MRFs and CRFs",
+      "terms": [
+        "markov random field",
+        "markov random fields",
+        "mrf",
+        "undirected graphical model",
+        "potential function",
+        "clique potential",
+        "partition function of a graphical model",
+        "ising model",
+        "conditional random field",
+        "crf",
+        "boltzmann machine"
+      ],
+      "body": [
+        "When the relations between variables are symmetric and have no natural direction (neighboring pixels, interacting atoms, friends in a network), an undirected graph is more natural. A **Markov random field** (MRF) defines the joint distribution through non-negative **potential functions** ψ_c on the cliques c of the graph:",
+        {
+          "eq": "P(x) = (1/Z) Π_c ψ_c(x_c),    Z = Σ_x Π_c ψ_c(x_c)"
+        },
+        "The **partition function** Z makes the distribution sum to one. Computing it is generally intractable, because it sums over all configurations, and this is the main difficulty of learning MRFs. Conditional independence is simpler than in directed models: a variable is independent of all others given its neighbors.",
+        {
+          "list": [
+            "The **Ising model** has binary spins x_i ∈ {−1, +1} and pairwise potentials ψ(x_i, x_j) = exp(J x_i x_j). With J > 0 it favors neighbors that agree, as in image denoising, where the observed pixels are tied to hidden clean pixels that prefer to equal their neighbors.",
+            "A **Boltzmann machine** is a fully connected MRF over binary units with hidden units; the restricted version (bipartite) was an early deep learning building block.",
+            "A **conditional random field** (CRF) models P(y | x) directly, with potentials that may depend on the whole input x, so there is no need to model the inputs themselves. Linear-chain CRFs were standard for tagging sequences, such as names in text, and are often attached on top of a neural network's outputs."
+          ]
+        },
+        {
+          "example": {
+            "title": "A partition function",
+            "problem": "Two binary variables x₁, x₂ ∈ {0, 1} share the potential ψ(x₁, x₂) = 3 if x₁ = x₂ and 1 otherwise. Find Z and P(x₁ = x₂).",
+            "solution": "The four configurations have values 3, 1, 1, 3, so Z = 8. P(x₁ = x₂) = (3 + 3)/8 = 0.75."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "The partition function Z of a Markov random field",
+          "a": "normalizes the product of potentials and is generally expensive to compute",
+          "wrong": [
+            "equals 1 by construction",
+            "is the number of cliques",
+            "is only needed for directed graphs"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "A Bayesian network is a DAG with P(x) = Π P(x_i | parents(x_i)). The factorization cuts the parameter count from exponential to the sum of the local tables.",
+    "d-separation reads conditional independence off the graph. Observing a chain or fork node blocks the path; observing a collider (or its descendant) opens it, which causes explaining away.",
+    "Variable elimination and belief propagation compute marginals exactly; the cost depends on the treewidth. Otherwise use sampling, variational methods or loopy belief propagation.",
+    "An HMM has a hidden Markov chain and per-state emissions. The forward algorithm computes the likelihood in O(TN²), Viterbi decodes the best path, and Baum–Welch (EM) learns the parameters.",
+    "Markov random fields use clique potentials and a partition function; CRFs model P(y | x) discriminatively."
+  ],
+  "problems": [
+    {
+      "q": "For the chain A → B → C of the text, find P(B = 1 | C = 1).",
+      "solution": "P(B = 1) = 0.62 and P(C = 1 | B = 1) = 0.7, P(C = 1) = 0.472. By Bayes' rule P(B = 1 | C = 1) = 0.62 × 0.7/0.472 = 0.434/0.472 = 0.919.",
+      "a": "0.919."
+    },
+    {
+      "q": "In the burglary–earthquake–alarm model (A = B OR E, with P(B) = P(E) = 0.1), find P(B | A) and P(B | A, ¬E).",
+      "solution": "P(B | A) = 0.526 as computed. If we know there was no earthquake, the alarm must be due to the burglary: P(B | A, ¬E) = 1.",
+      "a": "0.526 and 1."
+    },
+    {
+      "q": "In the weather HMM, the third day also shows umbrella. Compute α₃ and the probability of all three observations.",
+      "solution": "α₃(Rain) = (0.3105 · 0.7 + 0.0410 · 0.3) · 0.9 = (0.21735 + 0.0123) · 0.9 = 0.20669. α₃(Sun) = (0.3105 · 0.3 + 0.0410 · 0.7) · 0.2 = (0.09315 + 0.0287) · 0.2 = 0.02437. Sum = 0.2311.",
+      "a": "P(UUU) = 0.231."
+    },
+    {
+      "q": "Count the free parameters in an HMM with N = 3 states and 5 possible observation symbols.",
+      "solution": "Initial distribution: N − 1 = 2. Transition matrix: N rows each with N − 1 free entries = 6. Emissions: N rows each with 4 free entries = 12. Total 20.",
+      "a": "20."
+    },
+    {
+      "q": "An Ising model on 3 binary variables in a chain x₁ − x₂ − x₃ has pairwise potential ψ = 2 when neighbors agree and 1 otherwise. Compute Z.",
+      "solution": "Sum over the 8 configurations of ψ(x₁, x₂)ψ(x₂, x₃). Both pairs agree in 2 configurations (000, 111): 4 each → 8. Exactly one pair agrees in 4 configurations: 2 each → 8. No pairs agree in 2 configurations (010, 101): 1 each → 2. Z = 8 + 8 + 2 = 18.",
+      "a": "Z = 18."
+    }
+  ]
+}

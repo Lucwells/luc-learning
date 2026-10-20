@@ -1,0 +1,418 @@
+{
+  "id": "software-practice",
+  "view": "chapter",
+  "title": "Software Practice: Version Control, Testing and Reproducibility",
+  "description": "Git, automated tests for numerical and machine learning code, debugging, reproducible environments and experiments, and code quality.",
+  "overview": [
+    "Machine learning code fails in an unusual way: it often runs without error and returns a wrong answer. A sign flipped in a gradient, a shuffled label column, test data leaking into training, or a broadcast that silently produced the wrong shape all give a model that trains and reports reasonable numbers. The defenses are the same as in other software, applied with extra care: keep a history of changes, test the pieces, make runs reproducible, and write code that can be read.",
+    "This chapter covers version control with Git, automated tests (including the tests that are specific to numerical and learning code), debugging, reproducible environments and experiments, and the habits that keep a research project maintainable."
+  ],
+  "objectives": [
+    "Use Git for commits, branches and merges, and explain what should and should not be under version control.",
+    "Write unit tests with assertions and tolerances, and apply the machine-learning-specific tests: shape checks, gradient checks and overfitting a tiny batch.",
+    "Debug systematically with minimal examples, tracebacks, a debugger and bisection.",
+    "Make experiments reproducible with pinned environments, seeds, configuration files and logged runs.",
+    "Organize a project and write readable, documented code."
+  ],
+  "sections": [
+    {
+      "id": "git",
+      "title": "Version control with Git",
+      "terms": [
+        "gitignore",
+        "pull request",
+        "merge conflict",
+        "software practice"
+      ],
+      "body": [
+        "**Version control** records the history of a project as a series of snapshots, called **commits**, each with a message, an author and a pointer to its parent. It lets you undo mistakes, compare versions, try ideas on **branches** without breaking working code, and collaborate. **Git** is the standard tool. A **repository** is the project folder plus its history.",
+        {
+          "code": [
+            "git init                          # start a repository in this folder",
+            "git status                        # what changed?",
+            "git add train.py utils.py         # choose files for the next snapshot",
+            "git commit -m 'Add mini-batch loader'    # record the snapshot",
+            "git log --oneline                 # history, one line per commit",
+            "git diff                          # show uncommitted changes",
+            "",
+            "git switch -c try-adam            # create and switch to a new branch",
+            "# ... edit, add, commit ...",
+            "git switch main",
+            "git merge try-adam                # bring the branch's commits into main"
+          ],
+          "caption": "The everyday Git commands."
+        },
+        {
+          "list": [
+            "Make **small, focused commits** with messages that say why: 'Fix off-by-one in batch loader', not 'changes'. Small commits are easy to review, revert and bisect.",
+            "A **merge conflict** arises when two branches change the same lines. Git marks the conflict in the file; you edit it into the desired result and commit.",
+            "On a hosting site (GitHub, GitLab), a **pull request** proposes merging a branch and invites review.",
+            "List files that should not be tracked in **.gitignore**: virtual environments, caches (__pycache__), notebooks' outputs, and above all large data files, model checkpoints and **secrets** (API keys, passwords). Anything committed stays in history even if later deleted.",
+            "Git is poor at large binary files. Track data and models with a tool built for them (Git LFS, DVC) or store them separately and record their version and hash.",
+            "`git bisect` finds the commit that introduced a bug by binary search over history, in about log₂(n) steps: for 1000 commits, 10 tests."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "A file with an API key was committed and later deleted. The key",
+          "a": "is still in the repository history and should be considered exposed",
+          "wrong": [
+            "is gone, since the file was deleted",
+            "cannot be found by anyone",
+            "is encrypted by Git"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "testing",
+      "title": "Automated testing",
+      "terms": [
+        "unit test",
+        "unit tests",
+        "pytest",
+        "assertion",
+        "test-driven development",
+        "continuous integration",
+        "assert_allclose",
+        "regression test",
+        "property-based testing"
+      ],
+      "body": [
+        "A **unit test** is a small program that calls one piece of code with known inputs and checks the output with **assertions**. Tests document how the code should behave, catch mistakes the moment they are introduced, and let you change the code later without fear. The **pytest** framework finds functions named test_* and reports which fail.",
+        {
+          "code": [
+            "# test_stats.py",
+            "import numpy as np",
+            "from stats import sample_variance, softmax",
+            "",
+            "def test_sample_variance_known_value():",
+            "    assert sample_variance([2, 4, 6]) == 4.0",
+            "",
+            "def test_softmax_is_a_distribution():",
+            "    z = np.array([[1., 2., 3.], [1000., 1001., 1002.]])   # the second row would overflow naively",
+            "    p = softmax(z)",
+            "    np.testing.assert_allclose(p.sum(axis=1), 1.0)       # rows sum to one",
+            "    assert np.all(p >= 0)",
+            "",
+            "def test_softmax_shift_invariant():",
+            "    z = np.array([0.5, -1.0, 2.0])",
+            "    np.testing.assert_allclose(softmax(z), softmax(z + 100.0))"
+          ],
+          "caption": "Tests with a known value and with mathematical properties. Run them with `pytest`."
+        },
+        {
+          "list": [
+            "**Compare floating-point numbers with a tolerance** (np.testing.assert_allclose, math.isclose), never with ==. See Numerical Computing for why.",
+            "**Test properties, not only examples**: probabilities are non-negative and sum to one; a loss is non-negative; shifting inputs does not change softmax; a rotation preserves norms; the prediction of a model must not change if the batch order changes.",
+            "**Test edge cases**: empty input, one example, all-equal values, very large and very small numbers, NaN.",
+            "**Regression tests**: when you fix a bug, add a test that fails without the fix, so it cannot come back.",
+            "**Continuous integration** runs the tests automatically on every push, so that a broken change is caught immediately.",
+            "Seed all randomness in tests, or the tests become flaky."
+          ]
+        },
+        {
+          "h": "Tests specific to machine learning code"
+        },
+        {
+          "code": [
+            "def numerical_grad(f, x, eps=1e-5):",
+            "    \"\"\"Central-difference gradient of a scalar function f at array x.\"\"\"",
+            "    g = np.zeros_like(x)",
+            "    for i in range(x.size):",
+            "        old = x.flat[i]",
+            "        x.flat[i] = old + eps; fp = f(x)",
+            "        x.flat[i] = old - eps; fm = f(x)",
+            "        x.flat[i] = old",
+            "        g.flat[i] = (fp - fm) / (2 * eps)",
+            "    return g",
+            "",
+            "def test_gradient_matches_numerical():",
+            "    rng = np.random.default_rng(0)",
+            "    X, y = rng.normal(size=(20, 3)), rng.normal(size=20)",
+            "    theta = rng.normal(size=3)",
+            "    loss = lambda t: 0.5 * np.mean((X @ t - y) ** 2)",
+            "    analytic = X.T @ (X @ theta - y) / len(y)",
+            "    numeric = numerical_grad(loss, theta.copy())",
+            "    rel = np.linalg.norm(analytic - numeric) / (np.linalg.norm(analytic) + np.linalg.norm(numeric))",
+            "    assert rel < 1e-6"
+          ],
+          "caption": "A gradient check: compare the hand-derived gradient with a finite difference (see Backpropagation)."
+        },
+        {
+          "list": [
+            "**Shape tests**: assert the shapes of intermediate arrays, since broadcasting can hide errors. Put assert X.shape == (m, n) in the code itself.",
+            "**Overfit a tiny batch**: a model should drive the loss to nearly zero on a handful of examples. If it cannot, the code has a bug.",
+            "**Initial loss**: for K balanced classes with random weights the cross-entropy should be about ln K.",
+            "**Invariance tests**: permuting the training examples should not change a full-batch result; scaling the learning rate to zero should leave the model unchanged.",
+            "**Leakage tests**: assert that the indices of the training, validation and test sets are disjoint."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "How should two floating-point results be compared in a test?",
+          "a": "With a tolerance, as in np.testing.assert_allclose",
+          "wrong": [
+            "With ==",
+            "By printing both and looking",
+            "By converting them to strings"
+          ]
+        },
+        {
+          "q": "What does a gradient check compare?",
+          "a": "The analytic gradient with a finite-difference estimate",
+          "wrong": [
+            "The training loss with the test loss",
+            "Two different optimizers",
+            "The gradient on two different batches"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "debugging",
+      "title": "Debugging",
+      "terms": [
+        "stack trace",
+        "pdb",
+        "minimal reproducible example",
+        "print debugging",
+        "nan loss",
+        "rubber duck"
+      ],
+      "body": [
+        "Debugging is the scientific method applied to code: form a hypothesis about what is wrong, test it, and narrow down. A systematic approach beats guessing.",
+        {
+          "list": [
+            "**Read the traceback** from the bottom: the last line says what went wrong, and the lines above give the chain of calls that led to it. The failing line in your own code is usually the one to look at.",
+            "**Reproduce it reliably**: fix the random seed and the input. Then make it small: a **minimal reproducible example** with the smallest data and fewest lines that still show the problem. Half of bugs are found while making one.",
+            "**Look at the values**: print shapes, dtypes and a few values at each step, or use a debugger. In Python, `breakpoint()` opens the pdb debugger at that line, where you can inspect variables, step line by line and continue.",
+            "**Bisect**: find where the computation first goes wrong by checking the intermediate result halfway through the pipeline, then halfway into the bad half. `git bisect` does the same over the history of commits.",
+            "**Change one thing at a time**, and keep the previous working version.",
+            "**Explain the code aloud** (rubber duck debugging): stating what each line should do reveals the line that does not."
+          ]
+        },
+        {
+          "h": "Common bugs in learning code"
+        },
+        {
+          "table": {
+            "head": [
+              "Symptom",
+              "Likely causes"
+            ],
+            "rows": [
+              [
+                "Loss is NaN or inf",
+                "Learning rate too high; log(0) or division by zero; overflow in exp (use stable softmax); bad data containing NaN"
+              ],
+              [
+                "Loss does not decrease",
+                "Gradient step with the wrong sign; learning rate far too small; labels not aligned with inputs; no gradient flowing (a detached tensor, a ReLU that is always off)"
+              ],
+              [
+                "Training accuracy is great, validation is at chance",
+                "Leakage between sets would make validation too good, so look for a train/eval mode mismatch or differently preprocessed validation data"
+              ],
+              [
+                "Validation is suspiciously good",
+                "Test or validation data in the training set; normalization statistics computed on all the data; duplicates across splits"
+              ],
+              [
+                "Results change between runs",
+                "Unseeded randomness; non-deterministic GPU operations; data order"
+              ],
+              [
+                "Shape errors or silent wrong shapes",
+                "Broadcasting a (m,) vector against (m, 1); forgetting keepdims; mixing row and column vectors"
+              ]
+            ],
+            "caption": "Frequent failure signatures."
+          }
+        },
+        {
+          "example": {
+            "title": "A NaN hunt",
+            "problem": "The loss becomes NaN after step 137. How do you find the cause?",
+            "solution": "Reproduce with the same seed. Check the inputs of step 137 for NaN or infinity (np.isnan(batch).any()). Print the loss and the gradient norm over the previous steps: a sudden rise indicates divergence, so lower the learning rate or clip gradients. If the gradient is fine, check the operations that can overflow or produce log(0): the softmax, the cross-entropy and any division. Add np.errstate(all='raise') or enable the framework's anomaly detection to stop at the first invalid operation."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "When reading a Python traceback, the error message is found",
+          "a": "on the last line",
+          "wrong": [
+            "on the first line",
+            "in the middle",
+            "it is never shown"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "reproducibility",
+      "title": "Reproducible environments and experiments",
+      "terms": [
+        "reproducibility in research",
+        "requirements file",
+        "virtual environments",
+        "pinned dependencies",
+        "experiment tracking",
+        "configuration file",
+        "jupyter notebook",
+        "docker container"
+      ],
+      "body": [
+        "A result that cannot be reproduced cannot be trusted, by others or by you in six months. Reproducibility has four ingredients.",
+        {
+          "list": [
+            "**Code**: the exact version, a Git commit hash, recorded with each run.",
+            "**Environment**: the Python version and the versions of all libraries. Use a **virtual environment** and a **requirements file** with pinned versions (numpy==1.26.4), or a lock file, or a container (Docker) for the whole system, GPU libraries included.",
+            "**Data**: the exact data and the split. Keep raw data read-only and generate processed versions with scripts; record hashes or versions. Fix the train/validation/test split once, by seed or by an explicit list of ids.",
+            "**Randomness**: seeds for every source (Python's random, NumPy, the deep learning framework), noting that some GPU operations are non-deterministic and some libraries change their generators between versions."
+          ]
+        },
+        {
+          "h": "Configuration and tracking"
+        },
+        "Do not scatter magic numbers through the code. Put hyperparameters in a configuration file or a dataclass (see Python for Machine Learning), pass it to the training function, and save it next to the results. For every run, log the configuration, the code version, the seed, the metrics over time and the final result, either in a simple CSV/JSON file or with a tracking tool (MLflow, Weights & Biases, TensorBoard). Save **checkpoints** of the model so that long runs can resume, and the best model can be recovered.",
+        {
+          "code": [
+            "import json, subprocess, time",
+            "from dataclasses import asdict",
+            "",
+            "def log_run(cfg, metrics, path='runs.jsonl'):",
+            "    commit = subprocess.check_output(['git', 'rev-parse', 'HEAD']).decode().strip()",
+            "    record = {'time': time.time(), 'commit': commit, **asdict(cfg), **metrics}",
+            "    with open(path, 'a') as f:",
+            "        f.write(json.dumps(record) + '\\n')"
+          ],
+          "caption": "A minimal experiment log: one JSON line per run with the configuration, the Git commit and the metrics."
+        },
+        {
+          "h": "Notebooks and scripts"
+        },
+        "Jupyter notebooks mix code, results and text, which makes them excellent for exploration and communication. They hide state (cells can be run out of order) and diff badly in version control. A good pattern: explore in a notebook, then move the reusable code into modules that are tested and imported by notebooks and scripts. Restart the kernel and run all cells before trusting or sharing a notebook.",
+        {
+          "warn": "Report the variation, not one run. A model trained with ten seeds shows the spread caused by initialization and data order; differences smaller than that spread are noise (see Evaluating Models)."
+        }
+      ],
+      "check": [
+        {
+          "q": "Which items should be recorded with every experiment run?",
+          "a": "The configuration, the code version and the random seed",
+          "wrong": [
+            "Only the final accuracy",
+            "Only the model weights",
+            "The name of the person who ran it"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "quality",
+      "title": "Code quality and project structure",
+      "terms": [
+        "code quality",
+        "refactoring",
+        "docstrings",
+        "code review",
+        "technical debt",
+        "naming conventions"
+      ],
+      "body": [
+        "Code is read far more often than it is written, including by its author a month later. A few habits make research code survive.",
+        {
+          "list": [
+            "**Name things for what they mean**: learning_rate, not lr2; X_train, not data1. A function name should say what it returns or does.",
+            "**Small functions that do one thing**, with explicit inputs and outputs. Avoid hidden global state. A function that takes a configuration and a random generator is easy to test and reuse.",
+            "**Do not repeat yourself**: copy-pasted code is copied bugs. Extract the common part into a function.",
+            "**Document the why**: docstrings state the purpose, the shapes and the units; comments explain choices that are not obvious ('subtract max for numerical stability'). Do not comment what the code plainly says.",
+            "**Use tools**: a formatter (black, ruff format) ends arguments about layout, a linter (ruff, flake8) catches unused variables and likely bugs, and a type checker (mypy) catches wrong argument types. Run them automatically.",
+            "**Review**: a second reader finds the bugs and unclear parts that the author cannot see. In research code, review at least the data pipeline and the evaluation."
+          ]
+        },
+        {
+          "h": "A project layout"
+        },
+        {
+          "code": [
+            "project/",
+            "  README.md            what it is, how to run it, how to reproduce the results",
+            "  pyproject.toml       dependencies and tooling settings",
+            "  src/mylib/           importable code: data.py, models.py, train.py, evaluate.py",
+            "  tests/               test_*.py files",
+            "  configs/             experiment settings (YAML or JSON)",
+            "  notebooks/           exploration",
+            "  data/                raw (read-only) and processed data, not in Git",
+            "  runs/                logs, checkpoints and results"
+          ],
+          "caption": "A layout that separates code, configuration, data and results."
+        },
+        {
+          "tip": "Refactor in small steps with the tests passing at every step. Change the structure of the code without changing its behavior, and run the tests after each change; if they stay green, the behavior is preserved. Without tests, refactoring is guessing."
+        }
+      ],
+      "check": [
+        {
+          "q": "Why keep raw data read-only and generate processed data with scripts?",
+          "a": "The processing can be repeated and audited, and the original is never altered by accident",
+          "wrong": [
+            "It makes files smaller",
+            "It makes the model more accurate",
+            "It is required by Git"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Git records snapshots (commits), supports branches and merges, and needs a .gitignore that excludes data, environments and secrets. Small commits with clear messages, and git bisect, make history useful.",
+    "Unit tests assert known values and mathematical properties, with tolerances for floats. Learning code needs extra tests: shapes, gradient checks, the initial loss, overfitting a tiny batch and leakage checks.",
+    "Debug systematically: read the traceback, make a minimal reproducible example, inspect values, bisect and change one thing at a time. Learn the signatures of common failures (NaN, flat loss, too-good validation).",
+    "Reproducibility needs the code version, pinned environment, fixed data splits and seeds, a configuration file and a run log. Report spread across seeds.",
+    "Write readable code with clear names, small functions and tools (formatter, linter, tests, review), and keep a clean project structure."
+  ],
+  "problems": [
+    {
+      "q": "Write a pytest test for a function normalize(x) that should return a vector with mean 0 and standard deviation 1.",
+      "solution": [
+        "One possibility:",
+        {
+          "code": [
+            "def test_normalize():",
+            "    x = np.array([2., 4., 6., 8.])",
+            "    z = normalize(x)",
+            "    np.testing.assert_allclose(z.mean(), 0.0, atol=1e-12)",
+            "    np.testing.assert_allclose(z.std(), 1.0)"
+          ]
+        },
+        "The tolerance is needed because the mean is computed in floating point and may differ from 0 by rounding error."
+      ],
+      "a": "A test that asserts the mean is 0 (with an absolute tolerance) and the standard deviation is 1."
+    },
+    {
+      "q": "A repository has 1000 commits, and a bug appeared somewhere between commit 1 (good) and commit 1000 (bad). About how many commits does git bisect have to test?",
+      "solution": "Each test halves the range, so about log₂(1000) ≈ 10 tests.",
+      "a": "About 10."
+    },
+    {
+      "q": "A new 10-class classifier with random weights shows an initial cross-entropy of 2.31 on balanced data. Is that plausible?",
+      "solution": "Yes: for random weights the predicted distribution is nearly uniform, and the cross-entropy is ln 10 = 2.303. A value like 25 would indicate a bug or bad scaling.",
+      "a": "Yes, it matches ln 10 = 2.30."
+    },
+    {
+      "q": "A gradient check gives a relative difference of 3 × 10⁻² for one layer and 4 × 10⁻⁹ for the others. What does this indicate and what would you try?",
+      "solution": "The layer with 3 × 10⁻² has a bug in its analytic gradient (or its finite-difference evaluation hits a kink such as a ReLU at zero). Check its derivation, shapes and transposes; test it in isolation on a tiny input; use a smaller eps or a different random point to rule out kinks.",
+      "a": "The analytic gradient of that layer is probably wrong; test it in isolation."
+    },
+    {
+      "q": "List three things that can make two runs of the same training script give different results, and one way to control each.",
+      "solution": "Unseeded random initialization or data shuffling (set seeds for Python, NumPy and the framework); different library versions (pin the environment); non-deterministic GPU kernels (enable deterministic algorithms where available, and accept small differences otherwise). Also data order from parallel loaders.",
+      "a": "Seeds, library versions and GPU non-determinism; control with fixed seeds, pinned environments and deterministic settings."
+    }
+  ]
+}

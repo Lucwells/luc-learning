@@ -1,0 +1,378 @@
+{
+  "id": "generative-classifiers",
+  "view": "chapter",
+  "title": "Generative Classifiers: Gaussian Discriminant Analysis and Naive Bayes",
+  "description": "Classification by modeling how each class generates its inputs and applying Bayes' rule.",
+  "overview": [
+    "Logistic regression models P(y | x) directly. A generative classifier takes the opposite route. It models how the inputs look within each class, P(x | y), and the prior P(y), and then uses Bayes' rule to obtain P(y | x). The extra modeling work pays off in two ways: when the assumptions are close to true the classifier needs less data, and the model can generate new examples and handle missing inputs.",
+    "We study the two classic cases: Gaussian discriminant analysis for continuous features and naive Bayes for discrete features such as words."
+  ],
+  "objectives": [
+    "Contrast generative and discriminative classifiers and apply Bayes' rule to classify.",
+    "Fit a Gaussian discriminant analysis model, derive its decision boundary, and show its relation to logistic regression.",
+    "Distinguish LDA from QDA and count their parameters.",
+    "Build a naive Bayes classifier, apply Laplace smoothing, and compute predictions in log space.",
+    "Explain when generative models beat discriminative ones and when they lose."
+  ],
+  "sections": [
+    {
+      "id": "gen-vs-disc",
+      "title": "Generative versus discriminative models",
+      "terms": [
+        "generative model",
+        "generative classifier",
+        "discriminative model",
+        "discriminative classifier",
+        "bayes optimal classifier",
+        "bayes error",
+        "class prior",
+        "posterior probability",
+        "generative classifiers"
+      ],
+      "body": [
+        "A **discriminative** model learns P(y | x) or a decision rule directly. Logistic regression and support vector machines are discriminative. A **generative** model learns the joint distribution through two pieces, the **class prior** P(y) and the class-conditional density P(x | y). Bayes' rule then gives the **posterior**:",
+        {
+          "eq": "P(y | x) = P(x | y) P(y) / P(x),    P(x) = Σ_y P(x | y) P(y)"
+        },
+        "For classification the denominator is the same for all classes and can be ignored:",
+        {
+          "eq": "ŷ = argmax_y P(x | y) P(y)"
+        },
+        "If the true P(y | x) were known, predicting its argmax would minimize the error rate. This is the **Bayes optimal classifier**, and its error is the **Bayes error**, the floor that no classifier can beat. Every method tries to approximate it.",
+        {
+          "list": [
+            "Generative models make stronger assumptions about the form of P(x | y). If they are right, estimates are accurate with little data. If they are wrong, the model is biased.",
+            "Discriminative models spend their capacity only on the boundary between classes. They make fewer assumptions and are usually more accurate with plenty of data.",
+            "Generative models can sample new inputs, deal naturally with missing features (marginalize them out) and use unlabeled data."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "Which of these is generative?",
+          "a": "Naive Bayes",
+          "wrong": [
+            "Logistic regression",
+            "The perceptron",
+            "A linear SVM"
+          ]
+        },
+        {
+          "q": "To classify with Bayes' rule we need",
+          "a": "P(x | y) and P(y)",
+          "wrong": [
+            "only P(y | x)",
+            "only P(x)",
+            "the decision boundary"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gda",
+      "title": "Gaussian discriminant analysis",
+      "terms": [
+        "gaussian discriminant analysis",
+        "gda",
+        "linear discriminant analysis",
+        "lda",
+        "quadratic discriminant analysis",
+        "qda",
+        "covariance matrix estimate"
+      ],
+      "body": [
+        "For continuous x ∈ ℝⁿ, **Gaussian discriminant analysis** (GDA) assumes each class has a multivariate normal density (see the Gaussian in Multivariate Probability), with a shared covariance Σ:",
+        {
+          "eqs": [
+            [
+              "y ~ Bernoulli(φ)",
+              "class prior"
+            ],
+            [
+              "x | y = 0 ~ N(μ₀, Σ)",
+              "class 0 density"
+            ],
+            [
+              "x | y = 1 ~ N(μ₁, Σ)",
+              "class 1 density"
+            ]
+          ]
+        },
+        "The parameters (φ, μ₀, μ₁, Σ) are fit by maximizing the joint log-likelihood Σ ln p(x^{(i)}, y^{(i)}). The solution is closed-form and intuitive:",
+        {
+          "eq": [
+            "φ = (1/m) Σ 1[y^{(i)} = 1]",
+            "μ_k = Σ 1[y^{(i)} = k] x^{(i)} / Σ 1[y^{(i)} = k]",
+            "Σ = (1/m) Σ ( x^{(i)} − μ_{y^{(i)}} )( x^{(i)} − μ_{y^{(i)}} )ᵀ"
+          ]
+        },
+        "The prior is the class frequency, each mean is the class average, and the covariance is the pooled scatter around the class means.",
+        {
+          "h": "The decision boundary is linear"
+        },
+        "Take the log of the ratio of the posteriors. The terms quadratic in x cancel because Σ is shared, leaving",
+        {
+          "eq": [
+            "ln P(y = 1 | x)/P(y = 0 | x) = wᵀx + b",
+            "w = Σ⁻¹(μ₁ − μ₀),    b = −½(μ₁ᵀΣ⁻¹μ₁ − μ₀ᵀΣ⁻¹μ₀) + ln(φ/(1 − φ))"
+          ]
+        },
+        "So the posterior has exactly the logistic form P(y = 1 | x) = σ(wᵀx + b). GDA and logistic regression produce the same type of classifier but estimate w and b differently: GDA through the class densities, logistic regression by maximizing the conditional likelihood directly.",
+        {
+          "example": {
+            "title": "One-dimensional GDA",
+            "problem": "Class 0 has x = 1, 2, 3 and class 1 has x = 5, 6, 7. Fit GDA and find the posterior at x = 3, 4 and 5.",
+            "solution": [
+              "φ = 0.5, μ₀ = 2, μ₁ = 6. The pooled variance is σ² = (1 + 0 + 1 + 1 + 0 + 1)/6 = 2/3.",
+              "w = (μ₁ − μ₀)/σ² = 4/(2/3) = 6 and b = −(μ₁² − μ₀²)/(2σ²) + ln(0.5/0.5) = −32/(4/3) = −24.",
+              "The log-odds are 6x − 24: −6 at x = 3, 0 at x = 4, and 6 at x = 5. The posteriors are σ(−6) = 0.0025, 0.5 and σ(6) = 0.9975. The boundary x = 4 is the midpoint of the class means."
+            ]
+          }
+        },
+        {
+          "h": "LDA, QDA and the prior"
+        },
+        {
+          "list": [
+            "With a shared covariance the method is called **linear discriminant analysis** (LDA). The prior shifts the boundary toward the rarer class's mean by (σ²/(μ₁ − μ₀)) ln(φ₀/φ₁) in one dimension.",
+            "Letting each class have its own covariance Σ_k gives **quadratic discriminant analysis** (QDA), whose boundary is a quadric surface (a parabola, ellipse or hyperbola in two dimensions). It is more flexible and has more parameters, n(n + 1)/2 per class.",
+            "For K classes, use K means, one shared Σ and K priors. Predict the class with the largest linear discriminant δ_k(x) = xᵀΣ⁻¹μ_k − ½μ_kᵀΣ⁻¹μ_k + ln φ_k.",
+            "When n is large relative to m, the estimate of Σ is unreliable. Shrink it toward a diagonal matrix (regularized discriminant analysis)."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "With equal priors and a shared variance, the GDA decision boundary in one dimension is at",
+          "a": "the midpoint of the two class means",
+          "wrong": [
+            "the larger class mean",
+            "zero",
+            "the pooled variance"
+          ]
+        },
+        {
+          "q": "What differs between LDA and QDA?",
+          "a": "QDA gives each class its own covariance matrix, so its boundary is quadratic",
+          "wrong": [
+            "QDA ignores the class priors",
+            "LDA allows more than two classes but QDA does not",
+            "LDA is discriminative and QDA is generative"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gda-vs-logistic",
+      "title": "GDA or logistic regression?",
+      "terms": [
+        "gda versus logistic regression",
+        "asymptotic efficiency",
+        "model misspecification"
+      ],
+      "body": [
+        "If x | y is Gaussian with shared covariance, the posterior is logistic. The reverse does not hold: the logistic form arises from many other families, including Poisson distributions and other exponential families with shared structure.",
+        {
+          "table": {
+            "head": [
+              "",
+              "GDA",
+              "Logistic regression"
+            ],
+            "rows": [
+              [
+                "Assumption",
+                "x | y Gaussian with shared Σ",
+                "Only that log-odds are linear in x"
+              ],
+              [
+                "Data efficiency",
+                "Better if the Gaussian assumption holds",
+                "Needs more data"
+              ],
+              [
+                "Robustness",
+                "Sensitive to outliers and non-Gaussian features",
+                "Robust across many distributions"
+              ],
+              [
+                "Fitting",
+                "Closed form",
+                "Iterative"
+              ],
+              [
+                "Large m, wrong assumption",
+                "Biased",
+                "Usually better"
+              ]
+            ],
+            "caption": "Comparing the two classifiers."
+          }
+        },
+        "Ng and Jordan (2002) showed that the generative model approaches its (higher) asymptotic error faster, using fewer examples, while the discriminative model reaches a lower error eventually. With little data the generative model often wins. With a lot of data and a messy distribution, logistic regression wins.",
+        {
+          "tip": "When you are unsure, fit both and compare on held-out data. The logistic model is the safer default for a large data set."
+        }
+      ],
+      "check": [
+        {
+          "q": "With very large data and non-Gaussian features, which usually has the lower test error?",
+          "a": "Logistic regression",
+          "wrong": [
+            "GDA",
+            "They always tie",
+            "Neither can be fit"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "naive-bayes",
+      "title": "Naive Bayes",
+      "terms": [
+        "naive bayes",
+        "conditional independence assumption",
+        "naive bayes classifier",
+        "bernoulli event model",
+        "multinomial event model",
+        "spam filter"
+      ],
+      "body": [
+        "For discrete features such as the words in an email, modeling P(x | y) in full is hopeless. With n binary features there are 2ⁿ − 1 free probabilities per class. **Naive Bayes** makes one strong assumption: the features are **conditionally independent given the class**,",
+        {
+          "eq": "P(x₁, …, x_n | y) = Π_{j=1}^{n} P(x_j | y)"
+        },
+        "This cuts the parameters to n per class (for binary features). The classifier is",
+        {
+          "eq": "ŷ = argmax_y  P(y) Π_j P(x_j | y)"
+        },
+        {
+          "h": "Bernoulli event model"
+        },
+        "Represent a document by binary indicators x_j = 1 if word j appears. The parameters are φ_{j|y} = P(x_j = 1 | y) and the prior φ_y. Maximum likelihood gives counting estimates,",
+        {
+          "eq": [
+            "φ_{j|y} = (number of class-y documents containing word j) / (number of class-y documents)",
+            "φ_y = (number of class-y documents) / m"
+          ]
+        },
+        {
+          "h": "Laplace smoothing"
+        },
+        "If a word never occurred in the spam training emails, its estimated probability is 0, and any new email containing it receives probability 0 for the spam class, no matter how much other evidence there is. **Laplace smoothing** adds one imaginary occurrence and one imaginary non-occurrence of every word to every class:",
+        {
+          "eq": "φ_{j|y} = ( count + 1 ) / ( N_y + 2 )"
+        },
+        "It is the MAP estimate under a uniform prior on each probability, and it prevents zero probabilities.",
+        {
+          "example": {
+            "title": "A tiny spam filter",
+            "problem": "The training emails are, as sets of words from the vocabulary {buy, now, meeting}: spam: {buy, now}, {buy}; ham: {now, meeting}, {meeting}. Classify the new email {buy, now} with Laplace smoothing.",
+            "solution": [
+              "The priors are 0.5 and 0.5. Without smoothing, P(meeting | spam) = 0 and P(buy | ham) = 0, so an email such as {buy, meeting} would receive probability 0 for both classes. With smoothing, divide (count + 1) by (2 + 2):",
+              {
+                "table": {
+                  "head": [
+                    "Word",
+                    "P(word | spam)",
+                    "P(word | ham)"
+                  ],
+                  "rows": [
+                    [
+                      "buy",
+                      "3/4",
+                      "1/4"
+                    ],
+                    [
+                      "now",
+                      "2/4",
+                      "2/4"
+                    ],
+                    [
+                      "meeting",
+                      "1/4",
+                      "3/4"
+                    ]
+                  ]
+                }
+              },
+              "For the email {buy, now}, meeting is absent, so we multiply by 1 − P(meeting | y):",
+              {
+                "eq": [
+                  "spam: 0.5 · (3/4)(2/4)(1 − 1/4) = 0.5 · 0.28125",
+                  "ham:  0.5 · (1/4)(2/4)(1 − 3/4) = 0.5 · 0.03125"
+                ]
+              },
+              "P(spam | email) = 0.28125/(0.28125 + 0.03125) = 0.90."
+            ]
+          }
+        },
+        {
+          "h": "Multinomial event model and log space"
+        },
+        "A model that counts word occurrences treats a document as a sequence of words drawn independently from a class-specific distribution over the vocabulary V. The estimate with Laplace smoothing is P(w | y) = (count of w in class y + 1)/(total tokens in class y + |V|). For spam tokens {buy ×2, now ×1} over three words this gives (0.5, 1/3, 1/6) for (buy, now, meeting), which sum to 1.",
+        {
+          "warn": "Products of hundreds of small probabilities underflow to zero. Always compute in log space, ŷ = argmax [ ln P(y) + Σ_j ln P(x_j | y) ]."
+        },
+        {
+          "h": "Why such a naive model works"
+        },
+        "The independence assumption is almost never true (the words 'new' and 'york' co-occur). Naive Bayes can still classify well, because classification needs only the correct ranking of the classes, not accurate probabilities. The probabilities it produces are often overconfident. It trains in one pass through the data, scales to huge vocabularies, and is a strong baseline for text. It is an example of high bias and low variance."
+      ],
+      "check": [
+        {
+          "q": "Why is Laplace smoothing needed?",
+          "a": "A word unseen in a class would otherwise force that class's probability to zero",
+          "wrong": [
+            "It removes the independence assumption",
+            "It speeds up counting",
+            "It makes the classes balanced"
+          ]
+        },
+        {
+          "q": "With 1000 binary features, how many free parameters per class does naive Bayes need, compared with a full joint model?",
+          "a": "1000 versus 2^{1000} − 1",
+          "wrong": [
+            "1000 versus 1000²",
+            "2000 versus 1000",
+            "Both need 1000"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Generative classifiers model P(x | y) and P(y), then classify with Bayes' rule: ŷ = argmax P(x | y)P(y). Discriminative models fit P(y | x) directly.",
+    "GDA assumes Gaussian classes. The maximum likelihood fit uses the class frequencies, class means and pooled covariance. With a shared covariance the posterior is logistic and the boundary is linear (LDA); separate covariances give a quadratic boundary (QDA).",
+    "Generative models are more data-efficient when their assumptions hold. Logistic regression is more robust and wins with large data.",
+    "Naive Bayes assumes the features are conditionally independent given the class, which collapses the parameter count. Use Laplace smoothing and log probabilities.",
+    "Naive Bayes ranks classes well even when the independence assumption is false, but its probabilities are poorly calibrated."
+  ],
+  "problems": [
+    {
+      "q": "In the 1D GDA example (means 2 and 6, variance 2/3) the class priors are φ₁ = 0.2 and φ₀ = 0.8. Find the decision boundary.",
+      "solution": "The log-odds are 6x − 24 + ln(0.2/0.8) = 6x − 24 − 1.386. Setting it to zero gives x = 25.386/6 = 4.231.",
+      "a": "x ≈ 4.23: the boundary moves toward the rarer class mean."
+    },
+    {
+      "q": "Class 1 data are (2, 3), (4, 3) and class 0 data are (1, 0), (3, 0). Compute φ, μ₀, μ₁ and the pooled covariance of the GDA model.",
+      "solution": "φ = 0.5. μ₁ = (3, 3), μ₀ = (2, 0). Deviations from class means: class 1: (−1, 0), (1, 0); class 0: (−1, 0), (1, 0). Sum of outer products = [[4, 0], [0, 0]]. Σ = (1/4)[[4, 0], [0, 0]] = [[1, 0], [0, 0]].",
+      "a": "φ = 0.5, μ₀ = (2, 0), μ₁ = (3, 3), Σ = [[1, 0], [0, 0]] (singular, since both classes have no spread in the second coordinate)."
+    },
+    {
+      "q": "A vocabulary has 5 words. Spam tokens total 40 and the word 'free' occurs 6 times in them. What is P('free' | spam) under the multinomial model with Laplace smoothing?",
+      "solution": "(6 + 1)/(40 + 5) = 7/45.",
+      "a": "7/45 ≈ 0.156."
+    },
+    {
+      "q": "For a binary-feature naive Bayes classifier, P(spam) = 0.3 and a document has features whose likelihood ratio product is 40 in favor of spam (P(x | spam)/P(x | ham) = 40). Find P(spam | x).",
+      "solution": "Posterior odds = prior odds × likelihood ratio = (0.3/0.7) × 40 = 17.14. Then P = 17.14/(1 + 17.14) = 0.945.",
+      "a": "0.945."
+    },
+    {
+      "q": "Naive Bayes with n = 20 binary features and K = 3 classes: how many parameters are estimated?",
+      "solution": "Each class has 20 conditional probabilities, giving 60. The priors contribute K − 1 = 2 free parameters. Total 62.",
+      "a": "62 free parameters."
+    }
+  ]
+}

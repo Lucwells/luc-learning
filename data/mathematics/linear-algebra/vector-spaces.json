@@ -1,0 +1,348 @@
+{
+  "id": "vector-spaces",
+  "view": "chapter",
+  "title": "Vector Spaces and Subspaces",
+  "description": "Span, independence, basis and dimension; the four fundamental subspaces of a matrix; rank; and change of basis.",
+  "overview": [
+    "The previous chapter treated vectors and matrices as arrays of numbers and gave rules for computing with them. This chapter explains what they mean. The set of all outputs of a linear model, the directions in which a model cannot distinguish inputs, the number of independent features in a data set, and the ways a coordinate system can be changed are all described by vector spaces and subspaces.",
+    "The central objects are the four fundamental subspaces of a matrix, whose dimensions are tied together by the rank. These explain when Ax = b has solutions, why XᵀX can be singular, and how PCA and the SVD work."
+  ],
+  "objectives": [
+    "Define a subspace, the span of a set of vectors, linear independence, a basis and the dimension.",
+    "Find the rank, a basis for the column space and a basis for the null space of a matrix.",
+    "State and use the rank–nullity theorem and describe the four fundamental subspaces.",
+    "Describe the solution set of Ax = b as a particular solution plus the null space.",
+    "Change the basis and express a linear map in a new basis."
+  ],
+  "sections": [
+    {
+      "id": "subspaces",
+      "title": "Subspaces and span",
+      "terms": [
+        "vector space",
+        "subspace",
+        "subspaces",
+        "span",
+        "spanning set",
+        "closed under addition",
+        "linear subspace",
+        "vector spaces"
+      ],
+      "body": [
+        "A **vector space** is a set of objects that can be added and multiplied by scalars, with the usual rules of arithmetic. ℝⁿ is the basic example; the polynomials of degree at most d and the continuous functions on an interval are others. A **subspace** is a subset of a vector space that is itself a vector space: it contains 0 and is closed under addition and scalar multiplication. In ℝ³ the subspaces are the origin, the lines through the origin, the planes through the origin, and ℝ³ itself.",
+        "The **span** of vectors v₁, …, v_k is the set of all their linear combinations, c₁v₁ + … + c_kv_k. It is the smallest subspace that contains them. The span of one non-zero vector is a line, and of two vectors that do not lie on a common line is a plane.",
+        {
+          "example": {
+            "title": "Is a vector in a span?",
+            "problem": "Is b = (3, 5, 7) in the span of v₁ = (1, 1, 1) and v₂ = (0, 2, 4)?",
+            "solution": "We need c₁v₁ + c₂v₂ = b: c₁ = 3 (first coordinate), c₁ + 2c₂ = 5 gives c₂ = 1, and then the third coordinate c₁ + 4c₂ = 7 ✓. Yes: b = 3v₁ + v₂."
+          }
+        },
+        {
+          "list": [
+            "The set of all points with x + y + z = 0 is a subspace of ℝ³ (a plane through the origin). The set x + y + z = 1 is not (it does not contain 0).",
+            "The predictions Xθ of a linear model, as θ ranges over all weights, form the span of the columns of X. A linear model can only predict vectors in this subspace; least squares projects the targets onto it."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "Which is a subspace of ℝ²?",
+          "a": "The line y = 2x",
+          "wrong": [
+            "The line y = 2x + 1",
+            "The unit circle",
+            "The positive quadrant"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "basis-dimension",
+      "title": "Independence, basis and dimension",
+      "terms": [
+        "linear independence",
+        "linearly independent",
+        "linearly dependent",
+        "standard basis"
+      ],
+      "body": [
+        "Vectors v₁, …, v_k are **linearly independent** if the only combination giving zero is the trivial one: c₁v₁ + … + c_kv_k = 0 implies every c_i = 0. Otherwise they are **dependent**: at least one of them is a combination of the others and carries no new information. Putting the vectors in the columns of a matrix A, they are independent exactly when Ax = 0 has only the solution x = 0.",
+        "A **basis** of a subspace is a set of independent vectors that span it. Every vector in the subspace is then a //unique// combination of the basis vectors, and the coefficients are its **coordinates**. All bases of a subspace have the same number of vectors, and this number is the **dimension**. The standard basis e₁, …, e_n has dimension n for ℝⁿ.",
+        {
+          "example": {
+            "title": "A dependent set",
+            "problem": "Are v₁ = (1, 0, 1), v₂ = (0, 1, 1), v₃ = (1, 1, 2) independent?",
+            "solution": "v₃ = v₁ + v₂, so v₁ + v₂ − v₃ = 0 is a nontrivial combination: they are dependent. They span only a plane (dimension 2), spanned by v₁ and v₂, which form a basis of it."
+          }
+        },
+        {
+          "list": [
+            "More than n vectors in ℝⁿ are always dependent. Fewer than n vectors cannot span ℝⁿ.",
+            "The polynomials of degree ≤ 2 form a 3-dimensional space with basis 1, x, x². The coordinates of 4 − 3x + x² are (4, −3, 1).",
+            "A feature that is a linear combination of the others (for example weight in kg and weight in lb) makes the columns of the data matrix dependent. Then XᵀX is singular and the weights are not uniquely determined."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "How many vectors can a linearly independent set in ℝ⁴ have, at most?",
+          "a": "4",
+          "wrong": [
+            "3",
+            "5",
+            "infinitely many"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "four-subspaces",
+      "title": "Rank and the four fundamental subspaces",
+      "terms": [
+        "column space",
+        "null space",
+        "kernel",
+        "row space",
+        "left null space",
+        "rank-nullity theorem",
+        "four fundamental subspaces",
+        "nullity",
+        "free variables"
+      ],
+      "body": [
+        "Every m × n matrix A has four subspaces attached to it.",
+        {
+          "table": {
+            "head": [
+              "Subspace",
+              "Definition",
+              "Lives in",
+              "Dimension"
+            ],
+            "rows": [
+              [
+                "Column space C(A)",
+                "all combinations of the columns = {Ax}",
+                "ℝᵐ",
+                "r"
+              ],
+              [
+                "Null space N(A)",
+                "all x with Ax = 0",
+                "ℝⁿ",
+                "n − r"
+              ],
+              [
+                "Row space C(Aᵀ)",
+                "all combinations of the rows",
+                "ℝⁿ",
+                "r"
+              ],
+              [
+                "Left null space N(Aᵀ)",
+                "all y with Aᵀy = 0",
+                "ℝᵐ",
+                "m − r"
+              ]
+            ],
+            "caption": "The four fundamental subspaces of an m × n matrix of rank r."
+          }
+        },
+        "The number r is the **rank** of A: the number of pivots after elimination, which equals the dimension of the column space and the dimension of the row space (the column rank equals the row rank). The dimensions of the column space and null space add up to the number of columns:",
+        {
+          "eq": "rank(A) + dim N(A) = n"
+        },
+        "This is the **rank–nullity theorem**. The free variables (columns without pivots) number n − r, and each yields one basis vector of the null space. The pivot columns of A form a basis of the column space.",
+        {
+          "svg": "<svg viewBox='0 0 440 200' role='img' aria-label='A maps the row space onto the column space and the null space to zero' font-family='system-ui, sans-serif' font-size='12'><defs><marker id='arr' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='7' markerHeight='7' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='currentColor'/></marker></defs><g fill='none' stroke='currentColor' stroke-width='1.5'><rect x='20' y='20' width='150' height='160' rx='6'/><rect x='270' y='20' width='150' height='160' rx='6'/><rect x='30' y='40' width='130' height='55' rx='4' style='stroke:var(--accent)'/><rect x='30' y='110' width='130' height='55' rx='4'/><rect x='280' y='40' width='130' height='55' rx='4' style='stroke:var(--accent)'/><rect x='280' y='110' width='130' height='55' rx='4'/><path d='M165,68 L278,68' marker-end='url(#arr)'/><path d='M165,138 L278,138' stroke-dasharray='4 3' marker-end='url(#arr)'/></g><g fill='currentColor' text-anchor='middle'><text x='95' y='14'>ℝⁿ</text><text x='345' y='14'>ℝᵐ</text><text x='95' y='64'>row space</text><text x='95' y='80'>dim r</text><text x='95' y='134'>null space</text><text x='95' y='150'>dim n − r</text><text x='345' y='64'>column space</text><text x='345' y='80'>dim r</text><text x='345' y='134'>left null space</text><text x='345' y='150'>dim m − r</text><text x='222' y='60'>A</text><text x='222' y='130'>→ 0</text></g></svg>",
+          "caption": "A maps the row space one-to-one onto the column space, and sends the null space to zero. The row space and null space are perpendicular, and so are the column space and left null space."
+        },
+        {
+          "example": {
+            "title": "All four subspaces of a 3 × 4 matrix",
+            "problem": "Find the rank and a basis for the column space and the null space of A = [[1, 2, 0, 1], [2, 4, 1, 4], [3, 6, 1, 5]].",
+            "solution": [
+              "Eliminate: R₂ − 2R₁ = (0, 0, 1, 2); R₃ − 3R₁ = (0, 0, 1, 2); then R₃ − R₂ = 0. The pivots are in columns 1 and 3, so the rank is r = 2. The reduced form has rows (1, 2, 0, 1) and (0, 0, 1, 2).",
+              "Column space: the pivot columns (1, 2, 3) and (0, 1, 1). Indeed column 2 = 2 · column 1, and column 4 = column 1 + 2 · column 3.",
+              "Null space: the free variables are x₂ and x₄, and x₁ = −2x₂ − x₄ and x₃ = −2x₄. Setting (x₂, x₄) = (1, 0) and (0, 1) gives the basis (−2, 1, 0, 0) and (−1, 0, −2, 1). The dimension is 2 = n − r = 4 − 2 ✓.",
+              "The left null space has dimension m − r = 1, and the row space has dimension 2."
+            ]
+          }
+        },
+        {
+          "tip": "Rank in practice: the numerical rank of a matrix is the number of singular values above a small tolerance (see the SVD chapter). Computing rank by exact elimination is unreliable in floating point."
+        }
+      ],
+      "check": [
+        {
+          "q": "A 5 × 8 matrix has rank 3. The dimension of its null space is",
+          "a": "5",
+          "wrong": [
+            "3",
+            "2",
+            "8"
+          ],
+          "why": "n − r = 8 − 3 = 5."
+        },
+        {
+          "q": "The dimension of the column space of an m × n matrix of rank r is",
+          "a": "r",
+          "wrong": [
+            "m",
+            "n",
+            "n − r"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "solvability",
+      "title": "When is Ax = b solvable?",
+      "terms": [
+        "solvability",
+        "particular solution",
+        "general solution",
+        "underdetermined system",
+        "overdetermined system",
+        "full column rank",
+        "full row rank",
+        "multicollinearity"
+      ],
+      "body": [
+        "The system Ax = b has a solution if and only if b is in the column space of A. When it does, the complete set of solutions is a particular solution plus any vector in the null space:",
+        {
+          "eq": "x = x_p + x_n,    A x_p = b,   A x_n = 0"
+        },
+        "So the solution is unique exactly when N(A) = {0}, i.e. when A has full column rank r = n (independent columns).",
+        {
+          "example": {
+            "title": "Complete solution",
+            "problem": "For the 3 × 4 matrix of the previous example, solve Ax = (1, 3, 4).",
+            "solution": "The vector b = (1, 3, 4) = column 1 + column 3, so it is in the column space, and a particular solution is x_p = (1, 0, 1, 0). Adding the null space gives all solutions: x = (1, 0, 1, 0) + s(−2, 1, 0, 0) + t(−1, 0, −2, 1) for any s and t. For b = (1, 0, 0), which is not a combination of the columns, there is no solution."
+          }
+        },
+        {
+          "h": "Three situations in machine learning"
+        },
+        {
+          "table": {
+            "head": [
+              "Case",
+              "Shape and rank",
+              "Solutions of Xθ = y"
+            ],
+            "rows": [
+              [
+                "Overdetermined (typical regression)",
+                "m > n, full column rank r = n",
+                "Usually none exactly: y not in C(X). Solve least squares instead."
+              ],
+              [
+                "Square and invertible",
+                "m = n, r = n",
+                "Exactly one solution."
+              ],
+              [
+                "Underdetermined (more features than examples)",
+                "n > m, rank r = m",
+                "Infinitely many exact solutions; choose the minimum-norm one, or regularize."
+              ]
+            ],
+            "caption": "Linear systems in learning."
+          }
+        },
+        "**Multicollinearity** (dependent or nearly dependent columns of X) makes N(X) non-trivial or nearly so. Then XᵀX is singular or ill-conditioned: coefficients are not identifiable, and small changes in the data produce large changes in the fit. Ridge regression repairs this by adding λI. A data matrix with low rank, such as many users' ratings driven by a few tastes, is the premise of matrix factorization and PCA."
+      ],
+      "check": [
+        {
+          "q": "If x_p solves Ax = b and z is in the null space of A, then",
+          "a": "x_p + z also solves Ax = b",
+          "wrong": [
+            "x_p + z solves Ax = 0",
+            "x_p + z has no relation to b",
+            "x_p − z is the only other solution"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "change-of-basis",
+      "title": "Change of basis",
+      "terms": [
+        "change of basis",
+        "similar matrices",
+        "coordinate vector",
+        "matrix of a linear map",
+        "similarity transformation",
+        "image of a linear map"
+      ],
+      "body": [
+        "A vector has coordinates only relative to a chosen basis. Let the columns of an invertible matrix P be a new basis b₁, …, b_n. If a vector has coordinates c in this basis, its standard coordinates are x = Pc, and conversely c = P⁻¹x.",
+        "A linear map that acts on standard coordinates as x ↦ Ax acts on coordinates in the new basis as c ↦ P⁻¹AP c. The matrices A and B = P⁻¹AP represent the same map in different bases and are called **similar**. They have the same determinant, trace, rank and eigenvalues. Choosing a basis in which B is as simple as possible is the idea behind diagonalization and the SVD.",
+        {
+          "example": {
+            "title": "A reflection made diagonal",
+            "problem": "In ℝ², the reflection across the line y = x is x ↦ Ax with A = [[0, 1], [1, 0]]. Express it in the basis b₁ = (1, 1), b₂ = (1, −1), and find the coordinates of (3, 1) in this basis.",
+            "solution": [
+              "The reflection fixes b₁ (it lies on the line): Ab₁ = b₁. It reverses b₂: Ab₂ = (−1, 1) = −b₂. In the new basis its matrix is B = diag(1, −1).",
+              "Coordinates of (3, 1): c₁(1, 1) + c₂(1, −1) = (3, 1) gives c₁ + c₂ = 3 and c₁ − c₂ = 1, so c = (2, 1). Reflecting multiplies the second coordinate by −1, giving (2, −1), which is 2(1, 1) − (1, −1) = (1, 3) in standard coordinates ✓."
+            ]
+          }
+        },
+        {
+          "list": [
+            "The **image** (range) of a linear map is the column space of its matrix, and the **kernel** is the null space.",
+            "The simplest case is a diagonal B: the map just scales each basis vector. Not every matrix can be diagonalized, but every symmetric matrix can, by an orthonormal basis (the spectral theorem, next chapters).",
+            "Changing basis is how PCA works: it re-expresses the data in the basis of principal components, in which the covariance is diagonal."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "Similar matrices A and P⁻¹AP always share",
+          "a": "the same eigenvalues, determinant and trace",
+          "wrong": [
+            "the same entries",
+            "the same column space",
+            "the same eigenvectors"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "A subspace contains 0 and is closed under addition and scaling. The span of vectors is the set of their linear combinations.",
+    "Vectors are independent if no one is a combination of the others. A basis is an independent spanning set; the number of vectors in it is the dimension.",
+    "An m × n matrix of rank r has column space and row space of dimension r, null space of dimension n − r and left null space of dimension m − r. Rank–nullity: r + dim N(A) = n.",
+    "Ax = b is solvable iff b is in the column space. The solutions are x_p + N(A), and unique iff the columns are independent. Collinear features make XᵀX singular.",
+    "Changing the basis replaces A by P⁻¹AP, which has the same eigenvalues. Choosing a good basis (such as eigenvectors or principal components) simplifies the map."
+  ],
+  "problems": [
+    {
+      "q": "Find the rank, a basis of the column space and the null space of A = [[1, 2, 3], [2, 4, 6], [1, 1, 2]].",
+      "solution": "R₂ − 2R₁ = 0 and R₃ − R₁ = (0, −1, −1). The pivots are in columns 1 and 2, so rank = 2. A basis of the column space is columns 1 and 2: (1, 2, 1) and (2, 4, 1). The free variable is x₃: from −x₂ − x₃ = 0 we get x₂ = −x₃, and from x₁ + 2x₂ + 3x₃ = 0, x₁ = −x₃. The null space is spanned by (−1, −1, 1), with dimension 1 = 3 − 2.",
+      "a": "rank 2; null space spanned by (−1, −1, 1)."
+    },
+    {
+      "q": "Are the vectors (1, 2, 3), (4, 5, 6) and (7, 8, 9) independent?",
+      "solution": "(7, 8, 9) = 2(4, 5, 6) − (1, 2, 3). So they are dependent. The rank of the matrix with these columns is 2.",
+      "a": "Dependent; rank 2."
+    },
+    {
+      "q": "A data matrix X has 100 examples and 150 features, with rank 80. What are the dimensions of its column space and null space, and does Xθ = y have an exact solution for every y?",
+      "solution": "The column space has dimension 80 inside ℝ¹⁰⁰, and the null space has dimension 150 − 80 = 70. Since 80 < 100, the column space is not all of ℝ¹⁰⁰, so some y have no exact solution. For those in the column space there are infinitely many (a 70-dimensional family).",
+      "a": "80 and 70; no, only y in the 80-dimensional column space."
+    },
+    {
+      "q": "Express (5, 1) in the basis (2, 1), (1, −1).",
+      "solution": "Solve 2c₁ + c₂ = 5 and c₁ − c₂ = 1: adding gives 3c₁ = 6, c₁ = 2 and c₂ = 1. Check: 2(2, 1) + (1, −1) = (5, 1).",
+      "a": "(2, 1)."
+    },
+    {
+      "q": "Show that the null space of A is a subspace.",
+      "solution": "A0 = 0, so 0 is in N(A). If Ax = 0 and Ay = 0 then A(x + y) = Ax + Ay = 0 and A(cx) = cAx = 0. So N(A) is closed under addition and scaling.",
+      "a": "It contains 0 and is closed under addition and scalar multiplication."
+    }
+  ]
+}

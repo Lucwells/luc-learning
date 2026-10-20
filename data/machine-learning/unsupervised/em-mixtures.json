@@ -1,0 +1,332 @@
+{
+  "id": "em-mixtures",
+  "view": "chapter",
+  "title": "Mixture Models and the EM Algorithm",
+  "description": "Latent variables, Gaussian mixtures, the expectation–maximization algorithm, its derivation from Jensen's inequality and its practical use.",
+  "overview": [
+    "Real data often come from several overlapping sources: heights of adults from two sexes, pixel colors from foreground and background, customer visits from several behavior types. If we knew which source produced each point, fitting would be easy: estimate each source separately. But the source label is hidden. Hidden variables like this are called latent variables, and they turn simple estimation into a harder problem.",
+    "The expectation–maximization (EM) algorithm solves it by alternating between guessing the hidden labels (softly) and re-estimating the parameters as if the guess were right. It is one of the most important algorithms in machine learning and is the basis of mixture models, hidden Markov models and many others."
+  ],
+  "objectives": [
+    "Write a Gaussian mixture model as a latent variable model and compute responsibilities.",
+    "Run the E-step and M-step of EM for a Gaussian mixture by hand.",
+    "Derive EM from Jensen's inequality and the evidence lower bound, and show that it never decreases the likelihood.",
+    "Explain the relation between EM for Gaussian mixtures and k-means.",
+    "Handle practical issues: initialization, singularities, constrained covariances and choosing the number of components."
+  ],
+  "sections": [
+    {
+      "id": "gmm",
+      "title": "Gaussian mixture models",
+      "terms": [
+        "gaussian mixture model",
+        "gaussian mixture models",
+        "mixture model",
+        "mixture models",
+        "gmm",
+        "latent variable",
+        "latent variables",
+        "mixing proportions",
+        "responsibility",
+        "responsibilities",
+        "soft assignment",
+        "mixture models and em"
+      ],
+      "body": [
+        "A **mixture model** says that each data point x was generated in two steps: first a hidden label z ∈ {1, …, k} is drawn with probability φ_j = P(z = j), and then x is drawn from the distribution of component z. For a **Gaussian mixture model** (GMM) the components are Gaussians:",
+        {
+          "eq": [
+            "z ~ Categorical(φ₁, …, φ_k)",
+            "x | z = j ~ N(μ_j, Σ_j)",
+            "p(x) = Σ_{j=1}^{k} φ_j N(x; μ_j, Σ_j)"
+          ]
+        },
+        "The numbers φ_j are the **mixing proportions**. The variable z is **latent**: it is part of the model but never observed.",
+        {
+          "svg": "<svg viewBox='0 0 440 230' role='img' aria-label='Two Gaussian components and their sum, a bimodal density' font-family='system-ui, sans-serif' font-size='12'><g fill='none' stroke='currentColor' stroke-width='1.5'><path d='M30,200 H410'/></g><path fill='none' stroke='currentColor' stroke-width='1.5' stroke-dasharray='5 3' d='M40,198 L50,197 L60,193 L70,188 L80,179 L90,168 L100,153 L110,138 L120,124 L130,114 L140,110 L150,114 L160,124 L170,138 L180,153 L190,168 L200,179 L210,188 L220,193 L230,197 L240,198 L250,199 L260,200'/><path fill='none' stroke='currentColor' stroke-width='1.5' stroke-dasharray='5 3' d='M140,199 L160,198 L170,196 L180,193 L190,189 L200,182 L210,172 L220,160 L230,144 L240,127 L250,109 L260,92 L270,78 L280,68 L290,65 L300,68 L310,78 L320,92 L330,109 L340,127 L350,144 L360,160 L370,172 L380,182 L390,189 L400,193'/><path fill='none' style='stroke:var(--accent)' stroke-width='2.5' d='M40,198 L50,197 L60,193 L70,188 L80,179 L90,168 L100,153 L110,138 L120,123 L130,113 L140,109 L150,113 L160,121 L170,134 L180,146 L190,156 L200,161 L210,160 L220,153 L230,141 L240,126 L250,108 L260,92 L270,78 L280,68 L290,65 L300,68 L310,78 L320,92 L330,109 L340,127 L350,144 L360,160 L370,172 L380,182 L390,189 L400,193'/><g fill='currentColor'><text x='100' y='96'>component 1 (φ = 0.4)</text><text x='260' y='52'>component 2 (φ = 0.6)</text><text x='36' y='222' >x</text><text x='170' y='30' style='fill:var(--accent)'>mixture density p(x)</text></g></svg>",
+          "caption": "A mixture of two Gaussians (dashed) and their weighted sum (solid)."
+        },
+        {
+          "h": "Responsibilities"
+        },
+        "Given a point, Bayes' rule gives the probability that it came from component j, the **responsibility**:",
+        {
+          "eq": "w_{ij} = P(z^{(i)} = j | x^{(i)}) = φ_j N(x^{(i)}; μ_j, Σ_j) / Σ_l φ_l N(x^{(i)}; μ_l, Σ_l)"
+        },
+        "This is a **soft assignment**: a point between two components belongs partly to each. Compare the hard assignment of k-means.",
+        {
+          "h": "Why maximum likelihood is hard"
+        },
+        "The log-likelihood of the data is",
+        {
+          "eq": "ℓ(φ, μ, Σ) = Σ_i ln Σ_j φ_j N(x^{(i)}; μ_j, Σ_j)"
+        },
+        "The sum inside the logarithm prevents a closed form: the derivative couples all the parameters. If the labels z were known, the likelihood would be Σ_i ln φ_{z_i} N(x^{(i)}; μ_{z_i}, Σ_{z_i}), and the maximum likelihood estimates would be the class frequencies, class means and class covariances of Gaussian discriminant analysis. EM uses this: it fills in the labels with their expected values."
+      ],
+      "check": [
+        {
+          "q": "In a Gaussian mixture, the responsibility w_{ij} is",
+          "a": "the posterior probability that point i came from component j",
+          "wrong": [
+            "the prior probability of component j",
+            "the distance from point i to the mean of component j",
+            "the number of points in component j"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "em-gmm",
+      "title": "EM for Gaussian mixtures",
+      "terms": [
+        "em algorithm",
+        "expectation-maximization",
+        "expectation–maximization",
+        "e-step",
+        "m-step",
+        "expectation step",
+        "maximization step"
+      ],
+      "body": [
+        "Starting from initial parameters, repeat two steps until convergence.",
+        {
+          "list": [
+            "**E-step**: with the current parameters, compute the responsibilities w_{ij} for every point and component.",
+            "**M-step**: re-estimate the parameters as weighted maximum likelihood, with weights w_{ij}."
+          ]
+        },
+        {
+          "eq": [
+            "φ_j = (1/m) Σ_i w_{ij}",
+            "μ_j = Σ_i w_{ij} x^{(i)} / Σ_i w_{ij}",
+            "Σ_j = Σ_i w_{ij} (x^{(i)} − μ_j)(x^{(i)} − μ_j)ᵀ / Σ_i w_{ij}"
+          ]
+        },
+        "Each formula is the usual one (frequency, mean, covariance) with every point counted w_{ij} times for component j.",
+        {
+          "example": {
+            "title": "One EM iteration",
+            "problem": "Data x = 1, 3, 5, 7. Two components with known unit variance and equal weights 0.5, and current means μ₁ = 2, μ₂ = 6. Do one E-step and update the means.",
+            "solution": [
+              "With unit variances and equal weights, w_{i1} ∝ exp(−(x_i − 2)²/2) and w_{i2} ∝ exp(−(x_i − 6)²/2).",
+              {
+                "table": {
+                  "head": [
+                    "x",
+                    "exp for μ₁ = 2",
+                    "exp for μ₂ = 6",
+                    "w_{i1}"
+                  ],
+                  "rows": [
+                    [
+                      "1",
+                      "0.6065",
+                      "0.0000037",
+                      "1.000"
+                    ],
+                    [
+                      "3",
+                      "0.6065",
+                      "0.0111",
+                      "0.982"
+                    ],
+                    [
+                      "5",
+                      "0.0111",
+                      "0.6065",
+                      "0.018"
+                    ],
+                    [
+                      "7",
+                      "0.0000037",
+                      "0.6065",
+                      "0.000"
+                    ]
+                  ]
+                }
+              },
+              "The points 3 and 5 are the ambiguous ones. Weights for component 1 sum to 1 + 0.982 + 0.018 = 2.000, and the weighted sum of x is 1 + 2.946 + 0.090 = 4.036, so μ₁ = 2.018. By symmetry μ₂ = 5.982.",
+              "Each mean moved a little toward the ambiguous middle points. Repeating the iteration, the means converge near 2 and 6, which match the two obvious groups of points {1, 3} and {5, 7}."
+            ]
+          }
+        },
+        {
+          "h": "Relation to k-means"
+        },
+        "Suppose all components share a spherical covariance σ²I and equal weights. As σ → 0, the responsibilities become exactly 0 or 1 (each point belongs to the nearest mean), and the M-step becomes the centroid update. So k-means is the hard-assignment limit of EM for a Gaussian mixture. In return, EM can model clusters of different sizes, shapes and orientations through the covariances Σ_j.",
+        {
+          "h": "Generating new data"
+        },
+        "A fitted GMM is a generative model. To sample, draw z from φ, then draw x from N(μ_z, Σ_z). It can also detect outliers (points of low p(x)) and, by using the conditional distribution given some features, fill in missing values."
+      ],
+      "check": [
+        {
+          "q": "In the M-step for a mixture's mean μ_j, each point x^{(i)} is weighted by",
+          "a": "its responsibility w_{ij}",
+          "wrong": [
+            "1/m",
+            "its distance to the origin",
+            "its label, which is observed"
+          ]
+        },
+        {
+          "q": "EM for a spherical Gaussian mixture with σ → 0 becomes",
+          "a": "k-means",
+          "wrong": [
+            "hierarchical clustering",
+            "DBSCAN",
+            "linear regression"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "em-derivation",
+      "title": "Why EM works: the evidence lower bound",
+      "terms": [
+        "jensen's inequality",
+        "evidence lower bound",
+        "elbo",
+        "variational lower bound",
+        "latent variable model",
+        "free energy"
+      ],
+      "body": [
+        "For a general latent variable model p(x, z; θ) with observed x and hidden z, we want to maximize the log-likelihood of the data, ℓ(θ) = Σ_i ln Σ_z p(x^{(i)}, z; θ). EM maximizes it by repeatedly maximizing a lower bound.",
+        {
+          "h": "Jensen's inequality"
+        },
+        "For a concave function such as the logarithm, the log of an average is at least the average of the logs: ln E[X] ≥ E[ln X], with equality when X is constant.",
+        {
+          "h": "The lower bound"
+        },
+        "For one example, introduce any distribution Q(z) over the latent variable. Then",
+        {
+          "eq": [
+            "ln p(x; θ) = ln Σ_z Q(z) · p(x, z; θ)/Q(z)",
+            "≥ Σ_z Q(z) ln ( p(x, z; θ)/Q(z) )  =: ELBO(Q, θ)"
+          ]
+        },
+        "This is the **evidence lower bound** (ELBO), by Jensen's inequality with the average taken over z ~ Q. The bound is tight when p(x, z; θ)/Q(z) is the same for all z, which happens exactly when Q is the posterior, Q(z) = p(z | x; θ). EM alternates:",
+        {
+          "list": [
+            "**E-step**: set Q_i(z) = p(z | x^{(i)}; θ_t). This makes the bound tight at the current θ: ELBO(Q, θ_t) = ℓ(θ_t). For a GMM this Q is the responsibilities.",
+            "**M-step**: maximize the bound over θ with Q fixed: θ_{t+1} = argmax_θ Σ_i Σ_z Q_i(z) ln p(x^{(i)}, z; θ). This is the expected complete-data log-likelihood, which has the 'weighted maximum likelihood' form that is easy to maximize."
+          ]
+        },
+        {
+          "key": "EM never decreases the likelihood: ℓ(θ_{t+1}) ≥ ELBO(Q_t, θ_{t+1}) ≥ ELBO(Q_t, θ_t) = ℓ(θ_t). The first inequality is the bound, the second is the M-step, and the equality is the tight E-step. The likelihood is bounded above, so the sequence converges. The limit is a local maximum (or saddle point), not necessarily the global one."
+        },
+        {
+          "note": "The same bound is the objective of variational inference. When the exact posterior is too hard to compute, one restricts Q to a simple family and maximizes the ELBO over both Q and θ. Variational autoencoders (see Generative Models) are built on this idea."
+        }
+      ],
+      "check": [
+        {
+          "q": "The E-step makes the lower bound tight by choosing Q(z) equal to",
+          "a": "the posterior p(z | x; θ) under the current parameters",
+          "wrong": [
+            "the prior p(z)",
+            "a uniform distribution",
+            "the maximum likelihood estimate of z"
+          ]
+        },
+        {
+          "q": "Which statement about EM is true?",
+          "a": "The log-likelihood is non-decreasing across iterations",
+          "wrong": [
+            "It always finds the global maximum",
+            "It requires labeled data",
+            "It works only for Gaussian components"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "em-practice",
+      "title": "Using mixtures in practice",
+      "terms": [
+        "bayesian information criterion",
+        "bic",
+        "covariance constraints",
+        "degenerate solution",
+        "model selection for mixtures",
+        "hidden markov model parameter estimation"
+      ],
+      "body": [
+        {
+          "list": [
+            "**Initialization.** EM finds a local maximum, so start from several initializations, often from the output of k-means, and keep the run with the highest likelihood.",
+            "**Singularities.** The likelihood is unbounded: a component centered on a single data point with variance σ² → 0 gives density → ∞. Guard against it with a small ridge added to each covariance (Σ_j + εI), a prior on the covariances, or a minimum number of points per component.",
+            "**Constrained covariances.** A full covariance has n(n + 1)/2 parameters per component. Use a diagonal (axis-aligned), spherical (σ²I) or tied (shared) covariance when n is large relative to m.",
+            "**Number of components.** The likelihood always rises with k, so use a penalized criterion. The **Bayesian information criterion** BIC = −2 ln L + p ln m, with p the number of free parameters, balances fit against complexity. Choose k with the lowest BIC, or use a held-out likelihood.",
+            "**Speed.** Each iteration costs O(mkn²) for full covariances. Convergence can be slow, and is often declared when the log-likelihood changes by less than a tolerance."
+          ]
+        },
+        {
+          "example": {
+            "title": "Counting parameters for BIC",
+            "problem": "A 3-component GMM with full covariances is fit to data with n = 2 features. How many free parameters does it have?",
+            "solution": "Means: 3 × 2 = 6. Covariances: 3 × (2·3/2) = 9. Mixing proportions: k − 1 = 2 (they sum to one). Total p = 17."
+          }
+        },
+        {
+          "h": "Where else EM is used"
+        },
+        {
+          "list": [
+            "**Missing data.** Treat the missing values as latent variables.",
+            "**Hidden Markov models**: the Baum–Welch algorithm is EM, with the hidden states as latent variables (see Graphical Models).",
+            "**Topic models** (such as latent Dirichlet allocation) with latent topic assignments, **factor analysis** and **probabilistic PCA** (see PCA and Dimensionality Reduction).",
+            "**Semi-supervised learning**: labels for some points are observed, and for the rest are latent."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "Why does an unconstrained Gaussian mixture likelihood have degenerate solutions?",
+          "a": "A component centered on one point can shrink its variance to zero and make the density, hence the likelihood, arbitrarily large",
+          "wrong": [
+            "The mixing proportions can be negative",
+            "The responsibilities do not sum to one",
+            "EM always diverges"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "A mixture model draws a hidden label z, then x from component z. For a GMM, p(x) = Σ φ_j N(x; μ_j, Σ_j), and the responsibility w_{ij} is the posterior of component j for point i.",
+    "The log-likelihood has a sum inside the log, so there is no closed form. EM alternates an E-step (compute responsibilities) and an M-step (weighted frequencies, means and covariances).",
+    "EM maximizes the evidence lower bound. The E-step sets Q to the posterior, making the bound tight. The M-step maximizes the bound. The likelihood never decreases, but EM finds only a local maximum.",
+    "k-means is the hard-assignment, σ → 0 limit of EM for a spherical Gaussian mixture.",
+    "Initialize with k-means and restart, protect against singular covariances, constrain covariances in high dimension, and choose k by BIC or held-out likelihood."
+  ],
+  "problems": [
+    {
+      "q": "A two-component 1D mixture has φ = (0.5, 0.5), means 0 and 4 and unit variances. Compute the responsibility of component 2 for x = 3.",
+      "solution": "Component 1 density ∝ exp(−9/2) = 0.01111; component 2 ∝ exp(−1/2) = 0.6065 (the common 1/√(2π) and the equal weights cancel). w₂ = 0.6065/(0.6065 + 0.0111) = 0.982.",
+      "a": "0.982."
+    },
+    {
+      "q": "A mixture has φ = (0.3, 0.7) and for a point x the component densities are N₁ = 0.2 and N₂ = 0.05. Find the point's responsibilities and the contribution of this point to the log-likelihood.",
+      "solution": "Weighted: 0.3(0.2) = 0.06 and 0.7(0.05) = 0.035. The sum is 0.095. Responsibilities (0.631, 0.368). The contribution to ℓ is ln 0.095 = −2.354.",
+      "a": "w = (0.632, 0.368); ln p(x) = −2.35."
+    },
+    {
+      "q": "Starting from the example in the text (x = 1, 3, 5, 7; means 2 and 6), what would the new weights φ be after the first M-step?",
+      "solution": "φ₁ = (Σ_i w_{i1})/m = 2.000/4 = 0.5, and φ₂ = 0.5. By symmetry the weights do not change.",
+      "a": "φ = (0.5, 0.5)."
+    },
+    {
+      "q": "A GMM with k = 4 components, full covariances, and n = 3 features. Count the free parameters.",
+      "solution": "Means 4 × 3 = 12. Covariances 4 × (3·4/2) = 24. Mixing proportions 4 − 1 = 3. Total 39.",
+      "a": "39."
+    },
+    {
+      "q": "Use Jensen's inequality to show that ln(0.5 · 1 + 0.5 · 9) ≥ 0.5 ln 1 + 0.5 ln 9.",
+      "solution": "Left side: ln 5 = 1.609. Right side: 0.5(0) + 0.5(2.197) = 1.099. Indeed 1.609 ≥ 1.099, with a gap because the values 1 and 9 differ.",
+      "a": "1.609 ≥ 1.099."
+    }
+  ]
+}

@@ -71,7 +71,7 @@ export function viewBook(b) {
 
 /* ---------- chapter ---------- */
 
-function renderBlocks(list, R, ctx) {
+export function renderBlocks(list, R, ctx) {
   const kind = { key: ['Key idea', 'key'], warn: ['Common mistake', 'warn'], tip: ['In practice', 'tip'], note: ['Note', 'note'] };
   const content = (x) => (typeof x === 'string' ? `<p>${R(x)}</p>` : renderBlocks([].concat(x), R, ctx));
   const num = (kind) => `<b>${kind} ${ctx.ch.number ? `${ctx.ch.number}.` : ''}${++ctx[kind]}.</b> `;
@@ -79,6 +79,7 @@ function renderBlocks(list, R, ctx) {
     if (typeof b === 'string') return `<p>${R(b)}</p>`;
     if (b.h) return `<h4 class="run">${fmt(b.h)}</h4>`;
     if (b.eq) return `<div class="eq">${[].concat(b.eq).map((l) => `<div>${fmt(l)}</div>`).join('')}${b.note ? `<span class="eq-note">${fmt(b.note)}</span>` : ''}</div>`;
+    if (b.code != null) return `<figure class="code"><pre><code>${esc([].concat(b.code).join('\n'))}</code></pre>${b.caption ? `<figcaption>${fmt(b.caption)}</figcaption>` : ''}</figure>`;
     if (b.list) { const t = b.ordered ? 'ol' : 'ul'; return `<${t}>${b.list.map((x) => `<li>${R(x)}</li>`).join('')}</${t}>`; }
     if (b.facts) return `<dl class="terms">${b.facts.map(([k, v]) => `<dt>${fmt(k)}</dt><dd>${R(v)}</dd>`).join('')}</dl>`;
     if (b.eqs) return `<ul class="eqs">${b.eqs.map(([e, n]) => `<li><span class="eq-line">${fmt(e)}</span>${n ? ` <span class="muted">· ${R(n)}</span>` : ''}</li>`).join('')}</ul>`;
@@ -157,10 +158,10 @@ export function viewChapter(ch, sectionId, restoreY) {
         ${ch.overview.length ? `<div class="overview">${ch.overview.map((p) => `<p>${inline(p, { self: `${ch.book.id}/${ch.id}` })}</p>`).join('')}</div>` : ''}
         ${ch.objectives.length ? `<aside class="objectives"><div class="box-head">After this chapter you can</div><ul>${ch.objectives.map((o) => `<li>${fmt(o)}</li>`).join('')}</ul></aside>` : ''}
         ${ch.sections.map((s) => sectionHtml(s, 0, ctxFor())).join('')}
-        ${ch.summary.length ? `<section class="summary"><h2>Chapter summary</h2><ul>${ch.summary.map((x) => `<li>${inline(x)}</li>`).join('')}</ul></section>` : ''}
+        ${ch.summary.length ? `<section class="summary"><h2>Chapter summary</h2><ul>${ch.summary.map((x) => `<li>${inline(x, { book: ch.book.id })}</li>`).join('')}</ul></section>` : ''}
         ${ch.problems.length ? `<section class="problems"><h2>Problems</h2><ol>${ch.problems.map((p, i) => `<li>
-            <div class="prob-q">${renderBlocks([].concat(p.q), (t) => inline(t), nums)}</div>
-            <details><summary>Solution</summary>${p.solution ? renderBlocks([].concat(p.solution), (t) => inline(t), nums) : ''}<p><b>Answer:</b> ${fmt(p.a)}</p></details></li>`).join('')}</ol></section>` : ''}
+            <div class="prob-q">${renderBlocks([].concat(p.q), (t) => inline(t, { book: ch.book.id }), nums)}</div>
+            <details><summary>Solution</summary>${p.solution ? renderBlocks([].concat(p.solution), (t) => inline(t, { book: ch.book.id }), nums) : ''}<p><b>Answer:</b> ${fmt(p.a)}</p></details></li>`).join('')}</ol></section>` : ''}
         <footer class="ch-foot">
           ${ch.cards.length ? `<a class="btn" href="#/quiz/${esc(ch.book.id)}/${esc(ch.id)}">Quiz this chapter</a>` : ''}
           <div class="pns">${pn(ch.prev, 'prev')}${pn(ch.next, 'next')}</div>

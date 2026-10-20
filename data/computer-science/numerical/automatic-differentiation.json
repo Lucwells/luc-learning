@@ -1,0 +1,533 @@
+{
+  "id": "automatic-differentiation",
+  "view": "chapter",
+  "title": "Automatic Differentiation",
+  "description": "How software computes exact derivatives of programs: computational graphs, forward mode with dual numbers, reverse mode, a small implementation and the practice of PyTorch and JAX.",
+  "overview": [
+    "Training a model by gradient descent needs the gradient of the loss with respect to every parameter. For a neural network the loss is a long composition of simple operations, and deriving its gradient by hand for each new architecture would be tedious and error-prone. Automatic differentiation (AD) computes the derivative of a program mechanically, exactly (to rounding error) and at a cost comparable to running the program itself. It is the engine of every deep learning framework.",
+    "This chapter explains the idea from the chain rule, derives the two modes (forward and reverse), builds a working reverse-mode engine in about thirty lines of Python, and describes how the major frameworks use it. It is the computational counterpart of the Backpropagation chapter of the Machine Learning book, which derives the same computation for a fully connected network."
+  ],
+  "objectives": [
+    "Compare symbolic, numerical and automatic differentiation by accuracy and cost.",
+    "Evaluate a function and its derivative by hand along a computational graph in forward mode and in reverse mode.",
+    "Explain why reverse mode is efficient for scalar losses with many parameters, and state the memory cost.",
+    "Implement forward mode with dual numbers and a small reverse-mode engine.",
+    "Use autograd in PyTorch or JAX, and avoid the common pitfalls."
+  ],
+  "sections": [
+    {
+      "id": "three-ways",
+      "title": "Three ways to differentiate a program",
+      "terms": [
+        "automatic differentiation",
+        "algorithmic differentiation",
+        "symbolic differentiation",
+        "numerical differentiation",
+        "expression swell",
+        "autodiff",
+        "autograd"
+      ],
+      "body": [
+        "To get the derivative of a function written as a program there are three approaches.",
+        {
+          "table": {
+            "head": [
+              "Method",
+              "Idea",
+              "Accuracy",
+              "Cost for a gradient in n variables"
+            ],
+            "rows": [
+              [
+                "Numerical (finite differences)",
+                "(f(x + h) − f(x))/h",
+                "approximate; error about √ε",
+                "n + 1 evaluations of f"
+              ],
+              [
+                "Symbolic",
+                "manipulate the formula as in a computer algebra system",
+                "exact",
+                "the derivative expression can grow exponentially larger than f (expression swell)"
+              ],
+              [
+                "Automatic",
+                "apply the chain rule to each elementary operation as the program runs",
+                "exact up to rounding",
+                "a small constant times the cost of evaluating f"
+              ]
+            ],
+            "caption": "Ways of differentiating."
+          }
+        },
+        "Finite differences are easy but inaccurate and expensive: a model with 10⁶ parameters would need a million forward passes for one gradient (see Numerical Computing for the choice of h). Symbolic differentiation returns a formula, which is not what a program with loops, branches and data-dependent control flow supplies. **Automatic differentiation** works on the program itself. Every program, however complicated, executes a sequence of elementary operations (addition, multiplication, exp, log, sin) whose derivatives are known. AD applies the chain rule to that sequence.",
+        {
+          "note": "AD is not symbolic: it never builds a formula for the derivative. It computes the numerical value of the derivative at the given input, alongside the value of the function."
+        }
+      ],
+      "check": [
+        {
+          "q": "Compared with finite differences, automatic differentiation is",
+          "a": "exact up to rounding and much cheaper for many inputs",
+          "wrong": [
+            "approximate but faster",
+            "exact but requires a symbolic formula",
+            "only applicable to linear functions"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "graph-trace",
+      "title": "The computational graph and the evaluation trace",
+      "terms": [
+        "evaluation trace",
+        "wengert list",
+        "elementary operations",
+        "adjoint",
+        "tangent",
+        "intermediate variables",
+        "primal"
+      ],
+      "body": [
+        "Break the function into elementary steps, each producing an intermediate variable v_i from earlier ones. This sequence is the **evaluation trace** (or Wengert list), and the dependence between variables is the **computational graph** (see Computational graphs in the Backpropagation chapter).",
+        {
+          "example": {
+            "title": "An evaluation trace",
+            "problem": "Write f(x₁, x₂) = ln(x₁) + x₁x₂ − sin(x₂) as a trace and evaluate it at (x₁, x₂) = (2, 5).",
+            "solution": [
+              {
+                "table": {
+                  "head": [
+                    "Step",
+                    "Operation",
+                    "Value at (2, 5)"
+                  ],
+                  "rows": [
+                    [
+                      "v₁",
+                      "x₁",
+                      "2"
+                    ],
+                    [
+                      "v₂",
+                      "x₂",
+                      "5"
+                    ],
+                    [
+                      "v₃",
+                      "ln v₁",
+                      "0.6931"
+                    ],
+                    [
+                      "v₄",
+                      "v₁ · v₂",
+                      "10"
+                    ],
+                    [
+                      "v₅",
+                      "sin v₂",
+                      "−0.9589"
+                    ],
+                    [
+                      "v₆",
+                      "v₃ + v₄",
+                      "10.6931"
+                    ],
+                    [
+                      "v₇",
+                      "v₆ − v₅",
+                      "11.6520"
+                    ]
+                  ]
+                }
+              },
+              "So f(2, 5) = 11.652. By hand the derivatives are ∂f/∂x₁ = 1/x₁ + x₂ = 0.5 + 5 = 5.5 and ∂f/∂x₂ = x₁ − cos x₂ = 2 − 0.2837 = 1.7163. AD finds the same numbers mechanically, in two ways."
+            ]
+          }
+        },
+        "Each elementary operation has a known local derivative: for v = a + b, ∂v/∂a = ∂v/∂b = 1; for v = a·b, ∂v/∂a = b and ∂v/∂b = a; for v = ln a, ∂v/∂a = 1/a; for v = sin a, ∂v/∂a = cos a. The two modes differ in the direction in which the chain rule is accumulated through the trace."
+      ],
+      "check": [
+        {
+          "q": "Why can AD handle programs with loops and branches?",
+          "a": "It differentiates the sequence of elementary operations that actually executed",
+          "wrong": [
+            "It rewrites the loops symbolically",
+            "It ignores the branches",
+            "It requires the program to be a single formula"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "forward-mode",
+      "title": "Forward mode and dual numbers",
+      "terms": [
+        "forward mode",
+        "forward-mode differentiation",
+        "dual numbers",
+        "jacobian-vector product",
+        "jvp",
+        "tangent propagation"
+      ],
+      "body": [
+        "**Forward mode** carries a derivative along with each value. Choose an input direction (for the partial derivative with respect to x₁, seed ẋ₁ = 1 and ẋ₂ = 0) and propagate the **tangent** v̇_i = ∂v_i/∂(seed) forward, applying the local derivative rule at each step.",
+        {
+          "example": {
+            "title": "Forward mode for ∂f/∂x₁",
+            "problem": "Propagate tangents through the trace of the previous example with the seed ẋ₁ = 1, ẋ₂ = 0 at (2, 5).",
+            "solution": [
+              "v̇₁ = 1, v̇₂ = 0.",
+              "v̇₃ = v̇₁/v₁ = 0.5. v̇₄ = v̇₁v₂ + v₁v̇₂ = 5 + 0 = 5. v̇₅ = cos(v₂)·v̇₂ = 0.",
+              "v̇₆ = v̇₃ + v̇₄ = 5.5. v̇₇ = v̇₆ − v̇₅ = 5.5.",
+              "So ∂f/∂x₁ = 5.5, matching the hand calculation. To get ∂f/∂x₂ we run again with the seed (0, 1): 1.7163."
+            ]
+          }
+        },
+        "Forward mode computes a **Jacobian–vector product** J·v: the derivative of all outputs in one chosen input direction, at about the cost of one evaluation of the program (two to three times, for the extra multiplications). A full Jacobian with n inputs takes n passes.",
+        {
+          "h": "Implementation with dual numbers"
+        },
+        "A **dual number** a + bε with ε² = 0 stores a value and its derivative. Arithmetic on dual numbers carries out the forward-mode rules automatically: (a + bε)(c + dε) = ac + (ad + bc)ε, the product rule.",
+        {
+          "code": [
+            "import math",
+            "",
+            "class Dual:",
+            "    def __init__(self, value, tangent=0.0):",
+            "        self.value, self.tangent = value, tangent",
+            "    def __add__(self, other):",
+            "        other = other if isinstance(other, Dual) else Dual(other)",
+            "        return Dual(self.value + other.value, self.tangent + other.tangent)",
+            "    def __mul__(self, other):",
+            "        other = other if isinstance(other, Dual) else Dual(other)",
+            "        return Dual(self.value * other.value,",
+            "                    self.tangent * other.value + self.value * other.tangent)",
+            "    __radd__, __rmul__ = __add__, __mul__",
+            "",
+            "def sin(x): return Dual(math.sin(x.value), math.cos(x.value) * x.tangent)",
+            "def log(x): return Dual(math.log(x.value), x.tangent / x.value)",
+            "",
+            "def f(x1, x2):",
+            "    return log(x1) + x1 * x2 + (-1) * sin(x2)",
+            "",
+            "out = f(Dual(2.0, 1.0), Dual(5.0, 0.0))      # seed the tangent of x1",
+            "out.value, out.tangent                         # (11.652, 5.5)"
+          ],
+          "caption": "Forward mode in 20 lines: the program f is unchanged, only the numbers are replaced by dual numbers."
+        },
+        "Forward mode is efficient when there are few inputs and many outputs, and for directional derivatives and Jacobian–vector products. It needs no memory beyond the current values."
+      ],
+      "check": [
+        {
+          "q": "Forward mode with one seed vector computes",
+          "a": "a Jacobian–vector product, the derivative of all outputs along one input direction",
+          "wrong": [
+            "the full gradient of a scalar loss",
+            "the Hessian",
+            "a finite-difference estimate"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "reverse-mode",
+      "title": "Reverse mode: backpropagation",
+      "terms": [
+        "reverse mode",
+        "reverse-mode differentiation",
+        "vector-jacobian product in autodiff",
+        "adjoint variables",
+        "backward pass",
+        "tape",
+        "cheap gradient principle"
+      ],
+      "body": [
+        "**Reverse mode** goes the other way. It first runs the program forward, recording the trace. Then it propagates **adjoints** v̄_i = ∂f/∂v_i, the sensitivity of the final output to each intermediate variable, from the output backward. At each step, the adjoint of a variable is the sum over the operations that used it of (adjoint of the result) × (local derivative).",
+        {
+          "example": {
+            "title": "Reverse mode for the whole gradient",
+            "problem": "Compute both partial derivatives of the previous function at (2, 5) in one backward pass.",
+            "solution": [
+              "Start with v̄₇ = 1. The step v₇ = v₆ − v₅ gives v̄₆ = v̄₇ = 1 and v̄₅ = −v̄₇ = −1.",
+              "v₆ = v₃ + v₄: v̄₃ = 1, v̄₄ = 1.",
+              "v₅ = sin v₂: v̄₂ gets −cos(5) = −0.2837 from this step.",
+              "v₄ = v₁v₂: v̄₁ gets v̄₄·v₂ = 5 and v̄₂ gets v̄₄·v₁ = 2.",
+              "v₃ = ln v₁: v̄₁ gets v̄₃/v₁ = 0.5.",
+              "Totals: v̄₁ = 5 + 0.5 = 5.5 and v̄₂ = −0.2837 + 2 = 1.7163. One backward pass gave both partial derivatives."
+            ]
+          }
+        },
+        "Reverse mode computes a **vector–Jacobian product** vᵀJ. For a function with a single scalar output (a loss) this is the entire gradient. The **cheap gradient principle**: the gradient of a scalar function costs only a small constant multiple (typically 2 to 4 times) of evaluating the function, regardless of the number of inputs. For a network with a million weights, that is a million times cheaper than finite differences, and the reason deep learning is feasible.",
+        {
+          "table": {
+            "head": [
+              "",
+              "Forward mode",
+              "Reverse mode"
+            ],
+            "rows": [
+              [
+                "Computes",
+                "J·v (one input direction)",
+                "vᵀ·J (one output direction)"
+              ],
+              [
+                "Passes for a full Jacobian of a map ℝⁿ → ℝᵐ",
+                "n",
+                "m"
+              ],
+              [
+                "Best when",
+                "few inputs, many outputs",
+                "many inputs, few outputs (a scalar loss)"
+              ],
+              [
+                "Memory",
+                "small",
+                "stores the intermediate values of the forward pass"
+              ]
+            ],
+            "caption": "Forward versus reverse mode."
+          }
+        },
+        {
+          "h": "The memory cost"
+        },
+        "The backward pass needs the intermediate values of the forward pass (the local derivatives depend on them), so reverse mode stores them: memory proportional to the number of operations, typically the activations of a network times the batch size. Remedies are **gradient checkpointing** (store only some intermediate values and recompute the rest in the backward pass: with L layers, storing about √L checkpoints gives O(√L) memory at the price of one extra forward pass), lower precision, and smaller batches (see Computer Systems).",
+        {
+          "list": [
+            "**Higher derivatives**: a Hessian–vector product Hv can be computed at the cost of a few gradients by differentiating the gradient (forward mode over reverse mode), without forming the n × n Hessian. It is used for Newton–CG methods, for curvature estimates and for the second-order terms of some meta-learning methods.",
+            "**Jacobians**: the full Jacobian of a map ℝⁿ → ℝᵐ needs min(n, m) passes. For m = 1 the gradient needs one."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "Reverse mode is the method of choice for training neural networks because",
+          "a": "one backward pass gives the gradient of a scalar loss with respect to all parameters",
+          "wrong": [
+            "it needs no memory",
+            "it computes second derivatives for free",
+            "it works only for linear networks"
+          ]
+        },
+        {
+          "q": "The main cost of reverse mode is",
+          "a": "memory for the intermediate values of the forward pass",
+          "wrong": [
+            "many extra forward passes, one per parameter",
+            "symbolic algebra",
+            "numerical instability of finite differences"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "implementing",
+      "title": "A small reverse-mode engine",
+      "terms": [
+        "micrograd",
+        "autograd engine implementation",
+        "topological sort in backpropagation",
+        "gradient accumulation in autodiff"
+      ],
+      "body": [
+        "A reverse-mode engine needs three things: a node that stores a value, its gradient, the nodes it was computed from and a rule to send gradients back to them; a topological ordering of the graph; and a backward pass in reverse topological order that **accumulates** (adds) gradients, since a node used twice receives a contribution from each use.",
+        {
+          "code": [
+            "class Value:",
+            "    def __init__(self, data, parents=(), backward_fn=lambda: None):",
+            "        self.data, self.grad = data, 0.0",
+            "        self.parents = parents",
+            "        self.backward_fn = backward_fn         # pushes this node's grad to its parents",
+            "",
+            "    def __add__(self, other):",
+            "        other = other if isinstance(other, Value) else Value(other)",
+            "        out = Value(self.data + other.data, (self, other))",
+            "        def backward_fn():",
+            "            self.grad += out.grad              # d(a+b)/da = 1",
+            "            other.grad += out.grad",
+            "        out.backward_fn = backward_fn",
+            "        return out",
+            "",
+            "    def __mul__(self, other):",
+            "        other = other if isinstance(other, Value) else Value(other)",
+            "        out = Value(self.data * other.data, (self, other))",
+            "        def backward_fn():",
+            "            self.grad += other.data * out.grad  # d(ab)/da = b",
+            "            other.grad += self.data * out.grad",
+            "        out.backward_fn = backward_fn",
+            "        return out",
+            "",
+            "    def __pow__(self, k):                       # k: a constant number",
+            "        out = Value(self.data ** k, (self,))",
+            "        def backward_fn():",
+            "            self.grad += k * self.data ** (k - 1) * out.grad",
+            "        out.backward_fn = backward_fn",
+            "        return out",
+            "",
+            "    def backward(self):",
+            "        order, seen = [], set()",
+            "        def visit(v):                           # depth-first search: topological order",
+            "            if v not in seen:",
+            "                seen.add(v)",
+            "                for p in v.parents: visit(p)",
+            "                order.append(v)",
+            "        visit(self)",
+            "        self.grad = 1.0                          # d out / d out",
+            "        for v in reversed(order):                # outputs first, inputs last",
+            "            v.backward_fn()",
+            "",
+            "a, b = Value(2.0), Value(-3.0)",
+            "c = a * b + b ** 2                              # c = -6 + 9 = 3",
+            "c.backward()",
+            "c.data, a.grad, b.grad                          # (3.0, -3.0, -4.0)"
+          ],
+          "caption": "A reverse-mode autodiff engine in the style of Karpathy's micrograd. The gradients are ∂c/∂a = b = −3 and ∂c/∂b = a + 2b = −4."
+        },
+        {
+          "list": [
+            "Gradients are **accumulated with +=**, because a variable can feed several operations (here b is used in a * b and in b ** 2: its gradient is the sum of both contributions: a from the product plus 2b from the square, 2 − 6 = −4).",
+            "The topological ordering (from Graph Algorithms) guarantees that a node's gradient is complete before it is sent on to its parents.",
+            "Adding an operation to the engine requires only its forward computation and the rule that maps the output gradient to the input gradients, i.e. the vector–Jacobian product of that operation.",
+            "Real frameworks work on whole tensors, not scalars: the rule for a matrix product C = AB sends Ā = C̄Bᵀ and B̄ = AᵀC̄, the equations of backpropagation."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "Why must gradients be accumulated (added) in the backward pass?",
+          "a": "A variable used by several operations receives a gradient contribution from each use",
+          "wrong": [
+            "To keep the gradient positive",
+            "To average the gradient over the batch",
+            "Python requires it"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "frameworks",
+      "title": "Autodiff in practice: PyTorch and JAX",
+      "terms": [
+        "pytorch",
+        "pytorch autograd",
+        "jax",
+        "tensorflow",
+        "dynamic computational graph",
+        "static computational graph",
+        "jit compilation",
+        "vmap",
+        "custom gradient",
+        "detach",
+        "in-place operation",
+        "gradient accumulation"
+      ],
+      "body": [
+        "Deep learning frameworks provide AD as a core feature.",
+        {
+          "code": [
+            "import torch",
+            "",
+            "x = torch.tensor(2.0, requires_grad=True)    # track operations on x",
+            "y = x ** 2 + 3 * x                           # builds the graph as it runs",
+            "y.backward()                                 # reverse mode",
+            "x.grad                                       # tensor(7.)   since dy/dx = 2x + 3 = 7",
+            "",
+            "w = torch.randn(5, requires_grad=True)",
+            "X, t = torch.randn(100, 5), torch.randn(100)",
+            "loss = ((X @ w - t) ** 2).mean()",
+            "loss.backward()                              # w.grad is the gradient of the loss",
+            "with torch.no_grad():                        # update without recording the operation",
+            "    w -= 0.1 * w.grad",
+            "w.grad.zero_()                               # gradients accumulate: reset before the next step"
+          ],
+          "caption": "PyTorch: the graph is recorded as the code runs (dynamic graph), so ordinary Python control flow works."
+        },
+        {
+          "code": [
+            "import jax, jax.numpy as jnp",
+            "",
+            "def loss(w, X, t):",
+            "    return jnp.mean((X @ w - t) ** 2)",
+            "",
+            "grad_loss = jax.grad(loss)                   # a function that returns the gradient w.r.t. w",
+            "fast_grad = jax.jit(grad_loss)               # compile it for speed",
+            "per_example = jax.vmap(grad_loss, in_axes=(None, 0, 0))   # one gradient per example"
+          ],
+          "caption": "JAX treats differentiation as a function transformation: grad, jit and vmap compose."
+        },
+        {
+          "list": [
+            "**PyTorch** records a **dynamic graph** during the forward pass: easy to debug, flexible control flow. **TensorFlow 1** built a static graph first; **JAX** traces functions into a graph and compiles them with XLA; both give the compiler a global view for fusion and optimization (see Roofline).",
+            "**Gradient accumulation**: PyTorch adds new gradients into .grad on every backward call. Reset them with zero_grad() each step, or exploit the behavior to simulate a large batch by accumulating the gradients of several small ones before one update.",
+            "**Detaching** a tensor (.detach(), torch.no_grad()) cuts it out of the graph. Use it for evaluation, for target values in reinforcement learning, and for the frozen parts of a network.",
+            "**Non-differentiable operations** (argmax, rounding, sampling, comparison) have zero or undefined derivative. Remedies are smooth surrogates (softmax for argmax), the straight-through estimator (pass the gradient as if the operation were the identity), and the reparameterization trick for sampling (see VAEs).",
+            "**In-place operations** (x += 1) can overwrite a value that the backward pass needs, and the framework raises an error. Prefer out-of-place operations on tensors that take part in the graph.",
+            "**Custom gradients**: for an operation that is numerically unstable or has a known better derivative (a stable log-sum-exp, an implicit layer, a fused kernel), the user supplies the backward rule explicitly.",
+            "**Checking**: compare against finite differences on small inputs (gradient checking), as in Software Practice."
+          ]
+        },
+        {
+          "tip": "When a gradient is None, zero or nan, trace backward: was the tensor created with requires_grad, did an operation detach it, did a non-differentiable operation intervene, or did the forward pass already contain a nan? Printing the gradient of intermediate tensors (retain_grad) locates the break."
+        }
+      ],
+      "check": [
+        {
+          "q": "In PyTorch, loss.backward() called twice (without zeroing the gradients) will",
+          "a": "add the new gradients to the existing ones",
+          "wrong": [
+            "replace the gradients",
+            "raise an error in all cases",
+            "reset the model weights"
+          ]
+        },
+        {
+          "q": "The straight-through estimator is used for",
+          "a": "passing gradients through a non-differentiable operation such as rounding",
+          "wrong": [
+            "speeding up matrix multiplication",
+            "computing second derivatives",
+            "saving memory in the backward pass"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Automatic differentiation applies the chain rule to the elementary operations that a program executes. It is exact up to rounding, unlike finite differences, and never builds a symbolic formula.",
+    "Forward mode propagates tangents alongside values (dual numbers) and gives a Jacobian–vector product per pass; reverse mode runs the program, records the trace, and propagates adjoints backward, giving a vector–Jacobian product per pass.",
+    "For a scalar loss with n parameters, reverse mode computes the whole gradient at a small constant multiple of the forward cost; its price is the memory of the stored intermediate values, reduced by checkpointing.",
+    "A reverse-mode engine needs nodes with local backward rules, a topological order and accumulation of gradients; the framework operates on tensors with the matrix rules of backpropagation.",
+    "PyTorch records a dynamic graph and accumulates .grad; JAX transforms functions with grad, jit and vmap. Watch for detaching, in-place operations, non-differentiable operations and the need to reset gradients."
+  ],
+  "problems": [
+    {
+      "q": "For f(x, y) = x·y + sin(x), compute f and ∂f/∂x, ∂f/∂y at (1, 2) by forward mode (two passes) and by reverse mode (one pass).",
+      "solution": "Trace: v₁ = x = 1, v₂ = y = 2, v₃ = v₁v₂ = 2, v₄ = sin v₁ = 0.8415, v₅ = v₃ + v₄ = 2.8415. Forward, seed (1, 0): v̇₃ = 2, v̇₄ = cos 1 = 0.5403, v̇₅ = 2.5403. Seed (0, 1): v̇₃ = 1, v̇₄ = 0, v̇₅ = 1. Reverse: v̄₅ = 1, v̄₃ = v̄₄ = 1; v̄₁ = v̄₃ v₂ + v̄₄ cos v₁ = 2 + 0.5403 = 2.5403; v̄₂ = v̄₃ v₁ = 1.",
+      "a": "f = 2.8415, ∂f/∂x = 2.5403, ∂f/∂y = 1."
+    },
+    {
+      "q": "Run the micro engine of the text by hand for c = a * b with a = 3, b = 4, then for c = a * a.",
+      "solution": "For c = a*b: a.grad = b = 4 and b.grad = a = 3. For c = a*a, the same node is used twice. The backward rule adds both contributions: a.grad = a + a = 6 = 2a, which is the derivative of a². This is why gradients must be accumulated.",
+      "a": "(4, 3) for a*b, and 6 for a*a."
+    },
+    {
+      "q": "A function maps ℝ¹⁰⁰⁰ → ℝ³. How many forward-mode and reverse-mode passes are needed for its full Jacobian? Which would you use?",
+      "solution": "Forward mode needs one pass per input: 1000. Reverse mode needs one per output: 3. Use reverse mode.",
+      "a": "1000 forward passes versus 3 reverse passes; reverse mode."
+    },
+    {
+      "q": "A network has 64 layers, and each layer's activations occupy 200 MB for a batch. How much memory do the stored activations need, and how much if every 8th layer is checkpointed and the rest are recomputed in segments of 8 (assume at most one segment is held at a time)?",
+      "solution": "Without checkpointing: 64 × 200 MB = 12.8 GB. With checkpointing every 8th layer: 8 checkpoints (1.6 GB) plus one segment of 8 layers being recomputed (1.6 GB): about 3.2 GB, roughly a quarter, at the cost of one extra forward pass (about 33% more compute).",
+      "a": "12.8 GB versus about 3.2 GB."
+    },
+    {
+      "q": "Using the dual-number approach, find the derivative of g(x) = x³ + 2x at x = 2 by hand with the tangent seeded to 1.",
+      "solution": "x = (2, 1). x·x = (4, 2·2·1) = (4, 4). x³ = (x·x)·x = (8, 4·1 + 2·4) = (8, 12). 2x = (4, 2). Sum: (12, 14). So g(2) = 12 and g′(2) = 14, matching 3x² + 2 = 14.",
+      "a": "g(2) = 12 and g′(2) = 14."
+    }
+  ]
+}

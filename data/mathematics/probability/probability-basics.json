@@ -1,0 +1,312 @@
+{
+  "id": "probability-basics",
+  "view": "chapter",
+  "title": "Probability: Events, Conditioning and Bayes' Rule",
+  "description": "Sample spaces and the axioms of probability, counting, conditional probability, independence and Bayes' rule.",
+  "overview": [
+    "Machine learning deals in uncertainty: noisy measurements, finite samples, unobserved causes and unpredictable futures. Probability is the language for it. A classifier outputs the probability of a class, a loss function is the negative log of a probability, and learning is the updating of beliefs in light of data. Every later method in the Machine Learning book is built on the ideas here.",
+    "This chapter develops the rules: what a probability is, how to count outcomes, how probabilities change when we learn something (conditioning), when events are independent, and how to reason backward from effects to causes with Bayes' rule."
+  ],
+  "objectives": [
+    "State the axioms of probability and derive the rules for complements and unions.",
+    "Count outcomes with permutations and combinations.",
+    "Compute conditional probabilities, use the chain rule and the law of total probability, and test independence.",
+    "Apply Bayes' rule to diagnostic problems, and explain the base rate fallacy.",
+    "Distinguish independence from conditional independence."
+  ],
+  "sections": [
+    {
+      "id": "axioms",
+      "title": "Sample spaces, events and the axioms",
+      "terms": [
+        "sample space",
+        "axioms of probability",
+        "kolmogorov axioms",
+        "inclusion–exclusion",
+        "inclusion-exclusion",
+        "mutually exclusive",
+        "probability measure"
+      ],
+      "body": [
+        "A random experiment has a set of possible **outcomes**, the **sample space** Ω. An **event** is a subset of Ω, a collection of outcomes. For a roll of two dice, Ω has 36 outcomes (a, b), and 'the sum is 7' is the event {(1, 6), (2, 5), (3, 4), (4, 3), (5, 2), (6, 1)}.",
+        "A **probability measure** P assigns each event a number so that (Kolmogorov's axioms):",
+        {
+          "list": [
+            "P(A) ≥ 0 for every event A.",
+            "P(Ω) = 1.",
+            "If events A₁, A₂, … are **mutually exclusive** (no two can occur together), then P(A₁ ∪ A₂ ∪ …) = P(A₁) + P(A₂) + …."
+          ],
+          "ordered": true
+        },
+        "Everything else follows. The **complement** rule: P(Aᶜ) = 1 − P(A). The monotonicity rule: if A ⊆ B then P(A) ≤ P(B). And for any two events,",
+        {
+          "eq": "P(A ∪ B) = P(A) + P(B) − P(A ∩ B)"
+        },
+        "which is **inclusion–exclusion**: adding P(A) and P(B) counts the overlap twice, so subtract it once.",
+        {
+          "svg": "<svg viewBox='0 0 400 190' role='img' aria-label='Venn diagram of two overlapping events A and B' font-family='system-ui, sans-serif' font-size='13'><rect x='20' y='15' width='360' height='160' rx='6' fill='none' stroke='currentColor' stroke-width='1.5'/><circle cx='160' cy='95' r='60' style='fill:var(--accent)' fill-opacity='.25' stroke='currentColor' stroke-width='1.5'/><circle cx='240' cy='95' r='60' fill='currentColor' fill-opacity='.15' stroke='currentColor' stroke-width='1.5'/><g fill='currentColor' text-anchor='middle'><text x='125' y='99'>A</text><text x='275' y='99'>B</text><text x='200' y='99'>A ∩ B</text><text x='350' y='36'>Ω</text></g></svg>",
+          "caption": "Events A and B inside the sample space Ω. The overlap A ∩ B is counted in both P(A) and P(B), so it is subtracted once from the sum."
+        },
+        "When the outcomes are equally likely, P(A) = |A|/|Ω|, and probability becomes counting.",
+        {
+          "example": {
+            "title": "Two dice",
+            "problem": "Roll two fair dice. Find P(sum = 7) and P(at least one six).",
+            "solution": "There are 36 equally likely outcomes. Six give a sum of 7, so P = 6/36 = 1/6. For 'at least one six' use the complement: no six has 5 × 5 = 25 outcomes, so P = 1 − 25/36 = 11/36. By inclusion–exclusion: 1/6 + 1/6 − 1/36 = 11/36 ✓."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "If P(A) = 0.5, P(B) = 0.4 and P(A ∩ B) = 0.2, then P(A ∪ B) is",
+          "a": "0.7",
+          "wrong": [
+            "0.9",
+            "0.1",
+            "0.2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "counting",
+      "title": "Counting",
+      "terms": [
+        "permutation",
+        "permutations",
+        "binomial coefficient",
+        "factorial",
+        "multinomial coefficient",
+        "birthday problem"
+      ],
+      "body": [
+        "With equally likely outcomes, probability reduces to counting.",
+        {
+          "list": [
+            "**Multiplication rule**: if one choice can be made in a ways and then another in b ways, the pair can be made in ab ways.",
+            "**Permutations**: the number of orderings of n distinct objects is n! = n(n − 1)⋯1. The number of ordered selections of k from n is n!/(n − k)!.",
+            "**Combinations**: the number of unordered subsets of size k from n is the **binomial coefficient** C(n, k) = n!/(k!(n − k)!). Dividing by k! removes the ordering.",
+            "**Multinomial coefficient**: the ways to split n objects into groups of sizes k₁, …, k_m is n!/(k₁!⋯k_m!)."
+          ]
+        },
+        {
+          "example": {
+            "title": "Poker hands",
+            "problem": "How many 5-card hands are there from a 52-card deck, and what is the probability of being dealt four aces?",
+            "solution": "C(52, 5) = 2,598,960. Four aces plus any one of the 48 other cards: 48 hands. P = 48/2,598,960 = 1.85 × 10⁻⁵."
+          }
+        },
+        {
+          "example": {
+            "title": "The birthday problem",
+            "problem": "In a group of 23 people, what is the probability that two share a birthday (365 equally likely days)?",
+            "solution": "Use the complement. The probability that all 23 birthdays differ is (365/365)(364/365)⋯(343/365) = Π_{k=0}^{22}(1 − k/365) ≈ 0.4927. So P(shared) ≈ 0.507, a little over one half. The number of pairs, C(23, 2) = 253, is large: that is why the result seems surprising. The same collision effect governs hashing and the 'birthday attack' on short hashes."
+          }
+        },
+        "Counting appears throughout machine learning: the number of Boolean functions on n bits is 2^{2ⁿ}, the number of ways to choose k features from n is C(n, k), and the number of polynomial features is a binomial coefficient (see Linear Regression). The binomial coefficients also give the coefficients of (a + b)ⁿ = Σ C(n, k)a^k bⁿ⁻ᵏ."
+      ],
+      "check": [
+        {
+          "q": "C(10, 3) equals",
+          "a": "120",
+          "wrong": [
+            "720",
+            "30",
+            "1000"
+          ]
+        },
+        {
+          "q": "How many ways can 4 distinct books be arranged on a shelf?",
+          "a": "24",
+          "wrong": [
+            "16",
+            "12",
+            "4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "conditional",
+      "title": "Conditional probability and independence",
+      "terms": [
+        "conditional probability",
+        "independent events",
+        "chain rule of conditional probability",
+        "law of total probability",
+        "total probability",
+        "conditional independence of events",
+        "multiplication rule of probability"
+      ],
+      "body": [
+        "The **conditional probability** of A given that B has occurred is",
+        {
+          "eq": "P(A | B) = P(A ∩ B) / P(B),    P(B) > 0"
+        },
+        "Learning that B happened shrinks the sample space to B; P(A | B) is the share of B in which A also occurs. Rearranging gives the **multiplication rule** P(A ∩ B) = P(B)P(A | B), and for several events the **chain rule**:",
+        {
+          "eq": "P(A₁ ∩ A₂ ∩ … ∩ A_n) = P(A₁) P(A₂ | A₁) P(A₃ | A₁ ∩ A₂) ⋯ P(A_n | A₁ ∩ … ∩ A_{n−1})"
+        },
+        "This is the factorization that underlies autoregressive language models and Bayesian networks.",
+        {
+          "example": {
+            "title": "Drawing aces",
+            "problem": "Three cards are drawn without replacement. What is the probability that all are aces?",
+            "solution": "By the chain rule: (4/52)(3/51)(2/50) = 24/132,600 = 1/5525 = 1.8 × 10⁻⁴."
+          }
+        },
+        {
+          "h": "The law of total probability"
+        },
+        "If B₁, …, B_k **partition** the sample space (mutually exclusive, together exhaustive), then any event A splits into pieces:",
+        {
+          "eq": "P(A) = Σ_j P(A | B_j) P(B_j)"
+        },
+        "It computes the probability of an event by averaging over the possible cases. Sums in a mixture model, a Markov chain step and the marginal of a joint distribution all use it.",
+        {
+          "h": "Independence"
+        },
+        "Events A and B are **independent** if learning one tells nothing about the other: P(A ∩ B) = P(A)P(B), equivalently P(A | B) = P(A). Independence is a modeling assumption that makes joint probabilities multiply, and it is behind the 'i.i.d.' assumption in learning.",
+        {
+          "warn": "Independence is not the same as being mutually exclusive. If A and B are mutually exclusive and both have positive probability, they are strongly //dependent//: knowing that A occurred tells us that B did not. Three events can be pairwise independent without being mutually independent."
+        },
+        {
+          "example": {
+            "title": "Checking independence",
+            "problem": "Roll one fair die. A = {even}, B = {1, 2, 3, 4}. Are A and B independent?",
+            "solution": "P(A) = 1/2, P(B) = 2/3, and A ∩ B = {2, 4} has probability 1/3 = (1/2)(2/3). They are independent."
+          }
+        },
+        "Two events are **conditionally independent** given C if P(A ∩ B | C) = P(A | C)P(B | C). Independence and conditional independence are unrelated in general: two symptoms may be dependent overall but independent given the disease, which is the naive Bayes assumption."
+      ],
+      "check": [
+        {
+          "q": "Two events with positive probability that cannot occur together are",
+          "a": "dependent",
+          "wrong": [
+            "independent",
+            "identical",
+            "complements of each other only"
+          ]
+        },
+        {
+          "q": "P(A ∩ B) for independent events with P(A) = 0.3 and P(B) = 0.5 is",
+          "a": "0.15",
+          "wrong": [
+            "0.8",
+            "0.2",
+            "0.5"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bayes",
+      "title": "Bayes' rule",
+      "terms": [
+        "bayes' rule",
+        "bayes rule",
+        "bayes' theorem",
+        "bayes theorem",
+        "prior",
+        "posterior",
+        "likelihood function",
+        "base rate fallacy",
+        "base rate",
+        "odds form of bayes' rule",
+        "monty hall problem"
+      ],
+      "body": [
+        "Conditioning is not symmetric: P(A | B) ≠ P(B | A) in general. **Bayes' rule** converts one into the other. From P(A ∩ B) = P(A | B)P(B) = P(B | A)P(A),",
+        {
+          "eq": "P(H | E) = P(E | H) P(H) / P(E),    P(E) = Σ_j P(E | H_j) P(H_j)"
+        },
+        "For a hypothesis H and evidence E, P(H) is the **prior** (belief before the evidence), P(E | H) is the **likelihood**, P(E) normalizes by the law of total probability, and P(H | E) is the **posterior**. This is the whole logic of Bayesian learning: update beliefs about parameters or classes after seeing data.",
+        {
+          "example": {
+            "title": "A diagnostic test",
+            "problem": "A disease has prevalence 1%. A test is positive for 90% of the sick and for 5% of the healthy. A patient tests positive. What is the probability of disease?",
+            "solution": [
+              "P(+) = 0.9(0.01) + 0.05(0.99) = 0.009 + 0.0495 = 0.0585.",
+              {
+                "eq": "P(D | +) = 0.009 / 0.0585 = 0.154"
+              },
+              "Only 15%. The healthy group is so much larger that its 5% false positives (0.0495 of the population) outnumber the true positives (0.009) five to one. Neglecting the prior, the **base rate fallacy**, leads people to answer 90%."
+            ]
+          }
+        },
+        {
+          "h": "Odds form and sequential updating"
+        },
+        "Dividing Bayes' rule for H by the same rule for Hᶜ gives the odds form:",
+        {
+          "eq": "P(H | E)/P(Hᶜ | E) = [ P(H)/P(Hᶜ) ] × [ P(E | H)/P(E | Hᶜ) ]"
+        },
+        "posterior odds = prior odds × likelihood ratio. Independent pieces of evidence multiply their likelihood ratios, so a second positive test of the same quality in the example (likelihood ratio 0.9/0.05 = 18) turns the odds 0.154/0.846 = 0.182 into 0.182 × 18 = 3.27, a probability of 0.766. Today's posterior is tomorrow's prior.",
+        {
+          "example": {
+            "title": "The Monty Hall problem",
+            "problem": "You pick door 1 of three, behind one of which is a car. The host, who knows where the car is, opens door 3 to reveal a goat. Should you switch to door 2?",
+            "solution": "Let C_i be 'car behind door i' (prior 1/3 each) and H₃ be 'host opens door 3'. P(H₃ | C₁) = 1/2 (host chooses between 2 and 3), P(H₃ | C₂) = 1 (host must open 3), P(H₃ | C₃) = 0. By Bayes' rule, P(C₂ | H₃) = (1/3)(1)/[(1/3)(1/2) + (1/3)(1) + 0] = (1/3)/(1/2) = 2/3. Switching wins with probability 2/3. The host's choice carries information because it depends on where the car is."
+          }
+        },
+        "Bayes' rule applied to a classifier gives the generative classifier P(y | x) ∝ P(x | y)P(y) (see Generative Classifiers), and applied to model parameters gives the posterior of the Bayesian methods chapter."
+      ],
+      "check": [
+        {
+          "q": "In Bayes' rule P(H | E) = P(E | H)P(H)/P(E), P(H) is called the",
+          "a": "prior",
+          "wrong": [
+            "posterior",
+            "likelihood",
+            "evidence ratio"
+          ]
+        },
+        {
+          "q": "A rare condition (prevalence 0.1%) and a test with 99% sensitivity and 99% specificity. Of the people who test positive, about what fraction have the condition?",
+          "a": "9%",
+          "wrong": [
+            "99%",
+            "50%",
+            "1%"
+          ],
+          "why": "True positives 0.99 × 0.001 = 0.00099; false positives 0.01 × 0.999 = 0.00999; the ratio is 0.00099/0.01098 = 0.09."
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "A probability measure on a sample space satisfies P ≥ 0, P(Ω) = 1 and additivity for mutually exclusive events. P(Aᶜ) = 1 − P(A) and P(A ∪ B) = P(A) + P(B) − P(A ∩ B).",
+    "With equally likely outcomes, count: n! orderings, C(n, k) = n!/(k!(n − k)!) subsets.",
+    "P(A | B) = P(A ∩ B)/P(B). The chain rule factors a joint probability; the law of total probability averages over a partition. Independent events satisfy P(A ∩ B) = P(A)P(B), which is different from being mutually exclusive.",
+    "Bayes' rule: P(H | E) = P(E | H)P(H)/P(E); in odds form, posterior odds = prior odds × likelihood ratio. Ignoring the prior is the base rate fallacy.",
+    "These rules underlie generative classifiers, graphical models and Bayesian learning."
+  ],
+  "problems": [
+    {
+      "q": "A box has 5 red and 3 blue balls. Two balls are drawn without replacement. Find the probability that both are red, and that the second is red.",
+      "solution": "Both red: (5/8)(4/7) = 20/56 = 5/14. Second red, by total probability: (5/8)(4/7) + (3/8)(5/7) = 20/56 + 15/56 = 35/56 = 5/8, the same as the probability that the first is red.",
+      "a": "5/14 and 5/8."
+    },
+    {
+      "q": "A factory has three machines producing 50%, 30% and 20% of the output, with defect rates 1%, 2% and 5%. A random item is defective. What is the probability it came from machine 3?",
+      "solution": "P(defect) = 0.5(0.01) + 0.3(0.02) + 0.2(0.05) = 0.005 + 0.006 + 0.010 = 0.021. P(M3 | defect) = 0.010/0.021 = 0.476.",
+      "a": "0.476."
+    },
+    {
+      "q": "A spam filter flags 95% of spam and 2% of legitimate email. 30% of all email is spam. What fraction of flagged emails are spam?",
+      "solution": "P(flag) = 0.95(0.3) + 0.02(0.7) = 0.285 + 0.014 = 0.299. P(spam | flag) = 0.285/0.299 = 0.953.",
+      "a": "0.953."
+    },
+    {
+      "q": "How many different 4-letter 'words' can be formed using the letters of MATH (each once), and how many 3-element subsets does a 7-element set have?",
+      "solution": "4! = 24. C(7, 3) = 35.",
+      "a": "24 and 35."
+    },
+    {
+      "q": "Events A and B satisfy P(A) = 0.6, P(B) = 0.5 and P(A | B) = 0.8. Find P(A ∩ B), P(B | A) and say whether they are independent.",
+      "solution": "P(A ∩ B) = P(A | B)P(B) = 0.4. P(B | A) = 0.4/0.6 = 0.667. Since P(A | B) = 0.8 ≠ P(A) = 0.6, they are not independent.",
+      "a": "0.4; 0.667; dependent."
+    }
+  ]
+}

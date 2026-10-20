@@ -1,0 +1,495 @@
+{
+  "id": "discrete-math",
+  "view": "chapter",
+  "title": "Discrete Mathematics: Logic, Proof, Counting and Graphs",
+  "description": "Propositional logic and proof techniques, induction, sets and functions, counting arguments, and the basics of graphs and trees.",
+  "overview": [
+    "Algorithms are about finite structures: lists of items, sets of choices, networks of connections. Discrete mathematics is the mathematics of such structures. It supplies the logic for stating precisely what a program is supposed to do, the proof techniques (especially induction) for showing that it does, the counting arguments for estimating how much work or how many possibilities there are, and graphs for modeling relationships.",
+    "In machine learning this shows up in several places: the size of a hypothesis space is a counting problem, a decision tree is a tree, a neural network is a directed acyclic graph, and proofs by induction establish the correctness of recursive algorithms such as the dynamic programs of later chapters. This chapter covers the foundations at the level of Berkeley's CS 70 and Stanford's CS 103."
+  ],
+  "objectives": [
+    "Evaluate propositional formulas with truth tables, negate quantified statements, and use direct proof, contrapositive, contradiction and counterexample.",
+    "Prove statements by mathematical induction, including strong induction and induction on recursive structures.",
+    "Use set operations, functions and the notions of injective, surjective and bijective maps.",
+    "Count with the product rule, permutations, combinations, stars and bars, inclusion–exclusion and the pigeonhole principle.",
+    "State and use basic facts about graphs: degrees, the handshake lemma, paths, connectivity, trees and DAGs."
+  ],
+  "sections": [
+    {
+      "id": "logic",
+      "title": "Propositional logic and quantifiers",
+      "terms": [
+        "propositional logic",
+        "truth table",
+        "contrapositive",
+        "de morgan's laws",
+        "universal quantifier",
+        "existential quantifier"
+      ],
+      "body": [
+        "A **proposition** is a statement that is either true or false. Propositions are combined with **connectives**: not (¬), and (∧), or (∨), implies (→) and if and only if (↔). A **truth table** lists the value of a formula for every assignment of truth values to its variables.",
+        {
+          "table": {
+            "head": [
+              "p",
+              "q",
+              "p ∧ q",
+              "p ∨ q",
+              "p → q",
+              "¬q → ¬p"
+            ],
+            "rows": [
+              [
+                "T",
+                "T",
+                "T",
+                "T",
+                "T",
+                "T"
+              ],
+              [
+                "T",
+                "F",
+                "F",
+                "T",
+                "F",
+                "F"
+              ],
+              [
+                "F",
+                "T",
+                "F",
+                "T",
+                "T",
+                "T"
+              ],
+              [
+                "F",
+                "F",
+                "F",
+                "F",
+                "T",
+                "T"
+              ]
+            ],
+            "caption": "Truth table. The implication p → q is false only when p is true and q is false. It has the same truth values as its contrapositive ¬q → ¬p."
+          }
+        },
+        {
+          "list": [
+            "**Implication** p → q is equivalent to ¬p ∨ q. Its **converse** q → p is a different statement. Its **contrapositive** ¬q → ¬p is equivalent to it: 'if it rains the ground is wet' means the same as 'if the ground is dry it did not rain'.",
+            "**De Morgan's laws**: ¬(p ∧ q) ≡ ¬p ∨ ¬q and ¬(p ∨ q) ≡ ¬p ∧ ¬q. These are the rules for negating conditions in code: not (a and b) is (not a) or (not b).",
+            "A **tautology** is true under every assignment (p ∨ ¬p); a contradiction is false under every assignment."
+          ]
+        },
+        {
+          "h": "Quantifiers"
+        },
+        "Statements about collections use the **universal quantifier** ∀ ('for all') and the **existential quantifier** ∃ ('there exists'). To negate a quantified statement, swap the quantifier and negate the inside: ¬(∀x P(x)) ≡ ∃x ¬P(x), and ¬(∃x P(x)) ≡ ∀x ¬P(x).",
+        {
+          "example": {
+            "title": "Negating a definition",
+            "problem": "A sequence a_n converges to L if ∀ε > 0 ∃N ∀n ≥ N: |a_n − L| < ε. Write what it means that it does not converge to L.",
+            "solution": "Negate step by step: ∃ε > 0 ∀N ∃n ≥ N: |a_n − L| ≥ ε. There is some tolerance ε that the sequence leaves infinitely often, however far out we look. The order of the quantifiers matters: ∀x ∃y and ∃y ∀x are different statements (everyone has a mother, versus one person is everyone's mother)."
+          }
+        },
+        "Logic is the foundation of programming conditions, database queries (SQL's WHERE and EXISTS) and the specification of what a function must satisfy: the **preconditions** that its inputs meet and the **postconditions** that it guarantees."
+      ],
+      "check": [
+        {
+          "q": "The contrapositive of 'if x is a multiple of 4 then x is even' is",
+          "a": "if x is odd then x is not a multiple of 4",
+          "wrong": [
+            "if x is even then x is a multiple of 4",
+            "if x is not a multiple of 4 then x is odd",
+            "x is a multiple of 4 and x is odd"
+          ]
+        },
+        {
+          "q": "The negation of 'every example in the set is correctly classified' is",
+          "a": "some example is misclassified",
+          "wrong": [
+            "no example is correctly classified",
+            "every example is misclassified",
+            "some example is correctly classified"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "proofs",
+      "title": "Proof techniques",
+      "terms": [
+        "direct proof",
+        "proof by contradiction",
+        "proof by contrapositive",
+        "counterexample",
+        "proof by cases"
+      ],
+      "body": [
+        "A **proof** is a chain of logical steps from accepted facts to the claim, convincing enough to leave no doubt. The main techniques are:",
+        {
+          "list": [
+            "**Direct proof**: assume the hypothesis and derive the conclusion.",
+            "**Contrapositive**: to prove p → q, prove ¬q → ¬p instead, which is sometimes easier.",
+            "**Contradiction**: assume the claim is false and derive an absurdity.",
+            "**Cases**: split into exhaustive cases and prove each.",
+            "**Counterexample**: to refute a ∀ statement, exhibit one instance where it fails. 'All primes are odd' is false: 2 is prime.",
+            "**Induction** (next section) for statements about all natural numbers or recursive structures."
+          ]
+        },
+        {
+          "example": {
+            "title": "A direct proof",
+            "problem": "Prove that the sum of two even integers is even.",
+            "solution": "Let a = 2j and b = 2k for integers j, k. Then a + b = 2j + 2k = 2(j + k), which is twice an integer, hence even. ∎"
+          }
+        },
+        {
+          "example": {
+            "title": "A proof by contradiction",
+            "problem": "Prove that √2 is irrational.",
+            "solution": [
+              "Suppose √2 = a/b with integers a, b with no common factor. Squaring, a² = 2b², so a² is even, hence a is even (an odd number has an odd square). Write a = 2c.",
+              "Then 4c² = 2b², so b² = 2c², and b is even too. But then a and b share the factor 2, contradicting the assumption that they had none. So √2 is not rational. ∎"
+            ]
+          }
+        },
+        {
+          "tip": "In an algorithm's proof of correctness, the most useful statement is a **loop invariant**: a property that holds before the loop, is preserved by each iteration, and, together with the exit condition, implies the goal. For a loop computing a sum, the invariant is 'total equals the sum of the items seen so far'."
+        },
+        {
+          "h": "Common mistakes"
+        },
+        {
+          "list": [
+            "Proving a statement by checking examples. Examples never prove a ∀ claim (although a single one can refute it).",
+            "Assuming what is to be proved (circular reasoning), or using the converse: 'if p → q and q, then p' is invalid.",
+            "Dividing by a quantity that might be zero, or forgetting a case such as the empty list or n = 0."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "To disprove 'for every n, n² + n + 41 is prime', it is enough to",
+          "a": "find one n for which it is not prime",
+          "wrong": [
+            "check ten values of n",
+            "prove it for n = 1",
+            "assume it is true and derive a contradiction"
+          ],
+          "why": "n = 41 gives 41² + 41 + 41 = 41 × 43, which is not prime."
+        }
+      ]
+    },
+    {
+      "id": "induction",
+      "title": "Mathematical induction",
+      "terms": [
+        "mathematical induction",
+        "strong induction",
+        "base case",
+        "inductive step",
+        "induction hypothesis",
+        "structural induction",
+        "well-ordering"
+      ],
+      "body": [
+        "Induction proves that a statement P(n) holds for all integers n ≥ n₀. It is like toppling dominoes: show the first one falls, and that each falling domino knocks over the next.",
+        {
+          "list": [
+            "**Base case**: prove P(n₀).",
+            "**Inductive step**: assume P(k) for an arbitrary k ≥ n₀ (the **induction hypothesis**) and prove P(k + 1)."
+          ],
+          "ordered": true
+        },
+        "Then P(n) holds for every n ≥ n₀.",
+        {
+          "example": {
+            "title": "The sum of the first n integers",
+            "problem": "Prove that 1 + 2 + … + n = n(n + 1)/2 for all n ≥ 1.",
+            "solution": [
+              "Base case n = 1: the left side is 1, and the right side is 1 · 2/2 = 1 ✓.",
+              "Inductive step: assume 1 + … + k = k(k + 1)/2. Then 1 + … + k + (k + 1) = k(k + 1)/2 + (k + 1) = (k + 1)(k/2 + 1) = (k + 1)(k + 2)/2, which is the formula for n = k + 1. ∎",
+              "This sum is why a double loop over pairs i < j does about n²/2 steps."
+            ]
+          }
+        },
+        {
+          "example": {
+            "title": "Powers of two",
+            "problem": "Prove that 2ⁿ > n for all n ≥ 0, and so the binary representation of n needs fewer than n bits.",
+            "solution": "Base: 2⁰ = 1 > 0. Step: assume 2ᵏ > k. Then 2^{k+1} = 2 · 2ᵏ > 2k ≥ k + 1 for k ≥ 1; and for k = 0, 2¹ = 2 > 1. So 2^{k+1} > k + 1. ∎"
+          }
+        },
+        {
+          "h": "Strong induction and recursion"
+        },
+        "In **strong induction** the inductive step may assume P(j) for all j ≤ k, not only for k. It is the natural tool for recursive algorithms that call themselves on smaller inputs of various sizes. A recursive function is proved correct exactly this way: assume it works on every smaller input (induction hypothesis), and show that it works on the current one.",
+        {
+          "example": {
+            "title": "Every integer n ≥ 2 is a product of primes",
+            "problem": "Prove it by strong induction.",
+            "solution": "If n is prime, it is a product of one prime. Otherwise n = ab with 2 ≤ a, b < n. By the induction hypothesis both a and b are products of primes, so n is too. ∎"
+          }
+        },
+        "**Structural induction** applies the same idea to recursively defined structures such as trees and expressions: prove the property for the base structures (a leaf) and show that it is preserved when structures are combined (a node whose subtrees have the property). For instance, a binary tree with n internal nodes (each with two children) has n + 1 leaves: a single leaf has 0 internal nodes and 1 leaf; combining a root with subtrees having (n₁, n₂) internal nodes gives n₁ + n₂ + 1 internal and (n₁ + 1) + (n₂ + 1) = n₁ + n₂ + 2 leaves ✓."
+      ],
+      "check": [
+        {
+          "q": "In a proof by induction, the induction hypothesis is",
+          "a": "the assumption that the statement holds for k, used to prove it for k + 1",
+          "wrong": [
+            "the statement to be proved for all n",
+            "the base case",
+            "a counterexample"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sets-functions",
+      "title": "Sets, functions and relations",
+      "terms": [
+        "cartesian product",
+        "injective function",
+        "surjective function",
+        "bijection",
+        "equivalence relation",
+        "countable set"
+      ],
+      "body": [
+        "A **set** is an unordered collection of distinct elements. Basic operations: union A ∪ B, intersection A ∩ B, difference A \\ B, complement, and the **Cartesian product** A × B of ordered pairs (a, b). The **cardinality** |A| is the number of elements. The **power set** P(A), the set of all subsets of A, has 2^{|A|} elements: each element is either in a subset or not. A set with n = 3 elements has 8 subsets; a set of n binary features has 2ⁿ possible inputs and 2^{2ⁿ} Boolean functions on them (see Inductive bias and no free lunch in the Machine Learning book).",
+        "A **function** f : A → B assigns to each element of A exactly one element of B. It is",
+        {
+          "list": [
+            "**injective** (one-to-one) if different inputs give different outputs: f(a) = f(a′) implies a = a′,",
+            "**surjective** (onto) if every element of B is an output,",
+            "**bijective** if both. A bijection has an inverse and shows that two sets have the same size."
+          ]
+        },
+        "Counting functions: there are |B|^{|A|} functions from A to B, since each of the |A| inputs independently has |B| choices of output. An injective function from A to B requires |A| ≤ |B|, and a surjective one |A| ≥ |B|. A hash function maps a huge set of keys to a small set of table slots, so it cannot be injective, and collisions are unavoidable (the pigeonhole principle, below).",
+        {
+          "h": "Relations"
+        },
+        "A **relation** on a set is a set of ordered pairs. An **equivalence relation** is reflexive (a ∼ a), symmetric (a ∼ b implies b ∼ a) and transitive (a ∼ b and b ∼ c imply a ∼ c). It splits the set into disjoint **equivalence classes**: clusters of items that are 'the same' for some purpose. Congruence mod n (same remainder on division by n) is an equivalence relation, and a clustering of data is an equivalence relation when each point is in exactly one cluster.",
+        {
+          "example": {
+            "title": "Counting functions",
+            "problem": "How many functions map a 4-element set to a 3-element set, and how many of them are injective?",
+            "solution": "3⁴ = 81 functions. An injective function needs 4 distinct outputs from 3 possible values, which is impossible, so there are none."
+          }
+        },
+        "A set is **countable** if its elements can be listed in a sequence (the integers and the rational numbers are; the real numbers are not). Programs and finite strings are countable, which is why the reals cannot all be represented exactly (see Numerical Computing)."
+      ],
+      "check": [
+        {
+          "q": "How many subsets does a set with 10 elements have?",
+          "a": "1024",
+          "wrong": [
+            "100",
+            "20",
+            "10!"
+          ]
+        },
+        {
+          "q": "A function from a set of 100 keys to a table of 80 slots can never be",
+          "a": "injective",
+          "wrong": [
+            "surjective",
+            "a function",
+            "defined on all keys"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "counting-comb",
+      "title": "Counting and combinatorics",
+      "terms": [
+        "product rule",
+        "sum rule",
+        "stars and bars",
+        "pigeonhole principle",
+        "binomial theorem",
+        "combinatorial proof",
+        "inclusion–exclusion principle"
+      ],
+      "body": [
+        "Counting underlies the analysis of algorithms (how many cases does a search visit?) and the theory of learning (how many hypotheses?). The rules from the Probability chapters are collected here with further tools.",
+        {
+          "list": [
+            "**Sum rule**: if a task can be done in a ways or in b ways (not both), there are a + b ways.",
+            "**Product rule**: a sequence of independent choices with a, b, … options can be made in a × b × … ways. A password of 8 characters from 62 has 62⁸ ≈ 2.2 × 10¹⁴ possibilities.",
+            "**Permutations and combinations**: n! orderings of n objects; C(n, k) = n!/(k!(n − k)!) k-element subsets.",
+            "**Binomial theorem**: (x + y)ⁿ = Σ_{k=0}^{n} C(n, k) x^k y^{n−k}. With x = y = 1 it gives Σ C(n, k) = 2ⁿ, the number of subsets."
+          ]
+        },
+        {
+          "h": "Stars and bars"
+        },
+        "The number of ways to distribute n identical items into k labeled boxes (allowing empty boxes) is C(n + k − 1, k − 1): arrange n stars and k − 1 bars in a row, and choose which of the n + k − 1 positions hold the bars. The number of monomials of degree at most d in n variables, which is the number of polynomial features used in Linear Regression, is C(n + d, d).",
+        {
+          "example": {
+            "title": "Distributing and feature counting",
+            "problem": "In how many ways can 10 identical samples be assigned to 3 classes? How many polynomial features of degree at most 3 are there in 4 variables?",
+            "solution": "C(10 + 2, 2) = C(12, 2) = 66. For features: C(4 + 3, 3) = C(7, 3) = 35 monomials (including the constant)."
+          }
+        },
+        {
+          "h": "Inclusion–exclusion"
+        },
+        "To count the union of overlapping sets, add the sizes and correct for the overlaps: |A ∪ B| = |A| + |B| − |A ∩ B|, and for three sets, |A ∪ B ∪ C| = Σ|A| − Σ|A ∩ B| + |A ∩ B ∩ C|.",
+        {
+          "example": {
+            "title": "Divisibility",
+            "problem": "How many integers from 1 to 100 are divisible by 2 or by 3?",
+            "solution": "Divisible by 2: 50; by 3: 33; by both, i.e. by 6: 16. So 50 + 33 − 16 = 67."
+          }
+        },
+        {
+          "h": "The pigeonhole principle"
+        },
+        "If more than k objects are placed in k boxes, some box contains at least two. More generally, with n objects in k boxes some box holds at least ⌈n/k⌉. Among 13 people, two share a birth month. Any hash function from a set with more than m keys into m slots produces a collision. A compression algorithm cannot shrink every file: there are 2ⁿ files of n bits but only 2ⁿ − 1 shorter ones, so some file must not get shorter.",
+        {
+          "example": {
+            "title": "A pigeonhole argument",
+            "problem": "A table has 365 slots. How many keys must be inserted to guarantee a collision, whatever the hash function?",
+            "solution": "With 366 keys and 365 slots, two keys share a slot. In practice collisions appear much sooner: by the birthday problem, 23 random keys already have a better than 50% chance of a collision in 365 slots."
+          }
+        }
+      ],
+      "check": [
+        {
+          "q": "In how many ways can 6 identical items be put into 3 labeled boxes (empty boxes allowed)?",
+          "a": "28",
+          "wrong": [
+            "18",
+            "729",
+            "20"
+          ],
+          "why": "C(6 + 2, 2) = C(8, 2) = 28."
+        },
+        {
+          "q": "By the pigeonhole principle, among 25 integers some two have the same remainder when divided by",
+          "a": "24",
+          "wrong": [
+            "25",
+            "26",
+            "30"
+          ],
+          "why": "There are only 24 possible remainders mod 24, so among 25 numbers two coincide."
+        }
+      ]
+    },
+    {
+      "id": "graphs-basics",
+      "title": "Graphs, trees and DAGs",
+      "terms": [
+        "graph theory",
+        "handshake lemma",
+        "adjacency matrix",
+        "adjacency list",
+        "directed graph",
+        "directed acyclic graph",
+        "dag",
+        "bipartite graph"
+      ],
+      "body": [
+        "A **graph** G = (V, E) consists of a set V of **vertices** (nodes) and a set E of **edges**, each joining two vertices. In a **directed graph** the edges have a direction (u → v). Graphs model networks of every kind: social ties, road maps, web links, molecules, neural networks and the dependencies between tasks.",
+        {
+          "list": [
+            "The **degree** of a vertex is the number of edges at it (in a directed graph, in-degree and out-degree).",
+            "A **path** is a sequence of vertices joined by edges, and a **cycle** is a path that returns to its start. A graph is **connected** if there is a path between every pair of vertices.",
+            "A **bipartite** graph has two vertex classes, with edges only between the classes (users and items in a recommender system).",
+            "A graph with n vertices has at most C(n, 2) = n(n − 1)/2 edges (the complete graph), and a directed graph at most n(n − 1)."
+          ]
+        },
+        {
+          "key": "Handshake lemma: the sum of the degrees of all vertices equals twice the number of edges, since each edge contributes to two degrees. Consequently the number of vertices of odd degree is even."
+        },
+        {
+          "example": {
+            "title": "Counting edges",
+            "problem": "A graph has six vertices with degrees 3, 3, 2, 2, 2, 2. How many edges does it have? Could a graph have degrees 3, 3, 3, 2, 2?",
+            "solution": "The degrees sum to 14, so |E| = 7. For (3, 3, 3, 2, 2) the sum is 13, which is odd: impossible, since the degree sum is 2|E|."
+          }
+        },
+        {
+          "h": "Trees"
+        },
+        "A **tree** is a connected graph without cycles. Equivalent facts: a tree on n vertices has exactly n − 1 edges; there is a unique path between any two vertices; removing any edge disconnects it. A **rooted** tree distinguishes one vertex as the root, and then every other vertex has a parent and possibly children. Decision trees, file systems, parse trees and the recursion trees of algorithms are all rooted trees. A binary tree of height h has at most 2^{h+1} − 1 vertices, so a balanced binary tree on n vertices has height about log₂ n. This logarithm appears in the analysis of searching and sorting.",
+        "**Proof that a tree on n vertices has n − 1 edges** (induction): a single vertex has 0 edges. A tree with n ≥ 2 vertices has a leaf (a vertex of degree 1), because following a longest path ends at one. Removing the leaf and its edge leaves a tree on n − 1 vertices with n − 2 edges, so the original has n − 1. ∎",
+        {
+          "h": "Directed acyclic graphs"
+        },
+        "A **directed acyclic graph** (DAG) has directed edges and no directed cycle. DAGs can be arranged in a **topological order**, a linear order in which every edge points forward. They represent dependencies (task A before task B), Bayesian networks, and the computational graph of a neural network, whose forward pass follows a topological order and whose backward pass follows the reverse.",
+        {
+          "h": "Representations"
+        },
+        {
+          "list": [
+            "An **adjacency matrix** A has A_ij = 1 if there is an edge from i to j. It uses n² memory and answers 'is there an edge?' in O(1). Powers of A count walks: (Aᵏ)_ij is the number of walks of length k from i to j.",
+            "An **adjacency list** stores for each vertex the list of its neighbors, using memory proportional to |V| + |E|. It is the right choice for sparse graphs (real networks have far fewer than n² edges)."
+          ]
+        }
+      ],
+      "check": [
+        {
+          "q": "A tree has 20 vertices. How many edges does it have?",
+          "a": "19",
+          "wrong": [
+            "20",
+            "21",
+            "190"
+          ]
+        },
+        {
+          "q": "A graph with 8 vertices, each of degree 3, has how many edges?",
+          "a": "12",
+          "wrong": [
+            "24",
+            "11",
+            "8"
+          ],
+          "why": "The degree sum is 24, which is twice the number of edges."
+        }
+      ]
+    }
+  ],
+  "summary": [
+    "Propositional logic: truth tables, p → q ≡ ¬p ∨ q ≡ ¬q → ¬p, De Morgan's laws. Negate quantifiers by swapping ∀ and ∃ and negating the inside.",
+    "Prove by direct argument, contrapositive, contradiction (√2 is irrational) or counterexample. A loop invariant proves an algorithm correct.",
+    "Induction: a base case and a step P(k) → P(k + 1). Strong induction and structural induction handle recursion and trees.",
+    "A set of n elements has 2ⁿ subsets; there are |B|^{|A|} functions from A to B. Injective, surjective and bijective functions; equivalence relations partition a set.",
+    "Counting: sum and product rules, C(n, k), stars and bars C(n + k − 1, k − 1) (polynomial features C(n + d, d)), inclusion–exclusion, pigeonhole (hash collisions are unavoidable).",
+    "Graphs have vertices and edges, Σ deg = 2|E|. A tree on n vertices has n − 1 edges and a balanced one has height about log₂ n. DAGs have topological orders, and model dependencies and computational graphs."
+  ],
+  "problems": [
+    {
+      "q": "Prove by induction that 1 + 3 + 5 + … + (2n − 1) = n².",
+      "solution": "Base case n = 1: 1 = 1². Step: assume the sum of the first k odd numbers is k². Adding the next odd number 2k + 1 gives k² + 2k + 1 = (k + 1)². ∎",
+      "a": "Proved: the sum of the first n odd numbers is n²."
+    },
+    {
+      "q": "Prove that if n² is even then n is even.",
+      "solution": "By contrapositive: if n is odd, n = 2k + 1 and n² = 4k² + 4k + 1 = 2(2k² + 2k) + 1 is odd. So n² even implies n even. ∎",
+      "a": "Proved by contrapositive."
+    },
+    {
+      "q": "A binary string has length 10. How many such strings have exactly 3 ones? How many have at least one 1?",
+      "solution": "C(10, 3) = 120. At least one 1: 2¹⁰ − 1 = 1023 (subtract the all-zero string).",
+      "a": "120 and 1023."
+    },
+    {
+      "q": "How many integers from 1 to 1000 are divisible by 3, 5 or 7?",
+      "solution": "|A₃| = 333, |A₅| = 200, |A₇| = 142; |A₃ ∩ A₅| = 66 (15), |A₃ ∩ A₇| = 47 (21), |A₅ ∩ A₇| = 28 (35), |A₃ ∩ A₅ ∩ A₇| = 9 (105). Total = 333 + 200 + 142 − 66 − 47 − 28 + 9 = 543.",
+      "a": "543."
+    },
+    {
+      "q": "A connected graph has 10 vertices and 9 edges. Is it a tree? What if it had 10 edges?",
+      "solution": "A connected graph on n vertices with n − 1 edges is a tree, so yes. With 10 edges, a connected graph on 10 vertices has a cycle (a tree would have only 9 edges).",
+      "a": "Yes, it is a tree; with 10 edges it contains a cycle."
+    }
+  ]
+}
