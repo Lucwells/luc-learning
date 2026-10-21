@@ -466,6 +466,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "For a Fischer esterification with K = 4, 2.0 mol of acetic acid is used per mole of alcohol. What fraction of the alcohol is converted at equilibrium?",
+      "a": "0.85",
+      "wrong": [
+        "0.67",
+        "0.92",
+        "0.50"
+      ],
+      "why": "With x mol of ester, K = x²/[(1 − x)(2 − x)] = 4 gives 3x² − 12x + 8 = 0 and x = 0.85. The values 0.67 (equimolar) and 0.92 (3.5 equiv.) belong to other ratios."
+    },
+    {
+      "q": "The IR spectrum of crude isopentyl acetate shows a very broad O–H band over 2500–3300 cm⁻¹ and a C=O band at 1710 cm⁻¹ as well as 1740 cm⁻¹. What is the impurity?",
+      "a": "Acetic acid, because the bicarbonate wash was incomplete",
+      "wrong": [
+        "Isopentyl alcohol, because the reaction did not go to completion",
+        "Water, which gives the broad band and shifts the ester C=O",
+        "Sulfuric acid, which is carried over by the organic layer"
+      ],
+      "why": "A carboxylic acid O–H spans 2500–3300 cm⁻¹ and its C=O lies near 1710 cm⁻¹. An alcohol would show a band near 3300 but no extra carbonyl."
+    },
+    {
+      "q": "A Grignard reaction uses 2.5 g of bromobenzene (157.01 g mol⁻¹), excess Mg and 3.0 g of benzophenone (182.22 g mol⁻¹). What is the maximum yield of triphenylmethanol (260.33 g mol⁻¹)?",
+      "a": "4.15 g",
+      "wrong": [
+        "4.29 g",
+        "2.50 g",
+        "8.30 g"
+      ],
+      "why": "Bromobenzene is 15.9 mmol and benzophenone 16.5 mmol, so the Grignard reagent limits: 15.9 mmol × 260.33 = 4.15 g. The 4.29 g figure assumes benzophenone is limiting."
+    },
+    {
+      "q": "Why is a crystal of iodine added to the magnesium turnings?",
+      "a": "It cleans the oxide layer off the metal, exposing fresh surface",
+      "wrong": [
+        "It protonates bromobenzene so that it reacts faster with the magnesium metal",
+        "It scavenges traces of water in the ether before the reagent can form",
+        "It oxidizes any biphenyl that forms and so keeps the product clean"
+      ],
+      "why": "Mg is coated with MgO and the reaction occurs at the metal surface, so activation matters. The disappearance of the iodine color is a sign that initiation has begun."
+    },
+    {
+      "q": "Which change decreases the formation of biphenyl in a Grignard preparation?",
+      "a": "Adding the bromobenzene slowly, keeping a gentle reflux",
+      "wrong": [
+        "Adding all the bromobenzene at once to speed up initiation",
+        "Heating more strongly during the addition to finish sooner",
+        "Using less ether so the mixture is more concentrated"
+      ],
+      "why": "Biphenyl comes from the coupling of PhMgBr with unreacted PhBr, favored by a high local concentration of PhBr and high temperature. Slow addition keeps PhBr scarce."
+    },
+    {
+      "q": "tert-Butyl alcohol (10.0 mL, d = 0.78 g mL⁻¹, 74.12 g mol⁻¹) gives 7.2 g of tert-butyl chloride (92.57 g mol⁻¹). What is the percent yield?",
+      "a": "74%",
+      "wrong": [
+        "92%",
+        "54%",
+        "82%"
+      ],
+      "why": "The alcohol is 0.105 mol, so the theoretical yield is 0.105 × 92.57 = 9.74 g and 7.2/9.74 = 74%. Dividing by the mass of the alcohol gives 92%."
+    },
+    {
+      "q": "Neopentyl bromide is a primary halide, yet it reacts extremely slowly with NaI in acetone. Why?",
+      "a": "The bulky tert-butyl group next to the carbon blocks backside attack",
+      "wrong": [
+        "Primary halides cannot undergo SN2 reactions",
+        "Acetone solvates the iodide too strongly for it to act as a nucleophile",
+        "The neopentyl cation forms too slowly in acetone"
+      ],
+      "why": "SN2 needs the nucleophile to approach the carbon from the back, and the adjacent quaternary carbon hinders this. A carbocation is not involved in the NaI/acetone test."
+    },
+    {
+      "q": "An alkyl halide gives a precipitate with AgNO₃ in ethanol within seconds, but none with NaI in acetone at room temperature. Which is it?",
+      "a": "2-Bromo-2-methylpropane",
+      "wrong": [
+        "1-Bromobutane, a primary bromide",
+        "Bromobenzene, an aryl bromide",
+        "Methyl iodide, a methyl halide"
+      ],
+      "why": "Fast reaction with Ag⁺ in a polar protic solvent indicates an SN1 substrate that forms a stable carbocation, and a tertiary halide is too hindered for SN2. 1-Bromobutane and methyl iodide would react in the NaI test."
+    },
+    {
+      "q": "Cyclohexanol (9.62 g, 100.16 g mol⁻¹) gives 5.20 g of cyclohexene (82.14 g mol⁻¹). What is the percent yield?",
+      "a": "66%",
+      "wrong": [
+        "54%",
+        "89%",
+        "81%"
+      ],
+      "why": "The alcohol is 96.0 mmol, so the theoretical yield is 96.0 × 82.14 = 7.89 g and 5.20/7.89 = 66%. Comparing with the mass of the alcohol gives 54%."
+    },
+    {
+      "q": "During the distillation of cyclohexene, the head temperature rises to 100 °C and white fumes appear. What does this indicate?",
+      "a": "Most cyclohexene has distilled and water, alcohol and acid now come over; stop",
+      "wrong": [
+        "The reaction has only just started, so the heating should be increased further",
+        "The azeotrope boils at 100 °C, so this is the normal range for the head",
+        "The thermometer bulb is in the liquid, so the reading tells nothing useful"
+      ],
+      "why": "The cyclohexene–water azeotrope distills near 70 °C. A rise toward 100 °C means the product is gone or the heating is too fast, and the flask should not be distilled to dryness."
+    },
+    {
+      "q": "4.00 g of benzaldehyde (106.12 g mol⁻¹) and 1.00 g of acetone (58.08 g mol⁻¹) react to give dibenzalacetone (234.29 g mol⁻¹). What is the theoretical yield?",
+      "a": "4.03 g",
+      "wrong": [
+        "8.83 g",
+        "4.42 g",
+        "2.01 g"
+      ],
+      "why": "Benzaldehyde is 37.7 mmol and acetone 17.2 mmol, which needs 34.4 mmol of aldehyde, so acetone is limiting and the yield is 17.2 × 234.29 = 4.03 g. The 4.42 g value treats benzaldehyde as limiting."
+    },
+    {
+      "q": "Why does the C=O stretch of dibenzalacetone (1650 cm⁻¹) appear below that of acetone (1715 cm⁻¹)?",
+      "a": "Conjugation with the C=C bonds lowers the bond order of the carbonyl",
+      "wrong": [
+        "The oxygen is hydrogen bonded to the solvent in the product",
+        "The product is a cyclic ketone, and ring strain lowers the frequency",
+        "The aromatic rings increase the mass of the carbonyl group"
+      ],
+      "why": "Delocalization of the π electrons into the enone gives the C=O partial single-bond character, which lowers its force constant and its frequency."
+    },
+    {
+      "q": "Anthracene (2.00 g, 178.23 g mol⁻¹) is heated with maleic anhydride (1.30 g, 98.06 g mol⁻¹) to give 2.40 g of adduct (276.29 g mol⁻¹). What is the percent yield?",
+      "a": "77%",
+      "wrong": [
+        "66%",
+        "89%",
+        "94%"
+      ],
+      "why": "Anthracene is 11.2 mmol and maleic anhydride 13.3 mmol, so anthracene limits and the theoretical yield is 11.2 × 276.29 = 3.10 g. Then 2.40/3.10 = 77%. The 66% figure uses the excess reagent."
+    },
+    {
+      "q": "The kinetic endo adduct of cyclopentadiene and maleic anhydride is heated at high temperature for a long time. What is the main product?",
+      "a": "The exo adduct, via retro-Diels–Alder and re-addition (thermodynamic control)",
+      "wrong": [
+        "Still the endo adduct, because a kinetic product cannot revert once it has formed",
+        "A mixture of regioisomers, because maleic anhydride is an unsymmetrical dienophile",
+        "The diacid, which is the thermodynamic product of the Diels–Alder reaction on heating"
+      ],
+      "why": "At room temperature the endo adduct forms faster. When the reaction becomes reversible on heating, the more stable exo isomer accumulates."
+    },
+    {
+      "q": "Why does nitration of methyl benzoate go meta rather than ortho or para?",
+      "a": "Ortho/para attack gives an arenium ion with + on the carbon bearing the carbonyl",
+      "wrong": [
+        "Ortho and para positions are blocked by the large size of the ester group",
+        "The ester donates electrons by resonance to the meta position only, not to the others",
+        "The nitronium ion is repelled by the lone pairs at the ortho and para carbons"
+      ],
+      "why": "The ester is electron-withdrawing, so a positive charge on the ipso carbon next to the δ+ carbonyl carbon is destabilizing. Meta attack never places the charge there."
+    },
+    {
+      "q": "Methyl benzoate (3.00 g, 136.15 g mol⁻¹) gives 2.70 g of methyl 3-nitrobenzoate (181.15 g mol⁻¹). What is the percent yield?",
+      "a": "68%",
+      "wrong": [
+        "90%",
+        "74%",
+        "82%"
+      ],
+      "why": "The ester is 22.0 mmol, so the theoretical yield is 22.0 × 181.15 = 3.99 g and 2.70/3.99 = 68%. Dividing by the starting mass of ester gives 90%."
+    },
+    {
+      "q": "Acetyl chloride (49 mmol) is used in a Friedel–Crafts acylation with 1.1 equivalents of AlCl₃ (133.34 g mol⁻¹). What mass of AlCl₃ is weighed?",
+      "a": "7.2 g",
+      "wrong": [
+        "0.72 g",
+        "6.5 g",
+        "14.4 g"
+      ],
+      "why": "1.1 × 49 mmol = 53.9 mmol, and 53.9 mmol × 133.34 = 7.2 g. The 6.5 g figure would be only 1.0 equivalent, which leaves none to catalyze once the product complexes some of it."
+    },
+    {
+      "q": "Why does Friedel–Crafts acylation not give rearranged products, unlike alkylation with a primary alkyl chloride?",
+      "a": "The acylium ion is resonance stabilized and does not rearrange",
+      "wrong": [
+        "AlCl₃ binds the alkyl group tightly and so prevents it from migrating at all",
+        "The reaction is run at 0 °C, which is cold enough to prevent every shift",
+        "The acyl chloride is a stronger Lewis acid than the alkyl chloride is"
+      ],
+      "why": "The acylium ion R–C≡O⁺ has a stable resonance form and no adjacent site that offers a more stable cation. Primary alkyl carbocations (or their complexes) rearrange to secondary or tertiary ones."
+    }
+  ],
   "summary": [
     "Esterification: K ≈ 4, so use 3.5 equiv. of acid (92% conversion) or remove water. IR: ester C=O 1740, no O–H.",
     "Grignard: oven-dried glassware, I₂ activation, initiation by exotherm, slow addition; biphenyl removed by trituration; Ph₃COH mp 162 °C.",

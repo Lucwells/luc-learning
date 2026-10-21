@@ -285,6 +285,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "Stearic, oleic and linoleic acids are C₁₇H₃₅COOH, C₁₇H₃₃COOH and C₁₇H₃₁COOH. What is the formula of α-linolenic acid (18:3, all cis)?",
+      "a": "C₁₇H₂₉COOH",
+      "wrong": [
+        "C₁₇H₃₁COOH",
+        "C₁₇H₂₇COOH",
+        "C₁₇H₃₃COOH"
+      ],
+      "why": "Each additional C=C removes two hydrogens from the saturated chain: 35 → 33 → 31 → 29. C₁₇H₃₁COOH is linoleic acid (two double bonds)."
+    },
+    {
+      "q": "Partial hydrogenation of a vegetable oil over Ni gives a harder fat that contains trans fatty acids. How do the trans acids arise?",
+      "a": "Some cis double bonds isomerize to trans instead of being saturated",
+      "wrong": [
+        "Hydrogen adds to every double bond from opposite faces, so all products are trans",
+        "Nickel oxidizes the chains and converts cis double bonds into trans hydroperoxides",
+        "Hydrolysis of the ester linkages releases free trans fatty acids from the glycerol"
+      ],
+      "why": "On the catalyst surface some double bonds are only isomerized, from kinked cis to straight trans. The straight chains pack like saturated ones, which raises the melting point and also the LDL cholesterol."
+    },
+    {
+      "q": "Tripalmitin has M = 807 g mol⁻¹. How many mg of KOH (56.1 g mol⁻¹) saponify 1 g of it?",
+      "a": "208 mg",
+      "wrong": [
+        "69 mg",
+        "139 mg",
+        "168 mg"
+      ],
+      "why": "Each triglyceride consumes 3 KOH: 3 × 56.1/807 = 0.208 g per gram of fat. The value 69 mg uses one KOH per molecule, 139 mg uses two, and 168 mg is 3 × 56.1 without dividing by the molar mass."
+    },
+    {
+      "q": "Why is linoleic acid more prone to autoxidation than stearic acid?",
+      "a": "The CH₂ between its two double bonds has a weak C–H bond that radicals easily abstract",
+      "wrong": [
+        "Its carboxyl group readily loses CO₂ when exposed to air",
+        "Its cis double bonds are so strained that they add O₂ directly, without radicals",
+        "Its double bonds are trans and therefore more reactive toward oxygen than cis ones"
+      ],
+      "why": "The doubly allylic C–H bond (≈ 340 kJ mol⁻¹, against ≈ 410 for a normal CH₂) is easily broken by a radical; the resulting chain reaction with O₂ gives hydroperoxides that decompose to the smelly aldehydes of rancidity."
+    },
+    {
+      "q": "Which set of components makes up phosphatidylcholine?",
+      "a": "Glycerol, two fatty acids, phosphate and choline",
+      "wrong": [
+        "Glycerol, three fatty acids and choline",
+        "Sphingosine, one fatty acid, phosphate and choline",
+        "Glycerol, two fatty acids and a fused four-ring steroid"
+      ],
+      "why": "A glycerophospholipid replaces one fatty acid of a triglyceride with a phosphate esterified to a head group, here choline. Sphingosine, one fatty acid, phosphate and choline describe sphingomyelin."
+    },
+    {
+      "q": "Which of these lipids is not derived from cholesterol?",
+      "a": "Sphingomyelin",
+      "wrong": [
+        "Cortisol",
+        "Testosterone",
+        "Bile acids"
+      ],
+      "why": "Cholesterol is the precursor of bile acids and the steroid hormones (cortisol, aldosterone, estradiol, testosterone). Sphingomyelin is built on sphingosine, an amino alcohol, not on a steroid ring system."
+    },
+    {
+      "q": "SDS has a CMC of about 8 mM. In a 2 mM solution it exists mainly as…",
+      "a": "free monomers",
+      "wrong": [
+        "spherical micelles",
+        "a bilayer sheet",
+        "closed vesicles (liposomes)"
+      ],
+      "why": "Micelles form only above the critical micelle concentration. At 2 mM, below the CMC, the detergent is dissolved as individual molecules. Single-tailed, cone-shaped molecules do not form bilayers in any case."
+    },
+    {
+      "q": "Why do phosphatidylserine and sphingomyelin stay on opposite faces of the plasma membrane?",
+      "a": "Flip-flop takes hours to days without a flippase, while lateral diffusion is fast",
+      "wrong": [
+        "Phosphatidylserine is too large to diffuse laterally in the outer leaflet of the membrane",
+        "Each lipid is covalently anchored to integral proteins located on one face of the membrane",
+        "A continuous layer of cholesterol separates the two leaflets and blocks lipid exchange"
+      ],
+      "why": "Moving a polar head group through the hydrocarbon core is very slow without an enzyme, so the composition of each leaflet is maintained. Lipids diffuse freely within their own leaflet (D ≈ 1 µm² s⁻¹)."
+    },
+    {
+      "q": "A transmembrane α-helix must span a hydrophobic core 3.0 nm thick. With a rise of 0.15 nm per residue, about how many residues are needed?",
+      "a": "20",
+      "wrong": [
+        "9",
+        "30",
+        "12"
+      ],
+      "why": "3.0 nm / 0.15 nm per residue = 20 residues. The value 9 would apply to an extended β-strand, whose rise is about 0.34 nm per residue."
+    },
+    {
+      "q": "A membrane is cooled below its gel transition temperature and cholesterol is then added. What happens?",
+      "a": "The gel becomes more fluid and the sharp transition is lost",
+      "wrong": [
+        "The gel becomes more ordered and rigid",
+        "Nothing changes, because cholesterol acts only above the transition temperature",
+        "The transition temperature rises and the transition becomes sharper"
+      ],
+      "why": "Cholesterol is a fluidity buffer: it stiffens a fluid membrane by ordering chains next to its rigid ring, but in a gel it prevents close packing of the chains and so fluidizes it, abolishing the sharp transition."
+    },
+    {
+      "q": "A small uncharged molecule has a high oil/water partition coefficient. How readily does it cross a bilayer by simple diffusion?",
+      "a": "Readily, since permeability correlates with the partition coefficient",
+      "wrong": [
+        "Poorly, because it cannot dissolve in the aqueous phase on either side",
+        "Only through a carrier protein, because it carries no charge to interact with the lipids",
+        "Only through a channel, because the bilayer excludes every uncharged solute"
+      ],
+      "why": "Crossing the nonpolar interior requires the solute to shed its water and dissolve in the lipid, so a high partition coefficient means high permeability. This is why O₂, CO₂ and steroids cross freely."
+    },
+    {
+      "q": "The uptake rate of a solute rises in direct proportion to its external concentration, with no saturation up to very high concentrations. Which mechanism is indicated?",
+      "a": "Simple diffusion through the lipid",
+      "wrong": [
+        "Facilitated diffusion by a carrier protein",
+        "Primary active transport by an ATPase",
+        "Secondary active transport by a symporter"
+      ],
+      "why": "Simple diffusion obeys J = P·Δc, linear and unsaturable. Carriers, pumps and cotransporters are limited by the number of protein molecules and therefore saturate."
+    },
+    {
+      "q": "In the intestine, glucose is taken up against its gradient by the Na⁺–glucose cotransporter. What supplies the energy?",
+      "a": "The downhill flow of Na⁺, whose gradient the Na⁺/K⁺-ATPase maintains",
+      "wrong": [
+        "ATP hydrolysis by the cotransporter itself, making it a primary active transporter",
+        "The glucose concentration gradient across the cell membrane",
+        "An exchange in which Na⁺ leaves the cell as glucose enters (an antiport)"
+      ],
+      "why": "A symporter couples uphill glucose entry to the downhill entry of Na⁺ in the same direction (secondary active transport). The Na⁺ gradient itself is paid for by the primary active Na⁺/K⁺ pump."
+    },
+    {
+      "q": "At 37 °C, what is ΔG for moving 1 mol of an uncharged solute from 1 mM outside to 1 M inside a cell?",
+      "a": "+17.8 kJ mol⁻¹",
+      "wrong": [
+        "+7.7 kJ mol⁻¹",
+        "−17.8 kJ mol⁻¹",
+        "+6.9 kJ mol⁻¹"
+      ],
+      "why": "The ratio is 1000, so ΔG = RT ln 1000 = 2.58 × 6.91 = +17.8 kJ mol⁻¹ (uphill). The value 7.7 uses log₁₀ instead of ln, and −17.8 has the wrong sign."
+    },
+    {
+      "q": "A neuron has [Cl⁻] = 10 mM inside and 110 mM outside. What is E_Cl at 37 °C?",
+      "a": "−64 mV",
+      "wrong": [
+        "+64 mV",
+        "−147 mV",
+        "−32 mV"
+      ],
+      "why": "With z = −1: E = (61.5/−1) log(110/10) = −61.5 × 1.04 = −64 mV. Dropping the sign of z gives +64 mV, using ln instead of log₁₀ gives −147 mV, and using z = 2 gives −32 mV."
+    },
+    {
+      "q": "Cl⁻ moves into a cell from 110 mM outside to 10 mM inside, with ψ_in − ψ_out = −70 mV. What is ΔG per mole at 37 °C?",
+      "a": "+0.6 kJ mol⁻¹",
+      "wrong": [
+        "−12.9 kJ mol⁻¹",
+        "+12.9 kJ mol⁻¹",
+        "−6.2 kJ mol⁻¹"
+      ],
+      "why": "ΔG = RT ln(10/110) + zFΔψ = −6.2 + (−1)(96.5)(−0.070) = −6.2 + 6.8 = +0.6 kJ mol⁻¹. The inside is more negative than E_Cl (−64 mV), which pushes Cl⁻ out and makes entry slightly uphill."
+    },
+    {
+      "q": "Why is the resting potential of a neuron (−60 to −70 mV) close to E_K and far from E_Na?",
+      "a": "At rest the membrane is far more permeable to K⁺ than to Na⁺",
+      "wrong": [
+        "The Na⁺/K⁺ pump imports more K⁺ than it exports Na⁺, leaving the inside negative",
+        "K⁺ is more concentrated outside the cell than inside, which pulls the potential toward E_K",
+        "Na⁺ channels are open at rest, but Na⁺ is too large to carry current"
+      ],
+      "why": "The Goldman equation weights each ion's Nernst potential by its permeability, and leak K⁺ channels dominate at rest. The pump actually exports 3 Na⁺ for 2 K⁺ imported, and K⁺ is concentrated inside (140 mM against 5 mM)."
+    },
+    {
+      "q": "At the peak of the action potential the membrane potential approaches…",
+      "a": "E_Na, about +66 mV, as voltage-gated Na⁺ channels open",
+      "wrong": [
+        "E_K, about −89 mV, since K⁺ channels open first",
+        "0 mV, since the ion gradients collapse",
+        "−70 mV, held constant by the Na⁺/K⁺ pump"
+      ],
+      "why": "Opening of voltage-gated Na⁺ channels makes the membrane predominantly permeable to Na⁺, driving the potential toward E_Na. K⁺ channels then restore the resting value. The gradients themselves are not exhausted by a single impulse."
+    }
+  ],
   "summary": [
     "Fatty acids: chain length and cis unsaturation set the melting point (stearic 70 °C, oleic 13 °C). Trans fats pack like saturated ones. Triglycerides are saponified by base; unsaturated chains autoxidize.",
     "Phospholipids and sphingolipids are amphipathic and assemble into bilayers (two tails → cylinder). Steroids have a four-ring skeleton; cholesterol buffers fluidity and is the precursor of steroid hormones.",

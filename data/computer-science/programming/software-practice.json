@@ -369,6 +369,178 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "Two branches each edit the same line of train.py differently, and one is merged into the other. What happens?",
+      "a": "A merge conflict is reported; you edit the marked lines and commit",
+      "wrong": [
+        "Git keeps the version from the branch with the newer commit and discards the other",
+        "Git keeps both versions as two separate files",
+        "Git refuses ever to merge the branches"
+      ],
+      "why": "Git can combine changes to different lines automatically, but when both sides change the same lines it cannot know which to keep, so a person must resolve it."
+    },
+    {
+      "q": "A bug appeared somewhere in a history of 4096 commits, with the first commit known to be good. About how many tests does git bisect need to find the culprit?",
+      "a": "12",
+      "wrong": [
+        "64",
+        "4096",
+        "2048"
+      ],
+      "why": "Each test halves the range of suspect commits, so about log₂(4096) = 12 tests are enough. Testing the commits one by one would take thousands."
+    },
+    {
+      "q": "A 5 GB image data set is part of a project that is kept in Git. What is the recommended practice?",
+      "a": "Use DVC or Git LFS, or store it elsewhere and record its version and hash",
+      "wrong": [
+        "Commit it normally, because Git compresses binary files efficiently enough",
+        "Commit it once and then add it to .gitignore so that later commits skip it",
+        "Commit the data in 100 MB pieces so that each single commit stays small"
+      ],
+      "why": "Git is poor at large binary files, and anything committed stays in history even if deleted later. Recording a version or hash keeps the data traceable without bloating the repository."
+    },
+    {
+      "q": "Why does a test of softmax include an input row such as [1000, 1001, 1002]?",
+      "a": "A naive exp overflows here, so it is an edge case",
+      "wrong": [
+        "It checks that the outputs add up to something larger than 1 when inputs are large",
+        "It confirms that softmax changes when a constant is added to every input",
+        "It makes the test run faster, since large numbers need fewer steps"
+      ],
+      "why": "exp(1000) overflows, so only an implementation that subtracts the maximum passes. Softmax is shift invariant, and its outputs always sum to 1."
+    },
+    {
+      "q": "A central-difference gradient check with eps = 0.1 is applied to f(x) = x² at x = 3. What estimate does it give?",
+      "a": "6.0",
+      "wrong": [
+        "6.1",
+        "5.9",
+        "0.6"
+      ],
+      "why": "(f(3.1) - f(2.9)) / 0.2 = (9.61 - 8.41)/0.2 = 6.0, equal to the true derivative 2x. The forward difference would give 6.1 and the backward difference 5.9."
+    },
+    {
+      "q": "A balanced 100-class classifier with random weights shows an initial cross-entropy loss of about 4.6. What does this indicate?",
+      "a": "Nothing; ln 100 ≈ 4.6 is the loss of a uniform prediction",
+      "wrong": [
+        "The learning rate is too high, because losses should start near 1 at the beginning",
+        "The labels are misaligned, because a correct model would start near 0",
+        "The model is already overfitting the training set from the first step"
+      ],
+      "why": "A uniform prediction over K classes gives a loss of ln K. A value far from that, such as 40, would point to a bug or a bad weight scale."
+    },
+    {
+      "q": "A network cannot reach a near-zero training loss on a batch of just 8 examples. What is the most reasonable conclusion?",
+      "a": "There is probably a bug in the code",
+      "wrong": [
+        "The network needs far more training examples before the loss can fall",
+        "The data set is too small to measure anything meaningful about the model",
+        "This is normal, because a model cannot memorize as few as 8 examples"
+      ],
+      "why": "A model of reasonable size can memorize a handful of examples. If it cannot, the fault is likely in the code (the gradient, the labels or the update) rather than the amount of data."
+    },
+    {
+      "q": "You fix a bug where the batch loader dropped the last partial batch. Which new test is the best regression test?",
+      "a": "One that fails on the old buggy code and passes on the fixed code",
+      "wrong": [
+        "One that passes both before and after the fix",
+        "One that only checks that the loader runs without raising an exception",
+        "One that compares the loader's speed before and after the fix"
+      ],
+      "why": "A regression test earns its keep by detecting the bug if it ever returns. A test that also passes on the buggy code proves nothing about the fix."
+    },
+    {
+      "q": "Training loss was fine until step 137, then NaN. The gradient norm rose steeply over the previous steps. Which cause fits best?",
+      "a": "Divergence from too high a learning rate",
+      "wrong": [
+        "Labels that are not aligned with the inputs after shuffling",
+        "Unseeded randomness in the data loader order",
+        "Validation data that leaked into the training set"
+      ],
+      "why": "A steadily growing gradient norm followed by NaN is the signature of divergence, treated by lowering the learning rate or clipping gradients. Misaligned labels would give a loss that never falls, not a blow-up."
+    },
+    {
+      "q": "A training loss stays flat from the first step, and a code review finds the update theta += lr * grad. What is the problem?",
+      "a": "The step has the wrong sign",
+      "wrong": [
+        "The learning rate is too high and causes oscillation around the minimum",
+        "The gradient is computed on the validation set rather than the training set",
+        "The random seed is not fixed, so every run starts differently"
+      ],
+      "why": "Gradient descent subtracts the gradient. Adding it moves uphill, so the loss does not decrease (or grows)."
+    },
+    {
+      "q": "Validation accuracy is suspiciously close to perfect. The code standardizes features using the mean and standard deviation of the whole data set before splitting. What is wrong?",
+      "a": "Validation information leaks into the preprocessing, so the score is optimistic",
+      "wrong": [
+        "The standard deviation should have been computed with n - 1 degrees of freedom",
+        "The validation set is too small to be standardized in a meaningful way",
+        "Standardizing before the split changes the training labels as well as the features"
+      ],
+      "why": "The statistics were computed using validation rows, so the evaluation is no longer on unseen data. The statistics should come from the training split only and then be applied to the others."
+    },
+    {
+      "q": "An 8-stage data pipeline gives a wrong final output, and the output after stage 4 is correct. Which check best continues a bisection?",
+      "a": "Inspect the output after stage 6",
+      "wrong": [
+        "Inspect the output after stage 2",
+        "Inspect the output after stage 8 again",
+        "Rewrite stages 1 to 4 first"
+      ],
+      "why": "The fault must lie in stages 5 to 8. Checking the middle of that range, after stage 6, halves the remaining possibilities again."
+    },
+    {
+      "q": "Two people run the same commit with the same seed and get different accuracies. One of them is on a new machine. Which ingredient of reproducibility was most likely not recorded?",
+      "a": "The library versions",
+      "wrong": [
+        "The Git commit hash of the code that was run",
+        "The random seed used for initialization",
+        "The name of the person who ran the script"
+      ],
+      "why": "The code and seed were identical, so the remaining candidate is a different environment, for example a library whose algorithms or generator changed between versions. Pinned versions or a container prevent this."
+    },
+    {
+      "q": "Over 10 seeds, model A has a mean accuracy of 91.2% and model B 91.4%, and the standard deviation across seeds is about 0.5% for both. What is the fair conclusion?",
+      "a": "The gap is within seed-to-seed noise, so B is not shown to be better",
+      "wrong": [
+        "B is better, because its mean accuracy is higher than that of A",
+        "A is better, because 91.2% is closer to a round number",
+        "Neither model works, since the standard deviation is nonzero"
+      ],
+      "why": "A difference much smaller than the spread produced by initialization and data order is not evidence of a real improvement. More seeds or a larger gap would be needed."
+    },
+    {
+      "q": "A notebook's final cell gives a good result that depends on a variable defined in a cell that was later deleted. Which habit would have exposed the problem?",
+      "a": "Restarting the kernel and running all cells",
+      "wrong": [
+        "Printing the variable once before sharing the notebook",
+        "Committing the notebook with all outputs saved",
+        "Running only the last cell again"
+      ],
+      "why": "Notebooks keep hidden state in memory, and cells can run out of order. A clean restart runs the notebook the way a new reader would."
+    },
+    {
+      "q": "A 3,000-line module is being refactored to separate data loading from training. Which approach is recommended?",
+      "a": "Make small structural changes and run the tests after each one",
+      "wrong": [
+        "Rewrite the whole module first and then write tests for the new version",
+        "Change the structure and the model's behavior in the same step to save time",
+        "Skip the tests, because refactoring does not change behavior"
+      ],
+      "why": "Tests that stay green after each small step show that behavior is preserved. Without tests, restructuring is guessing."
+    },
+    {
+      "q": "The same preprocessing code is copied into both train.py and evaluate.py. What is the main danger of this copy-paste?",
+      "a": "A bug fixed in one copy stays in the other, so training and evaluation can quietly diverge",
+      "wrong": [
+        "Python refuses to import two files that contain identical blocks of code",
+        "The tests can no longer assert the shapes of intermediate arrays",
+        "It makes the repository too large for Git to store efficiently"
+      ],
+      "why": "Copied code means copied bugs, and later fixes reach only one copy. Extracting a shared function keeps both stages consistent."
+    }
+  ],
   "summary": [
     "Git records snapshots (commits), supports branches and merges, and needs a .gitignore that excludes data, environments and secrets. Small commits with clear messages, and git bisect, make history useful.",
     "Unit tests assert known values and mathematical properties, with tolerances for floats. Learning code needs extra tests: shapes, gradient checks, the initial loss, overfitting a tiny batch and leakage checks.",

@@ -278,6 +278,178 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "Which of these sets is NOT convex?",
+      "a": "The union of two discs far apart in the plane",
+      "wrong": [
+        "A half-space {x : aᵀx ≤ b}",
+        "A closed Euclidean ball {x : ‖x − c‖ ≤ r} in any dimension",
+        "A polyhedron, the intersection of finitely many half-spaces"
+      ],
+      "why": "A segment joining a point in one disc to a point in the other leaves both discs. Half-spaces, balls and intersections of convex sets are convex."
+    },
+    {
+      "q": "Which function is convex on its domain?",
+      "a": "−ln x on x > 0",
+      "wrong": [
+        "ln x on x > 0",
+        "x³ on ℝ",
+        "x₁x₂ on ℝ²"
+      ],
+      "why": "ln x is concave, so its negative is convex. The function x³ bends downward for x < 0, and x₁x₂ has Hessian [[0, 1], [1, 0]] with eigenvalues ±1."
+    },
+    {
+      "q": "f₁ and f₂ are convex. Which function is NOT guaranteed to be convex?",
+      "a": "f₁ − f₂",
+      "wrong": [
+        "max(f₁, f₂)",
+        "3f₁ + 2f₂",
+        "f₁(Ax + b) for a matrix A and vector b"
+      ],
+      "why": "Convexity is preserved by non-negative combinations, pointwise maxima and affine substitution. A difference can be concave: x² − 2x² = −x²."
+    },
+    {
+      "q": "X equals 0 or 4 with probability 1/2 each, and f(x) = x². What are f(E[X]) and E[f(X)]?",
+      "a": "4 and 8",
+      "wrong": [
+        "8 and 4",
+        "4 and 4",
+        "2 and 8"
+      ],
+      "why": "E[X] = 2, so f(E[X]) = 4, while E[f(X)] = (0 + 16)/2 = 8. Jensen's inequality for a convex f says f(E[X]) ≤ E[f(X)], which these values obey."
+    },
+    {
+      "q": "f is convex and differentiable with f(1) = 3 and f′(1) = 2. What is the largest value that f(4) is guaranteed to be at least?",
+      "a": "9",
+      "wrong": [
+        "11",
+        "5",
+        "6"
+      ],
+      "why": "A convex function lies above its tangent line: f(4) ≥ f(1) + f′(1)(4 − 1) = 3 + 6 = 9. Using 4 instead of the displacement 3 gives 11."
+    },
+    {
+      "q": "Is f(x, y) = x² + 4xy + y² convex?",
+      "a": "No; its Hessian [[2, 4], [4, 2]] has the eigenvalue −2",
+      "wrong": [
+        "Yes, because both diagonal entries of the Hessian are positive",
+        "Yes, because x² and y² are convex",
+        "No, because any function with a cross term is non-convex"
+      ],
+      "why": "The eigenvalues of [[2, 4], [4, 2]] are 6 and −2, so the Hessian is not positive semidefinite. Cross terms are harmless when they are small enough, as in x² + xy + y²."
+    },
+    {
+      "q": "What is the condition number κ = L/μ of f(x, y) = x² + 6y²?",
+      "a": "6",
+      "wrong": [
+        "3",
+        "12",
+        "1/6"
+      ],
+      "why": "The Hessian is diag(2, 12), so μ = 2 and L = 12, and κ = 12/2 = 6. The value 12 is L alone, and 3 comes from comparing the coefficients 1 and 6 incorrectly halved."
+    },
+    {
+      "q": "The columns of X are linearly dependent. The least squares objective ‖Xθ − y‖² is then",
+      "a": "convex but not strongly convex, with a whole set of minimizers",
+      "wrong": [
+        "non-convex, with several isolated local minima separated by ridges",
+        "strongly convex, with a unique minimizer that the normal equations give",
+        "concave in the directions where the columns are dependent"
+      ],
+      "why": "The Hessian 2XᵀX is always positive semidefinite, but it is singular when columns are dependent, so there is a flat direction. Every point with zero gradient is still a global minimum."
+    },
+    {
+      "q": "f(x) = x³ − 3x has f′(1) = 0. What is the point x = 1?",
+      "a": "A local minimum that is not global, since f is unbounded below",
+      "wrong": [
+        "A global minimum, since the gradient is zero there",
+        "A local maximum, since f′ changes sign at that point",
+        "A saddle point, since f is a cubic polynomial"
+      ],
+      "why": "f″(1) = 6 > 0, so x = 1 is a local minimum, but f(x) → −∞ as x → −∞. A zero gradient suffices for a global minimum only when f is convex, and this f is not."
+    },
+    {
+      "q": "In the proof that a local minimum x of a convex f is global, why are the points z_t = (1 − t)x + ty used with t → 0?",
+      "a": "They lie arbitrarily close to x but have smaller values, contradicting local minimality",
+      "wrong": [
+        "They show that the gradient at x must vanish, since f decreases in no direction",
+        "They are the points where f is strictly convex rather than merely convex",
+        "They guarantee that the minimizer is unique whenever the feasible set is convex"
+      ],
+      "why": "If some feasible y had f(y) < f(x), convexity gives f(z_t) ≤ (1 − t)f(x) + tf(y) < f(x) for every t, and z_t → x. That contradicts x being a minimum in a neighborhood."
+    },
+    {
+      "q": "Minimize f(x) = (x − 4)² subject to x ≤ 1. Which statement is correct?",
+      "a": "The solution is x* = 1, where f′(x*) = −6 ≠ 0 because the constraint is active",
+      "wrong": [
+        "The solution is x* = 4, since a violated constraint is simply ignored by the optimizer",
+        "The solution is x* = 1, and f′(x*) must still equal 0 at any minimum",
+        "The solution is x* = 0, the point of the feasible region closest to the middle"
+      ],
+      "why": "The unconstrained minimum 4 is infeasible, so the best feasible point is the boundary x = 1. There f′(1)(y − 1) = −6(y − 1) ≥ 0 for every feasible y ≤ 1, which is the constrained optimality condition."
+    },
+    {
+      "q": "What is the subdifferential of f(x) = 2|x| + x at x = 0?",
+      "a": "[−1, 3]",
+      "wrong": [
+        "[−2, 2]",
+        "[−1, 1]",
+        "{1}"
+      ],
+      "why": "The kink 2|x| contributes the interval [−2, 2] and the smooth term x adds its slope 1, giving [−1, 3]. Since 0 is in this interval, x = 0 is the minimizer."
+    },
+    {
+      "q": "What is the minimizer of ½(x − z)² + λ|x| for z = −3.5 and λ = 1.5?",
+      "a": "−2",
+      "wrong": [
+        "−5",
+        "0",
+        "2"
+      ],
+      "why": "Soft thresholding gives sign(z)·max(|z| − λ, 0) = −(3.5 − 1.5) = −2. The penalty shrinks the value toward 0 and never pushes it past 0."
+    },
+    {
+      "q": "One iteration of ISTA (proximal gradient) for the lasso does what?",
+      "a": "A gradient step on the least squares term, followed by soft thresholding",
+      "wrong": [
+        "A soft threshold of the data, followed by a gradient step on the L1 term",
+        "A Newton step on the least squares term, followed by a gradient step on the L1 term",
+        "A subgradient step on the whole objective using a decaying step size"
+      ],
+      "why": "The smooth part is handled by an ordinary gradient step, and the proximal operator of the L1 norm, soft thresholding, handles the non-smooth part. This produces exact zeros, which a plain subgradient step does not."
+    },
+    {
+      "q": "The lasso objective ½‖Xθ − y‖² + λ‖θ‖₁ is best described as",
+      "a": "convex but not differentiable where a coefficient equals 0",
+      "wrong": [
+        "non-convex, because the L1 term has kinks",
+        "strongly convex for every X and every λ > 0",
+        "differentiable and strictly convex"
+      ],
+      "why": "A sum of the convex least squares term and the convex L1 norm is convex. The kink of |θⱼ| at 0 makes it non-smooth, and strong convexity would also require XᵀX to be positive definite."
+    },
+    {
+      "q": "Which of these problems is not convex?",
+      "a": "k-means, jointly over the cluster assignments and the centers",
+      "wrong": [
+        "The soft-margin support vector machine",
+        "Logistic regression with an L2 penalty",
+        "Ridge regression"
+      ],
+      "why": "The k-means objective couples discrete assignments with continuous centers and has many local minima. The other three are convex, and with the L2 penalty two are strongly convex."
+    },
+    {
+      "q": "In the loss surface of a large neural network, what is typical of stationary points?",
+      "a": "Most are saddle points rather than poor local minima",
+      "wrong": [
+        "Most are poor local minima that trap gradient descent",
+        "All of them are global minima",
+        "There are none, because the loss is not convex"
+      ],
+      "why": "In high dimensions the Hessian at a stationary point usually has both positive and negative eigenvalues, which makes it a saddle. Noisy gradient methods can escape saddles."
+    }
+  ],
   "summary": [
     "A function is convex if every chord lies above its graph. Equivalent tests: f(y) ≥ f(x) + ∇f(x)ᵀ(y − x), and ∇²f ⪰ 0. Convexity is preserved by non-negative sums, maxima and affine compositions.",
     "For a convex function every local minimum is global, and ∇f = 0 is sufficient for a minimum. With a convex constraint set the condition is ∇f(x*)ᵀ(y − x*) ≥ 0 for all feasible y.",

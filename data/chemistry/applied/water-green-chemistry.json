@@ -330,6 +330,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A groundwater contains 50.0 mg L⁻¹ Ca²⁺ and 12.0 mg L⁻¹ Mg²⁺. What is its hardness as CaCO₃?",
+      "a": "174 mg L⁻¹",
+      "wrong": [
+        "62 mg L⁻¹",
+        "125 mg L⁻¹",
+        "155 mg L⁻¹"
+      ],
+      "why": "Each ion is converted with the ratio M(CaCO₃)/M(ion): Ca gives 50.0 × 100.09/40.08 = 124.9 and Mg gives 12.0 × 100.09/24.31 = 49.4, total 174. Adding the ion masses gives 62, and ignoring Mg gives 125."
+    },
+    {
+      "q": "In lime–soda softening, which pairing of reagent and hardness removed is correct?",
+      "a": "Ca(OH)₂ removes temporary hardness (HCO₃⁻), and Na₂CO₃ removes permanent hardness",
+      "wrong": [
+        "Ca(OH)₂ removes permanent hardness, and Na₂CO₃ removes temporary hardness (HCO₃⁻)",
+        "Both reagents remove only the hardness that is due to bicarbonate, by precipitating CaCO₃",
+        "Ca(OH)₂ exchanges Ca²⁺ for Na⁺ on a resin, and Na₂CO₃ regenerates the resin"
+      ],
+      "why": "Lime precipitates CaCO₃ and Mg(OH)₂ from bicarbonate hardness, while soda ash supplies carbonate to precipitate the Ca²⁺ and Mg²⁺ that are paired with SO₄²⁻ or Cl⁻. Resin exchange is a different method."
+    },
+    {
+      "q": "A dose of 2.0 × 10⁻⁴ mol L⁻¹ of alum, Al₂(SO₄)₃, is added to water. How much HCO₃⁻ does the coagulation reaction consume?",
+      "a": "1.2 × 10⁻³ mol L⁻¹",
+      "wrong": [
+        "2.0 × 10⁻⁴ mol L⁻¹",
+        "4.0 × 10⁻⁴ mol L⁻¹",
+        "3.3 × 10⁻⁵ mol L⁻¹"
+      ],
+      "why": "Al₂(SO₄)₃ + 6 HCO₃⁻ → 2 Al(OH)₃ + 3 SO₄²⁻ + 6 CO₂, so each mole of alum consumes 6 mol of bicarbonate: 6 × 2.0 × 10⁻⁴ = 1.2 × 10⁻³ mol L⁻¹."
+    },
+    {
+      "q": "What fraction of free chlorine is HOCl at pH 6.54, given pK_a = 7.54 for HOCl?",
+      "a": "91%",
+      "wrong": [
+        "50%",
+        "9%",
+        "99%"
+      ],
+      "why": "The fraction is 1/(1 + 10^{pH − pK_a}) = 1/(1 + 10⁻¹) = 0.91. The fraction would be 50% only if pH equaled the pK_a, and 9% is the OCl⁻ fraction."
+    },
+    {
+      "q": "Why is HOCl a better disinfectant than OCl⁻ of the same free-chlorine concentration?",
+      "a": "It is neutral and so penetrates cell walls more readily",
+      "wrong": [
+        "It is a stronger reducing agent than OCl⁻",
+        "It is more persistent and survives in the pipes for days",
+        "It remains undissociated at all pH values, so its concentration never falls"
+      ],
+      "why": "HOCl is an uncharged molecule that can cross the cell membrane, and the charged OCl⁻ cannot, which makes HOCl about 100 times more effective. HOCl does deprotonate as the pH rises."
+    },
+    {
+      "q": "A wastewater has an ultimate BOD of L₀ = 300 mg L⁻¹ and k = 0.20 d⁻¹. Using BOD_t = L₀(1 − e^{−kt}), what is the BOD₅?",
+      "a": "190 mg L⁻¹",
+      "wrong": [
+        "110 mg L⁻¹",
+        "60 mg L⁻¹",
+        "300 mg L⁻¹"
+      ],
+      "why": "kt = 1.0, so BOD₅ = 300 × (1 − e⁻¹) = 300 × 0.632 = 190 mg L⁻¹. The 110 value is L₀e⁻¹, the oxygen demand still left after 5 days."
+    },
+    {
+      "q": "A sample has BOD₅ = 150 mg L⁻¹ and COD = 400 mg L⁻¹. Which explanation is consistent?",
+      "a": "Dichromate oxidizes all oxidizable matter, including material that microbes do not degrade in 5 days",
+      "wrong": [
+        "The dichromate consumed some of the dissolved oxygen that was in the sample",
+        "The measurements must contain an error, because BOD can not be smaller than COD",
+        "COD measures only organic carbon, while BOD also includes nitrogen compounds"
+      ],
+      "why": "COD uses a strong oxidant and is at least as large as BOD, because bacteria in a 5-day test cannot oxidize everything. The third option reverses the inequality."
+    },
+    {
+      "q": "How does nutrient pollution of a lake lead to fish kills in deeper water?",
+      "a": "Dead algae are decomposed by bacteria that consume the dissolved oxygen",
+      "wrong": [
+        "Nitrate and phosphate poison the fish gills directly in the deeper layers",
+        "The algae acidify the lake below pH 5, which fish cannot tolerate",
+        "The extra nutrients raise the salinity beyond what freshwater fish tolerate"
+      ],
+      "why": "In eutrophication the extra nutrients cause an algal bloom, and the aerobic decay of the dead algae uses up oxygen faster than it can be replaced."
+    },
+    {
+      "q": "A reservoir holds 600 Pg of an element and, at steady state, loses 40 Pg per year. What is the residence time?",
+      "a": "15 years",
+      "wrong": [
+        "0.067 years",
+        "560 years",
+        "24,000 years"
+      ],
+      "why": "Residence time is the amount in the reservoir divided by the flux out: 600/40 = 15 years. The other values come from inverting the ratio, subtracting, or multiplying."
+    },
+    {
+      "q": "Annual fossil-fuel emissions are 12 PgC. With the usual partition (45% airborne, 25% ocean, 30% land), how much enters the land biosphere?",
+      "a": "3.6 PgC",
+      "wrong": [
+        "5.4 PgC",
+        "3.0 PgC",
+        "6.6 PgC"
+      ],
+      "why": "The land sink takes 0.30 × 12 = 3.6 PgC. The value 5.4 PgC stays in the atmosphere, 3.0 PgC enters the ocean, and 6.6 PgC is the 55% not airborne."
+    },
+    {
+      "q": "Natural fluxes of CO₂, such as photosynthesis and respiration, are about 120 PgC y⁻¹, but human emissions of about 10 PgC y⁻¹ still raise atmospheric CO₂. Why?",
+      "a": "Natural fluxes nearly cancel through return flows, but fossil carbon is a net input nothing returns soon",
+      "wrong": [
+        "Natural fluxes are too poorly measured for any balance between them to be detected",
+        "Fossil CO₂ cannot dissolve in the ocean, unlike the CO₂ of natural origin",
+        "Photosynthesis stops absorbing CO₂ once emissions reach about 5 PgC y⁻¹"
+      ],
+      "why": "The size of a flux matters less than the net imbalance. Respiration returns the carbon that photosynthesis takes up, but burning fossil fuel moves carbon from the ground into the air."
+    },
+    {
+      "q": "In the soil, NH₄⁺ + 2 O₂ → NO₃⁻ + 2 H⁺ + H₂O is which process, and what does it do to the pH?",
+      "a": "Nitrification, which lowers it",
+      "wrong": [
+        "Denitrification, which raises it",
+        "Assimilation, which lowers it",
+        "Nitrogen fixation, which raises it"
+      ],
+      "why": "Aerobic bacteria oxidize ammonium to nitrate and release 2 H⁺ per NH₄⁺, so the soil acidifies. Denitrification runs the other way, using nitrate as an electron acceptor."
+    },
+    {
+      "q": "A well water contains 44 mg L⁻¹ nitrate (NO₃⁻, 62.00 g mol⁻¹). The limit is 10 mg L⁻¹ as N. How does the water compare?",
+      "a": "Just under the limit, at 9.9 mg L⁻¹ as N",
+      "wrong": [
+        "Far over the limit, at 44 mg L⁻¹ as N",
+        "Far over the limit, at 195 mg L⁻¹ as N",
+        "Well under the limit, at 4.4 mg L⁻¹ as N"
+      ],
+      "why": "Nitrate nitrogen is 14.01/62.00 of the nitrate mass, so 44 × 0.226 = 9.9 mg L⁻¹ as N. Comparing 44 directly with 10 mixes the nitrate and nitrogen bases."
+    },
+    {
+      "q": "Acetic acid (60.05 g mol⁻¹) and ethanol (46.07 g mol⁻¹) react to give ethyl acetate (88.11 g mol⁻¹) and water. What is the atom economy of the esterification?",
+      "a": "83.0%",
+      "wrong": [
+        "100%",
+        "17.0%",
+        "68.2%"
+      ],
+      "why": "Atom economy is 88.11/(60.05 + 46.07) = 83.0%. The by-product water carries away 17.0% of the reactant mass, and 100% would apply only to an addition."
+    },
+    {
+      "q": "A batch gives 5.0 kg of product. It generates 12 kg of by-products, 90 kg of unrecovered solvent and uses 400 kg of wash water that ends up uncontaminated. What is the E-factor, with water not counted?",
+      "a": "20.4",
+      "wrong": [
+        "100.4",
+        "21.4",
+        "0.049"
+      ],
+      "why": "The waste is 12 + 90 = 102 kg, and E = 102/5.0 = 20.4 kg per kg. Counting the water gives 100.4, and 21.4 would be the process mass intensity."
+    },
+    {
+      "q": "Which change is the best example of the principle \"reduce derivatives\"?",
+      "a": "Designing a synthesis that avoids a protecting group, removing two steps",
+      "wrong": [
+        "Replacing methylene chloride with supercritical CO₂ as the reaction solvent",
+        "Using a Pd catalyst in place of stoichiometric AlCl₃ as the reagent",
+        "Running a reaction at 25 °C in place of 150 °C to save energy"
+      ],
+      "why": "Protecting and deprotecting add steps, reagents and waste. The other options illustrate safer solvents, catalysis and energy efficiency."
+    },
+    {
+      "q": "Supercritical CO₂ is used as a green solvent. Which conditions put CO₂ in the supercritical state?",
+      "a": "Above 31 °C and 74 bar",
+      "wrong": [
+        "Above 374 °C and 221 bar",
+        "Below −57 °C at 5.2 bar",
+        "Above 100 °C at 1 bar"
+      ],
+      "why": "The critical point of CO₂ is 31 °C and 74 bar, which are mild conditions. The 374 °C and 221 bar pair is the critical point of water."
+    },
+    {
+      "q": "A reaction has 100% atom economy but gives a 40% yield in a toxic solvent. Which statement is correct?",
+      "a": "Atom economy ignores yield, solvent and toxicity, so it does not show the process is green",
+      "wrong": [
+        "A 100% atom economy guarantees an E-factor of 0",
+        "The 40% yield lowers the atom economy to 40%, since both are computed from actual masses",
+        "The solvent counts as a reactant and so lowers the atom economy"
+      ],
+      "why": "Atom economy comes from the balanced equation alone. Yield, solvent and the hazards of the materials affect the E-factor and the life-cycle picture but not the atom economy."
+    }
+  ],
   "summary": [
     "Hardness (mg L⁻¹ as CaCO₃) = Σ [M²⁺] × 100.09/M_M; softened by lime–soda or ion exchange. Treatment: coagulation with alum, flocculation, filtration, chlorination (HOCl pK_a 7.54).",
     "DO saturation 8.3 mg L⁻¹ at 25 °C. BOD_t = L₀(1 − e^{−kt}); COD uses dichromate. Excess nutrients cause eutrophication.",

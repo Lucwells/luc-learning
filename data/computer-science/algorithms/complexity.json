@@ -400,6 +400,178 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A target is equally likely to be at any of the n positions of a list. About how many comparisons does linear search make on average?",
+      "a": "n/2",
+      "wrong": [
+        "n",
+        "log₂ n",
+        "2"
+      ],
+      "why": "Under the uniform assumption the target is found after 1, 2, …, n comparisons with equal probability, averaging about n/2. The worst case, n, applies when the target is last or absent."
+    },
+    {
+      "q": "An algorithm reverses a list of n items by building a new list of n items (the input is kept). Its space complexity, besides the input, is",
+      "a": "Θ(n)",
+      "wrong": [
+        "Θ(1)",
+        "Θ(log n)",
+        "Θ(n²)"
+      ],
+      "why": "Space complexity counts the memory used besides the input, and the new list holds n items. Reversing in place with one temporary variable would be Θ(1)."
+    },
+    {
+      "q": "For f(n) = 4n + 10, which statement is false?",
+      "a": "f(n) = Ω(n²)",
+      "wrong": [
+        "f(n) = O(n²)",
+        "f(n) = Θ(n)",
+        "f(n) = O(n)"
+      ],
+      "why": "O is only an upper bound, so f is O(n²) even though that bound is loose. A lower bound of n² fails, because 4n + 10 is less than c·n² for large n."
+    },
+    {
+      "q": "An algorithm performs n² basic operations on an input of size n = 10⁵. At 10⁹ operations per second, how long does it take?",
+      "a": "10 seconds",
+      "wrong": [
+        "0.1 seconds",
+        "100 seconds",
+        "10 milliseconds"
+      ],
+      "why": "n² = 10¹⁰ operations, and 10¹⁰ / 10⁹ = 10 seconds. A linear algorithm on the same input would take 0.1 ms."
+    },
+    {
+      "q": "Which of these functions is not O(n²)?",
+      "a": "n² log n",
+      "wrong": [
+        "n^1.5",
+        "1000n + 5",
+        "n log n"
+      ],
+      "why": "n² log n grows faster than any constant times n², since the extra log n factor is unbounded. The other three are all bounded by a constant times n²."
+    },
+    {
+      "q": "A library sort switches to insertion sort (Θ(n²)) for arrays of fewer than about 16 items, although merge sort is Θ(n log n). Why?",
+      "a": "For tiny inputs the constant factors dominate, and insertion sort has very little overhead",
+      "wrong": [
+        "Insertion sort is Θ(n log n) on small arrays, so it matches merge sort there",
+        "Merge sort is incorrect on arrays with fewer than 16 items",
+        "Big-O bounds say that insertion sort is faster than merge sort for every n below 16"
+      ],
+      "why": "Asymptotic notation hides constants, which decide the winner at small n. A simple Θ(n²) method with a small constant can beat a more complex Θ(n log n) one."
+    },
+    {
+      "q": "How many times does the inner statement run in: for i in range(n): for j in range(i, n): work(), when n = 100?",
+      "a": "5050",
+      "wrong": [
+        "10000",
+        "4950",
+        "5000"
+      ],
+      "why": "For i = 0, 1, …, 99 the inner loop runs 100, 99, …, 1 times, which sums to 100·101/2 = 5050. Starting j at i + 1 instead would give 4950."
+    },
+    {
+      "q": "A loop does: for i in range(n): j = 1, then while j < n: j *= 2. What is its running time?",
+      "a": "Θ(n log n)",
+      "wrong": [
+        "Θ(n²)",
+        "Θ(n)",
+        "Θ(log n)"
+      ],
+      "why": "The inner loop doubles j until it reaches n, so it runs about log₂ n times. It is repeated for each of the n values of i, giving n · log₂ n."
+    },
+    {
+      "q": "By the master theorem, what is the solution of T(n) = T(n/2) + n?",
+      "a": "Θ(n)",
+      "wrong": [
+        "Θ(log n)",
+        "Θ(n log n)",
+        "Θ(n²)"
+      ],
+      "why": "Here a = 1, b = 2 and d = 1, and log_b a = 0 is less than d, so the root dominates and T(n) = Θ(nᵈ) = Θ(n). The log n of binary search needs d = 0."
+    },
+    {
+      "q": "By the master theorem, what is the solution of T(n) = 9T(n/3) + n²?",
+      "a": "Θ(n² log n)",
+      "wrong": [
+        "Θ(n²)",
+        "Θ(n³)",
+        "Θ(n log n)"
+      ],
+      "why": "Here a = 9, b = 3, d = 2, and log₃ 9 = 2 equals d, so every level of the recursion tree costs about the same. The levels number log n, which gives n² log n."
+    },
+    {
+      "q": "Why does the naive recursive Fibonacci function, fib(n) = fib(n - 1) + fib(n - 2), take exponential time?",
+      "a": "It recomputes the same subproblems over and over, so the calls grow like 1.618ⁿ",
+      "wrong": [
+        "Each call performs an inner loop of length n before it recurses",
+        "Its recursion depth is 2ⁿ, so the stack holds exponentially many frames",
+        "Recursion in Python always costs exponential time, whatever the function"
+      ],
+      "why": "The call tree branches twice at almost every node, with large overlap between branches. Storing results (dynamic programming) reduces the cost to O(n); the depth is only n."
+    },
+    {
+      "q": "A dynamic array adds 100 new slots (instead of doubling) each time it is full. What is the amortized cost of an append?",
+      "a": "Θ(n)",
+      "wrong": [
+        "Θ(1)",
+        "Θ(log n)",
+        "Θ(√n)"
+      ],
+      "why": "Copying happens every 100 appends and costs the current size, so the total is about n²/200 over n appends. Only growth by a constant factor gives the geometric series that yields O(1)."
+    },
+    {
+      "q": "A single append to a doubling dynamic array can cost Θ(n). Why is the amortized cost still constant?",
+      "a": "Copies happen at sizes 1, 2, 4, …, a geometric series whose total is below 2n",
+      "wrong": [
+        "Copying happens only on the very first append, and never again afterwards",
+        "Copying an array of any size is free in the RAM model of computation",
+        "The expensive appends are cheaper than they look because memory gets reused"
+      ],
+      "why": "Copies happen at sizes 1, 2, 4, 8, …, and their sum is less than twice the final size. Spread over n appends, this adds only O(1) per append on average."
+    },
+    {
+      "q": "A SAT formula has 60 variables. About how many assignments might a brute-force search have to try?",
+      "a": "2⁶⁰, about 10¹⁸",
+      "wrong": [
+        "60² = 3600",
+        "60 × 2 = 120",
+        "60!, about 10⁸²"
+      ],
+      "why": "Each variable is true or false independently, giving 2⁶⁰ ≈ 1.2 × 10¹⁸ assignments. Checking a single assignment, in contrast, takes time linear in the formula."
+    },
+    {
+      "q": "Suppose someone finds a polynomial-time algorithm for SAT, an NP-complete problem. What follows?",
+      "a": "Every problem in NP could be solved in polynomial time, so P = NP",
+      "wrong": [
+        "Only SAT becomes easy, because reductions do not transfer difficulty",
+        "Every NP-hard problem, including the halting problem, becomes solvable",
+        "Nothing changes, because P and NP are defined on different machines"
+      ],
+      "why": "Every NP problem reduces to an NP-complete one in polynomial time, so an efficient SAT solver solves them all. NP-hard problems outside NP, such as the halting problem, would remain unsolvable."
+    },
+    {
+      "q": "Which statement about P and NP is false?",
+      "a": "Every problem in NP requires exponential time",
+      "wrong": [
+        "Every problem in P is also in NP",
+        "A proposed solution to an NP problem can be checked in polynomial time",
+        "Whether P = NP is an open problem"
+      ],
+      "why": "NP contains P, and the problems of P have polynomial algorithms. That NP problems need exponential time is exactly what is not known, and it would imply P ≠ NP."
+    },
+    {
+      "q": "Finding the best k-means clustering exactly is NP-hard, yet Lloyd's algorithm is used in practice. What is given up?",
+      "a": "The guarantee of the global optimum, in exchange for speed and good results",
+      "wrong": [
+        "The guarantee that each iteration of the algorithm runs in polynomial time",
+        "The ability to cluster into more than two groups at the same time",
+        "Convergence, since the algorithm may keep running without ever stopping"
+      ],
+      "why": "A heuristic runs quickly and gives a good but not provably optimal solution. Each iteration is cheap, and the loop does stop at a local optimum."
+    }
+  ],
   "summary": [
     "Running time T(n) counts basic operations in the RAM model as a function of input size, usually the worst case. Space complexity counts memory.",
     "O, Ω and Θ give upper, lower and tight bounds ignoring constants and lower-order terms. The ladder: 1, log n, n, n log n, n², n³, 2ⁿ. At 10⁹ operations per second, n² on a million items takes 17 minutes, and exponential algorithms are hopeless beyond n ≈ 50.",

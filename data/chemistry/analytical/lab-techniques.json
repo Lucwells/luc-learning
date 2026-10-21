@@ -445,6 +445,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A rotor with an effective radius of 12.0 cm runs at 5,000 rpm. What is the RCF?",
+      "a": "3.4 × 10³ × g",
+      "wrong": [
+        "1.7 × 10³ × g",
+        "6.7 × 10³ × g",
+        "3.4 × 10⁴ × g"
+      ],
+      "why": "RCF = 1.118 × 10⁻⁵ × 12.0 × (5,000)² ≈ 3.4 × 10³ × g. The speed enters squared and the radius linearly, so errors of a factor of 2 or 10 come from mishandling these."
+    },
+    {
+      "q": "A crude solid is dissolved in boiling ethanol, and a little insoluble sand remains. When should the sand be removed?",
+      "a": "Before cooling, by filtering the solution while it is still hot",
+      "wrong": [
+        "After the crystals form, by washing them with ice-cold ethanol",
+        "After cooling, by vacuum filtration of the crystals together with the sand",
+        "After cooling, by centrifuging the mixture and pouring off the crystals"
+      ],
+      "why": "The sand does not dissolve in hot solvent, whereas the product does, so hot filtration separates them. Once the solution cools, the sand would be collected with the crystals and could not be washed away."
+    },
+    {
+      "q": "An immiscible liquid X (M = 150 g/mol) is steam-distilled at 98 °C, where water has a vapor pressure of 707 torr and the total pressure is 760 torr. How many grams of X distil per gram of water?",
+      "a": "0.62 g",
+      "wrong": [
+        "0.075 g",
+        "0.58 g",
+        "1.6 g"
+      ],
+      "why": "X contributes 760 − 707 = 53 torr, so n(X)/n(H₂O) = 53/707 = 0.075, and the mass ratio is 0.075 × 150/18.02 = 0.62. Stopping at 0.075 forgets the molar masses, and inverting the ratio gives 1.6."
+    },
+    {
+      "q": "A 70% ethanol–water mixture is distilled through a column with a very large number of theoretical plates. What collects as the first distillate?",
+      "a": "The 95.6% ethanol azeotrope",
+      "wrong": [
+        "Pure (100%) ethanol",
+        "Pure water",
+        "A mixture whose composition equals the 70% starting mixture"
+      ],
+      "why": "Ethanol–water has a minimum-boiling azeotrope, which vaporizes without change in composition and is the most volatile fraction. No number of plates can take the distillate beyond it."
+    },
+    {
+      "q": "Why does a higher reflux ratio improve a fractional distillation?",
+      "a": "More condensate is returned to the column, giving more vaporization–condensation cycles, though distillation is slower",
+      "wrong": [
+        "More condensate is returned, which lowers the boiling points of both components",
+        "Less condensate is returned, so the distillate is collected faster and stays purer",
+        "The returned liquid reacts with the azeotrope and removes it"
+      ],
+      "why": "Returning part of the condensate makes the vapor rise through repeated enrichment steps on the packing, so the separation sharpens but collection slows. Speed and purity pull in opposite directions."
+    },
+    {
+      "q": "Recrystallizing 3.00 g of a pure solid, a student dissolves it in the minimum hot solvent, 30 mL. The solubility at 0 °C is 0.40 g per 100 mL. What is the maximum mass recovered at 0 °C?",
+      "a": "2.88 g",
+      "wrong": [
+        "0.12 g",
+        "2.60 g",
+        "3.00 g"
+      ],
+      "why": "The 30 mL of cold solvent keeps 0.40 × 0.30 = 0.12 g dissolved, so at most 3.00 − 0.12 = 2.88 g crystallizes. Subtracting the per-100 mL solubility would ignore that only 30 mL was used."
+    },
+    {
+      "q": "On cooling, a dissolved compound separates as liquid droplets instead of crystals. What is the best response?",
+      "a": "Reheat to redissolve it and add more solvent",
+      "wrong": [
+        "Plunge the flask into ice to freeze the droplets quickly",
+        "Boil off some solvent to make the solution more concentrated",
+        "Add activated charcoal and cool at once"
+      ],
+      "why": "Oiling out means the compound comes out of solution above its melting point, so it must be redissolved and crystallized from a more dilute solution. Concentrating or chilling quickly makes oiling out more likely."
+    },
+    {
+      "q": "A solute has K_D = 6.0 (ether/water). 40 mL of its aqueous solution is extracted twice, each time with 10 mL of fresh ether. What fraction remains in the water?",
+      "a": "0.16",
+      "wrong": [
+        "0.40",
+        "0.25",
+        "0.84"
+      ],
+      "why": "Each extraction leaves 1/(1 + 6.0 × 10/40) = 0.40, so after two, 0.40² = 0.16. The value 0.40 is a single extraction, and 0.84 is the fraction extracted rather than the fraction remaining."
+    },
+    {
+      "q": "An ether solution contains benzoic acid and 4-methylphenol (a phenol). It is shaken with aqueous NaHCO₃. What is in the aqueous layer?",
+      "a": "Only benzoic acid, as its sodium salt",
+      "wrong": [
+        "Both, since each is acidic",
+        "Only the phenol, since it is more acidic",
+        "Neither, since NaHCO₃ is only a weak base"
+      ],
+      "why": "Bicarbonate is basic enough to deprotonate a carboxylic acid but not the much weaker acid phenol, which stays in the ether. Stronger NaOH would extract both."
+    },
+    {
+      "q": "An aqueous solution is shaken with dichloromethane in a separatory funnel. Where is the organic layer?",
+      "a": "At the bottom, because dichloromethane is denser than water",
+      "wrong": [
+        "On top, because organic solvents are less dense than water",
+        "On top, because it is the layer that contains the solute",
+        "At the bottom, because the solution is more concentrated there"
+      ],
+      "why": "Dichloromethane and chloroform are denser than water, unlike ether and ethyl acetate. The layer position depends on density, not on where the solute is."
+    },
+    {
+      "q": "A spot has R_f = 0.35. How far does it move when the solvent front travels 7.0 cm?",
+      "a": "2.45 cm",
+      "wrong": [
+        "20 cm",
+        "4.55 cm",
+        "0.35 cm"
+      ],
+      "why": "Distance = R_f × front distance = 0.35 × 7.0 = 2.45 cm. Dividing 7.0 by 0.35 inverts the definition and gives a distance larger than the front, which is impossible."
+    },
+    {
+      "q": "A desired compound has R_f = 0.85 in 30% ethyl acetate/hexane. How should the eluent be changed for a flash column?",
+      "a": "Lower the ethyl acetate fraction to bring R_f toward 0.3",
+      "wrong": [
+        "Raise the ethyl acetate fraction so that the compound moves faster",
+        "Keep it, since the highest R_f gives the best separation",
+        "Switch to methanol, the most polar solvent in the series"
+      ],
+      "why": "A compound that runs near the solvent front on TLC would pass through the column with little retention. A less polar eluent, giving R_f near 0.3, lets the stationary phase separate it from neighbors."
+    },
+    {
+      "q": "In SDS-PAGE, standards of 100 kDa and 50 kDa migrate 2.0 cm and 3.0 cm. Assuming log(mass) is linear in distance, how far does a 25 kDa protein migrate?",
+      "a": "4.0 cm",
+      "wrong": [
+        "3.5 cm",
+        "5.0 cm",
+        "6.0 cm"
+      ],
+      "why": "Each halving of mass adds 1.0 cm, since distance is linear in log(mass), so 25 kDa runs 4.0 cm. A value of 3.5 cm results from wrongly assuming distance is linear in mass itself."
+    },
+    {
+      "q": "In isoelectric focusing, a protein stops migrating when…",
+      "a": "it reaches the pH at which its net charge is zero",
+      "wrong": [
+        "it has been fully coated by SDS",
+        "its diameter matches the pore size of the gel",
+        "it reaches the anode"
+      ],
+      "why": "In a pH gradient the protein moves until the local pH equals its isoelectric point, where it carries no net charge and no longer feels the field. SDS is not part of this method, and sieving does not decide the stopping position."
+    },
+    {
+      "q": "A reaction refluxing in toluene can be stopped from leaking vapor in several ways. Which one is a mistake?",
+      "a": "Stoppering the top of the condenser so that nothing escapes",
+      "wrong": [
+        "Fitting a drying tube at the top of the condenser",
+        "Using an oil bath hotter than the solvent’s boiling point",
+        "Adding a stir bar to the flask for smooth boiling"
+      ],
+      "why": "A sealed system can build up pressure and burst, so the top of the condenser must stay open to the atmosphere or an inert-gas line. A hotter bath only boils the solvent more vigorously, and the temperature stays at the boiling point."
+    },
+    {
+      "q": "Why is glassware oven-dried or flame-dried under vacuum before an organolithium reaction?",
+      "a": "The glass carries an adsorbed film of water that would destroy the reagent",
+      "wrong": [
+        "Oxygen dissolved in the glass would oxidize the reagent",
+        "Heating anneals the glass so it can withstand vacuum",
+        "Warm glass makes the solvent evaporate faster"
+      ],
+      "why": "Organolithiums react with water, and glass surfaces hold a thin film of it. Drying removes this film before the glass is filled with nitrogen or argon."
+    },
+    {
+      "q": "A 0.8000 g ore sample gives 0.2500 g of BaSO₄ (M = 233.39 g/mol). What is the mass percent of sulfur (32.06 g/mol)?",
+      "a": "4.29%",
+      "wrong": [
+        "3.43%",
+        "12.9%",
+        "31.3%"
+      ],
+      "why": "S mass = 0.2500 × 32.06/233.39 = 0.03434 g, and 0.03434/0.8000 = 4.29%. A value of 12.9% uses the sulfate factor (96.06) and 31.3% omits the factor altogether."
+    },
+    {
+      "q": "An unknown melts sharply at 122 °C, but a 1:1 mixture with authentic benzoic acid (m.p. 122 °C) melts broadly at 105–116 °C. What is the conclusion?",
+      "a": "The unknown is a different compound that happens to melt at the same temperature",
+      "wrong": [
+        "The unknown is benzoic acid, since the melting points match",
+        "The unknown is benzoic acid, and the authentic sample is impure",
+        "The result is inconclusive until the mixture is melted faster"
+      ],
+      "why": "If two samples were the same compound, the mixture would still melt sharply near 122 °C. A depressed, broadened range means each is acting as an impurity in the other."
+    }
+  ],
   "summary": [
     "Choose a separation by the property that differs: size (filtration, centrifugation), volatility (distillation), solubility (recrystallization, extraction), polarity (chromatography), charge (electrophoresis).",
     "RCF = 1.118 × 10⁻⁵ r (rpm)². Fractional distillation uses many theoretical plates, and azeotropes limit it.",

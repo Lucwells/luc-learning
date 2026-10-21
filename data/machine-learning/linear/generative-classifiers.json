@@ -344,6 +344,178 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "5% of emails are spam. A certain word appears in 60% of spam and 3% of non-spam. For an email containing the word, P(spam) is about",
+      "a": "0.51",
+      "wrong": [
+        "0.60",
+        "0.95",
+        "0.05"
+      ],
+      "why": "Spam contributes 0.05 × 0.60 = 0.030 and non-spam 0.95 × 0.03 = 0.0285, so P = 0.030/0.0585 ≈ 0.51. The value 0.95 comes from using the likelihood ratio of 20 and ignoring the prior."
+    },
+    {
+      "q": "Which ability is a real advantage of a generative classifier over a discriminative one?",
+      "a": "It can marginalize out missing features and sample new inputs",
+      "wrong": [
+        "It makes fewer assumptions about the shape of the data",
+        "It is usually more accurate when there is a great deal of data",
+        "It spends all its capacity on the boundary between classes"
+      ],
+      "why": "Having a model of P(x | y) allows integrating out unobserved features and generating examples. The other options describe discriminative models."
+    },
+    {
+      "q": "The Bayes error of a problem is",
+      "a": "the lowest error any classifier can reach, given the true P(y | x)",
+      "wrong": [
+        "the error a naive Bayes classifier makes on its own training set",
+        "the extra error caused by wrongly assuming conditional independence",
+        "the training error of the best generative model for the problem"
+      ],
+      "why": "Predicting the argmax of the true posterior minimizes the error rate, and what remains is the floor that every method tries to approach."
+    },
+    {
+      "q": "Two classes have P(y = 0) = 0.9 and P(y = 1) = 0.1. For an input x, P(x | y = 0) = 0.02 and P(x | y = 1) = 0.10. The Bayes rule prediction is",
+      "a": "class 0, since 0.9 × 0.02 > 0.1 × 0.10",
+      "wrong": [
+        "class 1, since its likelihood 0.10 is larger",
+        "class 1, since the likelihood ratio of 5 always decides the class",
+        "neither: the scores tie"
+      ],
+      "why": "Compare P(x | y)P(y): 0.018 against 0.010. The likelihood favors class 1, but the prior is strong enough to reverse the decision."
+    },
+    {
+      "q": "1D data: class 0 has x = 0, 2 and class 1 has x = 6, 8, 10. The pooled variance of the GDA model, using the maximum likelihood estimate, is",
+      "a": "2",
+      "wrong": [
+        "2.5",
+        "5",
+        "10"
+      ],
+      "why": "The means are 1 and 8. Squared deviations: 1 + 1 for class 0 and 4 + 0 + 4 for class 1, total 10, divided by m = 5 gives 2. Dividing by m − 1 would give 2.5."
+    },
+    {
+      "q": "For the same data (class 0: x = 0, 2; class 1: x = 6, 8, 10), the means are 1 and 8, so the midpoint is 4.5. The fitted GDA boundary is",
+      "a": "about 4.38, shifted toward the rarer class 0",
+      "wrong": [
+        "about 4.62, shifted toward the more common class 1",
+        "exactly 4.5, since priors do not affect the boundary",
+        "at 1, the mean of class 0"
+      ],
+      "why": "The class priors are 0.4 and 0.6, so the boundary shifts away from the more common class's mean, by (σ²/(μ₁ − μ₀)) ln(φ₀/φ₁) = (2/7)(−0.405) ≈ −0.12. The more common class gets the larger region."
+    },
+    {
+      "q": "Why is the GDA decision boundary linear when both classes share one covariance matrix Σ?",
+      "a": "The quadratic terms are identical for both classes and cancel",
+      "wrong": [
+        "The class priors are always equal, so the log-odds reduce to a straight line",
+        "Gaussian densities are symmetric about their means, which makes the boundary flat",
+        "The two classes then have the same mean, so the posteriors differ only in the prior"
+      ],
+      "why": "The quadratic term xᵀΣ⁻¹x appears in both class log-densities, so it drops out of the difference. With separate covariances it remains, giving a quadratic boundary."
+    },
+    {
+      "q": "Which statement about GDA and logistic regression is correct?",
+      "a": "A logistic posterior can arise from non-Gaussian class densities, so it does not imply Gaussian classes",
+      "wrong": [
+        "A logistic posterior implies that each class density is Gaussian",
+        "Logistic regression assumes the classes share a covariance matrix",
+        "GDA gives a softmax posterior, which is never logistic for two classes"
+      ],
+      "why": "Gaussian classes with shared covariance imply a logistic posterior, but the converse fails. This is why logistic regression, which assumes less, is more robust."
+    },
+    {
+      "q": "A problem has n = 4 features and K = 3 classes. How many covariance parameters do LDA and QDA estimate?",
+      "a": "LDA 10, QDA 30",
+      "wrong": [
+        "LDA 16, QDA 48",
+        "LDA 4, QDA 12",
+        "LDA 10, QDA 20"
+      ],
+      "why": "A symmetric 4×4 covariance has n(n + 1)/2 = 10 free entries. LDA uses one shared matrix, and QDA uses one for each of the 3 classes."
+    },
+    {
+      "q": "A GDA model has many features relative to the number of training examples, and the estimate of Σ is unreliable. A standard remedy is to",
+      "a": "shrink the covariance estimate toward a diagonal matrix",
+      "wrong": [
+        "switch to QDA so each class gets its own covariance",
+        "drop the class priors from the model",
+        "estimate the means by the overall average of all examples"
+      ],
+      "why": "Shrinkage (regularized discriminant analysis) stabilizes Σ. QDA would require estimating even more parameters, which makes the problem worse."
+    },
+    {
+      "q": "There are only 40 labeled examples and the features are roughly Gaussian within each class. Which method is likely to do better?",
+      "a": "GDA, which reaches its asymptotic error with fewer examples",
+      "wrong": [
+        "Logistic regression, since it always needs fewer examples",
+        "Neither, since a generative model needs more examples than parameters",
+        "Logistic regression, since it makes stronger assumptions"
+      ],
+      "why": "When its assumptions hold, the generative model gets accurate estimates quickly. Logistic regression is better eventually, with plenty of data."
+    },
+    {
+      "q": "A full joint distribution over 10 binary features needs how many free probabilities per class, and how many does naive Bayes need?",
+      "a": "1023 versus 10",
+      "wrong": [
+        "1024 versus 10",
+        "100 versus 10",
+        "1023 versus 20"
+      ],
+      "why": "The full joint over 10 binary variables has 2¹⁰ − 1 = 1023 free entries. Conditional independence reduces this to one probability per feature, 10."
+    },
+    {
+      "q": "The naive Bayes assumption is that the features are",
+      "a": "independent of one another once the class is known",
+      "wrong": [
+        "independent of the class label, so the class carries no information",
+        "unconditionally independent of one another, whatever the class",
+        "Gaussian within each class, with a common variance"
+      ],
+      "why": "It is conditional independence given y. Unconditionally the features may be strongly dependent through the class."
+    },
+    {
+      "q": "In a Bernoulli naive Bayes spam filter, 8 spam emails were seen and the word \"free\" appeared in 5. With Laplace smoothing, P(free | spam) is",
+      "a": "0.60",
+      "wrong": [
+        "0.625",
+        "0.67",
+        "0.50"
+      ],
+      "why": "Add one imaginary occurrence and one non-occurrence: (5 + 1)/(8 + 2) = 0.6. The unsmoothed estimate is 5/8 = 0.625."
+    },
+    {
+      "q": "A multinomial model has a vocabulary of 4 words. Ham emails contain 20 tokens in total and \"meeting\" appears 3 times. With Laplace smoothing, P(meeting | ham) is",
+      "a": "1/6",
+      "wrong": [
+        "1/5",
+        "1/8",
+        "4/23"
+      ],
+      "why": "The estimate is (3 + 1)/(20 + 4) = 4/24 = 1/6. The denominator adds the vocabulary size, since every word receives one pseudo-count."
+    },
+    {
+      "q": "Why is a naive Bayes classifier computed in log space?",
+      "a": "Long products underflow, while sums of logs are stable with the same argmax",
+      "wrong": [
+        "Taking logs makes the features conditionally independent of one another",
+        "Logs turn the raw scores into calibrated probabilities for each class",
+        "Logs make Laplace smoothing unnecessary for words not seen in training"
+      ],
+      "why": "The logarithm is increasing, so the highest-scoring class is unchanged, and the sum of hundreds of log probabilities does not vanish the way a product does."
+    },
+    {
+      "q": "Naive Bayes often classifies text well even though word independence is clearly false. The best explanation is that",
+      "a": "only the ranking of class scores matters, not accurate probabilities",
+      "wrong": [
+        "the independence errors cancel exactly in the ratio of the posteriors",
+        "Laplace smoothing restores independence among the words in a document",
+        "its probabilities are well calibrated even when the assumption fails badly"
+      ],
+      "why": "The ranking of classes can survive badly distorted probabilities, which are in fact often overconfident. Naive Bayes is a high-bias, low-variance model."
+    }
+  ],
   "summary": [
     "Generative classifiers model P(x | y) and P(y), then classify with Bayes' rule: ŷ = argmax P(x | y)P(y). Discriminative models fit P(y | x) directly.",
     "GDA assumes Gaussian classes. The maximum likelihood fit uses the class frequencies, class means and pooled covariance. With a shared covariance the posterior is logistic and the boundary is linear (LDA); separate covariances give a quadratic boundary (QDA).",

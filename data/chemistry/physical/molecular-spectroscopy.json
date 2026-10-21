@@ -412,6 +412,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A solution has absorbance 0.30 in a 1.0 cm cell. What fraction of the incident light is transmitted?",
+      "a": "0.50",
+      "wrong": [
+        "0.70",
+        "0.30",
+        "0.74"
+      ],
+      "why": "A = log₁₀(I₀/I), so I/I₀ = 10⁻⁰·³⁰ = 0.50. The value 0.74 comes from using the natural exponential e⁻⁰·³, and 0.70 from treating A as the fraction absorbed."
+    },
+    {
+      "q": "A vibrational level lies 400 cm⁻¹ above the ground level. At 298 K (kT/hc = 207.2 cm⁻¹) the ratio of populations N_upper/N_lower is",
+      "a": "0.15",
+      "wrong": [
+        "0.85",
+        "0.021",
+        "0.50"
+      ],
+      "why": "The Boltzmann factor is exp(−ΔE/kT) = exp(−400/207.2) = exp(−1.93) = 0.15. The 0.85 is the complement, and 0.021 comes from doubling the exponent."
+    },
+    {
+      "q": "The J = 0 → 1 and J = 1 → 2 lines of a diatomic are 7.60 cm⁻¹ apart. What is its moment of inertia?",
+      "a": "7.37 × 10⁻⁴⁷ kg m²",
+      "wrong": [
+        "3.68 × 10⁻⁴⁷ kg m²",
+        "1.47 × 10⁻⁴⁶ kg m²",
+        "2.95 × 10⁻⁴⁶ kg m²"
+      ],
+      "why": "Lines are spaced by 2B, so B = 3.80 cm⁻¹ and I = h/(8π²cB) = 7.37 × 10⁻⁴⁷ kg m². Taking the spacing itself as B gives 3.68 × 10⁻⁴⁷."
+    },
+    {
+      "q": "For a rotor with B = 0.50 cm⁻¹ at 298 K (kT/hc = 207.2 cm⁻¹), which initial level J gives the most intense absorption line?",
+      "a": "J ≈ 14",
+      "wrong": [
+        "J ≈ 20",
+        "J ≈ 28",
+        "J ≈ 7"
+      ],
+      "why": "J_max = √(kT/2Bhc) − ½ = √(207.2/1.00) − 0.5 = 13.9. Dropping the factor of 2 in 2B gives 20."
+    },
+    {
+      "q": "SF₆ has three equal moments of inertia. Why does it show no pure rotational microwave absorption?",
+      "a": "It has no permanent electric dipole moment",
+      "wrong": [
+        "Rotational levels of a spherical top are not quantized",
+        "Its rotational constant is too small to appear in the microwave region",
+        "The selection rule ΔJ = ±1 cannot be satisfied for equal moments of inertia"
+      ],
+      "why": "Microwave absorption by rotation needs a permanent dipole that the rotating molecule presents to the field. Octahedral SF₆ has none, whatever its moments of inertia."
+    },
+    {
+      "q": "How many normal modes of vibration does benzene (C₆H₆) have?",
+      "a": "30",
+      "wrong": [
+        "36",
+        "33",
+        "31"
+      ],
+      "why": "Benzene has 12 atoms and is nonlinear, so 3N − 6 = 30. The value 36 is 3N, 33 is 3N − 3, and 31 is the number for a linear molecule (3N − 5)."
+    },
+    {
+      "q": "A 532 nm laser excites a sample with a Raman-active vibration at 1000 cm⁻¹. At what wavelength does the Stokes line appear?",
+      "a": "562 nm",
+      "wrong": [
+        "505 nm",
+        "532 nm",
+        "595 nm"
+      ],
+      "why": "ν̃₀ = 10⁷/532 = 18 797 cm⁻¹. The Stokes line is lower in frequency: 17 797 cm⁻¹, or 562 nm. The anti-Stokes line is at 505 nm, and the unshifted Rayleigh line at 532 nm."
+    },
+    {
+      "q": "A molecule with a center of inversion has a vibration that appears in its Raman spectrum. What can be concluded?",
+      "a": "That vibration is not seen in the IR spectrum",
+      "wrong": [
+        "It is also IR active, at the same frequency",
+        "It must be a symmetric stretch",
+        "Its polarizability does not change during the vibration"
+      ],
+      "why": "By the mutual exclusion rule no vibration of a centrosymmetric molecule is both IR and Raman active. It need not be a stretch, and Raman activity requires a changing polarizability."
+    },
+    {
+      "q": "In the fundamental band of CO, ν̃₀ = 2143.3 cm⁻¹ and B is taken as 1.90 cm⁻¹ in both vibrational states. Where is the P(3) line?",
+      "a": "2131.9 cm⁻¹",
+      "wrong": [
+        "2154.7 cm⁻¹",
+        "2135.7 cm⁻¹",
+        "2128.1 cm⁻¹"
+      ],
+      "why": "P(J) = ν̃₀ − 2BJ = 2143.3 − 2(1.90)(3) = 2131.9 cm⁻¹. The other values are R(2) at 2154.7, P(2) at 2135.7 and P(4) at 2128.1."
+    },
+    {
+      "q": "Which diatomic shows a Q branch in its fundamental infrared band?",
+      "a": "NO",
+      "wrong": [
+        "CO",
+        "HCl",
+        "HI"
+      ],
+      "why": "Q-branch transitions (ΔJ = 0) are forbidden for a ¹Σ diatomic such as CO, HCl or HI. NO has electronic angular momentum (a ²Π ground state) that allows them."
+    },
+    {
+      "q": "Why does each line in the gas-phase HCl rovibrational spectrum appear as a doublet with intensities about 3:1?",
+      "a": "HCl contains both ³⁵Cl and ³⁷Cl, with different reduced masses and natural abundances",
+      "wrong": [
+        "The R and P branches overlap at each J",
+        "The two spin states of the hydrogen nucleus give two transition energies",
+        "Anharmonicity splits every rotational level"
+      ],
+      "why": "The two chlorine isotopes give molecules with different μ, hence different B and ν̃₀, in proportion to their natural abundances (about 3:1)."
+    },
+    {
+      "q": "A molecule's S₁ state has a longer bond than S₀. How does this change the vibrational structure of its absorption band?",
+      "a": "The strongest vibronic line is not the 0–0 line, and a progression to higher levels appears",
+      "wrong": [
+        "The 0–0 line is the most intense, and the others are weak",
+        "No vibrational structure appears, because the nuclei do not move",
+        "Only Δv = ±1 lines can appear"
+      ],
+      "why": "A vertical transition from v = 0 lands where the upper-state wavefunction overlaps best, which is in a vibrationally excited level when the bond is longer. The 0–0 line dominates only when the geometries match."
+    },
+    {
+      "q": "The S₀ → T₁ absorption of an organic molecule is extremely weak. Why?",
+      "a": "It requires a change of spin multiplicity, violating ΔS = 0",
+      "wrong": [
+        "T₁ lies below S₁, so it cannot be reached directly",
+        "The Franck–Condon factor is always zero for triplets",
+        "The Laporte rule forbids transitions between u and g states"
+      ],
+      "why": "The spin selection rule makes singlet–triplet transitions only weakly allowed (through spin–orbit coupling). The energy ordering of S₁ and T₁ is irrelevant to the intensity."
+    },
+    {
+      "q": "Why does adding a bromine atom to a fluorescent dye often lower its fluorescence quantum yield?",
+      "a": "Stronger spin–orbit coupling speeds intersystem crossing, which competes with fluorescence",
+      "wrong": [
+        "Bromine increases the rate of vibrational relaxation to S₀ only",
+        "Bromine shifts the absorption so that Kasha's rule is violated",
+        "The heavy atom makes fluorescence spin-forbidden"
+      ],
+      "why": "Spin–orbit coupling grows with nuclear charge, so S₁ → T₁ becomes faster and fewer excited molecules fluoresce. Fluorescence is already spin-allowed (S₁ → S₀)."
+    },
+    {
+      "q": "Two ¹H signals are 150 Hz apart on a 300 MHz spectrometer. What is their separation on a 600 MHz instrument?",
+      "a": "300 Hz, which is still 0.50 ppm",
+      "wrong": [
+        "150 Hz, which is 0.25 ppm",
+        "150 Hz, which is still 0.50 ppm",
+        "300 Hz, which is 1.0 ppm"
+      ],
+      "why": "The shift difference is 150/300 = 0.50 ppm, independent of field. In hertz, the separation scales with the spectrometer frequency, so at 600 MHz it is 0.50 × 600 = 300 Hz."
+    },
+    {
+      "q": "A signal has T₂ = 50 ms. What is its linewidth Δν = 1/(πT₂)?",
+      "a": "6.4 Hz",
+      "wrong": [
+        "20 Hz",
+        "3.2 Hz",
+        "0.16 Hz"
+      ],
+      "why": "Δν = 1/(π × 0.050 s) = 6.4 Hz. The value 20 Hz is 1/T₂, 3.2 Hz uses 2π, and 0.16 Hz multiplies by π instead of dividing."
+    },
+    {
+      "q": "Why is NMR intrinsically much less sensitive than UV–visible absorption?",
+      "a": "The spin-state energy gap is tiny, so the two populations differ by only a few parts in 10⁵",
+      "wrong": [
+        "Radio-frequency photons are absorbed only by nuclei with spin 0",
+        "The Larmor frequency changes with every scan",
+        "T₁ relaxation is always faster than the pulse"
+      ],
+      "why": "hν/kT is only about 6 × 10⁻⁵ at 300 K, so the net excess in the lower level is about 3 × 10⁻⁵. Electronic transitions have gaps far larger than kT."
+    },
+    {
+      "q": "The nuclear Overhauser effect between two protons varies as r⁻⁶. How does its strength for protons 5.0 Å apart compare with that for protons 2.5 Å apart?",
+      "a": "1/64 as large",
+      "wrong": [
+        "1/4 as large",
+        "1/32 as large",
+        "1/8 as large"
+      ],
+      "why": "Doubling the distance reduces the effect by 2⁶ = 64. Using r⁻² gives 1/4, r⁻⁵ gives 1/32, and r⁻³ gives 1/8."
+    }
+  ],
   "summary": [
     "A transition needs hν = ΔE and a nonzero transition dipole. Gross selection rules: permanent dipole (rotation), changing dipole (IR), changing polarizability (Raman). Beer–Lambert: A = εcl.",
     "Rotational lines are spaced by 2B (J → J + 1 at 2B(J + 1)). B gives the bond length, and the strongest line is at J_max = √(kT/2Bhc) − ½.",

@@ -545,6 +545,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "Millikan's oil-drop experiment contributed which result to the discovery of the electron?",
+      "a": "The charge of a single electron, which with Thomson's e/m gave the electron's mass",
+      "wrong": [
+        "The charge-to-mass ratio of the electron",
+        "Proof that atoms contain a small, dense, positive nucleus",
+        "The mass of the proton relative to the electron"
+      ],
+      "why": "Thomson measured only the ratio e/m. Millikan found that droplet charges are whole multiples of 1.602 × 10⁻¹⁹ C, and dividing that charge by e/m gives the mass."
+    },
+    {
+      "q": "Suppose the plum-pudding model were correct. In the gold-foil experiment the alpha particles would have",
+      "a": "been deflected only slightly, since the positive charge would be spread thinly through each atom",
+      "wrong": [
+        "bounced straight back from a fraction of the atoms",
+        "passed through undeflected, because gold atoms are neutral overall",
+        "been deflected only when they hit an embedded electron"
+      ],
+      "why": "A diffuse positive charge cannot exert a strong enough force to turn a fast alpha particle through a large angle. The observed back-scattering required the charge to be concentrated."
+    },
+    {
+      "q": "An atom is roughly 10⁵ times wider than its nucleus. If the nucleus were scaled up to a sphere 2 cm across, the atom would be about",
+      "a": "2 km across",
+      "wrong": [
+        "20 m across",
+        "20 km across",
+        "200 km across"
+      ],
+      "why": "2 cm × 10⁵ = 2 × 10⁵ cm = 2 × 10³ m = 2 km."
+    },
+    {
+      "q": "How many protons, neutrons and electrons does a ⁵²Cr³⁺ ion have?",
+      "a": "24 protons, 28 neutrons, 21 electrons",
+      "wrong": [
+        "24 protons, 28 neutrons, 27 electrons",
+        "24 protons, 52 neutrons, 21 electrons",
+        "21 protons, 28 neutrons, 24 electrons"
+      ],
+      "why": "Chromium has Z = 24, so 24 protons and 52 − 24 = 28 neutrons. A 3+ charge means three electrons have been lost: 24 − 3 = 21."
+    },
+    {
+      "q": "Copper has isotopes ⁶³Cu (62.930 u, 69.15%) and ⁶⁵Cu (64.928 u, 30.85%). What is the average atomic mass?",
+      "a": "63.55 u",
+      "wrong": [
+        "62.93 u",
+        "63.93 u",
+        "64.00 u"
+      ],
+      "why": "0.6915 × 62.930 + 0.3085 × 64.928 = 43.52 + 20.03 = 63.55 u. The plain mean of the two masses, 63.93 u, ignores the abundances."
+    },
+    {
+      "q": "An element has two isotopes with masses 50.0 u and 52.0 u, and its average atomic mass is 51.5 u. Which isotope is more abundant?",
+      "a": "The 52.0 u isotope, at 75%",
+      "wrong": [
+        "The 50.0 u isotope, at 75%",
+        "The 52.0 u isotope, at 25%",
+        "Neither; they are equally abundant"
+      ],
+      "why": "The average lies three-quarters of the way from 50.0 to 52.0, so the heavier isotope has a fractional abundance of 0.75. An equal mix would average 51.0 u."
+    },
+    {
+      "q": "The periodic table lists chlorine at 35.45 u. Which statement about this value is false?",
+      "a": "Individual chlorine atoms have a mass of 35.45 u",
+      "wrong": [
+        "It is a weighted average over naturally occurring isotopes",
+        "A mass spectrum of chlorine shows peaks near 35 u and 37 u",
+        "It lies closer to 35 u because ³⁵Cl is more abundant"
+      ],
+      "why": "No atom has mass 35.45 u. Each atom is ³⁵Cl or ³⁷Cl, and 35.45 u is the abundance-weighted average of the two."
+    },
+    {
+      "q": "Which of these elements is classified as a metalloid?",
+      "a": "Arsenic",
+      "wrong": [
+        "Aluminum",
+        "Phosphorus",
+        "Gallium"
+      ],
+      "why": "The metalloids form a diagonal band including B, Si, Ge, As, Sb and Te. Aluminum and gallium are metals, and phosphorus is a nonmetal."
+    },
+    {
+      "q": "Which element should be chemically most similar to calcium (Z = 20)?",
+      "a": "Strontium (Z = 38)",
+      "wrong": [
+        "Potassium (Z = 19)",
+        "Scandium (Z = 21)",
+        "Argon (Z = 18)"
+      ],
+      "why": "Elements in the same group have similar chemistry, and strontium is in Group 2 below calcium. Neighbors in atomic number lie in different groups."
+    },
+    {
+      "q": "What is the correct formula of ammonium phosphate?",
+      "a": "(NH₄)₃PO₄",
+      "wrong": [
+        "NH₄PO₄",
+        "(NH₄)₂PO₄",
+        "NH₄(PO₄)₃"
+      ],
+      "why": "NH₄⁺ is 1+ and PO₄³⁻ is 3−, so three ammonium ions balance one phosphate. The polyatomic cation needs parentheses when more than one is used."
+    },
+    {
+      "q": "Which pair are allotropes of the same element?",
+      "a": "Graphite and diamond",
+      "wrong": [
+        "Carbon-12 and carbon-14",
+        "Carbon monoxide and carbon dioxide",
+        "Water and hydrogen peroxide"
+      ],
+      "why": "Allotropes are different structural forms of one element. Carbon-12 and carbon-14 are isotopes, which differ in neutron number, not in structure."
+    },
+    {
+      "q": "Which description of solid NaCl is correct?",
+      "a": "A lattice of Na⁺ and Cl⁻ ions, with the formula giving only the 1:1 ratio",
+      "wrong": [
+        "Separate NaCl molecules joined by covalent bonds",
+        "A lattice of neutral Na and Cl atoms",
+        "Pairs of Na⁺ and Cl⁻ ions that each form a discrete molecule"
+      ],
+      "why": "An ionic compound has no discrete molecules. Its formula unit gives the ratio of ions that makes the lattice electrically neutral."
+    },
+    {
+      "q": "What is the name of Cu₂S?",
+      "a": "Copper(I) sulfide",
+      "wrong": [
+        "Copper(II) sulfide",
+        "Dicopper sulfide",
+        "Copper(I) sulfite"
+      ],
+      "why": "S²⁻ needs +2 in total, which two Cu⁺ ions supply. A metal that can form several ions takes a Roman numeral, and prefixes are for molecular compounds."
+    },
+    {
+      "q": "HNO₂ is derived from the nitrite ion. What is its name?",
+      "a": "Nitrous acid",
+      "wrong": [
+        "Nitric acid",
+        "Hydronitric acid",
+        "Nitrite acid"
+      ],
+      "why": "For oxoacids, -ite becomes -ous and -ate becomes -ic. Nitric acid is HNO₃, from nitrate."
+    },
+    {
+      "q": "What is the molar mass of Ca₃(PO₄)₂? (Ca 40.08, P 30.97, O 16.00 g/mol)",
+      "a": "310.18 g/mol",
+      "wrong": [
+        "215.21 g/mol",
+        "270.10 g/mol",
+        "278.18 g/mol"
+      ],
+      "why": "3(40.08) + 2(30.97) + 8(16.00) = 120.24 + 61.94 + 128.00 = 310.18. The subscript outside the parentheses multiplies both P and the four O in the phosphate."
+    },
+    {
+      "q": "How many hydrogen atoms are in 4.50 g of water (M = 18.02 g/mol)?",
+      "a": "3.01 × 10²³",
+      "wrong": [
+        "1.50 × 10²³",
+        "6.02 × 10²³",
+        "2.71 × 10²⁴"
+      ],
+      "why": "n(H₂O) = 4.50/18.02 = 0.250 mol, so n(H) = 0.500 mol and N = 0.500 × 6.022 × 10²³ = 3.01 × 10²³. The value 1.50 × 10²³ counts molecules, not H atoms."
+    },
+    {
+      "q": "What is the mass of one CO₂ molecule (M = 44.01 g/mol)?",
+      "a": "7.31 × 10⁻²³ g",
+      "wrong": [
+        "1.37 × 10²² g",
+        "7.31 × 10⁻²⁶ g",
+        "2.65 × 10²⁵ g"
+      ],
+      "why": "Mass per molecule is molar mass divided by N_A: 44.01 g/mol ÷ 6.022 × 10²³ mol⁻¹ = 7.31 × 10⁻²³ g. Multiplying instead of dividing gives 2.65 × 10²⁵."
+    },
+    {
+      "q": "How many grams of water are in 25.0 g of CuSO₄·5H₂O (M = 249.7 g/mol; H₂O = 18.02 g/mol)?",
+      "a": "9.02 g",
+      "wrong": [
+        "16.0 g",
+        "1.80 g",
+        "12.5 g"
+      ],
+      "why": "Water makes up 5(18.02)/249.7 = 36.1% of the hydrate's mass, so 25.0 × 0.361 = 9.02 g. The 16.0 g figure is the anhydrous CuSO₄ in the sample."
+    }
+  ],
   "summary": [
     "Thomson found the electron, Rutherford found the nucleus and Chadwick found the neutron. Nearly all the mass is in a nucleus about 10⁵ times smaller than the atom.",
     "Atomic number Z is the number of protons. Isotopes differ in neutron number. Average atomic mass weights each isotope by abundance.",

@@ -336,6 +336,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "Sunlight of 1361 W m⁻² reaches a planet with albedo 0.30. Averaged over the whole spherical surface, what power per square meter is absorbed?",
+      "a": "238 W m⁻²",
+      "wrong": [
+        "953 W m⁻²",
+        "340 W m⁻²",
+        "102 W m⁻²"
+      ],
+      "why": "The planet intercepts light over a disk πR² but is a sphere of area 4πR², so the absorbed power is 1361 × 0.70/4 = 238 W m⁻². Forgetting the factor 4 gives 953, and forgetting the albedo gives 340."
+    },
+    {
+      "q": "CO₂ is linear and has no permanent dipole moment, yet it is a strong greenhouse gas. Why?",
+      "a": "Its bending and asymmetric stretching vibrations change the dipole moment",
+      "wrong": [
+        "Its polar C=O bonds give the whole molecule a permanent dipole moment",
+        "It absorbs strongly in the visible, where the sunlight is most intense",
+        "Its absorption comes from electronic transitions in the near-infrared region"
+      ],
+      "why": "A molecule absorbs IR only if a vibration changes its dipole moment, which these two CO₂ modes do. The bond polarity cancels in the linear molecule at equilibrium, so a permanent dipole is not the reason."
+    },
+    {
+      "q": "CO₂ rises from 150 ppm to 600 ppm. Using ΔF = 5.35 ln(C/C₀), what is the radiative forcing?",
+      "a": "7.42 W m⁻²",
+      "wrong": [
+        "21.4 W m⁻²",
+        "3.71 W m⁻²",
+        "3.22 W m⁻²"
+      ],
+      "why": "The ratio is 4 and ln 4 = 1.386, so ΔF = 5.35 × 1.386 = 7.42 W m⁻². Treating the dependence as linear would give 21.4, a base-10 logarithm gives 3.22, and 3.71 is only a doubling."
+    },
+    {
+      "q": "A gas absorbs infrared very strongly per molecule but is destroyed in the atmosphere within days. Its 100-year GWP is expected to be",
+      "a": "low, because the forcing is integrated only over the short time the gas persists",
+      "wrong": [
+        "high, because GWP is determined only by how strongly one molecule absorbs infrared",
+        "zero, because a gas that is destroyed within days cannot absorb IR at all",
+        "equal to that of CO₂, since GWP is defined relative to CO₂ and scales with mass"
+      ],
+      "why": "GWP combines absorption strength and atmospheric lifetime. A short lifetime limits the integrated forcing no matter how strong the absorption is."
+    },
+    {
+      "q": "The surface ocean pH falls by 0.3 units. What happens to [H⁺]?",
+      "a": "It increases about 2-fold",
+      "wrong": [
+        "It increases about 30%",
+        "It increases about 3-fold",
+        "It decreases about 2-fold"
+      ],
+      "why": "pH is a negative base-10 logarithm, so a drop of 0.3 multiplies [H⁺] by 10^0.3 = 2.0. The 30% answer wrongly treats pH as linear, and a falling pH means rising, not falling, [H⁺]."
+    },
+    {
+      "q": "In the Chapman cycle, which step actually removes odd oxygen (O and O₃) from the system?",
+      "a": "O• + O₃ → 2 O₂",
+      "wrong": [
+        "O₃ + hν → O₂ + O•",
+        "O• + O₂ + M → O₃ + M",
+        "O₂ + hν → 2 O•"
+      ],
+      "why": "Photolysis of O₃ and the combination O + O₂ + M only convert O into O₃ and back, and photolysis of O₂ creates odd oxygen. Only O + O₃ turns both into O₂."
+    },
+    {
+      "q": "What ends the catalytic life of a stratospheric chlorine atom after about 10⁵ ozone molecules?",
+      "a": "It is tied up in a reservoir such as HCl or ClONO₂",
+      "wrong": [
+        "It is used up the first time it reacts with O₃",
+        "Rain washes it out of the stratosphere",
+        "It drifts down and is oxidized by OH• in the troposphere"
+      ],
+      "why": "Cl is regenerated in each cycle, so it keeps destroying ozone until it reacts with CH₄ to give HCl or with ClO and NO₂ to give ClONO₂."
+    },
+    {
+      "q": "A student argues that CFCl₃ should photolyze in the troposphere because 353 nm light, which reaches the ground, has enough energy to break its C–Cl bond. What is wrong with this argument?",
+      "a": "Energy is not enough: CFCs absorb only below about 230 nm, which is filtered out above",
+      "wrong": [
+        "The C–Cl bond energy is too high for 353 nm light to break it, so photolysis is impossible",
+        "CFCs are removed from the troposphere by OH• before they can ever absorb any light",
+        "Photolysis of CFCs needs a third body M, which is absent in the air near the ground"
+      ],
+      "why": "Photolysis needs both enough energy and actual absorption. CFCs do not react with OH• and have negligible absorption at long wavelengths, so they survive until they reach the stratosphere."
+    },
+    {
+      "q": "The ClO-dimer cycle, rather than ClO + O → Cl + O₂, dominates ozone loss in the Antarctic vortex because",
+      "a": "O atoms are scarce at low altitude, so ClO reacts with another ClO instead",
+      "wrong": [
+        "Cl + O₃ cannot occur at such low temperatures, so only the dimer can react",
+        "ClO + O is slower in the cold even though O atoms are still plentiful there",
+        "The dimer cycle needs no sunlight and so can run all through the polar night"
+      ],
+      "why": "The Cl + O cycle needs O atoms, which are made by short-wavelength UV higher up. At 15–20 km ClO + ClO + M takes over, and the dimer still needs sunlight to be photolyzed."
+    },
+    {
+      "q": "A column of 300 Dobson units is compressed to 0 °C and 1 atm. How thick is the resulting ozone layer?",
+      "a": "3 mm",
+      "wrong": [
+        "0.3 mm",
+        "30 mm",
+        "3 µm"
+      ],
+      "why": "1 DU is 0.01 mm of ozone at 0 °C and 1 atm, so 300 DU is 300 × 0.01 mm = 3 mm."
+    },
+    {
+      "q": "Why are HFCs, the replacements for HCFCs, still being limited under the Kigali Amendment?",
+      "a": "They no longer harm the ozone layer but are potent greenhouse gases",
+      "wrong": [
+        "They release chlorine in the stratosphere, though more slowly than CFCs",
+        "Their lifetimes are so short that they must be replaced constantly",
+        "They are toxic at tropospheric concentrations"
+      ],
+      "why": "HFCs contain no chlorine, so they do not deplete ozone, but their large GWPs make them a climate concern."
+    },
+    {
+      "q": "How is the hydroxyl radical formed in the troposphere?",
+      "a": "Ozone photolysis gives O(¹D), which reacts with H₂O to give two OH•",
+      "wrong": [
+        "Visible sunlight splits water vapor directly into H• and OH• radicals",
+        "Photolysis of O₂ at 200 nm gives O atoms that then react with CH₄ to give OH•",
+        "NO₂ photolysis gives O•, which then reacts with CO₂ to give OH•"
+      ],
+      "why": "UV below 320 nm photolyzes O₃ to O₂ + O(¹D), and the excited atom inserts into H₂O. Light below 242 nm that would split O₂ is already absorbed higher up."
+    },
+    {
+      "q": "Why does a hotter engine produce more NO from N₂ and O₂?",
+      "a": "The reaction is endothermic (+180 kJ mol⁻¹), so heat favors NO",
+      "wrong": [
+        "The reaction is exothermic, so extra heat pushes it further toward the products",
+        "Fuel-bound nitrogen is released as NO only at temperatures above 1500 °C",
+        "NO becomes much more soluble in hot exhaust gas and so is not lost"
+      ],
+      "why": "N₂ + O₂ → 2 NO absorbs heat, so equilibrium and rate both favor NO in a hot flame. An exothermic reaction would be disfavored by more heat."
+    },
+    {
+      "q": "In sunlit air with only NO, NO₂ and O₃, what is the net result of NO₂ + hν → NO + O, O + O₂ + M → O₃ + M and NO + O₃ → NO₂ + O₂?",
+      "a": "No net change, so ozone sits at a steady level",
+      "wrong": [
+        "Steady production of O₃ at the expense of NO₂ in the sunlight",
+        "Complete conversion of O₂ to O₃ over time in the sunlit air",
+        "Net consumption of O₃ until it disappears from the mixture"
+      ],
+      "why": "Adding the three steps cancels every species, so NO₂, NO and O₃ stay in a photostationary state. Smog needs a route that turns NO into NO₂ without using up O₃, which RO₂• from VOCs provides."
+    },
+    {
+      "q": "Rain contains 2.0 × 10⁻⁵ M HNO₃, a strong acid. What is its pH?",
+      "a": "4.70",
+      "wrong": [
+        "5.30",
+        "4.40",
+        "5.00"
+      ],
+      "why": "HNO₃ gives one H⁺ per molecule, so [H⁺] = 2.0 × 10⁻⁵ M and pH = −log(2.0 × 10⁻⁵) = 4.70. Using 2 H⁺ per molecule gives 4.40, and 5.30 comes from adding log 2 instead of subtracting it."
+    },
+    {
+      "q": "An oxygen sensor shows that an engine with a three-way catalyst is running lean, with excess O₂. Which pollutant is most likely to pass through unconverted?",
+      "a": "NO",
+      "wrong": [
+        "CO",
+        "Unburned hydrocarbons",
+        "Both CO and unburned hydrocarbons"
+      ],
+      "why": "With excess O₂ the oxidations of CO and hydrocarbons proceed easily, but NO is no longer reduced. Too little oxygen gives the opposite failure."
+    },
+    {
+      "q": "Diesel exhaust contains 90.0 g of NO, treated by 4 NO + 4 NH₃ + O₂ → 4 N₂ + 6 H₂O. What mass of NH₃ is needed?",
+      "a": "51.1 g",
+      "wrong": [
+        "17.0 g",
+        "102 g",
+        "90.0 g"
+      ],
+      "why": "90.0 g NO is 90.0/30.01 = 3.00 mol. The mole ratio NH₃:NO is 1:1, so 3.00 mol × 17.03 g mol⁻¹ = 51.1 g. Equal masses would be right only if the molar masses were equal."
+    },
+    {
+      "q": "A limestone scrubber removes 40.0 t of SO₂ per day, and the sulfur ends up as gypsum, CaSO₄·2H₂O (172.17 g mol⁻¹). What mass of gypsum forms per day?",
+      "a": "107.5 t",
+      "wrong": [
+        "62.5 t",
+        "75.0 t",
+        "215.0 t"
+      ],
+      "why": "40.0 t of SO₂ is 0.624 × 10⁶ mol, and each mole gives one mole of gypsum, 0.624 × 10⁶ × 172.17 g = 107.5 t. The value 62.5 t is the limestone required, and 75.0 t would be CaSO₃."
+    }
+  ],
   "summary": [
     "T_e = [S(1−A)/4σ]^{1/4} = 255 K; the observed 288 K shows a 33 K greenhouse effect. Gases with a dipole-changing vibration (CO₂, H₂O, CH₄, N₂O) absorb IR. ΔF(CO₂) = 5.35 ln(C/C₀); GWP combines absorption strength and lifetime. CO₂ uptake acidifies the ocean.",
     "Chapman cycle forms and destroys ozone; catalytic cycles (NO, OH, Cl, Br) lower it. CFCs release Cl in the stratosphere; polar stratospheric clouds activate chlorine, causing the ozone hole. The Montreal Protocol has reversed the trend.",

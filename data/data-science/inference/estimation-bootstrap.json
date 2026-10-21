@@ -271,6 +271,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A sample of n = 9 has mean 40 and standard deviation s = 6. Using t* = 2.306 for 8 degrees of freedom, what is the 95% confidence interval for the mean?",
+      "a": "(35.4, 44.6)",
+      "wrong": [
+        "(36.1, 43.9)",
+        "(38.5, 41.5)",
+        "(26.2, 53.8)"
+      ],
+      "why": "SE = 6/√9 = 2, so the half-width is 2.306 × 2 = 4.61. The z value 1.96 would give (36.1, 43.9), too narrow for n = 9; dividing by n instead of √n gives the second option."
+    },
+    {
+      "q": "In a sample of 200 emails, 60 are flagged. What is the 95% Wald interval for the flag rate?",
+      "a": "0.30 ± 0.064",
+      "wrong": [
+        "0.30 ± 0.032",
+        "0.30 ± 0.127",
+        "0.30 ± 0.045"
+      ],
+      "why": "SE = √(0.3 × 0.7/200) = 0.0324, and the margin is 1.96 × 0.0324 = 0.064. One standard error is 0.032, and doubling the margin gives 0.127."
+    },
+    {
+      "q": "The same data are used to build a 99% and a 95% confidence interval for a mean. How do they compare?",
+      "a": "The 99% interval is wider, since a higher level uses a larger critical value",
+      "wrong": [
+        "The 99% interval is narrower, because it reflects a greater degree of certainty",
+        "They have the same width, because the standard error does not depend on the confidence level",
+        "The 99% interval is wider only when the sample size is small"
+      ],
+      "why": "Width is t* × SE. Capturing the parameter more often requires a larger critical value, which stretches the interval at every sample size."
+    },
+    {
+      "q": "Each of 200 independent studies builds a 95% interval for the same population mean. About how many of the intervals contain it?",
+      "a": "About 190",
+      "wrong": [
+        "All 200",
+        "About 95",
+        "About 100"
+      ],
+      "why": "The 95% describes the long-run success rate of the procedure, so about 0.95 × 200 = 190 intervals capture the mean and roughly 10 miss it."
+    },
+    {
+      "q": "Why does a confidence interval for a mean use a t critical value instead of 1.96 when σ is estimated by s from a small sample?",
+      "a": "Estimating σ adds uncertainty, giving heavier tails and a larger multiplier",
+      "wrong": [
+        "Small samples always come from skewed populations, which the t distribution corrects",
+        "The t distribution makes the interval narrower to offset the smaller sample size",
+        "The sample mean is biased for small n, and the larger t* corrects that bias exactly"
+      ],
+      "why": "The statistic (x̄ − μ)/(s/√n) follows a t distribution with n − 1 degrees of freedom. For small n, t* is larger than 1.96, and it approaches 1.96 as n grows."
+    },
+    {
+      "q": "A sample of n = 16 has mean 50 and s = 8. Using t* = 2.131, what is the half-width of the 95% prediction interval for a new observation?",
+      "a": "About 17.6",
+      "wrong": [
+        "About 4.3",
+        "About 8.5",
+        "About 35.1"
+      ],
+      "why": "The half-width is t* · s · √(1 + 1/n) = 2.131 × 8 × √1.0625 = 17.6. The 4.3 is the half-width for the mean, which ignores the variation of individual values."
+    },
+    {
+      "q": "For a large data set of n observations, about what fraction of the distinct original observations appear in a typical bootstrap sample?",
+      "a": "About 63%",
+      "wrong": [
+        "About 37%",
+        "About 50%",
+        "About 95%"
+      ],
+      "why": "An observation is missed in all n draws with probability (1 − 1/n)ⁿ ≈ 0.37, so it appears with probability about 0.63."
+    },
+    {
+      "q": "The sample is 2, 4, 6. What is the bootstrap standard error of the mean, computed from the distribution of resampled means?",
+      "a": "About 0.94",
+      "wrong": [
+        "About 1.15",
+        "About 0.89",
+        "About 1.33"
+      ],
+      "why": "The data's own variance is (1/3)Σ(x − 4)² = 8/3, so a mean of 3 draws has variance 8/9 and standard error √(8/9) = 0.94. The usual s/√n is 1.15, and 0.89 is the variance."
+    },
+    {
+      "q": "A bootstrap produces 2000 resampled medians. Which sorted values give the 95% percentile interval?",
+      "a": "The 50th and the 1950th",
+      "wrong": [
+        "The 25th and the 1975th",
+        "The 100th and the 1900th",
+        "The 5th and the 1995th"
+      ],
+      "why": "The 2.5th and 97.5th percentiles of 2000 values sit near positions 0.025 × 2000 = 50 and 0.975 × 2000 = 1950."
+    },
+    {
+      "q": "Why does the bootstrap perform badly for the sample maximum?",
+      "a": "A bootstrap maximum equals the sample maximum about 63% of the time, so it is degenerate",
+      "wrong": [
+        "The maximum is not a function of the data, so it cannot be recomputed on a resample",
+        "Bootstrap samples drawn with replacement can never contain the largest value of the data",
+        "The maximum is always normally distributed, so no resampling is required to describe it"
+      ],
+      "why": "Extreme statistics depend on a single observation, and resampling repeats that value in most resamples. The resulting distribution is lumpy and misrepresents the true sampling variability."
+    },
+    {
+      "q": "A bootstrap interval is computed for the mean rating in a voluntary-response online poll. What does the interval reflect?",
+      "a": "Only the random sampling variability, not the bias of who chose to respond",
+      "wrong": [
+        "Both sampling variability and bias, since resampling reproduces the whole collection process",
+        "The variability of the population, including the non-respondents",
+        "Nothing useful, since a bootstrap needs at least 1000 observations"
+      ],
+      "why": "The bootstrap treats the sample as the population, so any bias in how it was collected is copied into every resample. Intervals never account for it."
+    },
+    {
+      "q": "Response times have σ ≈ 10 ms. How many measurements give a 95% interval for the mean with half-width 1.5 ms?",
+      "a": "171",
+      "wrong": [
+        "14",
+        "45",
+        "257"
+      ],
+      "why": "n = (z*σ/w)² = (1.96 × 10/1.5)² = 13.07² = 170.7, rounded up to 171. Omitting the square gives 14, and dropping z* gives 45."
+    },
+    {
+      "q": "A study with n = 200 yields a 95% interval with half-width 6. About how many observations are needed to bring the half-width to 2?",
+      "a": "1800",
+      "wrong": [
+        "600",
+        "400",
+        "3200"
+      ],
+      "why": "Width is proportional to 1/√n. Dividing it by 3 needs 3² = 9 times as many observations, and 200 × 9 = 1800."
+    },
+    {
+      "q": "A test on 2 million visitors finds that conversion rose from 10.00% to 10.02%, with p = 0.001. What is the best conclusion?",
+      "a": "The difference is statistically detectable but may be too small to matter",
+      "wrong": [
+        "The change is large, because the p-value is very small",
+        "The change is not real, because the difference is only 0.02 points",
+        "The result is invalid, because the sample size is too large"
+      ],
+      "why": "With enormous samples even trivial differences give tiny p-values. Judge the size of the effect and its interval in the units of the problem."
+    },
+    {
+      "q": "Two groups have means 105 and 100 and a common standard deviation of 10. What is Cohen's d?",
+      "a": "0.5, a medium effect",
+      "wrong": [
+        "5, a very large effect",
+        "0.05, a negligible effect",
+        "0.2, a small effect"
+      ],
+      "why": "d = (105 − 100)/10 = 0.5. The standardized difference is in units of standard deviations, and about 0.5 is conventionally called medium."
+    },
+    {
+      "q": "The 95% bootstrap intervals for the accuracies of two models on the same test set are (0.80, 0.86) and (0.82, 0.88). Can one conclude that there is no evidence of a difference?",
+      "a": "No: a paired bootstrap of the difference is more sensitive and could exclude 0",
+      "wrong": [
+        "Yes: overlapping intervals prove that the two models have equal accuracy",
+        "Yes: the two intervals should be added together to get the interval of the difference",
+        "No: the accuracy of one model cannot be compared with that of another model"
+      ],
+      "why": "Both models are scored on the same examples, so their errors are correlated and the difference has much less variability than the separate intervals suggest."
+    },
+    {
+      "q": "A bootstrap of the test examples gives an AUC interval of (0.88, 0.92). Which source of uncertainty does it leave out?",
+      "a": "Variation from training the model with a different seed or on other training data",
+      "wrong": [
+        "The finite size of the test set",
+        "The random choice of which test examples fall in each resample",
+        "The sampling variability of the AUC"
+      ],
+      "why": "Resampling the test set captures the noise from having a finite test set only. Repeating the training is needed to measure the variation caused by training itself."
+    },
+    {
+      "q": "In bagging, what do the examples omitted from a given bootstrap sample provide?",
+      "a": "An out-of-bag estimate of the prediction error",
+      "wrong": [
+        "A set of extra training examples for the next resample",
+        "The bootstrap standard error of the model parameters",
+        "A guarantee that the ensemble has zero bias"
+      ],
+      "why": "Each model is fit without the omitted examples, so predicting those examples gives an honest error estimate with no separate test set."
+    }
+  ],
   "summary": [
     "A confidence interval for a mean is x̄ ± t*·s/√n (t with n − 1 degrees of freedom); for a proportion p̂ ± z*√(p̂(1 − p̂)/n). The 95% describes the procedure, not the probability that the parameter is in one computed interval.",
     "Prediction intervals for a new observation are wider: x̄ ± t*·s√(1 + 1/n). Credible intervals are the Bayesian counterpart.",

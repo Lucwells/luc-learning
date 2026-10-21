@@ -290,6 +290,178 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "An estimator has bias −0.4 and variance 0.09. What is its mean squared error?",
+      "a": "0.25",
+      "wrong": [
+        "0.49",
+        "0.09",
+        "0.31"
+      ],
+      "why": "MSE = bias² + variance = 0.16 + 0.09 = 0.25. Adding the bias unsquared would give 0.49, which is wrong."
+    },
+    {
+      "q": "The observations are 1, 3, 5, 7. What is the unbiased estimate s² of the variance?",
+      "a": "20/3 ≈ 6.67",
+      "wrong": [
+        "5",
+        "4",
+        "10"
+      ],
+      "why": "The mean is 4 and the squared deviations are 9, 1, 1, 9, summing to 20. Dividing by n − 1 = 3 gives 6.67; dividing by n = 4 would give the biased value 5."
+    },
+    {
+      "q": "Why does (1/n) Σ (Xᵢ − X̄)² underestimate σ² on average?",
+      "a": "X̄ is fitted to the same sample, so the points lie closer to X̄ than to the true mean μ",
+      "wrong": [
+        "X̄ is a biased estimator of μ",
+        "Squaring deviations always shrinks them",
+        "The observations are not independent"
+      ],
+      "why": "Σ(Xᵢ − X̄)² = Σ(Xᵢ − μ)² − n(X̄ − μ)², which has expectation (n − 1)σ². X̄ itself is unbiased, and the independence assumption holds."
+    },
+    {
+      "q": "To estimate a population mean μ, a statistician uses only the first observation X₁ and ignores the rest. This estimator is",
+      "a": "unbiased but not consistent",
+      "wrong": [
+        "biased but consistent",
+        "both unbiased and consistent",
+        "neither unbiased nor consistent"
+      ],
+      "why": "E[X₁] = μ, so there is no bias. But its variance stays σ² however large the sample becomes, so it does not converge to μ."
+    },
+    {
+      "q": "Which statement about unbiased estimators is correct?",
+      "a": "A biased estimator can have a smaller mean squared error than an unbiased one",
+      "wrong": [
+        "An unbiased estimator always has the smallest mean squared error",
+        "Bias and variance cannot both be positive for a consistent estimator",
+        "Shrinkage estimators such as ridge regression are unbiased"
+      ],
+      "why": "MSE = bias² + variance, so accepting a little bias can remove more variance than it costs. Ridge regression does exactly this."
+    },
+    {
+      "q": "Which statement about the likelihood L(θ) is correct?",
+      "a": "It is the probability (density) of the observed data viewed as a function of θ, and it need not integrate to 1 over θ",
+      "wrong": [
+        "It is the probability that the true parameter equals θ",
+        "It always integrates to 1 over θ",
+        "It is defined only for continuous data"
+      ],
+      "why": "The likelihood fixes the data and varies θ. It is not a distribution over θ; turning it into one requires a prior and Bayes' rule."
+    },
+    {
+      "q": "The observed waiting times are 0.5, 1.5, 2.5 and 3.5 minutes, modeled as exponential. What is the MLE of the rate λ?",
+      "a": "0.5 per minute",
+      "wrong": [
+        "2 per minute",
+        "0.25 per minute",
+        "4 per minute"
+      ],
+      "why": "λ̂ = n/Σxᵢ = 4/8 = 0.5. The sample mean 2 estimates the mean wait 1/λ, not the rate."
+    },
+    {
+      "q": "For the data 1, 2, 3, 6 assumed Gaussian, what is the maximum likelihood estimate of the standard deviation σ?",
+      "a": "√3.5 ≈ 1.87",
+      "wrong": [
+        "√(14/3) ≈ 2.16",
+        "3.5",
+        "√14 ≈ 3.74"
+      ],
+      "why": "The mean is 3 and the squared deviations sum to 14. The MLE of σ² divides by n: 14/4 = 3.5, and by invariance the MLE of σ is its square root."
+    },
+    {
+      "q": "A classifier is trained by minimizing cross-entropy. This is maximum likelihood under which model of the labels?",
+      "a": "Bernoulli (or categorical) outputs",
+      "wrong": [
+        "Gaussian noise around the prediction",
+        "Poisson counts",
+        "Laplace noise around the prediction"
+      ],
+      "why": "The negative log-likelihood of Bernoulli or categorical labels is the cross-entropy. Gaussian noise gives squared error, and Poisson counts give the Poisson loss."
+    },
+    {
+      "q": "Maximizing the average log-likelihood of the data over θ is equivalent to minimizing, up to a constant,",
+      "a": "KL(p_data ‖ p_θ)",
+      "wrong": [
+        "KL(p_θ ‖ p_data)",
+        "the entropy of p_θ",
+        "the squared distance between p_θ and p_data"
+      ],
+      "why": "The average log-likelihood estimates E_data[ln p_θ], and KL(p_data ‖ p_θ) equals the constant E_data[ln p_data] minus that term. The reversed KL has a different minimizer."
+    },
+    {
+      "q": "A coin lands heads in 200 of 400 flips. What is the standard error of p̂, using the Fisher information of a Bernoulli?",
+      "a": "0.025",
+      "wrong": [
+        "0.05",
+        "0.0006",
+        "0.0125"
+      ],
+      "why": "I(p) = 1/(p(1 − p)) = 4 at p = 0.5, so SE = 1/√(nI) = 1/√1600 = 0.025. The value 0.0006 is the variance, not the standard error."
+    },
+    {
+      "q": "n = 25 observations come from N(μ, 16) with σ² = 16 known. By the Cramér–Rao bound, what is the smallest possible variance of an unbiased estimator of μ?",
+      "a": "0.64",
+      "wrong": [
+        "0.16",
+        "0.8",
+        "16"
+      ],
+      "why": "I(μ) = 1/σ², so the bound is 1/(nI) = σ²/n = 16/25 = 0.64. The sample mean attains it. The value 0.8 is its standard deviation."
+    },
+    {
+      "q": "The Cramér–Rao bound says that an unbiased estimator of θ from n i.i.d. observations has variance at least",
+      "a": "1/(n I(θ))",
+      "wrong": [
+        "I(θ)/n",
+        "n/I(θ)",
+        "1/(n I(θ)²)"
+      ],
+      "why": "More information (a sharper log-likelihood peak) and more data both lower the bound, so I(θ) and n appear in the denominator together."
+    },
+    {
+      "q": "Which Bayesian point estimate minimizes the expected squared error under the posterior?",
+      "a": "The posterior mean",
+      "wrong": [
+        "The posterior mode (MAP)",
+        "The posterior median",
+        "The maximum likelihood estimate"
+      ],
+      "why": "The mean minimizes squared error, as for any distribution. The median minimizes absolute error, and the MAP is the mode, which can differ from both."
+    },
+    {
+      "q": "Observations ~ N(μ, 2), n = 6, sample mean 4. The prior is μ ~ N(1, 0.5). What is the posterior mean?",
+      "a": "2.8",
+      "wrong": [
+        "2.2",
+        "2.5",
+        "4"
+      ],
+      "why": "The data precision is n/σ² = 3 and the prior precision is 1/0.5 = 2. The posterior mean is (3·4 + 2·1)/5 = 2.8, with the larger weight on the data. Swapping the weights gives 2.2, and a plain average gives 2.5."
+    },
+    {
+      "q": "A Beta(2, 2) prior is used for a coin, and 4 heads appear in 5 flips. What is the MAP estimate of the heads probability?",
+      "a": "5/7 ≈ 0.714",
+      "wrong": [
+        "4/5 = 0.8",
+        "2/3 ≈ 0.667",
+        "5/6 ≈ 0.833"
+      ],
+      "why": "MAP = (k + α − 1)/(n + α + β − 2) = (4 + 1)/(5 + 2) = 5/7. The value 4/5 is the MLE, and 2/3 is the posterior mean."
+    },
+    {
+      "q": "Which statement correctly describes a 95% confidence interval?",
+      "a": "It comes from a procedure that covers the true value in 95% of repeated samples",
+      "wrong": [
+        "Given this data, θ lies in this interval with probability 0.95",
+        "95% of the observations lie inside it",
+        "It is the central 95% of the prior distribution"
+      ],
+      "why": "In the frequentist view θ is fixed and the interval is random. The statement about the probability that θ lies in the observed interval describes a Bayesian credible interval."
+    }
+  ],
   "summary": [
     "An estimator is a function of the sample, with bias E[θ̂] − θ, variance and MSE = bias² + variance. Consistency means convergence to θ as n grows. The sample variance divides by n − 1 to be unbiased.",
     "Maximum likelihood: θ̂ = argmax Σ ln p(x_i; θ). Bernoulli: k/n; Gaussian: x̄ and (1/n)Σ(x − x̄)²; Poisson: x̄; exponential: 1/x̄. It is consistent, asymptotically normal and efficient.",

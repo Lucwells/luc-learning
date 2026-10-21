@@ -292,6 +292,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A source emits three symbols with probabilities 1/2, 1/4 and 1/4. What is its entropy?",
+      "a": "1.5 bits",
+      "wrong": [
+        "1 bit",
+        "log₂ 3 ≈ 1.585 bits",
+        "2 bits"
+      ],
+      "why": "H = ½(1) + ¼(2) + ¼(2) = 1.5 bits. The value log₂ 3 would be the entropy if the three symbols were equally likely, and it is the maximum for three outcomes."
+    },
+    {
+      "q": "A coin lands heads with probability 0.25. What is its entropy?",
+      "a": "About 0.81 bits",
+      "wrong": [
+        "1 bit",
+        "0.25 bits",
+        "About 0.5 bits"
+      ],
+      "why": "H = −0.25 log₂ 0.25 − 0.75 log₂ 0.75 = 0.5 + 0.311 = 0.811 bits. It is below the 1 bit of a fair coin, because the outcome is more predictable."
+    },
+    {
+      "q": "What is the entropy of a fair coin measured in nats?",
+      "a": "ln 2 ≈ 0.693 nats",
+      "wrong": [
+        "1 nat",
+        "1.443 nats",
+        "0.5 nats"
+      ],
+      "why": "With natural logarithms H = ln 2 = 0.693. The value 1.443 is the number of bits in one nat, which converts in the wrong direction."
+    },
+    {
+      "q": "In an ideal code, how long should the codeword be for a symbol of probability 1/16?",
+      "a": "4 bits",
+      "wrong": [
+        "16 bits",
+        "8 bits",
+        "2 bits"
+      ],
+      "why": "Codeword length should be about −log₂ p = log₂ 16 = 4 bits: rare symbols get long codes and frequent ones short codes."
+    },
+    {
+      "q": "A source has entropy 2.3 bits. Which average length is impossible for any prefix code for it?",
+      "a": "2.1 bits per symbol",
+      "wrong": [
+        "2.3 bits per symbol",
+        "2.9 bits per symbol",
+        "3.2 bits per symbol"
+      ],
+      "why": "Shannon's source coding theorem gives H ≤ L < H + 1, that is 2.3 ≤ L < 3.3. No code can average below the entropy."
+    },
+    {
+      "q": "H(X) = 2 bits and H(Y | X) = 0.5 bits. What is H(X, Y)?",
+      "a": "2.5 bits",
+      "wrong": [
+        "1.5 bits",
+        "2 bits",
+        "1 bit"
+      ],
+      "why": "The chain rule gives H(X, Y) = H(X) + H(Y | X) = 2.5. Subtracting would wrongly treat the conditional entropy as a saving rather than extra uncertainty."
+    },
+    {
+      "q": "Which inequality holds for every pair of discrete random variables?",
+      "a": "H(Y | X) ≤ H(Y)",
+      "wrong": [
+        "H(Y | X) ≥ H(Y)",
+        "H(Y | X) ≤ H(X)",
+        "H(X, Y) ≤ H(X)"
+      ],
+      "why": "Conditioning never increases entropy, with equality iff X and Y are independent. H(Y | X) can exceed H(X), and H(X, Y) is at least H(X)."
+    },
+    {
+      "q": "Which statement about mutual information I(X; Y) is correct?",
+      "a": "It is zero only if X and Y are independent, so it detects nonlinear dependence",
+      "wrong": [
+        "It can be negative when X and Y are negatively correlated",
+        "It is zero whenever X and Y are uncorrelated",
+        "It equals the squared correlation coefficient"
+      ],
+      "why": "I(X; Y) ≥ 0 and vanishes exactly under independence. Uncorrelated variables, such as X and X² for symmetric X, can still have positive mutual information."
+    },
+    {
+      "q": "X → Y → Z is a Markov chain with I(X; Y) = 0.8 bits, and Z is computed from Y. What is true of I(X; Z)?",
+      "a": "It is at most 0.8 bits",
+      "wrong": [
+        "It is at least 0.8 bits",
+        "It is exactly 0.8 bits",
+        "It can exceed 0.8 bits if the computation is nonlinear"
+      ],
+      "why": "The data processing inequality says that processing Y cannot create information about X. Equality is possible but not guaranteed."
+    },
+    {
+      "q": "A node has label entropy 1 bit. A split sends 60% of the data to a child with entropy 0.5 bits and 40% to a child with entropy 0.9 bits. What is the information gain?",
+      "a": "0.34 bits",
+      "wrong": [
+        "0.66 bits",
+        "0.70 bits",
+        "0.10 bits"
+      ],
+      "why": "H(Y | split) = 0.6(0.5) + 0.4(0.9) = 0.66, and the gain is 1 − 0.66 = 0.34. The value 0.66 is the remaining uncertainty, not the gain."
+    },
+    {
+      "q": "p = (0.5, 0.5) and q = (0.25, 0.75). What is KL(p ‖ q) in bits?",
+      "a": "About 0.21",
+      "wrong": [
+        "About 0.19",
+        "About 1.21",
+        "0"
+      ],
+      "why": "KL(p ‖ q) = 0.5 log₂(2) + 0.5 log₂(2/3) = 0.5 − 0.292 = 0.208. The value 0.19 is KL(q ‖ p), and 1.21 is the cross-entropy H(p, q)."
+    },
+    {
+      "q": "The true label is a one-hot distribution, and the model gives the correct class probability 0.25. What is the cross-entropy in bits?",
+      "a": "2",
+      "wrong": [
+        "0.25",
+        "0.5",
+        "4"
+      ],
+      "why": "H(p, q) = −log₂ 0.25 = 2 bits. A one-hot target has zero entropy, so this equals KL(p ‖ q)."
+    },
+    {
+      "q": "Which statement about KL divergence is false?",
+      "a": "KL(p ‖ q) always equals KL(q ‖ p)",
+      "wrong": [
+        "KL(p ‖ q) ≥ 0, with equality only when p = q",
+        "KL(p ‖ q) is infinite if q(x) = 0 where p(x) > 0",
+        "KL(p ‖ q) = H(p, q) − H(p)"
+      ],
+      "why": "KL is asymmetric, so the two directions generally differ. The other three statements are Gibbs' inequality, the support condition and the cross-entropy identity."
+    },
+    {
+      "q": "p = (0.5, 0.5) and q = (1, 0). What are KL(p ‖ q) and KL(q ‖ p)?",
+      "a": "Infinite and 1 bit",
+      "wrong": [
+        "1 bit and infinite",
+        "Both infinite",
+        "Both 1 bit"
+      ],
+      "why": "KL(p ‖ q) is infinite because q assigns probability 0 to an outcome that p can produce. KL(q ‖ p) = 1 · log₂(1/0.5) = 1 bit, since q never produces the outcome where it is 0."
+    },
+    {
+      "q": "A single Gaussian is fitted to a two-peaked p by minimizing the reverse KL(q ‖ p), as in variational inference. What is typical of the result?",
+      "a": "A narrow Gaussian on one peak",
+      "wrong": [
+        "A broad Gaussian covering both peaks",
+        "A Gaussian centered between the peaks with a large variance",
+        "The same fit as maximum likelihood"
+      ],
+      "why": "Reverse KL punishes q for putting mass where p has little, so q is mode-seeking. Forward KL, which gives maximum likelihood, is mass-covering."
+    },
+    {
+      "q": "A language model has cross-entropy 2 nats per token. What is its perplexity?",
+      "a": "e² ≈ 7.39",
+      "wrong": [
+        "2² = 4",
+        "2",
+        "ln 2 ≈ 0.69"
+      ],
+      "why": "Perplexity is the exponential of the cross-entropy in the same unit as the logarithm: e^{nats} (or 2^{bits}). Using base 2 on a value in nats gives the wrong 4."
+    },
+    {
+      "q": "In a VAE, the KL term for N(μ, σ²) against N(0, 1) is ½(μ² + σ² − ln σ² − 1). What is it for μ = 2 and σ = 1?",
+      "a": "2",
+      "wrong": [
+        "4",
+        "1",
+        "2.5"
+      ],
+      "why": "½(4 + 1 − 0 − 1) = 2. With μ = 0 and σ = 1 the same formula gives 0, as it must for identical distributions."
+    },
+    {
+      "q": "What is the differential entropy of a uniform density on [0, 0.5], in nats?",
+      "a": "ln 0.5 ≈ −0.693",
+      "wrong": [
+        "ln 2 ≈ 0.693",
+        "0",
+        "−0.5"
+      ],
+      "why": "For a uniform density on [0, a], h = ln a, which is negative for a < 1. Unlike discrete entropy, differential entropy can be negative."
+    }
+  ],
   "summary": [
     "Entropy H(X) = −Σp log p is the expected surprise and the minimum average code length (H ≤ L < H + 1). It is maximal for the uniform distribution (log n) and zero for a certain outcome.",
     "H(X, Y) = H(X) + H(Y | X). The mutual information I(X; Y) = H(Y) − H(Y | X) ≥ 0 measures any kind of dependence, and equals the information gain of a decision tree split. The data processing inequality says processing cannot add information.",

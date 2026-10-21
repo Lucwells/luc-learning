@@ -497,6 +497,380 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A bootstrap sample draws m items with replacement from m. For large m, the chance that a particular item is never drawn is about",
+      "a": "0.368",
+      "wrong": [
+        "0.632",
+        "0.5",
+        "0.25"
+      ],
+      "why": "The chance of missing it on every draw is (1 − 1/m)^m, which tends to e⁻¹ = 0.368. The value 0.632 is the chance it is drawn at least once."
+    },
+    {
+      "q": "Which statement about replacing a likelihood by its logarithm is FALSE?",
+      "a": "It moves the maximizing parameter, because the log compresses large likelihood values",
+      "wrong": [
+        "It turns a product over observations into a sum",
+        "It avoids floating-point underflow for many observations",
+        "It keeps the same maximizing parameter, since ln is increasing"
+      ],
+      "why": "ln is strictly increasing, so the location of the maximum is unchanged; only the scale of the values changes."
+    },
+    {
+      "q": "Let f(x) = (x² − 1)/(x − 1) for x ≠ 1, with f(1) undefined. Which statement is correct?",
+      "a": "The limit at x = 1 is 2, but f is not continuous there",
+      "wrong": [
+        "The limit at x = 1 does not exist, because f(1) is undefined",
+        "The limit at x = 1 is 0, because the numerator vanishes",
+        "The limit at x = 1 is 2, so f is continuous there"
+      ],
+      "why": "For x ≠ 1, f(x) = x + 1, so the limit is 2. A limit ignores the value at the point itself; continuity needs the limit to equal f(1), which does not exist."
+    },
+    {
+      "q": "With σ the sigmoid, σ(ln 3) = 3/4. What is σ′(ln 3)?",
+      "a": "0.1875",
+      "wrong": [
+        "0.75",
+        "0.25",
+        "0.5625"
+      ],
+      "why": "σ′ = σ(1 − σ) = 0.75 × 0.25 = 0.1875. The value 0.25 is the maximum of σ′, reached only at x = 0."
+    },
+    {
+      "q": "What is the derivative of x/(1 + x) for x > −1?",
+      "a": "1/(1 + x)²",
+      "wrong": [
+        "1/(1 + x)",
+        "−1/(1 + x)²",
+        "(1 + 2x)/(1 + x)²"
+      ],
+      "why": "Quotient rule: [1·(1 + x) − x·1]/(1 + x)² = 1/(1 + x)². Adding the two terms in the numerator instead of subtracting gives the last option."
+    },
+    {
+      "q": "A classifier outputs h = σ(z) = 0.9 for an example whose true label is 1. What is the derivative of ln h with respect to z?",
+      "a": "0.1",
+      "wrong": [
+        "0.9",
+        "0.09",
+        "−0.1"
+      ],
+      "why": "(ln σ)′ = σ′/σ = 1 − σ = 0.1. The value 0.09 is σ′ itself, which omits the division by σ."
+    },
+    {
+      "q": "Let f(x) = x⁴. At the critical point x = 0 we have f″(0) = 0. What does the second derivative test conclude?",
+      "a": "Nothing; the test is inconclusive, though x = 0 is in fact a minimum",
+      "wrong": [
+        "x = 0 is a saddle point",
+        "x = 0 is a local maximum",
+        "x = 0 is not a critical point"
+      ],
+      "why": "When f″ = 0 the test gives no verdict. Here f(x) ≥ 0 = f(0), so it is a minimum, but this must be shown by other means."
+    },
+    {
+      "q": "Gradient descent is run on f(x) = 3x² with step size α. For which α does it converge to the minimum?",
+      "a": "0 < α < 1/3",
+      "wrong": [
+        "0 < α < 2/3",
+        "0 < α < 1/6",
+        "0 < α < 6"
+      ],
+      "why": "Here f = ½cx² with c = 6, so the update is x ← (1 − 6α)x, which shrinks when |1 − 6α| < 1, i.e. α < 2/6 = 1/3."
+    },
+    {
+      "q": "Newton's method minimizes f(x) = eˣ − 2x starting at x₀ = 0. What is x₁?",
+      "a": "1",
+      "wrong": [
+        "−1",
+        "0.5",
+        "2"
+      ],
+      "why": "f′(0) = e⁰ − 2 = −1 and f″(0) = 1, so x₁ = 0 − (−1)/1 = 1. Forgetting the minus sign in the update gives −1."
+    },
+    {
+      "q": "Newton's method for minimizing f takes the step −f′(x)/f″(x). What does dividing by f″ accomplish?",
+      "a": "It makes the step larger where the function is flat and smaller where it is sharply curved",
+      "wrong": [
+        "It makes the step always shorter than a gradient step",
+        "It guarantees the step goes uphill in f",
+        "It removes the need to evaluate f′"
+      ],
+      "why": "Dividing by the curvature rescales the step to the local quadratic model. It does not shrink every step, and it still needs f′."
+    },
+    {
+      "q": "What is ∫₀^1 2x e^{x²} dx?",
+      "a": "e − 1",
+      "wrong": [
+        "e",
+        "2(e − 1)",
+        "(e − 1)/2"
+      ],
+      "why": "Substitute u = x², du = 2x dx: ∫₀^1 e^u du = e − 1. Forgetting to adjust the limits or the factor 2 gives the other options."
+    },
+    {
+      "q": "Which improper integral converges?",
+      "a": "∫₁^∞ x^{−3/2} dx",
+      "wrong": [
+        "∫₁^∞ x^{−1} dx",
+        "∫₁^∞ x^{−1/2} dx",
+        "∫₁^∞ 1 dx"
+      ],
+      "why": "∫₁^∞ x^{−3/2} dx = [−2x^{−1/2}]₁^∞ = 2. The integrand must decay faster than 1/x; the other three antiderivatives (ln x, 2√x, x) grow without bound."
+    },
+    {
+      "q": "What is ∫_{−∞}^{∞} exp(−(x − 3)²/8) dx?",
+      "a": "2√(2π) ≈ 5.01",
+      "wrong": [
+        "√(2π) ≈ 2.51",
+        "4√(2π) ≈ 10.03",
+        "3√(2π) ≈ 7.52"
+      ],
+      "why": "Matching exp(−(x − μ)²/(2σ²)) gives 2σ² = 8, so σ = 2, and the integral is σ√(2π). The mean 3 only shifts the curve."
+    },
+    {
+      "q": "What is Σ_{k=1}^{∞} 0.9^k (the sum starts at k = 1)?",
+      "a": "9",
+      "wrong": [
+        "10",
+        "0.9",
+        "8.1"
+      ],
+      "why": "The full sum from k = 0 is 1/(1 − 0.9) = 10; removing the k = 0 term (which equals 1) leaves 9. The formula 1/(1 − r) assumes the sum starts at k = 0."
+    },
+    {
+      "q": "Using the Taylor series σ(x) ≈ 1/2 + x/4 near 0, what is the estimate of σ(0.2)?",
+      "a": "0.55",
+      "wrong": [
+        "0.6",
+        "0.7",
+        "0.52"
+      ],
+      "why": "0.5 + 0.2/4 = 0.55 (the true value is 0.5498). Using a slope of 1/2 gives 0.6, and a slope of 1 gives 0.7."
+    },
+    {
+      "q": "A second-order Taylor polynomial about a has error of order |x − a|³. If the distance |x − a| is halved, the error shrinks by about a factor of",
+      "a": "8",
+      "wrong": [
+        "4",
+        "2",
+        "16"
+      ],
+      "why": "The error scales as |x − a|³, and (1/2)³ = 1/8. A factor of 4 would correspond to the squared term, the first one that was kept."
+    },
+    {
+      "q": "X equals 1 or 9 with probability 1/2 each. Which comparison is right?",
+      "a": "ln E[X] ≈ 1.61 is larger than E[ln X] ≈ 1.10",
+      "wrong": [
+        "E[ln X] ≈ 1.61 is larger than ln E[X] ≈ 1.10",
+        "They are equal, because ln is increasing",
+        "They are equal, because E[X] = 5 is the midpoint"
+      ],
+      "why": "E[X] = 5 and ln 5 = 1.61, while E[ln X] = (0 + ln 9)/2 = 1.10. For concave ln, Jensen's inequality gives ln E[X] ≥ E[ln X]."
+    },
+    {
+      "q": "What is ln(e^{500} + e^{500} + e^{500}) computed stably?",
+      "a": "500 + ln 3 ≈ 501.10",
+      "wrong": [
+        "500",
+        "503",
+        "1500"
+      ],
+      "why": "Subtracting m = 500 gives 500 + ln(1 + 1 + 1). The maximum alone (500) ignores the other two terms, and ln of a sum is not a sum of the exponents."
+    },
+    {
+      "q": "Using 1 + x ≤ eˣ with x = −ε, which bound holds for (1 − 0.01)^300?",
+      "a": "At most e^{−3}",
+      "wrong": [
+        "At most e^{−0.03}",
+        "At most e^{3}",
+        "At least e^{−3}"
+      ],
+      "why": "Since 1 − ε ≤ e^{−ε}, raising to the 300th power gives (1 − 0.01)^300 ≤ e^{−3} ≈ 0.050. The inequality points upper, not lower."
+    }
+  ],
+  "quiz": [
+    {
+      "q": "A bootstrap sample draws m items with replacement from m. For large m, the chance that a particular item is never drawn is about",
+      "a": "0.368",
+      "wrong": [
+        "0.632",
+        "0.5",
+        "0.25"
+      ],
+      "why": "The chance of missing it on every draw is (1 − 1/m)^m, which tends to e⁻¹ = 0.368. The value 0.632 is the chance it is drawn at least once."
+    },
+    {
+      "q": "Which statement about replacing a likelihood by its logarithm is FALSE?",
+      "a": "It moves the maximizing parameter, because the log compresses large likelihood values",
+      "wrong": [
+        "It turns a product over observations into a sum",
+        "It avoids floating-point underflow for many observations",
+        "It keeps the same maximizing parameter, since ln is increasing"
+      ],
+      "why": "ln is strictly increasing, so the location of the maximum is unchanged; only the scale of the values changes."
+    },
+    {
+      "q": "Let f(x) = (x² − 1)/(x − 1) for x ≠ 1, with f(1) undefined. Which statement is correct?",
+      "a": "The limit at x = 1 is 2, but f is not continuous there",
+      "wrong": [
+        "The limit at x = 1 does not exist, because f(1) is undefined",
+        "The limit at x = 1 is 0, because the numerator vanishes",
+        "The limit at x = 1 is 2, so f is continuous there"
+      ],
+      "why": "For x ≠ 1, f(x) = x + 1, so the limit is 2. A limit ignores the value at the point itself; continuity needs the limit to equal f(1), which does not exist."
+    },
+    {
+      "q": "With σ the sigmoid, σ(ln 3) = 3/4. What is σ′(ln 3)?",
+      "a": "0.1875",
+      "wrong": [
+        "0.75",
+        "0.25",
+        "0.5625"
+      ],
+      "why": "σ′ = σ(1 − σ) = 0.75 × 0.25 = 0.1875. The value 0.25 is the maximum of σ′, reached only at x = 0."
+    },
+    {
+      "q": "What is the derivative of x/(1 + x) for x > −1?",
+      "a": "1/(1 + x)²",
+      "wrong": [
+        "1/(1 + x)",
+        "−1/(1 + x)²",
+        "(1 + 2x)/(1 + x)²"
+      ],
+      "why": "Quotient rule: [1·(1 + x) − x·1]/(1 + x)² = 1/(1 + x)². Adding the two terms in the numerator instead of subtracting gives the last option."
+    },
+    {
+      "q": "A classifier outputs h = σ(z) = 0.9 for an example whose true label is 1. What is the derivative of ln h with respect to z?",
+      "a": "0.1",
+      "wrong": [
+        "0.9",
+        "0.09",
+        "−0.1"
+      ],
+      "why": "(ln σ)′ = σ′/σ = 1 − σ = 0.1. The value 0.09 is σ′ itself, which omits the division by σ."
+    },
+    {
+      "q": "Let f(x) = x⁴. At the critical point x = 0 we have f″(0) = 0. What does the second derivative test conclude?",
+      "a": "Nothing; the test is inconclusive, though x = 0 is in fact a minimum",
+      "wrong": [
+        "x = 0 is a saddle point",
+        "x = 0 is a local maximum",
+        "x = 0 is not a critical point"
+      ],
+      "why": "When f″ = 0 the test gives no verdict. Here f(x) ≥ 0 = f(0), so it is a minimum, but this must be shown by other means."
+    },
+    {
+      "q": "Gradient descent is run on f(x) = 3x² with step size α. For which α does it converge to the minimum?",
+      "a": "0 < α < 1/3",
+      "wrong": [
+        "0 < α < 2/3",
+        "0 < α < 1/6",
+        "0 < α < 6"
+      ],
+      "why": "Here f = ½cx² with c = 6, so the update is x ← (1 − 6α)x, which shrinks when |1 − 6α| < 1, i.e. α < 2/6 = 1/3."
+    },
+    {
+      "q": "Newton's method minimizes f(x) = eˣ − 2x starting at x₀ = 0. What is x₁?",
+      "a": "1",
+      "wrong": [
+        "−1",
+        "0.5",
+        "2"
+      ],
+      "why": "f′(0) = e⁰ − 2 = −1 and f″(0) = 1, so x₁ = 0 − (−1)/1 = 1. Forgetting the minus sign in the update gives −1."
+    },
+    {
+      "q": "What is ∫₀^1 2x e^{x²} dx?",
+      "a": "e − 1",
+      "wrong": [
+        "e",
+        "2(e − 1)",
+        "(e − 1)/2"
+      ],
+      "why": "Substitute u = x², du = 2x dx: ∫₀^1 e^u du = e − 1. Forgetting to adjust the limits or the factor 2 gives the other options."
+    },
+    {
+      "q": "Which improper integral converges?",
+      "a": "∫₁^∞ x^{−3/2} dx",
+      "wrong": [
+        "∫₁^∞ x^{−1} dx",
+        "∫₁^∞ x^{−1/2} dx",
+        "∫₁^∞ 1 dx"
+      ],
+      "why": "∫₁^∞ x^{−3/2} dx = [−2x^{−1/2}]₁^∞ = 2. The integrand must decay faster than 1/x; the other three antiderivatives (ln x, 2√x, x) grow without bound."
+    },
+    {
+      "q": "What is ∫_{−∞}^{∞} exp(−(x − 3)²/8) dx?",
+      "a": "2√(2π) ≈ 5.01",
+      "wrong": [
+        "√(2π) ≈ 2.51",
+        "4√(2π) ≈ 10.03",
+        "3√(2π) ≈ 7.52"
+      ],
+      "why": "Matching exp(−(x − μ)²/(2σ²)) gives 2σ² = 8, so σ = 2, and the integral is σ√(2π). The mean 3 only shifts the curve."
+    },
+    {
+      "q": "What is Σ_{k=1}^{∞} 0.9^k (the sum starts at k = 1)?",
+      "a": "9",
+      "wrong": [
+        "10",
+        "0.9",
+        "8.1"
+      ],
+      "why": "The full sum from k = 0 is 1/(1 − 0.9) = 10; removing the k = 0 term (which equals 1) leaves 9. The formula 1/(1 − r) assumes the sum starts at k = 0."
+    },
+    {
+      "q": "Using the Taylor series σ(x) ≈ 1/2 + x/4 near 0, what is the estimate of σ(0.2)?",
+      "a": "0.55",
+      "wrong": [
+        "0.6",
+        "0.7",
+        "0.52"
+      ],
+      "why": "0.5 + 0.2/4 = 0.55 (the true value is 0.5498). Using a slope of 1/2 gives 0.6, and a slope of 1 gives 0.7."
+    },
+    {
+      "q": "A second-order Taylor polynomial about a has error of order |x − a|³. If the distance |x − a| is halved, the error shrinks by about a factor of",
+      "a": "8",
+      "wrong": [
+        "4",
+        "2",
+        "16"
+      ],
+      "why": "The error scales as |x − a|³, and (1/2)³ = 1/8. A factor of 4 would correspond to the squared term, the first one that was kept."
+    },
+    {
+      "q": "X equals 1 or 9 with probability 1/2 each. Which comparison is right?",
+      "a": "ln E[X] ≈ 1.61 is larger than E[ln X] ≈ 1.10",
+      "wrong": [
+        "E[ln X] ≈ 1.61 is larger than ln E[X] ≈ 1.10",
+        "They are equal, because ln is increasing",
+        "They are equal, because E[X] = 5 is the midpoint"
+      ],
+      "why": "E[X] = 5 and ln 5 = 1.61, while E[ln X] = (0 + ln 9)/2 = 1.10. For concave ln, Jensen's inequality gives ln E[X] ≥ E[ln X]."
+    },
+    {
+      "q": "What is ln(e^{500} + e^{500} + e^{500}) computed stably?",
+      "a": "500 + ln 3 ≈ 501.10",
+      "wrong": [
+        "500",
+        "503",
+        "1500"
+      ],
+      "why": "Subtracting m = 500 gives 500 + ln(1 + 1 + 1). The maximum alone (500) ignores the other two terms, and ln of a sum is not a sum of the exponents."
+    },
+    {
+      "q": "Using 1 + x ≤ eˣ with x = −ε, which bound holds for (1 − 0.01)^300?",
+      "a": "At most e^{−3}",
+      "wrong": [
+        "At most e^{−0.03}",
+        "At most e^{3}",
+        "At least e^{−3}"
+      ],
+      "why": "Since 1 − ε ≤ e^{−ε}, raising to the 300th power gives (1 − 0.01)^300 ≤ e^{−3} ≈ 0.050. The inequality points upper, not lower."
+    }
+  ],
   "summary": [
     "The logarithm turns products into sums, so likelihoods are handled through log-likelihoods.",
     "The derivative is the slope of the tangent line. Use the chain rule for compositions: σ′ = σ(1 − σ), and (ln σ)′ = 1 − σ.",

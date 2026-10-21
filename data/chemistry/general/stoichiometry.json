@@ -464,6 +464,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "What is the coefficient of O₂ when C₂H₆ + O₂ → CO₂ + H₂O is balanced with the smallest whole numbers?",
+      "a": "7",
+      "wrong": [
+        "3.5",
+        "5",
+        "14"
+      ],
+      "why": "2C₂H₆ + 7O₂ → 4CO₂ + 6H₂O. The fractional coefficient 7/2 for one mole of ethane must be doubled to clear the fraction."
+    },
+    {
+      "q": "Which quantity is not necessarily the same on both sides of a balanced equation?",
+      "a": "The total number of moles of molecules",
+      "wrong": [
+        "The number of atoms of each element",
+        "The total mass",
+        "The total electric charge"
+      ],
+      "why": "Atoms, mass and charge are conserved. Molecules are not: in 2H₂ + O₂ → 2H₂O, three moles of reactant molecules give two moles of product."
+    },
+    {
+      "q": "In 2H₂ + O₂ → 2H₂O, what mass of O₂ reacts completely with 4.00 g of H₂?",
+      "a": "31.7 g",
+      "wrong": [
+        "63.5 g",
+        "15.9 g",
+        "4.00 g"
+      ],
+      "why": "n(H₂) = 4.00/2.016 = 1.98 mol, the mole ratio O₂ : H₂ is 1 : 2, so n(O₂) = 0.992 mol, or 31.7 g. A 1 : 1 mole ratio would give 63.5 g."
+    },
+    {
+      "q": "What is the mass percent of nitrogen in (NH₄)₂SO₄ (M = 132.14 g/mol; N = 14.01)?",
+      "a": "21.2%",
+      "wrong": [
+        "10.6%",
+        "28.0%",
+        "42.4%"
+      ],
+      "why": "The formula has two N atoms: 2(14.01)/132.14 = 0.212. Counting one N gives 10.6%."
+    },
+    {
+      "q": "A hydrocarbon sample contains 4.80 g of carbon and 1.20 g of hydrogen. What is its empirical formula?",
+      "a": "CH₃",
+      "wrong": [
+        "CH₂",
+        "C₂H₆",
+        "C₃H₈"
+      ],
+      "why": "n(C) = 4.80/12.01 = 0.400 mol and n(H) = 1.20/1.008 = 1.19 mol, a ratio of 1 : 3. The empirical formula is the simplest ratio, so C₂H₆ is a molecular formula, not the answer."
+    },
+    {
+      "q": "Dividing mole amounts by the smallest gives the ratio 1 : 1.5 : 2 for three elements. What is the next step?",
+      "a": "Multiply all three by 2 to get 2 : 3 : 4",
+      "wrong": [
+        "Round 1.5 up to 2 to get 1 : 2 : 2",
+        "Divide all three by 1.5 to make the middle number 1",
+        "Conclude that no compound with this composition exists"
+      ],
+      "why": "Ratios near a simple fraction such as 1.5 are scaled by the small integer that makes every number whole. Rounding 1.5 changes the formula."
+    },
+    {
+      "q": "Burning 1.000 g of a hydrocarbon gives 1.466 g of CO₂. How many grams of carbon did the sample contain?",
+      "a": "0.400 g",
+      "wrong": [
+        "1.07 g",
+        "0.800 g",
+        "1.47 g"
+      ],
+      "why": "n(C) = 1.466/44.01 = 0.03331 mol, and 0.03331 × 12.01 = 0.400 g. The 1.07 g is the oxygen in the CO₂, much of which came from the O₂ supply."
+    },
+    {
+      "q": "A mixture of 4.60 g Na and 3.55 g Cl₂ reacts by 2Na + Cl₂ → 2NaCl. What is the maximum mass of NaCl?",
+      "a": "5.85 g",
+      "wrong": [
+        "11.7 g",
+        "2.93 g",
+        "8.15 g"
+      ],
+      "why": "n(Na) = 0.200 mol needs 0.100 mol Cl₂, but only 0.0501 mol is present, so Cl₂ is limiting. NaCl = 2 × 0.0501 = 0.100 mol = 5.85 g. Adding the reactant masses (8.15 g) ignores the limit."
+    },
+    {
+      "q": "A reaction gives 9.00 g of product, which is a 72.0% yield. What was the theoretical yield?",
+      "a": "12.5 g",
+      "wrong": [
+        "6.48 g",
+        "9.72 g",
+        "2.52 g"
+      ],
+      "why": "Percent yield = actual/theoretical × 100%, so theoretical = 9.00/0.720 = 12.5 g. Multiplying by 0.720 would give an impossible value below the actual yield."
+    },
+    {
+      "q": "Which statement about limiting reagents is false?",
+      "a": "The limiting reagent is the reactant present in the smallest mass",
+      "wrong": [
+        "The limiting reagent determines the theoretical yield",
+        "Some of the excess reagent remains after the reaction is complete",
+        "Dividing each reactant's moles by its coefficient identifies the limiting reagent"
+      ],
+      "why": "Masses of different substances cannot be compared, since the reaction runs on moles and the equation's ratio. A small mass of a light reactant can be a large number of moles."
+    },
+    {
+      "q": "What is the molarity of a solution made by dissolving 25.0 g of glucose, C₆H₁₂O₆ (180.16 g/mol), in water to give 500.0 mL?",
+      "a": "0.278 M",
+      "wrong": [
+        "0.139 M",
+        "3.60 M",
+        "0.0694 M"
+      ],
+      "why": "n = 25.0/180.16 = 0.139 mol, and M = 0.139 mol/0.5000 L = 0.278 M. The value 0.139 is the number of moles with the volume forgotten."
+    },
+    {
+      "q": "How much 6.00 M HNO₃ is needed to prepare 250.0 mL of 0.300 M HNO₃?",
+      "a": "12.5 mL",
+      "wrong": [
+        "238 mL",
+        "25.0 mL",
+        "5.00 × 10³ mL"
+      ],
+      "why": "V₁ = M₂V₂/M₁ = (0.300)(250.0)/6.00 = 12.5 mL. The 238 mL figure is the water to add, and 5.00 × 10³ mL inverts the ratio."
+    },
+    {
+      "q": "A solution is warmed and expands slightly. Which concentration measure decreases?",
+      "a": "Molarity",
+      "wrong": [
+        "Molality",
+        "Mole fraction",
+        "Mass percent"
+      ],
+      "why": "Molarity divides by the volume of solution, which grows when it expands. The other three depend only on masses or moles, which do not change on warming."
+    },
+    {
+      "q": "A solution contains 11.7 g of NaCl (58.44 g/mol) in 400.0 g of water. What is its molality?",
+      "a": "0.500 mol/kg",
+      "wrong": [
+        "0.200 mol/kg",
+        "8.94 × 10⁻³ mol/kg",
+        "29.3 mol/kg"
+      ],
+      "why": "n(NaCl) = 0.200 mol and the solvent is 0.4000 kg, so m = 0.500 mol/kg. The value 0.200 is the number of moles, and 8.94 × 10⁻³ is the mole fraction."
+    },
+    {
+      "q": "A 2.5 L water sample contains 5.0 mg of dissolved lead. What is the concentration in ppm, taking 1 L of water as 1 kg?",
+      "a": "2.0 ppm",
+      "wrong": [
+        "0.50 ppm",
+        "12.5 ppm",
+        "0.0020 ppm"
+      ],
+      "why": "For dilute aqueous solutions 1 ppm is 1 mg per liter (per kilogram), so 5.0 mg/2.5 L = 2.0 ppm."
+    },
+    {
+      "q": "A 20.00 mL sample of Ba(OH)₂ is neutralized by 25.00 mL of 0.1000 M HCl: Ba(OH)₂ + 2HCl → BaCl₂ + 2H₂O. What is the molarity of the Ba(OH)₂?",
+      "a": "0.0625 M",
+      "wrong": [
+        "0.125 M",
+        "0.250 M",
+        "0.0313 M"
+      ],
+      "why": "n(HCl) = 2.500 × 10⁻³ mol, so n(Ba(OH)₂) = 1.250 × 10⁻³ mol, and the concentration is 1.250 × 10⁻³/0.02000 L = 0.0625 M. Using a 1 : 1 ratio gives 0.125 M."
+    },
+    {
+      "q": "Why is potassium hydrogen phthalate (KHP) used to standardize a NaOH solution?",
+      "a": "It is a pure, stable solid that can be weighed accurately",
+      "wrong": [
+        "It changes color at the equivalence point with NaOH",
+        "It is a stronger acid than HCl, so it reacts more completely",
+        "It reacts with NaOH in a 2 : 1 ratio, which reduces the error"
+      ],
+      "why": "A primary standard must be pure and stable so that its mass gives an accurately known number of moles. The color change comes from an indicator, which is a separate substance."
+    },
+    {
+      "q": "In a titration, the indicator changes color when 24.90 mL of titrant has been added, while the reaction is complete at 24.85 mL. The color change marks the",
+      "a": "end point, which is close to but not the same as the equivalence point",
+      "wrong": [
+        "equivalence point, since the indicator signals when the reaction is complete",
+        "primary standard, which is the point where titrant and analyte are equal",
+        "equivalence point, and the 0.05 mL is the experimental error in the burette"
+      ],
+      "why": "The equivalence point is defined by stoichiometry, the end point by the indicator's color change. A good indicator is chosen so that the two are very close."
+    }
+  ],
   "summary": [
     "Balanced equations conserve atoms. Coefficients give mole ratios, never mass ratios.",
     "Empirical formulas come from mole ratios of the elements. Multiply by an integer to match the molar mass.",

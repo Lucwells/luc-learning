@@ -340,6 +340,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "Chloroacetic acid has pK_a 2.87 and acetic acid has pK_a 4.76. About how many times larger is the K_a of chloroacetic acid?",
+      "a": "about 80 times",
+      "wrong": [
+        "about 2 times",
+        "about 8 times",
+        "about 800 times"
+      ],
+      "why": "The ratio of K_a values is 10^(4.76 − 2.87) = 10^1.89 ≈ 78. The electron-withdrawing chlorine stabilizes the carboxylate; reading the pK_a difference as a ratio gives the common error of about 2."
+    },
+    {
+      "q": "In sodium acetate, what are the two C–O bonds of the carboxylate group like?",
+      "a": "Identical, each between a single and a double bond in length (about 126 pm)",
+      "wrong": [
+        "One short C=O and one long C–O⁻, since the charge sits on one oxygen",
+        "Both as short as the C=O bond of a ketone, since the carbon is sp²",
+        "Both as long as the C–O bond of an alcohol, since the anion has no double bond"
+      ],
+      "why": "The negative charge is delocalized equally over the two oxygens by resonance, so the two bonds cannot differ. This delocalization is the reason carboxylic acids are so much more acidic than alcohols."
+    },
+    {
+      "q": "An ether solution of phenol (pK_a 10) and benzoic acid (pK_a 4.2) is shaken with aqueous NaHCO₃ (conjugate acid H₂CO₃, pK_a 6.4). What passes into the aqueous layer?",
+      "a": "Only sodium benzoate",
+      "wrong": [
+        "Both sodium benzoate and sodium phenoxide",
+        "Only sodium phenoxide",
+        "Neither, since bicarbonate is too weak a base to deprotonate any acid"
+      ],
+      "why": "Bicarbonate removes a proton only from an acid with a pK_a below about 6.4. Benzoic acid qualifies, whereas phenol stays in the ether."
+    },
+    {
+      "q": "Which sequence converts bromobenzene into benzoic acid?",
+      "a": "Mg in ether, then CO₂, then H₃O⁺",
+      "wrong": [
+        "NaCN in DMSO, then H₃O⁺ and heat",
+        "CO₂ and H₂O, then KMnO₄",
+        "Hot KMnO₄ directly"
+      ],
+      "why": "The aryl bromide forms a Grignard reagent, which carboxylates with CO₂. NaCN does not displace halide from an unactivated aryl ring by SN2, and KMnO₄ needs a benzylic C–H."
+    },
+    {
+      "q": "An acyl chloride reacts with water much faster than an amide does. The best explanation is that",
+      "a": "Cl⁻ is a very weak base and a good leaving group, and Cl donates little to the carbonyl",
+      "wrong": [
+        "the amide carbonyl carbon is sp³ hybridized, which hinders attack by the water nucleophile",
+        "the C–Cl bond is much weaker than the C–N bond, and bond energy alone sets the rate",
+        "water cannot hydrogen-bond to the carbonyl oxygen of an amide, so it is never activated"
+      ],
+      "why": "In addition–elimination the tetrahedral intermediate must expel L. Chloride is an excellent leaving group and offers weak resonance stabilization, whereas the amide nitrogen donates strongly and R₂N⁻ is a terrible leaving group."
+    },
+    {
+      "q": "Which conversion proceeds readily under mild conditions without special activation?",
+      "a": "acetic anhydride + methylamine → N-methylacetamide",
+      "wrong": [
+        "N-methylacetamide + acetic acid → acetic anhydride",
+        "N-methylacetamide + methanol at 25 °C → methyl acetate",
+        "ethyl acetate + HCl → acetyl chloride"
+      ],
+      "why": "A more reactive derivative converts to a less reactive one. Each wrong option runs uphill from amide to anhydride or ester, or from ester to acyl chloride."
+    },
+    {
+      "q": "Why is SOCl₂ convenient for converting a carboxylic acid into an acyl chloride?",
+      "a": "The by-products SO₂ and HCl are gases that leave the mixture",
+      "wrong": [
+        "The by-product is water, which is easily separated by extraction",
+        "SOCl₂ acts as a catalyst and is recovered unchanged at the end",
+        "The only by-product is NaCl, which precipitates and is filtered off"
+      ],
+      "why": "RCOOH + SOCl₂ → RCOCl + SO₂ + HCl. Both by-products escape as gases, which also drives the reaction to completion."
+    },
+    {
+      "q": "Equimolar acid and alcohol are heated with an acid catalyst. For this esterification K = 9. What fraction of the acid is converted to ester at equilibrium?",
+      "a": "75%",
+      "wrong": [
+        "90%",
+        "67%",
+        "25%"
+      ],
+      "why": "With conversion x, K = x²/(1 − x)² = 9, so x/(1 − x) = 3 and x = 0.75. Using K = 4 would give 67%, and 25% is the fraction that remains."
+    },
+    {
+      "q": "How many moles of NaOH are needed to saponify 0.20 mol of a fat (a triester of glycerol) completely?",
+      "a": "0.60 mol",
+      "wrong": [
+        "0.20 mol",
+        "0.40 mol",
+        "0.10 mol"
+      ],
+      "why": "Each ester group consumes one hydroxide, because the acid product is deprotonated to the carboxylate. The fat has three ester groups, so 3 × 0.20 = 0.60 mol."
+    },
+    {
+      "q": "Why do carboxylate ions resist nucleophilic acyl substitution?",
+      "a": "The negative charge repels an incoming nucleophile, and O²⁻ would have to leave",
+      "wrong": [
+        "The carboxylate carbon is not electrophilic, since it is sp³ hybridized after resonance",
+        "Carboxylates are too basic to be attacked by any nucleophile at all, even a strong one",
+        "The two oxygens form a stable chelate with any metal ion present in the mixture"
+      ],
+      "why": "Attack on a negatively charged group is disfavored electrostatically, and O²⁻ is an extremely poor leaving group. That makes carboxylates the least reactive acyl species."
+    },
+    {
+      "q": "Propanoic acid is mixed with ethylamine at 25 °C. The main product is",
+      "a": "ethylammonium propanoate, a salt",
+      "wrong": [
+        "N-ethylpropanamide and water",
+        "ethyl propanoate and ammonia",
+        "propanoyl ethylammonium chloride"
+      ],
+      "why": "Proton transfer from the acid to the amine is instantaneous. The carboxylate is unreactive toward the ammonium ion, so an amide needs heat or an activating agent."
+    },
+    {
+      "q": "Which statement about the amide group is correct?",
+      "a": "The C–N bond has partial double-bond character, so C, N and their substituents are coplanar",
+      "wrong": [
+        "The nitrogen is pyramidal, and rotation about the C–N bond is as easy as in an amine",
+        "Amides are more basic than amines, since the carbonyl oxygen donates to nitrogen",
+        "The nitrogen lone pair is fully available, which makes amides good N-nucleophiles"
+      ],
+      "why": "Delocalization of the nitrogen lone pair into C=O (rotation barrier about 75 kJ mol⁻¹) makes the unit planar and removes the basicity and nucleophilicity of the nitrogen."
+    },
+    {
+      "q": "DCC is added to a mixture of a carboxylic acid and an amine. Its role is to",
+      "a": "convert the OH of the acid into a good leaving group (an O-acylisourea)",
+      "wrong": [
+        "protonate the amine so that it becomes a stronger nucleophile toward the acid",
+        "remove the water that forms, by distillation from the reaction mixture",
+        "reduce the acid to the aldehyde before the amine is added to the flask"
+      ],
+      "why": "Activating the acid avoids the unreactive carboxylate salt and lets the amine attack the carbonyl at room temperature. This is how peptide bonds are formed in the laboratory."
+    },
+    {
+      "q": "Methyl pentanoate is treated with excess PhMgBr, followed by H₃O⁺. The product is",
+      "a": "1,1-diphenylpentan-1-ol",
+      "wrong": [
+        "1-phenylpentan-1-one, from a single addition of the Grignard reagent",
+        "1-phenylpentan-1-ol, from addition followed by reduction",
+        "pentan-1-ol, from reduction of the ester by the Grignard reagent"
+      ],
+      "why": "The ester adds one PhMgBr, loses methoxide to give a ketone, and that ketone is more reactive than the ester and takes up a second Ph. The result is a tertiary alcohol with two identical groups from the Grignard reagent."
+    },
+    {
+      "q": "A Weinreb amide, RCON(OMe)Me, reacts with R′MgX to give a ketone and not a tertiary alcohol. Why?",
+      "a": "Mg chelates the tetrahedral intermediate, which persists until workup, so no ketone is there to react again",
+      "wrong": [
+        "The Grignard reagent cannot attack an amide carbonyl, so it just deprotonates the N–CH₃ group",
+        "The ketone product is deactivated toward further addition by the neighboring amide group",
+        "The methoxy group transfers hydride to the ketone as it forms and so destroys it"
+      ],
+      "why": "The stable chelated intermediate collapses only after aqueous workup. By then the Grignard reagent has been quenched, so a second addition cannot occur."
+    },
+    {
+      "q": "A primary amide RCONH₂ is heated with SOCl₂ or P₂O₅. The product is",
+      "a": "the nitrile, RC≡N",
+      "wrong": [
+        "the amine, RCH₂NH₂",
+        "the acyl chloride, RCOCl, with NH₃ lost",
+        "the carboxylic acid, RCOOH"
+      ],
+      "why": "These reagents dehydrate a primary amide, removing the elements of water to give a nitrile. LiAlH₄ would be needed to reach the amine."
+    },
+    {
+      "q": "Which halide is unsuitable for making a nitrile by displacement with NaCN?",
+      "a": "2-Bromo-2-methylpropane",
+      "wrong": [
+        "1-Bromobutane, a primary halide",
+        "2-Bromobutane, a secondary halide",
+        "Benzyl bromide, a primary benzylic halide"
+      ],
+      "why": "Cyanide displaces halide by SN2, which works on primary and secondary carbons. A tertiary halide gives mainly elimination because cyanide is also basic."
+    },
+    {
+      "q": "Benzonitrile is treated with CH₃MgBr, and then H₃O⁺ is added. The product is",
+      "a": "acetophenone",
+      "wrong": [
+        "benzoic acid",
+        "1-phenylethylamine",
+        "2-phenylpropan-2-ol"
+      ],
+      "why": "The Grignard reagent adds once to C≡N to give an imine salt, which is hydrolyzed on workup to the ketone. It does not add twice, as it would to an ester."
+    }
+  ],
   "summary": [
     "Carboxylic acids (pK_a 4–5) are acidic because the carboxylate is resonance stabilized. They are made by oxidation, nitrile hydrolysis or Grignard carboxylation.",
     "Acid derivatives undergo addition–elimination (nucleophilic acyl substitution). Reactivity: acyl chloride > anhydride > thioester > ester ≈ acid > amide > carboxylate.",

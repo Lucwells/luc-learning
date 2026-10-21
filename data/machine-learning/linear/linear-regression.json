@@ -338,6 +338,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A linear model is h(x) = 2 + 3x₁ − x₂. Its prediction for x = (4, 5) is",
+      "a": "9",
+      "wrong": [
+        "7",
+        "14",
+        "17"
+      ],
+      "why": "2 + 3(4) − 5 = 9. The answer 7 drops the intercept, and 14 gets the sign of the last term wrong."
+    },
+    {
+      "q": "Which change to the least squares objective J(θ) would change the minimizing θ̂?",
+      "a": "Replacing the squared residuals with absolute residuals",
+      "wrong": [
+        "Dropping the factor 1/2 in front of the sum of squares",
+        "Dividing the sum by m instead of leaving it as a total",
+        "Multiplying the whole objective by a positive constant, such as 10"
+      ],
+      "why": "Constant positive factors rescale J without moving its minimizer. A different loss changes the shape of the objective, and so the solution."
+    },
+    {
+      "q": "A model without an intercept, h(x) = θx, is fit to the points (1, 0), (2, 4) and (2, 5). The normal equation gives θ̂ =",
+      "a": "2",
+      "wrong": [
+        "1.5",
+        "1.8",
+        "3"
+      ],
+      "why": "XᵀX = 1 + 4 + 4 = 9 and Xᵀy = 0 + 8 + 10 = 18, so θ̂ = 18/9 = 2. Averaging the ratios y/x gives 1.5, which is a different (not least squares) estimate."
+    },
+    {
+      "q": "A least squares line with an intercept has residuals 1.2, −0.7, 0.4 and r₄ on four examples. What is r₄?",
+      "a": "−0.9",
+      "wrong": [
+        "0.9",
+        "−0.7",
+        "−1.3"
+      ],
+      "why": "The residual vector is orthogonal to the constant column of ones, so the residuals sum to zero: 1.2 − 0.7 + 0.4 + r₄ = 0 gives r₄ = −0.9."
+    },
+    {
+      "q": "Why does applying the hat matrix twice give the same result, H(Hy) = Hy?",
+      "a": "Hy already lies in the column space of X, so projecting it again changes nothing",
+      "wrong": [
+        "H equals the identity matrix whenever m > n",
+        "The residuals are random, so they cancel on the second application",
+        "H is orthogonal, so it preserves lengths and applying it twice cancels the first"
+      ],
+      "why": "H projects onto the column space, and a vector already in that space is left unchanged. A projection is not the identity or a rotation, since it discards the residual component."
+    },
+    {
+      "q": "XᵀX is singular and the normal equations have many solutions. Which one does θ̂ = X⁺y return?",
+      "a": "The solution of smallest norm",
+      "wrong": [
+        "The solution with the most zero entries",
+        "The solution of largest norm",
+        "None: the pseudoinverse requires XᵀX to be invertible"
+      ],
+      "why": "The pseudoinverse picks the minimum-norm minimizer of ‖Xθ − y‖². It does not favor sparse solutions, which is a different goal."
+    },
+    {
+      "q": "For h(x) = θx with data (1, 1) and (2, 3), one batch gradient descent step from θ = 0 with α = 0.25 gives θ =",
+      "a": "0.875",
+      "wrong": [
+        "1.75",
+        "0.5",
+        "−0.875"
+      ],
+      "why": "∇J = (1/2)[(0 − 1)(1) + (0 − 3)(2)] = −3.5, so θ = 0 − 0.25(−3.5) = 0.875. Using the sum instead of the mean gives 1.75, and a sign error gives −0.875."
+    },
+    {
+      "q": "The Hessian of J has eigenvalues 10 and 1, and gradient descent uses α = 0.25. What happens?",
+      "a": "It diverges along the direction of the eigenvalue 10",
+      "wrong": [
+        "It converges in both directions, since α is less than 1",
+        "It converges, but the eigenvalue-10 direction is the slow one",
+        "It converges at a rate of 0.25 per step in every direction"
+      ],
+      "why": "The error along an eigenvector shrinks by |1 − αλ|. For λ = 10 this is |1 − 2.5| = 1.5 > 1, so that component grows. Stability needs α < 2/10 = 0.2."
+    },
+    {
+      "q": "One feature ranges over 0–1 and another over 0–10,000. Why does unscaled gradient descent crawl?",
+      "a": "A narrow ravine with a large condition number limits α",
+      "wrong": [
+        "The larger feature makes the objective non-convex, so no learning rate works",
+        "The gradient for the smaller feature is exactly zero at the start",
+        "Gradient descent needs α above 2/λ_max when feature scales differ"
+      ],
+      "why": "The steep direction forces a small α for stability, and that small α makes progress along the gentle direction very slow. Standardizing the features brings the eigenvalues together."
+    },
+    {
+      "q": "Test data are standardized using the test set's own mean and standard deviation. What is wrong with this?",
+      "a": "Test inputs must use the training statistics",
+      "wrong": [
+        "Nothing, since each set should have its own mean 0 and standard deviation 1",
+        "The test set is too small to have a meaningful mean",
+        "It makes the training objective non-convex"
+      ],
+      "why": "The model was fit to features on the training scale. Transforming the test data differently changes what the weights mean, and uses information the model would not have in deployment."
+    },
+    {
+      "q": "With a fixed learning rate, stochastic gradient descent on least squares",
+      "a": "makes quick early progress but then hovers around the minimum, which a decreasing α fixes",
+      "wrong": [
+        "converges exactly, since each step has the true gradient as its expectation",
+        "diverges unless the batch size is at least n",
+        "settles on a point that is worse than the batch solution because least squares is non-convex"
+      ],
+      "why": "Single-example steps are unbiased but noisy, and a constant step keeps injecting noise near the minimum. Shrinking α (for example ∝ 1/t) lets the iterates settle."
+    },
+    {
+      "q": "Minimizing absolute error instead of squared error corresponds to assuming",
+      "a": "Laplace noise, and the median is fit",
+      "wrong": [
+        "Gaussian noise with a much larger variance",
+        "Uniform noise, which has no outliers at all",
+        "Noise whose variance grows with x"
+      ],
+      "why": "The loss encodes a noise model. Gaussian noise gives squared error and the mean, whereas the heavier-tailed Laplace distribution gives absolute error and the median."
+    },
+    {
+      "q": "A fitted line with an intercept has residuals 1, −2, 2, −1 on m = 4 examples. The maximum likelihood estimate of the noise variance σ² is",
+      "a": "2.5",
+      "wrong": [
+        "5",
+        "10",
+        "3.33"
+      ],
+      "why": "The sum of squared residuals is 1 + 4 + 4 + 1 = 10, and the maximum likelihood estimate divides by m = 4. Dividing by m − 2 = 2 gives 5, the unbiased estimate."
+    },
+    {
+      "q": "Which claim about least squares is false?",
+      "a": "The inputs x must be normally distributed for the fit to be maximum likelihood",
+      "wrong": [
+        "With independent Gaussian noise, minimizing squared error is maximum likelihood",
+        "The choice of loss function encodes an assumption about the noise",
+        "The Gaussian noise assumption underlies confidence intervals for the coefficients"
+      ],
+      "why": "The model is a conditional one, y given x. Only the noise ε must be Gaussian, and the inputs can have any distribution."
+    },
+    {
+      "q": "How many features (including the constant) does a full degree-2 polynomial map of 4 input variables have?",
+      "a": "15",
+      "wrong": [
+        "9",
+        "11",
+        "14"
+      ],
+      "why": "C(4 + 2, 2) = 15: one constant, 4 linear terms, 4 squares and 6 pairwise products. The answer 11 omits the squares, and 14 omits the constant."
+    },
+    {
+      "q": "Which model can be fit by the normal equations after building a feature matrix?",
+      "a": "h(x) = θ₀ + θ₁ sin x + θ₂ x²",
+      "wrong": [
+        "h(x) = θ₀ + sin(θ₁x) + θ₂x",
+        "h(x) = θ₀ exp(θ₁x) + θ₂x²",
+        "h(x) = θ₀ + θ₁x^θ₂ + θ₃"
+      ],
+      "why": "A model is linear regression when it is linear in the parameters θ, whatever it does to x. In the other options a parameter sits inside a nonlinear function."
+    },
+    {
+      "q": "In locally weighted regression with τ = 2, a training point lies at distance 4 from the query. Its weight is",
+      "a": "≈ 0.135",
+      "wrong": [
+        "≈ 0.368",
+        "≈ 0.607",
+        "≈ 0.018"
+      ],
+      "why": "w = exp(−4²/(2·2²)) = exp(−2) ≈ 0.135. Using τ instead of τ² gives exp(−4) ≈ 0.018, and using the unsquared distance gives exp(−0.5) ≈ 0.607."
+    },
+    {
+      "q": "How does locally weighted regression differ from ordinary linear regression at prediction time?",
+      "a": "It solves a new weighted fit per query and keeps the data",
+      "wrong": [
+        "It evaluates a single stored parameter vector, so prediction is faster",
+        "It uses the same weights for every query but a different loss function",
+        "It discards the training data after fitting, since its complexity is fixed"
+      ],
+      "why": "LWR is nonparametric: the local fit depends on the query, so the data must be kept and each prediction costs a regression."
+    }
+  ],
   "summary": [
     "A linear model predicts θᵀx. Least squares minimizes J(θ) = (1/2m)‖Xθ − y‖².",
     "The normal equations XᵀXθ = Xᵀy give θ̂ = (XᵀX)⁻¹Xᵀy. Geometrically, Xθ̂ is the projection of y onto the column space of X, and the residual is orthogonal to the columns.",

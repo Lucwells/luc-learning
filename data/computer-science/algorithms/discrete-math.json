@@ -457,6 +457,178 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A data filter drops a row only when both conditions hold: age > 30 and income > 50. Which condition describes the rows that are kept?",
+      "a": "age ≤ 30 or income ≤ 50",
+      "wrong": [
+        "age ≤ 30 and income ≤ 50",
+        "age < 30 or income < 50",
+        "age > 30 or income > 50"
+      ],
+      "why": "By De Morgan's law, ¬(p ∧ q) ≡ ¬p ∨ ¬q, and the negation of > is ≤, not <. Switching 'and' to 'or' is the step people forget."
+    },
+    {
+      "q": "Over the integers, consider (i) for every x there is a y with y > x, and (ii) there is a y such that every x satisfies y > x. Which is true?",
+      "a": "(i) is true and (ii) is false",
+      "wrong": [
+        "(ii) is true and (i) is false",
+        "Both are true",
+        "Both are false"
+      ],
+      "why": "In (i) y may depend on x (take y = x + 1). In (ii) one y would have to exceed every integer, including itself. The order of quantifiers matters."
+    },
+    {
+      "q": "Someone argues: 'Every prime greater than 2 is odd. The number 15 is odd, so 15 is prime.' What is the flaw?",
+      "a": "It uses the converse of the statement, which is not equivalent to it",
+      "wrong": [
+        "It argues from a single example to a general claim",
+        "It assumes the conclusion it wants to prove",
+        "It divides by a quantity that may be zero"
+      ],
+      "why": "The premise says prime → odd, and the argument concludes odd → prime. An implication and its converse are different statements, and 15 = 3 × 5 refutes this one."
+    },
+    {
+      "q": "In the proof that √2 is irrational, where exactly does the contradiction arise?",
+      "a": "The proof shows that a and b are both even, although they were assumed to have no common factor",
+      "wrong": [
+        "The proof shows that a² is odd while a is even",
+        "The proof shows that b is zero",
+        "The proof shows that √2 equals a decimal that terminates"
+      ],
+      "why": "From a² = 2b², a is even, and then b² = 2c² makes b even too. Two even numbers share the factor 2, contradicting the choice of a/b in lowest terms."
+    },
+    {
+      "q": "Which single value of n refutes the claim 'for every integer n ≥ 1, 2ⁿ ≥ n²'?",
+      "a": "n = 3",
+      "wrong": [
+        "n = 2",
+        "n = 4",
+        "n = 5"
+      ],
+      "why": "2³ = 8 is less than 3² = 9. For n = 2 and n = 4 the two sides are equal (4 = 4 and 16 = 16), and for n = 5 we get 32 ≥ 25, so none of those breaks the claim."
+    },
+    {
+      "q": "A student 'proves' that n = n + 1 for all n ≥ 1 by assuming k = k + 1 and adding 1 to both sides to get k + 1 = k + 2. What is missing?",
+      "a": "A base case, since the statement is false for n = 1",
+      "wrong": [
+        "A strong induction hypothesis",
+        "A proof that the step works for k = 0",
+        "A second inductive step for k + 2"
+      ],
+      "why": "The inductive step is valid as an implication, but without a true base case the chain of dominoes never starts. Here P(1) says 1 = 2, which is false."
+    },
+    {
+      "q": "Why is strong induction the natural tool for proving that merge sort is correct?",
+      "a": "It calls itself on halves of various smaller sizes, not just on n - 1 elements",
+      "wrong": [
+        "It needs no base case when the hypothesis covers all smaller sizes",
+        "It proves the claim for all n at once without a step",
+        "It lets the proof assume the statement for n itself"
+      ],
+      "why": "The correctness argument must assume the sort works for every smaller input (the two halves), which is exactly what strong induction provides. A base case, here lists of length 0 or 1, is still required."
+    },
+    {
+      "q": "A full binary tree (every internal node has two children) has 15 leaves. How many internal nodes does it have?",
+      "a": "14",
+      "wrong": [
+        "15",
+        "16",
+        "7"
+      ],
+      "why": "A tree with n internal nodes has n + 1 leaves, shown by structural induction. With 15 leaves, n = 14."
+    },
+    {
+      "q": "How many different functions map a 3-element set into a 5-element set?",
+      "a": "125",
+      "wrong": [
+        "243",
+        "15",
+        "60"
+      ],
+      "why": "Each of the 3 inputs independently chooses one of 5 outputs, so there are 5³ = 125 functions. 3⁵ = 243 swaps the base and the exponent."
+    },
+    {
+      "q": "How many Boolean functions are there on 3 binary input features?",
+      "a": "256",
+      "wrong": [
+        "8",
+        "64",
+        "512"
+      ],
+      "why": "There are 2³ = 8 possible inputs, and each can be assigned output 0 or 1 independently, giving 2⁸ = 256 functions."
+    },
+    {
+      "q": "Which relation on the integers is an equivalence relation?",
+      "a": "a ∼ b when a - b is divisible by 5",
+      "wrong": [
+        "a ∼ b when |a - b| ≤ 1",
+        "a ∼ b when a and b have a common prime factor",
+        "a ∼ b when a ≤ b"
+      ],
+      "why": "Equal remainders mod 5 is reflexive, symmetric and transitive. |a - b| ≤ 1 and common prime factor both fail transitivity (2, 6 and 3), and a ≤ b is not symmetric."
+    },
+    {
+      "q": "How many monomials of degree at most 2 are there in 5 variables, including the constant?",
+      "a": "21",
+      "wrong": [
+        "15",
+        "25",
+        "11"
+      ],
+      "why": "The formula C(n + d, d) gives C(7, 2) = 21. The number 15 counts only the monomials of degree exactly 2."
+    },
+    {
+      "q": "How many integers from 1 to 60 are divisible by 4 or by 6?",
+      "a": "20",
+      "wrong": [
+        "25",
+        "23",
+        "10"
+      ],
+      "why": "There are 15 multiples of 4 and 10 multiples of 6. The multiples of both are the multiples of lcm(4, 6) = 12, and there are 5 of them, so 15 + 10 - 5 = 20."
+    },
+    {
+      "q": "100 files are stored in 7 folders. What is the largest number that is guaranteed to be in some single folder?",
+      "a": "15",
+      "wrong": [
+        "14",
+        "16",
+        "13"
+      ],
+      "why": "With n objects in k boxes some box holds at least ⌈n/k⌉ = ⌈100/7⌉ = 15. Fourteen per folder would hold only 98 files."
+    },
+    {
+      "q": "In a social network of 9 people, can each person be friends (mutually) with exactly 3 others?",
+      "a": "No, because the degrees would sum to 27, which is odd",
+      "wrong": [
+        "Yes, because 3 × 9 = 27 edges can be drawn",
+        "No, because each person has fewer than 9 possible friends",
+        "Yes, as long as the network is connected"
+      ],
+      "why": "The sum of degrees equals twice the number of edges, so it must be even. In general the number of odd-degree vertices is even, and here there would be 9."
+    },
+    {
+      "q": "A connected graph has 12 vertices and 14 edges. How many edges must be removed to leave a tree that spans all vertices?",
+      "a": "3",
+      "wrong": [
+        "2",
+        "14",
+        "12"
+      ],
+      "why": "A tree on 12 vertices has 11 edges, and 14 - 11 = 3. Each edge removed from a cycle keeps the graph connected."
+    },
+    {
+      "q": "A web graph has 10⁵ pages and 5 × 10⁵ links. Which representation is the better choice, and why?",
+      "a": "An adjacency list, since it needs about |V| + |E| entries rather than 10¹⁰",
+      "wrong": [
+        "An adjacency matrix, since it answers whether an edge exists in O(1) time",
+        "An adjacency matrix, since sparse graphs are stored best with one entry per pair",
+        "Either one, since both need memory proportional to |V|"
+      ],
+      "why": "The graph is sparse: 5 × 10⁵ edges against 10¹⁰ possible pairs. A matrix would need n² entries, while a list stores each vertex plus its neighbors."
+    }
+  ],
   "summary": [
     "Propositional logic: truth tables, p → q ≡ ¬p ∨ q ≡ ¬q → ¬p, De Morgan's laws. Negate quantifiers by swapping ∀ and ∃ and negating the inside.",
     "Prove by direct argument, contrapositive, contradiction (√2 is irrational) or counterexample. A loop invariant proves an algorithm correct.",

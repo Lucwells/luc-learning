@@ -117,6 +117,178 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "D-Glucose has a specific rotation of +52.7° at equilibrium. What does the letter D tell you?",
+      "a": "The C5 OH is on the right in the Fischer projection; it says nothing about rotation sign",
+      "wrong": [
+        "The sugar rotates plane-polarized light clockwise, which means it is dextrorotatory",
+        "The sugar occurs in nature, whereas L-sugars have to be made in the laboratory",
+        "The OH on C2 is on the right in the Fischer projection, as in all D-aldoses"
+      ],
+      "why": "D and L describe configuration at the stereocenter farthest from the carbonyl. The sign of optical rotation must be measured, and some D-sugars are levorotatory (D-fructose, for example)."
+    },
+    {
+      "q": "How many stereoisomers does a ketohexose such as fructose have?",
+      "a": "8",
+      "wrong": [
+        "16",
+        "4",
+        "6"
+      ],
+      "why": "A ketohexose has stereocenters at C3, C4 and C5 only, because C2 is the carbonyl. That gives 2³ = 8, which is half as many as an aldohexose."
+    },
+    {
+      "q": "D-Galactose is the C4 epimer of D-glucose, and D-mannose is the C2 epimer. How are D-galactose and D-mannose related?",
+      "a": "Diastereomers that are not epimers, since they differ at two centers",
+      "wrong": [
+        "Epimers, because both differ from glucose at exactly one stereocenter",
+        "Enantiomers, because their Fischer projections resemble mirror images",
+        "Anomers, because both differ from glucose in the position of an OH group"
+      ],
+      "why": "Galactose differs from glucose at C4 and mannose differs at C2, so the two differ from each other at both C2 and C4. Epimers differ at exactly one stereocenter, and enantiomers differ at all."
+    },
+    {
+      "q": "In the chair form of α-D-glucopyranose, which substituents are axial?",
+      "a": "Only the anomeric OH at C1",
+      "wrong": [
+        "All five substituents",
+        "Only the CH₂OH group at C5",
+        "None of them"
+      ],
+      "why": "In β-D-glucopyranose every substituent is equatorial. The α anomer differs only in the configuration at C1, which turns that OH axial."
+    },
+    {
+      "q": "A pure α anomer has [α]D +100° and the pure β anomer has [α]D 0°. At mutarotation equilibrium the rotation is +40°. Ignoring other forms, what percentage is the α anomer?",
+      "a": "40%",
+      "wrong": [
+        "60%",
+        "25%",
+        "70%"
+      ],
+      "why": "With α fraction x, 100x + 0(1 − x) = 40, so x = 0.40. The equilibrium rotation is the weighted average of the two anomers."
+    },
+    {
+      "q": "In water, glucose is still about 36% α-D-glucopyranose even though its anomeric OH is axial. The main reason is",
+      "a": "the anomeric effect: donation of a ring-oxygen lone pair into the C–O σ* orbital",
+      "wrong": [
+        "the axial OH forms a strong intramolecular hydrogen bond to the ring oxygen",
+        "an axial OH has less steric strain than an equatorial one",
+        "the α anomer forms faster and is trapped before it can convert"
+      ],
+      "why": "An electronegative substituent at the anomeric carbon is stabilized in the axial position. The α anomer is therefore more populated than steric arguments alone would predict."
+    },
+    {
+      "q": "In ribose, which hydroxyl group adds to the C1 aldehyde to form the five-membered furanose ring?",
+      "a": "the C4 OH",
+      "wrong": [
+        "the C5 OH",
+        "the C3 OH",
+        "the C2 OH"
+      ],
+      "why": "Attack by the C4 oxygen gives a ring of C1–C4 plus oxygen, which has five atoms. The C5 OH would give a six-membered pyranose, and the C3 and C2 OH groups would give strained four- and three-membered rings."
+    },
+    {
+      "q": "Pure methyl β-D-glucopyranoside is dissolved in neutral water. What happens to its optical rotation over the next hours?",
+      "a": "It stays constant, because the acetal cannot ring-open",
+      "wrong": [
+        "It slowly moves to an equilibrium value as α and β glycosides interconvert",
+        "It decreases to zero as the glycoside is hydrolyzed by water",
+        "It rises as the open-chain aldehyde form accumulates"
+      ],
+      "why": "The anomeric carbon is an acetal, not a hemiacetal, so it cannot open to the aldehyde and the compound cannot mutarotate. Hydrolysis would require aqueous acid or a glycosidase."
+    },
+    {
+      "q": "D-Glucose is oxidized with hot, concentrated nitric acid. The product is",
+      "a": "glucaric acid, a dicarboxylic acid",
+      "wrong": [
+        "gluconic acid, a monocarboxylic acid",
+        "sorbitol, a hexahydroxy alcohol",
+        "glucose lactone, a cyclic ester"
+      ],
+      "why": "Nitric acid oxidizes both the aldehyde end (C1) and the primary alcohol end (C6) to COOH, giving an aldaric acid. Bromine water, a milder oxidant, stops at gluconic acid."
+    },
+    {
+      "q": "Fructose is a ketose, yet it gives a positive Benedict’s test. Why?",
+      "a": "Under basic conditions it equilibrates with aldoses through an enediol",
+      "wrong": [
+        "Ketones are oxidized by Cu(II) just as readily as aldehydes are",
+        "Fructose is always present mainly as its open-chain aldehyde form",
+        "Benedict’s reagent reduces any compound that carries a hydroxyl group"
+      ],
+      "why": "Base tautomerizes the α-hydroxy ketone to an enediol and onward to an aldose, which is oxidized. Simple ketones lack this pathway."
+    },
+    {
+      "q": "A Kiliani–Fischer synthesis is carried out on an aldotetrose. The products are",
+      "a": "two aldopentoses that are epimers at C2",
+      "wrong": [
+        "one aldopentose, since HCN adds stereoselectively",
+        "two aldopentoses that are enantiomers",
+        "two aldopentoses that are epimers at C4"
+      ],
+      "why": "HCN attacks the C1 aldehyde from either face, so the new stereocenter at C2 forms in both configurations. The original centers are not affected, so the two products are C2 epimers."
+    },
+    {
+      "q": "D-Glucose, D-mannose and D-fructose all give the same osazone with excess phenylhydrazine. This is because",
+      "a": "the reaction turns C1 and C2 into hydrazones, erasing the differences between the sugars",
+      "wrong": [
+        "all three sugars are cyclic hemiacetals with the same ring size and the same shape",
+        "phenylhydrazine reacts only at C6, which has the same structure in all three sugars",
+        "the three sugars interconvert before reacting, because they are all enantiomers"
+      ],
+      "why": "Glucose and mannose differ only at C2, and fructose has the carbonyl at C2. Once C1 and C2 are both hydrazones, the three have identical structures from C3 to C6."
+    },
+    {
+      "q": "What is lactose composed of?",
+      "a": "Galactose β(1→4) glucose",
+      "wrong": [
+        "Glucose α(1→4) glucose",
+        "Glucose α(1→2) fructose",
+        "Glucose β(1→4) glucose"
+      ],
+      "why": "Lactose is the sugar of milk, broken down by lactase. Maltose is the α(1→4) glucose dimer, cellobiose the β(1→4) glucose dimer, and sucrose the glucose–fructose disaccharide."
+    },
+    {
+      "q": "Trehalose consists of two glucose units joined by a bond between the two anomeric carbons. Is it a reducing sugar?",
+      "a": "No, because neither ring can open to expose an aldehyde",
+      "wrong": [
+        "Yes, because it contains glucose, a reducing sugar",
+        "Yes, because every sugar with a CH₂OH group reduces Tollens’ reagent",
+        "No, because only ketoses are nonreducing"
+      ],
+      "why": "As in sucrose, both anomeric carbons are tied up as acetals in the glycosidic bond. With no hemiacetal there is no free aldehyde, so the disaccharide is nonreducing."
+    },
+    {
+      "q": "Compared with amylopectin, glycogen is branched more often, about every 8–12 units. What is the benefit?",
+      "a": "More chain ends are available for the rapid release of glucose",
+      "wrong": [
+        "The branching makes the molecule insoluble, so it can be stored",
+        "The extra branches convert α-links into β-links, which are more stable",
+        "The branching allows it to bind iodine more tightly"
+      ],
+      "why": "Enzymes remove glucose from the non-reducing ends of chains, so the more ends there are, the faster glucose can be mobilized."
+    },
+    {
+      "q": "Why does amylose give a blue-black color with iodine, whereas cellulose does not?",
+      "a": "lack an enzyme that cleaves β(1→4) glycosidic bonds",
+      "wrong": [
+        "cannot hydrolyze any glycosidic bond that joins two glucose units together",
+        "make an enzyme that cleaves α-links, but cellulose contains no glucose at all",
+        "lack a stomach acid strong enough to break the hydrogen bonds between chains"
+      ],
+      "why": "The helical interior of amylose holds iodine as a colored complex. The β(1→4) links of cellulose give straight chains with no such cavity."
+    },
+    {
+      "q": "Humans digest starch but not cellulose. The most direct reason is that humans",
+      "a": "lack an enzyme that cleaves β(1→4) glycosidic bonds",
+      "wrong": [
+        "cannot hydrolyze any glycosidic bond that joins glucose units",
+        "make an enzyme that cleaves α-links but cellulose contains no glucose",
+        "lack a stomach acid strong enough to break hydrogen bonds"
+      ],
+      "why": "Amylase cleaves α(1→4) links. The two polymers are both polyglucose, and it is the β configuration of the link that blocks digestion, although cattle and termites rely on gut microbes that cleave it."
+    }
+  ],
   "summary": [
     "Monosaccharides are polyhydroxy aldehydes or ketones. A D sugar has the OH of the last stereocenter on the right. An aldohexose has 16 stereoisomers, and epimers differ at one center.",
     "Sugars cyclize to pyranose and furanose hemiacetals. The new stereocenter is the anomeric carbon, with α and β forms that interconvert by mutarotation. β-D-glucopyranose has all substituents equatorial.",

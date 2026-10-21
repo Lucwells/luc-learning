@@ -297,6 +297,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "At 25 °C in 0.1 M solution, a ligand substitution on a complex takes about ten minutes to finish. By Taube’s classification this complex is",
+      "a": "Inert, since it is slower than about a minute",
+      "wrong": [
+        "Labile, since the reaction does go to completion",
+        "Labile, because any reaction under an hour counts as fast",
+        "Unclassifiable without the equilibrium constant"
+      ],
+      "why": "Labile and inert are purely kinetic labels with a cutoff near one minute; the equilibrium constant is irrelevant to them."
+    },
+    {
+      "q": "[Ni(H₂O)₆]²⁺ (d⁸) exchanges water over 100 times more slowly than high-spin [Fe(H₂O)₆]²⁺ (d⁶). The best explanation is that",
+      "a": "Ni²⁺ has a large LFSE, part of which is lost in the transition state",
+      "wrong": [
+        "Ni²⁺ is low spin, which makes it inert",
+        "Ni²⁺ is Jahn–Teller distorted, which strengthens its axial bonds",
+        "Ni–O bonds are covalent, so they cannot break"
+      ],
+      "why": "Octahedral d⁸ has LFSE of −1.2Δₒ, so it pays a ligand field activation energy. Water-exchange is still fast enough (3 × 10⁴ s⁻¹) for the ion to count as labile, and d⁸ aqua ions are high spin."
+    },
+    {
+      "q": "In ligand field terms, the ligand field activation energy is",
+      "a": "The LFSE lost when the octahedral complex becomes a five- or seven-coordinate transition state",
+      "wrong": [
+        "The energy required to promote an electron from the t₂g to the e_g level",
+        "The energy of the metal–ligand bond that has to break in the slow step",
+        "The Jahn–Teller stabilization energy of the distorted ground state"
+      ],
+      "why": "It is the change in LFSE between ground state and transition state, which explains why d³ and low-spin d⁶ are inert. Bond energy and electron promotion are different quantities."
+    },
+    {
+      "q": "Which ion forms the most inert octahedral aqua complex?",
+      "a": "Ir³⁺",
+      "wrong": [
+        "Mn²⁺ (high spin)",
+        "Cu²⁺",
+        "Zn²⁺"
+      ],
+      "why": "Ir³⁺ is low-spin d⁶ and a 5d metal, so it has both a large LFSE and a large Δ. High-spin d⁵, d⁹ and d¹⁰ ions are labile."
+    },
+    {
+      "q": "Which feature defines an interchange mechanism?",
+      "a": "No detectable intermediate; the entering and leaving groups swap in one step within an outer-sphere pair",
+      "wrong": [
+        "A five-coordinate intermediate forms before the entering group binds",
+        "A seven-coordinate intermediate forms before the leaving group departs",
+        "The metal changes its oxidation state during the swap"
+      ],
+      "why": "Intermediates of lower or higher coordination number characterize D and A. In I, bond making and breaking are concerted, and the leading one gives Iₐ or I_d."
+    },
+    {
+      "q": "In an Eigen–Wilkins reaction, k = 2 × 10⁻² s⁻¹ and K_os = 5 M⁻¹. At [Y] = 0.20 M, k_obs is",
+      "a": "1 × 10⁻² s⁻¹",
+      "wrong": [
+        "2 × 10⁻² s⁻¹",
+        "1 × 10⁻¹ s⁻¹",
+        "6.7 × 10⁻³ s⁻¹"
+      ],
+      "why": "K_os[Y] = 1, so k_obs = k(1)/(1 + 1) = k/2. Quoting k itself assumes saturation, which is only reached when K_os[Y] ≫ 1."
+    },
+    {
+      "q": "For a reaction with k_obs = kK_os[Y]/(1 + K_os[Y]), a plot of 1/k_obs against 1/[Y] is linear. Its intercept on the 1/k_obs axis is",
+      "a": "1/k",
+      "wrong": [
+        "1/(kK_os)",
+        "1/K_os",
+        "kK_os"
+      ],
+      "why": "Inverting gives 1/k_obs = 1/k + 1/(kK_os[Y]). The slope is 1/(kK_os), and the intercept, the high-[Y] limit, is 1/k."
+    },
+    {
+      "q": "The rate of base hydrolysis of [Co(NH₃)₅Cl]²⁺ is first order in OH⁻, yet OH⁻ does not bind cobalt in the slow step. Why is OH⁻ in the rate law?",
+      "a": "It deprotonates a coordinated NH₃ in a fast equilibrium to make an amido conjugate base that loses Cl⁻",
+      "wrong": [
+        "It attacks Co associatively to make a seven-coordinate intermediate",
+        "It displaces Cl⁻ in an outer-sphere electron transfer",
+        "It reduces Co(III) to the labile Co(II), which loses Cl⁻"
+      ],
+      "why": "The amido ligand is a strong π-donor that labilizes the chloride. OH⁻ only appears in the rate law because it generates the reactive conjugate base."
+    },
+    {
+      "q": "Which complex should NOT undergo SN1CB base hydrolysis?",
+      "a": "[Co(py)₅Cl]²⁺",
+      "wrong": [
+        "[Co(NH₃)₅Cl]²⁺",
+        "[Co(en)₂Cl₂]⁺",
+        "trans-[Co(NH₃)₄Cl₂]⁺"
+      ],
+      "why": "SN1CB needs a coordinated N–H to deprotonate. NH₃ and ethylenediamine have N–H bonds; the pyridine nitrogen has none."
+    },
+    {
+      "q": "A square planar Pt(II) complex follows rate = (k₁ + k₂[Y])[complex], with k₁ = 4 × 10⁻³ s⁻¹ and k₂ = 0.50 M⁻¹ s⁻¹. At [Y] = 0.020 M the pseudo-first-order rate constant is",
+      "a": "1.4 × 10⁻² s⁻¹",
+      "wrong": [
+        "1.0 × 10⁻² s⁻¹",
+        "4.0 × 10⁻³ s⁻¹",
+        "4.0 × 10⁻⁵ s⁻¹"
+      ],
+      "why": "The two pathways add: 4 × 10⁻³ + 0.50 × 0.020 = 4 × 10⁻³ + 1.0 × 10⁻² = 1.4 × 10⁻² s⁻¹. Dropping the solvent path gives 1.0 × 10⁻²; multiplying the constants has no basis."
+    },
+    {
+      "q": "Pt(II) complexes substitute about 10⁵ times more slowly than the Pd(II) analogues. What does this mean for cisplatin?",
+      "a": "It reacts slowly enough to be administered intact",
+      "wrong": [
+        "It dissolves in water without reacting at all",
+        "It must be made by dissociative rather than associative substitution",
+        "It is thermodynamically stable toward all substitution"
+      ],
+      "why": "Slow substitution is a kinetic property. Cisplatin does exchange chloride eventually, but over hours rather than milliseconds, and it is not thermodynamically inert."
+    },
+    {
+      "q": "One equivalent of I⁻ is added to [Pt(NH₃)Cl₃]⁻ (trans effect I⁻ > Cl⁻ > NH₃). Where does the iodide enter?",
+      "a": "In place of a chloride trans to the other chloride, so I⁻ ends up cis to NH₃",
+      "wrong": [
+        "In place of the chloride trans to NH₃, so I⁻ ends up trans to NH₃",
+        "In place of NH₃, since it has the weakest trans effect",
+        "As a fifth ligand, giving a stable five-coordinate Pt(II) complex"
+      ],
+      "why": "The chloride opposite another chloride is the more labile one, because Cl⁻ has a greater trans effect than NH₃. The ligand with the weaker trans effect is not the one lost."
+    },
+    {
+      "q": "Which statement about the trans effect and trans influence is FALSE?",
+      "a": "The trans effect is the same ground-state bond weakening as the trans influence",
+      "wrong": [
+        "A π-acceptor such as C₂H₄ speeds substitution trans to it by stabilizing the five-coordinate transition state",
+        "A strong σ-donor such as H⁻ weakens the bond trans to it in the ground state",
+        "Adding ligands in a chosen order can give the cis or trans isomer from the same metal"
+      ],
+      "why": "The trans influence is thermodynamic (a ground-state bond length or coupling constant), whereas the trans effect is kinetic and concerns the rate of substitution trans to a ligand."
+    },
+    {
+      "q": "Why must the reductant be labile in an inner-sphere reaction such as Cr²⁺ + [Co(NH₃)₅Cl]²⁺?",
+      "a": "It must quickly open a coordination site to bind the bridging ligand",
+      "wrong": [
+        "It must supply the electron, so it needs a very low ionization energy",
+        "It lowers the reorganization energy of the oxidant by exchanging ligands",
+        "Inert complexes cannot carry any ligand to a bridging position"
+      ],
+      "why": "The bridge forms only if one partner can lose a ligand (here water from high-spin d⁴ Cr²⁺) to bind the chloride on the inert partner. Being labile is not about electron donation."
+    },
+    {
+      "q": "In Taube’s experiment the product [Cr(H₂O)₅Cl]²⁺ keeps its chloride. Why does the chloride stay bound?",
+      "a": "Cr(III) is d³ and substitution-inert",
+      "wrong": [
+        "Cr(III) is a Jahn–Teller d⁴ ion with strong axial bonds to the ligands",
+        "Chloride lies trans to a water ligand, which blocks its loss from the metal",
+        "The Cr–Cl bond is thermodynamically stronger than any Cr–O bond in the complex"
+      ],
+      "why": "d³ has a large ligand field activation energy, so the Cr–Cl bond is not broken on the experiment’s timescale. That kinetic inertness is what makes the transferred chloride visible."
+    },
+    {
+      "q": "Two couples have self-exchange constants k₁₁ = 25 and k₂₂ = 1 × 10⁴ M⁻¹ s⁻¹. Their cross reaction has K₁₂ = 4 × 10². With f₁₂ ≈ 1, the Marcus cross relation gives k₁₂ as",
+      "a": "1 × 10⁴ M⁻¹ s⁻¹",
+      "wrong": [
+        "1 × 10⁸ M⁻¹ s⁻¹",
+        "5 × 10² M⁻¹ s⁻¹",
+        "2.5 × 10⁵ M⁻¹ s⁻¹"
+      ],
+      "why": "k₁₂ = (25 × 10⁴ × 400)^{1/2} = (10⁸)^{1/2} = 10⁴. Omitting the square root gives 10⁸; leaving out K₁₂ gives 500."
+    },
+    {
+      "q": "In Marcus theory, the reorganization energy λ is",
+      "a": "The energy to distort reactants and solvent into the product geometry without transferring the electron",
+      "wrong": [
+        "The free energy change ΔG° of the electron-transfer reaction",
+        "The energy needed to remove an electron from the donor",
+        "The activation energy for substituting a ligand on the donor"
+      ],
+      "why": "Because the electron moves much faster than the nuclei (Franck–Condon), the nuclei must first rearrange, and λ measures the cost of that rearrangement."
+    },
+    {
+      "q": "A charge-separated state can fall back to the ground state with a very large driving force, −ΔG° > λ. Marcus theory predicts this back-electron transfer is",
+      "a": "Slow, because it lies in the inverted region",
+      "wrong": [
+        "Fast, because the rate always rises with −ΔG°",
+        "Unaffected by the driving force",
+        "Forbidden by the Franck–Condon principle"
+      ],
+      "why": "Once −ΔG° exceeds λ the rate falls with increasing driving force. This slows wasteful back reactions in photosynthesis and solar-energy conversion."
+    }
+  ],
   "summary": [
     "Labile complexes react in under a minute; inert ones are slower. d³ and low-spin d⁶ octahedral complexes, and 4d and 5d metals, are inert. High-spin d⁴ and d⁹ are labile.",
     "Octahedral substitution is usually dissociative interchange, described by the Eigen–Wilkins mechanism. Base hydrolysis of Co(III) ammines follows SN1CB.",

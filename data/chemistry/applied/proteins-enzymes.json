@@ -432,6 +432,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "Arginine has pKa values of 2.17 (α-COOH), 9.04 (α-NH₃⁺) and 12.48 (guanidinium side chain). What is its pI?",
+      "a": "10.76",
+      "wrong": [
+        "5.61",
+        "7.33",
+        "7.90"
+      ],
+      "why": "The neutral form lies between loss of the α-NH₃⁺ proton and loss of the side-chain proton, so pI = ½(9.04 + 12.48) = 10.76. The value 5.61 averages the two lowest pKa values, which is correct only without a basic side chain."
+    },
+    {
+      "q": "A side-chain carboxyl group has pKa 4.0. At pH 5.0, what is the ratio [COO⁻]/[COOH]?",
+      "a": "10",
+      "wrong": [
+        "1",
+        "0.1",
+        "100"
+      ],
+      "why": "Henderson–Hasselbalch gives log([base]/[acid]) = pH − pKa = 1, so the ratio is 10 (about 91% deprotonated). This is why Asp and Glu carry a negative charge at neutral pH."
+    },
+    {
+      "q": "Which peptide bond is most likely to be found in the cis configuration?",
+      "a": "An X–Pro bond, where the nitrogen belongs to proline's ring",
+      "wrong": [
+        "A Gly–Gly bond, since glycine has no side chain",
+        "A bond inside an α-helix, where the chain is tightly coiled",
+        "A bond preceding a bulky aromatic residue such as Trp"
+      ],
+      "why": "Resonance holds almost every peptide bond trans (ω = 180°); only about 5% of X–Pro bonds are cis. Glycine's lack of a side chain affects φ and ψ, not the trans preference of the peptide bond."
+    },
+    {
+      "q": "In a protease digest prepared for mass-spectrometric sequencing, trypsin cleaves on the C-terminal side of which residues?",
+      "a": "Lys and Arg",
+      "wrong": [
+        "Phe, Tyr and Trp",
+        "Asp and Glu",
+        "Ser and Thr"
+      ],
+      "why": "Trypsin cuts after the basic residues Lys and Arg. The large hydrophobic residues Phe, Tyr and Trp are the cleavage sites of chymotrypsin."
+    },
+    {
+      "q": "How long, along its axis, is an α-helix of 30 residues?",
+      "a": "45 Å",
+      "wrong": [
+        "99 Å",
+        "162 Å",
+        "8.3 Å"
+      ],
+      "why": "Each residue adds 1.5 Å along the helix axis, so 30 × 1.5 = 45 Å. The 99 Å figure uses the ≈3.3 Å rise per residue of an extended β-strand, and 8.3 is the number of turns (30/3.6), not a length."
+    },
+    {
+      "q": "Which statement about the stability of a native protein is correct?",
+      "a": "ΔG(unfolding) is only 20–60 kJ mol⁻¹, the small net of large opposing terms",
+      "wrong": [
+        "ΔG(unfolding) is several hundred kJ mol⁻¹, because hundreds of strong hydrogen bonds act independently",
+        "ΔG(unfolding) is negative, so the unfolded state is stable and chaperones hold the fold in place",
+        "ΔG(unfolding) is 20–60 kJ mol⁻¹ and purely enthalpic, with no entropic contribution"
+      ],
+      "why": "Favorable interactions (hydrophobic effect, hydrogen bonds, salt bridges, packing) nearly cancel the unfavorable loss of chain entropy, leaving a marginal stability. Entropy matters on both sides: the solvent gains entropy when nonpolar groups are buried."
+    },
+    {
+      "q": "Ribonuclease A was unfolded with urea and β-mercaptoethanol, which also reduces its disulfides, and regained full activity when both were removed. What does this show?",
+      "a": "The amino acid sequence contains the information that specifies the native fold",
+      "wrong": [
+        "Disulfide bonds must stay intact for a protein to refold",
+        "Chaperones are required to fold every protein",
+        "The native state is a kinetic trap, not the free-energy minimum"
+      ],
+      "why": "Refolding without any cell machinery, even after the disulfides were reduced, means the sequence alone determines the fold, and the native state is the global free-energy minimum. Chaperones only prevent aggregation in the crowded cell."
+    },
+    {
+      "q": "In SDS-PAGE, standards of 100 kDa and 10 kDa migrate 2.0 cm and 6.0 cm. If log(M) is linear in distance, a band at 4.0 cm has a mass of about…",
+      "a": "32 kDa",
+      "wrong": [
+        "55 kDa",
+        "20 kDa",
+        "14 kDa"
+      ],
+      "why": "Log M falls from 2 to 1 over 4 cm, so at the midpoint log M = 1.5 and M = 10^1.5 ≈ 32 kDa. The value 55 kDa is the arithmetic midpoint, which ignores the logarithmic relation."
+    },
+    {
+      "q": "Myoglobin has P₅₀ = 2.8 torr. At what pO₂ is it 90% saturated?",
+      "a": "25 torr",
+      "wrong": [
+        "28 torr",
+        "14 torr",
+        "3.1 torr"
+      ],
+      "why": "From Y = p/(P₅₀ + p) = 0.9, p = 9 P₅₀ = 25 torr. This is why myoglobin is nearly saturated at tissue pressures of 20–30 torr and holds on to its oxygen."
+    },
+    {
+      "q": "During exercise a muscle has a lower pH and a higher CO₂ level. How does this change oxygen binding by hemoglobin there?",
+      "a": "Affinity falls (the curve shifts right), so more O₂ is released",
+      "wrong": [
+        "Affinity rises (the curve shifts left), so hemoglobin holds O₂ more tightly where it is needed",
+        "Cooperativity is abolished and the curve becomes hyperbolic like myoglobin's",
+        "Affinity is unchanged; only the Hill coefficient changes"
+      ],
+      "why": "H⁺ and CO₂ stabilize the low-affinity T state (the Bohr effect), raising P₅₀. Hemoglobin therefore unloads more O₂ in the active, acidic tissue that needs it."
+    },
+    {
+      "q": "Chymotrypsin acts on the peptide Ala–Phe–Gly–Lys–Ser. Which bond does it cleave?",
+      "a": "Phe–Gly",
+      "wrong": [
+        "Ala–Phe",
+        "Gly–Lys",
+        "Lys–Ser"
+      ],
+      "why": "Chymotrypsin cuts on the C-terminal side of large hydrophobic residues (Phe, Tyr, Trp), which fit its hydrophobic pocket, so the Phe–Gly bond is cleaved. Lys–Ser would be a trypsin site."
+    },
+    {
+      "q": "What is the role of Asp102 in the chymotrypsin catalytic triad?",
+      "a": "It orients His57 and stabilizes its positive charge",
+      "wrong": [
+        "It attacks the carbonyl carbon as the nucleophile",
+        "It forms the oxyanion hole with backbone N–H groups",
+        "It donates a proton directly to the leaving amine"
+      ],
+      "why": "Asp102 holds His57 in position so that His57 can remove the proton from Ser195 (making it a strong nucleophile) and later protonate the leaving amine. The nucleophile is Ser195, and the oxyanion hole is made of backbone N–H groups."
+    },
+    {
+      "q": "Suppose an enzyme's active site were perfectly complementary to the substrate rather than to the transition state. What would be the expected effect on catalysis?",
+      "a": "Little rate enhancement, since the substrate would be stabilized as much as the transition state",
+      "wrong": [
+        "The fastest possible catalysis, since the tightest substrate binding gives the lowest barrier",
+        "No effect, since the rate depends only on the ΔG° of the reaction",
+        "Catalysis of the reverse reaction only"
+      ],
+      "why": "Catalysis comes from binding the transition state more tightly than the substrate, which lowers ΔG‡. Strong ground-state binding lowers the energy of the substrate as well and so does not lower the barrier."
+    },
+    {
+      "q": "Enzyme A has k_cat = 50 s⁻¹ and K_m = 5 µM; enzyme B has k_cat = 5000 s⁻¹ and K_m = 5 mM. Which is the better catalyst at low [S]?",
+      "a": "A, by a factor of 10",
+      "wrong": [
+        "B, by a factor of 100, since its k_cat is 100 times larger",
+        "B, by a factor of 10",
+        "They are equally efficient"
+      ],
+      "why": "At low [S] the rate is governed by k_cat/K_m: A has 50/(5 × 10⁻⁶) = 10⁷ M⁻¹ s⁻¹ and B has 5000/(5 × 10⁻³) = 10⁶ M⁻¹ s⁻¹. B's larger k_cat is outweighed by its 1000-fold larger K_m."
+    },
+    {
+      "q": "An enzyme has K_m = 4.0 mM. A competitive inhibitor (K_i = 0.50 mM) is present at 2.0 mM. What [S] gives half of V_max?",
+      "a": "20 mM",
+      "wrong": [
+        "8.0 mM",
+        "4.0 mM",
+        "0.80 mM"
+      ],
+      "why": "α = 1 + [I]/K_i = 1 + 2.0/0.50 = 5, so K_m,app = 20 mM. V_max is unchanged by a competitive inhibitor, so half of it is reached at [S] = K_m,app."
+    },
+    {
+      "q": "As [S] is raised, the ratio of the rate with inhibitor to the rate without it falls for which kind of reversible inhibitor?",
+      "a": "Uncompetitive, which binds only ES, and ES accumulates as [S] rises",
+      "wrong": [
+        "Competitive",
+        "Pure noncompetitive",
+        "None; high [S] overcomes every reversible inhibitor"
+      ],
+      "why": "An uncompetitive inhibitor binds only the ES complex, so more substrate means more target and stronger inhibition. A competitive inhibitor is displaced by substrate, and a pure noncompetitive inhibitor lowers the rate by the same fraction at every [S]."
+    },
+    {
+      "q": "How does penicillin inactivate its target enzyme?",
+      "a": "It acylates the active-site serine of the bacterial transpeptidase, mimicking D-Ala-D-Ala",
+      "wrong": [
+        "It phosphorylates the active-site serine of acetylcholinesterase",
+        "It binds reversibly at an allosteric site of the cell-wall enzyme",
+        "It competes with ATP for the active site of DNA polymerase"
+      ],
+      "why": "Penicillin is a structural mimic of the D-Ala-D-Ala substrate and forms a covalent acyl-enzyme with the serine of the transpeptidase that cross-links the cell wall. Phosphorylation of a serine is the mechanism of organophosphate nerve agents."
+    },
+    {
+      "q": "In the MWC (concerted) model, what does an allosteric inhibitor do?",
+      "a": "It binds a regulatory site and stabilizes the low-affinity T state",
+      "wrong": [
+        "It occupies the active site and competes directly with substrate",
+        "It is phosphorylated by a kinase on a Ser residue",
+        "It is cleaved from a zymogen to switch the enzyme off"
+      ],
+      "why": "Allosteric effectors bind a site separate from the active site and shift the equilibrium between the T and R states; an inhibitor favors T. Phosphorylation and zymogen cleavage are other regulatory mechanisms."
+    }
+  ],
   "summary": [
     "Amino acids are zwitterions near neutral pH; pI is the mean of the pKa values around the neutral form. Peptide bonds are planar and trans because of resonance, leaving φ and ψ as the only backbone freedom.",
     "Secondary structure: α-helix (3.6 residues/turn, i → i+4 hydrogen bonds), β-sheet, turns. Tertiary structure is driven by the hydrophobic effect and held by hydrogen bonds, salt bridges and disulfides. The sequence determines the fold (Anfinsen).",

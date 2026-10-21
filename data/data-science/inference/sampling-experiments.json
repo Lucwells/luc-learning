@@ -347,6 +347,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A random sample of 400 voters finds that 20% support a measure. What is the standard error of the sample proportion?",
+      "a": "0.02",
+      "wrong": [
+        "0.0004",
+        "0.04",
+        "0.4"
+      ],
+      "why": "SE = √(p(1 − p)/n) = √(0.2 × 0.8/400) = √0.0004 = 0.02. Forgetting the square root gives 0.0004, and 0.04 is the margin of error (about 2 SE)."
+    },
+    {
+      "q": "The standard error of a sample mean is 8 when n = 50. What sample size gives a standard error of 2?",
+      "a": "800",
+      "wrong": [
+        "200",
+        "100",
+        "400"
+      ],
+      "why": "The standard error is proportional to 1/√n. Dividing it by 4 requires multiplying n by 4² = 16, and 50 × 16 = 800."
+    },
+    {
+      "q": "A population consists of the four values 1, 2, 3 and 6, with variance 3.5. Samples of size 2 are drawn with replacement. What is the variance of the sample mean?",
+      "a": "1.75",
+      "wrong": [
+        "3.5",
+        "0.875",
+        "7"
+      ],
+      "why": "For independent draws the variance of the sample mean is σ²/n = 3.5/2 = 1.75. The variance of the data, 3.5, describes individual values, not means."
+    },
+    {
+      "q": "A poll takes 1000 random respondents from a town of 50,000 and another poll takes 1000 from a country of 50 million. Both populations have the same variance. How do the precisions compare?",
+      "a": "They are almost identical, since precision depends on the absolute sample size",
+      "wrong": [
+        "The town poll is far more precise because it covers a larger fraction of its population",
+        "The country poll is far more precise because its population is larger",
+        "The town poll is exactly twice as precise as the country poll"
+      ],
+      "why": "The finite population correction is √(1 − 1000/50,000) ≈ 0.99 for the town and about 1 for the country. Unless the sample is a sizable share of the population, only n matters."
+    },
+    {
+      "q": "Researchers randomly choose 10 villages and survey every household in each. What is this design, and what is its main drawback?",
+      "a": "A cluster sample, which is less precise than a random sample of equal size",
+      "wrong": [
+        "A stratified sample, whose main drawback is that stratum sizes must be known beforehand",
+        "A systematic sample, whose main drawback is alignment with a periodic pattern in the list",
+        "A convenience sample, whose main drawback is that its error cannot be bounded at all"
+      ],
+      "why": "Sampling whole groups is cheap, but households in one village are similar, so each adds less new information than an independent draw. The effect is measured by the design effect."
+    },
+    {
+      "q": "An analysis of mutual funds that exist today reports a high average return over the past 20 years. What is a major flaw?",
+      "a": "Survivorship bias: funds that did badly and closed are missing",
+      "wrong": [
+        "Non-response bias: some funds refused to report their returns to the researchers",
+        "Measurement bias: returns are reported in percent instead of in dollars",
+        "Voluntary response: investors chose which funds would be included in the data"
+      ],
+      "why": "Only units that survived a filter are observed, so the sample is skewed toward successes. The failed funds had the same strategies but are absent from the data."
+    },
+    {
+      "q": "What sample size does a simple random sample need for a worst-case 95% margin of error of about 2 percentage points?",
+      "a": "About 2,400",
+      "wrong": [
+        "About 1,200",
+        "About 4,800",
+        "About 9,600"
+      ],
+      "why": "n ≈ 0.96/ME² = 0.96/0.02² = 2400. Halving the margin from 4 points would need four times the sample, and ±1 point needs 9,600."
+    },
+    {
+      "q": "A survey of 1900 respondents uses clusters of m = 10, with intra-cluster correlation ρ = 0.1. What is the approximate effective sample size?",
+      "a": "1000",
+      "wrong": [
+        "190",
+        "1710",
+        "3610"
+      ],
+      "why": "The design effect is 1 + (m − 1)ρ = 1 + 9 × 0.1 = 1.9. The effective sample size is 1900/1.9 = 1000, so clustering costs almost half the information."
+    },
+    {
+      "q": "An interviewer records sales on every 7th day, starting from a Monday, in a shop with a strong weekly cycle. What is the weakness of this systematic sample?",
+      "a": "The interval matches the weekly cycle, so every sampled day is a Monday",
+      "wrong": [
+        "Days far apart in time resemble each other too much to add information",
+        "Systematic samples cannot be applied to data that are indexed by dates",
+        "Each day has equal probability, so the sample is unbiased but expensive to collect"
+      ],
+      "why": "Taking every k-th unit can line up with a periodic pattern in the list, producing a sample that is not representative of the full cycle."
+    },
+    {
+      "q": "Six patients are to be split at random into a treatment group of 3 and a control group of 3. How many equally likely assignments are there?",
+      "a": "20",
+      "wrong": [
+        "6",
+        "15",
+        "120"
+      ],
+      "why": "The number of ways to choose which 3 of 6 are treated is C(6, 3) = 20. Randomization picks one of them with equal probability, which is what balances the groups on average."
+    },
+    {
+      "q": "A trial is run in three hospitals whose patients differ in severity. Patients are randomized to treatment or control separately within each hospital. What is this design called, and what does it achieve?",
+      "a": "Blocking; it balances hospital exactly and improves precision",
+      "wrong": [
+        "Blinding; it keeps patients from knowing their group",
+        "Cluster sampling; it randomizes whole hospitals to a treatment",
+        "Replication; it repeats the trial until the effect is significant"
+      ],
+      "why": "Grouping units by a variable known to affect the outcome and randomizing within the groups removes that variable from the comparison, as stratification does for samples."
+    },
+    {
+      "q": "An A/B test is planned as a 50/50 split of visitors. After a day, 12,000 visitors have seen version A and 8,000 version B. What does this suggest?",
+      "a": "A sample-ratio mismatch, which points to a bug in the assignment",
+      "wrong": [
+        "Normal random variation, since group sizes never match exactly",
+        "That version B is less appealing, since fewer people chose it",
+        "That the test has high power, because one group is larger"
+      ],
+      "why": "Assignment is random and does not depend on the visitor's response, so the group sizes should be close to equal. A large imbalance means the assignment or logging is broken and the results cannot be trusted."
+    },
+    {
+      "q": "A team checks an A/B test every morning and stops it the first day the p-value drops below 0.05. What is the problem?",
+      "a": "Repeated peeking inflates the false-positive rate",
+      "wrong": [
+        "Stopping early always lowers the power of the test to exactly zero",
+        "P-values cannot be computed before the planned end date of the test",
+        "It makes the two groups unequal in size by the end of the test"
+      ],
+      "why": "Every look is another chance to see a spurious significant result. The sample size and stopping rule should be fixed before the test starts."
+    },
+    {
+      "q": "A randomized test of a checkout design in the US in December shows a clear lift. The company plans to roll it out in Japan in July. What is the main concern?",
+      "a": "External validity: the effect may not carry over to another population and season",
+      "wrong": [
+        "Internal validity: randomization cannot show a causal effect in the first place",
+        "Blinding: users must not be told which design they have been shown",
+        "Selection bias: the US visitors chose which design they wanted to see"
+      ],
+      "why": "Randomization secures a causal estimate for the participants in the study. Whether it transfers to other people, places or times depends on how similar the setting is."
+    },
+    {
+      "q": "A model is trained with 90% of the examples from group A and 10% from group B, but deployment is 60% A and 40% B. What importance weight should each group B example get?",
+      "a": "4",
+      "wrong": [
+        "0.25",
+        "0.4",
+        "0.67"
+      ],
+      "why": "The weight is the deployment share divided by the training share: 0.4/0.1 = 4. Group A examples get 0.6/0.9 = 0.67."
+    },
+    {
+      "q": "A recommender is retrained every week on the clicks it received. Why does this threaten the quality of its data?",
+      "a": "It only sees outcomes for items it chose to show",
+      "wrong": [
+        "Clicks are measured with too much random error to be useful",
+        "The training set grows too large to fit in memory",
+        "Items that were shown can no longer be clicked again"
+      ],
+      "why": "The model's own decisions determine which outcomes are observed. This feedback loop makes the retraining data a biased reflection of the model's past behavior."
+    },
+    {
+      "q": "A model predicts outcomes per patient, and each patient has several visits in the data. The rows are split into training and test sets at random. What goes wrong?",
+      "a": "The same patient appears in both sets, so the reported accuracy is optimistic",
+      "wrong": [
+        "The classes become imbalanced in the training set",
+        "The test set becomes too small to compute any accuracy",
+        "The training labels are no longer random"
+      ],
+      "why": "The test set must mimic the deployment case of new patients. Splitting by patient keeps all visits of a person on one side."
+    },
+    {
+      "q": "A fraud model's input features have the same distribution as before, but fraudsters have changed their methods, so the same inputs now indicate fraud with a different probability. What is this?",
+      "a": "Concept drift, a change in the relationship between inputs and outputs",
+      "wrong": [
+        "Covariate shift, a change in the distribution of the inputs",
+        "Survivorship bias, since failed attempts are not observed",
+        "Voluntary response bias, since fraudsters report themselves"
+      ],
+      "why": "Covariate shift changes how often inputs occur, while concept drift changes what the inputs mean for the label. The first can be reweighted, but the second requires retraining on new data."
+    }
+  ],
   "summary": [
     "Parameters describe a population, and statistics are computed from a sample. The sampling distribution of a statistic shows its variability; the standard error of a mean is σ/√n, of a proportion √(p(1 − p)/n). Precision depends on the sample size, not on the fraction of the population.",
     "Random sampling (simple, stratified, cluster) supports inference. Convenience and voluntary samples have unknown bias. Bias does not shrink with n: a huge biased sample is precisely wrong (Literary Digest 1936).",

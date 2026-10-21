@@ -265,6 +265,178 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "Nudging x up by 1 changes q by +3, and nudging q up by 1 changes f by −2. By the chain rule, how much does nudging x up by 1 change f?",
+      "a": "−6",
+      "wrong": [
+        "1",
+        "−5",
+        "6"
+      ],
+      "why": "Effects along a chain multiply: 3 × (−2) = −6. Adding them (to get +1) is the mistake the chain rule is meant to avoid."
+    },
+    {
+      "q": "A node u feeds two nodes: ∂f/∂v₁ = 2 with ∂v₁/∂u = 3, and ∂f/∂v₂ = −1 with ∂v₂/∂u = 4. What is ∂f/∂u?",
+      "a": "2",
+      "wrong": [
+        "−24",
+        "6",
+        "−4"
+      ],
+      "why": "Gradients from different paths add: (2)(3) + (−1)(4) = 6 − 4 = 2. Each path's contribution is a product, but the paths are summed, not multiplied."
+    },
+    {
+      "q": "For f = a·b + b with a = 3 and b = 2, what is ∂f/∂b?",
+      "a": "4",
+      "wrong": [
+        "3",
+        "1",
+        "6"
+      ],
+      "why": "The variable b feeds two nodes. The product node contributes a = 3, and the addition contributes 1, so the gradients sum to 4."
+    },
+    {
+      "q": "Why is backpropagation suitable for training a network whose loss is a scalar and whose parameters number in the millions?",
+      "a": "One backward sweep gives the derivative with respect to every parameter, at about the cost of one forward pass",
+      "wrong": [
+        "It estimates the gradient from a small random subset of the parameters and ignores the rest",
+        "It avoids the forward pass by working directly from the labels",
+        "It computes one parameter's derivative at a time, but very cheaply"
+      ],
+      "why": "Reverse mode shares the work between parameters, so the cost does not grow with their number. Perturbing each parameter in turn would need one forward pass each."
+    },
+    {
+      "q": "A softmax output with cross-entropy loss gives probabilities (0.2, 0.5, 0.3), and the true class is the third. What is the output error signal δ^{[L]}?",
+      "a": "(0.2, 0.5, −0.7)",
+      "wrong": [
+        "(−0.2, −0.5, 0.7)",
+        "(0.2, 0.5, 0.7)",
+        "(0, 0, −0.7)"
+      ],
+      "why": "δ^{[L]} = a^{[L]} − y, with y = (0, 0, 1) one-hot. The wrong classes keep their predicted probabilities and the true class gets p − 1."
+    },
+    {
+      "q": "A hidden layer of two ReLU units feeds one unit through W^{[l+1]} = [2, −3], and δ^{[l+1]} = 0.5. The first unit is active and the second has z < 0. What is δ^{[l]}?",
+      "a": "(1, 0)",
+      "wrong": [
+        "(1, −1.5)",
+        "(0, −1.5)",
+        "(2, −3)"
+      ],
+      "why": "Multiplying (W^{[l+1]})ᵀδ^{[l+1]} = (1, −1.5) and gating by g′ = (1, 0) gives (1, 0). The inactive unit gets no error signal."
+    },
+    {
+      "q": "A layer has error signal δ^{[l]} = (0.4, −0.2) and input activation a^{[l−1]} = (1, 3). What is ∂J/∂W^{[l]}?",
+      "a": "[[0.4, 1.2], [−0.2, −0.6]]",
+      "wrong": [
+        "[[0.4, −0.2], [1.2, −0.6]]",
+        "[[0.4, 1.2], [0.2, 0.6]]",
+        "−0.2"
+      ],
+      "why": "The gradient is the outer product δ aᵀ, with row i scaled by δᵢ and column j by aⱼ. Its shape matches W^{[l]}, so a single number cannot be right."
+    },
+    {
+      "q": "Why must the forward pass store z^{[l]} and a^{[l]} for later use?",
+      "a": "The backward pass needs a^{[l−1]} for the weight gradients and z^{[l]} to evaluate g′",
+      "wrong": [
+        "They are needed to compute the loss a second time after the weights have been updated",
+        "Gradient descent updates the activations as well as the weights",
+        "The labels are recovered from them during the backward pass"
+      ],
+      "why": "The weight gradient is δ a^{[l−1]ᵀ}, and the error signal uses g′(z^{[l]}). Recomputing them would repeat the forward pass."
+    },
+    {
+      "q": "A hidden-layer error signal is coded as δ^{[l]} = W^{[l+1]} δ^{[l+1]} ⊙ g′(z^{[l]}), with W^{[l+1]} of shape n_{l+1} × n_l. What is wrong?",
+      "a": "The shapes do not fit: the transpose is needed to carry error from n_{l+1} units back to n_l units",
+      "wrong": [
+        "Nothing; the transpose only matters for the output layer",
+        "The product with g′ should be an ordinary matrix product, not elementwise",
+        "The bias term should be added before applying g′"
+      ],
+      "why": "W^{[l+1]} maps n_l inputs to n_{l+1} outputs, so the backward map is its transpose. Without it the product is not even defined unless the layers have equal size."
+    },
+    {
+      "q": "The derivative g′ of a sigmoid unit at z = 5 is closest to",
+      "a": "0.007",
+      "wrong": [
+        "0.25",
+        "0.99",
+        "0.5"
+      ],
+      "why": "g′ = g(1 − g) with g = σ(5) ≈ 0.9933 gives 0.0066. The value 0.25 is the maximum, reached only at z = 0, so a saturated unit passes almost no gradient."
+    },
+    {
+      "q": "Through 6 sigmoid layers, each contributing a backward factor of at most 0.25, the gradient at layer 1 is scaled by at most about",
+      "a": "2.4 × 10⁻⁴",
+      "wrong": [
+        "1.5",
+        "0.04",
+        "1.6 × 10⁻²"
+      ],
+      "why": "The factors multiply: 0.25⁶ = 1/4096 ≈ 2.4 × 10⁻⁴. Adding or dividing the factors would not show the exponential decay."
+    },
+    {
+      "q": "A gradient g = (30, 40) is clipped to a norm threshold of 5. What is the result?",
+      "a": "(3, 4)",
+      "wrong": [
+        "(5, 5)",
+        "(0.6, 0.8)",
+        "(6, 8)"
+      ],
+      "why": "The norm is 50, so the vector is scaled by 5/50 = 0.1, keeping its direction. Clipping each coordinate to 5 would change the direction."
+    },
+    {
+      "q": "In a linear stack of 20 layers, every weight matrix scales vectors by a factor of 1.5. By what factor does the backward gradient grow from the output to layer 1?",
+      "a": "About 3 × 10³",
+      "wrong": [
+        "About 30",
+        "About 3 × 10⁻⁴",
+        "1.5"
+      ],
+      "why": "The factors multiply, so the growth is 1.5²⁰ ≈ 3325. Growth is exponential in depth, which is what makes the updates explode."
+    },
+    {
+      "q": "Using a central difference with ε = 0.1, what is the numerical derivative of J(θ) = θ³ at θ = 1?",
+      "a": "3.01",
+      "wrong": [
+        "3.31",
+        "2.71",
+        "3.00"
+      ],
+      "why": "(1.1³ − 0.9³)/0.2 = (1.331 − 0.729)/0.2 = 3.01. The forward difference gives 3.31 and the backward difference gives 2.71, both with larger error."
+    },
+    {
+      "q": "A gradient check gives a relative difference of about 10⁻² between the analytic and numeric gradients. The best conclusion is",
+      "a": "There is likely a bug in the analytic gradient",
+      "wrong": [
+        "The gradient is correct, since finite differences are only approximate",
+        "The numeric gradient is wrong, because ε is too large",
+        "The network is too small for the check to be meaningful"
+      ],
+      "why": "With ε ≈ 10⁻⁵ in double precision, a correct implementation agrees to about 10⁻⁷ or better. Values near 10⁻³ or above point to an error such as a wrong transpose."
+    },
+    {
+      "q": "Why is dropout turned off during a gradient check?",
+      "a": "Random masks change J between the two evaluations, so the difference would not measure the derivative",
+      "wrong": [
+        "Dropout has no gradient",
+        "Dropout makes the central difference one-sided",
+        "Dropout needs single precision to work correctly"
+      ],
+      "why": "The check compares J(θ + ε) and J(θ − ε) for the same network. A fresh random mask for each evaluation adds noise much larger than the tiny difference."
+    },
+    {
+      "q": "A network cannot reach near-zero loss when trained on just 10 examples. The most likely cause is",
+      "a": "A bug or an optimization problem, such as wrong gradients or a bad learning rate",
+      "wrong": [
+        "Overfitting to the 10 examples",
+        "Too little data for the network to learn from",
+        "The loss is already at the noise floor"
+      ],
+      "why": "A network with enough capacity should memorize 10 examples easily. Failure to do so signals that something in the code or training setup is broken."
+    }
+  ],
   "summary": [
     "A computational graph breaks a computation into simple operations. Reverse-mode differentiation sends gradients backward, multiplying the upstream gradient by each local gradient.",
     "For a fully connected network: δ^{[L]} = a^{[L]} − y; δ^{[l]} = (W^{[l+1]ᵀ}δ^{[l+1]}) ⊙ g′(z^{[l]}); ∂J/∂W^{[l]} = δ^{[l]}a^{[l−1]ᵀ}; ∂J/∂b^{[l]} = δ^{[l]}.",

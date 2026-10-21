@@ -267,6 +267,178 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "In exponential family form, the natural parameter of a Bernoulli(φ) distribution is",
+      "a": "the log-odds ln(φ/(1 − φ))",
+      "wrong": [
+        "the probability φ itself",
+        "ln φ",
+        "the odds φ/(1 − φ) before taking logs"
+      ],
+      "why": "Writing φ^y(1 − φ)^{1−y} as exp(y ln(φ/(1 − φ)) + ln(1 − φ)) shows that the coefficient multiplying y is the log-odds."
+    },
+    {
+      "q": "In p(y; η) = b(y) exp(ηᵀT(y) − a(η)), what is the job of the log-partition function a(η)?",
+      "a": "It makes the distribution sum or integrate to 1",
+      "wrong": [
+        "It carries all the dependence of the distribution on y",
+        "It maps the natural parameter to the linear predictor",
+        "It is the sufficient statistic of the data"
+      ],
+      "why": "The factor exp(−a(η)) normalizes the distribution. The dependence on y alone sits in b(y) and T(y)."
+    },
+    {
+      "q": "For a Bernoulli distribution with η = 0 (log-odds of zero), the mean and variance, from a′(η) and a″(η), are",
+      "a": "0.5 and 0.25",
+      "wrong": [
+        "0 and 1",
+        "0.5 and 0.5",
+        "1 and 0.25"
+      ],
+      "why": "With a(η) = ln(1 + e^η), a′ = e^η/(1 + e^η) = φ = 0.5 and a″ = φ(1 − φ) = 0.25."
+    },
+    {
+      "q": "Which of these is NOT one of the three assumptions defining a generalized linear model?",
+      "a": "The input features follow a Gaussian distribution",
+      "wrong": [
+        "Given x, y follows an exponential family distribution",
+        "The model's prediction is the expected value E[y | x]",
+        "The natural parameter is linear in x"
+      ],
+      "why": "A GLM is conditional on x and puts no distributional assumption on the inputs. The three assumptions concern the distribution of y, the prediction, and the linearity of η."
+    },
+    {
+      "q": "In Poisson regression with the canonical link, what are the response function (from η to the mean) and the link function?",
+      "a": "Response e^η, link ln",
+      "wrong": [
+        "Response ln, link e^η",
+        "Response η, link identity",
+        "Response 1/(1 + e^{−η}), link logit"
+      ],
+      "why": "The mean is λ = e^η, so the link, which maps the mean back to the linear predictor, is the logarithm. The logistic pair belongs to the Bernoulli case."
+    },
+    {
+      "q": "A Poisson regression has θ = (−0.5, 0.4) and x = (1, 5). The expected count is about",
+      "a": "4.48",
+      "wrong": [
+        "1.5",
+        "0.22",
+        "7.39"
+      ],
+      "why": "η = −0.5 + 0.4(5) = 1.5, so the mean is e^{1.5} ≈ 4.48. The value 1.5 is the linear predictor, which is not the mean."
+    },
+    {
+      "q": "In a Poisson regression, the coefficient on a binary indicator is −0.7. When the indicator is 1, the expected count is",
+      "a": "about half as large",
+      "wrong": [
+        "0.7 smaller in absolute terms",
+        "30% lower",
+        "negative, which means the model is misspecified"
+      ],
+      "why": "Effects are multiplicative: the rate ratio is e^{−0.7} ≈ 0.50. The subtractive readings treat the coefficient as an additive effect on the count."
+    },
+    {
+      "q": "A Poisson model is at θ = (0, 0). An example has x = (1, 2) and y = 3. The gradient of its log-likelihood is",
+      "a": "(2, 4)",
+      "wrong": [
+        "(−2, −4)",
+        "(3, 6)",
+        "(1, 2)"
+      ],
+      "why": "At θ = 0 the predicted mean is e⁰ = 1, so the gradient is (y − λ)x = (3 − 1)(1, 2) = (2, 4). Reversing the order of y and λ flips the sign."
+    },
+    {
+      "q": "Observed counts have a variance of about 12 while the fitted means are about 4. What is the issue and a remedy?",
+      "a": "Overdispersion: Poisson standard errors are too small, so use a negative binomial or quasi-likelihood model",
+      "wrong": [
+        "Underdispersion: the standard errors are too large, so add more features",
+        "Heteroscedastic Gaussian noise: switch to least squares on the counts",
+        "A wrong link: use the identity link so the mean can exceed the variance"
+      ],
+      "why": "A Poisson model forces variance to equal the mean. Real counts with larger variance make the reported standard errors misleadingly small."
+    },
+    {
+      "q": "A Poisson model counts accidents on roads of different lengths and should predict a rate per kilometer. What is added to the linear predictor η?",
+      "a": "ln(length) with its coefficient fixed at 1",
+      "wrong": [
+        "length itself with a fitted coefficient",
+        "ln(length) with a fitted coefficient",
+        "Nothing: the exponential response already adjusts for length"
+      ],
+      "why": "With ln(exposure) in η, the mean becomes exposure × e^{θᵀx}, so the rest of the model describes a rate. A fixed coefficient of 1 is what makes it a rate."
+    },
+    {
+      "q": "A categorical GLM has three classes and natural parameters η = (1, 1, 0). The probability of the third class is about",
+      "a": "0.16",
+      "wrong": [
+        "0",
+        "0.33",
+        "0.42"
+      ],
+      "why": "Softmax gives e⁰/(e + e + 1) = 1/6.44 ≈ 0.155. The value 0.42 is the probability of each of the first two classes."
+    },
+    {
+      "q": "Why does the categorical distribution over K classes need only K − 1 natural parameters?",
+      "a": "The probabilities sum to 1, so one class is fixed by the others and its η can be set to 0",
+      "wrong": [
+        "The last class is always the rarest and can be ignored",
+        "Only K − 1 of the classes appear in the training data",
+        "Softmax outputs are not normalized without dropping a class"
+      ],
+      "why": "Once φ₁, …, φ_{K−1} are known, φ_K = 1 − Σ of the others. The reference parameterization η_K = 0 is a convenience that keeps the softmax form."
+    },
+    {
+      "q": "For the categorical GLM with softmax probabilities φ_k, the gradient of the log-likelihood with respect to θ_k for one example is",
+      "a": "(1[y = k] − φ_k) x",
+      "wrong": [
+        "(φ_k − 1[y = k])² x",
+        "(1[y = k] − η_k) x",
+        "φ_k x"
+      ],
+      "why": "It has the same error-times-features form as every canonical-link GLM, with the indicator of the true class as the target."
+    },
+    {
+      "q": "The log-likelihood of a canonical-link GLM is concave in θ. What does this guarantee about gradient ascent?",
+      "a": "Any point where the gradient is zero is a global maximum, so the start does not matter",
+      "wrong": [
+        "It reaches a local maximum that depends on the starting point",
+        "It converges in a single step",
+        "It needs second derivatives to find the maximum"
+      ],
+      "why": "For a concave function every stationary point is a global maximum. Convergence speed is a separate matter, and no second derivatives are required."
+    },
+    {
+      "q": "In Newton's method for a canonical-link Poisson regression, viewed as iteratively reweighted least squares, the weight on example i is",
+      "a": "its current predicted mean λ_i",
+      "wrong": [
+        "1/λ_i",
+        "its squared residual (y_i − λ_i)²",
+        "1 for every example"
+      ],
+      "why": "The Hessian is −Xᵀ diag(a″) X, and for the Poisson a″ = λ is the variance. Each step is a least squares fit weighted by the current variances."
+    },
+    {
+      "q": "In generalized linear models, deviance is",
+      "a": "twice the gap in log-likelihood between a perfect (saturated) model and the fitted model",
+      "wrong": [
+        "twice the log-likelihood of the fitted model",
+        "the squared norm of the gradient at the optimum",
+        "the difference between the fitted mean and the fitted variance"
+      ],
+      "why": "Deviance is the GLM analogue of the residual sum of squares, and for Gaussian noise it equals exactly that sum of squares."
+    },
+    {
+      "q": "Probit regression for binary data uses a non-canonical link. Which statement is true?",
+      "a": "It is still a GLM, but the gradient no longer takes the form Σ(y − h)x",
+      "wrong": [
+        "It is not a GLM, because the response is not in an exponential family",
+        "Its gradient is still Σ(y − h)x, since every GLM has that form",
+        "Its log-likelihood cannot be maximized because it is not differentiable"
+      ],
+      "why": "The simple error-times-features gradient comes from choosing the natural parameter to be linear in x, which is the canonical link. Other monotone links still give valid GLMs."
+    }
+  ],
   "summary": [
     "An exponential family distribution has the form b(y) exp(ηᵀT(y) − a(η)). The derivatives of a(η) give the mean and variance.",
     "A GLM assumes that y follows an exponential family distribution, predicts its mean, and sets the natural parameter η = θᵀx.",

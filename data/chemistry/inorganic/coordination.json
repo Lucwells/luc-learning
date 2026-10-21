@@ -175,6 +175,116 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A cobalt(III) compound with formula CoBr₃·5NH₃ gives 2 mol of AgBr per mole with excess aqueous Ag⁺. Its formula is",
+      "a": "[Co(NH₃)₅Br]Br₂",
+      "wrong": ["[Co(NH₃)₅]Br₃", "[Co(NH₃)₅Br₂]Br", "[Co(NH₃)₄Br₂]Br·NH₃"],
+      "why": "Only the two bromides outside the coordination sphere precipitate. The third is bound to cobalt, which together with five ammonia molecules gives the coordination number 6."
+    },
+    {
+      "q": "In Werner’s description of [Co(NH₃)₆]Cl₃, which groups satisfy the secondary valence?",
+      "a": "The six NH₃ molecules bound directly to cobalt",
+      "wrong": ["The three chloride ions outside the sphere", "Both the NH₃ molecules and the chloride ions", "The three positive charges on cobalt"],
+      "why": "The secondary valence is the coordination number, satisfied by groups bound directly to the metal. The chlorides satisfy the primary valence (the +3 oxidation state) as counterions."
+    },
+    {
+      "q": "The green and violet forms of CoCl₃·4NH₃ were explained by Werner as",
+      "a": "cis and trans isomers of octahedral [Co(NH₃)₄Cl₂]⁺",
+      "wrong": ["ionization isomers, with Cl⁻ inside or outside the sphere", "cobalt in two different oxidation states", "tetrahedral and octahedral coordination of cobalt"],
+      "why": "Both forms precipitate one chloride, so both have two chlorides inside the sphere. The difference lies in whether those two chlorides are adjacent or opposite in the octahedron."
+    },
+    {
+      "q": "What is the coordination number of cobalt in [Co(en)₃]³⁺?",
+      "a": "6",
+      "wrong": ["3", "9", "4"],
+      "why": "The coordination number counts donor atoms, not ligands. Each bidentate en donates two nitrogens, giving 3 × 2 = 6."
+    },
+    {
+      "q": "Which ligand can bind a metal through either of two different donor atoms?",
+      "a": "NO₂⁻",
+      "wrong": ["oxalate, C₂O₄²⁻", "ethylenediamine", "EDTA⁴⁻"],
+      "why": "NO₂⁻ is ambidentate (nitro N-bound or nitrito O-bound). Oxalate, en and EDTA are chelating ligands that bind with several donors at once."
+    },
+    {
+      "q": "Which complex is most likely tetrahedral?",
+      "a": "[ZnCl₄]²⁻",
+      "wrong": ["[PtCl₄]²⁻", "[Ni(CN)₄]²⁻", "[Fe(H₂O)₆]³⁺"],
+      "why": "Zn²⁺ is d¹⁰ and Cl⁻ is a large ligand, so tetrahedral four-coordination is favored. The d⁸ ions Pt²⁺ and Ni²⁺ with strong ligands are square planar, and Fe³⁺ with water is six-coordinate."
+    },
+    {
+      "q": "What is the name of K[Ag(CN)₂]?",
+      "a": "Potassium dicyanoargentate(I)",
+      "wrong": ["Potassium dicyanosilver(I)", "Potassium dicyanoargentate(II)", "Dicyanoargentate(I) potassium"],
+      "why": "The cation is named first. The complex is an anion, so silver takes its Latin-derived -ate name, and the 1− charge with two CN⁻ gives Ag(I)."
+    },
+    {
+      "q": "Which is the correct name of [Co(en)₂Cl₂]Cl?",
+      "a": "Dichlorobis(ethylenediamine)cobalt(III) chloride",
+      "wrong": ["Bis(ethylenediamine)dichlorocobalt(III) chloride", "Dichlorodi(ethylenediamine)cobalt(III) chloride", "Dichlorobis(ethylenediamine)cobaltate(III) chloride"],
+      "why": "Ligands are alphabetized ignoring prefixes, so chloro precedes ethylenediamine. Bis- is used for ligand names that contain a numerical prefix, and a cationic complex keeps the metal name."
+    },
+    {
+      "q": "[Cu(NH₃)₄][PtCl₄] and [Pt(NH₃)₄][CuCl₄] are best described as",
+      "a": "coordination isomers",
+      "wrong": ["ionization isomers", "linkage isomers", "hydrate isomers"],
+      "why": "The ligands are swapped between the cationic and the anionic complex, which defines coordination isomerism. Ionization isomers exchange a ligand with a simple counterion."
+    },
+    {
+      "q": "How can [Co(NH₃)₅Br]SO₄ be distinguished from its isomer [Co(NH₃)₅SO₄]Br?",
+      "a": "Aqueous Ba²⁺ precipitates BaSO₄ from the first compound only",
+      "wrong": ["Aqueous Ag⁺ precipitates AgBr from the first compound only", "Aqueous Ba²⁺ precipitates BaSO₄ from both compounds", "Neither reagent gives a precipitate with either compound"],
+      "why": "Free sulfate counterions are present only in the first compound. In the second, sulfate is in the coordination sphere and the free ion is bromide, which gives AgBr."
+    },
+    {
+      "q": "Which statement about [Cr(ox)₃]³⁻ is correct?",
+      "a": "It is chiral and exists as Δ and Λ enantiomers",
+      "wrong": ["It is achiral because it has an inversion center", "It has fac and mer geometric isomers", "It is achiral because oxalate itself is symmetric"],
+      "why": "Three chelate rings arranged in a propeller have no improper axis, so the two handed forms cannot be superimposed. A symmetric ligand does not make the complex achiral."
+    },
+    {
+      "q": "How many geometric isomers does an octahedral complex of formula MA₃B₃ have?",
+      "a": "2",
+      "wrong": ["1", "3", "4"],
+      "why": "The three A ligands lie either on one triangular face (fac) or along a meridian (mer). Both are achiral."
+    },
+    {
+      "q": "log β for [Ni(en)₃]²⁺ is 18.3. Using RT ln 10 = 5.71 kJ mol⁻¹ at 298 K, ΔG° for its formation is about",
+      "a": "−104 kJ mol⁻¹",
+      "wrong": ["+104 kJ mol⁻¹", "−45 kJ mol⁻¹", "−18 kJ mol⁻¹"],
+      "why": "ΔG° = −RT ln β = −(5.71)(18.3) = −104 kJ mol⁻¹. Omitting ln 10 gives about −45, and the sign must be negative for a stable complex."
+    },
+    {
+      "q": "In [Cu(H₂O)₆]²⁺ + 3en → [Cu(en)₃]²⁺ + 6H₂O, the number of independent molecules or ions in solution changes from",
+      "a": "4 to 7",
+      "wrong": ["7 to 4", "4 to 4", "10 to 7"],
+      "why": "Reactants: 1 complex + 3 en = 4. Products: 1 complex + 6 water molecules = 7. The gain in particles gives ΔS° > 0, which is the chelate effect."
+    },
+    {
+      "q": "A metal ion binds a ligand with K₁ = 10³, K₂ = 10² and K₃ = 10. What is log β₃?",
+      "a": "6",
+      "wrong": ["2", "3", "9"],
+      "why": "β₃ = K₁K₂K₃ = 10³ × 10² × 10 = 10⁶, so log β₃ = 3 + 2 + 1 = 6. The average (2) and the largest term (3) are not the overall constant."
+    },
+    {
+      "q": "What explains the rise in complex stability from Mn²⁺ to Cu²⁺ in the Irving–Williams series?",
+      "a": "Decreasing ionic radius together with growing ligand-field stabilization",
+      "wrong": ["Increasing ionic radius, which lets more ligands fit", "Increasing number of unpaired electrons across the series", "Increasing oxidation state across the series"],
+      "why": "All the ions are divalent. Smaller radii give stronger electrostatic attraction, and the ligand-field stabilization increases, while Cu²⁺ gains further from Jahn–Teller distortion."
+    },
+    {
+      "q": "Which element is most likely to occur in nature as a sulfide mineral rather than as an oxide or silicate?",
+      "a": "Hg",
+      "wrong": ["Al", "Ti", "Mg"],
+      "why": "Hg²⁺ is a soft acid and pairs with the soft base sulfide. Al³⁺, Ti⁴⁺ and Mg²⁺ are hard acids and occur with hard oxygen donors."
+    },
+    {
+      "q": "Which set of ligands is expected to stabilize a metal in a low oxidation state?",
+      "a": "CO and PR₃",
+      "wrong": ["F⁻ and O²⁻", "OH⁻ and H₂O", "SO₄²⁻ and CO₃²⁻"],
+      "why": "Soft ligands such as CO and phosphines suit low-oxidation-state, soft metal centers. Small, hard ligands like fluoride stabilize high oxidation states such as CoF₃."
+    }
+  ],
   "summary": [
     "Werner’s theory: the metal has a primary valence (oxidation state) and a secondary valence (coordination number). Ligands in the coordination sphere are not precipitated or ionized.",
     "Ligands are classified by denticity. Octahedral (CN 6) is the commonest geometry; d⁸ Pt(II) and Pd(II) are square planar.",

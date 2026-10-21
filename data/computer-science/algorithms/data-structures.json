@@ -484,6 +484,178 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A sequence of n items is stored once as a dynamic array and once as a singly linked list. What does inserting a new item at the front cost in each?",
+      "a": "O(n) for the array and O(1) for the linked list",
+      "wrong": [
+        "O(1) for both",
+        "O(1) for the array and O(n) for the linked list",
+        "O(n) for both"
+      ],
+      "why": "Inserting at the front of an array shifts every item one place. In a linked list only the head pointer changes."
+    },
+    {
+      "q": "Summing the items of an array and of a linked list with the same n items are both O(n). Why is the array scan usually much faster in practice?",
+      "a": "Neighboring items sit next to each other in memory, which suits the cache",
+      "wrong": [
+        "The array needs fewer than n additions, because the linked list repeats some",
+        "The linked list nodes must be sorted before they can be read",
+        "Arrays are stored on a faster kind of memory than pointers are"
+      ],
+      "why": "Both do about n additions, but a contiguous array is read in cache-friendly order, whereas nodes scattered in memory cause many slow memory accesses. Big-O ignores this constant."
+    },
+    {
+      "q": "In to_list(head), the loop is: while node is not None: out.append(node.value), and the line node = node.next is accidentally deleted. What happens on a non-empty list?",
+      "a": "The loop never ends and keeps appending the first value",
+      "wrong": [
+        "It returns the list with only the first value",
+        "It raises an AttributeError after the first item",
+        "It returns the values in reverse order"
+      ],
+      "why": "Without the line that follows the pointer, node never changes, so the condition stays true forever. The list grows until memory runs out."
+    },
+    {
+      "q": "What does balanced('(()') return for the bracket checker that pushes openers, pops on closers and finally returns not stack?",
+      "a": "False",
+      "wrong": [
+        "True",
+        "None",
+        "It raises an error"
+      ],
+      "why": "No closer ever mismatches, but one '(' is left on the stack at the end, so not stack is False. The final emptiness check catches unclosed brackets."
+    },
+    {
+      "q": "Why can a deeply recursive function crash with a stack overflow?",
+      "a": "Every pending call adds a frame to the call stack, which has limited size",
+      "wrong": [
+        "Recursion repeatedly doubles the size of the call queue",
+        "Each recursive call copies the whole input into a hash table",
+        "A recursive function can only run for one step at a time"
+      ],
+      "why": "Function calls are managed by a stack. Frames of calls that have not yet returned accumulate, and Python caps the depth at about 1000."
+    },
+    {
+      "q": "Keys 3, 11, 19, 6, 14 are inserted by chaining into a table with M = 8 slots, using h(k) = k mod 8. What are the longest chain length and the load factor?",
+      "a": "3 and 0.625",
+      "wrong": [
+        "3 and 1.6",
+        "2 and 0.625",
+        "5 and 0.625"
+      ],
+      "why": "Keys 3, 11 and 19 all map to slot 3, and 6 and 14 map to slot 6, so the longest chain has 3 items. The load factor is 5 items / 8 slots = 0.625."
+    },
+    {
+      "q": "What does two_sum([3, 5, 2, 8], 10) return, if seen stores value → index and the loop checks target - x in seen before storing x?",
+      "a": "(2, 3)",
+      "wrong": [
+        "(1, 1)",
+        "(0, 3)",
+        "None"
+      ],
+      "why": "At x = 5 the needed partner 5 is not yet in seen, since it is stored only afterwards, so the same element is not used twice. At x = 8 the partner 2 is found at index 2."
+    },
+    {
+      "q": "What is the price of feature hashing compared with a vocabulary dictionary?",
+      "a": "Different features can collide on the same index",
+      "wrong": [
+        "The memory grows with the number of distinct features",
+        "It cannot handle features that were not seen in training",
+        "Each lookup needs O(n) time in the number of features"
+      ],
+      "why": "Feature hashing maps features to a fixed-size vector with h(feature) mod M and no dictionary, so memory stays fixed, but unrelated features occasionally share an index."
+    },
+    {
+      "q": "A Bloom filter reports that a URL has not been seen. What can you conclude?",
+      "a": "It definitely has not been seen",
+      "wrong": [
+        "It has probably been seen, because the filter errs on the side of caution",
+        "It has a 50% chance of being new, because two hash functions must agree",
+        "Nothing, since a Bloom filter reliably reports only positive answers"
+      ],
+      "why": "Bloom filters have no false negatives, only false positives. A 'seen' answer may be wrong, but a 'not seen' answer is always right."
+    },
+    {
+      "q": "Keys 8, 3, 10, 1, 6, 14, 4 are inserted in this order into an empty BST. What is the height of the tree in edges?",
+      "a": "3",
+      "wrong": [
+        "2",
+        "4",
+        "6"
+      ],
+      "why": "The longest path is 8 → 3 → 6 → 4, which has 3 edges. The order of insertion decides the shape of the tree."
+    },
+    {
+      "q": "A BST is built by inserting 4, 2, 6, 1, 3 in this order. What is its post-order traversal?",
+      "a": "1, 3, 2, 6, 4",
+      "wrong": [
+        "4, 2, 1, 3, 6",
+        "1, 2, 3, 4, 6",
+        "4, 2, 6, 1, 3"
+      ],
+      "why": "Post-order visits left subtree, right subtree, then the node. The second option is the in-order (sorted) traversal and the first is pre-order."
+    },
+    {
+      "q": "The min-heap [1, 4, 3, 9, 6] performs one extract-min. What is the array afterwards?",
+      "a": "[3, 4, 6, 9]",
+      "wrong": [
+        "[4, 6, 3, 9]",
+        "[6, 4, 3, 9]",
+        "[4, 3, 9, 6]"
+      ],
+      "why": "The root 1 is removed and the last item 6 moves to the root: [6, 4, 3, 9]. Sifting down swaps 6 with its smaller child 3, giving [3, 4, 6, 9]."
+    },
+    {
+      "q": "How long does it take to build a binary heap from n unsorted items by sifting down from the middle of the array?",
+      "a": "O(n)",
+      "wrong": [
+        "O(n log n)",
+        "O(log n)",
+        "O(n²)"
+      ],
+      "why": "Most nodes are near the bottom and sift down only a short distance, so the total work sums to O(n). Inserting the items one at a time would cost O(n log n)."
+    },
+    {
+      "q": "Why are database indexes usually B-trees rather than binary search trees?",
+      "a": "A node holds many keys and matches a disk block, so a lookup needs few disk reads",
+      "wrong": [
+        "A B-tree has no height, so every search takes one step",
+        "A B-tree needs no balancing, whatever the order of insertion",
+        "A B-tree stores its keys in a hash table inside each node"
+      ],
+      "why": "Reading a disk block is expensive. Many keys per node make the tree shallow, so only a few blocks have to be read, while the tree stays balanced."
+    },
+    {
+      "q": "A search box must list every stored word that begins with the typed prefix 'pre'. Which structure is the natural choice?",
+      "a": "A trie",
+      "wrong": [
+        "A hash table keyed by whole words",
+        "A stack",
+        "A min-heap"
+      ],
+      "why": "A trie shares nodes among words with a common prefix, so all matches lie below one node. A hash table finds only exact keys."
+    },
+    {
+      "q": "An LRU cache combines a hash table with a doubly linked list. What does the linked list provide?",
+      "a": "Moving an entry to the front in O(1) when it is used",
+      "wrong": [
+        "O(1) lookup of an entry by key",
+        "Keeping the entries sorted by key",
+        "Access to the i-th most recent entry in O(1)"
+      ],
+      "why": "The hash table gives the lookup by key. The doubly linked list reorders entries by recency with pointer changes, and the oldest entry sits at the other end."
+    },
+    {
+      "q": "A clustering program repeatedly merges groups of items and asks whether two items are already in the same group. Which structure fits best?",
+      "a": "Union–find (disjoint sets)",
+      "wrong": [
+        "A max-heap",
+        "A queue",
+        "A binary search tree of the items"
+      ],
+      "why": "Union–find supports 'union two groups' and 'are these in the same group?' in near-constant time. It is used in Kruskal's algorithm and single-linkage clustering."
+    }
+  ],
   "summary": [
     "Arrays give O(1) access and are cache-friendly. Dynamic arrays append in O(1) amortized. Linked lists insert in O(1) at a known node but access in O(i).",
     "Stacks are LIFO and queues are FIFO, both O(1). Stacks power recursion and DFS; queues power BFS and data pipelines; a priority queue serves the smallest item first.",

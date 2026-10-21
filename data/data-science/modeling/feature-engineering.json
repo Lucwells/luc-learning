@@ -343,6 +343,178 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A scaler is fit on training values 0, 0, 6, 6 using the population standard deviation. A test observation of 9 is then standardized with the training statistics. The result is",
+      "a": "2.0",
+      "wrong": [
+        "0.67",
+        "3.0",
+        "6.0"
+      ],
+      "why": "The training mean is 3 and the standard deviation is 3, so z = (9 − 3)/3 = 2. Dividing by the variance (9) gives 0.67, and forgetting to subtract the mean gives 3."
+    },
+    {
+      "q": "A column has one wildly extreme value from a data-entry error. Which scaling is least distorted by it?",
+      "a": "Robust scaling with the median and IQR",
+      "wrong": [
+        "Min–max scaling to [0, 1]",
+        "Standardization with the mean and standard deviation",
+        "Dividing every value by the column maximum"
+      ],
+      "why": "The median and IQR hardly move when one value is extreme. Min–max and maximum scaling squeeze the ordinary values into a tiny range, and the mean and standard deviation are both pulled by the outlier."
+    },
+    {
+      "q": "A count feature has many zeros and a long right tail. Which transform is a sensible way to tame the tail?",
+      "a": "log(1 + x)",
+      "wrong": [
+        "log(x), the plain logarithm of the count",
+        "x²",
+        "1/x"
+      ],
+      "why": "The logarithm compresses a right tail, and adding 1 keeps zeros defined. Plain log(x) is undefined at 0, while squaring would stretch the tail and 1/x is undefined at 0."
+    },
+    {
+      "q": "Why does the scale of a feature matter for a ridge (L2-penalized) regression?",
+      "a": "A feature measured in small units needs a large coefficient, which the penalty then punishes more heavily",
+      "wrong": [
+        "The penalty is added directly to the raw feature values before the model is fitted, so large columns dominate it",
+        "Gradient descent cannot be run on unscaled data",
+        "The intercept becomes zero unless features are scaled"
+      ],
+      "why": "The penalty acts on the size of the coefficients, and the same effect needs a coefficient inversely proportional to the feature's scale. Standardizing makes the penalty treat features alike."
+    },
+    {
+      "q": "A category has 30 rows with outcome mean 0.9. The global mean is 0.4 and the smoothing weight is m = 20. The smoothed target encoding is",
+      "a": "0.70",
+      "wrong": [
+        "0.90",
+        "0.65",
+        "0.40"
+      ],
+      "why": "(30 × 0.9 + 20 × 0.4)/(30 + 20) = 35/50 = 0.70. A plain average of the two means (0.65) ignores how many rows support the category."
+    },
+    {
+      "q": "What does an out-of-fold target encoding mean?",
+      "a": "Each row's encoding is computed from the labels of rows in the other folds only",
+      "wrong": [
+        "The encoding is computed only on the test set",
+        "Only categories that are absent from the training data are encoded, using the test set's label means",
+        "Every row is replaced by the global target mean"
+      ],
+      "why": "Excluding a row's own label (and those of its fold) from its feature stops the answer from leaking into the input. The model then cannot overfit the leaked label."
+    },
+    {
+      "q": "A new user id that never appeared in the training data shows up at prediction time. What is the best preparation?",
+      "a": "Map unknown categories to a defined bucket such as \"other\" or an all-zero one-hot row",
+      "wrong": [
+        "Refit the encoder on the new data before predicting",
+        "Encode it with the mean of the test labels",
+        "Drop the row from the prediction set and report predictions only for the known categories"
+      ],
+      "why": "A production pipeline needs an explicit rule for unseen categories. Refitting on new data, or using test labels, breaks the train/test separation."
+    },
+    {
+      "q": "Under the encoding (sin(2πh/24), cos(2πh/24)), the Euclidean distance between hour 0 and hour 6 is",
+      "a": "√2 ≈ 1.41",
+      "wrong": [
+        "6 (the gap between the integer hours)",
+        "1.0",
+        "2.0"
+      ],
+      "why": "Hour 0 maps to (0, 1) and hour 6 to (1, 0), a distance of √2. The value 6 is the integer gap, and 2.0 is the distance between hours 0 and 12, opposite points on the circle."
+    },
+    {
+      "q": "At the end of today you predict tomorrow's sales. Which feature is safe to use?",
+      "a": "The mean sales over the 7 days ending today",
+      "wrong": [
+        "The mean sales over the 7 days centered on tomorrow",
+        "Tomorrow's sales rank within the full-year history",
+        "The average sales of the whole data set, which extends past tomorrow"
+      ],
+      "why": "Only information available at prediction time may be used. The other options include tomorrow's value or later data, which would look excellent in validation and fail in production."
+    },
+    {
+      "q": "In a corpus of 200 documents, a word occurs 5 times in one document and appears in 25 documents overall. Its TF–IDF weight in that document (natural log) is about",
+      "a": "10.4",
+      "wrong": [
+        "40",
+        "2.1",
+        "−10.4"
+      ],
+      "why": "idf = ln(200/25) = ln 8 ≈ 2.08, and the weight is 5 × 2.08 ≈ 10.4. The value 40 omits the logarithm, 2.1 omits the term frequency, and inverting the ratio inside the log changes the sign."
+    },
+    {
+      "q": "Why can adding bigrams help a bag-of-words classifier of product reviews?",
+      "a": "They capture some word order, so \"not good\" is distinguished from \"good\"",
+      "wrong": [
+        "They shrink the vocabulary and so speed up training",
+        "They remove the influence of document length on word counts",
+        "They make tokenization unnecessary"
+      ],
+      "why": "A bag of single words ignores order. Pairs of consecutive words keep local context such as negation, at the cost of a much larger vocabulary."
+    },
+    {
+      "q": "An analyst standardizes the whole data set and then splits it into train and test sets. What is wrong?",
+      "a": "The mean and standard deviation include test rows, so information about the test set leaks into training",
+      "wrong": [
+        "The test set should be standardized with its own mean and standard deviation instead, so that it is on the same scale as the training set",
+        "Scaling before the split changes the labels of some rows",
+        "Nothing: scaling is unsupervised, so a leak is impossible"
+      ],
+      "why": "Every statistic learned from data must come from the training portion alone and be applied unchanged to the test portion. Scaling the test set with its own statistics would be inconsistent with training."
+    },
+    {
+      "q": "A model predicts a diagnosis from patient visits. Each patient has about three visits, and rows are randomly split into train and test. Why is the test score likely too optimistic?",
+      "a": "The same patient appears in both sets, so the model can recognize individuals rather than generalize to new ones",
+      "wrong": [
+        "Rows from one patient are always identical, so duplicates are removed",
+        "Random splitting always inflates accuracy, whatever the data, because test rows are always more similar to training rows than to new data",
+        "Patients with more visits are given larger weights in training"
+      ],
+      "why": "This is group leakage. Splitting by patient keeps all of one person's rows on the same side of the split."
+    },
+    {
+      "q": "A model validates well offline but degrades in production, where the feature code uses a different averaging window from the training code. This failure is called",
+      "a": "training-serving skew",
+      "wrong": [
+        "target leakage",
+        "group leakage",
+        "selection leakage (choosing by test results)"
+      ],
+      "why": "The transformation at prediction time differs from the one used in training. Saving the fitted pipeline with the model, or using a feature store, keeps them identical."
+    },
+    {
+      "q": "The L1 penalty in the lasso sets some coefficients to exactly zero. Feature selection of this kind is an example of",
+      "a": "an embedded method",
+      "wrong": [
+        "a filter method",
+        "a wrapper method",
+        "dimensionality reduction"
+      ],
+      "why": "The selection happens as part of fitting the model. A filter scores features before and independently of any model, and a wrapper searches over subsets using validation performance."
+    },
+    {
+      "q": "Two nearly identical copies of a feature are both in the model, and permuting either one barely lowers the validation score. What does this show?",
+      "a": "Little: the model can fall back on the other copy, so low importance does not mean the feature is uninformative",
+      "wrong": [
+        "Both features are noise and should be removed together",
+        "The model is overfitting to both features",
+        "The two features must have the same coefficient"
+      ],
+      "why": "Permutation importance measures how much the model relies on a feature. With correlated substitutes the reliance is shared, so each copy looks unimportant."
+    },
+    {
+      "q": "What is the main limitation of filter methods such as ranking features by correlation with the target?",
+      "a": "They score features one at a time, so they ignore interactions and redundancy among features",
+      "wrong": [
+        "They require a separate model to be fit for every subset of features",
+        "They overfit the validation set through repeated subset search",
+        "They cannot be used with numeric features"
+      ],
+      "why": "Filters are fast because they look at each feature alone, which also means they can keep many redundant features and miss pairs that matter only together. The costly subset search belongs to wrapper methods."
+    }
+  ],
   "summary": [
     "Features are the model's view of the world. Standardize for distance- and gradient-based models (trees need no scaling), use log transforms for skewed positive variables, clip outliers, and add ratios, interactions and polynomial terms from domain knowledge.",
     "One-hot encode nominal categories; use ordinal encoding only for ordered ones. Target encoding is powerful but leaks the label unless computed out of fold and smoothed: (n·mean + m·global)/(n + m). Group rare categories and handle unseen ones.",

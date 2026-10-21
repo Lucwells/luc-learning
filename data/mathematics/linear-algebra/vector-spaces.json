@@ -311,6 +311,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "Which of these sets is a subspace of ℝ³?",
+      "a": "{(x, y, z) : 2x − y + z = 0}",
+      "wrong": [
+        "{(x, y, z) : z ≥ 0}",
+        "{(x, y, z) : x = 1}",
+        "{(x, y, z) : xyz = 0}"
+      ],
+      "why": "The first is a plane through the origin, closed under addition and scaling. The set xyz = 0 is a union of three coordinate planes: (1, 1, 0) + (0, 0, 1) = (1, 1, 1) is not in it."
+    },
+    {
+      "q": "Which vector lies in the span of (1, 1, 0) and (0, 1, 1)?",
+      "a": "(2, 5, 3)",
+      "wrong": [
+        "(2, 5, 4)",
+        "(2, 3, 3)",
+        "(1, 0, 1)"
+      ],
+      "why": "c₁ = 2 from the first coordinate, c₁ + c₂ = 5 gives c₂ = 3, and the third coordinate equals c₂ = 3 ✓. The other vectors fail the third-coordinate check."
+    },
+    {
+      "q": "X is a 100 × 3 data matrix with independent columns. The set of all prediction vectors Xθ is",
+      "a": "a 3-dimensional subspace of ℝ¹⁰⁰",
+      "wrong": [
+        "all of ℝ¹⁰⁰, one dimension per example",
+        "a 97-dimensional subspace of ℝ¹⁰⁰",
+        "a 3-dimensional subspace of ℝ³"
+      ],
+      "why": "The predictions are combinations of the 3 columns, which live in ℝ¹⁰⁰, so they fill a 3-dimensional subspace. Most target vectors y lie outside it."
+    },
+    {
+      "q": "Which of these sets of vectors is linearly dependent?",
+      "a": "(1, 2, 3), (2, 3, 4), (3, 4, 5)",
+      "wrong": [
+        "(1, 1, 0), (1, 0, 1), (0, 1, 1)",
+        "(1, 0, 0), (1, 1, 0), (1, 1, 1)",
+        "(1, 2), (2, 1)"
+      ],
+      "why": "(1, 2, 3) + (3, 4, 5) = (4, 6, 8) = 2(2, 3, 4), a nontrivial relation. In each other set the only combination equal to zero has all coefficients 0."
+    },
+    {
+      "q": "Using the basis 1, x, x² of the polynomials of degree at most 2, what are the coordinates of 2x² − 5?",
+      "a": "(−5, 0, 2)",
+      "wrong": [
+        "(2, 0, −5)",
+        "(2, −5, 0)",
+        "(−5, 2, 0)"
+      ],
+      "why": "The coordinates are the coefficients of 1, x and x² in that order: −5 for 1, 0 for x, and 2 for x²."
+    },
+    {
+      "q": "Seven vectors are chosen in ℝ⁵. Which statement must be true?",
+      "a": "They are linearly dependent",
+      "wrong": [
+        "They span ℝ⁵",
+        "They span a 7-dimensional subspace",
+        "At least two of them are zero vectors"
+      ],
+      "why": "No more than 5 vectors in ℝ⁵ can be independent. Seven vectors may still fail to span ℝ⁵, for example if all are multiples of one vector."
+    },
+    {
+      "q": "In a regression, the third feature column equals twice the first minus the second. What does this do to least squares?",
+      "a": "Many different weight vectors achieve exactly the same minimal squared error",
+      "wrong": [
+        "No weight vector reaches the minimum, so the error is unbounded",
+        "There is a unique solution, but its entries have large variance",
+        "The unique solution fits the training targets exactly"
+      ],
+      "why": "The columns are dependent, so X has a nontrivial null space, and adding any null-space vector to θ leaves Xθ unchanged. XᵀX is singular and the solution is not unique."
+    },
+    {
+      "q": "A 6 × 9 matrix has rank 4. What is the dimension of its left null space?",
+      "a": "2",
+      "wrong": [
+        "5",
+        "4",
+        "3"
+      ],
+      "why": "The left null space lives in ℝ⁶ and has dimension m − r = 6 − 4 = 2. The value 5 is the dimension of the null space, n − r."
+    },
+    {
+      "q": "What is the rank of A = [[1, 2, 1, 0], [2, 4, 2, 1], [3, 6, 3, 1]]?",
+      "a": "2",
+      "wrong": [
+        "1",
+        "3",
+        "4"
+      ],
+      "why": "R₂ − 2R₁ = (0, 0, 0, 1) and R₃ − 3R₁ = (0, 0, 0, 1), so R₃ − R₂ leaves a zero row. The pivots are in columns 1 and 4."
+    },
+    {
+      "q": "For A = [[1, 2, 1, 0], [2, 4, 2, 1], [3, 6, 3, 1]], which pair is a basis of the column space?",
+      "a": "(1, 2, 3) and (0, 1, 1)",
+      "wrong": [
+        "(1, 2, 3) and (2, 4, 6)",
+        "(1, 0, 0) and (0, 1, 0)",
+        "(1, 2, 1, 0) and (0, 0, 0, 1)"
+      ],
+      "why": "Take the columns of the original A in the pivot positions (1 and 4). Pivot columns of the reduced form are not in the column space, and the last option lists rows, which span the row space."
+    },
+    {
+      "q": "A has rows (1, 2, 2) and (2, 0, 1). Which vector is in its null space?",
+      "a": "(2, 3, −4)",
+      "wrong": [
+        "(2, −3, 4)",
+        "(1, 2, 2)",
+        "(4, 0, 2)"
+      ],
+      "why": "The rows give 2 + 6 − 8 = 0 and 4 − 4 = 0. A null-space vector is perpendicular to every row, so a row itself ((1, 2, 2)) or a multiple of one ((4, 0, 2)) cannot be in it."
+    },
+    {
+      "q": "For which right-hand side b is [[1, 2], [2, 4]]x = b solvable?",
+      "a": "b = (5, 10)",
+      "wrong": [
+        "b = (1, 3)",
+        "b = (0, 1)",
+        "b = (2, 5)"
+      ],
+      "why": "The column space is the line through (1, 2), so b must be a multiple of (1, 2). (5, 10) = 5(1, 2); the others are not proportional to (1, 2)."
+    },
+    {
+      "q": "Suppose b ≠ 0, Ax = b has the solution (1, 0, 0), and N(A) is spanned by (1, −1, 2). Which vector also solves Ax = b?",
+      "a": "(4, −3, 6)",
+      "wrong": [
+        "(2, 0, 0)",
+        "(1, −1, 2)",
+        "(3, −1, 2)"
+      ],
+      "why": "(4, −3, 6) = (1, 0, 0) + 3(1, −1, 2) is a particular solution plus a null-space vector. (2, 0, 0) gives 2b, (1, −1, 2) gives 0, and (3, −1, 2) adds a vector outside the null space."
+    },
+    {
+      "q": "X is a 50 × 200 matrix of rank 50. For any target y, the equation Xθ = y has",
+      "a": "infinitely many solutions, forming a 150-dimensional family",
+      "wrong": [
+        "exactly one solution",
+        "no solution in general, since y is a generic vector",
+        "infinitely many solutions, forming a 200-dimensional family"
+      ],
+      "why": "Rank 50 equals the number of rows, so the column space is all of ℝ⁵⁰ and every y is reachable. The null space has dimension 200 − 50 = 150, and that is the freedom in θ."
+    },
+    {
+      "q": "Why does Xθ = y usually have no exact solution when X is 100 × 5 with independent columns?",
+      "a": "The column space is only 5-dimensional inside ℝ¹⁰⁰, and a typical y lies outside it",
+      "wrong": [
+        "XᵀX is singular for tall matrices",
+        "X has more columns than rows",
+        "The null space of X is too large"
+      ],
+      "why": "A solution exists only if y is in the column space, which has dimension 5 in a 100-dimensional space. With independent columns the null space is trivial and XᵀX is invertible."
+    },
+    {
+      "q": "In the basis b₁ = (1, 1), b₂ = (1, 2), what are the coordinates of the vector (5, 8)?",
+      "a": "(2, 3)",
+      "wrong": [
+        "(3, 2)",
+        "(5, 8)",
+        "(13, 21)"
+      ],
+      "why": "Solve c₁ + c₂ = 5 and c₁ + 2c₂ = 8: c₂ = 3, c₁ = 2. The value (13, 21) arises from multiplying by P instead of P⁻¹."
+    },
+    {
+      "q": "A = [[2, 1], [0, 3]] acts on standard coordinates. What matrix represents the same map in the basis b₁ = (1, 0), b₂ = (1, 1)?",
+      "a": "diag(2, 3)",
+      "wrong": [
+        "[[2, 1], [0, 3]]",
+        "diag(3, 2)",
+        "[[2, 0], [1, 3]]"
+      ],
+      "why": "Ab₁ = (2, 0) = 2b₁ and Ab₂ = (3, 3) = 3b₂, so each basis vector is scaled and the new matrix is diagonal with entries 2 and 3, in the order of the basis."
+    },
+    {
+      "q": "Which class of matrices can always be diagonalized using an orthonormal basis?",
+      "a": "Symmetric matrices",
+      "wrong": [
+        "All invertible matrices",
+        "All upper triangular matrices",
+        "All square matrices with positive entries"
+      ],
+      "why": "This is the spectral theorem. Invertible, triangular or positive matrices need not have a full set of eigenvectors, and even when they do the eigenvectors need not be orthogonal."
+    }
+  ],
   "summary": [
     "A subspace contains 0 and is closed under addition and scaling. The span of vectors is the set of their linear combinations.",
     "Vectors are independent if no one is a combination of the others. A basis is an independent spanning set; the number of vectors in it is the dimension.",

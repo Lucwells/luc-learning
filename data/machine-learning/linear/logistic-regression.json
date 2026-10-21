@@ -339,6 +339,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "An event has probability 0.9. Its odds are",
+      "a": "9",
+      "wrong": [
+        "0.9",
+        "1.11",
+        "0.11"
+      ],
+      "why": "Odds = p/(1 − p) = 0.9/0.1 = 9, meaning \"9 to 1 for\". The value 0.11 is the odds of the complement."
+    },
+    {
+      "q": "A logistic model gives log-odds of ln 3 for an input. The probability P(y = 1) is",
+      "a": "0.75",
+      "wrong": [
+        "0.67",
+        "0.25",
+        "0.90"
+      ],
+      "why": "Log-odds ln 3 means odds of 3, so p = odds/(1 + odds) = 3/4 = 0.75."
+    },
+    {
+      "q": "A weight is θ_j = −0.5. If x_j increases by 2 units, the odds of y = 1 are multiplied by about",
+      "a": "0.37",
+      "wrong": [
+        "0.61",
+        "0.50",
+        "2.72"
+      ],
+      "why": "Log-odds change by −0.5 × 2 = −1, so the odds are multiplied by e⁻¹ ≈ 0.37. The value 0.61 is e^{−0.5}, the effect of a single unit."
+    },
+    {
+      "q": "A model has θ = (−6, 3) with x = (1, x₁). At x₁ = 1, P(y = 1) is about",
+      "a": "0.05",
+      "wrong": [
+        "0.95",
+        "0.50",
+        "0.12"
+      ],
+      "why": "The log-odds are −6 + 3 = −3, so P = σ(−3) = 1/(1 + e³) ≈ 0.047. The value 0.95 is σ(3), with the sign flipped."
+    },
+    {
+      "q": "Why is least squares on 0/1 labels a poor way to classify?",
+      "a": "Predictions leave [0, 1], and distant points can tilt the line and change other points' classes",
+      "wrong": [
+        "The squared error is not differentiable for binary labels",
+        "It cannot represent a linear relationship between the features and the label",
+        "The normal equations have no solution when y ∈ {0, 1}"
+      ],
+      "why": "The line is unbounded and a far-away point drags it, so it is not a probability model. The normal equations are perfectly solvable."
+    },
+    {
+      "q": "Labels (1, 1, 0) are given probabilities of class 1 equal to (0.5, 0.8, 0.25). The likelihood of exactly these labels is",
+      "a": "0.30",
+      "wrong": [
+        "0.10",
+        "0.075",
+        "0.40"
+      ],
+      "why": "Use h for a label 1 and 1 − h for a label 0: 0.5 × 0.8 × 0.75 = 0.30. The value 0.10 forgets that a label 0 contributes 1 − h."
+    },
+    {
+      "q": "The true label is 0 and the model gives P(y = 1) = 0.9. The cross-entropy for this example is",
+      "a": "2.30",
+      "wrong": [
+        "0.105",
+        "0.90",
+        "0.10"
+      ],
+      "why": "The model gave the true label probability 0.1, so the loss is −ln 0.1 ≈ 2.30. The value 0.105 is −ln 0.9, the loss if the label were 1."
+    },
+    {
+      "q": "Data are x = 1, 2 with labels y = 1, 0, and the model has an intercept. Starting from θ = (0, 0) with α = 1, one gradient descent step gives θ =",
+      "a": "(0, −0.25)",
+      "wrong": [
+        "(0, 0.25)",
+        "(0, −0.5)",
+        "(−0.25, 0)"
+      ],
+      "why": "All h = 0.5, so h − y = (−0.5, 0.5). Then ∂J/∂θ₀ = 0 and ∂J/∂θ₁ = (−0.5 + 1.0)/2 = 0.25, and the step subtracts it. Using a sum instead of the mean gives −0.5."
+    },
+    {
+      "q": "Why is Newton's method for logistic regression also called iteratively reweighted least squares?",
+      "a": "Each step solves a weighted least squares problem with weights h(1 − h)",
+      "wrong": [
+        "It refits the labels from the residuals at each iteration",
+        "It restarts from the least squares solution every time",
+        "It replaces the sigmoid by a straight line near the optimum"
+      ],
+      "why": "The Hessian is XᵀSX/m with S = diag(h_i(1 − h_i)), so the step is a least squares solve in which each example is weighted by S."
+    },
+    {
+      "q": "In the Hessian of logistic regression, which example receives the largest weight h(1 − h)?",
+      "a": "The one with predicted probability 0.5",
+      "wrong": [
+        "The one with predicted probability 0.99",
+        "The one with predicted probability 0.01",
+        "All examples receive the same weight"
+      ],
+      "why": "h(1 − h) peaks at h = 0.5, where it equals 0.25, and is tiny for confident predictions at either end."
+    },
+    {
+      "q": "With θ = (3, −1.5) and x = (1, x₁), the model predicts class 1 when",
+      "a": "x₁ < 2",
+      "wrong": [
+        "x₁ > 2",
+        "x₁ < −2",
+        "x₁ > 0.5"
+      ],
+      "why": "Class 1 is predicted when θᵀx = 3 − 1.5x₁ > 0, which gives x₁ < 2. The negative weight reverses the usual direction."
+    },
+    {
+      "q": "A linear classifier is to have a circular boundary in the (x₁, x₂) plane. Which added features make this possible?",
+      "a": "x₁² and x₂²",
+      "wrong": [
+        "x₁ + x₂ and x₁ − x₂",
+        "A second intercept column",
+        "σ(x₁) and σ(x₂)"
+      ],
+      "why": "A boundary a x₁² + a x₂² + b = 0 is a circle, and it is linear in the new features. The other options still give a straight-line boundary."
+    },
+    {
+      "q": "On linearly separable data, a fitted θ classifies every point correctly. Multiplying θ by 3 will",
+      "a": "raise the log-likelihood while leaving the boundary unchanged",
+      "wrong": [
+        "lower the log-likelihood, since the probabilities become overconfident",
+        "leave the log-likelihood unchanged, since the boundary is unchanged",
+        "raise it only for the examples nearest the boundary"
+      ],
+      "why": "The boundary θᵀx = 0 does not move, but every correct probability is pushed toward 1, so ℓ keeps increasing. This is why the weights diverge without regularization."
+    },
+    {
+      "q": "A perceptron with α = 1 has θ = (1, 2, −1) and sees x = (1, 1, 3) with y = 0. The new θ is",
+      "a": "(0, 1, −4)",
+      "wrong": [
+        "(2, 3, 2)",
+        "(1, 2, −1)",
+        "(0, 1, −3)"
+      ],
+      "why": "θᵀx = 1 + 2 − 3 = 0, so h = 1, which is a mistake. The update is θ + (0 − 1)x = (0, 1, −4), and the new score is −11, which is correct."
+    },
+    {
+      "q": "All inputs satisfy ‖x‖ ≤ 5 and the data have margin γ = 0.5. The perceptron makes at most how many mistakes?",
+      "a": "100",
+      "wrong": [
+        "10",
+        "20",
+        "25"
+      ],
+      "why": "The bound is (R/γ)² = (5/0.5)² = 100. It holds whatever the number of examples or features."
+    },
+    {
+      "q": "A softmax model with two classes has scores (3, 1). The probability of the first class is about",
+      "a": "0.88",
+      "wrong": [
+        "0.75",
+        "0.95",
+        "0.73"
+      ],
+      "why": "e³/(e³ + e¹) = 1/(1 + e⁻²) = σ(2) ≈ 0.881, so softmax with two classes is logistic regression on the score difference. The 0.75 comes from the unexponentiated 3/4."
+    },
+    {
+      "q": "Softmax probabilities are (0.2, 0.7, 0.1) and the true class is the second. The cross-entropy gradient with respect to the scores is",
+      "a": "(0.2, −0.3, 0.1)",
+      "wrong": [
+        "(−0.8, 0.7, 0.1)",
+        "(0.2, 0.7, 0.1)",
+        "(0.2, 0.3, 0.1)"
+      ],
+      "why": "The gradient is p − y with y one-hot: (0.2, 0.7 − 1, 0.1). It raises the true class's score and lowers the others."
+    },
+    {
+      "q": "A problem has K = 6 classes. How many binary classifiers does the one-vs-one approach train?",
+      "a": "15",
+      "wrong": [
+        "6",
+        "12",
+        "30"
+      ],
+      "why": "One-vs-one trains K(K − 1)/2 = 15 classifiers, one per pair, whereas one-vs-rest trains K = 6."
+    }
+  ],
   "summary": [
     "Logistic regression models P(y = 1 | x) = σ(θᵀx), equivalently linear log-odds. Weights multiply the odds by e^{θ_j} per unit of x_j.",
     "Maximum likelihood gives the cross-entropy loss. Its gradient is Xᵀ(h − y)/m, and J is convex, with no closed form.",

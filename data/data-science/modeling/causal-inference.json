@@ -302,6 +302,178 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "Four units have potential outcomes (Y(0), Y(1)) of (4, 7), (6, 7), (5, 9) and (8, 8). The average treatment effect is",
+      "a": "2.0",
+      "wrong": [
+        "1.0",
+        "2.5",
+        "7.75"
+      ],
+      "why": "The unit effects are 3, 1, 4 and 0, whose mean is 2.0 (equivalently 7.75 − 5.75). The value 7.75 is only the mean of Y(1)."
+    },
+    {
+      "q": "Treated units have an observed mean outcome of 20 and untreated units 14. Without treatment the treated units would have averaged 17. The average effect on the treated is",
+      "a": "3",
+      "wrong": [
+        "6",
+        "9",
+        "−3"
+      ],
+      "why": "The naive difference 6 equals the effect on the treated plus selection bias, and the bias is 17 − 14 = 3. So the effect is 6 − 3 = 3."
+    },
+    {
+      "q": "In a study of a new drug, no patient over 80 years old received it. For which assumption does this create a problem when estimating the effect in that age group?",
+      "a": "Positivity",
+      "wrong": [
+        "Exchangeability",
+        "Consistency",
+        "Parallel trends"
+      ],
+      "why": "Positivity requires every kind of unit to have some chance of both treatment and no treatment. With no treated patients over 80 the data say nothing about the effect there."
+    },
+    {
+      "q": "Vaccinating one person lowers the infection risk of that person's neighbors. Which assumption does this break?",
+      "a": "No interference between units (part of SUTVA)",
+      "wrong": [
+        "Positivity of treatment assignment given the covariates",
+        "Exchangeability",
+        "The exclusion restriction"
+      ],
+      "why": "The no-interference assumption says that one unit's treatment does not affect another unit's outcome. Here the neighbors' outcomes depend on someone else's treatment."
+    },
+    {
+      "q": "Treatment A has success rates 80% in mild cases and 50% in severe cases. A standard population is 60% mild and 40% severe. The standardized success rate for A is",
+      "a": "68%",
+      "wrong": [
+        "65%",
+        "62%",
+        "80%"
+      ],
+      "why": "0.6 × 0.80 + 0.4 × 0.50 = 0.68. The simple average of the strata (65%) ignores the case mix, and swapping the weights gives 62%."
+    },
+    {
+      "q": "A patient who did not receive the treatment has a propensity score of 0.9. In inverse probability weighting this patient gets weight",
+      "a": "10",
+      "wrong": [
+        "1.11",
+        "0.1",
+        "0.9"
+      ],
+      "why": "An untreated unit is weighted by 1/(1 − e) = 1/0.1 = 10. Using 1/e = 1.11 is the weight for treated units."
+    },
+    {
+      "q": "Which problem is NOT solved by matching, weighting or double machine learning on the measured covariates?",
+      "a": "A common cause of treatment and outcome that was never measured",
+      "wrong": [
+        "Different mixes of age and severity in the treated and untreated groups",
+        "A treatment decision that depends on measured covariates",
+        "Strong imbalance in a measured confounder"
+      ],
+      "why": "These methods adjust only for what is measured. Clever modeling cannot compensate for a missing confounder, though it can fix imbalance in recorded variables."
+    },
+    {
+      "q": "Among hired applicants, GPA and interview skill are negatively correlated, although they are unrelated among all applicants. Why?",
+      "a": "Hiring depends on both, so looking only at hired applicants conditions on a collider",
+      "wrong": [
+        "GPA and interview skill really are opposing traits",
+        "Interviewers are systematically biased against candidates who have high GPAs and strong credentials",
+        "A confounder causes both GPA and interview skill"
+      ],
+      "why": "If a low GPA is to be hired, the applicant needs strong interviews, and vice versa. Selecting on a common effect creates an association out of nothing (Berkson's paradox)."
+    },
+    {
+      "q": "A drug lowers blood pressure, and lower blood pressure reduces heart attacks. To estimate the drug's total effect on heart attacks, adjusting for blood pressure would",
+      "a": "remove the part of the effect that runs through blood pressure, underestimating the total effect",
+      "wrong": [
+        "remove confounding and give the correct total effect",
+        "create a spurious association by conditioning on a collider",
+        "leave the estimate unchanged, because blood pressure is measured after the treatment and so cannot matter"
+      ],
+      "why": "Blood pressure is a mediator on the causal path. Holding it fixed blocks the very route by which the drug works."
+    },
+    {
+      "q": "W is a common cause of treatment T and outcome Y. M lies on the path T → M → Y. C is caused by both T and Y. To estimate the total effect of T on Y, adjust for",
+      "a": "W only",
+      "wrong": [
+        "W and M",
+        "W and C",
+        "M and C"
+      ],
+      "why": "The backdoor criterion requires blocking non-causal paths from T to Y without including descendants of T. Mediator M and collider C are both descendants of T."
+    },
+    {
+      "q": "In a randomized trial an analyst compares the two arms only among \"responders\", defined by an improvement in an early measurement taken after treatment began. Why is this comparison unreliable?",
+      "a": "Response is a post-treatment variable, so the responders in each arm are no longer comparable groups",
+      "wrong": [
+        "Responders are too few to compute a mean",
+        "The control arm cannot have any responders",
+        "Randomization only protects comparisons of the first measurement taken, and not any later measurement of the outcome"
+      ],
+      "why": "Treatment can change who becomes a responder, so selecting on response breaks the randomization. Comparisons should use the groups as originally assigned."
+    },
+    {
+      "q": "Employment in a treated state goes from 30 to 34 and in a control state from 25 to 31. The difference-in-differences estimate of the policy effect is",
+      "a": "−2",
+      "wrong": [
+        "4",
+        "2",
+        "−6"
+      ],
+      "why": "The treated change is +4 and the control change is +6, so DiD = 4 − 6 = −2. The before–after change alone (4) ignores the trend in the control state."
+    },
+    {
+      "q": "Before a policy, the treated region's outcome was already growing faster than the control region's. What is the consequence for a difference-in-differences estimate?",
+      "a": "Parallel trends is doubtful, so part of the faster growth would be credited to the policy",
+      "wrong": [
+        "The estimate becomes exactly zero, because the pre-existing difference in trends cancels out the policy effect",
+        "The estimate is unbiased as long as the groups' starting levels differ",
+        "Only the control group's baseline level matters"
+      ],
+      "why": "DiD relies on both groups moving alike without the policy. If their pre-trends already differ, the extra growth would be wrongly credited to the policy."
+    },
+    {
+      "q": "Scholarships go to students scoring at least 80. In a regression discontinuity analysis, the estimated effect mainly applies to",
+      "a": "students with scores near 80",
+      "wrong": [
+        "all students in the sample",
+        "students scoring far above 80",
+        "only students who would have enrolled anyway"
+      ],
+      "why": "Only near the cutoff are the two sides comparable, differing just by chance in which side they fall. The estimate is therefore local, not an average over the whole range of scores."
+    },
+    {
+      "q": "A random reminder raises course take-up from 30% to 55% and raises average test scores by 3 points. The instrumental variable (Wald) estimate of the course effect is",
+      "a": "12 points",
+      "wrong": [
+        "0.083 points",
+        "3 points",
+        "0.75 points"
+      ],
+      "why": "The effect of the instrument on the outcome (3) is divided by its effect on take-up (0.25), giving 12. Multiplying instead of dividing gives 0.75."
+    },
+    {
+      "q": "Distance to the nearest college is used as an instrument for years of schooling when estimating the effect on earnings. Which situation would violate the exclusion restriction?",
+      "a": "Living near a college changes local job opportunities, which affect earnings directly",
+      "wrong": [
+        "Living near a college makes people more likely to study longer",
+        "Distance to college is unrelated to unmeasured ability",
+        "Some people go to college regardless of distance"
+      ],
+      "why": "The instrument may affect earnings only through schooling. A direct path from distance to earnings breaks that condition, while the other options describe relevance, independence and the existence of non-compliers."
+    },
+    {
+      "q": "A churn model predicts very accurately who will leave. Why is it not enough on its own to decide who should get a retention offer?",
+      "a": "It tells who is likely to leave, not whose behavior the offer would change",
+      "wrong": [
+        "Accurate models cannot be used for decisions about individuals",
+        "Customers likely to leave never respond to offers",
+        "Retention offers always lower the churn probability for everyone"
+      ],
+      "why": "Prediction is not intervention. Some likely leavers cannot be retained, and some would stay anyway, so deciding who to target needs an estimate of the effect of the offer, as in uplift modeling."
+    }
+  ],
   "summary": [
     "Potential outcomes Y(1), Y(0): only one is observed per unit. The ATE is E[Y(1) − Y(0)]. The naive difference equals the effect on the treated plus selection bias, which can be large and of either sign.",
     "Effects are identified under exchangeability (no unmeasured confounding), positivity and consistency. Randomization guarantees exchangeability.",

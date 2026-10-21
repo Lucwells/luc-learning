@@ -833,6 +833,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "In 2HI → H₂ + I₂, I₂ appears at 0.015 M s⁻¹. At what rate is HI consumed?",
+      "a": "0.030 M s⁻¹",
+      "wrong": [
+        "0.015 M s⁻¹",
+        "0.0075 M s⁻¹",
+        "0.045 M s⁻¹"
+      ],
+      "why": "The rate of reaction is 0.015 M s⁻¹ (coefficient 1 for I₂). HI has coefficient 2, so it is consumed twice as fast as the reaction proceeds."
+    },
+    {
+      "q": "For which gas-phase reaction can the total pressure alone be used to follow the progress at constant temperature and volume?",
+      "a": "2NO₂ → N₂O₄",
+      "wrong": [
+        "H₂ + Cl₂ → 2HCl",
+        "CO + H₂O → CO₂ + H₂",
+        "cis-C₂H₂Cl₂ → trans-C₂H₂Cl₂"
+      ],
+      "why": "Pressure tracks the total moles of gas, so it only changes if that number changes. NO₂ dimerization takes two moles to one. The other reactions keep the number of moles the same."
+    },
+    {
+      "q": "At fixed [B] and temperature, lowering [A] from 0.40 M to 0.10 M lowers the initial rate from 3.2 × 10⁻³ M s⁻¹ to 2.0 × 10⁻⁴ M s⁻¹. What is the order in A?",
+      "a": "Second",
+      "wrong": [
+        "First",
+        "Third",
+        "3/2"
+      ],
+      "why": "The rate fell by a factor of 16 when [A] fell by a factor of 4. Since 4^m = 16, m = 2. Order 3 would give a factor of 64."
+    },
+    {
+      "q": "Two reactions have the same activation energy and collision frequency factor at the same temperature. Their steric factors are 0.40 and 0.0040. How do the rate constants compare?",
+      "a": "The first is 100 times larger",
+      "wrong": [
+        "The first is 10 times larger",
+        "They are equal, because Eₐ and Z match",
+        "The first is 100 times smaller"
+      ],
+      "why": "In k = p·Z·e^{−Eₐ/RT} only p differs, so k₁/k₂ = 0.40/0.0040 = 100. The steric factor is the fraction of collisions with a favorable orientation."
+    },
+    {
+      "q": "A first-order reaction has k = 3.0 × 10⁻³ s⁻¹. What percentage of A remains after 5.0 minutes?",
+      "a": "41%",
+      "wrong": [
+        "59%",
+        "10%",
+        "98.5%"
+      ],
+      "why": "t = 300 s, so kt = 0.90 and [A]/[A]₀ = e^{−0.90} = 0.41. Reporting 59% gives the fraction that has reacted, and 98.5% comes from forgetting to convert minutes to seconds."
+    },
+    {
+      "q": "A second-order reaction in A has k = 0.050 M⁻¹ s⁻¹ and [A]₀ = 0.40 M. How long does it take for [A] to fall to 0.20 M?",
+      "a": "50 s",
+      "wrong": [
+        "14 s",
+        "100 s",
+        "8.0 s"
+      ],
+      "why": "For second order t_{1/2} = 1/(k[A]₀) = 1/(0.050 × 0.40) = 50 s. The first-order formula 0.693/k would give 14 s."
+    },
+    {
+      "q": "A zero-order reaction starts at 0.80 M and takes 20 min to reach 0.40 M. How long does it take to go from 0.40 M to 0.20 M?",
+      "a": "10 min",
+      "wrong": [
+        "20 min",
+        "40 min",
+        "5 min"
+      ],
+      "why": "The rate is constant, so a smaller change needs less time. Each successive half-life is half as long, because t_{1/2} = [A]₀/2k and [A]₀ is halving."
+    },
+    {
+      "q": "The rate law is rate = k[A][B]. With [B]₀ = 0.50 M and [A]₀ much smaller, the decay of A looks first order with an observed constant of 0.040 s⁻¹. What is k?",
+      "a": "0.080 M⁻¹ s⁻¹",
+      "wrong": [
+        "0.020 M⁻¹ s⁻¹",
+        "0.040 M⁻¹ s⁻¹",
+        "0.080 s⁻¹"
+      ],
+      "why": "Under pseudo-first-order conditions k′ = k[B]₀, so k = k′/[B]₀ = 0.040/0.50 = 0.080 M⁻¹ s⁻¹. Multiplying instead of dividing gives 0.020, and k must carry units of a second-order constant."
+    },
+    {
+      "q": "A reaction has Eₐ = 75 kJ mol⁻¹. By what factor does k change when T rises from 300 K to 310 K? (R = 8.314 J mol⁻¹ K⁻¹)",
+      "a": "2.6",
+      "wrong": [
+        "2.0",
+        "0.38",
+        "13"
+      ],
+      "why": "ln(k₂/k₁) = (75,000/8.314)(1/300 − 1/310) = 9021 × 1.075 × 10⁻⁴ = 0.970, so k₂/k₁ = e^{0.970} = 2.6. The factor is above 1 because a higher temperature always speeds the reaction."
+    },
+    {
+      "q": "Which statement distinguishes a reaction intermediate from a transition state?",
+      "a": "An intermediate sits in a valley of the energy profile and can sometimes be detected; a transition state is a peak lasting about one bond vibration",
+      "wrong": [
+        "An intermediate is at the top of the energy barrier and lasts about one bond vibration; a transition state sits at a minimum and can be isolated",
+        "An intermediate appears in the overall equation as a reactant or product; a transition state is not shown there but can sometimes be detected",
+        "An intermediate is regenerated in each cycle of the reaction, while a transition state is consumed and never formed again"
+      ],
+      "why": "Intermediates have a finite lifetime because they lie at a local minimum. Neither species appears in the overall equation, and regeneration describes a catalyst."
+    },
+    {
+      "q": "A bimolecular association has a strongly negative entropy of activation, ΔS‡. This means the transition state is",
+      "a": "more ordered than the separated reactants",
+      "wrong": [
+        "higher in energy than the products",
+        "less ordered than the separated reactants",
+        "an intermediate that can be isolated"
+      ],
+      "why": "In the Eyring equation k ∝ e^{ΔS‡/R}, a negative ΔS‡ lowers k. It reflects two free molecules becoming one constrained complex."
+    },
+    {
+      "q": "A single elementary step is 2A + B → products. Its molecularity and rate law are",
+      "a": "termolecular; rate = k[A]²[B]",
+      "wrong": [
+        "bimolecular; rate = k[A][B]",
+        "termolecular; rate = k[A][B]",
+        "bimolecular; rate = k[A]²[B]"
+      ],
+      "why": "Three species meet in the step, so it is termolecular. For an elementary step the exponents are the stoichiometric coefficients."
+    },
+    {
+      "q": "A mechanism has Step 1 (slow): A + B → X and Step 2 (fast): X + B → C. What are the overall equation and the predicted rate law?",
+      "a": "A + 2B → C; rate = k₁[A][B]",
+      "wrong": [
+        "A + 2B → C; rate = k₁[A][B]²",
+        "A + B → C; rate = k₁[A][B]",
+        "A + 2B → C; rate = k₂[X][B]"
+      ],
+      "why": "Adding the steps and cancelling X gives A + 2B → C. The rate law comes from the slow step alone, and the second B enters only after the slow step, so it does not appear. The k₂[X][B] form contains an intermediate."
+    },
+    {
+      "q": "A mechanism has a fast reversible step 2A ⇌ D (constant K) followed by a slow step D + B → P (constant k₂). The rate law is",
+      "a": "rate = k₂K[A]²[B]",
+      "wrong": [
+        "rate = k₂[D][B]",
+        "rate = k₂[A][B]",
+        "rate = k₂K[A][B]"
+      ],
+      "why": "The slow step gives rate = k₂[D][B]. D is an intermediate, so replace it using the pre-equilibrium, [D] = K[A]². The result has [A]², not [A]."
+    },
+    {
+      "q": "In H₂ + Br₂ → 2HBr, the rate depends on [Br₂]^{1/2}. This arises because",
+      "a": "[Br•] is set by a balance between initiation (Br₂ → 2Br•) and termination (2Br• → Br₂)",
+      "wrong": [
+        "Br₂ acts as a catalyst, regenerated in the cycle, so only half of it is consumed",
+        "the rate-determining step involves half a molecule of Br₂ for every molecule of H₂",
+        "the reaction is zero order in Br₂ at high concentration, which averages with first order at low concentration"
+      ],
+      "why": "Setting the rate of making Br• equal to the rate of removing it gives [Br•]² ∝ [Br₂], so [Br•] ∝ [Br₂]^{1/2}. Fractional orders reflect chain behavior, not fractions of molecules."
+    },
+    {
+      "q": "A catalyst lowers the forward activation energy of a reversible reaction from 90 to 60 kJ mol⁻¹. What happens to K and to the reverse activation energy?",
+      "a": "K is unchanged and the reverse activation energy also falls by 30 kJ mol⁻¹",
+      "wrong": [
+        "K increases and the reverse activation energy is unchanged",
+        "K is unchanged and the reverse activation energy is unchanged",
+        "K increases and the reverse activation energy falls by 30 kJ mol⁻¹"
+      ],
+      "why": "The catalyst provides a lower path between the same reactants and products, so ΔH and ΔG° are fixed. The barrier for the reverse direction drops by the same amount, so both rates speed up by the same factor and K stays the same."
+    },
+    {
+      "q": "An enzyme has V_max = 80 μM s⁻¹ and K_M = 4.0 mM. What is the rate at [S] = 12 mM?",
+      "a": "60 μM s⁻¹",
+      "wrong": [
+        "40 μM s⁻¹",
+        "80 μM s⁻¹",
+        "240 μM s⁻¹"
+      ],
+      "why": "v = V_max[S]/(K_M + [S]) = 80 × 12 / (4.0 + 12) = 60 μM s⁻¹. The rate can never exceed V_max, which rules out 240."
+    },
+    {
+      "q": "An enzyme is operating at [S] = 100 K_M. What is the effect of doubling [S]?",
+      "a": "The rate increases by only about 0.5%, because the enzyme is almost saturated",
+      "wrong": [
+        "The rate roughly doubles, because the reaction is first order in substrate",
+        "The rate falls, because K_M increases when more substrate binds to the enzyme",
+        "The rate rises by about 40%, because v is proportional to the square root of [S]"
+      ],
+      "why": "v/V_max = 100/101 before and 200/201 after, which is 0.990 and 0.995. At [S] ≫ K_M the reaction is zero order in substrate and v ≈ V_max."
+    }
+  ],
   "summary": [
     "Rate = −(1/a) d[A]/dt for aA + … Its units are M s⁻¹.",
     "Rate laws and orders are found by experiment, usually by the method of initial rates. The units of k reveal the overall order.",

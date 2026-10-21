@@ -485,6 +485,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "In Ni²⁺ + 6NH₃ → [Ni(NH₃)₆]²⁺, which description is correct?",
+      "a": "Ni²⁺ is a Lewis acid and NH₃ is a Lewis base",
+      "wrong": [
+        "Ni²⁺ is a Lewis base and NH₃ is a Lewis acid",
+        "NH₃ is a Brønsted–Lowry base because it accepts a proton here",
+        "It is not an acid–base reaction, because no protons are transferred"
+      ],
+      "why": "Each NH₃ donates a lone pair to the metal ion, forming a coordinate covalent bond, so NH₃ is the electron-pair donor. The Lewis definition covers reactions with no proton transfer."
+    },
+    {
+      "q": "Which pair is a conjugate acid–base pair?",
+      "a": "HCO₃⁻ and CO₃²⁻",
+      "wrong": [
+        "H₃O⁺ and OH⁻",
+        "H₂SO₄ and SO₄²⁻",
+        "NH₄⁺ and NH₂⁻"
+      ],
+      "why": "A conjugate pair differs by exactly one H⁺. Each of the other pairs differs by two."
+    },
+    {
+      "q": "Acid HA has K_a = 1 × 10⁻³ and acid HB has K_a = 1 × 10⁻⁹. Which statement about their conjugate bases is correct?",
+      "a": "B⁻ is a stronger base than A⁻",
+      "wrong": [
+        "A⁻ is a stronger base than B⁻",
+        "The two are equally strong, because both are anions",
+        "Neither can accept a proton, because both parent acids are weak"
+      ],
+      "why": "The weaker the acid, the stronger its conjugate base. HB holds its proton more tightly, so B⁻ takes a proton back more readily. K_a × K_b = K_w gives K_b of 1 × 10⁻⁵ for B⁻ and 1 × 10⁻¹¹ for A⁻."
+    },
+    {
+      "q": "Pure water at 50 °C has pH 6.63 (K_w = 5.5 × 10⁻¹⁴). Is it acidic?",
+      "a": "No, it is neutral, because [H₃O⁺] = [OH⁻]",
+      "wrong": [
+        "Yes, because the pH is below 7",
+        "No, it is basic, because K_w has increased",
+        "Yes, because [H₃O⁺] is larger than at 25 °C"
+      ],
+      "why": "Neutral means equal concentrations of H₃O⁺ and OH⁻. The pH of neutral water is 7 only at 25 °C, where K_w = 1.0 × 10⁻¹⁴."
+    },
+    {
+      "q": "A solution has [OH⁻] = 3.0 × 10⁻³ M at 25 °C. What is its pH?",
+      "a": "11.48",
+      "wrong": [
+        "2.52",
+        "11.52",
+        "10.48"
+      ],
+      "why": "pOH = −log(3.0 × 10⁻³) = 2.52, and pH = 14.00 − 2.52 = 11.48. The value 2.52 is the pOH, not the pH."
+    },
+    {
+      "q": "Gastric juice has pH 2.0 and black coffee has pH 5.0. How do their hydronium concentrations compare?",
+      "a": "Gastric juice has a concentration 1000 times higher",
+      "wrong": [
+        "Gastric juice has a concentration 3 times higher",
+        "Gastric juice has a concentration 100 times higher",
+        "Gastric juice has a concentration 1000 times lower"
+      ],
+      "why": "Each pH unit is a factor of 10 in [H₃O⁺]. Three units is 10³ = 1000, and the lower pH means the higher concentration."
+    },
+    {
+      "q": "25.0 mL of 0.100 M HCl is diluted with water to 1.00 L. What is the pH?",
+      "a": "2.60",
+      "wrong": [
+        "1.00",
+        "1.60",
+        "3.60"
+      ],
+      "why": "The moles of HCl stay at 2.50 × 10⁻³ mol, so [H₃O⁺] = 2.50 × 10⁻³ M and pH = 2.60. The value 1.60 comes from using 0.025 M, which is the volume fraction and not the concentration."
+    },
+    {
+      "q": "A student calculates the pH of 1.0 × 10⁻⁹ M HCl as 9.00. What is the error?",
+      "a": "Water's own [H₃O⁺] of about 1 × 10⁻⁷ M dominates, so the pH is just under 7",
+      "wrong": [
+        "A strong acid ionizes only partly at such a low concentration",
+        "The student should have used pOH = 9.00, giving pH 5.00",
+        "[H₃O⁺] should be twice the acid concentration"
+      ],
+      "why": "The value 9.00 would make an acid solution basic, which is impossible. The acid adds only 1 × 10⁻⁹ M to the 1 × 10⁻⁷ M already present from autoionization."
+    },
+    {
+      "q": "A 0.050 M solution of a weak acid is 2.0% ionized. What is K_a?",
+      "a": "2.0 × 10⁻⁵",
+      "wrong": [
+        "1.0 × 10⁻³",
+        "4.0 × 10⁻⁴",
+        "2.0 × 10⁻²"
+      ],
+      "why": "x = 0.020 × 0.050 = 1.0 × 10⁻³ M, so K_a = x²/(0.050 − x) = 1.0 × 10⁻⁶ / 0.049 = 2.0 × 10⁻⁵. The value 1.0 × 10⁻³ is the concentration x, not K_a."
+    },
+    {
+      "q": "What is the pH of 0.0020 M HNO₂ (K_a = 4.5 × 10⁻⁴)?",
+      "a": "3.12",
+      "wrong": [
+        "3.02",
+        "2.70",
+        "3.35"
+      ],
+      "why": "The small-x answer, x = 9.5 × 10⁻⁴ M, is 47% of the initial concentration, so the quadratic is needed: x = 7.5 × 10⁻⁴ M and pH = 3.12. Treating HNO₂ as a strong acid gives 2.70, and 3.35 is its pK_a."
+    },
+    {
+      "q": "HCN has K_a = 6.2 × 10⁻¹⁰. What is K_b for CN⁻?",
+      "a": "1.6 × 10⁻⁵",
+      "wrong": [
+        "6.2 × 10⁻¹⁰",
+        "1.6 × 10⁻⁴",
+        "6.2 × 10⁻²⁴"
+      ],
+      "why": "K_b = K_w/K_a = 1.0 × 10⁻¹⁴ / 6.2 × 10⁻¹⁰ = 1.6 × 10⁻⁵. The conjugate base of a very weak acid is a moderately strong base, and multiplying the two constants is the wrong operation."
+    },
+    {
+      "q": "A 0.10 M solution of H₂CO₃ (pK_a1 = 6.35, pK_a2 = 10.33) is prepared. Which value best approximates [CO₃²⁻]?",
+      "a": "4.7 × 10⁻¹¹ M",
+      "wrong": [
+        "4.5 × 10⁻⁷ M",
+        "2.1 × 10⁻⁴ M",
+        "2.1 × 10⁻¹⁷ M"
+      ],
+      "why": "The first ionization produces equal amounts of H₃O⁺ and HCO₃⁻. The second ionization is so much weaker that [CO₃²⁻] ≈ K_a2 = 10^{−10.33} = 4.7 × 10⁻¹¹ M."
+    },
+    {
+      "q": "What is the pH of 0.25 M of a weak base with K_b = 1.0 × 10⁻⁶?",
+      "a": "10.70",
+      "wrong": [
+        "3.30",
+        "13.40",
+        "8.00"
+      ],
+      "why": "[OH⁻] = √(1.0 × 10⁻⁶ × 0.25) = 5.0 × 10⁻⁴ M, so pOH = 3.30 and pH = 10.70. Treating the base as strong gives 13.40."
+    },
+    {
+      "q": "What is the pH of 0.20 M NaF? (K_a of HF = 6.8 × 10⁻⁴)",
+      "a": "8.23",
+      "wrong": [
+        "5.77",
+        "7.00",
+        "1.93"
+      ],
+      "why": "F⁻ is the conjugate base of a weak acid: K_b = K_w/K_a = 1.5 × 10⁻¹¹ and [OH⁻] = √(1.5 × 10⁻¹¹ × 0.20) = 1.7 × 10⁻⁶ M. So pOH = 5.77 and pH = 8.23. Na⁺ is a spectator, and the solution is not neutral."
+    },
+    {
+      "q": "A solution of Al(NO₃)₃ in water is",
+      "a": "acidic, because [Al(H₂O)₆]³⁺ donates a proton to water",
+      "wrong": [
+        "neutral, because NO₃⁻ comes from a strong acid and Al³⁺ is a spectator",
+        "basic, because NO₃⁻ takes a proton from water",
+        "basic, because Al³⁺ combines with the OH⁻ of water"
+      ],
+      "why": "Nitrate is the conjugate base of a strong acid and does not react. The small, highly charged Al³⁺ polarizes its water ligands so one releases H⁺."
+    },
+    {
+      "q": "A solution of NH₄CN is",
+      "a": "basic, because K_b of CN⁻ (1.6 × 10⁻⁵) exceeds K_a of NH₄⁺ (5.6 × 10⁻¹⁰)",
+      "wrong": [
+        "acidic, because NH₄⁺ is a cation",
+        "neutral, because the effects of the two ions cancel exactly",
+        "neutral, because it is a salt"
+      ],
+      "why": "Both ions react with water. When one hydrolyzes much more than the other, that one sets the pH, and here it is CN⁻ taking protons."
+    },
+    {
+      "q": "HF is a much weaker acid than HCl even though fluorine is more electronegative than chlorine. The explanation is that",
+      "a": "the H–F bond is much stronger and harder to break",
+      "wrong": [
+        "fluorine is less electronegative than chlorine",
+        "F⁻ is larger than Cl⁻ and spreads its charge better",
+        "HF is a Lewis base and cannot donate protons"
+      ],
+      "why": "Down a group, H–X bond strength is the dominant factor. The very short, strong H–F bond outweighs fluorine's electronegativity. F⁻ is smaller than Cl⁻."
+    },
+    {
+      "q": "Which of these is the strongest acid?",
+      "a": "CF₃COOH",
+      "wrong": [
+        "CH₃COOH",
+        "ClCH₂COOH",
+        "CH₃CH₂OH"
+      ],
+      "why": "Electronegative substituents pull electron density away and stabilize the carboxylate anion (the inductive effect). Three fluorines do so more than one chlorine, and ethanol has no resonance-stabilized anion."
+    }
+  ],
   "summary": [
     "Brønsted–Lowry acids donate protons and bases accept them. Lewis acids accept electron pairs. A stronger acid has a weaker conjugate base.",
     "K_w = [H₃O⁺][OH⁻] = 1.0 × 10⁻¹⁴ at 25 °C. pH = −log[H₃O⁺], and pH + pOH = 14.",

@@ -313,6 +313,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "In Haber–Bosch synthesis at fixed temperature, the total pressure is doubled. What happens?",
+      "a": "K_p is unchanged, but the equilibrium mole fraction of NH₃ rises",
+      "wrong": [
+        "K_p doubles, and the NH₃ mole fraction doubles with it",
+        "K_p is unchanged, and the NH₃ mole fraction is also unchanged by pressure",
+        "K_p rises with pressure, but the NH₃ mole fraction stays the same"
+      ],
+      "why": "An equilibrium constant depends only on temperature. Pressure shifts the composition: 4 mol of gas become 2 mol, so more pressure favors NH₃."
+    },
+    {
+      "q": "The conversion per pass through the ammonia reactor is only 15–25%, yet more than 97% of the feed ends up as NH₃. How?",
+      "a": "NH₃ is condensed out and the unreacted N₂ and H₂ are recycled",
+      "wrong": [
+        "The catalyst is regenerated after each pass",
+        "The pressure is raised on each successive pass, which raises K_p",
+        "Unreacted gas is burned to supply heat for the reactor"
+      ],
+      "why": "Cooling removes NH₃ as a liquid, which also pulls the equilibrium toward product, and the leftover reactant gases go back to the reactor. Pressure changes the composition but not K_p."
+    },
+    {
+      "q": "Why is steam reforming (CH₄ + H₂O ⇌ CO + 3 H₂, ΔH° = +206 kJ mol⁻¹) run at 800–900 °C but only 20–30 atm?",
+      "a": "Heat favors the endothermic reaction, but high pressure favors fewer gas moles and would work against it",
+      "wrong": [
+        "The reaction is exothermic, so heat favors the products, and moderate pressure saves compression energy",
+        "The nickel catalyst melts or sinters if the pressure rises above about 30 atm",
+        "High pressure favors the products because the reaction makes more gas, so only heat is limiting"
+      ],
+      "why": "Reforming absorbs heat and raises the moles of gas from 2 to 4. Le Chatelier's principle makes high temperature useful and high pressure counterproductive, apart from the downstream compression cost."
+    },
+    {
+      "q": "How many moles of H₂ can be obtained from 1.00 mol of CH₄ by steam reforming followed by complete water–gas shift?",
+      "a": "4.00 mol",
+      "wrong": [
+        "3.00 mol",
+        "2.00 mol",
+        "5.00 mol"
+      ],
+      "why": "Reforming gives CO + 3 H₂, and the shift CO + H₂O → CO₂ + H₂ adds one more H₂ per CO, so 4 mol in all. Stopping after reforming would give 3."
+    },
+    {
+      "q": "What mass of N₂ is required to make 3.00 t of NH₃?",
+      "a": "2.47 t",
+      "wrong": [
+        "4.93 t",
+        "1.23 t",
+        "0.53 t"
+      ],
+      "why": "N₂ + 3 H₂ → 2 NH₃, so 28.01 g of N₂ gives 2 × 17.03 g of NH₃. The mass is 3.00 × 28.01/34.06 = 2.47 t. The 0.53 t figure is the H₂ requirement."
+    },
+    {
+      "q": "At 298 K, K_p for N₂ + 3 H₂ ⇌ 2 NH₃ is about 6 × 10⁵ atm⁻², yet N₂ and H₂ do not react without a catalyst. Why?",
+      "a": "K_p says nothing about rate; the strong N≡N bond gives a high barrier",
+      "wrong": [
+        "The large K_p means that the equilibrium lies on the side of N₂ and H₂, so no NH₃ forms",
+        "The reaction is endothermic at low temperature, so it only goes when heated",
+        "K_p exceeds 1 only above 400 °C, so nothing forms before that point"
+      ],
+      "why": "The thermodynamics are very favorable at 298 K. The problem is kinetic, which is why a catalyst and 400–500 °C are used."
+    },
+    {
+      "q": "How many tonnes of HNO₃ result from 2.00 t of NH₃ at an overall yield of 90%? (Use NH₃ → HNO₃, 17.03 and 63.01 g mol⁻¹.)",
+      "a": "6.66 t",
+      "wrong": [
+        "7.40 t",
+        "8.22 t",
+        "3.33 t"
+      ],
+      "why": "One mole of NH₃ gives one mole of HNO₃, so the ideal ratio is 63.01/17.03 = 3.70 and the mass is 2.00 × 3.70 × 0.90 = 6.66 t. Omitting the yield gives 7.40."
+    },
+    {
+      "q": "What is unusual about the oxidation 2 NO + O₂ → 2 NO₂ in the Ostwald process?",
+      "a": "It speeds up as the temperature falls",
+      "wrong": [
+        "It needs the Pt–Rh gauze at 900 °C to proceed",
+        "It is endothermic but still spontaneous",
+        "It is strictly first order in NO and O₂ together"
+      ],
+      "why": "The reaction is exothermic and third order, with a negative temperature coefficient of the rate, so the gas is cooled before oxidation."
+    },
+    {
+      "q": "In the absorption tower, 9.0 mol of NO₂ react with water by 3 NO₂ + H₂O → 2 HNO₃ + NO. How many moles of HNO₃ form in this step?",
+      "a": "6.0 mol",
+      "wrong": [
+        "9.0 mol",
+        "4.5 mol",
+        "3.0 mol"
+      ],
+      "why": "Three moles of NO₂ give two of HNO₃, so 9.0 mol give 6.0 mol. The NO produced is reoxidized and recycled."
+    },
+    {
+      "q": "In a contact-process converter the first bed is near 600 °C and the later beds at 400–430 °C. Why?",
+      "a": "A hot first bed is fast while far from equilibrium; cooler later beds give high conversion",
+      "wrong": [
+        "The catalyst is only active near 600 °C and must be cooled to avoid melting in later beds",
+        "The reaction is endothermic, so heat is needed at the start and less is needed later on",
+        "Lower temperatures in the later beds give a faster rate, which the final conversion needs"
+      ],
+      "why": "The oxidation of SO₂ is exothermic, so equilibrium improves as the gas is cooled, while a high temperature gives the fast rate at the start."
+    },
+    {
+      "q": "Single absorption gives 98% conversion of SO₂, and double absorption gives 99.7%. How does the unconverted fraction change?",
+      "a": "It falls from 2% to 0.3%, about 7-fold",
+      "wrong": [
+        "It falls from 2% to 1.7%, about 15%",
+        "It falls from 2% to 1.0%, about 2-fold",
+        "It falls from 2% to 0.02%, about 100-fold"
+      ],
+      "why": "The unconverted amounts are 100 − 98 = 2% and 100 − 99.7 = 0.3%. Removing SO₃ in the middle lets the remaining gas react further."
+    },
+    {
+      "q": "How many tonnes of sulfur are needed to make 10.0 t of 98.0% H₂SO₄ (98.08 g mol⁻¹), assuming complete conversion?",
+      "a": "3.20 t",
+      "wrong": [
+        "3.27 t",
+        "9.80 t",
+        "30.0 t"
+      ],
+      "why": "The acid contains 9.80 t of H₂SO₄ = 0.100 × 10⁶ mol, and each mole needs 1 mol of S: 0.100 × 10⁶ × 32.06 g = 3.20 t. The value 3.27 t ignores the 98% strength."
+    },
+    {
+      "q": "How is ammonia recovered and recycled in the Solvay process?",
+      "a": "NH₄Cl is treated with Ca(OH)₂ made from the limestone kiln product CaO",
+      "wrong": [
+        "NH₄Cl is electrolyzed in a membrane cell to give NH₃ and Cl₂",
+        "NH₄Cl is reduced with hydrogen over a nickel catalyst",
+        "NH₃ is released when the NaHCO₃ solid is calcined in the kiln"
+      ],
+      "why": "2 NH₄Cl + Ca(OH)₂ → 2 NH₃ + CaCl₂ + 2 H₂O. Calcination of NaHCO₃ releases only CO₂ and water, and CaCl₂ is the process's only by-product."
+    },
+    {
+      "q": "What mass of NaCl is required to make 5.00 t of Na₂CO₃ (105.99 g mol⁻¹)?",
+      "a": "5.51 t",
+      "wrong": [
+        "2.76 t",
+        "11.0 t",
+        "5.00 t"
+      ],
+      "why": "Overall 2 NaCl + CaCO₃ → Na₂CO₃ + CaCl₂, so 5.00 × 2 × 58.44/105.99 = 5.51 t. The value 2.76 t forgets the factor of 2."
+    },
+    {
+      "q": "Why must the brine fed to a membrane cell be purified of Ca²⁺ and Mg²⁺?",
+      "a": "They precipitate as hydroxides in the membrane and foul it",
+      "wrong": [
+        "They are reduced at the cathode and so waste a part of the current",
+        "They corrode the titanium anode coating over time",
+        "They react with the Cl₂ that is released to form chlorates"
+      ],
+      "why": "The cathode compartment becomes strongly alkaline, so Ca²⁺ and Mg²⁺ that cross or enter the membrane form solid hydroxides. That raises resistance and ruins the membrane."
+    },
+    {
+      "q": "Using E° = +1.36 V for Cl₂/Cl⁻ and −0.83 V for water reduction at pH 14, what is the thermodynamic minimum voltage of the chlor-alkali cell?",
+      "a": "2.19 V",
+      "wrong": [
+        "0.53 V",
+        "1.36 V",
+        "4.38 V"
+      ],
+      "why": "The cell voltage is E(anode) − E(cathode) = 1.36 − (−0.83) = 2.19 V. Subtracting the magnitudes gives 0.53 V. Real cells operate at 3.0–3.3 V because of overpotentials and resistance."
+    },
+    {
+      "q": "How much electricity is needed to make 1.00 t of Cl₂ at 3.0 V and 90% current efficiency?",
+      "a": "2520 kWh",
+      "wrong": [
+        "2270 kWh",
+        "1260 kWh",
+        "5040 kWh"
+      ],
+      "why": "1.00 t Cl₂ is 1.41 × 10⁴ mol, which needs 2.82 × 10⁴ mol e⁻ = 2.72 × 10⁹ C ideally. Dividing by 0.90 gives 3.02 × 10⁹ C, and × 3.0 V = 9.07 × 10⁹ J = 2520 kWh. Multiplying by 0.90 would wrongly lower it."
+    },
+    {
+      "q": "A plant makes 50.0 t of NaOH per day in a membrane cell. How much Cl₂ does it make in the same time?",
+      "a": "44.3 t",
+      "wrong": [
+        "56.4 t",
+        "50.0 t",
+        "88.6 t"
+      ],
+      "why": "2 NaCl + 2 H₂O → Cl₂ + H₂ + 2 NaOH, so 70.90 g of Cl₂ comes with 2 × 40.00 g of NaOH: 50.0 × 70.90/80.00 = 44.3 t. Multiplying by 1.128 inverts the ratio."
+    }
+  ],
   "summary": [
     "Haber–Bosch: N₂ + 3 H₂ ⇌ 2 NH₃ (ΔH = −92 kJ). Equilibrium favors low T, high P; the Fe catalyst needs 400–500 °C, so 150–300 atm and a recycle loop with NH₃ condensation are used (≈ 17% at equilibrium, 200 atm, 500 °C). H₂ comes from steam reforming (CH₄ + H₂O → CO + 3 H₂, +206 kJ) and the water–gas shift.",
     "Ostwald: 4 NH₃ + 5 O₂ → 4 NO + 6 H₂O on Pt–Rh gauze (800–900 °C, short contact time), then NO → NO₂ → HNO₃ by absorption. Contact: S → SO₂ → SO₃ over V₂O₅ at 400–450 °C in multi-bed converters with double absorption; SO₃ is absorbed in 98% H₂SO₄ to make oleum.",

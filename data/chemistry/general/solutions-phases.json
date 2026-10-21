@@ -532,6 +532,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A liquid with ΔH_vap = 30.0 kJ/mol has a vapor pressure of 100 torr at 300 K. What is its vapor pressure at 320 K?",
+      "a": "212 torr",
+      "wrong": [
+        "107 torr",
+        "47.2 torr",
+        "2.12 torr"
+      ],
+      "why": "ln(P₂/P₁) = (30,000/8.314)(1/300 − 1/320) = 0.752, so P₂/P₁ = 2.12. Scaling by the ratio of temperatures (107 torr) ignores the exponential dependence."
+    },
+    {
+      "q": "Why does water boil at a lower temperature at high altitude?",
+      "a": "The external pressure is lower, so the vapor pressure reaches it at a lower temperature",
+      "wrong": [
+        "The water has a lower vapor pressure at every temperature",
+        "Hydrogen bonds are weaker where there is less oxygen",
+        "The lower pressure raises the vapor pressure needed to boil"
+      ],
+      "why": "A liquid boils when its vapor pressure equals the external pressure. Vapor pressure at a given temperature depends only on the liquid, so less pressure to match means a lower boiling temperature."
+    },
+    {
+      "q": "Mercury forms a convex surface that sits lower in a narrow glass tube than outside it. This is because",
+      "a": "cohesion between mercury atoms is stronger than adhesion to glass",
+      "wrong": [
+        "adhesion to the glass is stronger than cohesion within the mercury",
+        "mercury is denser than water, so it cannot rise",
+        "mercury has a lower surface tension than water"
+      ],
+      "why": "Water rises in a narrow tube because adhesion beats cohesion. Mercury shows the opposite balance, so the liquid is pulled away from the glass."
+    },
+    {
+      "q": "What is the concentration of CO₂ dissolved in water under 2.5 atm of CO₂ at 25 °C? (k_H = 3.4 × 10⁻² mol L⁻¹ atm⁻¹)",
+      "a": "8.5 × 10⁻² M",
+      "wrong": [
+        "1.4 × 10⁻² M",
+        "8.5 M",
+        "3.4 × 10⁻² M"
+      ],
+      "why": "Henry's law gives c = k_H P = (3.4 × 10⁻²)(2.5) = 8.5 × 10⁻² M. Dividing the constant by the pressure, instead of multiplying, gives 1.4 × 10⁻²."
+    },
+    {
+      "q": "A salt dissolves spontaneously in water even though its enthalpy of solution is positive. How is this possible?",
+      "a": "The entropy increase from mixing outweighs the energy cost",
+      "wrong": [
+        "A positive enthalpy of solution means the solvation step released more energy than separating the particles took",
+        "Enthalpy of solution has no bearing on whether a salt dissolves",
+        "The ions are attracted to water more strongly than the water molecules attract each other, so heat is released"
+      ],
+      "why": "A process with ΔH > 0 can still occur if the entropy gain from mixing is large enough. A positive ΔH means the separation steps cost more than solvation returns."
+    },
+    {
+      "q": "Which liquid is the best solvent for iodine, I₂, a nonpolar molecule?",
+      "a": "Hexane",
+      "wrong": [
+        "Water",
+        "Aqueous sodium chloride",
+        "Liquid hydrogen fluoride"
+      ],
+      "why": "Like dissolves like. Nonpolar I₂ interacts with nonpolar hexane through dispersion forces, while a polar or hydrogen-bonded solvent would have to give up its stronger attractions."
+    },
+    {
+      "q": "At a given temperature, benzene has a vapor pressure of 95.0 torr and toluene 29.0 torr. What is the total vapor pressure above an ideal solution with equal moles of each?",
+      "a": "62.0 torr",
+      "wrong": [
+        "124 torr",
+        "95.0 torr",
+        "47.5 torr"
+      ],
+      "why": "Each component follows Raoult's law with χ = 0.50: 0.50(95.0) + 0.50(29.0) = 62.0 torr. Adding the pure pressures (124 torr) ignores the dilution of each component."
+    },
+    {
+      "q": "A mixture of acetone and chloroform has a total vapor pressure lower than Raoult's law predicts. What does this indicate?",
+      "a": "The A–B attractions are stronger than the A–A and B–B attractions",
+      "wrong": [
+        "The A–B attractions are weaker than the A–A and B–B attractions",
+        "The A–B attractions are equal to the A–A and B–B attractions",
+        "One of the liquids is nonvolatile"
+      ],
+      "why": "Stronger unlike attractions hold molecules in the liquid, so fewer escape (negative deviation). Weaker ones, as in ethanol and hexane, give a higher pressure."
+    },
+    {
+      "q": "What is the boiling point elevation of a 0.250 m aqueous CaCl₂ solution? (K_b = 0.512 °C kg/mol; assume i = 3)",
+      "a": "0.384 °C",
+      "wrong": [
+        "0.128 °C",
+        "0.256 °C",
+        "0.768 °C"
+      ],
+      "why": "ΔT_b = iK_b m = 3(0.512)(0.250) = 0.384 °C. The 0.128 °C value treats CaCl₂ as a single particle per formula unit."
+    },
+    {
+      "q": "What is the osmotic pressure of 0.150 M NaCl (assume i = 2) at 37 °C (310.15 K)?",
+      "a": "7.63 atm",
+      "wrong": [
+        "3.82 atm",
+        "15.3 atm",
+        "1.91 atm"
+      ],
+      "why": "π = iMRT = 2(0.150)(0.082057)(310.15) = 7.63 atm. Leaving out the factor i gives 3.82 atm."
+    },
+    {
+      "q": "Why are intravenous fluids made 0.9% NaCl?",
+      "a": "The solution is isotonic with blood cells, so they neither swell nor shrink",
+      "wrong": [
+        "The salt raises the freezing point of the fluid so it can be stored",
+        "Pure water would dissolve the cells' membranes chemically",
+        "Sodium chloride is the only solute that crosses a cell membrane"
+      ],
+      "why": "Water flows by osmosis toward the more concentrated side. A solution with the same osmotic pressure as the cell contents produces no net flow."
+    },
+    {
+      "q": "The melting curve of water slopes backward on its phase diagram. What does this imply?",
+      "a": "Applying pressure to ice slightly below 0 °C can melt it",
+      "wrong": [
+        "Applying pressure to ice always raises its melting point",
+        "Ice sublimes when pressure is applied",
+        "Liquid water freezes more easily as pressure rises"
+      ],
+      "why": "Ice is less dense than liquid water, so pressure favors the denser liquid and lowers the melting point. Most substances show the opposite slope."
+    },
+    {
+      "q": "How much heat is needed to melt 25.0 g of ice at 0 °C and warm the water to 30.0 °C? (ΔH_fus = 334 J/g; c of water = 4.184 J g⁻¹ °C⁻¹)",
+      "a": "11.5 kJ",
+      "wrong": [
+        "3.14 kJ",
+        "8.35 kJ",
+        "59.6 kJ"
+      ],
+      "why": "Melting: 25.0 × 334 = 8350 J. Warming: 25.0 × 4.184 × 30.0 = 3138 J. The sum is 11.5 kJ. The 59.6 kJ figure wrongly uses the enthalpy of vaporization."
+    },
+    {
+      "q": "Water's triple point is at 611.7 Pa. If ice is heated at a constant pressure of 100 Pa, it",
+      "a": "sublimes directly to vapor, without forming liquid",
+      "wrong": [
+        "melts at 0 °C and then boils at a temperature below 100 °C",
+        "melts at 0 °C and stays liquid until 100 °C",
+        "remains solid until it reaches the critical point"
+      ],
+      "why": "Below the triple-point pressure the liquid phase does not exist at any temperature. The solid–gas curve is the only boundary crossed."
+    },
+    {
+      "q": "Aluminum is face-centered cubic with edge a = 404.9 pm (M = 26.98 g/mol). What is its density?",
+      "a": "2.70 g/cm³",
+      "wrong": [
+        "0.675 g/cm³",
+        "1.35 g/cm³",
+        "5.40 g/cm³"
+      ],
+      "why": "An fcc cell has 4 atoms. V = (4.049 × 10⁻⁸ cm)³ = 6.638 × 10⁻²³ cm³, so ρ = 4(26.98)/(6.022 × 10²³ × 6.638 × 10⁻²³) = 2.70 g/cm³."
+    },
+    {
+      "q": "A metal has a body-centered cubic structure with atomic radius 124 pm. What is the cell edge length?",
+      "a": "286 pm",
+      "wrong": [
+        "248 pm",
+        "351 pm",
+        "496 pm"
+      ],
+      "why": "In bcc the atoms touch along the body diagonal, 4r = √3 a, so a = 4(124)/√3 = 286 pm. The value 351 pm is the fcc relation a = 2√2 r."
+    },
+    {
+      "q": "A solid is soft, melts at 114 °C, and does not conduct electricity as a solid or as a liquid. It is most likely a",
+      "a": "molecular solid",
+      "wrong": [
+        "covalent network solid",
+        "ionic solid",
+        "metallic solid"
+      ],
+      "why": "Low melting point and softness mean weak intermolecular forces hold discrete molecules together. A network solid would be very hard and high-melting, and ionic or metallic solids conduct when molten."
+    },
+    {
+      "q": "How many NaCl formula units are in the face-centered cubic unit cell of rock salt?",
+      "a": "4",
+      "wrong": [
+        "1",
+        "2",
+        "8"
+      ],
+      "why": "The Cl⁻ ions form an fcc array with 4 ions per cell, and there is one Na⁺ in an octahedral hole for each, so 4 Na⁺ and 4 Cl⁻ make 4 formula units."
+    }
+  ],
   "summary": [
     "Vapor pressure rises with temperature according to Clausius–Clapeyron: ln P vs 1/T has slope −ΔH_{vap}/R. A liquid boils when its vapor pressure equals the external pressure.",
     "Like dissolves like. Dissolution depends on ΔH and entropy. Gas solubility follows Henry’s law, c = k_{H}P.",

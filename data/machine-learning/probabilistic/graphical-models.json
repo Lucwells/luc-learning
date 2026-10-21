@@ -291,6 +291,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "Six binary variables form a chain X₁ → X₂ → … → X₆. How many free parameters does the Bayesian network need?",
+      "a": "11",
+      "wrong": [
+        "63",
+        "12",
+        "6"
+      ],
+      "why": "The root needs 1 number and each of the 5 other variables needs 2 (one per value of its parent), so 1 + 5 × 2 = 11. The value 63 = 2⁶ − 1 is the full joint table."
+    },
+    {
+      "q": "A network has edges A → C, B → C and C → D. Which factorization of the joint distribution does it encode?",
+      "a": "P(A) P(B) P(C | A, B) P(D | C)",
+      "wrong": [
+        "P(A) P(B | A) P(C | A, B) P(D | C)",
+        "P(A) P(B) P(C) P(D | C)",
+        "P(A | C) P(B | C) P(C) P(D | C)"
+      ],
+      "why": "Each variable contributes one factor conditioned on its parents. A and B have no parents, so their factors are unconditional, and C has parents A and B."
+    },
+    {
+      "q": "In a chain A → B → C: P(A = 1) = 0.5, P(B = 1 | A = 1) = 0.8, P(B = 1 | A = 0) = 0.3, P(C = 1 | B = 1) = 0.9 and P(C = 1 | B = 0) = 0.2. What is P(C = 1)?",
+      "a": "0.585",
+      "wrong": [
+        "0.495",
+        "0.55",
+        "0.72"
+      ],
+      "why": "P(B = 1) = 0.5(0.8) + 0.5(0.3) = 0.55, then P(C = 1) = 0.55(0.9) + 0.45(0.2) = 0.585. The value 0.495 omits the contribution of B = 0."
+    },
+    {
+      "q": "All variables are binary. In the data, x has parent b = 1 in 10 examples, and x = 1 in 3 of them. With Laplace smoothing (add 1 to each count), the estimate of P(x = 1 | b = 1) is",
+      "a": "4/12 = 1/3",
+      "wrong": [
+        "3/10",
+        "4/10",
+        "3/12"
+      ],
+      "why": "Smoothing adds 1 to the count of each value of x, so the numerator is 3 + 1 and the denominator is 10 + 2. This corresponds to a uniform Dirichlet prior."
+    },
+    {
+      "q": "In the network A → B ← C, B → D, the variable D is observed and B is not. What is the relationship between A and C?",
+      "a": "They are dependent, since D is a descendant of the collider B",
+      "wrong": [
+        "They are independent, since the collider B itself is not observed, so the path stays blocked",
+        "They are independent, since D blocks the path",
+        "They are dependent only if B itself is observed"
+      ],
+      "why": "A collider, or any descendant of it, that is observed opens the path. Because D is observed, the path A → B ← C is no longer blocked."
+    },
+    {
+      "q": "Ice cream sales and drownings are both caused by temperature (Ice cream ← Temperature → Drownings). Which statement is correct?",
+      "a": "They are dependent if temperature is unobserved, and independent given the temperature",
+      "wrong": [
+        "They are independent always, since neither causes the other",
+        "They are independent if temperature is unobserved, and dependent given the temperature",
+        "They are dependent always, since the common cause cannot be blocked"
+      ],
+      "why": "A fork node passes dependence when it is unobserved and blocks the path once it is observed."
+    },
+    {
+      "q": "A network has edges A → B, C → B, B → D and E → D. What is the Markov blanket of B?",
+      "a": "{A, C, D, E}",
+      "wrong": [
+        "{A, C, D}",
+        "{A, D}",
+        "{A, C, D, E, and every descendant of D}"
+      ],
+      "why": "The blanket is the parents (A, C), the children (D) and the children's other parents (E). Given these, B is independent of all other variables."
+    },
+    {
+      "q": "An alarm rings (A = B OR E) if there is a burglary B or an earthquake E, which are independent with P(B) = P(E) = 0.2. What is P(B | A)?",
+      "a": "5/9 ≈ 0.556",
+      "wrong": [
+        "0.2",
+        "0.36",
+        "0.8"
+      ],
+      "why": "P(A) = 1 − 0.8 × 0.8 = 0.36, and a burglary always triggers the alarm, so P(B | A) = 0.2/0.36. Learning that the alarm rang raises belief in a burglary from 0.2."
+    },
+    {
+      "q": "Why is variable elimination cheaper than summing the full joint distribution over all other variables?",
+      "a": "It pushes each sum inside the product, so only small tables over a few variables are created",
+      "wrong": [
+        "It ignores configurations whose probability is small, summing only over the few most likely assignments of the other variables",
+        "It estimates the sums by sampling a few configurations",
+        "It removes the variables that are not parents of the query"
+      ],
+      "why": "Moving a sum past the factors that do not involve its variable lets one variable be eliminated at a time. The result is still exact. The cost then depends on the size of the largest table, i.e. the treewidth."
+    },
+    {
+      "q": "Use the chain A → B → C with P(A = 1) = 0.5, P(B = 1 | A = 1) = 0.8, P(B = 1 | A = 0) = 0.3, P(C = 1 | B = 1) = 0.9 and P(C = 1 | B = 0) = 0.2. If C = 1 is observed, what is P(A = 1 | C = 1)?",
+      "a": "0.65",
+      "wrong": [
+        "0.5",
+        "0.76",
+        "0.41"
+      ],
+      "why": "P(C = 1 | A = 1) = 0.8(0.9) + 0.2(0.2) = 0.76 and P(C = 1 | A = 0) = 0.3(0.9) + 0.7(0.2) = 0.41. By Bayes' rule 0.5(0.76)/(0.5(0.76) + 0.5(0.41)) = 0.65. The value 0.76 is a likelihood, not a posterior."
+    },
+    {
+      "q": "What happens when loopy belief propagation is run on a graph with cycles?",
+      "a": "It is an approximation that often works well in practice, but it has no exactness guarantee",
+      "wrong": [
+        "It is exact, as on trees, but needs many repeated sweeps around the cycles instead of the two used on a tree",
+        "It always fails to converge, so it is never used",
+        "It reduces to variable elimination with a smaller treewidth"
+      ],
+      "why": "Message passing is exact only on trees. On graphs with cycles the messages can be iterated anyway, which gives approximate marginals."
+    },
+    {
+      "q": "A two-state HMM has π = (0.6, 0.4), transition matrix [[0.9, 0.1], [0.2, 0.8]], and the same symbol x is seen on two days, with P(x | state 1) = 0.5 and P(x | state 2) = 0.1. What is the probability of the observations?",
+      "a": "0.1452",
+      "wrong": [
+        "0.139",
+        "0.34",
+        "0.0062"
+      ],
+      "why": "α₁ = (0.30, 0.04). α₂(1) = (0.30 · 0.9 + 0.04 · 0.2) · 0.5 = 0.139 and α₂(2) = (0.30 · 0.1 + 0.04 · 0.8) · 0.1 = 0.0062. The sum is 0.1452. The value 0.34 is the sum of α₁."
+    },
+    {
+      "q": "For the same HMM and data, what is the Viterbi value δ₂(state 2)?",
+      "a": "0.0032, coming from state 2 on day 1",
+      "wrong": [
+        "0.0062, the sum over both previous states",
+        "0.003, coming from state 1 on day 1",
+        "0.032, coming from state 2 on day 1"
+      ],
+      "why": "With δ₁ = (0.30, 0.04), the candidates are 0.30 · 0.1 = 0.03 and 0.04 · 0.8 = 0.032, so the best predecessor is state 2. Multiplying by the emission 0.1 gives 0.0032. The sum 0.0062 would be the forward value."
+    },
+    {
+      "q": "In the forward algorithm, α_t(i) is",
+      "a": "the probability of the first t observations and of being in state i at time t",
+      "wrong": [
+        "the probability of being in state i at time t, given all the observations, including the later ones",
+        "the probability of the t-th observation given state i",
+        "the probability of the best state sequence ending in state i"
+      ],
+      "why": "α_t(i) = P(x₁, …, x_t, s_t = i) is a joint probability, which is why summing it over i gives the likelihood. The best-path quantity is Viterbi's δ, and the posterior needs a backward pass too."
+    },
+    {
+      "q": "In Baum–Welch, the E-step gives expected counts: 1→1: 9, 1→2: 3, 2→1: 2, 2→2: 6. What does the M-step estimate for the transition probability A₁₂?",
+      "a": "3/12 = 0.25",
+      "wrong": [
+        "3/20 = 0.15",
+        "3/9 ≈ 0.333",
+        "9/12 = 0.75"
+      ],
+      "why": "A₁₂ is the expected number of transitions 1 → 2 divided by the expected number of visits to state 1 as a source, 9 + 3 = 12. Dividing by 9 normalizes over transitions into state 2, which is the wrong direction."
+    },
+    {
+      "q": "Two binary variables share a potential ψ(x₁, x₂) = 4 when x₁ = x₂ = 1 and ψ = 1 for the other three configurations. What is P(x₁ = 1, x₂ = 1)?",
+      "a": "4/7 ≈ 0.571",
+      "wrong": [
+        "4/10 = 0.4",
+        "1/4 = 0.25",
+        "4/5 = 0.8"
+      ],
+      "why": "The partition function is Z = 4 + 1 + 1 + 1 = 7, and the probability of a configuration is its potential divided by Z. Using 4 as a numerator without the sum of all four potentials gives probabilities that do not total one."
+    },
+    {
+      "q": "An Ising model has spins x_i ∈ {−1, +1} and pairwise potential ψ(x_i, x_j) = exp(J x_i x_j) with J = 0.5. How many times larger is the potential for two agreeing neighbors than for two disagreeing ones?",
+      "a": "e ≈ 2.72",
+      "wrong": [
+        "e^{0.5} ≈ 1.65",
+        "2",
+        "e^{−1} ≈ 0.37"
+      ],
+      "why": "Agreeing neighbors give exp(+0.5) and disagreeing ones give exp(−0.5), so the ratio is exp(1) = e. The value 0.37 is the inverse ratio."
+    },
+    {
+      "q": "What is the main advantage of a conditional random field over a Markov random field over (x, y) for tagging sequences?",
+      "a": "It models P(y | x) directly, so inputs need not be modeled and potentials can depend on all of x",
+      "wrong": [
+        "It has no partition function at all, so training reduces to counting, as for a Bayesian network",
+        "It is a directed model, so d-separation applies",
+        "It requires the cliques to be restricted to single nodes"
+      ],
+      "why": "A CRF still has a normalizing term, but it is computed per input x. By conditioning on x, it avoids modeling the complicated distribution of the inputs."
+    }
+  ],
   "summary": [
     "A Bayesian network is a DAG with P(x) = Π P(x_i | parents(x_i)). The factorization cuts the parameter count from exponential to the sum of the local tables.",
     "d-separation reads conditional independence off the graph. Observing a chain or fork node blocks the path; observing a collider (or its descendant) opens it, which causes explaining away.",

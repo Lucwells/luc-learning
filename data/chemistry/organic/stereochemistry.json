@@ -600,6 +600,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "Which conformation of butane (viewed along C2–C3) has the highest energy?",
+      "a": "The eclipsed form with the two CH₃ groups at 0°",
+      "wrong": [
+        "The eclipsed form with each CH₃ aligned with a hydrogen",
+        "The gauche form with the CH₃ groups at 60°",
+        "The anti form with the CH₃ groups at 180°"
+      ],
+      "why": "Eclipsing the two methyl groups combines torsional strain with the largest steric repulsion, about 19 kJ/mol above anti. The other eclipsed forms are maxima too, but lower ones."
+    },
+    {
+      "q": "Gauche butane lies about 3.8 kJ/mol above the anti conformation. What is the main reason?",
+      "a": "Steric repulsion between the two methyl groups, which are only 60° apart",
+      "wrong": [
+        "Torsional strain from eclipsed C–H bonds",
+        "Angle strain at C2 and C3",
+        "Loss of hyperconjugation between the methyl groups"
+      ],
+      "why": "Gauche is a staggered conformation, so it has no eclipsing. The energy cost comes from the methyl groups crowding each other."
+    },
+    {
+      "q": "The heat of combustion of cyclopentane is 663.8 kJ/mol per CH₂ group, and a strain-free CH₂ gives 658.6 kJ/mol. What is the total ring strain?",
+      "a": "26 kJ/mol",
+      "wrong": [
+        "5.2 kJ/mol",
+        "3319 kJ/mol",
+        "1.3 kJ/mol"
+      ],
+      "why": "The excess per CH₂ is 663.8 − 658.6 = 5.2 kJ/mol, and the ring has five CH₂ groups, so 5 × 5.2 = 26 kJ/mol."
+    },
+    {
+      "q": "Cyclopentane has C–C–C angles near 105–108°, close to tetrahedral, yet it carries 26 kJ/mol of strain. What is the main source?",
+      "a": "Torsional strain from eclipsed C–H bonds, partly relieved by puckering into an envelope",
+      "wrong": [
+        "Angle strain from 60° bond angles",
+        "Transannular repulsion across the ring",
+        "Flagpole interactions like those in a boat"
+      ],
+      "why": "A planar five-membered ring would have all neighboring bonds eclipsed. Puckering relieves some of this. Angle strain is small here, and transannular strain matters for rings of seven or more."
+    },
+    {
+      "q": "What is the energy difference between the diequatorial and diaxial chairs of trans-1,4-dimethylcyclohexane? (A-value of CH₃ = 7.3 kJ/mol)",
+      "a": "About 14.6 kJ/mol, favoring diequatorial",
+      "wrong": [
+        "About 7.3 kJ/mol, favoring diequatorial",
+        "About 0, because the two chairs are identical",
+        "About 14.6 kJ/mol, favoring diaxial"
+      ],
+      "why": "In the diaxial chair each methyl pays its A-value, so the cost is 2 × 7.3 = 14.6 kJ/mol. The diequatorial chair has no 1,3-diaxial strain."
+    },
+    {
+      "q": "How do the two chair forms of cis-1,4-dimethylcyclohexane compare?",
+      "a": "They are equal in energy, each having one axial and one equatorial methyl",
+      "wrong": [
+        "One is diequatorial and more stable by 14.6 kJ/mol",
+        "One is diaxial and less stable by 14.6 kJ/mol",
+        "They cannot interconvert because the substituents are cis"
+      ],
+      "why": "In a 1,4 relationship cis means axial/equatorial, and a ring flip swaps the two positions to give the identical arrangement. Diequatorial and diaxial chairs belong to the trans isomer."
+    },
+    {
+      "q": "Which compound is chiral?",
+      "a": "3-Methylhexane",
+      "wrong": [
+        "2-Methylbutane",
+        "Pentan-3-ol",
+        "Methylcyclohexane"
+      ],
+      "why": "C3 of 3-methylhexane carries H, CH₃, ethyl and propyl. The stereocenters in the others fail: C2 of 2-methylbutane has two methyls, C3 of pentan-3-ol has two ethyls, and the ring carbon of methylcyclohexane has two equivalent ring paths."
+    },
+    {
+      "q": "A 0.20 g/mL solution in a 2.0 dm polarimeter tube rotates plane-polarized light by −3.2°. What is the specific rotation?",
+      "a": "−8.0°",
+      "wrong": [
+        "−16°",
+        "−1.6°",
+        "−0.64°"
+      ],
+      "why": "[α] = α/(l · c) = −3.2/(2.0 × 0.20) = −8.0°. Dividing by concentration alone gives −16°, and forgetting the concentration gives −1.6°."
+    },
+    {
+      "q": "A mixture of enantiomers has [α] = +15°, and the pure (+) enantiomer has [α] = +60°. What percentage of the mixture is the (+) enantiomer?",
+      "a": "62.5%",
+      "wrong": [
+        "25%",
+        "75%",
+        "87.5%"
+      ],
+      "why": "ee = 15/60 = 25%. The excess is 25% and the remaining 75% is racemic, half of it (+), so (+) = 25 + 37.5 = 62.5% and (−) = 37.5%."
+    },
+    {
+      "q": "(S)-Lactic acid is dextrorotatory, but (S)-glyceraldehyde is levorotatory. What does this show?",
+      "a": "The sign of rotation cannot be predicted from the R/S label",
+      "wrong": [
+        "(S) compounds are always dextrorotatory unless impure",
+        "Glyceraldehyde and lactic acid must be enantiomers of each other",
+        "One of the two assignments must be wrong"
+      ],
+      "why": "R and S describe the geometry from CIP priorities. The direction a compound rotates light is measured experimentally and depends on the whole molecule."
+    },
+    {
+      "q": "Which has the higher CIP priority, –CH₂Cl or –CHO?",
+      "a": "–CH₂Cl, because Cl outranks O at the first point of difference",
+      "wrong": [
+        "–CHO, because it has two oxygen atoms (one duplicated) and so a larger total atomic number",
+        "–CHO, because it contains a double bond",
+        "They tie, because both are attached through carbon"
+      ],
+      "why": "Both groups attach through carbon, so compare the attached sets in decreasing order: {Cl,H,H} against {O,O,H}. The first atoms decide: Cl beats O, whatever the totals."
+    },
+    {
+      "q": "One carbon of a C=C bears –Br and –H, and the other bears –Cl and –CH₃. Br and Cl are on the same side. What is the alkene’s descriptor?",
+      "a": "Z",
+      "wrong": [
+        "E",
+        "R",
+        "S"
+      ],
+      "why": "Br outranks H and Cl outranks CH₃. The higher-priority groups are on the same side, which is Z (zusammen). R and S describe stereocenters, not double bonds."
+    },
+    {
+      "q": "How many stereoisomers does 2,3,4-trichlorohexane have?",
+      "a": "8",
+      "wrong": [
+        "4",
+        "6",
+        "3"
+      ],
+      "why": "C2, C3 and C4 are each bonded to four different groups, and the molecule has no internal symmetry, so there is no meso form: 2³ = 8."
+    },
+    {
+      "q": "Which compound is achiral even though it has two stereocenters?",
+      "a": "cis-1,2-Dimethylcyclopentane",
+      "wrong": [
+        "trans-1,2-Dimethylcyclopentane",
+        "(2R,3R)-Tartaric acid",
+        "(2R,3R)-2,3-Dibromopentane"
+      ],
+      "why": "The cis isomer has a plane of symmetry between the two stereocenters, so it is meso. The trans isomer, (R,R)-tartaric acid and (2R,3R)-2,3-dibromopentane (whose ends differ) have no such plane."
+    },
+    {
+      "q": "Why can a racemic carboxylic acid be separated by reacting it with a single enantiomer of a chiral amine?",
+      "a": "The two salts formed are diastereomers, with different solubilities",
+      "wrong": [
+        "The two salts are enantiomers that crystallize at different rates",
+        "The amine reacts with only one enantiomer of the acid",
+        "The amine destroys the unwanted enantiomer"
+      ],
+      "why": "Pairing (R)-acid and (S)-acid with a pure (R)-base gives (R,R) and (S,R) salts, which are not mirror images. Their different physical properties allow ordinary crystallization to separate them."
+    },
+    {
+      "q": "(R)-2-Bromobutane reacts with NaCN by an SN2 mechanism. What is the configuration of the 2-methylbutanenitrile formed?",
+      "a": "S, since the attack from the back inverts the carbon and CN takes the highest priority",
+      "wrong": [
+        "R, since the nucleophile takes the position of the leaving group",
+        "A racemic mixture, since the carbon passes through a planar transition state",
+        "An achiral product, since the cyanide group is symmetric"
+      ],
+      "why": "SN2 attacks from the side opposite the leaving group, inverting the center. CN (priority 1) replaces Br (priority 1), so the priority order is unchanged and R becomes S."
+    },
+    {
+      "q": "Br₂ adds to trans-but-2-ene by anti addition through a bromonium ion. What is the product?",
+      "a": "meso-2,3-Dibromobutane",
+      "wrong": [
+        "A racemic mixture of (2R,3R)- and (2S,3S)-2,3-dibromobutane",
+        "Only (2R,3R)-2,3-dibromobutane",
+        "An equal mixture of meso and racemic products"
+      ],
+      "why": "The two bromines add to opposite faces of the trans alkene, which gives the meso (R,S) arrangement. The cis alkene would give the racemic pair. This is a stereospecific outcome."
+    },
+    {
+      "q": "In the Felkin–Anh model, how does a nucleophile approach the carbonyl carbon of a chiral aldehyde?",
+      "a": "Anti to the largest group on the adjacent stereocenter, at about 107° to the C=O",
+      "wrong": [
+        "Syn to the largest group on the adjacent stereocenter, at about 90° to the C=O",
+        "Equally from both faces, because the carbonyl carbon is planar",
+        "Along the C=O axis at 180°, to avoid the adjacent groups"
+      ],
+      "why": "The faces of the carbonyl are diastereotopic when the adjacent carbon is a stereocenter. The nucleophile avoids the largest group and follows the Bürgi–Dunitz trajectory, so one diastereomer predominates."
+    }
+  ],
   "summary": [
     "Staggered conformations are lower in energy than eclipsed. Butane is lowest as anti, with gauche 3.8 kJ/mol higher.",
     "Ring strain is angle, torsional and steric strain. Cyclohexane in the chair form has none. Substituents prefer equatorial positions by their A-value.",

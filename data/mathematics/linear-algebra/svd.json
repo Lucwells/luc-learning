@@ -296,6 +296,178 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "What are the singular values of A = [[−3, 0], [0, 2]]?",
+      "a": "3 and 2",
+      "wrong": [
+        "−3 and 2",
+        "9 and 4",
+        "5 and 1"
+      ],
+      "why": "Singular values are square roots of the eigenvalues of AᵀA = diag(9, 4), so they are 3 and 2 and are never negative. The sign of the −3 is absorbed into U or V."
+    },
+    {
+      "q": "A is a 5 × 3 matrix. In the full SVD A = UΣVᵀ, what are the shapes of U, Σ and V?",
+      "a": "5 × 5, 5 × 3 and 3 × 3",
+      "wrong": [
+        "5 × 3, 3 × 3 and 3 × 3",
+        "5 × 5, 3 × 3 and 5 × 5",
+        "3 × 3, 5 × 3 and 5 × 5"
+      ],
+      "why": "U lives in the output space ℝ⁵, V in the input space ℝ³, and Σ has the same shape as A. The compact SVD would use 5 × r, r × r and 3 × r."
+    },
+    {
+      "q": "A has singular values 6 and 2. The unit circle in the input space is mapped to an ellipse. What are its semi-axes?",
+      "a": "Lengths 6 and 2, pointing along u₁ and u₂",
+      "wrong": [
+        "Lengths 6 and 2, pointing along v₁ and v₂",
+        "Lengths 36 and 4, pointing along u₁ and u₂",
+        "Lengths √6 and √2, pointing along u₁ and u₂"
+      ],
+      "why": "A maps v_i to σ_iu_i, so the image axes have length σ_i and point along the output vectors u_i. The v_i are the input directions that produce them."
+    },
+    {
+      "q": "AᵀA has eigenvalues 49, 9 and 0. What are the rank of A and its largest singular value?",
+      "a": "Rank 2 and σ₁ = 7",
+      "wrong": [
+        "Rank 3 and σ₁ = 49",
+        "Rank 2 and σ₁ = 49",
+        "Rank 3 and σ₁ = 7"
+      ],
+      "why": "Singular values are the square roots of the eigenvalues: 7, 3 and 0. Only two are non-zero, so the rank is 2."
+    },
+    {
+      "q": "A 2 × 2 matrix has determinant −6 and largest singular value 6. What is its other singular value?",
+      "a": "1",
+      "wrong": [
+        "−1",
+        "6",
+        "1/6"
+      ],
+      "why": "The product of singular values is |det A| = 6, so σ₂ = 6/6 = 1. Singular values are non-negative; the sign of the determinant only records a reflection."
+    },
+    {
+      "q": "A is a 4 × 6 matrix of rank 3. Which singular vectors form an orthonormal basis of its null space?",
+      "a": "v₄, v₅, v₆",
+      "wrong": [
+        "v₁, v₂, v₃",
+        "u₄",
+        "u₁, u₂, u₃"
+      ],
+      "why": "The null space lives in ℝ⁶ and has dimension 6 − 3 = 3. It is spanned by the right singular vectors beyond the rank. The vector u₄ spans the left null space."
+    },
+    {
+      "q": "A matrix has singular values 6, 3 and 2. What is its Frobenius norm?",
+      "a": "7",
+      "wrong": [
+        "11",
+        "6",
+        "49"
+      ],
+      "why": "‖A‖_F = √(36 + 9 + 4) = √49 = 7. The value 11 is the sum of the singular values, the nuclear norm."
+    },
+    {
+      "q": "A matrix has largest singular value 1000 and smallest non-zero singular value 10⁻⁷. In double precision (about 16 digits), roughly how many correct digits can a solution of Ax = b have?",
+      "a": "About 6",
+      "wrong": [
+        "About 10",
+        "About 16",
+        "About 3"
+      ],
+      "why": "κ = 1000/10⁻⁷ = 10¹⁰, which costs about 10 of the 16 digits, leaving about 6."
+    },
+    {
+      "q": "A 5 × 5 matrix has computed singular values 3, 1, 10⁻³, 10⁻¹⁷ and 10⁻¹⁸. What is its numerical rank?",
+      "a": "3",
+      "wrong": [
+        "5",
+        "2",
+        "4"
+      ],
+      "why": "The tolerance is about σ₁ · 5 · 10⁻¹⁶ ≈ 10⁻¹⁵, so the last two singular values count as zero. Counting all non-zero floating-point values would wrongly report 5."
+    },
+    {
+      "q": "A has spectral norm ‖A‖₂ = 5, and x has ‖x‖ = 3. What can be said about ‖Ax‖?",
+      "a": "It is at most 15",
+      "wrong": [
+        "It equals 15",
+        "It is at least 15",
+        "It is at most 5"
+      ],
+      "why": "‖A‖₂ = max ‖Ax‖/‖x‖, so ‖Ax‖ ≤ 5 · 3 = 15. Equality holds only when x points along the top right singular vector v₁."
+    },
+    {
+      "q": "A has singular values 9, 5, 3 and 1. What is the Frobenius-norm error of the best rank-1 approximation?",
+      "a": "√35 ≈ 5.92",
+      "wrong": [
+        "5",
+        "√34 ≈ 5.83",
+        "9"
+      ],
+      "why": "By Eckart–Young the error is √(5² + 3² + 1²) = √35. The value 5 is the spectral-norm error of the same approximation."
+    },
+    {
+      "q": "A has singular values 10, 5, 2 and 1. What fraction of ‖A‖_F² does the best rank-2 approximation retain?",
+      "a": "About 96%",
+      "wrong": [
+        "About 83%",
+        "About 77%",
+        "50%"
+      ],
+      "why": "The squared values are 100, 25, 4, 1, total 130, so the retained fraction is 125/130 = 96%. The value 83% (15/18) wrongly sums unsquared singular values."
+    },
+    {
+      "q": "X is a centered data matrix with one example per row, and X = UΣVᵀ. The principal component directions are",
+      "a": "the right singular vectors v_i",
+      "wrong": [
+        "the left singular vectors u_i",
+        "the rows of Σ",
+        "the eigenvectors of XXᵀ"
+      ],
+      "why": "The columns of V are eigenvectors of XᵀX, which is proportional to the covariance matrix. The vectors u_i live in the space of examples, not features."
+    },
+    {
+      "q": "A weight update ΔW = BA is learned for a 2048 × 2048 matrix with B of size 2048 × 4 and A of size 4 × 2048. How many parameters are trained?",
+      "a": "16,384",
+      "wrong": [
+        "4,194,304",
+        "8,192",
+        "1,024"
+      ],
+      "why": "B has 2048 · 4 = 8192 entries and A has 4 · 2048 = 8192, total 16,384, about 0.4% of the 4,194,304 entries of a full update."
+    },
+    {
+      "q": "What is the pseudoinverse of A = diag(4, 0.5, 0)?",
+      "a": "diag(0.25, 2, 0)",
+      "wrong": [
+        "diag(0.25, 2, 1)",
+        "diag(4, 0.5, 0)",
+        "It does not exist, since A is singular"
+      ],
+      "why": "The pseudoinverse inverts the non-zero singular values and leaves zeros alone. It exists for every matrix, including singular ones."
+    },
+    {
+      "q": "Among all solutions of x₁ + 2x₂ = 5, which one does the pseudoinverse solution A⁺b pick?",
+      "a": "(1, 2)",
+      "wrong": [
+        "(5, 0)",
+        "(0, 2.5)",
+        "(3, 1)"
+      ],
+      "why": "All four satisfy the equation, but A⁺b is the one of smallest norm: (1, 2) has norm √5 ≈ 2.24, versus 3.16 for (3, 1) and 5 for (5, 0) and 2.5 for (0, 2.5). It is the point on the line closest to the origin."
+    },
+    {
+      "q": "A has a singular value σ = 0.1. In solving least squares, by what factor is the noise along that direction multiplied without regularization, and with ridge λ = 0.01?",
+      "a": "10 without, 5 with ridge",
+      "wrong": [
+        "10 without, 0.91 with ridge",
+        "0.1 without, 0.1 with ridge",
+        "10 without, 50 with ridge"
+      ],
+      "why": "Without ridge the factor is 1/σ = 10. Ridge uses σ/(σ² + λ) = 0.1/(0.01 + 0.01) = 5. Ridge always shrinks the factor relative to 1/σ."
+    }
+  ],
   "summary": [
     "Every matrix factors as A = UΣVᵀ with orthogonal U, V and non-negative singular values σ₁ ≥ … ≥ σ_r > 0. Geometrically it rotates, stretches along axes and rotates again, mapping v_i to σ_iu_i.",
     "σ_i² are the eigenvalues of AᵀA and AAᵀ. The SVD gives orthonormal bases of all four fundamental subspaces, and the rank is the number of non-zero singular values (numerical rank uses a tolerance).",

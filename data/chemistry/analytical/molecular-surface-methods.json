@@ -557,6 +557,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A solution in a 1.00 cm cell transmits 25% of the light at the analyte’s λ_max, where ε = 4,000 L mol⁻¹ cm⁻¹. What is the concentration?",
+      "a": "1.5 × 10⁻⁴ M",
+      "wrong": [
+        "6.3 × 10⁻⁵ M",
+        "3.5 × 10⁻⁴ M",
+        "1.5 × 10⁻⁵ M"
+      ],
+      "why": "A = −log T = log 4 = 0.602, so c = A/(εb) = 0.602/4,000 = 1.5 × 10⁻⁴ M. Using T itself as A gives 6.3 × 10⁻⁵, and a natural logarithm gives 3.5 × 10⁻⁴."
+    },
+    {
+      "q": "A spectrophotometer has 1.0% stray light. What absorbance does it display for a solution with a true A = 2.00?",
+      "a": "1.70",
+      "wrong": [
+        "2.00",
+        "1.30",
+        "2.30"
+      ],
+      "why": "The true transmitted power is 0.01P₀, but the detector also receives 0.01P₀ of stray light: A = log(1.01/0.02) = 1.70. Stray light always makes the reading too low, and the error grows with A."
+    },
+    {
+      "q": "The spectra of an acid–base indicator at several pH values all cross at one wavelength. What can be measured at that wavelength?",
+      "a": "The total indicator concentration, since both forms have the same ε there",
+      "wrong": [
+        "The concentration of the acid form alone, since the base form is transparent there",
+        "The pH of the solution directly, since the absorbance depends on the ratio of forms",
+        "The concentration of the base form alone, since the acid form is transparent there"
+      ],
+      "why": "At an isosbestic point the two interconverting species absorb equally, so the absorbance depends only on their sum. This avoids the chemical deviation from Beer’s law caused by the changing equilibrium."
+    },
+    {
+      "q": "In dynamic quenching, K_SV = 80 M⁻¹ and the iodide concentration is 0.025 M. What fraction of the unquenched fluorescence remains?",
+      "a": "0.33",
+      "wrong": [
+        "0.67",
+        "0.50",
+        "3.0"
+      ],
+      "why": "F₀/F = 1 + 80 × 0.025 = 3.0, so F/F₀ = 1/3.0 = 0.33. The value 3.0 is the ratio F₀/F itself, and 0.67 is the fraction lost."
+    },
+    {
+      "q": "Which type of molecule is expected to have the highest fluorescence quantum yield?",
+      "a": "A rigid, planar, conjugated aromatic molecule",
+      "wrong": [
+        "A flexible molecule with rotating side chains",
+        "A conjugated molecule carrying several iodine atoms",
+        "A saturated molecule with no π bonds"
+      ],
+      "why": "Φ_F = k_F/(k_F + k_nr) is high when non-radiative decay is slow. Rigidity limits internal conversion by vibrations and rotations, and heavy atoms promote intersystem crossing."
+    },
+    {
+      "q": "Why does phosphorescence last microseconds to seconds, while fluorescence lasts only nanoseconds?",
+      "a": "The triplet-to-singlet transition is spin-forbidden",
+      "wrong": [
+        "The emitting state has a higher energy than the singlet",
+        "Phosphorescence needs a second photon to be absorbed first",
+        "Triplet states are quenched much more slowly by solvents"
+      ],
+      "why": "Fluorescence is a spin-allowed singlet-to-singlet transition. Emission from the triplet requires a change of spin, which is slow, so the excited state persists."
+    },
+    {
+      "q": "An FTIR instrument must give a resolution of 0.5 cm⁻¹. How far must the moving mirror travel?",
+      "a": "1.0 cm",
+      "wrong": [
+        "2.0 cm",
+        "0.5 cm",
+        "4.0 cm"
+      ],
+      "why": "δ_max = 1/Δν̃ = 2.0 cm of optical path difference, and the path difference is twice the mirror displacement, so the mirror moves 1.0 cm. Quoting 2.0 cm forgets that the beam travels the extra distance twice."
+    },
+    {
+      "q": "A Raman band appears with a shift of 1000 cm⁻¹ using a 785 nm laser. At which wavelength is the Stokes line?",
+      "a": "852 nm",
+      "wrong": [
+        "728 nm",
+        "1785 nm",
+        "786 nm"
+      ],
+      "why": "ν̃₀ = 12,739 cm⁻¹, and the Stokes line is at 12,739 − 1000 = 11,739 cm⁻¹, or 852 nm. The anti-Stokes line would be at 728 nm, and a shift is subtracted in wavenumbers, not in nanometres."
+    },
+    {
+      "q": "Why do bands at high wavenumber look weaker in an ATR spectrum than in a transmission spectrum?",
+      "a": "The evanescent wave penetrates less deeply at shorter wavelength, so the effective path is shorter",
+      "wrong": [
+        "The crystal absorbs high-wavenumber light more than low",
+        "The sample reflects high-wavenumber light before it reaches the crystal",
+        "The detector is less sensitive at high wavenumber"
+      ],
+      "why": "The penetration depth is proportional to the wavelength, so at 3000 cm⁻¹ it is about a third of that at 1000 cm⁻¹. The sample path, and hence the absorbance, is correspondingly smaller."
+    },
+    {
+      "q": "Why is a 785 nm or 1064 nm laser often chosen for Raman spectroscopy of colored organic samples, despite the ν⁴ dependence of the scattering?",
+      "a": "It avoids exciting fluorescence, which can be 10⁶ times stronger than Raman scattering",
+      "wrong": [
+        "Raman scattering is more intense at longer wavelengths",
+        "Near-IR light is not absorbed by glass or water, so no cell is needed",
+        "It makes the Rayleigh line disappear"
+      ],
+      "why": "Visible and UV lasers give more Raman signal per photon but excite electronic states whose fluorescence swamps the spectrum. A near-IR laser trades some intensity for a clean baseline."
+    },
+    {
+      "q": "A powder diffraction peak with Cu Kα (λ = 1.5406 Å) is at 2θ = 40.0°. What is the spacing d (first order)?",
+      "a": "2.25 Å",
+      "wrong": [
+        "1.20 Å",
+        "4.50 Å",
+        "0.77 Å"
+      ],
+      "why": "θ = 20.0°, so d = λ/(2 sin θ) = 1.5406/(2 × 0.3420) = 2.25 Å. Using 40° in the sine gives 1.20 Å, and dropping the factor 2 gives 4.50 Å."
+    },
+    {
+      "q": "A nanocrystalline powder gives a peak at 2θ = 40.0° with width β = 0.50° (Cu Kα, K = 0.9). Estimate the crystallite size from the Scherrer equation.",
+      "a": "17 nm",
+      "wrong": [
+        "0.30 nm",
+        "34 nm",
+        "170 nm"
+      ],
+      "why": "β = 8.73 × 10⁻³ rad, and τ = 0.9 × 1.5406/(8.73 × 10⁻³ × cos 20°) = 169 Å ≈ 17 nm. Putting β in degrees gives 0.30 nm, which is impossibly small."
+    },
+    {
+      "q": "Which determination is poorly suited to X-ray fluorescence?",
+      "a": "Carbon content of a steel",
+      "wrong": [
+        "Lead in solder",
+        "Iron in cement",
+        "Zinc in brass"
+      ],
+      "why": "Low-energy X-rays from light elements (Z < 11) are absorbed by air and by the sample, so XRF is insensitive to them. Heavier elements give high-energy lines that escape easily."
+    },
+    {
+      "q": "A photoelectron is detected with KE = 1082.2 eV using Al Kα (1486.6 eV) and φ = 4.5 eV. What is the binding energy?",
+      "a": "399.9 eV",
+      "wrong": [
+        "408.9 eV",
+        "2568.8 eV",
+        "1082.2 eV"
+      ],
+      "why": "BE = hν − KE − φ = 1486.6 − 1082.2 − 4.5 = 399.9 eV, characteristic of N 1s. Adding φ instead of subtracting gives 408.9 eV."
+    },
+    {
+      "q": "How does Auger electron spectroscopy compare with XPS?",
+      "a": "It has a much smaller spot (about 10 nm), but gives less information on chemical state",
+      "wrong": [
+        "It detects hydrogen and helium, which XPS cannot",
+        "It gives better chemical-state information, but needs a larger spot",
+        "It analyzes the bulk to micrometer depth, whereas XPS is surface-only"
+      ],
+      "why": "A focused electron beam allows surface maps at nanometer resolution, but Auger peaks are broad and their shifts are harder to interpret. Like XPS, the method cannot detect H or He and is surface-sensitive."
+    },
+    {
+      "q": "Which technique is best suited to a depth profile of a boron dopant in silicon at the ppm level?",
+      "a": "Dynamic SIMS",
+      "wrong": [
+        "Static SIMS",
+        "EDS in an SEM",
+        "XPS survey scan"
+      ],
+      "why": "Dynamic SIMS erodes the sample continuously and detects trace elements at ppm–ppb. Static SIMS uses a low dose to analyze only the top monolayer, and EDS and XPS lack the sensitivity."
+    },
+    {
+      "q": "The electron wavelength in a 200 kV TEM is about 2.5 pm, yet the resolution is about 0.1 nm. What limits it?",
+      "a": "Aberrations of the magnetic lenses",
+      "wrong": [
+        "The diffraction limit of the electron wave",
+        "The inelastic mean free path of the electrons",
+        "The wavelength of the X-rays that are also produced"
+      ],
+      "why": "The wavelength would allow resolution far below an atom, but magnetic lenses suffer from aberrations that were only recently corrected. The resolution is therefore set by the lenses and not by diffraction."
+    },
+    {
+      "q": "In an STM, by what factor does the tunneling current increase if the tip moves 0.30 Å closer (κ = 1.1 Å⁻¹)?",
+      "a": "1.9",
+      "wrong": [
+        "1.4",
+        "3.7",
+        "0.52"
+      ],
+      "why": "I ∝ exp(−2κd), so the current rises by exp(2 × 1.1 × 0.30) = e^0.66 = 1.9. Omitting the factor 2 in the exponent gives 1.4, and 0.52 would be the change for retreating."
+    }
+  ],
   "summary": [
     "UV–Vis: A = εbc, double-beam instruments, deviations from Beer’s law (chemical, polychromatic, stray light). Working range A = 0.1–1.",
     "Fluorescence: emission at 90° against a dark background gives ppb–ppt detection. Quantum yield, Stokes shift, Stern–Volmer quenching, inner-filter effect.",

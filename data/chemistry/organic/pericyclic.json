@@ -270,6 +270,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "In a Diels–Alder reaction of buta-1,3-diene with ethene, what happens to the bonds?",
+      "a": "Three π bonds are lost, and two σ bonds and one π bond are formed",
+      "wrong": [
+        "Two π bonds are lost, and two σ bonds are formed",
+        "Three π bonds are lost, and three σ bonds are formed",
+        "One σ bond and two π bonds are broken, and two σ bonds and one π bond are formed"
+      ],
+      "why": "The diene has two π bonds and the dienophile one. The cyclohexene product has one π bond (between the old C2 and C3 of the diene) and two new σ bonds, which is why the reaction is exothermic."
+    },
+    {
+      "q": "What is the major product of isoprene (2-methylbuta-1,3-diene) with methyl acrylate?",
+      "a": "Methyl 4-methylcyclohex-3-ene-1-carboxylate",
+      "wrong": [
+        "Methyl 3-methylcyclohex-3-ene-1-carboxylate",
+        "Methyl 2-methylcyclohex-3-ene-1-carboxylate",
+        "Methyl 5-methylcyclohex-3-ene-1-carboxylate"
+      ],
+      "why": "A 2-substituted diene gives the 1,4 (“para”) product, with the substituent and the ester on opposite sides of the ring. The 1,3 (“meta”) product is the minor one."
+    },
+    {
+      "q": "Which diene is expected to react fastest with maleic anhydride at room temperature?",
+      "a": "Cyclopentadiene",
+      "wrong": [
+        "Buta-1,3-diene",
+        "(2E,4E)-Hexa-2,4-diene",
+        "(2Z,4Z)-Hexa-2,4-diene"
+      ],
+      "why": "Cyclopentadiene is held in the s-cis conformation and is electron-rich. The (Z,Z) isomer is hindered in the s-cis form and reacts very slowly."
+    },
+    {
+      "q": "Which diene–dienophile pair is expected to react fastest in a normal-electron-demand Diels–Alder reaction?",
+      "a": "2-Methoxybuta-1,3-diene and acrylonitrile",
+      "wrong": [
+        "Buta-1,3-diene and propene",
+        "1-Nitrobuta-1,3-diene and ethyl vinyl ether",
+        "Buta-1,3-diene and ethene"
+      ],
+      "why": "The fastest reaction pairs an electron-rich diene with an electron-poor dienophile. The nitro-substituted diene is electron-poor and the vinyl ether is electron-rich, which is the reverse pairing."
+    },
+    {
+      "q": "(2E,4E)-Hexa-2,4-diene reacts with dimethyl fumarate. How are the groups related in the product?",
+      "a": "The two esters are trans to each other and the two methyl groups are cis to each other",
+      "wrong": [
+        "The two esters are cis to each other and the two methyl groups are cis to each other",
+        "The two esters are trans to each other and the two methyl groups are trans to each other",
+        "The two esters are cis to each other and the two methyl groups are trans to each other"
+      ],
+      "why": "Stereochemistry is kept on both partners. Fumarate is a trans dienophile, so its esters stay trans. The two “outside” methyls of an (E,E)-diene end up on the same face of the new ring."
+    },
+    {
+      "q": "Cyclopentadiene and maleic anhydride give mainly the endo adduct, although the exo adduct is more stable. Why?",
+      "a": "Secondary orbital overlap lowers the endo transition state, so it forms faster",
+      "wrong": [
+        "The endo adduct is less crowded than the exo adduct, so it is both faster and more stable",
+        "The exo transition state is forbidden by orbital symmetry and so cannot lead to any product",
+        "The endo adduct forms from an s-trans diene"
+      ],
+      "why": "Under kinetic control the product from the lower-energy transition state wins. The endo adduct is the more crowded one, which is why it is thermodynamically less stable."
+    },
+    {
+      "q": "Why is cyclopentadiene stored as its dimer and cracked by heating before use?",
+      "a": "At room temperature it undergoes a Diels–Alder reaction with itself, and the reverse reaction at about 170 °C releases the monomer",
+      "wrong": [
+        "It polymerizes explosively by a radical chain in air",
+        "It oxidizes in air at room temperature to a quinone-like compound that must be removed",
+        "Its dimer is the only form that is an s-cis diene"
+      ],
+      "why": "One molecule acts as the diene and another as the dienophile, giving dicyclopentadiene. Heating drives the retro-Diels–Alder reaction."
+    },
+    {
+      "q": "(2E,4Z,6Z)-Octa-2,4,6-triene is heated and closes to a cyclohexadiene. What is the product?",
+      "a": "trans-5,6-Dimethylcyclohexa-1,3-diene",
+      "wrong": [
+        "cis-5,6-Dimethylcyclohexa-1,3-diene",
+        "A 1 : 1 mixture of cis and trans isomers",
+        "cis-7,8-Dimethylcyclooctatriene"
+      ],
+      "why": "Six π electrons under heat close disrotatorily. A disrotatory closure of an E,E-ended triene gives cis, whereas one terminus E and the other Z gives trans."
+    },
+    {
+      "q": "A conjugated tetraene (8 π electrons) closes thermally to a cyclooctatriene. Which mode is expected?",
+      "a": "Conrotatory",
+      "wrong": [
+        "Disrotatory",
+        "Antarafacial",
+        "Either, with no preference"
+      ],
+      "why": "Eight is 4n, so the thermal mode is conrotatory, like butadiene. Disrotatory closure would be allowed only under photochemical conditions."
+    },
+    {
+      "q": "cis-3,4-Dimethylcyclobutene is heated and the ring opens. Which diene forms?",
+      "a": "(2E,4Z)-Hexa-2,4-diene",
+      "wrong": [
+        "(2E,4E)-Hexa-2,4-diene",
+        "(2Z,4Z)-Hexa-2,4-diene",
+        "Hexa-1,5-diene"
+      ],
+      "why": "Thermal ring opening of a 4π-electron system is conrotatory. Conrotation of the cis methyl groups turns one outward and one inward, giving the E,Z diene. The E,E diene would come from the trans cyclobutene."
+    },
+    {
+      "q": "Which conditions convert (2E,4E)-hexa-2,4-diene into cis-3,4-dimethylcyclobutene?",
+      "a": "Irradiation with ultraviolet light",
+      "wrong": [
+        "Heating to 150 °C",
+        "Adding a Lewis acid catalyst",
+        "Heating in a polar solvent such as DMSO"
+      ],
+      "why": "Photochemical closure of a 4π system is disrotatory, and for an E,E-diene it gives cis. Thermal closure is conrotatory and gives trans."
+    },
+    {
+      "q": "What does the Cope rearrangement of 3-methylhexa-1,5-diene give?",
+      "a": "(E)-Hepta-1,5-diene",
+      "wrong": [
+        "Hepta-1,6-diene",
+        "2-Methylhexa-1,5-diene",
+        "3-Methylcyclohexene"
+      ],
+      "why": "The [3,3] shift breaks the C3–C4 bond and forms a bond between C1 and C6, moving the double bonds to C2=C3 and C4=C5 of the old numbering. The result is a diene with its methyl now at the end of an internal alkene, the more stable arrangement."
+    },
+    {
+      "q": "Why is the Claisen rearrangement effectively irreversible whereas the Cope rearrangement is reversible?",
+      "a": "Claisen forms a C=O bond, so the product is much more stable than the starting ether",
+      "wrong": [
+        "Claisen is catalyzed, and a catalyst blocks the reverse reaction",
+        "Claisen occurs through a boat transition state that cannot reverse",
+        "Claisen produces a gas that leaves the mixture"
+      ],
+      "why": "A carbonyl group is lower in energy than a C=C–O–C unit, whereas the Cope product is just another 1,5-diene of similar energy."
+    },
+    {
+      "q": "Why does 5-methylcyclopenta-1,3-diene exist as a mixture of isomers at room temperature?",
+      "a": "[1,5]-Hydrogen shifts move the sp³ carbon around the ring",
+      "wrong": [
+        "It reacts with oxygen to give a mixture of peroxides",
+        "It undergoes conrotatory ring opening and closing",
+        "It dimerizes into several diastereomers"
+      ],
+      "why": "A hydrogen migrates suprafacially across the five-carbon π system, which is thermally allowed for 6 electrons. The methyl group therefore ends up on different ring carbons."
+    },
+    {
+      "q": "Adjacent thymine bases in DNA join to form a cyclobutane ring when exposed to UV light. What type of reaction is this?",
+      "a": "A photochemical [2+2] cycloaddition",
+      "wrong": [
+        "A thermal [4+2] cycloaddition of two adjacent thymine rings",
+        "A thermal [2+2] cycloaddition of the two C=C bonds",
+        "A [3,3] sigmatropic shift"
+      ],
+      "why": "A [2+2] cycloaddition is forbidden thermally, but absorption of light promotes an electron, changes the HOMO symmetry and makes it allowed."
+    },
+    {
+      "q": "A thermal cycloaddition has 8 electrons, with all components suprafacial. What do the Woodward–Hoffmann rules predict?",
+      "a": "It is forbidden thermally and allowed photochemically",
+      "wrong": [
+        "It is allowed thermally, since 8 is a multiple of 4",
+        "It is forbidden under both thermal and photochemical conditions for any geometry",
+        "It is allowed thermally, since only (4n + 2) systems are restricted"
+      ],
+      "why": "An all-suprafacial thermal reaction is allowed only for (4n + 2) electrons. Photochemical reactions follow the opposite pattern."
+    },
+    {
+      "q": "Benzyl azide reacts with propyne under Cu(I) catalysis. What is the product?",
+      "a": "1-Benzyl-4-methyl-1,2,3-triazole",
+      "wrong": [
+        "1-Benzyl-5-methyl-1,2,3-triazole",
+        "N-Benzylpropanamide",
+        "Benzylamine and acetonitrile"
+      ],
+      "why": "The copper-catalyzed azide–alkyne click reaction is a [3+2] cycloaddition that is selective for the 1,4-disubstituted triazole."
+    },
+    {
+      "q": "Ozone adds to an alkene in the first step of ozonolysis. What kind of reaction is this?",
+      "a": "A 1,3-dipolar [3+2] cycloaddition giving a five-membered ring",
+      "wrong": [
+        "A [4+2] cycloaddition giving a six-membered ring",
+        "An electrocyclic ring closure",
+        "A radical chain addition"
+      ],
+      "why": "Ozone is a 1,3-dipole and adds across the C=C bond in a concerted thermal step, forming the five-membered molozonide."
+    }
+  ],
   "summary": [
     "Diels–Alder: diene (s-cis) + dienophile → cyclohexene, concerted and stereospecific, with the endo product favored for cyclic dienes. Electron-rich dienes pair with electron-poor dienophiles.",
     "Electrocyclic reactions: 4n electrons are conrotatory when thermal and 4n + 2 are disrotatory. Light reverses the modes.",

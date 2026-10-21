@@ -361,6 +361,178 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "Three predictors each have variance 9 at a point and pairwise correlation 0.5. What is the variance of their average?",
+      "a": "6",
+      "wrong": [
+        "3",
+        "4.5",
+        "9"
+      ],
+      "why": "ρσ² + (1 − ρ)σ²/B = 4.5 + 0.5(9)/3 = 4.5 + 1.5 = 6. Dividing σ² by B alone would give 3, which is correct only for independent predictors."
+    },
+    {
+      "q": "Why does bagging a linear regression model give little improvement?",
+      "a": "Resampling barely changes the fitted line, so the bagged models are almost identical and highly correlated",
+      "wrong": [
+        "Bagging raises the bias of a linear model enough to cancel the variance it removes",
+        "A linear regression cannot be fit to a bootstrap sample",
+        "Linear regression already has the lowest variance of any model"
+      ],
+      "why": "Averaging helps only when members differ. A stable procedure gives nearly the same model on every resample, so ρ is close to 1 and the variance barely falls."
+    },
+    {
+      "q": "A bootstrap sample of 5 examples is drawn with replacement from a set of 5. What is the probability that one particular example is absent from it?",
+      "a": "0.33",
+      "wrong": [
+        "0.20",
+        "0.67",
+        "0.37"
+      ],
+      "why": "Each draw misses the example with probability 4/5, so the chance of missing it in 5 draws is 0.8⁵ = 0.328. The value 0.37 is the limit as m grows."
+    },
+    {
+      "q": "A bagged ensemble has σ² = 1 and ρ = 0.3 among its trees. Growing it from 100 trees to 1000 trees changes the variance of the average from 0.307 to about",
+      "a": "0.301",
+      "wrong": [
+        "0.031",
+        "0.37",
+        "0.61"
+      ],
+      "why": "The variance is 0.3 + 0.7/1000 = 0.3007. The floor ρσ² = 0.3 cannot be removed by adding trees, and extra trees do not cause overfitting."
+    },
+    {
+      "q": "A random forest regressor is trained on 90 features. What is the usual default number of features considered at each split?",
+      "a": "30",
+      "wrong": [
+        "9",
+        "45",
+        "90"
+      ],
+      "why": "The regression default is about n/3 = 30. The value 9 is √90, the default for classification."
+    },
+    {
+      "q": "Every tree in a forest splits on the same dominant feature at its root, so the trees look alike. Which change most directly lowers their correlation?",
+      "a": "Lower m_try, so that the dominant feature is often unavailable at a split",
+      "wrong": [
+        "Raise m_try to the full number of features",
+        "Add several hundred more trees",
+        "Prune each tree back to a few leaves"
+      ],
+      "why": "Restricting the candidate features forces different trees to use different splits. More trees do not change the correlation between trees, and pruning raises bias."
+    },
+    {
+      "q": "A random forest regressor is trained on house prices that range from 100k to 900k. What is the largest price it can output?",
+      "a": "At most 900k",
+      "wrong": [
+        "No upper limit, because trees extrapolate along trends",
+        "About 1.3 million, from the largest tree's trend",
+        "Only the average of the training prices"
+      ],
+      "why": "Each leaf predicts a mean of training targets, and a forest averages leaves, so every prediction lies within the range of the training labels."
+    },
+    {
+      "q": "The permutation importance of a feature in a random forest is",
+      "a": "the increase in out-of-bag error after the feature's values are shuffled",
+      "wrong": [
+        "the total impurity decrease from splits on the feature",
+        "the number of trees that use the feature at the root",
+        "the correlation between the feature and the target"
+      ],
+      "why": "Shuffling a useful feature breaks its link to the target, so the error rises. Total impurity decrease is the other, less reliable, importance measure."
+    },
+    {
+      "q": "In AdaBoost, a weak learner has weighted error 0.25. What is its vote weight α?",
+      "a": "0.55",
+      "wrong": [
+        "1.10",
+        "0.69",
+        "−0.55"
+      ],
+      "why": "α = ½ ln(0.75/0.25) = ½ ln 3 = 0.549. Omitting the ½ gives 1.10, and inverting the ratio gives −0.55."
+    },
+    {
+      "q": "Four examples start with weight 0.25 each in AdaBoost, and the learner misclassifies one of them. After the update and normalization, what is the weight of the misclassified example?",
+      "a": "0.5",
+      "wrong": [
+        "0.25",
+        "0.43",
+        "0.75"
+      ],
+      "why": "With ε = 0.25, α = 0.549, the wrong example's weight is multiplied by √3, to 0.433, and each correct one by 1/√3, to 0.144. The total is 0.866, so the wrong example holds 0.433/0.866 = 0.5."
+    },
+    {
+      "q": "Every round of AdaBoost has weighted error 0.1. What is the bound on the training error after 3 rounds?",
+      "a": "0.216",
+      "wrong": [
+        "0.001",
+        "0.3",
+        "0.6"
+      ],
+      "why": "Each round's normalizer is Z = 2√(0.1 · 0.9) = 0.6, and the bound is the product Z³ = 0.216. Cubing the error 0.1 would ignore the factor of 2√(ε(1 − ε))."
+    },
+    {
+      "q": "A dataset has 10% of its labels flipped at random. Which method is likely to cope better, and why?",
+      "a": "A random forest, because AdaBoost's exponential loss puts large weight on the mislabeled points",
+      "wrong": [
+        "AdaBoost, because it focuses on the examples that are hardest to classify",
+        "They cope equally, since every ensemble averages out label noise",
+        "Neither can cope, since ensembles need perfectly labeled data"
+      ],
+      "why": "Boosting keeps increasing the weight of examples it misclassifies, and flipped labels are exactly those. A forest averages independent deep trees, which dilutes the effect of noise."
+    },
+    {
+      "q": "Squared-loss gradient boosting has targets y = (2, 4, 12) and F₀ = the mean. A tree fits the residuals exactly and ν = 0.5. What is F₁ at the third point?",
+      "a": "9",
+      "wrong": [
+        "12",
+        "3",
+        "6"
+      ],
+      "why": "F₀ = 6, so the third residual is 6, and F₁ = 6 + 0.5(6) = 9. With ν = 1 the model would jump to 12, and 3 is the step alone without the starting value."
+    },
+    {
+      "q": "In gradient boosting with logistic loss and labels coded 0 and 1, a point has y = 1 and current log-odds F(x) = 0. What is its pseudo-residual?",
+      "a": "0.5",
+      "wrong": [
+        "0",
+        "1",
+        "−0.5"
+      ],
+      "why": "The residual is y − σ(F) = 1 − σ(0) = 1 − 0.5 = 0.5. The log-odds of 0 mean the model predicts probability 0.5."
+    },
+    {
+      "q": "Gradient boosting uses depth-1 trees (stumps) as its base learners. The resulting model is",
+      "a": "additive in the features, with no interactions between them",
+      "wrong": [
+        "linear in the features",
+        "a model with all pairwise interactions",
+        "equivalent to a single decision tree"
+      ],
+      "why": "Each stump depends on one feature, so the sum is a sum of one-variable functions. These functions are piecewise constant, so the model is additive but not linear."
+    },
+    {
+      "q": "Why is gradient boosting described as gradient descent in function space?",
+      "a": "Each new tree approximates the negative gradient of the loss with respect to the current predictions, and the model steps along it",
+      "wrong": [
+        "The weights of every earlier tree are adjusted by backpropagation",
+        "The learning rate is decreased along the gradient of the features",
+        "Each tree is fit to the gradient of the loss with respect to the inputs x"
+      ],
+      "why": "The model's predictions at the training points are the variable being optimized. The pseudo-residuals give the direction, and a tree generalizes that direction to unseen inputs."
+    },
+    {
+      "q": "Which pair of models is likely to gain most from being combined in an ensemble?",
+      "a": "A gradient-boosted tree model and a neural network trained on the same data",
+      "wrong": [
+        "Five boosted tree models trained with the same settings and different seeds",
+        "Two random forests with 400 and 500 trees on the same data",
+        "A gradient-boosted model and a copy of it with a different learning rate"
+      ],
+      "why": "Ensembling pays off when members are individually good and make different errors. Models of different families differ more than near copies of the same model."
+    }
+  ],
   "summary": [
     "The variance of an average of correlated predictors is ρσ² + (1 − ρ)σ²/B. Averaging reduces variance but leaves the bias, and correlation sets a floor.",
     "Bagging averages models trained on bootstrap samples. Each sample leaves out about 36.8% of the data, which gives the out-of-bag error estimate for free.",

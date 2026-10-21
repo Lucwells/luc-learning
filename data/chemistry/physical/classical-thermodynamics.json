@@ -534,6 +534,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A heat pump holds a house at 295 K while the outside air is at 275 K. What is the best possible coefficient of performance?",
+      "a": "14.8",
+      "wrong": [
+        "13.8",
+        "0.068",
+        "1.07"
+      ],
+      "why": "The limit is T_h/(T_h − T_c) = 295/20 = 14.8. Using T_c in the numerator gives 13.8, and 0.068 is the Carnot efficiency of an engine on the same temperatures."
+    },
+    {
+      "q": "An inventor claims an engine that takes 1000 J from a reservoir at 500 K, rejects heat at 300 K, and delivers 450 J of work. What is wrong with the claim?",
+      "a": "It exceeds the Carnot limit of 40%, so it violates the second law",
+      "wrong": [
+        "Nothing, if the engine is run reversibly",
+        "Nothing, if friction is eliminated",
+        "It conserves energy only if the cold reservoir loses heat"
+      ],
+      "why": "The most any engine can achieve is 1 − 300/500 = 40%, so at most 400 J of work. Reversibility gives the Carnot value and no more; 450 J would be 45%."
+    },
+    {
+      "q": "What is the change in Gibbs energy when 1 mol of liquid water (18 cm³ mol⁻¹) is compressed isothermally by 100 atm? Treat the liquid as incompressible.",
+      "a": "182 J",
+      "wrong": [
+        "1800 J",
+        "18 J",
+        "18 kJ"
+      ],
+      "why": "(∂G/∂P)_T = V, so ΔG = VΔP = 18 cm³ × 100 atm = 1800 cm³ atm = 182 J (1 cm³ atm = 0.1013 J). Forgetting the unit conversion gives 1800."
+    },
+    {
+      "q": "A solid is compressed at constant temperature and expands on heating, with (∂V/∂T)_P > 0. What happens to its entropy as the pressure rises at constant T?",
+      "a": "It decreases, since (∂S/∂P)_T = −(∂V/∂T)_P",
+      "wrong": [
+        "It increases, since compression adds energy",
+        "It is unchanged, since T is constant",
+        "It cannot be predicted without knowing C_P"
+      ],
+      "why": "The Maxwell relation (∂S/∂P)_T = −(∂V/∂T)_P ties the entropy change to the expansion coefficient, which is easy to measure. A positive coefficient means pressure lowers the entropy."
+    },
+    {
+      "q": "CO₂ has a = 3.64 L² atm mol⁻², b = 0.0427 L mol⁻¹ and C_P = 0.366 L atm K⁻¹ mol⁻¹. Estimate its Joule–Thomson coefficient at 298 K from (2a/RT − b)/C_P.",
+      "a": "0.70 K atm⁻¹",
+      "wrong": [
+        "0.81 K atm⁻¹",
+        "0.29 K atm⁻¹",
+        "0.93 K atm⁻¹"
+      ],
+      "why": "2a/RT = 7.28/(0.08206 × 298) = 0.298 L mol⁻¹, and subtracting b gives 0.255; dividing by C_P gives 0.70 K atm⁻¹. Omitting b gives 0.81, using a rather than 2a gives 0.29, and adding b gives 0.93."
+    },
+    {
+      "q": "For a van der Waals gas with a = 0.244 L² atm mol⁻² and b = 0.0266 L mol⁻¹ (hydrogen), what is the maximum inversion temperature?",
+      "a": "224 K",
+      "wrong": [
+        "112 K",
+        "33 K",
+        "447 K"
+      ],
+      "why": "T_i = 2a/(Rb) = 0.488/(0.08206 × 0.0266) = 224 K. The value 112 K is the Boyle temperature a/(Rb), and 33 K is the critical temperature 8a/(27Rb)."
+    },
+    {
+      "q": "A van der Waals gas has a = 1.39 L² atm mol⁻² and b = 0.0391 L mol⁻¹. What is its critical temperature?",
+      "a": "128 K",
+      "wrong": [
+        "433 K",
+        "866 K",
+        "64 K"
+      ],
+      "why": "T_c = 8a/(27Rb) = 11.12/(27 × 0.08206 × 0.0391) = 128 K. The others are the Boyle temperature a/(Rb), the inversion temperature 2a/(Rb), and an arithmetic slip in the factor of 8."
+    },
+    {
+      "q": "Gas A has T_c = 300 K and P_c = 50 atm. Gas B has T_c = 150 K and P_c = 40 atm. Gas A at 450 K and 25 atm is in a corresponding state with gas B at",
+      "a": "225 K and 20 atm",
+      "wrong": [
+        "225 K and 25 atm",
+        "300 K and 20 atm",
+        "450 K and 20 atm"
+      ],
+      "why": "A is at T_r = 1.5 and P_r = 0.5. Gas B has the same reduced values at 1.5 × 150 = 225 K and 0.5 × 40 = 20 atm, where it has about the same compressibility factor."
+    },
+    {
+      "q": "The partial molar volumes in an ethanol–water mixture are 55 cm³ mol⁻¹ for ethanol and 17.5 cm³ mol⁻¹ for water. What is the volume of a mixture of 2 mol ethanol and 3 mol water of this composition?",
+      "a": "162.5 cm³",
+      "wrong": [
+        "170 cm³",
+        "200 cm³",
+        "72.5 cm³"
+      ],
+      "why": "V = Σ nᵢV̄ᵢ = 2(55) + 3(17.5) = 162.5 cm³. The 170 cm³ uses the pure molar volumes (58 and 18), which is the error that makes mixed volumes appear additive."
+    },
+    {
+      "q": "In a binary mixture at constant T and P, containing 2 mol of A and 1 mol of B, the chemical potential of B rises by 0.60 kJ mol⁻¹ as the composition changes slightly. How does μ_A change?",
+      "a": "It falls by 0.30 kJ mol⁻¹",
+      "wrong": [
+        "It rises by 0.30 kJ mol⁻¹",
+        "It falls by 1.20 kJ mol⁻¹",
+        "It falls by 0.60 kJ mol⁻¹"
+      ],
+      "why": "The Gibbs–Duhem equation gives n_A dμ_A + n_B dμ_B = 0, so dμ_A = −(1/2)(0.60) = −0.30 kJ mol⁻¹. The potentials move in opposite directions, weighted by amounts."
+    },
+    {
+      "q": "A binary solid–liquid system at fixed pressure has liquid and two solid phases in equilibrium. How many degrees of freedom does it have?",
+      "a": "0",
+      "wrong": [
+        "1",
+        "2",
+        "3"
+      ],
+      "why": "At constant pressure F = C − P + 1 = 2 − 3 + 1 = 0. This is a eutectic: the temperature and composition of the liquid are fixed."
+    },
+    {
+      "q": "Benzene melts at 278.7 K with Δ_fusH = 9.95 kJ mol⁻¹ and ΔV = +10.3 cm³ mol⁻¹. What is dP/dT along its melting curve?",
+      "a": "3.5 × 10⁶ Pa K⁻¹",
+      "wrong": [
+        "3.5 Pa K⁻¹",
+        "9.7 × 10⁸ Pa K⁻¹",
+        "2.9 × 10⁻⁷ Pa K⁻¹"
+      ],
+      "why": "dP/dT = ΔH/(TΔV) = 9950 / (278.7 × 10.3 × 10⁻⁶ m³) = 3.5 × 10⁶ Pa K⁻¹, positive since the volume rises on melting. Leaving ΔV in cm³ gives 3.5, and inverting the ratio gives 2.9 × 10⁻⁷."
+    },
+    {
+      "q": "In a boiling-point diagram, a mixture of overall composition x₀ = 0.30 splits into liquid at x = 0.20 and vapor at x = 0.60. What fraction of the moles is vapor?",
+      "a": "0.25",
+      "wrong": [
+        "0.75",
+        "0.33",
+        "0.50"
+      ],
+      "why": "n_vap/n_liq = (0.30 − 0.20)/(0.60 − 0.30) = 1/3, so the vapor fraction is 1/(1 + 3) = 0.25. The ratio 0.33 is not the fraction, and 0.75 is the liquid fraction."
+    },
+    {
+      "q": "What is Δ_mixG at 300 K when 2 mol of liquid A and 3 mol of liquid B form an ideal solution?",
+      "a": "−8.39 kJ",
+      "wrong": [
+        "+8.39 kJ",
+        "−1.68 kJ",
+        "−12.5 kJ"
+      ],
+      "why": "Δ_mixG = nRT(x_A ln x_A + x_B ln x_B) = 5(8.314)(300)(−0.673) = −8.39 kJ. Dividing by n gives the per-mole value −1.68 kJ, and the sign must be negative because mixing ideal liquids is spontaneous."
+    },
+    {
+      "q": "Two liquids are mixed. The mixture cools, and its volume is slightly larger than the sum of the pure volumes. What does this indicate about the interactions and the activity coefficients?",
+      "a": "A–B attractions are weaker than A–A and B–B, so γ > 1",
+      "wrong": [
+        "A–B attractions are stronger than A–A and B–B, so γ < 1",
+        "The interactions are all equal, so γ = 1",
+        "The mixture must be an ideal solution, with γ = 1 but nonzero Δ_mixS"
+      ],
+      "why": "Absorbing heat (Δ_mixH > 0) and expanding both point to weaker unlike interactions, a positive deviation from Raoult's law with γ > 1. An ideal solution has Δ_mixH = 0 and Δ_mixV = 0."
+    },
+    {
+      "q": "What is the mean activity coefficient γ± of 0.0020 M Na₂SO₄ in water at 25 °C, from the Debye–Hückel limiting law (A = 0.509)?",
+      "a": "0.83",
+      "wrong": [
+        "0.91",
+        "0.90",
+        "0.77"
+      ],
+      "why": "I = ½(0.0040 × 1 + 0.0020 × 4) = 0.0060 M, so log γ± = −0.509 × 2 × √0.0060 = −0.0788 and γ± = 0.83. Ignoring |z₊z₋| = 2 gives 0.91, using I = c gives 0.90, and omitting the ½ in I gives 0.77."
+    },
+    {
+      "q": "The equilibrium constant of a reaction doubles when the temperature is raised from 300 K to 310 K. What is Δ_rH° (taken as constant)?",
+      "a": "+53.6 kJ mol⁻¹",
+      "wrong": [
+        "−53.6 kJ mol⁻¹",
+        "+0.58 kJ mol⁻¹",
+        "+107 kJ mol⁻¹"
+      ],
+      "why": "ln 2 = −(Δ_rH°/R)(1/310 − 1/300), so Δ_rH° = R ln 2 /(1.075 × 10⁻⁴ K⁻¹) = +53.6 kJ mol⁻¹. K rises with T, so the reaction is endothermic. Using ΔT in place of Δ(1/T) gives 0.58."
+    },
+    {
+      "q": "A cell reaction with n = 1 has E = 0.800 V and (∂E/∂T)_P = +2.0 × 10⁻⁴ V K⁻¹ at 298 K. What is Δ_rH?",
+      "a": "−71.4 kJ",
+      "wrong": [
+        "−82.9 kJ",
+        "−77.2 kJ",
+        "+5.75 kJ"
+      ],
+      "why": "Δ_rG = −FE = −77.2 kJ and Δ_rS = F(∂E/∂T) = +19.3 J K⁻¹, so Δ_rH = Δ_rG + TΔ_rS = −77.2 + 5.75 = −71.4 kJ. The value −77.2 is ΔG alone, and −82.9 has the wrong sign on TΔS."
+    }
+  ],
   "summary": [
     "The laws: temperature (zeroth), energy conservation (first), entropy increase and the Carnot limit η = 1 − T_c/T_h (second), zero entropy of a perfect crystal at 0 K (third).",
     "The fundamental equations dU = TdS − PdV, dH, dA and dG define natural variables. G governs processes at constant T and P, and −ΔG is the maximum non-expansion work.",

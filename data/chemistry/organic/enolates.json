@@ -371,6 +371,178 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "Ethoxide (conjugate acid pK_a 16) is used to deprotonate acetone (pK_a 19). What is the approximate equilibrium constant for enolate formation?",
+      "a": "about 10⁻³",
+      "wrong": [
+        "about 10³",
+        "about 10⁻¹⁹",
+        "about 3"
+      ],
+      "why": "K = 10^(pK_a of the conjugate acid of the base − pK_a of the ketone) = 10^(16 − 19) = 10⁻³. Only a small fraction of enolate forms, which suffices when an electrophile is present as in the aldol reaction."
+    },
+    {
+      "q": "The CH₂ of acetylacetone (pK_a 9) is far more acidic than the CH₃ of acetone (pK_a 19) because",
+      "a": "the negative charge of the conjugate base is delocalized onto two carbonyl oxygens",
+      "wrong": [
+        "the second carbonyl group is electron-donating, which weakens the C–H bond",
+        "acetylacetone forms stronger hydrogen bonds with water than acetone does",
+        "the CH₂ carbon is sp-hybridized in the diketone"
+      ],
+      "why": "A hydrogen between two carbonyls gives an enolate stabilized by both C=O groups. Each extra carbonyl lowers the pK_a by about 8 units."
+    },
+    {
+      "q": "2-Methylcyclohexanone is treated with LDA in THF at −78 °C, and then CH₃I is added. The main product is",
+      "a": "2,6-dimethylcyclohexanone",
+      "wrong": [
+        "2,2-dimethylcyclohexanone",
+        "3-methylcyclohexanone",
+        "2-methylcyclohexanol"
+      ],
+      "why": "LDA removes the more accessible proton from the CH₂ side irreversibly, giving the kinetic enolate, and that carbon is methylated. NaOEt would allow equilibration and favor 2,2-dimethylation."
+    },
+    {
+      "q": "Acetophenone is treated with excess I₂ and NaOH. The products are",
+      "a": "sodium benzoate and iodoform (CHI₃)",
+      "wrong": [
+        "α-iodoacetophenone as the only product",
+        "benzaldehyde and iodomethane",
+        "benzyl alcohol and sodium iodide"
+      ],
+      "why": "Base promotes repeated α-iodination of the methyl group. Hydroxide then attacks the carbonyl, and the CI₃ group leaves, giving benzoate and the yellow precipitate CHI₃."
+    },
+    {
+      "q": "Acid-catalyzed bromination of acetone stops after one bromine, whereas base-promoted bromination does not. Why?",
+      "a": "In base the first Br makes the remaining α-hydrogens more acidic, so each halogenation is faster",
+      "wrong": [
+        "In base the bromine is consumed by oxidizing hydroxide to hypobromite before the second step",
+        "In acid the product ketone cannot be protonated on oxygen at all, so it never enolizes again",
+        "In acid bromine adds to the carbonyl oxygen instead of the α carbon, which blocks later steps"
+      ],
+      "why": "The electron-withdrawing halogen stabilizes the enolate, so further deprotonation is easier under base. Under acid the halogen makes enol formation slower, so the reaction stops."
+    },
+    {
+      "q": "Propanal is heated with aqueous NaOH. The final product is",
+      "a": "2-methylpent-2-enal",
+      "wrong": [
+        "3-hydroxy-2-methylpentanal",
+        "2-ethylhex-2-enal",
+        "hex-2-enal"
+      ],
+      "why": "The α carbon (C2) of one propanal attacks the carbonyl of another, giving the aldol 3-hydroxy-2-methylpentanal. Heating dehydrates it to the conjugated enal. 2-Ethylhex-2-enal comes from butanal."
+    },
+    {
+      "q": "Benzaldehyde is stirred with diethyl malonate and a catalytic amount of piperidine. The product is",
+      "a": "diethyl benzylidenemalonate, PhCH=C(CO₂Et)₂",
+      "wrong": [
+        "diethyl benzylmalonate, PhCH₂CH(CO₂Et)₂",
+        "benzoic acid and diethyl malonate",
+        "ethyl 3-oxo-3-phenylpropanoate, PhCOCH₂CO₂Et"
+      ],
+      "why": "This is a Knoevenagel condensation: the activated methylene adds to the aldehyde and water is lost, giving a C=C attached to the ring. The benzyl compound would need a further reduction."
+    },
+    {
+      "q": "Ethyl acetate is treated with sodium methoxide in methanol, followed by acid. Why is this a poor choice of base for a Claisen condensation?",
+      "a": "diethyl benzylidenemalonate, PhCH=C(CO₂Et)₂",
+      "wrong": [
+        "diethyl benzylmalonate, PhCH₂CH(CO₂Et)₂, from simple alkylation of the malonate",
+        "benzoic acid and diethyl malonate, from oxidation of the aldehyde by the base",
+        "ethyl 3-oxo-3-phenylpropanoate, PhCOCH₂CO₂Et, from a Claisen-type acylation"
+      ],
+      "why": "The alkoxide should match the ester so that nucleophilic substitution at the carbonyl returns the same ester. Otherwise transesterification scrambles the alkoxy groups."
+    },
+    {
+      "q": "Ethyl benzoate and ethyl acetate react with NaOEt, followed by acid. The main crossed Claisen product is",
+      "a": "ethyl 3-oxo-3-phenylpropanoate",
+      "wrong": [
+        "ethyl acetoacetate",
+        "ethyl 2-phenylacetate",
+        "ethyl 3-hydroxy-3-phenylpropanoate"
+      ],
+      "why": "Ethyl benzoate has no α-hydrogens, so it can only be the electrophile. The ethyl acetate enolate attacks it and ethoxide is expelled, giving PhCOCH₂CO₂Et."
+    },
+    {
+      "q": "Diethyl heptanedioate (diethyl pimelate) is treated with NaOEt, and the product is then heated with aqueous acid. The final product is",
+      "a": "cyclohexanone",
+      "wrong": [
+        "cyclopentanone",
+        "cycloheptanone",
+        "heptanedioic acid"
+      ],
+      "why": "Dieckmann closure forms a six-membered β-ketoester ring. Hydrolysis and decarboxylation of the β-keto acid then removes the ester carbon as CO₂, leaving the ring ketone."
+    },
+    {
+      "q": "Which alkyl halide is used with diethyl malonate (then hydrolysis and heat) to prepare 4-phenylbutanoic acid?",
+      "a": "PhCH₂CH₂Br",
+      "wrong": [
+        "PhCH₂Br",
+        "PhCH₂CH₂CH₂Br",
+        "PhBr"
+      ],
+      "why": "The malonic ester synthesis gives R–CH₂COOH. For PhCH₂CH₂CH₂COOH, R is PhCH₂CH₂. Benzyl bromide would give 3-phenylpropanoic acid, and an aryl halide does not undergo SN2."
+    },
+    {
+      "q": "Why do β-keto acids and malonic acids lose CO₂ on gentle heating, whereas simple carboxylic acids do not?",
+      "a": "A cyclic six-membered transition state lets the second carbonyl accept electrons, giving an enol",
+      "wrong": [
+        "They are much stronger acids, so the carboxylate is a good leaving group for CO₂ loss",
+        "The extra carbonyl oxidizes the carboxyl carbon to CO₂ when the compound is warmed",
+        "They are deprotonated to carbanions that eject CO₂ directly at room temperature"
+      ],
+      "why": "The carboxyl O–H hydrogen-bonds to the β carbonyl, and the cyclic arrangement allows C–C cleavage with formation of an enol, which tautomerizes. A simple acid has no such acceptor."
+    },
+    {
+      "q": "Ethyl acetoacetate is alkylated with 1-bromobutane. Hydrolysis and heating then give",
+      "a": "heptan-2-one",
+      "wrong": [
+        "hexan-2-one",
+        "hexanoic acid",
+        "octan-2-one"
+      ],
+      "why": "The acetoacetic ester synthesis adds three carbons (CH₂COCH₃) to R, so butyl gives CH₃COCH₂C₄H₉, heptan-2-one. Hexanoic acid is what malonic ester gives with the same halide."
+    },
+    {
+      "q": "In the Stork enamine alkylation of cyclohexanone with CH₃I via its pyrrolidine enamine, which atom of the enamine attacks the alkyl halide productively?",
+      "a": "The carbon β to the nitrogen, which was the α carbon of the ketone",
+      "wrong": [
+        "The nitrogen, which gives a stable quaternary salt that hydrolyzes to the product",
+        "The carbon bonded to nitrogen, which carries the positive charge",
+        "A CH₂ of the pyrrolidine ring"
+      ],
+      "why": "The nitrogen lone pair is delocalized into the C=C, which makes the β carbon nucleophilic. Hydrolysis of the resulting iminium ion returns the α-alkylated ketone."
+    },
+    {
+      "q": "The Michael addition of diethyl malonate to methyl vinyl ketone gives a",
+      "a": "1,5-dicarbonyl compound",
+      "wrong": [
+        "1,3-dicarbonyl compound only",
+        "1,4-dicarbonyl compound",
+        "β-hydroxy ketone"
+      ],
+      "why": "The malonate carbon adds to the β carbon of the enone, which is two carbons from the ketone carbonyl. The new chain separates the two carbonyls by three carbons, making them 1,5-related."
+    },
+    {
+      "q": "The new ring built in a Robinson annulation is",
+      "a": "a six-membered cyclohexenone",
+      "wrong": [
+        "a five-membered β-hydroxy ketone",
+        "a six-membered ring with a β-hydroxy ketone, since no dehydration occurs",
+        "a six-membered aromatic ring"
+      ],
+      "why": "The Michael adduct (a 1,5-diketone) closes by intramolecular aldol, and loss of water gives the conjugated cyclohexenone fused to the original ring."
+    },
+    {
+      "q": "Cyclohex-2-enone is treated with phenyllithium, and then H₃O⁺ is added. The product is",
+      "a": "1-phenylcyclohex-2-en-1-ol",
+      "wrong": [
+        "3-phenylcyclohexanone",
+        "1-phenylcyclohexanol",
+        "2-phenylcyclohexanone"
+      ],
+      "why": "Organolithiums are hard, strongly basic nucleophiles that attack the carbonyl carbon directly under kinetic control (1,2). A cuprate would give the 1,4 product, 3-phenylcyclohexanone."
+    }
+  ],
   "summary": [
     "α-Hydrogens are acidic (pK_a 17–25 for simple carbonyls, 9–13 for 1,3-dicarbonyls). LDA gives the kinetic enolate completely, and NaOEt gives the thermodynamic one under equilibrium.",
     "Aldol reactions join an enolate and a carbonyl. Heat gives the enone (condensation). Crossed aldols work when one partner has no α-H.",

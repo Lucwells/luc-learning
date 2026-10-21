@@ -425,6 +425,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A double-stranded DNA is 22% guanine. What percentage is thymine?",
+      "a": "28%",
+      "wrong": [
+        "22%",
+        "34%",
+        "56%"
+      ],
+      "why": "G = C = 22%, so G + C = 44%; the remaining 56% is A + T, split equally, so T = 28%. The value 56% is A + T together."
+    },
+    {
+      "q": "Why does RNA, but not DNA, break down rapidly in alkaline solution?",
+      "a": "Its 2′-OH attacks the adjacent phosphorus, forming a 2′,3′-cyclic phosphate and cutting the chain",
+      "wrong": [
+        "Uracil is hydrolyzed by hydroxide, which destroys the sequence information of the strand",
+        "The ribose ring opens at high pH, a reaction that deoxyribose cannot undergo",
+        "RNA lacks the 3′-OH needed to form a stable phosphodiester bond with the next nucleotide"
+      ],
+      "why": "Ribose has a 2′-OH next to the phosphodiester, and in base it acts as an internal nucleophile that cleaves the backbone. Deoxyribose has no 2′-OH, so DNA resists alkali."
+    },
+    {
+      "q": "At pH 7, a DNA fragment in an electric field moves toward…",
+      "a": "the anode, because every phosphate is ionized",
+      "wrong": [
+        "the cathode, because the bases are protonated at pH 7 and give the chain a net positive charge",
+        "neither electrode, because base pairing neutralizes the charge of the strands",
+        "the cathode, because bound Mg²⁺ ions carry the duplex toward the negative electrode"
+      ],
+      "why": "The phosphate groups (pKa ≈ 1) are fully ionized, so nucleic acids are polyanions that migrate to the positive electrode. The bases are neutral at pH 7 and base pairing does not remove the backbone charge."
+    },
+    {
+      "q": "How many helical turns are in a 63-bp segment of B-DNA?",
+      "a": "6.0",
+      "wrong": [
+        "5.7",
+        "17.5",
+        "6.3"
+      ],
+      "why": "B-DNA has 10.5 bp per turn, so 63/10.5 = 6.0. The value 5.7 uses the 11 bp per turn of A-DNA, 17.5 uses the 3.6 residues per turn of an α-helix, and 6.3 rounds to 10 bp per turn."
+    },
+    {
+      "q": "Which change would lower the T_m of a DNA duplex?",
+      "a": "Adding formamide",
+      "wrong": [
+        "Raising the Na⁺ concentration of the buffer",
+        "Replacing A–T pairs with G–C pairs",
+        "Correcting a single mismatch to a Watson–Crick pair"
+      ],
+      "why": "Denaturants such as formamide weaken the duplex and lower T_m. Salt screens the phosphate repulsion, G–C pairs add a third hydrogen bond and better stacking, and a mismatch lowers T_m, so removing one raises it."
+    },
+    {
+      "q": "A single-stranded DNA sample is diluted 1:10 and has A₂₆₀ = 0.66 in a 1 cm cell. What was the original concentration?",
+      "a": "About 218 µg mL⁻¹",
+      "wrong": [
+        "About 330 µg mL⁻¹",
+        "About 264 µg mL⁻¹",
+        "About 21.8 µg mL⁻¹"
+      ],
+      "why": "For single-stranded DNA A₂₆₀ = 1.0 is about 33 µg mL⁻¹, so 0.66 × 33 × 10 = 218. The value 330 uses the double-stranded factor (50), 264 uses the RNA factor (40), and 21.8 forgets the dilution."
+    },
+    {
+      "q": "Histone proteins bind DNA tightly because they are rich in…",
+      "a": "Lys and Arg, whose positive side chains neutralize the phosphate charges",
+      "wrong": [
+        "Asp and Glu, whose carboxylates bridge to the phosphates through Mg²⁺ ions",
+        "Cys, which cross-links the DNA strands with disulfide bonds",
+        "Leu and Ile, which intercalate between stacked base pairs"
+      ],
+      "why": "Lys and Arg are basic, so their positive charges at pH 7 offset the polyanionic backbone and allow DNA to wrap tightly around the octamer. Disulfides and intercalation play no role in nucleosome binding."
+    },
+    {
+      "q": "E. coli grown for many generations in ¹⁵N medium is moved to ¹⁴N medium and divides twice. What does CsCl density-gradient centrifugation of its DNA show?",
+      "a": "Two bands of equal amount: intermediate density and light",
+      "wrong": [
+        "One band at intermediate density",
+        "Two bands, heavy and light, with nothing at intermediate density",
+        "One band at light density"
+      ],
+      "why": "Replication is semiconservative: after one generation all duplexes are hybrid (¹⁵N/¹⁴N); after the second, half are hybrid and half are fully ¹⁴N. A heavy band with no hybrid band would indicate conservative replication."
+    },
+    {
+      "q": "Which attack forms the new bond when DNA polymerase adds a nucleotide?",
+      "a": "The 3′-OH of the chain on the α-phosphate of the incoming dNTP, releasing PPᵢ",
+      "wrong": [
+        "The 3′-OH of the incoming dNTP on the terminal phosphate of the chain, releasing water",
+        "The 3′-OH of the chain on the γ-phosphate of the dNTP, releasing a dNDP",
+        "A water molecule on the α-phosphate of the dNTP, activated by Mg²⁺"
+      ],
+      "why": "The growing chain's 3′-OH is the nucleophile and attacks the α-phosphate of the dNTP, expelling pyrophosphate; this is why chains grow 5′ → 3′ and why a primer with a free 3′-OH is required."
+    },
+    {
+      "q": "A polymerase inserts a wrong base once per 10⁵ nucleotides. Proofreading removes 99% of these errors, and mismatch repair fixes 99% of the rest. What is the final error rate per base?",
+      "a": "1 in 10⁹",
+      "wrong": [
+        "1 in 10⁷",
+        "1 in 10³",
+        "1 in 10¹¹"
+      ],
+      "why": "The factors multiply: 10⁻⁵ × 10⁻² × 10⁻² = 10⁻⁹. The value 10⁻⁷ counts proofreading alone, and adding the exponents instead of multiplying the probabilities gives nonsense."
+    },
+    {
+      "q": "Starting from 50 template copies at ideal efficiency, what is the smallest number of PCR cycles that gives more than 10⁶ copies?",
+      "a": "15",
+      "wrong": [
+        "14",
+        "20",
+        "10"
+      ],
+      "why": "50 × 2ⁿ > 10⁶ requires 2ⁿ > 2 × 10⁴. Since 2¹⁴ = 16,384 gives only 8.2 × 10⁵ copies and 2¹⁵ = 32,768 gives 1.6 × 10⁶, 15 cycles are needed. The value 20 comes from ignoring the starting copies (2²⁰ ≈ 10⁶)."
+    },
+    {
+      "q": "Bacterial mRNA is translated while still being transcribed, but eukaryotic mRNA is not. Why?",
+      "a": "Eukaryotic transcripts must first be capped, spliced and polyadenylated in the nucleus, then exported",
+      "wrong": [
+        "Eukaryotic RNA polymerase releases the transcript only after proofreading it against the DNA template",
+        "Eukaryotic ribosomes (80S) are too large to attach to an unfinished transcript",
+        "Eukaryotic mRNA is made as a double-stranded molecule that must be unwound first"
+      ],
+      "why": "In eukaryotes the primary transcript is processed (5′ cap, poly-A tail, splicing of introns) in the nucleus before export to the ribosomes. Bacteria have no nucleus and no such processing."
+    },
+    {
+      "q": "There are 61 sense codons but fewer than 61 different tRNAs. What explains this?",
+      "a": "Wobble: the third codon position pairs non-standardly, so one tRNA can read several codons",
+      "wrong": [
+        "Some tRNAs carry two different amino acids, whichever is available in the cell",
+        "Aminoacyl-tRNA synthetases read some codons directly on the mRNA",
+        "The rRNA of the small subunit decodes the third base, so tRNAs need only a two-base match"
+      ],
+      "why": "The first anticodon position pairs with the third codon position with relaxed geometry (inosine can read U, C or A), so a single tRNA decodes several synonymous codons. Each tRNA still carries one specific amino acid."
+    },
+    {
+      "q": "Which step of translation elongation requires EF-G·GTP?",
+      "a": "Translocation of the ribosome by one codon",
+      "wrong": [
+        "Entry of the aminoacyl-tRNA into the A site",
+        "Formation of the peptide bond",
+        "Release of the finished chain from the last tRNA"
+      ],
+      "why": "EF-G·GTP moves the ribosome one codon along the mRNA. EF-Tu·GTP delivers the aminoacyl-tRNA, the 23S rRNA catalyzes peptide bond formation, and release factors act at the stop codon."
+    },
+    {
+      "q": "Roughly how many high-energy phosphate bonds does elongation cost for a chain with 120 peptide bonds?",
+      "a": "About 480",
+      "wrong": [
+        "About 120",
+        "About 240",
+        "About 360"
+      ],
+      "why": "Each peptide bond costs about four: two for charging the tRNA, one GTP for EF-Tu delivery and one GTP for EF-G translocation, so 120 × 4 = 480. The value 360 forgets that aminoacyl-tRNA formation costs two bonds."
+    },
+    {
+      "q": "The sickle-cell mutation changes the coding-strand codon GAG to GTG. How is it best classified?",
+      "a": "Missense, and a transversion",
+      "wrong": [
+        "Missense, and a transition",
+        "Silent, and a transversion",
+        "Nonsense, and a transition"
+      ],
+      "why": "GAG (Glu) becomes GTG (Val), a different amino acid, so it is missense. The change A → T exchanges a purine for a pyrimidine, which is a transversion; a transition would stay within purines or pyrimidines."
+    },
+    {
+      "q": "Which change to a coding sequence leaves the downstream reading frame intact?",
+      "a": "Deletion of six consecutive bases",
+      "wrong": [
+        "Insertion of one base",
+        "Deletion of two bases",
+        "Insertion of four bases"
+      ],
+      "why": "Codons are read in triplets, so only insertions or deletions that are multiples of three preserve the frame (they add or remove whole codons). Any other length shifts every downstream codon."
+    },
+    {
+      "q": "Which lesion does UV light mainly cause in DNA, and how is it repaired?",
+      "a": "Cyclobutane thymine dimers, removed by excision repair",
+      "wrong": [
+        "Deaminated cytosines, removed by uracil-DNA glycosylase",
+        "Abasic sites from depurination, repaired by mismatch repair",
+        "Single-strand breaks in the backbone, sealed by ligase alone"
+      ],
+      "why": "UV joins adjacent thymines into cyclobutane dimers, which excision repair removes with a segment of about 30 nucleotides that is then resynthesized; defects cause xeroderma pigmentosum. Uracil-DNA glycosylase deals with deaminated cytosine instead."
+    }
+  ],
   "summary": [
     "Nucleotides = base + sugar + phosphate, joined 3′→5′ by phosphodiesters into a polyanionic chain. DNA has deoxyribose and T; RNA has ribose (2′-OH makes it labile) and U.",
     "B-DNA: antiparallel double helix, 10.5 bp per turn, 3.4 Å rise, A–T (2 H-bonds) and G–C (3). Stacking provides most stability. T_m rises with GC content and salt; melting is followed by hyperchromicity at 260 nm.",

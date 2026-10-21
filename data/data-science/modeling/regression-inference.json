@@ -394,6 +394,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A least squares line is fitted to x = 0, 1, 2, 3, 4 and y = 1, 3, 2, 5, 4. The slope is",
+      "a": "0.8",
+      "wrong": [
+        "1.25",
+        "3.2",
+        "8"
+      ],
+      "why": "x̄ = 2, ȳ = 3, S_xy = 4 + 0 + 0 + 2 + 2 = 8 and S_xx = 10, so β̂₁ = 8/10 = 0.8. Inverting the ratio gives 1.25, and skipping the division gives 8."
+    },
+    {
+      "q": "A simple regression on n = 7 points has SSE = 20 and S_xx = 16. The standard error of the slope is",
+      "a": "0.5",
+      "wrong": [
+        "1.0",
+        "0.42",
+        "0.125"
+      ],
+      "why": "With n − 2 = 5 degrees of freedom, s² = 20/5 = 4, s = 2, and SE = s/√S_xx = 2/4 = 0.5. Dividing SSE by n gives 0.42, and forgetting the square root of S_xx gives 0.125."
+    },
+    {
+      "q": "A slope estimate is 2.0 with standard error 0.8, from a fit with 4 residual degrees of freedom (the 5% critical value of t is 2.78). Which conclusion is correct?",
+      "a": "Not significant: t = 2.5 is below 2.78, and the interval includes 0",
+      "wrong": [
+        "Significant: t = 2.5 exceeds 1.96",
+        "Significant: any slope more than twice its standard error is significant at 5%",
+        "Cannot be decided without the R² of the fit"
+      ],
+      "why": "With so few degrees of freedom the t distribution has heavy tails, so the cutoff is 2.78, not 1.96. The interval 2.0 ± 2.78(0.8) = (−0.2, 4.2) contains 0."
+    },
+    {
+      "q": "A fit gives R² = 0.80 with n = 25 observations and p = 4 predictors. The adjusted R² is",
+      "a": "0.76",
+      "wrong": [
+        "0.80",
+        "0.83",
+        "0.75"
+      ],
+      "why": "Adjusted R² = 1 − (1 − R²)(n − 1)/(n − p − 1) = 1 − 0.20 × 24/20 = 0.76. Inverting the ratio gives 0.83, and using n instead of n − 1 gives 0.75."
+    },
+    {
+      "q": "In a regression of salary (in thousands) on department dummies for B and C (department A is the reference), the coefficient on B is +6. This means",
+      "a": "department B employees earn 6 thousand more than department A employees, other predictors fixed",
+      "wrong": [
+        "department B employees earn 6 thousand more than the average of all three departments, other predictors fixed",
+        "department B employees earn 6 thousand more than department C employees",
+        "department B employees earn 6% more than department A employees"
+      ],
+      "why": "A dummy coefficient is the difference from the omitted reference level. The comparison is always against department A, not against the overall mean or the other dummy."
+    },
+    {
+      "q": "A model is y = 10 + 2·dose − 1·female + 0.5·dose·female, with female = 1 for women and 0 for men. The slope of y on dose for women is",
+      "a": "2.5",
+      "wrong": [
+        "2.0",
+        "0.5",
+        "1.5"
+      ],
+      "why": "The dose slope is β₁ + β₃·female = 2 + 0.5 = 2.5 for women. The main effect of female (−1) shifts the intercept and does not enter the slope."
+    },
+    {
+      "q": "Adding a second predictor changes the coefficient of x₁ from 4.0 to 0.2. What is the most plausible explanation?",
+      "a": "The new variable is related to both x₁ and y, and the first coefficient absorbed part of its effect",
+      "wrong": [
+        "The new variable is independent of both x₁ and y",
+        "Adding any new predictor mechanically biases every other coefficient toward zero, so the change carries no information",
+        "x₁ must therefore have no causal effect on y"
+      ],
+      "why": "A coefficient shifts when the added variable is correlated with both x₁ and y (a confounder, for example). Whether the drop reflects confounding or something else, such as a mediator, is a causal question."
+    },
+    {
+      "q": "To test whether three region dummies are jointly zero, a reduced model has SSE = 120 and the full model has SSE = 100 with 50 residual degrees of freedom. The F statistic is",
+      "a": "3.33",
+      "wrong": [
+        "6.67",
+        "10.0",
+        "1.20"
+      ],
+      "why": "F = [(120 − 100)/3]/[100/50] = 6.67/2 = 3.33. Forgetting to divide the numerator by q gives 10, and forgetting the residual mean square in the denominator gives 6.67."
+    },
+    {
+      "q": "A regression estimates the effect of a job-training program on later wages. Which variable should NOT be adjusted for?",
+      "a": "The job grade reached after the program, which the training may itself raise",
+      "wrong": [
+        "Education level before the program, which could affect both enrollment and later wages",
+        "Age at enrollment",
+        "Wages before the program"
+      ],
+      "why": "Adjusting for a consequence of the treatment blocks part of the effect being estimated and can bias the result. Pre-treatment variables are the candidates for adjustment."
+    },
+    {
+      "q": "A predictor has R² = 0.75 when regressed on the other predictors. Compared with uncorrelated predictors, the standard error of its coefficient is larger by a factor of",
+      "a": "2",
+      "wrong": [
+        "4",
+        "1.33",
+        "3"
+      ],
+      "why": "VIF = 1/(1 − 0.75) = 4 is the inflation of the variance; the standard error is inflated by √4 = 2. The value 4 is the variance factor."
+    },
+    {
+      "q": "Two predictors in a model are almost perfectly correlated. Which statement is true?",
+      "a": "Predictions for typical new points can stay accurate even though each coefficient is poorly determined",
+      "wrong": [
+        "The coefficients are biased, though their standard errors are correct",
+        "The residuals must show a funnel pattern",
+        "The R² of the model must be low"
+      ],
+      "why": "Collinearity inflates the variance of the individual coefficients, not their bias, and it does not hurt the fit or predictions within the range of the data."
+    },
+    {
+      "q": "A plot of residuals against fitted values forms a clear U shape. The most appropriate response is to",
+      "a": "add a squared term or spline for the predictor",
+      "wrong": [
+        "switch to heteroscedasticity-robust standard errors",
+        "weight the observations with weighted least squares",
+        "delete the observations with the largest residuals"
+      ],
+      "why": "A curved residual pattern means the mean of y is not linear in the predictor. Robust standard errors and weights address non-constant variance, which would look like a funnel instead."
+    },
+    {
+      "q": "A point has an extreme x value (high leverage) but lies almost exactly on the line fitted to the other points. How much does it influence the fit?",
+      "a": "Little: with a small residual, removing it barely changes the fitted line",
+      "wrong": [
+        "A great deal, because high leverage alone makes a point influential, whatever its residual happens to be",
+        "A great deal, because Cook's distance depends only on leverage",
+        "None, so it can be deleted without checking"
+      ],
+      "why": "Influence needs both high leverage and a large residual. A remote point that agrees with the trend just makes the slope better determined."
+    },
+    {
+      "q": "The variance of the errors grows with x in an otherwise correct linear model. What is the effect on ordinary least squares?",
+      "a": "The slope stays unbiased, but the usual standard errors are wrong and robust (HC) errors correct them",
+      "wrong": [
+        "The slope is biased, but the usual standard errors are correct",
+        "Both the slope and the usual standard errors remain valid",
+        "The slope is biased upward, and robust errors would fix it"
+      ],
+      "why": "Unequal error variance does not bias the least squares coefficients, but the usual variance formula assumes constant variance. Robust standard errors fix the intervals without changing the fit."
+    },
+    {
+      "q": "A logistic regression has a coefficient of ln 3 ≈ 1.1 on x. A person at x has a 20% chance of the outcome. After x rises by one unit with the others fixed, the chance is about",
+      "a": "43%",
+      "wrong": [
+        "60%",
+        "23%",
+        "80%"
+      ],
+      "why": "The odds go from 0.2/0.8 = 0.25 to 0.75, which is a probability of 0.75/1.75 ≈ 43%. Multiplying the probability by 3 gives 60%, but the odds ratio applies to odds, not probabilities."
+    },
+    {
+      "q": "In a logistic regression, one predictor perfectly separates the two outcome classes in the training data. What happens to the maximum likelihood estimate?",
+      "a": "The coefficient grows without bound, so a penalty is needed",
+      "wrong": [
+        "The coefficient is estimated as exactly zero",
+        "The standard error becomes zero, giving an exact p-value of 0",
+        "The estimate is the most reliable one possible"
+      ],
+      "why": "The likelihood keeps increasing as the coefficient grows, so no finite maximizer exists. Regularization gives a finite, stable estimate."
+    },
+    {
+      "q": "Which analysis plan gives valid p-values and intervals for the chosen variables?",
+      "a": "Select variables on one half of the data, then estimate and test on the other half",
+      "wrong": [
+        "Run stepwise selection, keep p < 0.05 and report that model's p-values",
+        "Fit all variables, drop the non-significant ones, refit and report the refit",
+        "Try many models on the full data and report only the best one, without mentioning the others"
+      ],
+      "why": "Choosing variables and testing them on the same data makes the selected effects look stronger than they are. Sample splitting separates selection from inference."
+    },
+    {
+      "q": "One team wants to forecast demand, another to estimate the effect of price on demand with a valid interval. Which statement is correct?",
+      "a": "Collinearity between predictors mostly does not hurt the forecast, but it widens the interval for the price effect",
+      "wrong": [
+        "Collinearity ruins the forecast, but leaves the price interval unaffected",
+        "Both teams should add as much regularization as possible, since it reduces bias",
+        "Black-box models give the best estimate of the price effect"
+      ],
+      "why": "Prediction is judged on held-out error, where correlated inputs are usually harmless. An effect estimate depends on a well-determined coefficient, and regularization adds bias to it."
+    }
+  ],
   "summary": [
     "OLS slope β̂₁ = S_xy/S_xx, with s² = SSE/(n − 2) and SE(β̂₁) = s/√S_xx. (β̂₁ − β₁)/SE follows a t distribution with n − 2 degrees of freedom, giving intervals and tests. R² is the explained fraction of variance; adjusted R² penalizes extra predictors.",
     "In multiple regression β̂ = (XᵀX)⁻¹Xᵀy with covariance σ²(XᵀX)⁻¹. Coefficients are effects with the other predictors held fixed; adjustment can remove or reveal associations through confounders. Categorical predictors need k − 1 dummies; interactions let slopes differ.",

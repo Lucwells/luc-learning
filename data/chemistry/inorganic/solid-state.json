@@ -484,6 +484,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "In a ccp array of 8 anions, cations fill half of the tetrahedral holes. The cation:anion ratio is",
+      "a": "1:1",
+      "wrong": [
+        "2:1",
+        "1:2",
+        "1:4"
+      ],
+      "why": "8 anions give 2 × 8 = 16 tetrahedral holes, and half of them is 8 cations. This is the zinc blende arrangement; filling all of them would give the 2:1 ratio of antifluorite."
+    },
+    {
+      "q": "Mg²⁺ has radius 72 pm and O²⁻ has radius 140 pm. The radius ratio and the predicted coordination number of Mg²⁺ are",
+      "a": "0.51; CN 6",
+      "wrong": [
+        "0.51; CN 4",
+        "1.94; CN 8",
+        "0.51; CN 8"
+      ],
+      "why": "72/140 = 0.51 lies in the 0.414–0.732 range, which is octahedral (rock salt). The inverted ratio 1.94 results from dividing anion by cation."
+    },
+    {
+      "q": "In Li₂O, which has the antifluorite structure, the coordination numbers of Li⁺ and O²⁻ are",
+      "a": "4 and 8",
+      "wrong": [
+        "8 and 4",
+        "6 and 6",
+        "4 and 4"
+      ],
+      "why": "Antifluorite swaps the ions of fluorite (Ca 8, F 4). The cations fill all tetrahedral holes (CN 4) in a ccp array of anions, so each anion has 8 neighbors."
+    },
+    {
+      "q": "A perovskite ABX₃ has r_A = 134 pm, r_B = 60.5 pm and r_X = 140 pm. Its tolerance factor t = (r_A + r_X)/[√2(r_B + r_X)] is about",
+      "a": "0.97",
+      "wrong": [
+        "1.03",
+        "1.37",
+        "1.57"
+      ],
+      "why": "t = 274/(1.414 × 200.5) = 0.97, close to the ideal cubic value of 1. Omitting √2 gives 1.37, and swapping numerator and denominator gives 1.03."
+    },
+    {
+      "q": "NiFe₂O₄ is a spinel in which Ni²⁺ (d⁸) has a strong octahedral site preference. It is expected to be",
+      "a": "An inverse spinel: Ni²⁺ on octahedral sites and Fe³⁺ split between tetrahedral and octahedral sites",
+      "wrong": [
+        "A normal spinel, with Ni²⁺ on tetrahedral sites",
+        "A normal spinel, with Ni²⁺ on octahedral sites and all Fe³⁺ tetrahedral",
+        "Neither, because ligand field stabilization does not affect site choice"
+      ],
+      "why": "An ion with a large octahedral preference forces the A²⁺ onto octahedral sites, which pushes half of the B³⁺ onto tetrahedral sites: the inverse spinel, as in Fe₃O₄."
+    },
+    {
+      "q": "Calculate the lattice energy of LiF from ΔH_f = −617, sublimation of Li +159, IE(Li) +520, ½D(F₂) +79 and EA(F) −328 kJ mol⁻¹.",
+      "a": "−1047 kJ mol⁻¹",
+      "wrong": [
+        "−968 kJ mol⁻¹",
+        "−187 kJ mol⁻¹",
+        "−1703 kJ mol⁻¹"
+      ],
+      "why": "U = ΔH_f − (159 + 520 + 79 − 328) = −617 − 430 = −1047. Forgetting the ½D term gives −968, adding the electron affinity instead of subtracting it gives −1703, and a sign error gives −187."
+    },
+    {
+      "q": "Which compound has the most exothermic lattice energy?",
+      "a": "MgO",
+      "wrong": [
+        "NaCl",
+        "KBr",
+        "CaCl₂"
+      ],
+      "why": "Lattice energy rises with the product of the charges and falls with the interionic distance. MgO has 2+/2− ions that are small, so it beats the 1+/1− salts and CaCl₂."
+    },
+    {
+      "q": "Unlike the Born–Landé equation, the Kapustinskii equation does not require",
+      "a": "The crystal structure of the compound",
+      "wrong": [
+        "The charges on the cation and the anion",
+        "The radii of the ions involved",
+        "The number of ions in one formula unit of the compound"
+      ],
+      "why": "The Madelung constant in Born–Landé is specific to one structure type. Kapustinskii works from ν, charges and radii alone, so it can estimate U where the structure is unknown."
+    },
+    {
+      "q": "Which of these is most likely to contain Frenkel defects?",
+      "a": "AgBr",
+      "wrong": [
+        "NaCl",
+        "KCl",
+        "MgO"
+      ],
+      "why": "Frenkel defects need a small cation and an open lattice, as with Ag⁺. NaCl, KCl and MgO have similar-sized ions and high coordination numbers, so they form Schottky defects."
+    },
+    {
+      "q": "Wüstite has the composition Fe₀.₉₀O. What fraction of its iron is present as Fe³⁺?",
+      "a": "About 22%",
+      "wrong": [
+        "10%, the fraction of vacant iron sites",
+        "20%, the number of Fe³⁺ per formula unit",
+        "11%, the vacancies divided by the iron present"
+      ],
+      "why": "Charge balance for 0.90 Fe: 2(0.90 − y) + 3y = 2 gives y = 0.20 Fe³⁺, and 0.20/0.90 = 22%. The numbers 10% (the vacancy fraction) and 20% (Fe³⁺ per formula unit) are not shares of the iron actually present."
+    },
+    {
+      "q": "NaCl heated in sodium vapor turns yellow. The color is due to",
+      "a": "Electrons trapped in anion vacancies that absorb visible light",
+      "wrong": [
+        "Interstitial Na⁺ ions absorbing in the visible",
+        "Cl₂ molecules trapped in the lattice",
+        "Cation vacancies that hold electron holes"
+      ],
+      "why": "Excess Na takes up Na⁺ sites and leaves Cl⁻ vacancies, each holding an electron: an F-center. The trapped electron has visible absorption."
+    },
+    {
+      "q": "In yttria-stabilized zirconia, 4 Zr⁴⁺ ions are replaced by 4 Y³⁺. How many O²⁻ vacancies keep the crystal neutral?",
+      "a": "2",
+      "wrong": [
+        "1",
+        "4",
+        "8"
+      ],
+      "why": "Replacing four 4+ ions with 3+ ions removes 4 units of positive charge. Each missing O²⁻ removes 2 units of negative charge, so 2 vacancies balance it."
+    },
+    {
+      "q": "A GaAs light-emitting diode has E_g = 1.43 eV. Using hc = 1240 eV nm, it emits at about",
+      "a": "870 nm (infrared)",
+      "wrong": [
+        "1770 nm, in the infrared",
+        "560 nm, in the green",
+        "430 nm, in the violet"
+      ],
+      "why": "λ = 1240/1.43 = 867 nm, in the near infrared, as expected for GaAs. Multiplying by E_g instead of dividing gives 1770 nm."
+    },
+    {
+      "q": "Why does the conductivity of copper fall as it is heated?",
+      "a": "Lattice vibrations scatter the conduction electrons more",
+      "wrong": [
+        "Fewer electrons are thermally promoted across the band gap",
+        "The band gap widens as the lattice expands on heating",
+        "The metal begins to oxidize in air and becomes insulating"
+      ],
+      "why": "A metal has a partly filled band, so the number of carriers does not rise with temperature, while greater vibration reduces mobility. In semiconductors the carrier number dominates."
+    },
+    {
+      "q": "Why are LEDs made from GaAs or GaN rather than silicon?",
+      "a": "They have direct band gaps, so electron–hole recombination efficiently emits photons",
+      "wrong": [
+        "Their band gaps are always smaller than silicon’s",
+        "They cannot be doped n-type or p-type",
+        "Silicon has no band gap"
+      ],
+      "why": "In an indirect-gap material like silicon, recombination mostly releases heat. Direct-gap semiconductors emit light, and E_g sets its color. Silicon does have a band gap (1.12 eV); it is simply indirect."
+    },
+    {
+      "q": "What distinguishes a true superconductor from a hypothetical perfect conductor?",
+      "a": "It expels a magnetic field from its interior (the Meissner effect)",
+      "wrong": [
+        "It has no resistance above a critical temperature",
+        "It carries current without any applied voltage",
+        "It has a band gap at the Fermi level in all cases"
+      ],
+      "why": "Zero resistance alone would only freeze in whatever field was present. Active expulsion of the field is what makes a magnet float above a superconductor."
+    },
+    {
+      "q": "Why is YBa₂Cu₃O₇ (T_c = 93 K) so much more practical than Nb–Ti (T_c = 9.5 K)?",
+      "a": "It can be cooled with liquid nitrogen (77 K) instead of liquid helium",
+      "wrong": [
+        "It is ductile, and is easily drawn into long wires for magnets",
+        "Its superconductivity is fully described by the BCS theory of Cooper pairs",
+        "It is a Type I superconductor that tolerates very strong magnetic fields"
+      ],
+      "why": "T_c above 77 K allows cheap nitrogen cooling. YBCO is actually a brittle ceramic, unconventional, and a Type II superconductor."
+    },
+    {
+      "q": "In BCS theory, T_c is ultimately set by",
+      "a": "The thermal energy needed to break Cooper pairs across the gap at the Fermi level",
+      "wrong": [
+        "The temperature at which the lattice melts",
+        "The energy to ionize the metal atoms",
+        "The temperature at which the Meissner effect is first measured"
+      ],
+      "why": "Cooper pairs condense into a state that moves without scattering. When thermal energy exceeds the gap, the pairs break and resistance returns."
+    }
+  ],
   "summary": [
     "Ionic structures are close-packed arrays with ions in holes. The radius ratio predicts CN 4, 6 or 8 (zinc blende, rock salt, CsCl). Fluorite, rutile, perovskite and spinel are the other key types.",
     "The Born–Haber cycle gives lattice energy by Hess’s law (NaCl: −787 kJ mol⁻¹). The Born–Landé and Kapustinskii equations estimate it.",

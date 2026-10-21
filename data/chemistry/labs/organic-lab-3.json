@@ -531,6 +531,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "2.0 g of borneol (154.25 g mol⁻¹) is oxidized with 1.5 equivalents of NaOCl from 0.70 M bleach. What volume of bleach is needed?",
+      "a": "27.8 mL",
+      "wrong": [
+        "18.5 mL",
+        "41.7 mL",
+        "19.5 mL"
+      ],
+      "why": "Borneol is 12.97 mmol and 1.5 equivalents is 19.45 mmol of NaOCl, so the volume is 19.45/0.70 = 27.8 mL. The 18.5 mL figure is for one equivalent, and 19.5 is the number of mmol."
+    },
+    {
+      "q": "The carbinol hydrogens in the NMR spectrum of a camphor reduction product integrate to 0.78 at δ 3.60 (isoborneol) and 0.22 at δ 4.00 (borneol). How much isoborneol is in 0.80 g of product?",
+      "a": "0.62 g",
+      "wrong": [
+        "0.18 g",
+        "0.45 g",
+        "0.78 g"
+      ],
+      "why": "The mole ratio is 78:22 and the two diastereomers have the same molar mass, so isoborneol is 78% of 0.80 g = 0.62 g. The 0.18 g figure is the borneol."
+    },
+    {
+      "q": "What is the atom economy of the Wittig reaction of Ph₃P=CH₂ (276.31 g mol⁻¹) with cyclohexanone (98.14 g mol⁻¹) to give methylenecyclohexane (96.17 g mol⁻¹) and Ph₃P=O (278.28 g mol⁻¹)?",
+      "a": "25.7%",
+      "wrong": [
+        "74.3%",
+        "34.6%",
+        "100%"
+      ],
+      "why": "Atom economy is 96.17/(276.31 + 98.14) = 25.7%. The value 74.3% is the share of the mass that ends up as waste, and 34.6% divides by the phosphine oxide alone."
+    },
+    {
+      "q": "Why does a catalytic amount of iodine convert Z-stilbene into E-stilbene in light?",
+      "a": "Reversible iodine addition lets the bond rotate, so the more stable E isomer accumulates",
+      "wrong": [
+        "Iodine adds irreversibly and then HI is eliminated to give the alkyne, which is reduced",
+        "Iodine oxidizes Z-stilbene to a diol that then loses water to give the E isomer",
+        "Light alone is enough, and the iodine is a spectator that simply absorbs excess heat"
+      ],
+      "why": "Once an iodine atom adds to the double bond, there is a single bond that can rotate. Loss of iodine then favors the E isomer, which is about 18 kJ mol⁻¹ more stable because the phenyl groups clash less."
+    },
+    {
+      "q": "Salicylic acid (3.00 g, 138.12 g mol⁻¹) is acetylated with excess acetic anhydride to give 3.10 g of aspirin (180.16 g mol⁻¹). What is the percent yield?",
+      "a": "79%",
+      "wrong": [
+        "103%",
+        "33%",
+        "88%"
+      ],
+      "why": "Salicylic acid is 21.7 mmol, so the theoretical yield is 21.7 × 180.16 = 3.91 g and 3.10/3.91 = 79%. Comparing with the mass of the starting acid gives an impossible 103%."
+    },
+    {
+      "q": "Why can tert-butyl iodide not be used to make an aryl tert-butyl ether by the Williamson method?",
+      "a": "The phenoxide is also a base, so a tertiary halide gives E2 elimination to isobutene",
+      "wrong": [
+        "A phenoxide is too weak a nucleophile to react with any alkyl halide at all",
+        "tert-Butyl iodide is not an electrophile because its C–I bond is essentially nonpolar",
+        "SN2 on a tertiary carbon does occur, but the ether that forms is then unstable"
+      ],
+      "why": "Williamson ether synthesis is an SN2 reaction and needs a methyl or primary halide. Backside attack on a tertiary carbon is blocked, so the basic phenoxide removes a β-hydrogen."
+    },
+    {
+      "q": "A 100 mL aqueous caffeine solution is extracted twice with 25 mL of CH₂Cl₂ (K = 4.6). What fraction of the caffeine is extracted?",
+      "a": "78%",
+      "wrong": [
+        "70%",
+        "54%",
+        "22%"
+      ],
+      "why": "Each extraction leaves 1/(1 + 4.6 × 0.25) = 0.465, and after two the fraction left is 0.216, so 78% is extracted. A single 50 mL portion would extract only 70%, and one 25 mL portion 54%."
+    },
+    {
+      "q": "A compound of M = 150 g mol⁻¹ has a vapor pressure of 30 torr at the temperature where water has 730 torr (immiscible steam distillation). What mass of the compound distills per gram of water?",
+      "a": "0.34 g",
+      "wrong": [
+        "0.041 g",
+        "2.9 g",
+        "202 g"
+      ],
+      "why": "The mole ratio in the vapor is 30/730 and the mass ratio is (30 × 150)/(730 × 18.02) = 0.34 g per g of water. Leaving out the molar masses gives 0.041, and inverting everything gives 202."
+    },
+    {
+      "q": "How is eugenol separated from the neutral components of clove oil?",
+      "a": "Extract with 5% NaOH as the sodium phenoxide, then acidify the aqueous layer and re-extract",
+      "wrong": [
+        "Extract with 5% HCl, because eugenol is an amine",
+        "Extract with saturated NaHCO₃, because eugenol is a carboxylic acid",
+        "Wash with brine, because eugenol is less soluble in brine than the other components"
+      ],
+      "why": "Eugenol is a phenol, acidic enough to dissolve in NaOH but not NaHCO₃. The neutral terpenes stay in the organic layer, and adding HCl regenerates the free phenol."
+    },
+    {
+      "q": "For methyl orange, pK_a = 3.46. What fraction is in the yellow base form at pH 3.0?",
+      "a": "26%",
+      "wrong": [
+        "74%",
+        "78%",
+        "35%"
+      ],
+      "why": "[In⁻]/[HIn] = 10^{3.0 − 3.46} = 0.35, so the base fraction is 0.35/1.35 = 26%. The 74% value is the red acid form, and 78% is the base fraction at pH 4.0."
+    },
+    {
+      "q": "Why is the azo coupling with N,N-dimethylaniline done in a mildly acidic solution (pH 4–7) and not in strong acid?",
+      "a": "In strong acid the amine is protonated and deactivated toward the diazonium ion",
+      "wrong": [
+        "In strong acid the diazonium ion is converted into the unreactive diazotate salt",
+        "In strong acid the nitrous acid is destroyed before any diazonium ion can form",
+        "In strong acid the sulfonate group of the diazonium ion is lost as SO₃"
+      ],
+      "why": "The diazonium ion is a weak electrophile and needs a strongly activated ring. Diazotate formation is what limits the pH from above, in basic solution."
+    },
+    {
+      "q": "What is the atom economy of the Suzuki coupling of bromobenzene (157.01 g mol⁻¹) with phenylboronic acid (121.93 g mol⁻¹) to give biphenyl (154.21 g mol⁻¹), counting only the two coupling partners?",
+      "a": "55.3%",
+      "wrong": [
+        "98.2%",
+        "100%",
+        "44.7%"
+      ],
+      "why": "154.21/(157.01 + 121.93) = 55.3%. Dividing by the mass of bromobenzene alone gives 98.2%, and 44.7% is the fraction lost as boron and bromine salts."
+    },
+    {
+      "q": "What happens to the oxidation state of palladium in the oxidative addition step of the Suzuki cycle?",
+      "a": "Pd(0) is oxidized to Pd(II)",
+      "wrong": [
+        "Pd(II) is reduced to Pd(0)",
+        "Pd(0) is oxidized to Pd(IV)",
+        "It stays Pd(II) throughout the step"
+      ],
+      "why": "Pd(0) inserts into the Ar–Br bond to give Ar–Pd(II)–Br. Reductive elimination of Ar–Ph later returns the metal to Pd(0)."
+    },
+    {
+      "q": "An amine is shaken with PhSO₂Cl and NaOH, and the sulfonamide formed dissolves in the aqueous NaOH. What class of amine is it?",
+      "a": "Primary",
+      "wrong": [
+        "Secondary",
+        "Tertiary",
+        "Quaternary ammonium"
+      ],
+      "why": "A primary amine gives a sulfonamide that still has an acidic N–H, so it dissolves as the anion. A secondary amine gives an insoluble sulfonamide, and a tertiary amine does not react."
+    },
+    {
+      "q": "Which compound gives no color change (orange stays orange) with chromic acid?",
+      "a": "2-Methyl-2-butanol",
+      "wrong": [
+        "2-Butanol, a secondary alcohol",
+        "Butanal, an aldehyde",
+        "1-Butanol, a primary alcohol"
+      ],
+      "why": "Primary and secondary alcohols and aldehydes are oxidized, turning Cr(VI) to green Cr(III). A tertiary alcohol has no α-hydrogen and a ketone is not oxidized under these conditions."
+    },
+    {
+      "q": "Which compound gives a yellow precipitate with I₂/NaOH?",
+      "a": "2-Pentanone",
+      "wrong": [
+        "3-Pentanone",
+        "Benzaldehyde",
+        "Cyclohexanone"
+      ],
+      "why": "The iodoform test needs a CH₃C(=O)– group (or CH₃CH(OH)–). 2-Pentanone has it, and the others have no acetyl methyl group."
+    },
+    {
+      "q": "In a step-growth polyamidation, the diamine:diacid chloride ratio is r = 0.995. What is the maximum number-average degree of polymerization at complete conversion?",
+      "a": "399",
+      "wrong": [
+        "199",
+        "798",
+        "99.5"
+      ],
+      "why": "The Carothers equation gives (1 + r)/(1 − r) = 1.995/0.005 = 399. The value 199 would correspond to r = 0.99."
+    },
+    {
+      "q": "How does molar mass change with conversion in step-growth nylon formation compared with free-radical polymerization of styrene?",
+      "a": "Step-growth chains stay short until high conversion; radical chains are long from the start",
+      "wrong": [
+        "Step-growth chains are long from the start, whereas radical chains grow only at high conversion",
+        "Both types reach their final molar mass at about 50% conversion of the monomer",
+        "Molar mass is independent of conversion in both cases, as it depends on stoichiometry"
+      ],
+      "why": "In step growth all monomers and oligomers react with each other, so large molecules form only at conversions near 1. In chain growth each radical adds monomers quickly, so high-molar-mass chains are present early."
+    }
+  ],
   "summary": [
     "Bleach (HOCl) oxidizes secondary alcohols to ketones (borneol → camphor); starch–iodide detects excess oxidant. NaBH₄ reduces camphor from the less hindered endo face, to give mainly isoborneol (kinetic control).",
     "Wittig: ylide + aldehyde → alkene + Ph₃P=O (driving force P=O); semi-stabilized ylides give Z/E mixtures; I₂/light isomerizes to E-stilbene. Aspirin: phenol acylated by Ac₂O; FeCl₃ detects residual salicylic acid. Phenacetin: Williamson SN2 on the phenoxide.",

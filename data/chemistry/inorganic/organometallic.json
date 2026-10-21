@@ -416,6 +416,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "How many valence electrons does the cation [Mn(CO)₆]⁺ have?",
+      "a": "18",
+      "wrong": [
+        "19",
+        "17",
+        "14"
+      ],
+      "why": "Mn contributes 7, six CO give 12, and the +1 charge removes one: 7 + 12 − 1 = 18. Ignoring the charge gives 19, a sign error."
+    },
+    {
+      "q": "In η⁵-C₅H₅, what does the superscript 5 give?",
+      "a": "The number of carbon atoms bound to the metal",
+      "wrong": [
+        "The number of electrons the ring donates",
+        "The charge on the ring in the ionic method",
+        "The number of Cp rings on the metal"
+      ],
+      "why": "Hapticity counts bonded atoms. Cp does donate 5 electrons by the neutral method, which is a coincidence that makes the electron count a tempting wrong reading."
+    },
+    {
+      "q": "For which of these is the 18-electron rule a poor guide?",
+      "a": "TiCl₄, an early metal with too few electrons (8)",
+      "wrong": [
+        "Cr(CO)₆, a middle metal with strong-field ligands",
+        "Fe(η⁵-C₅H₅)₂, an iron sandwich compound",
+        "Ni(CO)₄, a late metal with π-acid ligands"
+      ],
+      "why": "The rule works for the middle and right of the d block with strong-field ligands. Early metals and weak-field first-row complexes do not reach 18."
+    },
+    {
+      "q": "Replacing one CO of Cr(CO)₆ by PMe₃, a strong σ-donor and poor π-acceptor, will make ν(CO) of the remaining CO ligands",
+      "a": "Lower, since the metal is richer in electrons and back-donates more",
+      "wrong": [
+        "Higher, since there are fewer CO ligands to compete",
+        "Unchanged, since PMe₃ does not bind the CO",
+        "Higher, since PMe₃ withdraws electron density through the metal"
+      ],
+      "why": "PMe₃ pushes electron density onto the metal, which sends more into the CO π* orbitals and weakens the C≡O bonds."
+    },
+    {
+      "q": "A dinuclear metal carbonyl shows IR bands at 2030 and 1750 cm⁻¹. The 1750 cm⁻¹ band is best assigned to",
+      "a": "A CO bridging two metals (μ₂)",
+      "wrong": [
+        "A terminal CO on a cationic metal center",
+        "Free CO dissolved in the solution",
+        "A terminal CO on the same metal as the 2030 band, vibrating out of phase"
+      ],
+      "why": "A bridging CO resembles a ketone C=O and absorbs at 1700–1860 cm⁻¹. Free CO is at 2143 cm⁻¹, and a cationic metal gives high ν(CO)."
+    },
+    {
+      "q": "A metal–carbene complex has a nucleophilic carbene carbon on an early, high-oxidation-state metal. It is best classified as",
+      "a": "A Schrock alkylidene, as used in olefin metathesis",
+      "wrong": [
+        "A Fischer carbene, with an electrophilic carbon",
+        "A Zeise-type η² alkene complex",
+        "A half-sandwich piano-stool complex"
+      ],
+      "why": "Fischer carbenes have electrophilic carbon on low-oxidation-state metals with π-acceptors. The nucleophilic type on a high-valent early metal is Schrock’s."
+    },
+    {
+      "q": "Why is the C=C bond of an alkene weakened on binding to a metal?",
+      "a": "Alkene π density is donated to the metal, and the metal back-donates into the alkene π* orbital",
+      "wrong": [
+        "The metal puts electrons into the C–H σ* orbitals",
+        "The alkene becomes η¹-bonded through one carbon only",
+        "The metal inserts between the two carbon atoms"
+      ],
+      "why": "Losing bonding π density and gaining antibonding π* density lengthens and weakens C=C, which makes the coordinated alkene reactive."
+    },
+    {
+      "q": "Vaska’s complex IrCl(CO)(PPh₃)₂ adds CH₃I. The product is",
+      "a": "An 18-electron six-coordinate Ir(III) complex",
+      "wrong": [
+        "A 16-electron six-coordinate Ir(III) complex",
+        "An 18-electron four-coordinate Ir(I) complex",
+        "An 18-electron six-coordinate Ir(II) complex"
+      ],
+      "why": "Oxidative addition raises the oxidation state, electron count and coordination number each by 2, so 16-electron square planar Ir(I) becomes 18-electron octahedral Ir(III)."
+    },
+    {
+      "q": "CO inserts into the Mn–CH₃ bond of Mn(CO)₅CH₃ (migratory insertion). The outcome is",
+      "a": "An acetyl (acyl) ligand forms, the oxidation state of Mn is unchanged, and a vacant site opens",
+      "wrong": [
+        "An acyl forms and Mn(I) is oxidized to Mn(III)",
+        "Acetaldehyde is released by reductive elimination",
+        "CH₃ and CO both leave, giving a Mn(0) fragment"
+      ],
+      "why": "The methyl migrates to an adjacent CO, so no electrons are exchanged with the metal. The step leaves a vacant site for another ligand."
+    },
+    {
+      "q": "Which metal alkyl is the most stable toward β-hydride elimination?",
+      "a": "M–CH₂SiMe₃",
+      "wrong": [
+        "M–CH₂CH₃",
+        "M–CH₂CH₂CH₃",
+        "M–CH(CH₃)₂"
+      ],
+      "why": "β-Hydride elimination needs a hydrogen on the carbon β to the metal. CH₂SiMe₃ has silicon at the β position, so it has none."
+    },
+    {
+      "q": "A catalyst (0.0020 mmol) converts 400 mmol of substrate to product in 5.0 h before dying. Its turnover frequency is",
+      "a": "4.0 × 10⁴ h⁻¹",
+      "wrong": [
+        "2.0 × 10⁵ h⁻¹",
+        "1.0 × 10⁶ h⁻¹",
+        "80 h⁻¹"
+      ],
+      "why": "TON = 400/0.0020 = 2.0 × 10⁵, and TOF = TON/time = 4.0 × 10⁴ h⁻¹. The value 2.0 × 10⁵ is the TON, not a rate."
+    },
+    {
+      "q": "The linear product of the hydroformylation of 1-hexene is",
+      "a": "Heptanal",
+      "wrong": [
+        "Hexanal",
+        "2-Methylhexanal",
+        "Heptan-1-ol"
+      ],
+      "why": "Hydroformylation adds H and CHO across the C=C bond, creating an aldehyde with one more carbon (7). The branched isomer is 2-methylhexanal, and the alcohol needs a later reduction."
+    },
+    {
+      "q": "In the Monsanto cycle, [Rh(CO)₂I₂]⁻ adds CH₃I. After the addition, Rh is",
+      "a": "Rh(III) with 18 electrons",
+      "wrong": [
+        "Rh(III) with 16 electrons",
+        "Rh(I) with 18 electrons",
+        "Rh(II) with 17 electrons"
+      ],
+      "why": "The starting Rh(I) d⁸ anion has 16 electrons (8 from d⁸ plus 4 × 2 from the ligands). Adding CH₃⁻ and I⁻ makes it Rh(III), d⁶, with 6 + 6 × 2 = 18."
+    },
+    {
+      "q": "What is the role of CuCl₂ in the Wacker process?",
+      "a": "It reoxidizes Pd(0) to Pd(II)",
+      "wrong": [
+        "It supplies the water that attacks ethene",
+        "It oxidizes ethene directly to acetaldehyde",
+        "It stabilizes Pd(II) as a Lewis acid so that no redox is needed"
+      ],
+      "why": "Pd(II) is reduced to Pd(0) as acetaldehyde forms. Cu(II) turns it back to Pd(II), and O₂ then regenerates Cu(II)."
+    },
+    {
+      "q": "In olefin metathesis, a metal carbene undergoes [2+2] cycloaddition with an alkene to give a metallacyclobutane. The oxidation state of the metal in this step",
+      "a": "Does not change",
+      "wrong": [
+        "Rises by 2",
+        "Falls by 2",
+        "Alternates between 0 and +2 over the cycle"
+      ],
+      "why": "The cycloaddition and its reverse are not redox steps; the carbene carbon and alkene carbons exchange partners while the metal keeps its oxidation state."
+    },
+    {
+      "q": "In Fischer–Tropsch synthesis, (2n + 1)H₂ + nCO → CₙH₂ₙ₊₂ + nH₂O. How many moles of H₂ are consumed per mole of octane (n = 8)?",
+      "a": "17",
+      "wrong": [
+        "16",
+        "18",
+        "9"
+      ],
+      "why": "2n + 1 = 17. The number 18 is the count of hydrogen atoms in C₈H₁₈, but some H ends up in the 8 H₂O formed from the oxygen of CO."
+    },
+    {
+      "q": "Treat Co₂(CO)₈ as two Co(CO)₄ fragments with only terminal CO. What Co–Co bond order brings each metal to 18 electrons?",
+      "a": "1",
+      "wrong": [
+        "0",
+        "2",
+        "3"
+      ],
+      "why": "Each Co has 9 + 4 × 2 = 17 electrons, so sharing one electron pair (a single bond) gives 18, as in Mn₂(CO)₁₀."
+    },
+    {
+      "q": "Which orbital overlap produces the δ component of the quadruple bond in [Re₂Cl₈]²⁻?",
+      "a": "Face-to-face overlap of the d_{xy} orbitals",
+      "wrong": [
+        "Head-on overlap of the d_{z²} orbitals",
+        "Side-on overlap of the d_{xz} and d_{yz} orbitals",
+        "Head-on overlap of d_{x²−y²} orbitals directed at the chlorides"
+      ],
+      "why": "The d_{z²} orbitals form the σ bond and d_{xz}, d_{yz} form the two π bonds. The d_{xy} orbitals overlap face to face, which gives the δ bond."
+    }
+  ],
   "summary": [
     "The 18-electron rule: stable low-spin d-block organometallics have 18 valence electrons. Square planar d⁸ complexes (Wilkinson’s catalyst, Vaska’s complex) are stable at 16 electrons and are catalytically active.",
     "CO and alkenes bind by σ donation and π back-donation (Dewar–Chatt–Duncanson). ν(CO) falls with back-donation. Phosphine size is the cone angle.",

@@ -493,6 +493,178 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A tire is inflated to 32.0 psi (1 psi = 6894.76 Pa). What is this pressure in kPa?",
+      "a": "221 kPa",
+      "wrong": [
+        "2.21 kPa",
+        "32.0 kPa",
+        "4.64 kPa"
+      ],
+      "why": "32.0 × 6894.76 Pa = 2.21 × 10⁵ Pa = 221 kPa. Dividing by the conversion factor instead of multiplying gives 4.64."
+    },
+    {
+      "q": "Two mercury barometers are built, one with a tube twice as wide as the other. At the same location, how do the mercury column heights compare?",
+      "a": "They are equal",
+      "wrong": [
+        "The wider tube has the shorter column, because the weight is spread out",
+        "The wider tube has the taller column, because more mercury supports the air",
+        "The wider tube has a column twice as tall"
+      ],
+      "why": "Pressure is force per unit area. A wider column weighs more but rests on a proportionally larger area, so the pressure ρgh depends only on the height."
+    },
+    {
+      "q": "What is the molar volume of an ideal gas at 273.15 K and 1.000 bar, the current IUPAC definition of STP?",
+      "a": "22.71 L/mol",
+      "wrong": [
+        "22.41 L/mol",
+        "24.79 L/mol",
+        "22.00 L/mol"
+      ],
+      "why": "22.41 L/mol applies at 1 atm. At 1 bar, which is slightly lower than 1 atm, the volume is larger by 1.01325, giving 22.71 L/mol. The value 24.79 is for 298.15 K."
+    },
+    {
+      "q": "A rigid sealed can holds gas at 2.00 atm and 20 °C. It is heated to 100 °C. What is the new pressure?",
+      "a": "2.55 atm",
+      "wrong": [
+        "10.0 atm",
+        "1.57 atm",
+        "2.00 atm"
+      ],
+      "why": "With n and V constant, P₂ = P₁(T₂/T₁) = 2.00 × 373.15/293.15 = 2.55 atm. Using Celsius temperatures would give the absurd 10.0 atm."
+    },
+    {
+      "q": "How many moles of gas are in 8.00 L at 2.00 atm and 27 °C?",
+      "a": "0.650 mol",
+      "wrong": [
+        "7.22 mol",
+        "1.54 mol",
+        "1.30 mol"
+      ],
+      "why": "n = PV/RT = (2.00)(8.00)/(0.082057 × 300.15) = 0.650 mol. Using 27 instead of 300 K gives 7.22 mol."
+    },
+    {
+      "q": "What is the density of CO₂ at 25 °C and 1.00 atm?",
+      "a": "1.80 g/L",
+      "wrong": [
+        "0.556 g/L",
+        "1.96 g/L",
+        "44.0 g/L"
+      ],
+      "why": "d = PM/RT = (1.00)(44.01)/(0.082057 × 298.15) = 1.80 g/L. The value 1.96 g/L would apply at 0 °C, not 25 °C."
+    },
+    {
+      "q": "A 1.0 L flask of H₂ and a 1.0 L flask of CO₂ are at the same temperature and pressure. Which statement is correct?",
+      "a": "They hold the same number of molecules, but the CO₂ has the greater mass",
+      "wrong": [
+        "They hold the same mass of gas, but CO₂ has fewer molecules",
+        "They hold the same number of atoms",
+        "The H₂ flask holds more molecules because H₂ is lighter"
+      ],
+      "why": "Avogadro's law gives equal numbers of molecules for equal volumes. CO₂ molecules are about 22 times heavier, and each has three atoms rather than two."
+    },
+    {
+      "q": "A gas at constant pressure is warmed from 25 °C to 50 °C. By what factor does its volume change?",
+      "a": "1.08",
+      "wrong": [
+        "2.00",
+        "0.923",
+        "0.500"
+      ],
+      "why": "Volume is proportional to the absolute temperature: 323.15 K / 298.15 K = 1.08. Doubling the Celsius number does not double the volume."
+    },
+    {
+      "q": "What volume of CO₂ forms at 1.00 atm and 100 °C when 10.0 g of CaCO₃ decomposes completely (CaCO₃ → CaO + CO₂)?",
+      "a": "3.06 L",
+      "wrong": [
+        "2.24 L",
+        "30.6 L",
+        "6.12 L"
+      ],
+      "why": "n(CaCO₃) = 10.0/100.09 = 0.0999 mol and the ratio is 1 : 1, so V = nRT/P = (0.0999)(0.082057)(373.15)/1.00 = 3.06 L. The molar volume 22.4 L/mol applies only at 0 °C."
+    },
+    {
+      "q": "N₂ + 3H₂ → 2NH₃ proceeds with all gases at the same temperature and pressure. What volume of NH₃ forms from 10.0 L of H₂ with excess N₂?",
+      "a": "6.67 L",
+      "wrong": [
+        "15.0 L",
+        "10.0 L",
+        "3.33 L"
+      ],
+      "why": "At equal T and P, volumes are proportional to moles, so the coefficients give volume ratios: 10.0 L × 2/3 = 6.67 L."
+    },
+    {
+      "q": "Hydrogen is collected over water at 25 °C and a total pressure of 760.0 torr. The vapor pressure of water is 23.8 torr. What is the mole fraction of H₂ in the collected gas?",
+      "a": "0.969",
+      "wrong": [
+        "0.0313",
+        "1.00",
+        "0.484"
+      ],
+      "why": "P(H₂) = 760.0 − 23.8 = 736.2 torr, and χ = 736.2/760.0 = 0.969. The value 0.0313 is the mole fraction of water vapor."
+    },
+    {
+      "q": "A container holds 5.00 g of He and 5.00 g of Ne. Which gas has the larger partial pressure?",
+      "a": "He, because there are more moles of it",
+      "wrong": [
+        "Ne, because its atoms are heavier",
+        "They are equal, because the masses are equal",
+        "They are equal, because ideal gases at one temperature exert the same pressure"
+      ],
+      "why": "Partial pressure is proportional to moles. He (4.00 g/mol) gives about 1.25 mol and Ne (20.18 g/mol) about 0.248 mol in the same volume and at the same temperature."
+    },
+    {
+      "q": "What is the rms speed of He at 300 K (M = 4.003 g/mol)?",
+      "a": "1.37 × 10³ m/s",
+      "wrong": [
+        "43.2 m/s",
+        "1.87 × 10⁶ m/s",
+        "789 m/s"
+      ],
+      "why": "u_rms = √(3RT/M) with M in kg/mol: √(3 × 8.314 × 300/0.004003) = 1.37 × 10³ m/s. Using M in g/mol gives 43.2 m/s, and omitting the square root gives 1.87 × 10⁶."
+    },
+    {
+      "q": "Gas X effuses 3 times faster than gas Y at the same temperature. How do their molar masses compare?",
+      "a": "Y is 9 times as heavy as X",
+      "wrong": [
+        "Y is 3 times as heavy as X",
+        "Y is √3 times as heavy as X",
+        "Y is 6 times as heavy as X"
+      ],
+      "why": "Graham's law gives rate_X/rate_Y = √(M_Y/M_X) = 3, so M_Y/M_X = 9. The rate depends on the square root of the molar mass, not on the mass itself."
+    },
+    {
+      "q": "Which assumption of kinetic molecular theory fails first when a gas is compressed to a high pressure?",
+      "a": "The particles' own volume is negligible compared with the container",
+      "wrong": [
+        "Collisions with the walls are elastic",
+        "The average kinetic energy is proportional to the temperature",
+        "The particles move in random directions"
+      ],
+      "why": "At high pressure the particles are close together, so their own volume becomes a significant fraction of V. This is the effect that the constant b in the van der Waals equation corrects."
+    },
+    {
+      "q": "A gas is found to have Z = PV/(nRT) = 1.15 at very high pressure. Which effect dominates?",
+      "a": "Repulsion and the volume of the molecules",
+      "wrong": [
+        "Attractions between the molecules",
+        "Neither; the gas is behaving ideally",
+        "A lower temperature than the ideal gas law assumes"
+      ],
+      "why": "Z > 1 means the pressure is higher than the ideal value because molecular volume and repulsion dominate. Z < 1 would indicate dominant attractions."
+    },
+    {
+      "q": "In the van der Waals equation (P + an²/V²)(V − nb) = nRT, why is the term an²/V² added to the measured pressure?",
+      "a": "Attractions between molecules reduce the force on the walls, so the ideal-gas pressure is larger than the measured one",
+      "wrong": [
+        "The molecules occupy part of the container, which lowers the volume available for motion",
+        "Heating a real gas raises the pressure above the ideal value",
+        "It converts the volume from liters to cubic meters"
+      ],
+      "why": "A molecule about to hit the wall is pulled back by its neighbors, so it strikes more softly. The correction restores the pressure that would be exerted without attractions."
+    }
+  ],
   "summary": [
     "1 atm = 101.325 kPa = 760 torr. Always use kelvin in gas calculations.",
     "PV = nRT combines the Boyle, Charles, Gay-Lussac and Avogadro laws. R = 0.082057 L atm mol⁻¹ K⁻¹ = 8.314 J mol⁻¹ K⁻¹.",

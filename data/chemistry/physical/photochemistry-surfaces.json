@@ -336,6 +336,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A 0.50 W lamp emits 313 nm light, all absorbed by a solution for 1200 s, and 4.2 × 10⁻⁴ mol of reactant is consumed. What is the quantum yield?",
+      "a": "0.27",
+      "wrong": [
+        "3.7",
+        "0.54",
+        "0.067"
+      ],
+      "why": "A photon carries hc/λ = 6.35 × 10⁻¹⁹ J, so 0.50 W gives 7.9 × 10¹⁷ photons s⁻¹ = 1.31 × 10⁻⁶ mol s⁻¹, or 1.57 × 10⁻³ mol in 1200 s. Φ = 4.2 × 10⁻⁴/1.57 × 10⁻³ = 0.27. The value 3.7 is the inverted ratio."
+    },
+    {
+      "q": "Why does the product HBr slow the reaction H₂ + Br₂ → 2HBr as it accumulates?",
+      "a": "H• reacts with HBr to regenerate H₂ and Br•, competing with the propagation step",
+      "wrong": [
+        "HBr absorbs the light that starts the chain",
+        "HBr terminates the chain by combining with Br•",
+        "HBr lowers the rate of Br₂ dissociation to Br•"
+      ],
+      "why": "The inhibition step H• + HBr → H₂ + Br• converts the carrier H• back to reactant, which gives the k′[HBr]/[Br₂] term in the denominator of the rate law."
+    },
+    {
+      "q": "Which step in the hydrogen–oxygen reaction is chain branching?",
+      "a": "H• + O₂ → •OH + •O•",
+      "wrong": [
+        "H• + O₂ + M → HO₂• + M",
+        "H₂ + •OH → H₂O + H•",
+        "Radicals reaching the vessel wall"
+      ],
+      "why": "Branching produces more carriers than it consumes: one H• becomes two radicals (•OH and •O•). The second reaction is propagation (one carrier in, one out), and the others terminate chains."
+    },
+    {
+      "q": "An H₂–O₂ mixture at 700 K does not react at 1 torr, explodes at 10 torr, and is calm again at 200 torr. Why is it calm at 200 torr?",
+      "a": "Three-body termination, H• + O₂ + M → HO₂• + M, outpaces branching",
+      "wrong": [
+        "Radicals diffuse to the walls and are destroyed there",
+        "The oxygen is used up before branching can start",
+        "Thermal runaway has taken over"
+      ],
+      "why": "Wall termination explains the calm below the first limit. Above the second limit, gas-phase three-body collisions (rising as P²) remove H• faster than it branches. Thermal runaway is the third limit, at still higher pressure."
+    },
+    {
+      "q": "Two solutions are mixed and the reaction has a half-life of about 50 ms. Which method is best suited?",
+      "a": "Stopped-flow",
+      "wrong": [
+        "Temperature-jump",
+        "Pump–probe femtochemistry",
+        "Sampling with titration"
+      ],
+      "why": "Stopped-flow covers about 1 ms to seconds for mixing reactions. Temperature-jump perturbs an existing equilibrium on µs–ms timescales, and sampling is far too slow for 50 ms."
+    },
+    {
+      "q": "In a series of runs, halving the initial concentration of A makes the half-life four times longer. What is the order of the reaction?",
+      "a": "3",
+      "wrong": [
+        "2",
+        "1",
+        "4"
+      ],
+      "why": "For order n, t½ ∝ [A]₀^{1−n}. Halving [A]₀ multiplies t½ by 2^{n−1} = 4, so n = 3. A second-order reaction would only double t½."
+    },
+    {
+      "q": "A probe pulse is delayed by 10 ps relative to the pump pulse by sending it along a longer path. How much extra path length is needed?",
+      "a": "3.0 mm",
+      "wrong": [
+        "0.30 mm",
+        "30 mm",
+        "1.5 mm"
+      ],
+      "why": "Light travels 0.3 µm per femtosecond, so 10 ps = 10⁴ fs gives 3.0 mm. This is the extra distance traveled by the probe pulse."
+    },
+    {
+      "q": "A molecule with D = 5.0 × 10⁻¹⁰ m² s⁻¹ diffuses in one dimension for 10 s. What is the rms distance traveled?",
+      "a": "100 µm",
+      "wrong": [
+        "71 µm",
+        "173 µm",
+        "1.0 × 10⁻⁸ m"
+      ],
+      "why": "⟨x²⟩ = 2Dt = 1.0 × 10⁻⁸ m², so x_rms = 1.0 × 10⁻⁴ m. The 1.0 × 10⁻⁸ m is the mean square value, 71 µm uses ⟨x²⟩ = Dt, and 173 µm is the three-dimensional √(6Dt)."
+    },
+    {
+      "q": "Using the Stokes–Einstein equation, what is D for a sphere of radius 1.0 nm in water at 298 K (η = 8.9 × 10⁻⁴ Pa s)?",
+      "a": "2.5 × 10⁻¹⁰ m² s⁻¹",
+      "wrong": [
+        "7.7 × 10⁻¹⁰ m² s⁻¹",
+        "1.2 × 10⁻¹⁰ m² s⁻¹",
+        "2.5 × 10⁻⁹ m² s⁻¹"
+      ],
+      "why": "D = kT/(6πηr) = 4.12 × 10⁻²¹/(6π × 8.9 × 10⁻⁴ × 1.0 × 10⁻⁹) = 2.5 × 10⁻¹⁰ m² s⁻¹. Leaving out π gives 7.7 × 10⁻¹⁰, and using the diameter in place of the radius gives 1.2 × 10⁻¹⁰."
+    },
+    {
+      "q": "The concentration of a solute falls linearly from 5.0 mol m⁻³ to 1.0 mol m⁻³ over 2.0 mm, and D = 1.0 × 10⁻⁹ m² s⁻¹. What is the magnitude of the flux?",
+      "a": "2.0 × 10⁻⁶ mol m⁻² s⁻¹",
+      "wrong": [
+        "2.0 × 10⁻⁹ mol m⁻² s⁻¹",
+        "2.5 × 10⁻⁶ mol m⁻² s⁻¹",
+        "4.0 × 10⁻⁶ mol m⁻² s⁻¹"
+      ],
+      "why": "J = D|Δc/Δx| = 1.0 × 10⁻⁹ × 4.0/(2.0 × 10⁻³) = 2.0 × 10⁻⁶ mol m⁻² s⁻¹, directed toward lower concentration. Leaving the distance in mm gives 2.0 × 10⁻⁹."
+    },
+    {
+      "q": "A protein takes about 0.6 s to diffuse 10 µm. About how long does it take to diffuse 1.0 mm?",
+      "a": "About 6000 s, or roughly 1.7 hours",
+      "wrong": [
+        "About 60 s",
+        "About 6 s",
+        "About 600 s"
+      ],
+      "why": "Since ⟨x²⟩ = 2Dt, time grows as the square of distance. A distance 100 times greater takes 100² = 10⁴ times as long: 0.6 × 10⁴ s ≈ 6000 s."
+    },
+    {
+      "q": "The mean free path of N₂ at 298 K is 67 nm at 1 atm. What is it at 0.010 atm?",
+      "a": "6.7 µm",
+      "wrong": [
+        "670 nm",
+        "0.67 nm",
+        "670 µm"
+      ],
+      "why": "λ = kT/(√2σP) is inversely proportional to the pressure. Lowering P by a factor of 100 raises λ by 100, from 67 nm to 6.7 µm."
+    },
+    {
+      "q": "A gas obeys the Langmuir isotherm with K = 0.10 bar⁻¹. At what pressure is the surface coverage θ = 0.75?",
+      "a": "30 bar",
+      "wrong": [
+        "7.5 bar",
+        "75 bar",
+        "10 bar"
+      ],
+      "why": "KP = θ/(1 − θ) = 3.0, so P = 3.0/0.10 = 30 bar. Using P = θ/K gives 7.5 bar, which ignores that the unoccupied fraction (1 − θ) enters the adsorption rate."
+    },
+    {
+      "q": "H₂ adsorbs dissociatively on a metal, with KP = 4.0. What is the coverage θ?",
+      "a": "0.67",
+      "wrong": [
+        "0.80",
+        "0.50",
+        "0.89"
+      ],
+      "why": "For dissociative adsorption θ = (KP)^{1/2}/(1 + (KP)^{1/2}) = 2/3. The value 0.80 is what the nondissociative formula KP/(1 + KP) would give."
+    },
+    {
+      "q": "A sample adsorbs a monolayer of 40.0 cm³ (at STP) of N₂ per gram, with each N₂ molecule covering 0.162 nm². What is its specific surface area?",
+      "a": "174 m² g⁻¹",
+      "wrong": [
+        "17 m² g⁻¹",
+        "87 m² g⁻¹",
+        "1.7 × 10⁵ m² g⁻¹"
+      ],
+      "why": "n = 40.0/22 414 = 1.78 × 10⁻³ mol, which is 1.07 × 10²¹ molecules, and the area is 1.07 × 10²¹ × 0.162 × 10⁻¹⁸ m² = 174 m² g⁻¹."
+    },
+    {
+      "q": "In a Langmuir–Hinshelwood reaction between A and B, the rate first rises and then falls as P_A is increased at fixed P_B. Why?",
+      "a": "A at high coverage crowds B off the surface sites",
+      "wrong": [
+        "A reacts with itself more rapidly at high pressure",
+        "The rate constant k decreases as P_A rises",
+        "The mechanism changes to Eley–Rideal at high P_A"
+      ],
+      "why": "The rate is kK_AK_BP_AP_B/(1 + K_AP_A + K_BP_B)². At high P_A the denominator grows as P_A², faster than the numerator, because B can no longer find free sites."
+    },
+    {
+      "q": "In the Eley–Rideal mechanism, which expression gives the rate?",
+      "a": "k θ_A P_B",
+      "wrong": [
+        "k θ_A θ_B",
+        "k P_A P_B",
+        "k θ_A / P_B"
+      ],
+      "why": "A gas-phase molecule B reacts directly with an adsorbed A, so the rate depends on the coverage of A and the pressure of B. The product θ_Aθ_B is the Langmuir–Hinshelwood form."
+    },
+    {
+      "q": "Which description fits physisorption rather than chemisorption?",
+      "a": "Held by van der Waals forces, with ΔH near −20 kJ mol⁻¹, and able to build multilayers",
+      "wrong": [
+        "Stops at one monolayer, with ΔH near −200 kJ mol⁻¹",
+        "Forms chemical bonds with the surface, and is often activated",
+        "Is typically the first step of surface catalysis"
+      ],
+      "why": "Physisorption is weak, reversible and not limited to a monolayer. The other three statements describe chemisorption."
+    }
+  ],
   "summary": [
     "Each absorbed photon activates one molecule (Stark–Einstein). Φ = molecules reacted per photon absorbed, and Φ > 1 means a chain. Photon flux = P/(hc/λ).",
     "Chain reactions have initiation, propagation, branching and termination. H₂ + Br₂ gives the rate law with a ½ order, and the H₂–O₂ system has three explosion limits.",

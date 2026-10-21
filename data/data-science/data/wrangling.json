@@ -376,6 +376,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A DataFrame has the default index 0 to 4 and month = [1, 2, 1, 2, 1]. What does df.loc[1:3, 'month'].tolist() return?",
+      "a": "[2, 1, 2]",
+      "wrong": [
+        "[2, 1]",
+        "[1, 2, 1]",
+        "[2, 1, 2, 1]"
+      ],
+      "why": "loc slices by label and includes both ends, so labels 1, 2 and 3 are returned. df.iloc[1:3] would drop the end position and give [2, 1]."
+    },
+    {
+      "q": "A column sales holds [10, 12, 8, NaN, 5]. How many rows does df[df['sales'] != 8] return?",
+      "a": "4",
+      "wrong": [
+        "3",
+        "5",
+        "2"
+      ],
+      "why": "NaN is not equal to anything, so NaN != 8 is True and that row is kept along with the values 10, 12 and 5. Comparisons with missing values do not drop them silently."
+    },
+    {
+      "q": "What does df[df['sales'] == np.nan] return?",
+      "a": "No rows",
+      "wrong": [
+        "Only the rows where sales is missing",
+        "Every row of the DataFrame",
+        "A ValueError, because NaN cannot be compared"
+      ],
+      "why": "NaN is not equal to anything, including itself, so the comparison is False for every row. Missing values must be found with .isna()."
+    },
+    {
+      "q": "A numeric column is cut into bins labeled low, mid and high. Why is it wise to keep the original numeric column as well?",
+      "a": "Binning discards information that the labels alone cannot recover",
+      "wrong": [
+        "Binned columns cannot be used in groupby operations",
+        "The cut function overwrites the original values with the bin midpoints",
+        "Category labels take more memory than the floats they replace"
+      ],
+      "why": "All values in a bin become indistinguishable, so exact values and small differences are lost. The original lets you try other bin edges or use the number directly."
+    },
+    {
+      "q": "Given that 2024-03-04 is a Monday (dayofweek 0), what does .dt.dayofweek give for the date 2024-03-10?",
+      "a": "6",
+      "wrong": [
+        "5",
+        "7",
+        "0"
+      ],
+      "why": "Monday is 0, so Sunday, six days later, is 6. Values run from 0 to 6, and 7 would be the next Monday, which is 0 again."
+    },
+    {
+      "q": "In df, city = [A, A, B, B, C] and sales = [10, 12, 8, NaN, 5]. What does df.groupby('city')['sales'].count() return for city B?",
+      "a": "1",
+      "wrong": [
+        "2",
+        "8.0",
+        "0"
+      ],
+      "why": "count counts non-missing entries, and B has one value (8) and one NaN. size() would count rows and give 2."
+    },
+    {
+      "q": "In df, month = [1, 2, 1, 2, 1] and sales = [10, 12, 8, NaN, 5]. What does df.groupby('month')['sales'].mean() return for month 2?",
+      "a": "12.0",
+      "wrong": [
+        "6.0",
+        "NaN",
+        "0.0"
+      ],
+      "why": "The missing value is skipped, so the mean is taken over the one observed value, 12. Dividing 12 by the two rows would give 6.0, which wrongly counts the missing entry."
+    },
+    {
+      "q": "In df, city = [A, A, B, B, C] and sales = [10, 12, 8, NaN, 5]. After df['m'] = df.groupby('city')['sales'].transform('mean'), what is m in the row (B, sales NaN)?",
+      "a": "8.0",
+      "wrong": [
+        "NaN",
+        "8.75",
+        "4.0"
+      ],
+      "why": "transform returns one value per input row, the group mean attached to every row of its group. B's mean is 8 (the NaN is skipped), and it is assigned to both B rows."
+    },
+    {
+      "q": "Table L has key values [1, 2, 2, 3] and table R has key values [2, 2, 3, 4, 4]. How many rows does an inner merge on the key produce?",
+      "a": "5",
+      "wrong": [
+        "4",
+        "3",
+        "9"
+      ],
+      "why": "Key 2 appears twice on each side, giving 2 × 2 = 4 rows, and key 3 gives 1 × 1 = 1 row. Duplicate keys on both sides multiply rows."
+    },
+    {
+      "q": "Table L has key values [1, 2, 2, 3] and table R has key values [2, 2, 3, 4, 4]. How many rows does an outer merge on the key produce?",
+      "a": "8",
+      "wrong": [
+        "6",
+        "5",
+        "9"
+      ],
+      "why": "The 5 matched rows are kept, plus the unmatched key 1 from L (1 row) and the two rows with key 4 from R, for 5 + 1 + 2 = 8. A left merge would give 6."
+    },
+    {
+      "q": "What is the purpose of merge(..., validate='one_to_many')?",
+      "a": "It asserts the expected key relationship, so accidental row multiplication raises an error",
+      "wrong": [
+        "It silently removes duplicate keys from both tables before joining",
+        "It converts the join into an inner join to keep the row count small",
+        "It casts both key columns to the same type before matching"
+      ],
+      "why": "Joins on keys that are not unique multiply rows without any warning. validate states the intended relationship and fails when the data disagree."
+    },
+    {
+      "q": "The observed values are 1, 3 and 8, plus one missing value that is filled with the mean of the observed ones. What are the sample variances before and after the filling?",
+      "a": "13 before and about 8.67 after",
+      "wrong": [
+        "13 before and 6.5 after",
+        "About 8.67 before and 13 after",
+        "13 before and 13 after"
+      ],
+      "why": "The mean is 4 and the sum of squared deviations is 9 + 1 + 16 = 26, so the variance is 26/2 = 13. The filled value adds 0 to the sum but raises n to 4, giving 26/3 = 8.67."
+    },
+    {
+      "q": "A table has rows (city A, month 1, sales 10), (A, 1, 11) and (B, 1, 8). Which rows remain after df.drop_duplicates(subset=['city', 'month'])?",
+      "a": "(A, 1, 10) and (B, 1, 8)",
+      "wrong": [
+        "All three rows, since the sales values differ",
+        "(A, 1, 11) and (B, 1, 8)",
+        "Only (B, 1, 8)"
+      ],
+      "why": "Rows are duplicates when the subset columns match, whatever the other columns say. By default the first row of each key is kept."
+    },
+    {
+      "q": "Why should the median used to fill missing values be computed on the training data only?",
+      "a": "Using test data to compute it lets information about the test set leak into the model",
+      "wrong": [
+        "The median of the test data is always zero",
+        "fillna cannot be applied to a validation set",
+        "The training median is guaranteed to equal the true population median"
+      ],
+      "why": "Any statistic computed from the test set makes the evaluation optimistic. Compute it on training data and apply the same value to validation and test data."
+    },
+    {
+      "q": "A wide DataFrame has a country column and 4 year columns, with 3 rows. What shape does wide.melt(id_vars='country', var_name='year', value_name='value') have?",
+      "a": "12 rows and 3 columns",
+      "wrong": [
+        "4 rows and 3 columns",
+        "12 rows and 5 columns",
+        "3 rows and 6 columns"
+      ],
+      "why": "Each of the 3 countries yields one row per year column, 3 × 4 = 12 rows. The columns are country, year and value."
+    },
+    {
+      "q": "After df2 = df and then df2.loc[0, 'sales'] = 99, what is df.loc[0, 'sales'] if it was 10.0 before?",
+      "a": "99.0",
+      "wrong": [
+        "10.0",
+        "NaN",
+        "It raises a SettingWithCopy error"
+      ],
+      "why": "Assignment makes both names refer to the same object, so the change is visible through either. df.copy() creates an independent table."
+    },
+    {
+      "q": "A variant has 9 clicks in 10 views. What is the standard error of its click rate?",
+      "a": "About 0.095",
+      "wrong": [
+        "About 0.009",
+        "About 0.03",
+        "About 0.30"
+      ],
+      "why": "SE = √(0.9 × 0.1/10) = √0.009 ≈ 0.095, nearly ten percentage points. So the 90% rate is very uncertain; counts must be reported with rates."
+    },
+    {
+      "q": "After a left merge of orders onto customers, the analyst wants to find which keys had no partner in the other table. Which argument helps?",
+      "a": "indicator=True, which adds a column recording where each row came from",
+      "wrong": [
+        "validate='many_to_many', which lists the unmatched keys",
+        "how='right', which flags the rows without a match",
+        "suffixes=('_l', '_r'), which marks rows with no partner"
+      ],
+      "why": "The indicator column says whether a row's key was found in the left table only, the right table only, or both. Unmatched keys often reveal formatting problems such as whitespace or case."
+    }
+  ],
   "summary": [
     "A DataFrame is a table of typed, labeled columns. Inspect shape, dtypes, a few rows, describe() and missing counts first. Select with loc (labels), iloc (positions) and boolean masks combined with &, |, ~.",
     "Derive columns by vectorized expressions, string (.str) and datetime (.dt) methods; parse dates and types explicitly.",

@@ -468,6 +468,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "Specificity is",
+      "a": "The fraction of actual negatives that the model correctly rejects",
+      "wrong": [
+        "The fraction of predicted negatives that are truly negative",
+        "The fraction of actual positives that the model finds",
+        "The fraction of predicted positives that are truly positive"
+      ],
+      "why": "Specificity = TN/(TN + FP), computed over the actual negatives. It is 1 − FPR, and it is the negative-class counterpart of recall."
+    },
+    {
+      "q": "A classifier has TP = 18, FP = 2, FN = 42 and TN = 938. Its F1 score is",
+      "a": "0.45",
+      "wrong": [
+        "0.60",
+        "0.30",
+        "0.90"
+      ],
+      "why": "F1 = 2TP/(2TP + FP + FN) = 36/80 = 0.45. Precision is 0.90 and recall is 0.30, and their ordinary average of 0.60 overstates the quality that the harmonic mean captures."
+    },
+    {
+      "q": "F_β with β = 2 is chosen for a task. Compared with F1, it",
+      "a": "weights recall more heavily than precision",
+      "wrong": [
+        "weights precision more heavily than recall",
+        "weights the two equally but doubles the score's scale",
+        "ignores precision entirely once recall exceeds 0.5"
+      ],
+      "why": "F_β = (1 + β²)PR/(β²P + R) treats recall as β times as important as precision, so β > 1 favors catching positives."
+    },
+    {
+      "q": "A classifier's decision threshold τ is raised. On its ROC curve, what happens?",
+      "a": "The operating point slides toward the lower left, so TPR and FPR both fall",
+      "wrong": [
+        "The whole curve shifts downward",
+        "TPR rises while FPR falls",
+        "The operating point slides toward the upper right, raising both TPR and FPR"
+      ],
+      "why": "A higher threshold calls fewer examples positive, so both true and false positives drop. The curve itself, which summarizes all thresholds, does not change."
+    },
+    {
+      "q": "Positives have scores 0.8, 0.6 and 0.3. Negatives have scores 0.7, 0.5, 0.4 and 0.2. The AUC is",
+      "a": "2/3",
+      "wrong": [
+        "3/4",
+        "1/2",
+        "5/6"
+      ],
+      "why": "Of the 12 positive–negative pairs, the positive wins 4 (for 0.8) + 3 (for 0.6) + 1 (for 0.3) = 8, so AUC = 8/12 = 2/3."
+    },
+    {
+      "q": "A scorer's ranking is unchanged but 90% of the negatives are discarded at random from the test set. Its ROC AUC will",
+      "a": "stay about the same, since AUC does not depend on class balance",
+      "wrong": [
+        "rise, since the classes are now closer to balanced",
+        "fall, since there are fewer pairs to win",
+        "become undefined, since the false positive rate is not computable"
+      ],
+      "why": "AUC is the probability that a random positive outranks a random negative, and random subsampling of negatives does not change that probability. Precision, in contrast, would change."
+    },
+    {
+      "q": "A detector flags 150 fraudulent and 600 legitimate transactions out of 1,000,000 legitimate ones. Its false positive rate and precision are",
+      "a": "0.0006 and 0.20",
+      "wrong": [
+        "0.0006 and 0.80",
+        "0.20 and 0.0006",
+        "0.0008 and 0.20"
+      ],
+      "why": "FPR = 600/1,000,000 = 0.0006 and precision = 150/750 = 0.20. A tiny FPR can coexist with mostly false alarms when negatives vastly outnumber positives, which is why precision–recall curves matter for rare classes."
+    },
+    {
+      "q": "A false positive costs 3 times as much as a false negative. With calibrated probabilities, predict positive when p exceeds",
+      "a": "0.75",
+      "wrong": [
+        "0.25",
+        "0.50",
+        "0.33"
+      ],
+      "why": "The threshold is c_FP/(c_FP + c_FN) = 3/(3 + 1) = 0.75. Costly false alarms call for a higher bar, which is the opposite of the case in which misses are costly."
+    },
+    {
+      "q": "A disease affects 2% of people. A test has sensitivity 0.90 and specificity 0.95. Among those who test positive, what fraction are actually sick?",
+      "a": "About 0.27",
+      "wrong": [
+        "0.90",
+        "0.95",
+        "About 0.73"
+      ],
+      "why": "Per 10,000 people: 200 sick give 180 true positives, and 9,800 healthy give 490 false positives. Precision = 180/670 ≈ 0.27, while 0.73 is the share of positives that are false alarms."
+    },
+    {
+      "q": "Which handling of a 1%-positive data set is a mistake?",
+      "a": "Oversampling the minority class first, then splitting the result into cross-validation folds",
+      "wrong": [
+        "Multiplying the loss of minority examples by the inverse class frequency",
+        "Choosing the decision threshold on a validation set to reach a target recall",
+        "Reporting average precision instead of accuracy"
+      ],
+      "why": "Duplicated minority examples then land in both training and held-out folds, which leaks labels. Resampling must be applied to the training folds only."
+    },
+    {
+      "q": "A model is trained with the minority class weighted 10 times as heavily. Its predicted probabilities are then",
+      "a": "inflated relative to the true base rate, so they need recalibrating before use",
+      "wrong": [
+        "unchanged, since weights only rescale gradients",
+        "correct, since weighting restores the balance that the data lacked",
+        "exactly 10 times too large for every example"
+      ],
+      "why": "Weighting changes what the objective rewards, and the model behaves as if positives were more common than they are. Using its outputs as probabilities requires recalibration."
+    },
+    {
+      "q": "Targets are 2, 4, 6, 8 and predictions are 3, 3, 8, 8. The RMSE is",
+      "a": "≈ 1.22",
+      "wrong": [
+        "1.5",
+        "1.0",
+        "≈ 2.45"
+      ],
+      "why": "The errors are −1, 1, −2, 0, so MSE = (1 + 1 + 4 + 0)/4 = 1.5 and RMSE = √1.5 ≈ 1.22. The value 1.0 is the MAE."
+    },
+    {
+      "q": "For the targets 2, 4, 6, 8 and predictions 3, 3, 8, 8, the R² is",
+      "a": "0.70",
+      "wrong": [
+        "0.30",
+        "0.925",
+        "0.85"
+      ],
+      "why": "SSE = 6 and the baseline sum of squares around ȳ = 5 is 9 + 1 + 1 + 9 = 20, so R² = 1 − 6/20 = 0.70. The value 0.30 is the ratio of the two sums, which forgets the 1 −."
+    },
+    {
+      "q": "For a positive example (y = 1), a model gives p̂ = 0.25. The log loss for this example is",
+      "a": "1.39",
+      "wrong": [
+        "0.29",
+        "0.75",
+        "0.25"
+      ],
+      "why": "Log loss charges −ln of the probability given to the true label: −ln 0.25 ≈ 1.39. The value 0.29 would be −ln 0.75, the loss if the label were 0."
+    },
+    {
+      "q": "On 200 days when a forecaster said \"30% chance of rain\", it rained on 90 days. The forecaster is",
+      "a": "Not calibrated: rain fell 45% of the time, so it underestimates",
+      "wrong": [
+        "Calibrated, since 30% is less than 50% and the forecast was cautious",
+        "Not calibrated: rain fell 45% of the time, so it overestimates",
+        "Calibrated, since calibration depends only on how the days are ranked"
+      ],
+      "why": "A calibrated forecast has an observed frequency equal to the stated probability. Here the observed rate of 90/200 = 45% exceeds 30%, so the forecasts were too low."
+    },
+    {
+      "q": "A model gets 240 of 300 test examples right. An approximate 95% confidence interval for its accuracy has half-width of about",
+      "a": "4.5 percentage points",
+      "wrong": [
+        "2.3 percentage points",
+        "9.1 percentage points",
+        "0.5 percentage points"
+      ],
+      "why": "p̂ = 0.8 and SE = √(0.8 × 0.2/300) ≈ 0.023, so the half-width is 1.96 × 0.023 ≈ 0.045. The 2.3 points is a single standard error."
+    },
+    {
+      "q": "Two models are tested on the same 500 examples and disagree on only 20 of them. Why does a paired test such as McNemar's use just those 20?",
+      "a": "Examples where both models agree carry no information about which is better",
+      "wrong": [
+        "Disagreements are the only examples labeled correctly",
+        "Using 500 examples would overstate the standard error of each accuracy",
+        "The other 480 examples were used to train the models"
+      ],
+      "why": "When both models are right, or both wrong, they are tied on that example. The comparison turns on who wins the disagreements."
+    },
+    {
+      "q": "Only the learning rate matters for a model. Nine trials are run, either on a 3 × 3 grid over (learning rate, penalty) or by random sampling of both. How many distinct learning rates does each try?",
+      "a": "Grid 3, random 9",
+      "wrong": [
+        "Grid 9, random 3",
+        "Grid 3, random 3",
+        "Grid 9, random 9"
+      ],
+      "why": "A grid repeats each value of a hyperparameter across rows of the other, while random draws give a fresh value every time. This is why random search wins when only a few hyperparameters matter."
+    }
+  ],
   "summary": [
     "The confusion matrix gives accuracy, precision, recall, specificity and F1. Choose the metric that matches the cost of each kind of error; accuracy misleads on imbalanced data.",
     "ROC curves plot TPR against FPR over all thresholds. AUC is the probability that a random positive outranks a random negative. Precision–recall curves are better for rare positives.",

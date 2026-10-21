@@ -202,6 +202,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A gas expands against a constant external pressure inside a thermally insulated cylinder. Its internal energy",
+      "a": "decreases, because w < 0 and q = 0",
+      "wrong": [
+        "stays constant, because energy is conserved",
+        "increases, because the gas does work",
+        "increases, because the gas absorbs heat from the walls"
+      ],
+      "why": "Insulation means q = 0. The gas does work on its surroundings, so w = −PΔV is negative and ΔU = q + w is negative. Conservation of energy does not mean U is constant for a system that gives up energy."
+    },
+    {
+      "q": "A system is taken from the same initial state to the same final state by two different routes. The first route transfers 80 J of heat in, the second 55 J. Which quantity is necessarily identical for both routes?",
+      "a": "ΔU",
+      "wrong": [
+        "The work w",
+        "The difference q − w",
+        "None of the quantities; all three differ"
+      ],
+      "why": "U is a state function, so ΔU depends only on the end states. Since q differs between routes, w must differ by the opposite amount to keep q + w the same."
+    },
+    {
+      "q": "For N₂(g) + 3H₂(g) → 2NH₃(g) at 298 K, ΔH − ΔU equals",
+      "a": "−4.96 kJ",
+      "wrong": [
+        "+4.96 kJ",
+        "−2.48 kJ",
+        "0"
+      ],
+      "why": "ΔH − ΔU = Δn_gas RT with Δn_gas = 2 − 4 = −2, so it equals −2(8.314 J mol⁻¹ K⁻¹)(298 K) = −4.96 kJ. It is zero only when the moles of gas do not change."
+    },
+    {
+      "q": "A 25.0 g metal sample at 95.0 °C is dropped into 100.0 g of water at 20.0 °C. The final temperature of both is 22.0 °C. What is the specific heat of the metal? (c of water = 4.184 J g⁻¹ °C⁻¹; ignore the container.)",
+      "a": "0.459 J g⁻¹ °C⁻¹",
+      "wrong": [
+        "0.446 J g⁻¹ °C⁻¹",
+        "0.115 J g⁻¹ °C⁻¹",
+        "16.7 J g⁻¹ °C⁻¹"
+      ],
+      "why": "Heat gained by water = 100.0 × 4.184 × 2.0 = 836.8 J. The metal's temperature drops by 95.0 − 22.0 = 73.0 °C, so c = 836.8 / (25.0 × 73.0) = 0.459. Using 75 °C as the drop, the wrong starting point, gives 0.446."
+    },
+    {
+      "q": "A salt dissolves in water in a coffee-cup calorimeter and the water temperature falls. The dissolution is",
+      "a": "endothermic, because the heat absorbed by the salt came from the water",
+      "wrong": [
+        "exothermic, because the water lost heat",
+        "exothermic, because dissolving increases the entropy",
+        "neither, because a falling temperature means q = 0"
+      ],
+      "why": "The solution loses heat (q_solution < 0), so q_rxn = −q_solution > 0 and ΔH > 0. The water's loss is the process's gain."
+    },
+    {
+      "q": "In a bomb calorimeter (C_cal = 8.20 kJ °C⁻¹) 0.500 g of a compound of molar mass 46.0 g mol⁻¹ burns, and the temperature rises by 1.50 °C. What is ΔU of combustion per mole?",
+      "a": "−1.13 × 10³ kJ mol⁻¹",
+      "wrong": [
+        "+1.13 × 10³ kJ mol⁻¹",
+        "−24.6 kJ mol⁻¹",
+        "−569 kJ mol⁻¹"
+      ],
+      "why": "The heat absorbed by the calorimeter is 8.20 × 1.50 = 12.3 kJ for 0.500 g, so the reaction released 24.6 kJ g⁻¹. Multiply by 46.0 g mol⁻¹ and make it negative, since the reaction released the heat."
+    },
+    {
+      "q": "Given S(s) + O₂(g) → SO₂(g), ΔH° = −296.8 kJ, and 2SO₃(g) → 2SO₂(g) + O₂(g), ΔH° = +197.8 kJ, what is ΔH° for S(s) + 3/2 O₂(g) → SO₃(g)?",
+      "a": "−395.7 kJ",
+      "wrong": [
+        "−197.9 kJ",
+        "−494.6 kJ",
+        "−99.0 kJ"
+      ],
+      "why": "Reverse the second equation and halve it: SO₂ + ½O₂ → SO₃, ΔH° = −98.9 kJ. Adding to the first gives −296.8 − 98.9 = −395.7 kJ. Forgetting to halve gives −494.6 kJ."
+    },
+    {
+      "q": "Use ΔH_f° (kJ mol⁻¹): CaCO₃(s) −1206.9, CaO(s) −635.1, CO₂(g) −393.5. What is ΔH° for CaCO₃(s) → CaO(s) + CO₂(g)?",
+      "a": "+178.3 kJ",
+      "wrong": [
+        "−178.3 kJ",
+        "+1028.6 kJ",
+        "−2235.5 kJ"
+      ],
+      "why": "ΔH° = Σ products − Σ reactants = (−635.1 − 393.5) − (−1206.9) = +178.3 kJ. Reversing the subtraction gives the wrong sign, and omitting the reactant gives −1028.6."
+    },
+    {
+      "q": "The enthalpy change of which reaction is, by definition, the standard enthalpy of formation of NH₃(g)?",
+      "a": "½N₂(g) + 3/2 H₂(g) → NH₃(g)",
+      "wrong": [
+        "N₂(g) + 3H₂(g) → 2NH₃(g)",
+        "N(g) + 3H(g) → NH₃(g)",
+        "NH₃(l) → NH₃(g)"
+      ],
+      "why": "Formation is from the elements in their standard states (N₂ and H₂ gases) and for exactly one mole of product. Writing 2 mol of NH₃ doubles the value, and gaseous atoms are not the standard-state elements."
+    },
+    {
+      "q": "Estimate ΔH for N₂ + 3H₂ → 2NH₃ (all gases) from bond enthalpies (kJ mol⁻¹): N≡N 945, H–H 436, N–H 391.",
+      "a": "−93 kJ",
+      "wrong": [
+        "+93 kJ",
+        "−186 kJ",
+        "+4599 kJ"
+      ],
+      "why": "Broken: 945 + 3(436) = 2253 kJ. Formed: 6(391) = 2346 kJ, because each NH₃ has three N–H bonds. ΔH ≈ 2253 − 2346 = −93 kJ; the sign flips if formed is subtracted from broken the wrong way round."
+    },
+    {
+      "q": "Why are enthalpies estimated from bond enthalpies accurate to only about 10%?",
+      "a": "Tabulated values are averages over many compounds, but a given bond's strength depends on its molecular environment",
+      "wrong": [
+        "Bond breaking is endothermic but bond forming is not exactly exothermic",
+        "Enthalpy is a path function, so bond-by-bond sums depend on the route",
+        "Bond enthalpies are measured only for liquids, not gases"
+      ],
+      "why": "For example, a C–H bond in methane is not exactly as strong as one in ethanol. Enthalpy is a state function, and the method is intended for gases."
+    },
+    {
+      "q": "Which change has a negative ΔS for the system?",
+      "a": "2NO₂(g) → N₂O₄(g)",
+      "wrong": [
+        "NH₄NO₃(s) → NH₄⁺(aq) + NO₃⁻(aq)",
+        "2H₂O₂(l) → 2H₂O(l) + O₂(g)",
+        "C(s) + H₂O(g) → CO(g) + H₂(g)"
+      ],
+      "why": "Two moles of gas become one, so there are fewer ways to arrange the particles. Each of the others creates gas or frees ions into solution, which raises entropy."
+    },
+    {
+      "q": "Using S° (J mol⁻¹ K⁻¹): SO₂(g) 248.2, O₂(g) 205.2, SO₃(g) 256.8, find ΔS° for 2SO₂(g) + O₂(g) → 2SO₃(g).",
+      "a": "−188.0 J K⁻¹",
+      "wrong": [
+        "+188.0 J K⁻¹",
+        "−196.6 J K⁻¹",
+        "−94.0 J K⁻¹"
+      ],
+      "why": "ΔS° = 2(256.8) − [2(248.2) + 205.2] = 513.6 − 701.6 = −188.0 J K⁻¹. Ignoring the coefficients gives −196.6, and the negative sign matches three moles of gas becoming two."
+    },
+    {
+      "q": "Water freezes spontaneously at −10 °C although the entropy of the water decreases. The second law is not violated because",
+      "a": "the heat released raises the entropy of the surroundings by more than the water loses",
+      "wrong": [
+        "the second law applies only to isolated systems at equilibrium",
+        "entropy of a liquid is always lower than that of a solid",
+        "freezing is endothermic, so the water gains entropy from the surroundings"
+      ],
+      "why": "The second law requires ΔS_univ = ΔS_sys + ΔS_surr > 0. Freezing is exothermic, and at −10 °C the term −ΔH/T for the surroundings outweighs the negative ΔS_sys."
+    },
+    {
+      "q": "A reaction at constant T and P has ΔH = −50.0 kJ at 298 K. What is ΔS_surr?",
+      "a": "+168 J K⁻¹",
+      "wrong": [
+        "−168 J K⁻¹",
+        "+0.168 J K⁻¹",
+        "+1.49 × 10⁴ J K⁻¹"
+      ],
+      "why": "ΔS_surr = −ΔH_sys/T = +50,000 J / 298 K = +168 J K⁻¹. The surroundings receive the heat, so their entropy rises. Leaving ΔH in kJ and treating the result as J gives 0.168."
+    },
+    {
+      "q": "A reaction has ΔH = +30.0 kJ and ΔS = +100 J K⁻¹. What is ΔG at 400 K?",
+      "a": "−10.0 kJ",
+      "wrong": [
+        "+10.0 kJ",
+        "+70.0 kJ",
+        "−39,970 kJ"
+      ],
+      "why": "ΔG = ΔH − TΔS = 30.0 − (400)(0.100) = −10.0 kJ. ΔS must be converted to kJ K⁻¹ before it is combined with ΔH, which is the error behind the last option."
+    },
+    {
+      "q": "A reaction has K = 1.0 × 10³ at 298 K. What is ΔG°?",
+      "a": "−17.1 kJ mol⁻¹",
+      "wrong": [
+        "+17.1 kJ mol⁻¹",
+        "−7.4 kJ mol⁻¹",
+        "−6.9 kJ mol⁻¹"
+      ],
+      "why": "ΔG° = −RT ln K = −(8.314)(298)(6.91) = −17.1 kJ mol⁻¹. Using log₁₀ in place of ln gives −7.4, and a K above 1 always corresponds to a negative ΔG°."
+    },
+    {
+      "q": "A reaction mixture has Q equal to one hundredth of K at the given temperature. Which statement is correct?",
+      "a": "ΔG < 0, and the net reaction proceeds in the forward direction",
+      "wrong": [
+        "ΔG > 0, and the net reaction proceeds in the reverse direction",
+        "ΔG = 0, because the mixture is at equilibrium",
+        "ΔG equals ΔG°, since Q does not affect it"
+      ],
+      "why": "ΔG = ΔG° + RT ln Q = RT ln(Q/K). With Q < K the logarithm is negative, so the reaction goes forward until Q reaches K, where ΔG = 0."
+    }
+  ],
   "summary": [
     "ΔU = q + w, with q and w positive for energy entering the system. U, H, S and G are state functions; q and w are not.",
     "At constant pressure ΔH = q_p. q = mcΔT, and calorimetry measures heat from temperature changes.",

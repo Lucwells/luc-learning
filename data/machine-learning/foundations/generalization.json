@@ -364,6 +364,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "The generalization gap of a trained model is",
+      "a": "Held-out error minus training error",
+      "wrong": [
+        "Training error minus the irreducible noise σ²",
+        "Bias² minus variance at a fixed point",
+        "Validation error minus test error"
+      ],
+      "why": "It measures how much worse the model does on new data than on the sample it was fit to. A large gap with low training error is the signature of overfitting."
+    },
+    {
+      "q": "A model has 0% training error and 40% test error. A teammate says it is too simple and proposes adding many more features. What is wrong with this plan?",
+      "a": "It is overfitting, and more features would add capacity",
+      "wrong": [
+        "Extra features can only help, as long as the test set is not touched until the end",
+        "Zero training error proves the model is unbiased, so no new features are needed",
+        "Test error cannot exceed training error unless the labels are noisy"
+      ],
+      "why": "Underfitting would show high training error. Low training error with a high gap points to variance, so the fix is more data, regularization or a simpler model."
+    },
+    {
+      "q": "At a point x the true value is f(x) = 10 and labels have noise variance σ² = 4. A learning rule has average prediction f̄(x) = 9 over training sets, and its prediction has variance 3. What is the expected squared error at x?",
+      "a": "8",
+      "wrong": [
+        "7",
+        "6",
+        "4"
+      ],
+      "why": "Error = σ² + bias² + variance = 4 + (9 − 10)² + 3 = 8. Answering 7 forgets the bias term, and 4 keeps only the noise."
+    },
+    {
+      "q": "A perfect predictor f̂ = f is scored on fresh labels y = f(x) + ε with Var(ε) = 4. Its expected squared error is",
+      "a": "4",
+      "wrong": [
+        "0",
+        "2",
+        "16"
+      ],
+      "why": "Bias and variance are both zero, but the noise term σ² = 4 remains. No model can beat the irreducible error."
+    },
+    {
+      "q": "A straight line is fit to data that follow a clear curve, and the fit is poor. The team plans to collect 100 times more data. What will happen?",
+      "a": "Variance shrinks, but the line's bias stays and the error plateaus",
+      "wrong": [
+        "Bias and variance both fall in proportion to the amount of data",
+        "Bias falls because the line gets closer to every point, while variance is unchanged",
+        "Error will rise, since more data means more noise to fit"
+      ],
+      "why": "A line cannot represent a curve however many points it sees, so bias is a property of the model class. More data only lowers variance."
+    },
+    {
+      "q": "Samples x₁, …, x₄ are independent with mean μ = 4 and standard deviation σ = 2. What is the mean squared error of the shrunk estimator 0.5·x̄ for μ?",
+      "a": "4.25",
+      "wrong": [
+        "4",
+        "4.5",
+        "5.25"
+      ],
+      "why": "Var(x̄) = 4/4 = 1. The estimator has mean 2, so bias² = (2 − 4)² = 4, and variance 0.5²·1 = 0.25, giving 4.25. Using 0.5·1 for the variance gives 4.5, and omitting the variance gives 4."
+    },
+    {
+      "q": "Estimator A is unbiased with variance 4. Estimator B has bias 1 and variance 1. Which has the lower mean squared error?",
+      "a": "B, with MSE 2 against 4",
+      "wrong": [
+        "A, because an unbiased estimator always has the lower error",
+        "Neither: they tie, since both have the same expected value of the error",
+        "It cannot be told without knowing the noise level σ²"
+      ],
+      "why": "MSE = bias² + variance, so B gives 1 + 1 = 2 and A gives 0 + 4 = 4. Accepting a little bias to cut variance is the idea behind regularization."
+    },
+    {
+      "q": "A researcher tries 30 hyperparameter settings and reports the best validation score as the model's final performance. The problem is that",
+      "a": "that score is optimistic because it was also used to pick the winner",
+      "wrong": [
+        "validation sets should never be used to compare models",
+        "the score is pessimistic because validation data were never used for training",
+        "30 settings is too few to estimate the variance of the model"
+      ],
+      "why": "The maximum of many noisy scores is biased upward. An untouched test set, used once, gives an honest estimate."
+    },
+    {
+      "q": "There are 200 labeled examples and 8 candidate hyperparameter values, compared by 4-fold cross-validation, followed by one final fit of the best value on all the data. How many models are trained in total?",
+      "a": "33",
+      "wrong": [
+        "32",
+        "40",
+        "12"
+      ],
+      "why": "Each value needs 4 fits (each trained on 150 examples), so 8 × 4 = 32, plus the single final fit gives 33. Refitting every value on all the data would give 40, which is not needed."
+    },
+    {
+      "q": "Compared with 5-fold cross-validation, leave-one-out cross-validation on m examples is",
+      "a": "Nearly unbiased, but m fits are needed and the estimate can be noisy",
+      "wrong": [
+        "Cheaper, because each validation set is a single point and needs no refit",
+        "Biased upward, because each model is trained on only one example",
+        "Lower in variance, because the training sets almost coincide, so it is preferred for scarce data"
+      ],
+      "why": "Each model is trained on m − 1 examples, so the estimate is close to unbiased, but it needs m fits, and the highly overlapping training sets can make the average noisy."
+    },
+    {
+      "q": "A model will predict next month's demand from daily records. Which validation scheme is appropriate?",
+      "a": "Train on earlier periods and validate on later ones",
+      "wrong": [
+        "Random 10-fold splits over all days",
+        "Stratified folds so each fold has the same day-of-week mix",
+        "Leave-one-out with a randomly chosen held-out day"
+      ],
+      "why": "Random folds put future days in the training set, which leaks information the model will not have in use. Forward-chaining respects time order."
+    },
+    {
+      "q": "Which workflow leaks validation information into training?",
+      "a": "Picking the 20 features most correlated with the labels on all the data first",
+      "wrong": [
+        "Fitting an imputer on each training fold and applying it to the held-out fold",
+        "Computing feature means on the training fold only, then scaling both folds with them",
+        "Choosing a hyperparameter by cross-validation, then testing once on separate held-out data"
+      ],
+      "why": "Feature selection that uses all the labels has already seen the held-out labels. On pure noise it can still produce a model that looks accurate in cross-validation."
+    },
+    {
+      "q": "What does nested cross-validation estimate?",
+      "a": "The honest error of the whole selection procedure",
+      "wrong": [
+        "The best hyperparameter value to use for the final model",
+        "The training error averaged over all of the inner folds",
+        "The bias introduced by using folds of unequal sizes"
+      ],
+      "why": "The inner loop picks hyperparameters on training data only, and the outer loop scores the result on data that took no part in the choice, removing selection optimism."
+    },
+    {
+      "q": "A model has training error 3% and validation error 18% with m = 1000 examples. The gap shrinks as m grows, and human error is 2%. Which action is most promising?",
+      "a": "Collect more data or add regularization",
+      "wrong": [
+        "Move to a model with many more parameters",
+        "Remove regularization to let the model fit better",
+        "Train for more epochs on the same data"
+      ],
+      "why": "Training error is near the human level, so the model fits the pattern, and the large gap that closes with data indicates variance."
+    },
+    {
+      "q": "Human error on a task is 1%. A model has training error 9% and validation error 10%. The main problem is",
+      "a": "High bias: even training error is far above the achievable level",
+      "wrong": [
+        "High variance, since validation error exceeds training error",
+        "Data leakage, since the two errors are so close together",
+        "Label noise, since validation error cannot be below 10%"
+      ],
+      "why": "The 1-point gap is small, but training error is 8 points above the Bayes-level estimate, so the model is not fitting well. A richer model or better features is called for."
+    },
+    {
+      "q": "Why does early stopping reduce overfitting?",
+      "a": "Weights start small, so stopping early keeps them small",
+      "wrong": [
+        "It adds extra labeled examples as training goes on",
+        "It lowers the noise term σ² in the training data",
+        "It deletes the features least correlated with the label"
+      ],
+      "why": "Stopping when validation error stops improving limits how large the weights can grow, which acts like a penalty on their size. The noise in the data is untouched."
+    },
+    {
+      "q": "For a handwritten-digit classifier, which transformation is a poor data augmentation?",
+      "a": "Rotating each image by 180°",
+      "wrong": [
+        "Shifting each image by one pixel",
+        "Adding faint random noise to the pixels",
+        "Slightly changing the brightness"
+      ],
+      "why": "Augmentation must not change the label. A 6 rotated by 180° looks like a 9, whereas the other transformations keep every digit recognizable."
+    },
+    {
+      "q": "Why can a model with far more parameters than examples, past the interpolation threshold, still generalize?",
+      "a": "Many interpolating solutions exist and gradient descent picks the smallest-norm one",
+      "wrong": [
+        "Past the threshold the training error rises, which cancels out the overfitting",
+        "The bias–variance decomposition no longer applies to models that large",
+        "Extra parameters remove the noise term from the labels entirely"
+      ],
+      "why": "The decomposition still holds exactly. The algorithm's preference for simple solutions means variance need not keep growing with the parameter count."
+    }
+  ],
   "summary": [
     "Underfitting means high error everywhere because the model is too simple. Overfitting means low training error but high error on new data because the model fit the sample's noise.",
     "Expected squared error = noise + bias² + variance. More flexible models trade lower bias for higher variance, giving the U-shaped validation curve.",

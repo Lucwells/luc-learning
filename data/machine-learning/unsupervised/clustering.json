@@ -254,6 +254,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "The points 0, 4, 6, 10 are clustered with k = 2 and initial centroids 0 and 10. After one assignment step and one update step, the centroids are",
+      "a": "2 and 8",
+      "wrong": [
+        "0 and 10, unchanged",
+        "3.33 and 10",
+        "5 and 5"
+      ],
+      "why": "Point 4 is nearer to 0 and point 6 is nearer to 10, so the clusters are {0, 4} and {6, 10} with means 2 and 8. The option 3.33 and 10 wrongly sends 6 to the first centroid."
+    },
+    {
+      "q": "A k-means clustering has clusters {2, 4} and {9, 13}, each with its centroid at the mean. What is the within-cluster sum of squares J?",
+      "a": "10",
+      "wrong": [
+        "6",
+        "20",
+        "2.5"
+      ],
+      "why": "The means are 3 and 11. The squared deviations are 1, 1, 4 and 4, which sum to 10. The value 6 adds absolute deviations, and 2.5 is the mean rather than the sum."
+    },
+    {
+      "q": "Which claim about k-means is false?",
+      "a": "With k-means++ initialization the algorithm is guaranteed to reach the global minimum of J",
+      "wrong": [
+        "Lloyd's algorithm never increases J from one iteration to the next",
+        "Different random starts can end at different final clusterings",
+        "The cost of one iteration grows linearly with the number of points"
+      ],
+      "why": "k-means++ gives a bound on the expected cost (within O(log k) of optimal), not a guarantee of the global minimum. Lloyd's algorithm only reaches a local minimum."
+    },
+    {
+      "q": "Customers are described by yearly income in dollars (0 to 200,000) and age in years (20 to 80). k-means is run on the raw values. What is the likely result?",
+      "a": "The clusters are determined almost entirely by income",
+      "wrong": [
+        "The clusters are determined almost entirely by age",
+        "Both features count equally, since the update step uses means",
+        "The algorithm fails to converge because of the different units"
+      ],
+      "why": "Euclidean distance is dominated by the feature with the largest range. Standardizing the features first gives each a comparable influence."
+    },
+    {
+      "q": "A few extreme outliers pull k-means centroids away from the bulk of the data. Which change makes the cluster centers robust to them?",
+      "a": "Use k-medoids, where each center is an actual data point",
+      "wrong": [
+        "Use more iterations of Lloyd's algorithm",
+        "Replace squared distance by squared distance to the origin",
+        "Initialize with k-means++ instead of random points"
+      ],
+      "why": "A mean is moved by any single extreme value. A medoid is a data point chosen from the cluster, so a distant outlier shifts it far less. More iterations and better initialization do not change what the center is."
+    },
+    {
+      "q": "In k-means++, the next centroid is chosen from the data points with probability proportional to",
+      "a": "its squared distance to the nearest centroid already chosen",
+      "wrong": [
+        "its distance to the nearest centroid already chosen, not squared",
+        "the same value for every point",
+        "the number of points within ε of it"
+      ],
+      "why": "Squared distance favors points far from the existing centroids, which spreads the starting centroids out. Uniform choice is ordinary random initialization."
+    },
+    {
+      "q": "The best J for k = 1 to 6 is 900, 400, 150, 130, 120, 115. Which k does the elbow method suggest?",
+      "a": "3",
+      "wrong": [
+        "2",
+        "5",
+        "6"
+      ],
+      "why": "The drops are 500, 250, 20, 10, 5. J falls sharply until k = 3 and only slowly afterward, so the bend is at 3. The smallest J is at k = 6, but J always falls as k grows."
+    },
+    {
+      "q": "A point has an average distance 2.5 to the other points in its own cluster and 5 to the nearest other cluster. Its silhouette is",
+      "a": "0.5",
+      "wrong": [
+        "2.5",
+        "1/3",
+        "−0.5"
+      ],
+      "why": "s = (b − a)/max(a, b) = (5 − 2.5)/5 = 0.5. The value 2.5 omits the division, and −0.5 reverses the sign of b − a."
+    },
+    {
+      "q": "A point has a silhouette very close to 0. Where is it most likely to be?",
+      "a": "On the boundary, about as far from its own cluster as from the nearest other one",
+      "wrong": [
+        "At the centroid of its cluster",
+        "Far from every cluster, as an outlier",
+        "Inside the wrong cluster, deep in its interior"
+      ],
+      "why": "s = 0 means a(i) = b(i): the average distances to its own cluster and the neighboring cluster are equal. A clearly misassigned point would have a negative value."
+    },
+    {
+      "q": "A clustering is compared with known class labels, and the adjusted Rand index is about 0.01. The right reading is that",
+      "a": "the agreement is about what random cluster assignments would give",
+      "wrong": [
+        "the clusters match the classes but their numbers are permuted",
+        "the clusters are compact but too numerous",
+        "the classes are balanced, so the index cannot be larger"
+      ],
+      "why": "The adjusted Rand index is 1 for perfect agreement and about 0 for chance agreement. It does not depend on how clusters are numbered, so a permutation alone cannot lower it."
+    },
+    {
+      "q": "Single linkage is run on points at 0, 3, 5 and 12 on a line. The three merge heights, in order, are",
+      "a": "2, 3, 7",
+      "wrong": [
+        "2, 5, 12",
+        "2, 3, 9",
+        "3, 5, 12"
+      ],
+      "why": "{3, 5} merges at 2. Then 0 joins at its nearest member, 3 − 0 = 3. Then 12 joins at 12 − 5 = 7. The sequence 2, 5, 12 is what complete linkage gives."
+    },
+    {
+      "q": "A dendrogram of 5 points has merges at heights 1, 2, 6 and 20. If it is cut at height 4, how many clusters result?",
+      "a": "3",
+      "wrong": [
+        "2",
+        "4",
+        "5"
+      ],
+      "why": "Two merges happen below height 4, and each merge reduces the number of clusters by one: 5 − 2 = 3."
+    },
+    {
+      "q": "Why is naive agglomerative clustering a poor choice for 2 million points?",
+      "a": "It needs memory for all pairwise distances, O(m²), and a very large amount of time",
+      "wrong": [
+        "It requires k to be fixed before the algorithm starts",
+        "It cannot be used with Euclidean distances",
+        "A dendrogram can only be drawn for a few hundred points"
+      ],
+      "why": "The distance matrix has m² entries and the naive algorithm takes O(m³) time. The method does not need k in advance, and it works with many distance measures."
+    },
+    {
+      "q": "In DBSCAN with minPts = 4, a point has exactly 3 other points within distance ε. The point is",
+      "a": "a core point",
+      "wrong": [
+        "a border point",
+        "a noise point",
+        "a centroid"
+      ],
+      "why": "The count includes the point itself, so 3 neighbors plus itself gives 4 = minPts, which makes it a core point."
+    },
+    {
+      "q": "DBSCAN performs badly on data with one very dense cluster and one very sparse cluster because",
+      "a": "a single ε and minPts cannot suit both densities",
+      "wrong": [
+        "it can only find clusters with a spherical shape",
+        "it needs to be told the number of clusters",
+        "its result depends on the order of the points in the first iteration"
+      ],
+      "why": "An ε small enough to separate the dense regions marks the sparse cluster as noise, while an ε large enough for the sparse cluster merges other structure. DBSCAN finds arbitrary shapes and sets the cluster count itself."
+    },
+    {
+      "q": "A similarity graph consists of 4 groups of points with no edges between groups. How many zero eigenvalues does its Laplacian L = D − W have?",
+      "a": "4",
+      "wrong": [
+        "1",
+        "3",
+        "0"
+      ],
+      "why": "The number of zero eigenvalues of the graph Laplacian equals the number of connected components, here 4."
+    },
+    {
+      "q": "In spectral clustering, after the eigenvectors with the smallest eigenvalues of the Laplacian are computed, the final step is to",
+      "a": "run k-means on the rows of the eigenvector matrix",
+      "wrong": [
+        "take the eigenvectors as the cluster centroids",
+        "assign each point to the eigenvector in which it has the largest entry",
+        "repeat the graph construction with a smaller σ"
+      ],
+      "why": "The eigenvectors give each point a low-dimensional embedding in which clusters are compact, so k-means then separates them."
+    },
+    {
+      "q": "A 2-dimensional set of 500,000 points has an unknown number of arbitrarily shaped groups plus scattered outliers. Which method is the best fit?",
+      "a": "DBSCAN",
+      "wrong": [
+        "k-means, which handles outliers well",
+        "complete-linkage hierarchical clustering",
+        "spectral clustering with an m × m similarity matrix"
+      ],
+      "why": "DBSCAN finds any shape, chooses the number of clusters itself, labels outliers as noise and scales to large low-dimensional data. k-means assumes round clusters and needs k, and the other two need O(m²) memory or worse."
+    }
+  ],
   "summary": [
     "Clustering groups unlabeled points. k-means minimizes the within-cluster sum of squares by alternating assignment to the nearest centroid and recomputing the centroids as means.",
     "k-means always converges, but to a local minimum. Use several random starts or k-means++. It assumes round, similar-sized clusters and needs scaled features.",

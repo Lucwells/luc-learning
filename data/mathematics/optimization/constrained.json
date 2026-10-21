@@ -310,6 +310,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "Minimize x² + y² subject to 3x + 4y = 25. What is the minimum value?",
+      "a": "25",
+      "wrong": [
+        "5",
+        "12.5",
+        "625"
+      ],
+      "why": "∇f = (2x, 2y) = ν(3, 4) puts the optimum on the line through (3, 4), and 3x + 4y = 25 gives (x, y) = (3, 4) with f = 25. The value 5 is the distance, not its square."
+    },
+    {
+      "q": "For minimize x² + y² subject to 3x + 4y = c, the optimal value is c²/25. If c rises from 25 to 26, the optimal value rises by about",
+      "a": "2, the multiplier at c = 25",
+      "wrong": [
+        "1",
+        "0.04",
+        "25"
+      ],
+      "why": "The derivative of c²/25 at c = 25 is 2c/25 = 2, which equals the multiplier ν. The exact change is 676/25 − 25 = 2.04."
+    },
+    {
+      "q": "Why must ∇f be parallel to ∇h at a minimum of f subject to h(x) = 0?",
+      "a": "Otherwise a step along the constraint surface would still lower f",
+      "wrong": [
+        "Because f is constant everywhere on the constraint surface",
+        "Because the multiplier is always positive",
+        "Because ∇h is zero at the minimum"
+      ],
+      "why": "If ∇f had a component along the surface, sliding that way would decrease f while staying feasible. Only the component perpendicular to the surface, along ∇h, can remain."
+    },
+    {
+      "q": "Σ = [[3, 1], [1, 3]]. What is the maximum of uᵀΣu over unit vectors u?",
+      "a": "4",
+      "wrong": [
+        "6",
+        "3",
+        "2"
+      ],
+      "why": "The Lagrangian condition Σu = λu makes the objective equal to an eigenvalue. The eigenvalues are 4 and 2, so the maximum is 4; the value 6 is the trace."
+    },
+    {
+      "q": "Maximizing entropy over a distribution on {x₁, …, x_n} with the normalization constraint and a fixed mean E[x] gives probabilities of the form",
+      "a": "p_i ∝ e^{−βx_i}",
+      "wrong": [
+        "p_i ∝ 1/x_i",
+        "p_i = 1/n, the uniform distribution",
+        "p_i ∝ e^{−βx_i²}"
+      ],
+      "why": "Adding a linear constraint on the mean adds a term βx_i to the stationarity condition, giving an exponential (Gibbs) form. The uniform distribution is optimal only with normalization alone."
+    },
+    {
+      "q": "A candidate point satisfies stationarity, primal feasibility and complementary slackness, but one inequality multiplier is λ = −1. What can be said?",
+      "a": "It is not a KKT point, because dual feasibility λ ≥ 0 fails",
+      "wrong": [
+        "It is a KKT point, since the other three conditions hold",
+        "It is a global minimum, since the problem is convex",
+        "It is a KKT point only if the constraint is inactive"
+      ],
+      "why": "All four conditions must hold. A negative multiplier would mean the constraint pulls the point inward, so the point could be improved by moving off the boundary."
+    },
+    {
+      "q": "Minimize (x − 3)² + (y − 1)² subject to x + y ≤ 2. What are the solution and the multiplier?",
+      "a": "(2, 0) with λ = 2",
+      "wrong": [
+        "(1, 1) with λ = 2",
+        "(2, 0) with λ = 0",
+        "(3, 1) with λ = 0"
+      ],
+      "why": "The unconstrained minimum (3, 1) has x + y = 4 > 2, so the constraint is active. Stationarity gives x = 3 − λ/2 and y = 1 − λ/2, and x + y = 2 gives λ = 2, so (x, y) = (2, 0)."
+    },
+    {
+      "q": "Minimize x² + y² subject to x + y ≤ 4. What are the solution and the multiplier?",
+      "a": "(0, 0) with λ = 0",
+      "wrong": [
+        "(2, 2) with λ = 4",
+        "(2, 2) with λ = 0",
+        "(0, 0) with λ = 4"
+      ],
+      "why": "The unconstrained minimum (0, 0) already satisfies x + y ≤ 4, so the constraint is inactive and complementary slackness forces λ = 0. Treating it as active would move to the boundary needlessly."
+    },
+    {
+      "q": "Minimize x² subject to x ≥ 1, where the multiplier is 2. If the constraint is relaxed to x ≥ 0.9, the optimal value falls by about",
+      "a": "0.2",
+      "wrong": [
+        "0.1",
+        "2",
+        "1"
+      ],
+      "why": "The multiplier is the shadow price: a relaxation of 0.1 changes the value by about 2 × 0.1 = 0.2. The exact change is 1 − 0.81 = 0.19."
+    },
+    {
+      "q": "In a minimization problem, a dual feasible point has dual function value g(λ, ν) = 3.2. What follows about the primal optimum p*?",
+      "a": "p* ≥ 3.2",
+      "wrong": [
+        "p* ≤ 3.2",
+        "p* = 3.2",
+        "p* ≥ 0 and nothing more"
+      ],
+      "why": "Weak duality says every dual value is a lower bound on p*. Equality needs strong duality and an optimal dual point."
+    },
+    {
+      "q": "For minimize x² subject to x ≥ 3, the dual function is g(λ) = 3λ − λ²/4 for λ ≥ 0. What is the optimal dual value d*?",
+      "a": "9",
+      "wrong": [
+        "18",
+        "6",
+        "3"
+      ],
+      "why": "g′(λ) = 3 − λ/2 = 0 gives λ = 6, and g(6) = 18 − 9 = 9. This equals the primal optimum 3² = 9, so there is no duality gap; λ = 6 is the optimal dual variable, not the value."
+    },
+    {
+      "q": "What can be said about the dual function g(λ, ν) = inf_x L(x, λ, ν) of any problem?",
+      "a": "It is concave, even when the primal problem is not convex",
+      "wrong": [
+        "It is convex whenever the primal is convex",
+        "It is convex, because it is a minimum over x",
+        "It is linear in (λ, ν)"
+      ],
+      "why": "For each x the Lagrangian is affine in (λ, ν), and a pointwise infimum of affine functions is concave. It is not linear in general."
+    },
+    {
+      "q": "Which condition guarantees strong duality, d* = p*?",
+      "a": "A convex problem with a strictly feasible point (Slater's condition)",
+      "wrong": [
+        "Any problem with at least one inequality constraint",
+        "Any problem whose objective is differentiable",
+        "Any problem whose dual function is concave"
+      ],
+      "why": "Convexity together with a strictly feasible point removes the duality gap. The dual function is concave for every problem, so that cannot be the deciding property."
+    },
+    {
+      "q": "In a hard-margin SVM the points x₁ = 1 (y = −1) and x₂ = 3 (y = +1) have α₁ = α₂ = 0.5. What are w and b?",
+      "a": "w = 1 and b = −2",
+      "wrong": [
+        "w = 1 and b = −1",
+        "w = 2 and b = −2",
+        "w = 0.5 and b = 2"
+      ],
+      "why": "w = Σα_iy_ix_i = −0.5(1) + 0.5(3) = 1. The active constraint at x₂ gives y(wx + b) = 3 + b = 1, so b = −2, placing the boundary at x = 2, midway between the points."
+    },
+    {
+      "q": "A training point in a hard-margin SVM satisfies y(wᵀx + b) = 1.8. What is its dual variable α?",
+      "a": "0, so it is not a support vector",
+      "wrong": [
+        "1.8, the value of its margin",
+        "positive, since every training point contributes to w",
+        "undetermined, since the constraint is satisfied"
+      ],
+      "why": "Complementary slackness α[y(wᵀx + b) − 1] = 0 forces α = 0 when the constraint is strictly satisfied. Only points exactly on the margin can have α > 0 and appear in w."
+    },
+    {
+      "q": "Minimize (θ − 6)² subject to θ² ≤ 9. Which penalty λ in (θ − 6)² + λθ² gives the same solution?",
+      "a": "1",
+      "wrong": [
+        "0",
+        "2",
+        "0.5"
+      ],
+      "why": "The constraint is active at θ = 3, and stationarity 2(θ − 6) + 2λθ = 0 gives −6 + 6λ = 0, so λ = 1. Check: the penalized minimizer is 6/(1 + λ) = 3."
+    },
+    {
+      "q": "In ridge regression written as minimize ‖Xθ − y‖² subject to ‖θ‖² ≤ t, the least squares solution already has ‖θ‖² = 2 and t = 5. What is the multiplier λ?",
+      "a": "0",
+      "wrong": [
+        "Positive, and equal to 5 − 2",
+        "Positive but unknown without more information",
+        "Negative, since the constraint has slack"
+      ],
+      "why": "The constraint is inactive, so complementary slackness gives λ = 0 and the constrained and unconstrained solutions coincide. A multiplier of an inequality constraint is never negative."
+    },
+    {
+      "q": "A gradient step lands at (1.4, −0.3, 0.6), and the feasible set is the box [0, 1]³. What is the projection used by projected gradient descent?",
+      "a": "(1, 0, 0.6)",
+      "wrong": [
+        "(1, 0.3, 0.6)",
+        "(0.7, 0, 0.3)",
+        "(1.4, −0.3, 0.6), since a projection leaves feasible directions alone"
+      ],
+      "why": "Projection onto a box clips each coordinate to [0, 1]: 1.4 becomes 1, −0.3 becomes 0, and 0.6 is unchanged. Rescaling is the projection onto a ball, not a box."
+    }
+  ],
   "summary": [
     "With an equality constraint, ∇f = ν∇h at the optimum: the gradients are parallel. Solve with the Lagrangian L = f − νh and set all derivatives to zero. PCA (Σu = λu) and the maximum entropy (uniform, or Gibbs) distribution are examples.",
     "With inequality constraints g_i ≤ 0, the KKT conditions are stationarity, primal feasibility, λ ≥ 0 and complementary slackness (λ_ig_i = 0). They are sufficient for convex problems. A multiplier is the shadow price of its constraint.",

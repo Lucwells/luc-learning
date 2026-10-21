@@ -124,6 +124,168 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "The nitrogen of ethylmethylpropylamine bears three different groups and a lone pair, yet the amine cannot be resolved into enantiomers at room temperature. Why?",
+      "a": "Rapid pyramidal inversion at nitrogen interconverts the enantiomers",
+      "wrong": [
+        "Nitrogen in amines is sp² hybridized and therefore planar, with no stereocenter",
+        "The lone pair is not a substituent, so nitrogen has only three groups and cannot be a stereocenter",
+        "The C–N bonds rotate freely and average the two mirror-image forms rapidly"
+      ],
+      "why": "The lone pair flips from one face to the other quickly, so the two mirror-image arrangements cannot be separated. A quaternary ammonium ion has no lone pair and no inversion, so it can be resolved."
+    },
+    {
+      "q": "Trimethylamine boils at 3 °C, but its isomer propylamine boils at 48 °C. The main reason is that",
+      "a": "propylamine hydrogen-bonds through its N–H bonds, but trimethylamine has none",
+      "wrong": [
+        "propylamine has the larger molar mass, so its dispersion forces are stronger",
+        "trimethylamine is largely ionic in the liquid state, which lowers its boiling point",
+        "the lone pair of trimethylamine is sp² hybridized, which weakens intermolecular attraction"
+      ],
+      "why": "Both have the formula C₃H₉N, so mass is the same. Only primary and secondary amines can donate hydrogen bonds through N–H."
+    },
+    {
+      "q": "Aniline has a conjugate acid pK_a of 4.6. In a buffer at pH 7.6, about what fraction of the aniline is protonated?",
+      "a": "0.1%",
+      "wrong": [
+        "1%",
+        "50%",
+        "99.9%"
+      ],
+      "why": "[ArNH₃⁺]/[ArNH₂] = 10^(pK_a − pH) = 10^(4.6 − 7.6) = 10⁻³. So essentially all the aniline is the free base at this pH."
+    },
+    {
+      "q": "Pyridine (conjugate acid pK_a 5.2) is a much weaker base than trimethylamine (9.8). The main reason is that the pyridine lone pair",
+      "a": "occupies an sp² orbital, which has more s character and holds the electrons nearer the nucleus",
+      "wrong": [
+        "is delocalized into the aromatic π system, as in aniline, and so is unavailable",
+        "is stabilized by hyperconjugation with the neighboring ring carbons, which lowers its energy",
+        "is on a nitrogen atom that is sp-hybridized and linear, so protonation is strained"
+      ],
+      "why": "The pyridine lone pair lies in the plane of the ring and is not part of the aromatic sextet. Its sp² orbital binds a proton less readily than the sp³ lone pair of an alkylamine."
+    },
+    {
+      "q": "A solution of cyclohexylamine and naphthalene in ether is shaken with dilute aqueous HCl. Afterwards the amine is found",
+      "a": "in the aqueous layer, as cyclohexylammonium chloride",
+      "wrong": [
+        "in the ether layer, as the free amine, together with the naphthalene",
+        "in the ether layer, as an amide formed by reaction with HCl",
+        "as a precipitate of the free amine at the interface of the layers"
+      ],
+      "why": "The basic amine is protonated to a water-soluble salt, while neutral naphthalene stays in the ether. Adding base to the aqueous layer later regenerates the amine."
+    },
+    {
+      "q": "Ethylamine is heated with one equivalent of bromoethane. The product is a mixture of diethylamine, triethylamine and ammonium salts mainly because",
+      "a": "each alkylation gives a more nucleophilic amine that competes for the bromoethane",
+      "wrong": [
+        "bromoethane ionizes by SN1 and attacks any nitrogen present in the mixture",
+        "the product amine is a weaker base, so it is not protonated and keeps reacting",
+        "ethylamine is too hindered to react only once, so a second equivalent is always needed"
+      ],
+      "why": "Alkyl groups donate electron density to nitrogen, so a secondary amine is more nucleophilic than a primary one. Methods such as the Gabriel synthesis avoid this by using a nucleophile that can react only once."
+    },
+    {
+      "q": "Which sequence converts 1-bromobutane into pentan-1-amine?",
+      "a": "NaCN, then LiAlH₄",
+      "wrong": [
+        "potassium phthalimide, then N₂H₄",
+        "NaN₃, then LiAlH₄",
+        "a large excess of NH₃"
+      ],
+      "why": "Cyanide adds one carbon, and reduction of the nitrile gives RCH₂NH₂. The Gabriel and azide routes and ammonia give butan-1-amine, with no extra carbon."
+    },
+    {
+      "q": "The Gabriel synthesis stops cleanly at the primary amine stage because",
+      "a": "the N-alkylphthalimide has no N–H and its lone pair is tied up by two carbonyls",
+      "wrong": [
+        "phthalimide anion is too bulky to attack a second molecule of alkyl halide",
+        "hydrazine removes any extra alkyl groups from the nitrogen as they are added",
+        "the alkyl halide is completely consumed by the first substitution reaction"
+      ],
+      "why": "After one SN2 the nitrogen has no remaining nucleophilic N–H or free lone pair. Only the final hydrazine or NaOH step releases the free primary amine."
+    },
+    {
+      "q": "Benzoyl chloride is treated with dimethylamine, and the product is then reduced with LiAlH₄. The final product is",
+      "a": "N,N-dimethylbenzylamine, PhCH₂N(CH₃)₂",
+      "wrong": [
+        "N,N-dimethylbenzamide, PhCON(CH₃)₂, the intermediate amide",
+        "benzyl alcohol, PhCH₂OH, from reduction of the acyl chloride",
+        "N-methylbenzylamine, PhCH₂NHCH₃, after loss of one methyl"
+      ],
+      "why": "The acyl chloride gives the tertiary amide, and LiAlH₄ converts C=O to CH₂ in amides to give the amine. The amide is the intermediate, not the product."
+    },
+    {
+      "q": "In the Hofmann elimination, a quaternary ammonium iodide is treated with Ag₂O and water before heating. What is this step for?",
+      "a": "It exchanges iodide for hydroxide, the base for the E2 step",
+      "wrong": [
+        "It reduces the quaternary ammonium ion to the free tertiary amine",
+        "It methylates the nitrogen a further time to give a quaternary salt",
+        "It oxidizes iodide to iodine, which then serves as the leaving group"
+      ],
+      "why": "Silver iodide precipitates and leaves the ammonium hydroxide, whose OH⁻ removes a β-hydrogen on heating. The leaving group is the neutral tertiary amine."
+    },
+    {
+      "q": "A sulfonamide made from an unknown amine and benzenesulfonyl chloride does not dissolve in aqueous NaOH. The amine is",
+      "a": "secondary",
+      "wrong": [
+        "primary",
+        "tertiary",
+        "quaternary"
+      ],
+      "why": "A primary amine gives a sulfonamide with an acidic N–H, which dissolves in base. A secondary amine has no N–H left, so its sulfonamide stays insoluble, while a tertiary amine forms no sulfonamide."
+    },
+    {
+      "q": "Diethylamine is treated with NaNO₂ and HCl. The product is",
+      "a": "N-nitrosodiethylamine, a yellow oil",
+      "wrong": [
+        "diethyldiazonium chloride, which is stable at 0 °C",
+        "ethanol and nitrogen gas",
+        "N,N-diethylhydroxylamine"
+      ],
+      "why": "Secondary amines are nitrosated at nitrogen to give N-nitrosamines, R₂N–N=O, which are potent carcinogens. Only primary amines can form diazonium ions."
+    },
+    {
+      "q": "(S)-2-Methylbutanamide is treated with Br₂ and NaOH. The product is",
+      "a": "(S)-butan-2-amine",
+      "wrong": [
+        "(R)-butan-2-amine",
+        "racemic butan-2-amine",
+        "(S)-pentan-2-amine"
+      ],
+      "why": "The migrating carbon keeps its configuration, and the NH₂ takes the place of the CONH₂ in the same priority position. The product has one carbon fewer than the amide."
+    },
+    {
+      "q": "An acyl azide RCON₃ is heated in ethanol. The final product is",
+      "a": "a carbamate, RNHCOOEt",
+      "wrong": [
+        "an ethyl ester, RCOOEt",
+        "an amide, RCONHEt",
+        "the amine RNH₂"
+      ],
+      "why": "Heating causes the Curtius rearrangement to an isocyanate, R–N=C=O, with loss of N₂. Ethanol traps it as the carbamate, whereas water would give the amine."
+    },
+    {
+      "q": "Cyclopentanone oxime is treated with H₂SO₄. The main product is",
+      "a": "a six-membered lactam (2-piperidone)",
+      "wrong": [
+        "a five-membered lactam (2-pyrrolidone)",
+        "cyclopentylamine",
+        "cyclopentanol"
+      ],
+      "why": "In the Beckmann rearrangement a ring carbon migrates to nitrogen, inserting N into the ring. A five-membered ring becomes a six-membered one, as cyclohexanone gives caprolactam."
+    },
+    {
+      "q": "Propiophenone, PhCOCH₂CH₃, is treated with mCPBA. The product is",
+      "a": "phenyl propanoate",
+      "wrong": [
+        "ethyl benzoate",
+        "benzoic acid and ethanol",
+        "1-phenylpropan-1-ol"
+      ],
+      "why": "Phenyl has a higher migratory aptitude than a primary alkyl group, so phenyl moves to oxygen. The ethyl group stays on the carbonyl carbon, giving PhO–CO–CH₂CH₃."
+    }
+  ],
   "summary": [
     "Amines are basic (ammonium pK_a about 10–11) and nucleophilic. Aromatic amines and amides are far less basic.",
     "Avoid overalkylation by using azide, Gabriel, nitrile or amide reduction, reductive amination, or nitro reduction.",

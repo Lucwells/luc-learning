@@ -517,6 +517,116 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "What is the LFSE of an octahedral d² complex?",
+      "a": "−0.8Δₒ",
+      "wrong": ["−0.4Δₒ", "−1.2Δₒ", "−1.6Δₒ"],
+      "why": "Two electrons in the t₂g set, each lowering the energy by 0.4Δₒ, give −0.8Δₒ. There are no pairing penalties because the electrons occupy separate orbitals."
+    },
+    {
+      "q": "For an octahedral complex with Δₒ = 20,000 cm⁻¹, how far above the barycenter does the e_g set lie?",
+      "a": "12,000 cm⁻¹",
+      "wrong": ["8,000 cm⁻¹", "20,000 cm⁻¹", "10,000 cm⁻¹"],
+      "why": "The e_g set is raised by 0.6Δₒ = 12,000 cm⁻¹ and the t₂g set lowered by 0.4Δₒ = 8,000 cm⁻¹, keeping the average energy fixed."
+    },
+    {
+      "q": "[Fe(CN)₆]³⁻ contains Fe³⁺ in a strong octahedral field. How many unpaired electrons does it have?",
+      "a": "1",
+      "wrong": ["5", "3", "0"],
+      "why": "Fe³⁺ is d⁵. With strong-field cyanide, Δₒ > P and all five electrons occupy t₂g (t₂g⁵), leaving one unpaired. Five unpaired electrons would be the high-spin case."
+    },
+    {
+      "q": "Which complex is expected to have the largest Δₒ?",
+      "a": "[Ir(NH₃)₆]³⁺",
+      "wrong": ["[Co(NH₃)₆]³⁺", "[Co(NH₃)₆]²⁺", "[Fe(NH₃)₆]²⁺"],
+      "why": "With the same ligand, Δₒ rises with oxidation state and increases by 30–50% going down a group, so a 5d M³⁺ ion beats the 3d ions, and M³⁺ beats M²⁺."
+    },
+    {
+      "q": "A tetrahedral complex of a metal ion has an octahedral analog with Δₒ = 18,000 cm⁻¹. What is Δₜ for the same metal and ligand?",
+      "a": "8,000 cm⁻¹",
+      "wrong": ["12,000 cm⁻¹", "40,500 cm⁻¹", "18,000 cm⁻¹"],
+      "why": "Δₜ = (4/9)Δₒ = 8,000 cm⁻¹. Because it is so small, it is always less than the pairing energy and tetrahedral complexes are high spin."
+    },
+    {
+      "q": "Why are Pd(II) and Pt(II) complexes square planar even with weak-field ligands such as Cl⁻?",
+      "a": "The larger Δ of 4d and 5d ions makes the gain from emptying d_{x²−y²} dominant",
+      "wrong": ["Their d orbitals are more compact, so a tetrahedral arrangement is too crowded", "Chloride becomes a π-acceptor toward the heavier metals", "All d⁸ ions are square planar regardless of period or ligand"],
+      "why": "In a planar field eight electrons fill the four lower orbitals and leave d_{x²−y²} empty, which pays off when Δ is large. Ni(II), the 3d member, is tetrahedral with weak ligands, so not all d⁸ ions are planar."
+    },
+    {
+      "q": "Which octahedral configuration is expected to show a strong Jahn–Teller distortion?",
+      "a": "Low-spin d⁷ (t₂g⁶e_g¹)",
+      "wrong": ["High-spin d⁶ (t₂g⁴e_g²)", "d³ (t₂g³)", "Low-spin d⁶ (t₂g⁶)"],
+      "why": "A strong distortion needs an unevenly filled e_g set. High-spin d⁶ is uneven only in t₂g, giving a weak effect, while d³ and low-spin d⁶ are nondegenerate."
+    },
+    {
+      "q": "In an elongated d⁹ copper(II) complex, what produces the net stabilization?",
+      "a": "d_{z²} drops and is filled twice, while d_{x²−y²} rises and is filled once",
+      "wrong": ["d_{x²−y²} drops and is filled twice, while d_{z²} rises and is filled once", "All five d orbitals fall by the same amount when two axial bonds lengthen", "The t₂g set splits and loses its degeneracy completely, so each orbital is singly occupied"],
+      "why": "Lengthening the two axial bonds lowers d_{z²} and raises d_{x²−y²}. Two electrons gain what one electron loses, so there is a net lowering."
+    },
+    {
+      "q": "Compared with a pure σ-donor, a π-donor ligand such as F⁻ does what to the t₂g set and to Δₒ?",
+      "a": "Raises t₂g and decreases Δₒ",
+      "wrong": ["Lowers t₂g and increases Δₒ", "Raises e_g* and increases Δₒ", "Leaves t₂g unchanged because it is nonbonding"],
+      "why": "Filled ligand p orbitals interact with the t₂g set and push it up, narrowing the gap to e_g*. The t₂g set is nonbonding only in a σ-only description."
+    },
+    {
+      "q": "In the σ-only MO scheme for an octahedral complex, which metal orbitals stay nonbonding?",
+      "a": "d_{xy}, d_{xz} and d_{yz}",
+      "wrong": ["d_{z²} and d_{x²−y²}", "The 4s orbital", "The three 4p orbitals"],
+      "why": "The ligand σ combinations have a₁g, e_g and t₁ᵤ symmetry, matching 4s, the e_g d orbitals and 4p. The t₂g set has no match, so it is nonbonding."
+    },
+    {
+      "q": "The CO stretch falls from 2143 cm⁻¹ in free CO to about 2000 cm⁻¹ in [Cr(CO)₆]. This shows",
+      "a": "back-donation from the metal into CO π* weakens the C–O bond",
+      "wrong": ["σ donation from CO to the metal strengthens the C–O bond", "the C–O bond order rises because of metal–carbon multiple bonding", "CO acts as a π-donor into empty metal t₂g orbitals"],
+      "why": "Electron density in the CO π* orbital is antibonding for C–O, so more back-bonding lowers the stretching frequency."
+    },
+    {
+      "q": "What is the spin-only magnetic moment of a high-spin octahedral d⁴ complex such as one of Mn(III)?",
+      "a": "4.90 μ_B",
+      "wrong": ["2.83 μ_B", "5.92 μ_B", "3.87 μ_B"],
+      "why": "High-spin d⁴ (t₂g³e_g¹) has 4 unpaired electrons, so μ = √(4 × 6) = 4.90 μ_B. The low-spin form has 2 unpaired electrons and 2.83 μ_B."
+    },
+    {
+      "q": "In magnetite, Fe₃O₄, neighboring spins align antiparallel but with unequal magnitudes, leaving a net moment. This behavior is called",
+      "a": "ferrimagnetism",
+      "wrong": ["antiferromagnetism", "ferromagnetism", "paramagnetism"],
+      "why": "Antiferromagnets have equal antiparallel moments that cancel completely. Ferromagnets align spins parallel, and paramagnets have no cooperative ordering."
+    },
+    {
+      "q": "Why is the high-spin state of a spin-crossover Fe(II) complex favored at high temperature?",
+      "a": "It has longer metal–ligand bonds and higher entropy",
+      "wrong": ["It has a larger Δₒ, so it is stabilized thermally", "It has a lower pairing energy than the low-spin state at any temperature", "It has shorter metal–ligand bonds, so lattice vibrations are suppressed"],
+      "why": "High-spin Fe(II) populates e_g* orbitals, which lengthens the bonds by about 0.2 Å and raises the entropy, so −TΔS favors it as T rises. The low-spin state has the larger Δₒ."
+    },
+    {
+      "q": "A complex has an absorption maximum at 625 nm. What is this in wavenumbers?",
+      "a": "16,000 cm⁻¹",
+      "wrong": ["1,600 cm⁻¹", "62,500 cm⁻¹", "160,000 cm⁻¹"],
+      "why": "ν̃ = 1/λ = 1/(625 × 10⁻⁷ cm) = 16,000 cm⁻¹. A decimal-place slip in converting nanometers to centimeters gives the other values."
+    },
+    {
+      "q": "In the orange complex [Ru(bipy)₃]²⁺, the intense visible absorption is an MLCT transition. Where does the electron go?",
+      "a": "From a metal d orbital into a ligand π* orbital",
+      "wrong": ["From a ligand π orbital into a metal d orbital", "From t₂g to e_g within the metal d orbitals", "From the ligand σ orbitals into the metal 4s orbital"],
+      "why": "In metal-to-ligand charge transfer the electron moves from the metal to the ligand. A ligand-to-metal transition would be LMCT, and t₂g to e_g is a d–d transition."
+    },
+    {
+      "q": "Why is [Mn(H₂O)₆]²⁺ only a very pale pink?",
+      "a": "In high-spin d⁵ every d–d transition also changes the spin, on top of being Laporte-forbidden",
+      "wrong": ["Mn²⁺ is d⁰, so it has no d–d transitions", "Mn²⁺ complexes are tetrahedral, which weakens absorption", "Water is a strong-field ligand, which moves the band into the infrared"],
+      "why": "High-spin d⁵ has one electron in each d orbital, so any d–d excitation requires a spin flip, and the g → g restriction applies too. Both rules make the bands extremely weak."
+    },
+    {
+      "q": "In a complex the Racah parameter B is below its free-ion value (B/B₀ < 1). This nephelauxetic effect indicates",
+      "a": "electron delocalization onto the ligands, hence a more covalent bond",
+      "wrong": ["a purely ionic metal–ligand interaction", "a larger Δₒ than in the free ion", "a metal–ligand bond with no overlap"],
+      "why": "Delocalizing the d electrons over the ligands reduces electron repulsion, so B falls. The greater the drop, the more covalent the bonding."
+    }
+  ],
   "summary": [
     "In an octahedral field, d orbitals split into t₂g (−0.4Δₒ) and e_g (+0.6Δₒ). LFSE = (−0.4 n_t₂g + 0.6 n_e_g)Δₒ plus pairing energy. Strong fields (Δₒ > P) give low-spin d⁴–d⁷ complexes.",
     "Spectrochemical series: halides < H₂O < NH₃ < en < CN⁻ < CO. Δ increases with metal oxidation state and down a group.",

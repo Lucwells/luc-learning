@@ -494,6 +494,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A protein of mass 20,000 u forms the ion [M+10H]¹⁰⁺ in ESI. At what m/z does it appear (proton mass 1.00728 u)?",
+      "a": "2001.0",
+      "wrong": [
+        "2000.0",
+        "2010.1",
+        "20,010"
+      ],
+      "why": "m/z = (M + n × 1.00728)/n = (20,000 + 10.07)/10 = 2001.0. Adding the protons after dividing by n gives 2010.1, and ignoring them gives 2000.0, which is not the value that a high-resolution measurement would see."
+    },
+    {
+      "q": "A moderately nonpolar pesticide of medium mass is poorly ionized by ESI because it carries no charge in solution. Which LC-compatible source is the better choice?",
+      "a": "APCI, in which corona-generated solvent ions protonate the analyte",
+      "wrong": [
+        "EI, since it ionizes any compound present in the LC effluent in the vacuum",
+        "MALDI, since it can ionize neutral molecules with a laser pulse and a matrix",
+        "ESI at a higher capillary voltage, which charges neutral molecules directly"
+      ],
+      "why": "APCI ionizes in the gas phase after the heated nebulizer evaporates the eluent, so the analyte does not need to be a preformed ion in solution. EI needs a gas-phase sample in vacuum, so it cannot take LC effluent directly."
+    },
+    {
+      "q": "A volatile compound shows no molecular ion in its 70 eV EI spectrum. How can its molar mass be found with the same GC–MS instrument?",
+      "a": "Switch to chemical ionization, which gives mainly [M+H]⁺",
+      "wrong": [
+        "Raise the electron energy so that the molecule survives",
+        "Search the EI spectrum against the NIST library",
+        "Switch to a MALDI matrix and a TOF analyzer"
+      ],
+      "why": "In CI a reagent gas such as CH₄ transfers a proton gently, leaving little internal energy for fragmentation. More electron energy would deposit more energy and fragment the ion further."
+    },
+    {
+      "q": "Why is MALDI normally paired with a time-of-flight analyzer?",
+      "a": "Laser pulses give ions in bursts, which defines the start time for TOF",
+      "wrong": [
+        "MALDI ions are always multiply charged and need the large mass range of TOF",
+        "MALDI generates a continuous ion beam that only TOF can sample efficiently",
+        "TOF is the only analyzer that tolerates the matrix crystals in the source"
+      ],
+      "why": "TOF measures the time from a start pulse to arrival, so a pulsed source suits it well. MALDI gives mostly singly charged ions, and the large mass range of TOF is a further advantage."
+    },
+    {
+      "q": "Two ions at m/z 400.000 and 400.016 must just be resolved. What resolving power is needed?",
+      "a": "25,000",
+      "wrong": [
+        "2,500",
+        "250,000",
+        "400"
+      ],
+      "why": "R = m/Δm = 400/0.016 = 25,000. This is reached by a good reflectron TOF or Orbitrap but not by a unit-resolution quadrupole."
+    },
+    {
+      "q": "An Orbitrap gives m/z 301.1412 for an ion whose calculated m/z is 301.1416. What is the mass error?",
+      "a": "−1.3 ppm",
+      "wrong": [
+        "+1.3 ppm",
+        "−13 ppm",
+        "−0.4 ppm"
+      ],
+      "why": "Error = (301.1412 − 301.1416)/301.1416 × 10⁶ = −1.3 ppm. The measured value is below the true value, so the sign is negative; −0.4 is the error in u×10³ rather than ppm."
+    },
+    {
+      "q": "Two singly charged ions are accelerated through the same voltage in a TOF analyzer, and one is 4 times heavier. How do their flight times compare?",
+      "a": "The heavier ion takes twice as long",
+      "wrong": [
+        "The heavier ion takes 4 times as long",
+        "The heavier ion takes 16 times as long",
+        "The heavier ion arrives first, because it carries more momentum"
+      ],
+      "why": "All ions get the same kinetic energy, so v ∝ (1/m)^½ and t ∝ m^½. A fourfold mass gives a twofold longer flight time, and lighter ions always arrive first."
+    },
+    {
+      "q": "Which instrument can confirm an elemental formula in a complex mixture from an exact mass to within 1 ppm?",
+      "a": "An Orbitrap",
+      "wrong": [
+        "A triple quadrupole",
+        "A linear ion trap",
+        "A single quadrupole in SIM mode"
+      ],
+      "why": "Orbitraps and FT-ICR instruments combine resolving power of 10⁵–10⁷ with sub-ppm to low-ppm accuracy. Quadrupoles and ion traps work at unit resolution with errors of hundreds of ppm."
+    },
+    {
+      "q": "A triple quadrupole runs a neutral loss scan for the loss of 98 u from singly charged phosphopeptides. When Q1 transmits m/z 800, where is Q3 set?",
+      "a": "m/z 702",
+      "wrong": [
+        "m/z 98",
+        "m/z 898",
+        "m/z 800"
+      ],
+      "why": "Q1 and Q3 scan together with a fixed offset, and the fragment is the precursor minus the neutral: 800 − 98 = 702. The value 898 adds the loss instead of subtracting it."
+    },
+    {
+      "q": "In an MRM method the qualifier/quantifier ratio of a standard is 0.25, with a tolerance of ±20% (relative). A sample peak gives 0.45. What does this indicate?",
+      "a": "Not confirmed: an interferent probably contributes to one transition",
+      "wrong": [
+        "The identity is confirmed, since both transitions are present at the right retention time",
+        "The identity is confirmed, but the concentration must exceed that of the standard",
+        "The method has lost sensitivity and the instrument must be recalibrated"
+      ],
+      "why": "The acceptable range is 0.20–0.30, so 0.45 lies outside it. A true analyte fragments in a fixed ratio, so a different ratio shows that something else is contributing to one of the channels."
+    },
+    {
+      "q": "Why can an ion trap perform MS³ while a triple quadrupole cannot?",
+      "a": "A trap repeats isolation and CID in time, a triple quadrupole has fixed stages in space",
+      "wrong": [
+        "A triple quadrupole cannot fragment ions at all, since it has no collision cell",
+        "A trap uses higher collision energies, which allows two fragmentation steps in one run",
+        "A trap has a higher resolving power, so a fragment can be selected a second time"
+      ],
+      "why": "In Q1–q2–Q3 each step has its own hardware, so there is one fragmentation only. Confining ions in a trap lets the cycle of isolation and CID be repeated (MSⁿ)."
+    },
+    {
+      "q": "A quadrupole scans 500 m/z units in each cycle. In SIM mode it monitors 2 ions in the same cycle time. By what factor does the time spent on each ion increase?",
+      "a": "250",
+      "wrong": [
+        "2",
+        "500",
+        "25"
+      ],
+      "why": "Scanning spends 1/500 of the cycle on each mass, SIM 1/2, so the dwell time per ion rises by 500/2 = 250. This is why SIM is 10–100 times more sensitive, at the cost of a library-searchable spectrum."
+    },
+    {
+      "q": "A GC–MS library search gives 1,2-dimethylbenzene as the top hit, with a match factor of 920/1000. Why should this not be reported on its own?",
+      "a": "Isomers such as the xylenes give nearly identical EI spectra, so the retention index or a standard is needed",
+      "wrong": [
+        "Match factors above 800 are never reliable",
+        "EI spectra of aromatic compounds change from one instrument to another",
+        "Aromatic compounds do not give a molecular ion in EI"
+      ],
+      "why": "A high match factor means a similar spectrum, not a unique one, and positional isomers fragment in almost the same way. Retention time on the column is what tells them apart."
+    },
+    {
+      "q": "Which eluent additive best promotes [M+H]⁺ ions for positive-mode LC–ESI-MS?",
+      "a": "0.1% formic acid",
+      "wrong": [
+        "20 mM sodium phosphate",
+        "0.1% aqueous ammonia",
+        "10 mM sodium chloride"
+      ],
+      "why": "Formic acid is volatile and supplies protons. Sodium phosphate fouls the source, ammonia favors [M−H]⁻, and sodium salts give [M+Na]⁺ adducts that fragment poorly."
+    },
+    {
+      "q": "An analyte gives an area of 90,000 in solvent and 63,000 when spiked into plasma extract. What is the matrix effect (response in plasma as a percentage of that in solvent)?",
+      "a": "70%",
+      "wrong": [
+        "30%",
+        "143%",
+        "7.0%"
+      ],
+      "why": "63,000/90,000 = 70%, which means 30% ion suppression. Reporting 30% mixes up the loss with the response that remains."
+    },
+    {
+      "q": "During post-column infusion of an analyte, a blank plasma extract is injected and the signal dips at 3.2 min. What does this show?",
+      "a": "Matrix components eluting at 3.2 min suppress ionization, so an analyte eluting then would be suppressed",
+      "wrong": [
+        "The analyte elutes from the column at 3.2 min",
+        "The detector is saturated by the infused analyte",
+        "The column is bleeding stationary phase into the source"
+      ],
+      "why": "The infused analyte gives a constant signal, so a dip means that whatever elutes from the blank at that moment competes for charge. The test locates the suppression zone, which can then be avoided chromatographically."
+    },
+    {
+      "q": "A rice extract for arsenic speciation is stored warm for several days. The As(III) result falls and As(V) rises. What is the most likely cause?",
+      "a": "As(III) is oxidized during storage, so the species has changed",
+      "wrong": [
+        "The ICP-MS responds more strongly to As(V) than to As(III) in the plasma",
+        "Arsenate coelutes with arsenobetaine and is counted twice in the integration",
+        "The anion-exchange column converts As(III) to As(V) during the separation"
+      ],
+      "why": "Species may interconvert during sampling, storage and extraction, and As(III) is easily oxidized. The ICP-MS response is the same for all arsenic species, so the shift is chemical."
+    },
+    {
+      "q": "In HPLC–ICP–MS speciation of arsenic, why can a standard of one arsenic species roughly calibrate the others?",
+      "a": "The plasma atomizes all species, so the response depends on the arsenic atoms and not on the molecular structure",
+      "wrong": [
+        "All arsenic species elute as one peak from the anion-exchange column",
+        "The column converts every species to the same arsenic compound before detection",
+        "The quadrupole selects the intact molecular ion of each species"
+      ],
+      "why": "In the 6000–10,000 K plasma the molecule is destroyed and only ⁷⁵As⁺ is counted. This element-selective response is what makes ICP-MS a convenient detector after separation."
+    }
+  ],
   "summary": [
     "Hard sources (EI) fragment molecules, which gives library-searchable spectra. Soft sources (CI, ESI, APCI, MALDI) give the intact ion for molar mass. ESI gives multiply charged ions for large molecules.",
     "Analyzers: quadrupole (unit resolution, robust, SIM/MRM), TOF (unlimited mass range, fast), ion trap (MSⁿ), Orbitrap and FT-ICR (R up to 10⁶–10⁷, ppm accuracy). Resolving power is R = m/Δm; exact masses identify formulas.",

@@ -359,6 +359,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "Why does momentum speed up training on a narrow, elongated valley?",
+      "a": "Gradient components that oscillate across the valley cancel in the running average, while the consistent downhill component along it accumulates",
+      "wrong": [
+        "It increases the learning rate for the steep directions only and leaves flat directions unchanged",
+        "It replaces the noisy mini-batch gradient with the exact full-batch gradient",
+        "It removes the need to compute a gradient for flat directions"
+      ],
+      "why": "Momentum averages past gradients: opposite-sign oscillations sum to nearly zero, and gradients that keep the same sign add up and build speed."
+    },
+    {
+      "q": "SGD with momentum uses α = 0.01, β = 0.9 and a constant gradient g = 3. After many steps, how large is each parameter update?",
+      "a": "0.3",
+      "wrong": [
+        "0.03",
+        "0.27",
+        "3"
+      ],
+      "why": "v approaches g/(1 − β) = 30, so the update α·v is 0.3. The plain SGD step would be αg = 0.03."
+    },
+    {
+      "q": "At the first Adam step (t = 1, default constants), a parameter has gradient g = −5. How does the parameter change?",
+      "a": "It increases by about α",
+      "wrong": [
+        "It decreases by about α",
+        "It increases by about 5α",
+        "It increases by about 0.1α"
+      ],
+      "why": "m̂ = −5 and √v̂ = 5, so the update is −α(−5/5) = +α. The step has size α in the direction opposite to the gradient's sign, whatever the gradient's scale."
+    },
+    {
+      "q": "In RMSProp, how does a coordinate with consistently large gradients compare with one with small gradients?",
+      "a": "Its step is divided by a larger running RMS, so it takes a smaller step for the same raw gradient scale",
+      "wrong": [
+        "It takes a larger step, since its gradient is larger",
+        "It takes the same step as the other coordinate",
+        "It takes steps that alternate in sign"
+      ],
+      "why": "RMSProp divides each coordinate's step by the root of a running mean of its squared gradients. Steep, large-gradient coordinates are damped and flat ones are boosted."
+    },
+    {
+      "q": "What distinguishes AdamW from Adam with an L2 penalty?",
+      "a": "Weight decay is applied directly to the weights instead of being added to the gradient",
+      "wrong": [
+        "It uses a separate learning rate for each layer",
+        "It applies weight decay only in the final epoch",
+        "It removes the bias correction of the running averages"
+      ],
+      "why": "In AdamW the decay term λθ is added to the update outside the adaptive normalization. This decoupling makes the regularization behave properly, and it is the default for transformers."
+    },
+    {
+      "q": "A model trains well with batch size 256 and learning rate 0.1. By the linear scaling rule, what learning rate suits batch size 1024?",
+      "a": "0.4",
+      "wrong": [
+        "0.2",
+        "0.025",
+        "0.1"
+      ],
+      "why": "The batch grows by a factor of 4, so the rate is multiplied by 4. The rule holds only up to a limit and is usually combined with warmup."
+    },
+    {
+      "q": "A cosine schedule has α_max = 0.02, α_min = 0 and T = 300 steps. What is α at step 100?",
+      "a": "0.015",
+      "wrong": [
+        "0.013",
+        "0.01",
+        "0.005"
+      ],
+      "why": "α = ½(0.02)(1 + cos(π/3)) = 0.01(1.5) = 0.015. A linear decay would give 0.0133 at this point, but the cosine decays slowly at first."
+    },
+    {
+      "q": "In a learning rate range test, the loss falls as α increases and then shoots up sharply at α = 0.1. A reasonable starting rate is",
+      "a": "0.01",
+      "wrong": [
+        "0.1",
+        "1",
+        "0.000001"
+      ],
+      "why": "The suggested choice is about a factor of 10 below the point where the loss starts to rise sharply. The rate at the blow-up itself is too aggressive."
+    },
+    {
+      "q": "A linear layer has n_in = 200 inputs and zero-mean weights with variance 0.01. By what factor does the second moment of the signal change from one layer to the next?",
+      "a": "2",
+      "wrong": [
+        "0.5",
+        "0.01",
+        "200"
+      ],
+      "why": "Var(z) = n_in·Var(w)·E[x²] = 200 × 0.01 × E[x²] = 2E[x²]. The signal doubles at every layer, which is exponential growth with depth."
+    },
+    {
+      "q": "A ReLU layer has 800 inputs. What weight standard deviation does He initialization prescribe?",
+      "a": "0.05",
+      "wrong": [
+        "0.035",
+        "0.0025",
+        "0.5"
+      ],
+      "why": "σ = √(2/800) = √0.0025 = 0.05. The value 0.035 is √(1/800), the choice that ignores ReLU zeroing half the inputs."
+    },
+    {
+      "q": "A ReLU layer has n_in = n_out = 100. Compared with Xavier initialization, the weight variance prescribed by He initialization is",
+      "a": "twice as large",
+      "wrong": [
+        "the same",
+        "half as large",
+        "four times as large"
+      ],
+      "why": "Xavier gives 2/(100 + 100) = 0.01 and He gives 2/100 = 0.02. He compensates for ReLU zeroing half of the activations."
+    },
+    {
+      "q": "A batch of one feature takes the values 3, 5, 5, 7. With γ = 1, β = 0 and ε ≈ 0, batch normalization maps 7 to",
+      "a": "1.41",
+      "wrong": [
+        "2",
+        "1",
+        "0.71"
+      ],
+      "why": "The mean is 5 and the variance is (4 + 0 + 0 + 4)/4 = 2, so σ = 1.414 and x̂ = (7 − 5)/1.414 = 1.41. Dividing by the variance instead of the standard deviation gives 1."
+    },
+    {
+      "q": "A recurrent model must be trained with batches of 2 sequences. Which choice is most sensible?",
+      "a": "Layer normalization, because its statistics do not depend on the batch size",
+      "wrong": [
+        "Batch normalization, because statistics computed from very small batches are the most precise",
+        "Batch normalization with a larger ε, which makes its statistics reliable",
+        "No normalization is possible, because normalization needs 32 or more examples"
+      ],
+      "why": "Batch statistics from 2 examples are very noisy, and batch normalization needs running averages at test time. Layer normalization uses the features of each example and behaves the same in training and testing."
+    },
+    {
+      "q": "Why does batch normalization include a learned scale γ and shift β after standardizing?",
+      "a": "So that the layer can still represent any mean and variance it needs, including undoing the normalization",
+      "wrong": [
+        "To make the batch statistics independent of the batch size",
+        "To keep the running averages from drifting at test time",
+        "To make the output of every layer have mean 0 and variance 1"
+      ],
+      "why": "Standardizing alone would force every layer's output to mean 0 and variance 1, which may limit what it can express. γ and β restore that freedom."
+    },
+    {
+      "q": "In inverted dropout with p = 0.3, a unit has activation 7. If it survives during training, what value is passed on?",
+      "a": "10",
+      "wrong": [
+        "7",
+        "9.1",
+        "4.9"
+      ],
+      "why": "Survivors are scaled by 1/(1 − p) = 1/0.7, so 7 becomes 10. The expected value is 0.7 × 10 = 7, the test-time value."
+    },
+    {
+      "q": "A network with dropout gives different validation accuracy each time it is evaluated on the same data, with the same weights. The most likely cause is",
+      "a": "The model was left in training mode, so random dropout masks (and batch statistics) differ on each pass",
+      "wrong": [
+        "The learning rate is too small",
+        "The validation set is too large for a stable estimate",
+        "The weights were updated during evaluation"
+      ],
+      "why": "In training mode dropout drops different random units on each pass. The model should be set to evaluation mode, where dropout does nothing and batch normalization uses running averages."
+    },
+    {
+      "q": "Label smoothing with ε = 0.1 is applied to a 3-class problem whose true class is the first. What is the target?",
+      "a": "(0.9, 0.05, 0.05)",
+      "wrong": [
+        "(1, 0, 0)",
+        "(0.9, 0.1, 0.1)",
+        "(0.9, 0.1, 0)"
+      ],
+      "why": "The true class gets 1 − ε and the remaining ε is shared equally among the other classes. The target must still sum to 1."
+    },
+    {
+      "q": "A 100-class classifier with random initialization starts with a cross-entropy loss of about 4.6. What should you conclude?",
+      "a": "Nothing is wrong: it equals ln 100, the loss of predicting all classes equally",
+      "wrong": [
+        "There is a bug, since a model that has not learned anything should start with a loss near zero",
+        "There is a bug, since the initial loss should be near 100",
+        "The model is overfitting, since the loss is above 1"
+      ],
+      "why": "With near-uniform predictions each class has probability 1/K, so the loss is ln K = ln 100 ≈ 4.6. A value far from this would signal a bug."
+    }
+  ],
   "summary": [
     "Momentum averages gradients to damp oscillation. Adam adds per-parameter scaling by the root of the running squared gradient, with bias correction, and its first step has size about α. AdamW decouples weight decay.",
     "The learning rate matters most. Use warmup, then a decaying schedule such as cosine decay. Find a starting value with a range test.",

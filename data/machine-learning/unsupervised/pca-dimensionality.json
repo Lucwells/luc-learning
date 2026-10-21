@@ -228,6 +228,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "Centered data have covariance matrix Σ = diag(4, 1). What is the variance of the data projected onto the unit vector u = (0.6, 0.8)?",
+      "a": "2.08",
+      "wrong": [
+        "4",
+        "2.5",
+        "3.2"
+      ],
+      "why": "The projected variance is uᵀΣu = 0.36 · 4 + 0.64 · 1 = 2.08. The value 4 is the largest possible variance, reached only along (1, 0)."
+    },
+    {
+      "q": "Which statement describes the second principal component?",
+      "a": "The unit direction of greatest variance among those perpendicular to the first component",
+      "wrong": [
+        "The original feature axis whose variance is the second-largest among all the features",
+        "The direction of greatest variance with no further constraint",
+        "The direction of least variance in the data, which is what remains after the first component is removed"
+      ],
+      "why": "Components are eigenvectors of the covariance matrix, ordered by eigenvalue and mutually orthogonal. They are generally combinations of the original features, not the features themselves."
+    },
+    {
+      "q": "The covariance matrix of centered data is [[6, 2], [2, 3]]. What fraction of the total variance does the first principal component carry?",
+      "a": "7/9 ≈ 77.8%",
+      "wrong": [
+        "6/9 ≈ 66.7%",
+        "7/14 = 50%",
+        "2/9 ≈ 22.2%"
+      ],
+      "why": "The trace is 9 and the determinant is 14, so λ² − 9λ + 14 = 0 and λ = 7 or 2. The first carries 7/9. The value 6/9 wrongly takes the largest diagonal entry as the largest eigenvalue."
+    },
+    {
+      "q": "A covariance matrix has eigenvalues 9, 4, 2 and 1. What is the mean squared reconstruction error when the data are projected onto the top two principal components?",
+      "a": "3",
+      "wrong": [
+        "13",
+        "2",
+        "1.5"
+      ],
+      "why": "The error of the best rank-k reconstruction is the sum of the discarded eigenvalues, 2 + 1 = 3. The value 13 is the retained variance."
+    },
+    {
+      "q": "Why do maximizing the retained variance and minimizing the reconstruction error give the same subspace?",
+      "a": "For each centered point ‖x‖² = ‖x̃‖² + ‖x − x̃‖², and ‖x‖² is fixed, so more retained variance means less error",
+      "wrong": [
+        "Both problems are solved by running the same gradient descent procedure from the same starting point, so they end at the same minimum",
+        "The reconstruction error equals the variance only when one component is kept",
+        "Eigenvectors of a symmetric matrix are always orthogonal"
+      ],
+      "why": "Projection splits each point into a kept part and a discarded part that are perpendicular. The total is constant, so whatever is not lost as error is retained as variance."
+    },
+    {
+      "q": "For centered data with SVD X = UΣ_sVᵀ, the k-dimensional scores (the data in principal-component coordinates) are",
+      "a": "XV_k, which equals U_kΣ_k",
+      "wrong": [
+        "U_kV_kᵀ",
+        "V_kΣ_k",
+        "XU_k"
+      ],
+      "why": "The columns of V are the principal components, so projecting X onto the first k gives XV_k. Since XV = UΣ_s, this equals U_kΣ_k."
+    },
+    {
+      "q": "Why is the SVD of the centered data matrix preferred to forming XᵀX and finding its eigenvectors?",
+      "a": "Forming XᵀX squares the condition number, which costs numerical accuracy",
+      "wrong": [
+        "XᵀX has no eigenvectors when the data are centered",
+        "The SVD returns components that are not orthogonal, which the eigenvalue method requires for a valid projection",
+        "The SVD gives the components in a sorted order that no eigenvalue method on XᵀX can give"
+      ],
+      "why": "Singular values of X are the square roots of the eigenvalues of XᵀX, so working with XᵀX squares the ratio between the largest and smallest values. Both methods give orthogonal components in sorted order."
+    },
+    {
+      "q": "A centered data matrix has singular values 20, 10 and 5. What share of the total variance does the first principal component explain?",
+      "a": "400/525 ≈ 76.2%",
+      "wrong": [
+        "20/35 ≈ 57.1%",
+        "400/500 = 80%",
+        "20/30 ≈ 66.7%"
+      ],
+      "why": "Variance is proportional to the squared singular values: 400, 100 and 25, with total 525. The ratio 20/35 uses the singular values themselves, which understates the share."
+    },
+    {
+      "q": "The covariance eigenvalues are 6, 2, 1, 0.5, 0.3 and 0.2. What is the smallest number of components that explains at least 95% of the variance?",
+      "a": "4",
+      "wrong": [
+        "3",
+        "5",
+        "2"
+      ],
+      "why": "The total is 10 and the cumulative shares are 60%, 80%, 90%, 95%, 98%, 100%. Three components reach only 90%, and the fourth reaches 95%."
+    },
+    {
+      "q": "Why does reconstructing from only the top principal components remove much of the noise in a data set?",
+      "a": "The signal is concentrated in a few high-variance directions, while noise is spread over all directions",
+      "wrong": [
+        "Orthogonal components make independent noise cancel out when the data are projected and averaged, leaving only the clean signal",
+        "Noise always has smaller variance than the signal in every direction",
+        "Reconstruction replaces every point by the mean of its neighbors"
+      ],
+      "why": "The discarded low-variance directions hold only a small part of the signal but their full share of the noise, so dropping them removes mostly noise. The noise need not be smaller than the signal in each direction."
+    },
+    {
+      "q": "A principal component has eigenvalue λ = 16, so its scores have variance 16. Whitening divides these scores by",
+      "a": "4",
+      "wrong": [
+        "16",
+        "256",
+        "1/4"
+      ],
+      "why": "Dividing by √λ = 4 scales the variance by 1/16, from 16 to 1. Dividing by 16 would leave a variance of 1/16."
+    },
+    {
+      "q": "Two classes are separated only along a direction of small variance, while a different, irrelevant direction has large variance. A single PCA component is kept for classification. What is the likely outcome?",
+      "a": "The retained component follows the irrelevant high-variance direction and discards the separating one",
+      "wrong": [
+        "PCA keeps the separating direction, because it uses the class labels to decide which direction is the most informative one",
+        "PCA finds both directions with equal eigenvalues",
+        "The classes are automatically merged into a single cluster"
+      ],
+      "why": "PCA ranks directions by variance and never sees the labels. A supervised method such as linear discriminant analysis targets class separation instead."
+    },
+    {
+      "q": "Which claim about PCA is false?",
+      "a": "It uses the class labels to choose directions that separate the classes",
+      "wrong": [
+        "Its components are determined only up to sign",
+        "A few extreme outliers can distort the leading components, because they inflate the variance",
+        "Each component is generally a mix of all the original features, which makes it harder to explain"
+      ],
+      "why": "PCA is unsupervised: it only uses the variance of the inputs. The other three are real limitations: sign ambiguity, sensitivity to outliers, and components that are hard to interpret."
+    },
+    {
+      "q": "What distinguishes factor analysis from probabilistic PCA?",
+      "a": "Factor analysis lets each feature have its own noise variance, while probabilistic PCA uses one shared variance σ²",
+      "wrong": [
+        "Factor analysis has no latent variables",
+        "Probabilistic PCA uses a non-Gaussian latent vector, which is what makes it differ from factor analysis in the first place",
+        "Probabilistic PCA cannot be fitted by maximum likelihood, so it is fitted by the SVD alone"
+      ],
+      "why": "Both are x = μ + Wz + ε with Gaussian latent z. The noise covariance Ψ is a general diagonal matrix in factor analysis and σ²I in probabilistic PCA, whose maximum likelihood solution is PCA."
+    },
+    {
+      "q": "Independent component analysis separates mixed speakers' voices mainly by",
+      "a": "finding directions that are as non-Gaussian as possible, since mixtures look more Gaussian than their sources",
+      "wrong": [
+        "finding directions of greatest variance, as PCA does",
+        "minimizing the squared reconstruction error of the recordings through a narrow bottleneck",
+        "making the recovered signals uncorrelated and sorted by eigenvalue"
+      ],
+      "why": "Uncorrelated is weaker than independent, and PCA stops at uncorrelated. ICA uses the non-Gaussianity of the sources to recover independent components."
+    },
+    {
+      "q": "A user vector is p = (0.8, −0.5, 1) and an item vector is q = (1, 2, 0.5). What rating does the matrix factorization model predict?",
+      "a": "0.3",
+      "wrong": [
+        "2.3",
+        "1.3",
+        "−0.3"
+      ],
+      "why": "The prediction is the inner product 0.8 · 1 + (−0.5)(2) + 1 · 0.5 = 0.8 − 1 + 0.5 = 0.3. The value 2.3 loses the negative sign on the second term."
+    },
+    {
+      "q": "A ratings matrix is mostly empty. When fitting R ≈ PQᵀ, the squared error plus ridge penalty is summed over",
+      "a": "only the observed ratings",
+      "wrong": [
+        "all entries, with missing ratings counted as 0",
+        "all entries, with missing ratings replaced by the user's average",
+        "only the entries the model predicts best"
+      ],
+      "why": "Missing entries carry no information, so the loss is taken over observed entries only. Treating them as zero would teach the model that unseen items are disliked."
+    },
+    {
+      "q": "In a t-SNE plot, two clusters appear far apart. What is the safest conclusion?",
+      "a": "Points inside each cluster are probably neighbors in the original space, but the gap between clusters means little",
+      "wrong": [
+        "The clusters are far apart in the original space",
+        "The clusters differ most along the first principal component of the original data",
+        "A different seed or perplexity will give the same picture"
+      ],
+      "why": "t-SNE preserves local neighborhoods, not global distances. Cluster separation, sizes and shapes depend on the perplexity and the random seed."
+    }
+  ],
   "summary": [
     "PCA finds orthonormal directions of greatest variance: the eigenvectors of the covariance matrix of centered data, with variances equal to the eigenvalues. Equivalently, it gives the best linear reconstruction, with error equal to the sum of discarded eigenvalues.",
     "Compute PCA with the SVD: the components are the columns of V, λ_j = σ_j²/m, scores are XV_k. Choose k by the explained variance ratio or a scree plot.",

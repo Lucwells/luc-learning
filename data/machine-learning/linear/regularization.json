@@ -271,6 +271,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A one-feature ridge problem has XᵀX = 8, Xᵀy = 20 and λ = 2. The ridge slope is",
+      "a": "2",
+      "wrong": [
+        "2.5",
+        "2.75",
+        "3.33"
+      ],
+      "why": "θ̂ = Xᵀy/(XᵀX + λ) = 20/10 = 2, which is the least squares slope 2.5 shrunk by 8/10. Subtracting λ in the denominator gives the too-large 3.33."
+    },
+    {
+      "q": "Why is the intercept θ₀ normally excluded from the ridge penalty?",
+      "a": "Shifting all labels by a constant should not change the slopes",
+      "wrong": [
+        "The intercept is always exactly zero once the features are centered, so a penalty is pointless",
+        "A penalty on θ₀ would make XᵀX + λI singular for collinear features",
+        "The intercept has too few degrees of freedom for a penalty to be meaningful"
+      ],
+      "why": "The intercept only sets the overall level of the predictions. Shrinking it toward zero would bias the fit for no benefit, so it is left free, or the data are centered."
+    },
+    {
+      "q": "A data set has 5 examples and 20 features. For λ > 0, the ridge solution (XᵀX + λI)⁻¹Xᵀy",
+      "a": "exists and is unique, since all eigenvalues of XᵀX + λI are at least λ",
+      "wrong": [
+        "does not exist, because XᵀX has rank at most 5 and cannot be inverted by adding λI",
+        "exists only if λ is larger than the number of features in the model",
+        "exists, but is not unique because there are more features than examples"
+      ],
+      "why": "XᵀX is positive semidefinite, so adding λI lifts every eigenvalue to at least λ > 0, including the zero eigenvalues that arise when n > m."
+    },
+    {
+      "q": "In the SVD view of ridge, a direction with singular value σ = 3 is shrunk with λ = 3. Its shrinkage factor is",
+      "a": "0.75",
+      "wrong": [
+        "0.5",
+        "0.9",
+        "0.25"
+      ],
+      "why": "The factor is σ²/(σ² + λ) = 9/12 = 0.75. Using σ in place of σ² gives 3/6 = 0.5."
+    },
+    {
+      "q": "The squared singular values of X are 12, 4 and 4. The effective degrees of freedom of ridge with λ = 4 are",
+      "a": "1.75",
+      "wrong": [
+        "3.00",
+        "2.50",
+        "1.50"
+      ],
+      "why": "The factors are 12/16 = 0.75, 4/8 = 0.5 and 4/8 = 0.5, which sum to 1.75. With no penalty (λ = 0) the sum would be 3."
+    },
+    {
+      "q": "Compared with ordinary least squares, the ridge estimator is",
+      "a": "biased, with lower variance, and lower MSE at some λ",
+      "wrong": [
+        "unbiased, with lower variance than least squares at every λ",
+        "biased, with higher variance than least squares when features are collinear",
+        "unbiased, but with higher mean squared error than least squares for every λ"
+      ],
+      "why": "Its expectation is (XᵀX + λI)⁻¹XᵀXθ, which is shorter than θ, so it is biased. The variance reduction can outweigh the squared bias."
+    },
+    {
+      "q": "With orthonormal features, the least squares coefficients are z = (−1.8, 0.5, 0.9, 2.5). The lasso solution for λ = 1 is",
+      "a": "(−0.8, 0, 0, 1.5)",
+      "wrong": [
+        "(−1.8, 0, 0, 2.5)",
+        "(−0.9, 0.25, 0.45, 1.25)",
+        "(−2.8, 0, 0, 3.5)"
+      ],
+      "why": "Soft thresholding gives sign(z)·max(|z| − 1, 0). Keeping the large values unchanged is hard thresholding, and halving every value is what ridge does with λ = 1."
+    },
+    {
+      "q": "With orthonormal features and λ > 0, ridge computes θ̂_j = z_j/(1 + λ). Which statement follows?",
+      "a": "Every non-zero z_j stays non-zero; all shrink by the same fraction",
+      "wrong": [
+        "Every coefficient with |z_j| ≤ λ becomes exactly zero, as in soft thresholding",
+        "Each |z_j| is reduced by the fixed amount λ, then clipped at zero",
+        "Small coefficients are shrunk proportionally more than large ones are"
+      ],
+      "why": "Dividing by a constant keeps a non-zero value non-zero and shrinks all coefficients by the same proportion. Fixed-amount subtraction with clipping is the lasso."
+    },
+    {
+      "q": "Two nearly identical features both predict the label well. Which behavior is typical?",
+      "a": "The lasso may keep one arbitrarily; the elastic net tends to keep both or neither",
+      "wrong": [
+        "The lasso splits the weight equally between them, while the elastic net keeps just one",
+        "Both penalties always keep both features at exactly equal weight",
+        "The elastic net drops both because its L2 term cancels the two features"
+      ],
+      "why": "The L1 penalty alone gives no reason to prefer sharing weight between correlated features. Adding an L2 term makes the objective favor spreading the weight, so groups behave together."
+    },
+    {
+      "q": "A lasso model is fit with n = 1000 features and m = 50 examples. At most how many coefficients can be non-zero?",
+      "a": "50",
+      "wrong": [
+        "1000",
+        "49",
+        "25"
+      ],
+      "why": "The lasso selects at most m features when n > m. The count is m, not n, since a unique solution cannot use more features than examples."
+    },
+    {
+      "q": "A categorical variable is coded as 6 dummy columns. Which penalty makes all 6 enter or leave the model together?",
+      "a": "The group lasso",
+      "wrong": [
+        "The plain lasso",
+        "Ridge",
+        "The L0 penalty"
+      ],
+      "why": "The group lasso penalizes the norm of each group of coefficients, so a group is either all zero or active. The plain lasso treats every column on its own."
+    },
+    {
+      "q": "Labels have noise variance σ² = 3, and each weight has a Gaussian prior with variance τ² = 0.5. The equivalent ridge parameter is",
+      "a": "6",
+      "wrong": [
+        "1.5",
+        "0.17",
+        "3"
+      ],
+      "why": "λ = σ²/τ² = 3/0.5 = 6. Inverting the ratio gives 0.17, and multiplying the variances gives 1.5."
+    },
+    {
+      "q": "A researcher becomes less sure that the weights are close to zero (a larger prior variance τ²), with the noise unchanged. The matching ridge λ",
+      "a": "gets smaller, so the shrinkage is weaker",
+      "wrong": [
+        "gets larger, so the shrinkage is stronger",
+        "is unchanged, since only the noise sets λ",
+        "becomes negative"
+      ],
+      "why": "λ = σ²/τ², so a vaguer prior gives a smaller λ. A tighter prior pulls harder toward zero."
+    },
+    {
+      "q": "Why does the MAP estimate approach the maximum likelihood estimate as the training set grows?",
+      "a": "The log-likelihood sums over m examples and dominates the fixed prior term",
+      "wrong": [
+        "The prior variance τ² increases automatically as more examples are collected",
+        "The posterior becomes uniform when data are plentiful, so the prior is ignored",
+        "More data increase the noise variance σ², which drives λ toward zero"
+      ],
+      "why": "The data term grows with m while the prior term stays the same size, so the prior's influence fades."
+    },
+    {
+      "q": "How does the one-standard-error rule choose λ?",
+      "a": "The largest λ whose cross-validated error is within one standard error of the best",
+      "wrong": [
+        "The smallest λ whose training error is within one standard error of zero error",
+        "The λ at which the lasso first sets any coefficient exactly to zero",
+        "The average of the individually best λ values found in each of the folds"
+      ],
+      "why": "Within noise, a larger λ gives a simpler model of nearly equal quality, so the rule prefers it over the strict minimum."
+    },
+    {
+      "q": "As λ is increased from 0 for ridge regression, the training error",
+      "a": "never decreases; validation error typically falls, then rises",
+      "wrong": [
+        "falls steadily, and the validation error also falls steadily with λ",
+        "traces a U shape, with its minimum at the best value of λ",
+        "stays the same, since λ only affects the size of the weights"
+      ],
+      "why": "A stronger penalty moves the fit away from the least squares minimizer, so training error can only go up. Validation error can improve at first because the variance falls."
+    },
+    {
+      "q": "A feature is converted from meters to millimeters before ridge regression is applied. What happens to its fitted coefficient and to the effective penalty on that feature?",
+      "a": "The coefficient is 1000 times smaller, so the penalty on this feature is far weaker",
+      "wrong": [
+        "The coefficient is 1000 times larger, so the penalty on this feature is far stronger",
+        "Both are unchanged, since the penalty is scale invariant",
+        "The coefficient is unchanged, but the penalty on it grows 1000-fold"
+      ],
+      "why": "The same effect now needs a coefficient 1000 times smaller, and squared coefficients are barely penalized. This is why features are standardized before regularizing."
+    },
+    {
+      "q": "A model must predict from 500 features, each of which carries a little signal, and no short feature list is needed. Which is the better first choice?",
+      "a": "Ridge regression",
+      "wrong": [
+        "The lasso",
+        "The L0 penalty",
+        "No penalty, since all features are informative"
+      ],
+      "why": "Ridge keeps every feature with a small weight, which suits many weak signals. The lasso is preferred when only a few features matter or a sparse list is wanted."
+    }
+  ],
   "summary": [
     "Ridge minimizes ‖Xθ − y‖² + λ‖θ‖². The solution (XᵀX + λI)⁻¹Xᵀy always exists and shrinks each singular direction by σ²/(σ² + λ).",
     "The lasso minimizes ½‖Xθ − y‖² + λ‖θ‖₁. It sets coefficients exactly to zero because the L1 ball has corners on the axes. With orthonormal features it is soft thresholding.",

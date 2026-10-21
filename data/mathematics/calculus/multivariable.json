@@ -374,6 +374,370 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "What is the gradient of f(x, y) = x²y + 3y at the point (1, 2)?",
+      "a": "(4, 4)",
+      "wrong": [
+        "(2, 4)",
+        "(4, 1)",
+        "(4, 2)"
+      ],
+      "why": "∂f/∂x = 2xy = 4 and ∂f/∂y = x² + 3 = 4. Dropping the factor y from the first entry or the constant 3 from the second gives the other options."
+    },
+    {
+      "q": "For f(x, y) = x² + y² at (1, 2), what is the directional derivative along the unit vector u = (3, 4)/5?",
+      "a": "4.4",
+      "wrong": [
+        "22",
+        "4.0",
+        "6"
+      ],
+      "why": "∇f = (2, 4), and ∇f·u = (6 + 16)/5 = 4.4. Using (3, 4) without dividing by 5 gives 22; swapping the components of u gives 4.0."
+    },
+    {
+      "q": "For f(x, y) = x² + 4y² at (2, 1), what is true of the direction −∇f?",
+      "a": "It is (−4, −8), steeper in y than the straight line (−2, −1) to the minimizer at the origin",
+      "wrong": [
+        "It points exactly at the minimizer, since steepest descent always does",
+        "It points at the minimizer, because f is convex",
+        "It is parallel to the contour through the point"
+      ],
+      "why": "∇f = (2x, 8y) = (4, 8), which is not proportional to the direction (−2, −1) toward the origin. The gradient is perpendicular to the contour, not parallel."
+    },
+    {
+      "q": "For f(x, y) = x² + 4y², what is the second derivative of f at (0, 0) along the unit direction u = (1, 1)/√2?",
+      "a": "5",
+      "wrong": [
+        "10",
+        "2.5",
+        "6"
+      ],
+      "why": "The Hessian is diag(2, 8), so uᵀHu = (2 + 8)/2 = 5. Using the unnormalized vector (1, 1) gives 10, and the trace/2 would be 5 only by coincidence of the equal split."
+    },
+    {
+      "q": "A layer computes z = Wx with W = [[1, 2, 0], [0, 1, 3]], and the upstream gradient is ∂L/∂z = (1, −1). What is ∂L/∂x?",
+      "a": "(1, 1, −3)",
+      "wrong": [
+        "(1, 3, 3)",
+        "(−1, −1, 3)",
+        "(1, 2, −3)"
+      ],
+      "why": "∂L/∂x = Wᵀδ = (1·1 + 0·(−1), 2·1 + 1·(−1), 0·1 + 3·(−1)) = (1, 1, −3). Using (1, 1) for δ instead gives (1, 3, 3)."
+    },
+    {
+      "q": "What is the Jacobian of f(x, y) = (xy, x + y²) at the point (2, 3)?",
+      "a": "[[3, 2], [1, 6]]",
+      "wrong": [
+        "[[3, 1], [2, 6]]",
+        "[[3, 2], [1, 3]]",
+        "[[2, 3], [1, 6]]"
+      ],
+      "why": "J = [[y, x], [1, 2y]], with rows for outputs and columns for inputs. The transposed matrix, the entry 3 instead of 2y = 6, and swapped columns are common slips."
+    },
+    {
+      "q": "A network has a million parameters and one scalar loss. Why is it efficient to multiply the chain of Jacobians starting from the output?",
+      "a": "Each step is a transposed Jacobian times a vector, so no full Jacobian matrix is ever formed",
+      "wrong": [
+        "Later layers always have diagonal Jacobians",
+        "It gives a different gradient that is cheaper to compute",
+        "It lets the activation functions be skipped"
+      ],
+      "why": "Starting from the scalar loss, the running quantity is always a vector, so only matrix-vector products are needed. The order does not change the result; it changes the cost."
+    },
+    {
+      "q": "For p = softmax(z) with p = (0.6, 0.4), what is ∂p₁/∂z₂?",
+      "a": "−0.24",
+      "wrong": [
+        "0.24",
+        "−0.6",
+        "0.36"
+      ],
+      "why": "For i ≠ j, ∂p_i/∂z_j = −p_i p_j = −0.24. Raising z₂ takes probability from class 1. The value 0.36 is the diagonal entry p₁(1 − p₁)... computed with the wrong factor."
+    },
+    {
+      "q": "The function f(x, y) = x² + 3xy + y² has a critical point at the origin. Which is correct?",
+      "a": "A saddle point, since H has eigenvalues 5 and −1",
+      "wrong": [
+        "A local minimum, because both diagonal entries of H are positive",
+        "A local maximum, because the cross term is positive",
+        "It cannot be classified, since H is not diagonal"
+      ],
+      "why": "H = [[2, 3], [3, 2]] has trace 4 and determinant −5, so its eigenvalues are 5 and −1. Positive diagonal entries alone do not make a matrix positive definite."
+    },
+    {
+      "q": "For f(x, y) = x²y at (1, 2), what does the second-order Taylor approximation give for f(1.1, 2.2)?",
+      "a": "2.66",
+      "wrong": [
+        "2.60",
+        "2.72",
+        "2.06"
+      ],
+      "why": "f = 2, ∇f = (4, 1), H = [[4, 2], [2, 0]] and d = (0.1, 0.2): 2 + 0.6 + ½(0.12) = 2.66. The first-order estimate is 2.60, and omitting the ½ gives 2.72."
+    },
+    {
+      "q": "At a minimum of a quadratic loss, the Hessian has eigenvalues 1 and 10. Gradient descent is stable for step sizes α below about",
+      "a": "0.2",
+      "wrong": [
+        "2",
+        "0.1",
+        "20"
+      ],
+      "why": "The limit is 2/λ_max = 2/10 = 0.2. The steepest direction sets the limit; the eigenvalue 1 only governs how slowly the flat direction converges."
+    },
+    {
+      "q": "Which claim about L(θ) = ‖Xθ − y‖² is FALSE?",
+      "a": "Its Hessian 2XᵀX is positive definite for every X, so the minimizer is always unique",
+      "wrong": [
+        "L is convex, because vᵀXᵀXv = ‖Xv‖² ≥ 0",
+        "Every solution of the normal equations is a global minimizer",
+        "The Hessian does not depend on θ"
+      ],
+      "why": "XᵀX is only positive semidefinite: if the columns of X are linearly dependent, some v ≠ 0 has Xv = 0 and there are many minimizers."
+    },
+    {
+      "q": "Let A = [[2, 1], [3, 4]] and x = (1, 1). What is the gradient of xᵀAx at x?",
+      "a": "(8, 12)",
+      "wrong": [
+        "(6, 14)",
+        "(3, 7)",
+        "(−2, 2)"
+      ],
+      "why": "A is not symmetric, so the gradient is (A + Aᵀ)x = [[4, 4], [4, 8]](1, 1) = (8, 12). The formula 2Ax = (6, 14) holds only for symmetric A."
+    },
+    {
+      "q": "For A = [[1, 2], [3, 4]], what is the gradient ∇_X tr(AX) with respect to the 2 × 2 matrix X?",
+      "a": "Aᵀ = [[1, 3], [2, 4]]",
+      "wrong": [
+        "A = [[1, 2], [3, 4]]",
+        "5I",
+        "[[1, 0], [0, 4]]"
+      ],
+      "why": "tr(AX) = Σ A_ij X_ji, so ∂/∂X_ji = A_ij, which places A_ij in position (j, i): the transpose. 5I would be tr(A) times the identity."
+    },
+    {
+      "q": "What is ∬ (x + y) dA over the rectangle 0 ≤ x ≤ 2, 0 ≤ y ≤ 3?",
+      "a": "15",
+      "wrong": [
+        "9",
+        "5",
+        "6"
+      ],
+      "why": "∫₀² (3x + 4.5) dx = 6 + 9 = 15. Multiplying the separate integrals (2 × 4.5 = 9) is wrong because x + y does not factorize into g(x)h(y)."
+    },
+    {
+      "q": "What is ∬ (x² + y²) dA over the disc x² + y² ≤ 4?",
+      "a": "8π",
+      "wrong": [
+        "16π/3",
+        "4π",
+        "16π"
+      ],
+      "why": "In polar coordinates the integral is ∫₀^{2π}∫₀² r² · r dr dθ = 2π · 4 = 8π. Omitting the Jacobian factor r gives 16π/3."
+    },
+    {
+      "q": "A linear map x = Au with A = [[1, 2], [3, 4]] is applied to a region of area 5. What is the area of the image?",
+      "a": "10",
+      "wrong": [
+        "2.5",
+        "25",
+        "5"
+      ],
+      "why": "|det A| = |4 − 6| = 2, so areas are multiplied by 2. Dividing by the determinant, or using the trace (5), are common errors."
+    },
+    {
+      "q": "Why does the standard derivation of ∫e^{−x²/2}dx square the integral and move to polar coordinates?",
+      "a": "The squared integral has an integrand depending only on r, and with the extra factor r it has a closed-form antiderivative",
+      "wrong": [
+        "Squaring makes the value positive, which polar coordinates require",
+        "Polar coordinates can only be applied to integrals of squared functions",
+        "Fubini's theorem fails for the unsquared integral"
+      ],
+      "why": "e^{−(x²+y²)/2} = e^{−r²/2}, and ∫ e^{−r²/2} r dr = −e^{−r²/2} is elementary. The one-variable integral has no elementary antiderivative."
+    }
+  ],
+  "quiz": [
+    {
+      "q": "What is the gradient of f(x, y) = x²y + 3y at the point (1, 2)?",
+      "a": "(4, 4)",
+      "wrong": [
+        "(2, 4)",
+        "(4, 1)",
+        "(4, 2)"
+      ],
+      "why": "∂f/∂x = 2xy = 4 and ∂f/∂y = x² + 3 = 4. Dropping the factor y from the first entry or the constant 3 from the second gives the other options."
+    },
+    {
+      "q": "For f(x, y) = x² + y² at (1, 2), what is the directional derivative along the unit vector u = (3, 4)/5?",
+      "a": "4.4",
+      "wrong": [
+        "22",
+        "4.0",
+        "6"
+      ],
+      "why": "∇f = (2, 4), and ∇f·u = (6 + 16)/5 = 4.4. Using (3, 4) without dividing by 5 gives 22; swapping the components of u gives 4.0."
+    },
+    {
+      "q": "For f(x, y) = x² + 4y² at (2, 1), what is true of the direction −∇f?",
+      "a": "It is (−4, −8), steeper in y than the straight line (−2, −1) to the minimizer at the origin",
+      "wrong": [
+        "It points exactly at the minimizer, since steepest descent always aims straight at the minimum",
+        "It points at the minimizer, because f is convex and every convex function has this property",
+        "It is parallel to the contour through the point"
+      ],
+      "why": "∇f = (2x, 8y) = (4, 8), which is not proportional to the direction (−2, −1) toward the origin. The gradient is perpendicular to the contour, not parallel."
+    },
+    {
+      "q": "For f(x, y) = x² + 4y², what is the second derivative of f at (0, 0) along the unit direction u = (1, 1)/√2?",
+      "a": "5",
+      "wrong": [
+        "10",
+        "2.5",
+        "6"
+      ],
+      "why": "The Hessian is diag(2, 8), so uᵀHu = (2 + 8)/2 = 5. Using the unnormalized vector (1, 1) instead of the unit vector gives 10."
+    },
+    {
+      "q": "A layer computes z = Wx with W = [[1, 2, 0], [0, 1, 3]], and the upstream gradient is ∂L/∂z = (1, −1). What is ∂L/∂x?",
+      "a": "(1, 1, −3)",
+      "wrong": [
+        "(1, 3, 3)",
+        "(−1, −1, 3)",
+        "(1, 2, −3)"
+      ],
+      "why": "∂L/∂x = Wᵀδ = (1·1 + 0·(−1), 2·1 + 1·(−1), 0·1 + 3·(−1)) = (1, 1, −3). Using (1, 1) for δ instead gives (1, 3, 3)."
+    },
+    {
+      "q": "What is the Jacobian of f(x, y) = (xy, x + y²) at the point (2, 3)?",
+      "a": "[[3, 2], [1, 6]]",
+      "wrong": [
+        "[[3, 1], [2, 6]]",
+        "[[3, 2], [1, 3]]",
+        "[[2, 3], [1, 6]]"
+      ],
+      "why": "J = [[y, x], [1, 2y]], with rows for outputs and columns for inputs. The transposed matrix, the entry 3 instead of 2y = 6, and swapped columns are common slips."
+    },
+    {
+      "q": "A network has a million parameters and one scalar loss. Why is it efficient to multiply the chain of Jacobians starting from the output?",
+      "a": "Each step is a transposed Jacobian times a vector, so no full Jacobian matrix is ever formed",
+      "wrong": [
+        "Later layers always have diagonal Jacobians, which makes the products trivial",
+        "It gives a different gradient that is cheaper to compute",
+        "It lets the activation functions be skipped"
+      ],
+      "why": "Starting from the scalar loss, the running quantity is always a vector, so only matrix-vector products are needed. The order does not change the result; it changes the cost."
+    },
+    {
+      "q": "For p = softmax(z) with p = (0.6, 0.4), what is ∂p₁/∂z₂?",
+      "a": "−0.24",
+      "wrong": [
+        "0.24",
+        "−0.36",
+        "0.36"
+      ],
+      "why": "For i ≠ j, ∂p_i/∂z_j = −p_i p_j = −0.24: raising z₂ takes probability away from class 1. The value 0.36 comes from wrongly using p₁(1 − p₂)."
+    },
+    {
+      "q": "The function f(x, y) = x² + 3xy + y² has a critical point at the origin. Which is correct?",
+      "a": "A saddle point, since H has eigenvalues 5 and −1",
+      "wrong": [
+        "A local minimum, because both diagonal entries of H are positive",
+        "A local maximum, because the cross term is positive",
+        "It cannot be classified, since H is not diagonal"
+      ],
+      "why": "H = [[2, 3], [3, 2]] has trace 4 and determinant −5, so its eigenvalues are 5 and −1. Positive diagonal entries alone do not make a matrix positive definite."
+    },
+    {
+      "q": "For f(x, y) = x²y at (1, 2), what does the second-order Taylor approximation give for f(1.1, 2.2)?",
+      "a": "2.66",
+      "wrong": [
+        "2.60",
+        "2.72",
+        "2.06"
+      ],
+      "why": "f = 2, ∇f = (4, 1), H = [[4, 2], [2, 0]] and d = (0.1, 0.2): 2 + 0.6 + ½(0.12) = 2.66. The first-order estimate is 2.60, and omitting the ½ gives 2.72."
+    },
+    {
+      "q": "At a minimum of a quadratic loss, the Hessian has eigenvalues 1 and 10. Gradient descent is stable for step sizes α below about",
+      "a": "0.2",
+      "wrong": [
+        "2",
+        "0.1",
+        "20"
+      ],
+      "why": "The limit is 2/λ_max = 2/10 = 0.2. The steepest direction sets the limit; the eigenvalue 1 only governs how slowly the flat direction converges."
+    },
+    {
+      "q": "Which claim about L(θ) = ‖Xθ − y‖² is FALSE?",
+      "a": "Its Hessian 2XᵀX is positive definite for every X, so the minimizer is always unique",
+      "wrong": [
+        "L is convex, because vᵀXᵀXv = ‖Xv‖² ≥ 0",
+        "Every solution of the normal equations is a global minimizer",
+        "The Hessian does not depend on θ"
+      ],
+      "why": "XᵀX is only positive semidefinite: if the columns of X are linearly dependent, some v ≠ 0 has Xv = 0 and there are many minimizers."
+    },
+    {
+      "q": "Let A = [[2, 1], [3, 4]] and x = (1, 1). What is the gradient of xᵀAx at x?",
+      "a": "(8, 12)",
+      "wrong": [
+        "(6, 14)",
+        "(3, 7)",
+        "(−2, 2)"
+      ],
+      "why": "A is not symmetric, so the gradient is (A + Aᵀ)x = [[4, 4], [4, 8]](1, 1) = (8, 12). The formula 2Ax = (6, 14) holds only for symmetric A."
+    },
+    {
+      "q": "For A = [[1, 2], [3, 4]], what is the gradient ∇_X tr(AX) with respect to the 2 × 2 matrix X?",
+      "a": "Aᵀ = [[1, 3], [2, 4]]",
+      "wrong": [
+        "A itself, [[1, 2], [3, 4]], with no transpose",
+        "5I",
+        "[[1, 0], [0, 4]]"
+      ],
+      "why": "tr(AX) = Σ A_ij X_ji, so ∂/∂X_ji = A_ij, which places A_ij in position (j, i): the transpose. 5I would be tr(A) times the identity."
+    },
+    {
+      "q": "What is ∬ (x + y) dA over the rectangle 0 ≤ x ≤ 2, 0 ≤ y ≤ 3?",
+      "a": "15",
+      "wrong": [
+        "9",
+        "12",
+        "5"
+      ],
+      "why": "∫₀² (3x + 4.5) dx = 6 + 9 = 15. Multiplying the separate integrals (2 × 4.5 = 9) is wrong because x + y does not factorize into g(x)h(y)."
+    },
+    {
+      "q": "What is ∬ (x² + y²) dA over the disc x² + y² ≤ 4?",
+      "a": "8π",
+      "wrong": [
+        "16π/3",
+        "4π",
+        "16π"
+      ],
+      "why": "In polar coordinates the integral is ∫₀^{2π}∫₀² r² · r dr dθ = 2π · 4 = 8π. Omitting the Jacobian factor r gives 16π/3."
+    },
+    {
+      "q": "A linear map x = Au with A = [[1, 2], [3, 4]] is applied to a region of area 5. What is the area of the image?",
+      "a": "10",
+      "wrong": [
+        "2.5",
+        "25",
+        "5"
+      ],
+      "why": "|det A| = |4 − 6| = 2, so areas are multiplied by 2. Dividing by the determinant, or using the trace (5), are common errors."
+    },
+    {
+      "q": "Why does the standard derivation of ∫e^{−x²/2}dx square the integral and move to polar coordinates?",
+      "a": "The squared integral has an integrand depending only on r, and with the extra factor r it has a closed-form antiderivative",
+      "wrong": [
+        "Squaring makes the value positive, which polar coordinates require",
+        "Polar coordinates can only be applied to integrals of squared functions",
+        "Fubini's theorem fails for the unsquared integral"
+      ],
+      "why": "e^{−(x²+y²)/2} = e^{−r²/2}, and ∫ e^{−r²/2} r dr = −e^{−r²/2} is elementary. The one-variable integral has no elementary antiderivative."
+    }
+  ],
   "summary": [
     "The gradient ∇f collects partial derivatives; it points in the direction of steepest ascent, is perpendicular to level sets, and gives D_u f = ∇fᵀu.",
     "The Jacobian of f : ℝⁿ → ℝᵐ is an m × n matrix; the chain rule multiplies Jacobians. Backpropagation evaluates vector–Jacobian products from the output backward.",

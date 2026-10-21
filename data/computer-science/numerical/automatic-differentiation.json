@@ -496,6 +496,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A model has 10⁶ parameters and a scalar loss. How does the cost of one gradient by reverse-mode AD compare with the cost of evaluating the loss?",
+      "a": "A small constant multiple, typically 2 to 4 times, whatever the number of parameters",
+      "wrong": [
+        "About 10⁶ times as much, because a separate backward pass is needed for each of the parameters",
+        "About twice as much per parameter",
+        "Exactly the same, since AD is free"
+      ],
+      "why": "The cheap gradient principle: one forward pass plus one backward pass yields all partial derivatives. Finite differences would need about 10⁶ + 1 evaluations."
+    },
+    {
+      "q": "What is 'expression swell' in symbolic differentiation?",
+      "a": "The derivative expression can become exponentially larger than the formula of the function itself",
+      "wrong": [
+        "The error of the derivative estimate grows steadily as the finite-difference step h gets smaller and smaller",
+        "The memory use of dual numbers doubling at each operation",
+        "Gradients being added up when a variable is used twice"
+      ],
+      "why": "Symbolic differentiation applies rules to formulas, and the product and chain rules repeat sub-expressions. AD avoids this by working with numbers along the trace."
+    },
+    {
+      "q": "Which claim about automatic differentiation is false?",
+      "a": "It produces a formula for the derivative, which can then be simplified",
+      "wrong": [
+        "Its results are exact up to rounding error",
+        "It differentiates the operations that were actually executed, loops included",
+        "It computes the numerical value of the derivative alongside the value of the function"
+      ],
+      "why": "AD never builds a symbolic derivative. It evaluates derivative values at the given input by applying the chain rule to each elementary operation."
+    },
+    {
+      "q": "Forward mode is applied to f(x, y) = x·exp(y) at (2, 0) with the seed ẋ = 0, ẏ = 1. What tangent does the output have?",
+      "a": "2",
+      "wrong": [
+        "1",
+        "0",
+        "3"
+      ],
+      "why": "With v₃ = exp y = 1 and v̇₃ = v₃·ẏ = 1, the product rule gives v̇₄ = ẋ·v₃ + x·v̇₃ = 0 + 2 = 2, which is ∂f/∂y = x·eʸ. The seed (1, 0) would have given 1."
+    },
+    {
+      "q": "Reverse mode is applied to f(x, y) = x·y + y² at (3, 2). What is the adjoint ȳ = ∂f/∂y?",
+      "a": "7",
+      "wrong": [
+        "3",
+        "4",
+        "5"
+      ],
+      "why": "The variable y feeds two operations. The product contributes x = 3 and the square contributes 2y = 4, and the contributions add: 7. Counting only one use gives 3 or 4."
+    },
+    {
+      "q": "A simulation maps 3 parameters to 10,000 output values. To obtain its full Jacobian, which mode is better, and how many passes does it need?",
+      "a": "Forward mode, 3 passes",
+      "wrong": [
+        "Reverse mode, 10,000 passes",
+        "Reverse mode, 3 passes",
+        "Forward mode, 10,000 passes"
+      ],
+      "why": "Forward mode needs one pass per input and reverse mode one per output. With few inputs and many outputs, forward mode needs far fewer passes."
+    },
+    {
+      "q": "Why must reverse mode store the intermediate values of the forward pass?",
+      "a": "The local derivatives used in the backward pass depend on those values",
+      "wrong": [
+        "It stores the full Jacobian matrix of every layer so that it can multiply them at the end",
+        "It repeats the forward pass once per parameter",
+        "Adjoints must be kept in higher precision than values"
+      ],
+      "why": "For example, ∂(ab)/∂a = b needs b, and ∂(sin a)/∂a needs cos a. This is why memory grows with the number of operations."
+    },
+    {
+      "q": "Gradient checkpointing stores only some activations of a network. What does this cost?",
+      "a": "Recomputation: roughly one extra forward pass during the backward pass",
+      "wrong": [
+        "A second backward pass over the whole network",
+        "Less accurate gradients, because values are approximated",
+        "Storing the Hessian of each checkpointed layer"
+      ],
+      "why": "The skipped activations are recomputed from the nearest checkpoint when the backward pass needs them. Gradients stay exact, and memory is traded for computation."
+    },
+    {
+      "q": "Why is forming the Hessian impractical for a model with 10⁶ parameters, and how can a Hessian–vector product be obtained instead?",
+      "a": "The Hessian has 10¹² entries, but Hv costs a few gradients by differentiating the gradient",
+      "wrong": [
+        "Hv needs one finite-difference gradient for each parameter, so 10⁶ gradient evaluations are required",
+        "The Hessian is undefined for neural networks",
+        "A single reverse-mode pass already returns the full Hessian"
+      ],
+      "why": "Differentiating the gradient in the direction v (forward mode over reverse mode) gives Hv at a small multiple of the cost of one gradient, with no n × n matrix stored."
+    },
+    {
+      "q": "With the chapter's Dual class and x = Dual(3.0, 1.0), what is `((x * x + 1) * x).tangent`?",
+      "a": "28.0",
+      "wrong": [
+        "27.0",
+        "30.0",
+        "10.0"
+      ],
+      "why": "x·x = (9, 6) and adding 1 gives (10, 6). Multiplying by x = (3, 1) gives tangent 6·3 + 10·1 = 28, which is d/dx(x³ + x) = 3x² + 1. The value of the output is 30."
+    },
+    {
+      "q": "Dual numbers satisfy ε² = 0. What is (2 + 3ε)(4 + 5ε)?",
+      "a": "8 + 22ε",
+      "wrong": [
+        "8 + 15ε",
+        "8 + 12ε",
+        "8 + 10ε"
+      ],
+      "why": "The product rule gives ac + (ad + bc)ε = 8 + (2·5 + 3·4)ε = 8 + 22ε. The term 15ε² vanishes. The other options each drop one of the two cross terms."
+    },
+    {
+      "q": "In the chapter's engine, the `+=` in Value.__mul__ is changed to `=`. For c = a * a with a = 3.0, what is a.grad after c.backward()?",
+      "a": "3.0",
+      "wrong": [
+        "6.0",
+        "9.0",
+        "0.0"
+      ],
+      "why": "Both lines write to the same node a: each assigns other.data · out.grad = 3 and overwrites the first contribution. With accumulation the contributions add to 6 = 2a."
+    },
+    {
+      "q": "Why does backward() process nodes in reverse topological order?",
+      "a": "A node's gradient is complete only once every operation that uses it has sent its contribution",
+      "wrong": [
+        "It keeps all gradients positive",
+        "Inputs must be visited first, because their values are needed before the gradients of the outputs can be computed",
+        "It uses the least memory of all possible orders"
+      ],
+      "why": "A node used by several operations receives a contribution from each. Visiting outputs before inputs guarantees all contributions have arrived before the node pushes its gradient on."
+    },
+    {
+      "q": "For a matrix product C = AB, which pair gives the gradients Ā and B̄ in terms of the output gradient C̄?",
+      "a": "Ā = C̄Bᵀ and B̄ = AᵀC̄",
+      "wrong": [
+        "Ā = BᵀC̄ and B̄ = C̄Aᵀ",
+        "Ā = C̄B and B̄ = AC̄",
+        "Ā = C̄ᵀB and B̄ = AC̄ᵀ"
+      ],
+      "why": "Each rule multiplies C̄ by the other matrix, transposed so the shapes match: for A of size m × k, C̄Bᵀ is m × k. The other pairs have the right ingredients in the wrong order or orientation."
+    },
+    {
+      "q": "In PyTorch, x = torch.tensor(3.0, requires_grad=True); z = x.detach() * x; z.backward(). What is x.grad?",
+      "a": "tensor(3.)",
+      "wrong": [
+        "tensor(6.)",
+        "tensor(9.)",
+        "tensor(0.)"
+      ],
+      "why": "The detached factor is treated as the constant 3, so only the second factor is differentiated and dz/dx = 3. Without detach the product rule would give 2x = 6."
+    },
+    {
+      "q": "A loss uses y = argmax(logits). What is the gradient of y with respect to the logits, and what is a standard remedy?",
+      "a": "Zero or undefined; use a smooth surrogate such as softmax",
+      "wrong": [
+        "One for the winning logit; no remedy is needed",
+        "Infinite at the maximum; clip the gradient",
+        "The same as softmax's derivative, automatically"
+      ],
+      "why": "Argmax is piecewise constant, so its derivative is zero where it exists and carries no signal. Softmax is differentiable and approximates it, while the straight-through estimator is another option."
+    },
+    {
+      "q": "In JAX, `grad_loss = jax.grad(loss)` where loss(w, X, t) returns a scalar. What is grad_loss?",
+      "a": "A function that returns the gradient of the loss with respect to w",
+      "wrong": [
+        "The numerical gradient at the current value of w",
+        "A symbolic expression for the derivative of loss",
+        "A function that returns the Hessian of the loss"
+      ],
+      "why": "JAX treats differentiation as a function transformation, by default with respect to the first argument. It composes with jit and vmap, and no formula is produced."
+    },
+    {
+      "q": "Memory fits a batch of 64 but you want an effective batch of 256 in PyTorch. Which procedure does this?",
+      "a": "Call backward on four batches of 64 without zeroing, then take one optimizer step and zero the gradients",
+      "wrong": [
+        "Call zero_grad() after every backward call and take the optimizer step only after the fourth batch has been processed",
+        "Average the weights of four separate models",
+        "Call backward once with requires_grad switched off"
+      ],
+      "why": "Gradients accumulate into .grad on every backward call, so four mini-batch gradients (each loss scaled by 1/4) sum to the gradient of the large batch. Zeroing in between would discard them."
+    }
+  ],
   "summary": [
     "Automatic differentiation applies the chain rule to the elementary operations that a program executes. It is exact up to rounding, unlike finite differences, and never builds a symbolic formula.",
     "Forward mode propagates tangents alongside values (dual numbers) and gives a Jacobian–vector product per pass; reverse mode runs the program, records the trace, and propagates adjoints backward, giving a vector–Jacobian product per pass.",

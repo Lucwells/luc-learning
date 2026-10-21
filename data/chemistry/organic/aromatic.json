@@ -551,6 +551,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "The tropylium cation, C₇H₇⁺, forms stable salts. The best explanation is that",
+      "a": "it is a planar ring of seven sp² carbons holding 6 π electrons",
+      "wrong": [
+        "it has 7 π electrons, an odd number that fills every bonding orbital",
+        "it is a tertiary carbocation stabilized by hyperconjugation",
+        "it has 4 π electrons, and 4n counts are the stable ones"
+      ],
+      "why": "Seven p orbitals, one of them empty, hold 6 π electrons (4n + 2 with n = 1) in a planar, cyclic, fully conjugated ring. A 4n count would be destabilizing."
+    },
+    {
+      "q": "Hydrogenating cyclohexene releases 120 kJ mol⁻¹, and hydrogenating benzene to cyclohexane releases 208 kJ mol⁻¹. The estimated aromatic stabilization of benzene is",
+      "a": "152 kJ mol⁻¹",
+      "wrong": [
+        "88 kJ mol⁻¹",
+        "240 kJ mol⁻¹",
+        "328 kJ mol⁻¹"
+      ],
+      "why": "Three isolated C=C bonds would release 3 × 120 = 360 kJ mol⁻¹. Benzene releases 208, so it is lower in energy by 360 − 208 = 152 kJ mol⁻¹."
+    },
+    {
+      "q": "In the nitration of benzene, which step is rate-determining and why?",
+      "a": "Attack of the π system on NO₂⁺, because it temporarily destroys aromaticity",
+      "wrong": [
+        "Loss of H⁺ from the arenium ion, because the C–H bond is very strong",
+        "Capture of the arenium ion by a nucleophile, which competes with proton loss",
+        "None; C–E bond formation and loss of H⁺ occur in one concerted step"
+      ],
+      "why": "The first step converts a stable aromatic ring into a high-energy arenium ion. Proton loss then restores the aromatic sextet and is fast."
+    },
+    {
+      "q": "Benzene is treated with 1-chlorobutane and AlCl₃. The main product is",
+      "a": "sec-butylbenzene, formed after a hydride shift",
+      "wrong": [
+        "butylbenzene, since the chlorine sits on a primary carbon",
+        "tert-butylbenzene, formed after two successive methyl shifts",
+        "no reaction, since primary halides do not ionize with AlCl₃"
+      ],
+      "why": "The incipient primary cation rearranges by a 1,2-hydride shift to the more stable secondary cation, which alkylates the ring. Acylation followed by Clemmensen reduction would give the straight chain."
+    },
+    {
+      "q": "Toluene (0.50 mol) is nitrated in 80% overall yield, and the nitrotoluenes form in the ratio o : m : p = 58 : 4 : 38. How much p-nitrotoluene is formed?",
+      "a": "0.152 mol",
+      "wrong": [
+        "0.190 mol",
+        "0.232 mol",
+        "0.016 mol"
+      ],
+      "why": "Total product is 0.50 × 0.80 = 0.40 mol, and the para fraction is 0.38, giving 0.152 mol. Skipping the yield gives 0.190, and 0.232 is the ortho amount."
+    },
+    {
+      "q": "Which list is in order of decreasing rate of nitration?",
+      "a": "anisole > toluene > benzene > chlorobenzene > nitrobenzene",
+      "wrong": [
+        "toluene > anisole > benzene > nitrobenzene > chlorobenzene",
+        "anisole > toluene > benzene > nitrobenzene > chlorobenzene",
+        "benzene > toluene > anisole > chlorobenzene > nitrobenzene"
+      ],
+      "why": "OMe is a moderate activator, alkyl is a weak one, a halogen is weakly deactivating and NO₂ is strongly deactivating (about 10⁷ times slower than benzene)."
+    },
+    {
+      "q": "Benzaldehyde is nitrated mainly at the meta position because",
+      "a": "ortho or para attack puts positive charge next to the electron-withdrawing group in one resonance form",
+      "wrong": [
+        "the meta product is thermodynamically favored by reduced steric strain in the final product",
+        "the carbonyl group donates electron density specifically to the two meta carbons of the ring",
+        "the oxygen of the CHO group physically blocks the ortho and para positions from attack"
+      ],
+      "why": "Attack at ortho or para gives a resonance structure with the cation adjacent to the carbonyl-bearing carbon, which is very unfavorable. Meta attack avoids it, so it is the least disfavored."
+    },
+    {
+      "q": "Which statement about chlorine on a benzene ring is correct?",
+      "a": "It withdraws by induction, slowing EAS, but its lone pairs stabilize the ortho and para intermediates",
+      "wrong": [
+        "It donates by induction and withdraws by resonance, which gives net deactivation of the ring",
+        "It withdraws electrons, so like other deactivators such as NO₂ it directs meta",
+        "It activates the ring toward EAS by lone-pair donation but directs only to the para position"
+      ],
+      "why": "Inductive withdrawal sets the rate, while resonance donation from the lone pairs controls the orientation. That is why halogens are deactivating yet ortho/para directing."
+    },
+    {
+      "q": "Aniline is converted to acetanilide before it is nitrated. The main reason is that",
+      "a": "NH₂ is oxidized by HNO₃ and over-activating; the amide is a milder o/p activator",
+      "wrong": [
+        "the amide is a meta director that steers NO₂ away from the ortho and para positions",
+        "aniline is insoluble in the nitrating mixture, whereas acetanilide dissolves readily in it",
+        "NH₂ is a meta director, and acetylation changes it into an ortho/para director"
+      ],
+      "why": "The amide nitrogen lone pair is shared with the C=O, so it donates less strongly than a free NH₂ and survives nitric acid. Hydrolysis then regenerates the amine."
+    },
+    {
+      "q": "Which compound is NOT oxidized to benzoic acid by hot KMnO₄?",
+      "a": "tert-butylbenzene",
+      "wrong": [
+        "isopropylbenzene",
+        "ethylbenzene",
+        "toluene"
+      ],
+      "why": "Oxidation requires at least one benzylic hydrogen. The benzylic carbon of tert-butylbenzene has none, while the other three each have one or more."
+    },
+    {
+      "q": "Ethylbenzene is heated with NBS and a radical initiator. The major product is",
+      "a": "(1-bromoethyl)benzene",
+      "wrong": [
+        "(2-bromoethyl)benzene",
+        "1-bromo-2-ethylbenzene",
+        "(1,2-dibromoethyl)benzene"
+      ],
+      "why": "NBS provides a low concentration of Br₂, and the radical at the benzylic carbon is resonance stabilized by the ring. Bromine ends up on that carbon and the ring is left alone."
+    },
+    {
+      "q": "Anisole (methoxybenzene) undergoes Birch reduction with Na in liquid NH₃ and an alcohol. The product is",
+      "a": "1-methoxycyclohexa-1,4-diene",
+      "wrong": [
+        "3-methoxycyclohexa-1,4-diene",
+        "methoxycyclohexane",
+        "1-methoxycyclohexa-1,3-diene"
+      ],
+      "why": "Birch reduction stops at a 1,4-diene, and an electron-donating group such as OMe remains on a carbon of a double bond. An electron-withdrawing group would end up on an sp³ carbon."
+    },
+    {
+      "q": "Why must the nitro group be ortho or para, rather than meta, to the halogen for SNAr to occur readily?",
+      "a": "Only then can the negative charge of the Meisenheimer complex be delocalized onto the nitro group",
+      "wrong": [
+        "A meta nitro group is electron-donating, so it deactivates the ring toward nucleophiles",
+        "A meta nitro group sterically blocks the nucleophile from approaching the carbon bearing the halogen",
+        "Only an ortho or para nitro group can leave first and generate a benzyne"
+      ],
+      "why": "The anion formed by addition has its charge at the ortho and para carbons relative to the attacked carbon. A nitro group there stabilizes it by resonance, whereas a meta nitro group offers only a weak inductive effect."
+    },
+    {
+      "q": "Chlorobenzene labeled with ¹⁴C at C-1 reacts with NaNH₂ in liquid NH₃. Where is the NH₂ in the aniline product?",
+      "a": "About half on the labeled carbon and half on the adjacent carbon",
+      "wrong": [
+        "Entirely on the labeled carbon, by direct substitution",
+        "Entirely on the adjacent carbon, after a 1,2-shift of the amino group",
+        "Spread evenly over the ortho, meta and para carbons"
+      ],
+      "why": "Loss of H from C-2 and Cl from C-1 gives benzyne, in which the two ends are equivalent apart from the label. The amide ion can add to either end."
+    },
+    {
+      "q": "Which pair couples to give an azo dye?",
+      "a": "Benzenediazonium chloride and N,N-dimethylaniline",
+      "wrong": [
+        "Benzenediazonium chloride and nitrobenzene, a strongly deactivated arene",
+        "Benzenediazonium chloride and benzoic acid, which has a deactivating COOH",
+        "Benzenediazonium chloride and chlorobenzene, a weakly deactivated arene"
+      ],
+      "why": "The diazonium ion is a weak electrophile, so the partner must be strongly activated; dimethylaniline couples at the para position. The three deactivated rings do not react."
+    },
+    {
+      "q": "Which sequence converts aniline into fluorobenzene?",
+      "a": "NaNO₂/HCl at 0–5 °C, then HBF₄, then heat",
+      "wrong": [
+        "NaNO₂/HCl at 0–5 °C, then KF in water, with heating",
+        "NaNO₂/HCl at 0–5 °C, then H₃PO₂ and warming",
+        "HNO₃/H₂SO₄, then Sn/HCl reduction, then treatment with HF"
+      ],
+      "why": "This is the Balz–Schiemann reaction: the diazonium tetrafluoroborate loses N₂ on heating and gives ArF. H₃PO₂ would replace the diazonium group with H."
+    },
+    {
+      "q": "The conjugate acid of pyridine has pK_a 5.2. In a solution buffered at pH 3.2, the ratio [pyridinium] : [pyridine] is about",
+      "a": "100 : 1",
+      "wrong": [
+        "1 : 100",
+        "2 : 1",
+        "1 : 1"
+      ],
+      "why": "log([BH⁺]/[B]) = pK_a − pH = 5.2 − 3.2 = 2, so the ratio is 10² = 100. Pyridine, with an in-plane lone pair, is protonated well below its pK_a."
+    },
+    {
+      "q": "Pyrrole undergoes electrophilic substitution at C2 rather than C3 because",
+      "a": "attack at C2 gives an intermediate with three resonance structures, against two for C3",
+      "wrong": [
+        "attack at C3 destroys the aromatic sextet entirely, but attack at C2 leaves it fully intact",
+        "the nitrogen lone pair is localized and directs to C2 by induction alone, not resonance",
+        "C2 is the only carbon in the ring that carries a hydrogen atom for substitution"
+      ],
+      "why": "The intermediate from C2 attack has its positive charge spread over more positions, including the nitrogen, so it is lower in energy. Both ring positions carry hydrogen, and both keep a delocalized intermediate."
+    }
+  ],
   "summary": [
     "Benzene’s 150 kJ/mol stabilization comes from six delocalized π electrons. Hückel’s rule: 4n + 2 π electrons for aromatic, 4n for antiaromatic.",
     "EAS proceeds through an arenium ion: halogenation, nitration, sulfonation and Friedel–Crafts reactions. Acylation avoids rearrangement and polysubstitution.",

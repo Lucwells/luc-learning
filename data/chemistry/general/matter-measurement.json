@@ -184,6 +184,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A sample of two elements separates only when it is decomposed by electrolysis, and the elements are always found in the same mass ratio. It is a",
+      "a": "compound",
+      "wrong": [
+        "homogeneous mixture",
+        "heterogeneous mixture",
+        "element"
+      ],
+      "why": "Fixed composition and separation only by a chemical process define a compound. A mixture has variable proportions and can be separated by physical means."
+    },
+    {
+      "q": "A student says that sugar dissolving in water is a chemical change because the sugar disappears. What is the best correction?",
+      "a": "The sugar is still sugar and can be recovered by evaporating the water, so the change is physical",
+      "wrong": [
+        "It is chemical, because a solid becomes part of a liquid",
+        "It is chemical for compounds like sugar but physical for elements",
+        "It is physical only if the temperature of the water stays the same"
+      ],
+      "why": "In a physical change the identity of the substance is unchanged. Disappearing from view is not evidence of a new substance."
+    },
+    {
+      "q": "Which statement describes a chemical property of methane?",
+      "a": "It reacts with oxygen and burns",
+      "wrong": [
+        "It is a colorless gas at room temperature",
+        "It condenses to a liquid when cooled enough",
+        "It is less dense than liquid water"
+      ],
+      "why": "A chemical property describes how a substance changes into other substances. The other options can all be observed without changing methane into anything else."
+    },
+    {
+      "q": "How do the particles of a liquid compare with those of a solid?",
+      "a": "They are about as close together but can slide past one another",
+      "wrong": [
+        "They are much farther apart and move randomly",
+        "They are held in fixed positions but vibrate more strongly",
+        "They are closer together, which is why a liquid is less compressible"
+      ],
+      "why": "Both condensed phases have particles in contact, so both are nearly incompressible. Only in the liquid are the particles free to move past each other."
+    },
+    {
+      "q": "Water is heated steadily in an open pot at 1 atm. While it boils, the temperature stays at 100 °C because",
+      "a": "the added energy goes into separating molecules, not into raising their average kinetic energy",
+      "wrong": [
+        "boiling is a chemical change that absorbs the heat",
+        "the molecules have stopped moving",
+        "the burner heats the water exactly as fast as the pot loses heat"
+      ],
+      "why": "During a phase change the heat overcomes attractions between molecules. Temperature reflects average kinetic energy, which does not change until the phase change is complete."
+    },
+    {
+      "q": "The enthalpy of vaporization of water is 40.7 kJ/mol. How much heat is needed to vaporize 2.00 mol at its boiling point?",
+      "a": "81.4 kJ",
+      "wrong": [
+        "20.4 kJ",
+        "12.0 kJ",
+        "40.7 kJ"
+      ],
+      "why": "The heat is proportional to the amount: 2.00 mol × 40.7 kJ/mol = 81.4 kJ. The value 12.0 kJ would be the heat to melt 2.00 mol of ice."
+    },
+    {
+      "q": "Mercury has a density of 13.6 g/mL. What is the mass of 75.0 mL of mercury?",
+      "a": "1.02 × 10³ g",
+      "wrong": [
+        "5.51 g",
+        "0.181 g",
+        "88.6 g"
+      ],
+      "why": "Mass is density times volume: 13.6 g/mL × 75.0 mL = 1020 g. Dividing the volume by the density gives 5.51, which has the wrong units."
+    },
+    {
+      "q": "A 10 g sample and a 100 g sample of pure copper at the same temperature are compared. Which quantity is the same for both?",
+      "a": "The density",
+      "wrong": [
+        "The volume",
+        "The number of atoms",
+        "The heat needed to melt the sample"
+      ],
+      "why": "Density is intensive: it does not depend on how much of the substance there is. Volume, atom count and the heat of melting all scale with the amount."
+    },
+    {
+      "q": "A laser has a wavelength of 650 nm. Expressed in meters this is",
+      "a": "6.5 × 10⁻⁷ m",
+      "wrong": [
+        "6.5 × 10⁻⁹ m",
+        "6.5 × 10⁻⁶ m",
+        "6.5 × 10⁻⁴ m"
+      ],
+      "why": "Nano means 10⁻⁹, so 650 × 10⁻⁹ m = 6.5 × 10⁻⁷ m. The error 6.5 × 10⁻⁹ comes from dropping the factor 100 in 650."
+    },
+    {
+      "q": "How many significant figures does 0.0070300 have?",
+      "a": "5",
+      "wrong": [
+        "3",
+        "4",
+        "7"
+      ],
+      "why": "The leading zeros are not significant. The 7, the zero between 7 and 3, the 3 and the two trailing zeros after the decimal point are all significant."
+    },
+    {
+      "q": "What is 0.0125 g + 2.5 g + 14.07 g, with the correct number of significant figures?",
+      "a": "16.6 g",
+      "wrong": [
+        "16.58 g",
+        "17 g",
+        "16.5 g"
+      ],
+      "why": "The sum is 16.5825 g. In addition the result keeps the decimal places of the least precise term, 2.5 g, so one decimal place: 16.6 g."
+    },
+    {
+      "q": "A mass of 12.50 g occupies 4.2 mL. What is the density, with the correct number of significant figures?",
+      "a": "3.0 g/mL",
+      "wrong": [
+        "2.98 g/mL",
+        "3 g/mL",
+        "2.976 g/mL"
+      ],
+      "why": "In division the result has as many significant figures as the factor with the fewest. The volume has two, so 2.976 rounds to 3.0, and the zero is kept because it is significant."
+    },
+    {
+      "q": "A student counts 12 beakers, each of mass 3.45 g, and computes the total as 41.4 g. How many significant figures should the total have?",
+      "a": "3, because the count 12 is exact",
+      "wrong": [
+        "2, because 12 has two digits",
+        "1, because the count has no decimal point",
+        "4, because the product 41.4 has several digits"
+      ],
+      "why": "Counted numbers are exact and have unlimited significant figures, so only the 3.45 g limits the result."
+    },
+    {
+      "q": "Four titrations give volumes of 24.51, 24.50, 24.52 and 24.51 mL. The true value is 25.00 mL. The results are",
+      "a": "precise but not accurate",
+      "wrong": [
+        "accurate but not precise",
+        "both accurate and precise",
+        "neither accurate nor precise"
+      ],
+      "why": "The readings agree closely with one another (precise) but all sit about 0.5 mL from the true value (not accurate), which suggests a systematic error."
+    },
+    {
+      "q": "A volume of 2.50 L expressed in cubic meters is",
+      "a": "2.50 × 10⁻³ m³",
+      "wrong": [
+        "2.50 × 10⁻¹ m³",
+        "2.50 × 10⁻⁶ m³",
+        "2.50 × 10³ m³"
+      ],
+      "why": "One liter is 1 dm³, and 1 dm = 0.1 m, so 1 dm³ = (0.1 m)³ = 10⁻³ m³. Using 0.1 without cubing it gives the error 2.50 × 10⁻¹."
+    },
+    {
+      "q": "Sulfuric acid has a density of 1.84 g/mL. What is the mass in kilograms of 0.250 L?",
+      "a": "0.460 kg",
+      "wrong": [
+        "460 kg",
+        "0.136 kg",
+        "0.00460 kg"
+      ],
+      "why": "0.250 L × (1000 mL/L) × 1.84 g/mL × (1 kg/1000 g) = 0.460 kg. Dividing by the density instead of multiplying gives the unit-inconsistent 0.136."
+    },
+    {
+      "q": "A patient's temperature is 98.6 °F. In °C this is",
+      "a": "37.0 °C",
+      "wrong": [
+        "66.6 °C",
+        "310.2 °C",
+        "209.5 °C"
+      ],
+      "why": "Invert T(°F) = 1.8 T(°C) + 32: subtract 32 first, then divide by 1.8, giving 66.6/1.8 = 37.0 °C. The value 310.2 is the temperature in kelvin."
+    },
+    {
+      "q": "Which statement about heat and temperature is correct?",
+      "a": "A large bath of warm water can hold more thermal energy than a small cup of boiling water",
+      "wrong": [
+        "Temperature measures the total thermal energy in a sample",
+        "Heat is the average kinetic energy of the particles",
+        "Doubling the Celsius temperature doubles the average kinetic energy"
+      ],
+      "why": "Temperature tracks the average kinetic energy per particle, while total thermal energy also depends on how many particles there are. A doubling statement is valid only for temperature in kelvin."
+    }
+  ],
   "summary": [
     "Matter is a pure substance (element or compound) or a mixture (homogeneous or heterogeneous). Mixtures separate by physical means; compounds only by chemical reactions.",
     "Solids, liquids and gases differ in particle spacing and mobility. A phase change alters the state but not the composition, and the temperature stays constant during it.",

@@ -273,6 +273,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A 3 × 5 matrix has rank 2. What is the dimension of its null space, the orthogonal complement of its row space in ℝ⁵?",
+      "a": "3",
+      "wrong": [
+        "2",
+        "1",
+        "5"
+      ],
+      "why": "dim V + dim V^⊥ = n, so the null space has dimension 5 − 2 = 3. The value 1 is the dimension of the left null space (3 − 2)."
+    },
+    {
+      "q": "Which vector is orthogonal to every vector in the column space of A = [[1, 0], [1, 1], [0, 1]]?",
+      "a": "(1, −1, 1)",
+      "wrong": [
+        "(1, 1, 1)",
+        "(1, −1, −1)",
+        "(1, 0, −1)"
+      ],
+      "why": "It must lie in the left null space: dotting with column (1, 1, 0) and with column (0, 1, 1) must both give 0. (1, −1, 1) gives 0 and 0; the others fail at least one."
+    },
+    {
+      "q": "Two vectors in ℝ³ satisfy x·y = 0. Which conclusion is valid?",
+      "a": "If both are nonzero, they are linearly independent",
+      "wrong": [
+        "They are linearly independent",
+        "They satisfy ‖x + y‖ = ‖x‖ + ‖y‖",
+        "They form an orthonormal set"
+      ],
+      "why": "Orthogonality gives independence only for nonzero vectors, since the zero vector is orthogonal to everything. The norms combine as ‖x + y‖² = ‖x‖² + ‖y‖², not as a sum of lengths."
+    },
+    {
+      "q": "What is the coefficient x̂ in the projection p = x̂a of b = (1, 7) onto a = (3, 4)?",
+      "a": "1.24",
+      "wrong": [
+        "6.2",
+        "0.81",
+        "31"
+      ],
+      "why": "x̂ = aᵀb/aᵀa = (3 + 28)/25 = 1.24. Dividing by ‖a‖ = 5 instead of aᵀa = 25 gives 6.2, and 31 omits the division."
+    },
+    {
+      "q": "P is the orthogonal projection of ℝ⁵ onto a 2-dimensional subspace. What is the trace of I − P?",
+      "a": "3",
+      "wrong": [
+        "2",
+        "5",
+        "1"
+      ],
+      "why": "I − P projects onto the 3-dimensional orthogonal complement, and its eigenvalues are three 1s and two 0s, so the trace is 3. The trace of P itself would be 2."
+    },
+    {
+      "q": "The subspace has the orthonormal basis q₁ = (0.6, 0.8, 0) and q₂ = (0, 0, 1). What is the projection of b = (5, 0, 2) onto it?",
+      "a": "(1.8, 2.4, 2)",
+      "wrong": [
+        "(5, 0, 2)",
+        "(3, 0, 2)",
+        "(1.8, 2.4, 0)"
+      ],
+      "why": "With orthonormal vectors, P = QQᵀ, so p = (q₁ᵀb)q₁ + (q₂ᵀb)q₂ = 3(0.6, 0.8, 0) + 2(0, 0, 1). The coefficients are (3, 2), not the entries of the result."
+    },
+    {
+      "q": "Which matrix cannot be an orthogonal projection matrix?",
+      "a": "[[1, 1], [0, 0]]",
+      "wrong": [
+        "[[0.5, 0.5], [0.5, 0.5]]",
+        "[[1, 0], [0, 0]]",
+        "[[1, 0], [0, 1]]"
+      ],
+      "why": "An orthogonal projection must satisfy both P² = P and Pᵀ = P. The first matrix squares to itself but is not symmetric. The identity projects onto the whole space."
+    },
+    {
+      "q": "The least squares fit of a single constant C to the data values 2, 4, 9 is",
+      "a": "5",
+      "wrong": [
+        "4",
+        "6.5",
+        "15"
+      ],
+      "why": "This projects b = (2, 4, 9) onto the all-ones vector, giving x̂ = 15/3 = 5, the mean. The median 4 and the midrange 6.5 do not minimize the sum of squares."
+    },
+    {
+      "q": "A regression with an intercept is fit to 4 points. Three residuals are 2, −5 and 1. What is the fourth?",
+      "a": "2",
+      "wrong": [
+        "−2",
+        "0",
+        "4"
+      ],
+      "why": "The residual vector is orthogonal to the all-ones column, so the residuals sum to 0: 2 − 5 + 1 + r = 0 gives r = 2."
+    },
+    {
+      "q": "A line through the origin, b = Dt, is fitted by least squares to (t, b) = (1, 2), (2, 3), (3, 7). What is D?",
+      "a": "29/14 ≈ 2.07",
+      "wrong": [
+        "12/6 = 2",
+        "7/3 ≈ 2.33",
+        "29/3 ≈ 9.67"
+      ],
+      "why": "With a = (1, 2, 3), D = aᵀb/aᵀa = (2 + 6 + 21)/14 = 29/14. The option 12/6 divides the mean of b by the mean of t, which is not the least squares slope."
+    },
+    {
+      "q": "A least squares fit has ‖b‖ = 13 and residual length ‖e‖ = 5. What is the length of the fitted vector p = Ax̂?",
+      "a": "12",
+      "wrong": [
+        "8",
+        "18",
+        "√194 ≈ 13.9"
+      ],
+      "why": "p and e are perpendicular, so ‖b‖² = ‖p‖² + ‖e‖², giving ‖p‖² = 169 − 25 = 144. Lengths themselves do not subtract or add."
+    },
+    {
+      "q": "Gram–Schmidt is applied to the columns a₁ = (1, 1) and a₂ = (3, 1) of A. What is the entry r₁₂ of R in A = QR?",
+      "a": "2√2 ≈ 2.83",
+      "wrong": [
+        "4",
+        "2",
+        "√2 ≈ 1.41"
+      ],
+      "why": "r₁₂ = q₁ᵀa₂ with q₁ = (1, 1)/√2, so r₁₂ = 4/√2 = 2√2. The value 4 is a₁·a₂ without normalizing a₁, and √2 is r₁₁."
+    },
+    {
+      "q": "A = QR with R = [[2, 1], [0, 3]], and Qᵀb = (5, 6). What is the least squares solution x̂?",
+      "a": "(1.5, 2)",
+      "wrong": [
+        "(2.5, 2)",
+        "(3.5, 2)",
+        "(2, 1.5)"
+      ],
+      "why": "Back substitution on Rx̂ = Qᵀb: 3x₂ = 6 gives x₂ = 2, then 2x₁ + 2 = 5 gives x₁ = 1.5. Ignoring the off-diagonal entry 1 gives 2.5."
+    },
+    {
+      "q": "A has condition number 10⁵ and arithmetic carries about 16 digits. About how many correct digits can the normal equations deliver?",
+      "a": "6",
+      "wrong": [
+        "11",
+        "3",
+        "13"
+      ],
+      "why": "Forming AᵀA squares the condition number to 10¹⁰, losing about 10 digits and leaving about 6. A QR solve works with κ = 10⁵ and would keep about 11."
+    },
+    {
+      "q": "In an orthonormal basis of ℝ³, a vector has ‖x‖ = 7, and its coordinates along q₁ and q₂ are 3 and −4. What is the squared coordinate along q₃?",
+      "a": "24",
+      "wrong": [
+        "33",
+        "40",
+        "18"
+      ],
+      "why": "Parseval: 49 = 3² + (−4)² + c₃², so c₃² = 49 − 9 − 16 = 24. Subtracting only one of the other squares gives 40 or 33."
+    },
+    {
+      "q": "In an orthonormal basis, a vector has coordinates (4, −3, 2, 1). If only the first two components are kept, what is the squared error of the approximation?",
+      "a": "5",
+      "wrong": [
+        "3",
+        "25",
+        "√5"
+      ],
+      "why": "The squared error is the sum of the squared discarded coordinates, 2² + 1² = 5. The value 25 is the squared length of the kept part."
+    },
+    {
+      "q": "Which property is NOT required of an inner product ⟨x, y⟩?",
+      "a": "⟨x, y⟩ ≥ 0 for every pair x, y",
+      "wrong": [
+        "⟨x, y⟩ = ⟨y, x⟩",
+        "Linearity in each argument",
+        "⟨x, x⟩ > 0 whenever x ≠ 0"
+      ],
+      "why": "Positive definiteness concerns only ⟨x, x⟩. For two different vectors the inner product can be negative, for example for vectors at an obtuse angle."
+    },
+    {
+      "q": "Why can kernel methods use projections and distances in a feature space without computing the feature vectors?",
+      "a": "Lengths, angles and projections depend only on inner products, and the kernel supplies them",
+      "wrong": [
+        "The feature space has fewer dimensions than the input space",
+        "Feature vectors are always orthonormal, so no computation is needed",
+        "Projections in feature space equal projections in input space"
+      ],
+      "why": "A kernel k(x, z) is the inner product in feature space, and all of this chapter's geometry is built from inner products. The feature space is often much larger, even infinite-dimensional."
+    }
+  ],
   "summary": [
     "Vectors are orthogonal when x·y = 0. N(A) ⟂ C(Aᵀ) and N(Aᵀ) ⟂ C(A). Orthogonal matrices (QᵀQ = I) preserve lengths.",
     "The projection onto a line is P = aaᵀ/aᵀa, and onto a column space P = A(AᵀA)⁻¹Aᵀ, with P² = P and Pᵀ = P. With an orthonormal basis, P = QQᵀ.",

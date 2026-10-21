@@ -460,6 +460,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A reaction has ΔG°′ = +5.7 kJ mol⁻¹ at 25 °C. What is K′eq?",
+      "a": "0.10",
+      "wrong": [
+        "10",
+        "1.0",
+        "0.005"
+      ],
+      "why": "K′eq = exp(−ΔG°′/RT) = exp(−5700/2478) = exp(−2.30) = 0.10. A positive ΔG°′ means K′eq < 1, so 10 has the wrong sign, and 0.005 results from using log₁₀ instead of ln."
+    },
+    {
+      "q": "Under standard conditions, which compound cannot donate its phosphate group to ADP to make ATP?",
+      "a": "Glucose 6-phosphate (−13.8 kJ mol⁻¹)",
+      "wrong": [
+        "Phosphoenolpyruvate (−61.9 kJ mol⁻¹)",
+        "1,3-Bisphosphoglycerate (−49.4 kJ mol⁻¹)",
+        "Phosphocreatine (−43.1 kJ mol⁻¹)"
+      ],
+      "why": "Only compounds whose hydrolysis is more exergonic than that of ATP (−30.5 kJ mol⁻¹) can phosphorylate ADP. Glucose 6-phosphate lies lower on the scale, so ATP phosphorylates glucose rather than the reverse."
+    },
+    {
+      "q": "E°′ is −0.185 V for pyruvate/lactate and −0.320 V for NAD⁺/NADH. What is ΔG°′ for NADH + pyruvate → NAD⁺ + lactate (n = 2)?",
+      "a": "−26 kJ mol⁻¹",
+      "wrong": [
+        "+26 kJ mol⁻¹",
+        "−13 kJ mol⁻¹",
+        "−97 kJ mol⁻¹"
+      ],
+      "why": "ΔE°′ = −0.185 − (−0.320) = +0.135 V, so ΔG°′ = −nFΔE°′ = −2 × 96.485 × 0.135 = −26 kJ mol⁻¹. Using n = 1 halves it, and subtracting the potentials the wrong way gives −97."
+    },
+    {
+      "q": "Which three glycolytic enzymes catalyze steps that are irreversible in the cell and must be bypassed in gluconeogenesis?",
+      "a": "Hexokinase, PFK-1 and pyruvate kinase",
+      "wrong": [
+        "Aldolase, G3P dehydrogenase and enolase",
+        "Hexokinase, phosphoglycerate kinase and enolase",
+        "Phosphoglucose isomerase, aldolase and pyruvate kinase"
+      ],
+      "why": "These three steps have large negative ΔG and are the control points of the pathway. The other reactions operate near equilibrium and run in either direction."
+    },
+    {
+      "q": "How much CO₂ and net ATP does the alcoholic fermentation of one glucose by yeast give?",
+      "a": "2 CO₂ and 2 ATP",
+      "wrong": [
+        "6 CO₂ and 32 ATP",
+        "2 CO₂ and 0 ATP",
+        "0 CO₂ and 2 ATP"
+      ],
+      "why": "Glycolysis nets 2 ATP, and pyruvate decarboxylase releases one CO₂ from each of the two pyruvates on the way to ethanol. Lactate fermentation would give the same ATP but no CO₂, and 6 CO₂ with 32 ATP is complete respiration."
+    },
+    {
+      "q": "Which glycolytic reaction produces NADH?",
+      "a": "The oxidation and phosphorylation of glyceraldehyde 3-phosphate",
+      "wrong": [
+        "The phosphorylation of glucose by hexokinase",
+        "The transfer of phosphate from PEP to ADP by pyruvate kinase",
+        "The cleavage of fructose 1,6-bisphosphate by aldolase"
+      ],
+      "why": "G3P dehydrogenase oxidizes G3P with NAD⁺ and Pᵢ to give 1,3-bisphosphoglycerate and NADH, twice per glucose. The kinase steps transfer phosphate and the aldolase step is a cleavage with no redox change."
+    },
+    {
+      "q": "Counting the pyruvate dehydrogenase reaction and the citric acid cycle together, how many CO₂ are released per glucose oxidized completely?",
+      "a": "6",
+      "wrong": [
+        "2",
+        "4",
+        "3"
+      ],
+      "why": "Two pyruvates give 2 CO₂ in the PDH reaction, and the two acetyl-CoA give 2 CO₂ each in the cycle (isocitrate and α-ketoglutarate dehydrogenases), 2 + 4 = 6, all six carbons of glucose."
+    },
+    {
+      "q": "Citrate is withdrawn from the mitochondrion for fatty acid synthesis. What keeps the cycle from running down?",
+      "a": "Anaplerotic reactions such as pyruvate carboxylase, which makes oxaloacetate",
+      "wrong": [
+        "Acetyl-CoA is converted directly back into oxaloacetate",
+        "Aconitase makes new citrate from acetyl-CoA alone",
+        "Succinate dehydrogenase regenerates the withdrawn carbons"
+      ],
+      "why": "The cycle works only if oxaloacetate and the other intermediates are present as catalysts. Anaplerotic reactions refill them from pyruvate, whereas the two carbons of acetyl-CoA are lost as CO₂ and give no net oxaloacetate."
+    },
+    {
+      "q": "Which conditions activate the regulated dehydrogenases of the cycle (PDH, isocitrate DH, α-ketoglutarate DH)?",
+      "a": "High ADP and Ca²⁺",
+      "wrong": [
+        "High NADH and ATP",
+        "High ATP and Ca²⁺",
+        "High NADH and ADP"
+      ],
+      "why": "These enzymes are inhibited by NADH and ATP (energy is plentiful) and activated by ADP and Ca²⁺ (muscle work), so the rate follows demand."
+    },
+    {
+      "q": "Δψ = 140 mV and ΔpH = 0.6 across the inner mitochondrial membrane at 37 °C. What is Δp?",
+      "a": "177 mV",
+      "wrong": [
+        "103 mV",
+        "201 mV",
+        "140 mV"
+      ],
+      "why": "Δp = Δψ − (2.303RT/F)ΔpH, with the ΔpH term written so that it adds to Δψ when the matrix is alkaline: 140 + 61.5 × 0.6 = 177 mV. Subtracting gives 103 mV, and ignoring the pH term gives 140 mV."
+    },
+    {
+      "q": "Why does an electron pair from FADH₂ support fewer ATP (≈ 1.5) than one from NADH (≈ 2.5)?",
+      "a": "FADH₂ enters at Complex II, bypassing Complex I, so about 6 H⁺ are pumped instead of 10",
+      "wrong": [
+        "FADH₂ also feeds Complex I, but only one of its two electrons is used",
+        "FADH₂ has a more negative potential than NADH, so less energy is released",
+        "Complex II pumps 4 H⁺ and Complex III none, giving a smaller gradient"
+      ],
+      "why": "Succinate dehydrogenase (Complex II) passes electrons to ubiquinone without pumping protons, so only Complexes III and IV pump. At about 4 H⁺ per ATP, 6 H⁺ gives ≈ 1.5 ATP and 10 H⁺ gives ≈ 2.5."
+    },
+    {
+      "q": "Cyanide binds the heme iron of Complex IV. What is the immediate result?",
+      "a": "Electron flow stops, O₂ consumption falls and NADH accumulates",
+      "wrong": [
+        "O₂ consumption rises, but no ATP is made, as with an uncoupler",
+        "Protons leak back across the membrane and the gradient collapses",
+        "Electron flow continues normally, but ATP synthase is blocked"
+      ],
+      "why": "Complex IV is the only site where electrons reduce O₂, so blocking it halts the entire chain and proton pumping. An uncoupler such as dinitrophenol instead speeds respiration while dissipating the gradient."
+    },
+    {
+      "q": "A resting cell stops using ATP, so its ADP level falls. What happens to its O₂ consumption?",
+      "a": "It falls, because Δp builds up and slows electron transport",
+      "wrong": [
+        "It rises, to make more ATP from the available substrate",
+        "It stays constant, because electron transport is independent of ATP synthase",
+        "It rises, because the cell is now acting like one with an uncoupler"
+      ],
+      "why": "This is respiratory control: with no ADP, protons cannot flow back through ATP synthase, the gradient rises and the chain slows. An uncoupler removes this restraint by providing another route for protons."
+    },
+    {
+      "q": "An ATP synthase has a c-ring of 8 subunits. How many H⁺ pass through it per ATP made, ignoring transport costs?",
+      "a": "8/3 ≈ 2.7",
+      "wrong": [
+        "8",
+        "4",
+        "24"
+      ],
+      "why": "One full rotation of the c-ring moves 8 protons and produces 3 ATP, one at each of the three catalytic β subunits. The ratio is therefore c/3, as with 10/3 = 3.3 for a 10-subunit ring."
+    },
+    {
+      "q": "What is the minimum number of photons needed in linear electron flow to release 3 O₂ from water?",
+      "a": "24",
+      "wrong": [
+        "12",
+        "6",
+        "48"
+      ],
+      "why": "Water oxidation gives 4 e⁻ per O₂, and each electron passes through both photosystems and so needs two photons: 8 photons per O₂ and 24 for three."
+    },
+    {
+      "q": "How much ATP and NADPH does the Calvin cycle consume per CO₂ fixed?",
+      "a": "3 ATP and 2 NADPH",
+      "wrong": [
+        "2 ATP and 3 NADPH",
+        "9 ATP and 6 NADPH",
+        "1 ATP and 1 NADPH"
+      ],
+      "why": "Fixing 3 CO₂ into one G3P costs 9 ATP and 6 NADPH, so per CO₂ the cost is 3 ATP and 2 NADPH. The 9 and 6 are the cost per G3P."
+    },
+    {
+      "q": "Where do the protons come from that drive the chloroplast ATP synthase?",
+      "a": "Water oxidation and cytochrome b₆f put them into the thylakoid lumen, and they flow out to the stroma through the synthase",
+      "wrong": [
+        "Photosystem I pumps them from the lumen into the stroma",
+        "Rubisco releases them in the stroma while fixing CO₂",
+        "They accumulate in the stroma and flow into the lumen through the synthase"
+      ],
+      "why": "Splitting water releases 4 H⁺ per O₂ into the lumen and cytochrome b₆f pumps more; the resulting lumen-to-stroma gradient drives photophosphorylation, like the mitochondrial system with the orientation reversed."
+    },
+    {
+      "q": "How do C₄ plants reduce photorespiration?",
+      "a": "They fix CO₂ first into a four-carbon acid, then release it at high concentration around Rubisco",
+      "wrong": [
+        "They lack Rubisco and use a different carboxylase",
+        "They run photosystem I alone, so no O₂ is produced near Rubisco",
+        "They keep their stomata open so O₂ escapes from the leaf"
+      ],
+      "why": "Rubisco also reacts with O₂, wasting energy, especially when hot. C₄ plants fix CO₂ in mesophyll cells and release it in bundle-sheath cells, raising the CO₂/O₂ ratio at Rubisco, at a cost of 2 more ATP per CO₂."
+    }
+  ],
   "summary": [
     "ΔG = ΔG°′ + RT ln Q. Coupling to ATP hydrolysis (−30.5 kJ mol⁻¹ standard, −50 to −65 in cells) drives unfavorable reactions. ΔG°′ = −nFΔE°′ links redox potentials to free energy; NADH → O₂ releases 219 kJ mol⁻¹.",
     "Glycolysis: glucose → 2 pyruvate, net 2 ATP + 2 NADH, regulated at PFK-1; fermentation regenerates NAD⁺ (lactate or ethanol).",

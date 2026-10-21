@@ -329,6 +329,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A system runs continuously and never ends an episode. Which method can learn V^π from its experience?",
+      "a": "TD(0), because it updates after every step and needs no final return",
+      "wrong": [
+        "Monte Carlo, because its target is unbiased",
+        "Neither, because V^π is undefined without episode ends",
+        "Only Monte Carlo, because TD requires a model"
+      ],
+      "why": "Monte Carlo waits for the full return of an episode. TD uses r + γV(s′) as the target, so it can learn online in continuing tasks."
+    },
+    {
+      "q": "With γ = 0.5 and α = 0.2, a transition from A to B gives reward 0. Currently V(A) = 4 and V(B) = 6. What does TD(0) set V(A) to?",
+      "a": "3.8",
+      "wrong": [
+        "3",
+        "4.2",
+        "2.8"
+      ],
+      "why": "The target is 0 + 0.5 · 6 = 3, so δ = 3 − 4 = −1 and V(A) = 4 + 0.2(−1) = 3.8. The value 3 moves all the way to the target, and 4.2 has the wrong sign."
+    },
+    {
+      "q": "A Q-learning agent has Q(s, a) = 1, receives r = 0, and the next state has Q(s′, ·) = (2, 6). With α = 0.5 and γ = 0.9, the updated Q(s, a) is",
+      "a": "3.2",
+      "wrong": [
+        "5.4",
+        "1.4",
+        "2.2"
+      ],
+      "why": "The target is 0 + 0.9 · 6 = 5.4, the error is 4.4, and Q = 1 + 0.5 · 4.4 = 3.2. The value 5.4 is the target itself. The value 1.4 would come from using the action with Q = 2."
+    },
+    {
+      "q": "In the same situation as above, SARSA is used and the agent actually takes the next action whose value is Q(s′, a′) = 2. The updated Q(s, a) is",
+      "a": "1.4",
+      "wrong": [
+        "3.2",
+        "1.9",
+        "2.0"
+      ],
+      "why": "SARSA uses the target 0 + 0.9 · 2 = 1.8, so Q = 1 + 0.5(1.8 − 1) = 1.4. It uses the action actually taken, not the maximum."
+    },
+    {
+      "q": "A replay buffer holds transitions collected earlier by an older, more random policy. Which statement is correct?",
+      "a": "Q-learning can learn from them, since its target does not depend on which policy gathered the data",
+      "wrong": [
+        "SARSA can learn Q* from them, since it uses the actions in the buffer",
+        "Neither can use them, since both are on-policy",
+        "Both estimate the value of the old policy from them"
+      ],
+      "why": "Q-learning is off-policy: it uses the max over next actions, learning the greedy policy's value whatever the behavior was. SARSA estimates the value of the policy that produced the actions."
+    },
+    {
+      "q": "An ε-greedy agent with ε = 0.2 chooses uniformly among all 4 actions with probability ε, and the greedy action otherwise. What is the probability that it takes the greedy action?",
+      "a": "0.85",
+      "wrong": [
+        "0.8",
+        "0.95",
+        "0.2"
+      ],
+      "why": "The greedy action is taken with probability 1 − ε = 0.8, plus the chance 0.2 × 1/4 = 0.05 that the random choice also lands on it."
+    },
+    {
+      "q": "In Double DQN, the online network's values at the next state are (3, 5, 4) and the target network's are (4, 2, 6). With r = 1 and γ = 0.9, the regression target is",
+      "a": "2.8",
+      "wrong": [
+        "6.4",
+        "5.5",
+        "4.6"
+      ],
+      "why": "The online network selects action 2 (value 5), and the target network evaluates it at 2, giving 1 + 0.9 · 2 = 2.8. Standard DQN would take the maximum of the target network, 6, and get 6.4, which is the overestimation Double DQN reduces."
+    },
+    {
+      "q": "The deadly triad is the combination of",
+      "a": "function approximation, bootstrapping and off-policy learning",
+      "wrong": [
+        "experience replay, target networks and ε-greedy exploration",
+        "function approximation, Monte Carlo returns and on-policy learning",
+        "bootstrapping, exact tables and on-policy learning"
+      ],
+      "why": "Together these three can make value estimates diverge. Replay buffers and target networks are devices used to stabilize training, not parts of the triad."
+    },
+    {
+      "q": "Why are DQN-style methods not directly suited to continuous actions such as robot joint torques?",
+      "a": "They take a maximum over actions, which requires a manageable set of discrete actions",
+      "wrong": [
+        "They cannot use gradient descent when actions are numbers",
+        "Their target network cannot represent real-valued outputs",
+        "Experience replay requires the actions to be integers"
+      ],
+      "why": "The target r + γ max_{a′} Q(s′, a′) and the greedy policy need a max over actions. For continuous control, policy-based or actor–critic methods are used."
+    },
+    {
+      "q": "A softmax policy has logits θ = (0, 0). Action 2 is taken and the return is G = 1 with a baseline V = 3. With α = 0.1, what are the logits after one policy-gradient step?",
+      "a": "(0.1, −0.1)",
+      "wrong": [
+        "(−0.1, 0.1)",
+        "(0.2, −0.2)",
+        "(−0.2, 0.2)"
+      ],
+      "why": "The advantage is 1 − 3 = −2. The gradient of ln π(2) is (−0.5, 0.5), so the step is 0.1 × (−2) × (−0.5, 0.5) = (0.1, −0.1). Action 2 becomes less likely, since its return was below the baseline."
+    },
+    {
+      "q": "Which baseline would bias the policy gradient estimate?",
+      "a": "One that depends on the action taken, such as the sampled return G_t itself",
+      "wrong": [
+        "The state value V(s_t)",
+        "A constant equal to the average return of recent episodes",
+        "A learned network that depends only on the state"
+      ],
+      "why": "A baseline leaves the gradient unbiased only if it does not depend on the action, so that E[b ∇ln π] = 0. A baseline that depends on the sampled action breaks this."
+    },
+    {
+      "q": "A critic gives V(s) = 5 and V(s′) = 6. The step earns r = 1, and γ = 0.9. What is the one-step advantage estimate r + γV(s′) − V(s)?",
+      "a": "1.4",
+      "wrong": [
+        "6.4",
+        "2",
+        "−0.4"
+      ],
+      "why": "1 + 0.9 · 6 − 5 = 1.4. The value 6.4 is the TD target, which has not had the baseline subtracted, and 2 omits the discount."
+    },
+    {
+      "q": "In PPO with ε = 0.2, the probability ratio is r = 1.5 and the advantage is A = −2. What is the clipped objective min(rA, clip(r, 0.8, 1.2)A)?",
+      "a": "−3",
+      "wrong": [
+        "−2.4",
+        "3",
+        "−1.6"
+      ],
+      "why": "rA = −3 and the clipped term is 1.2 × (−2) = −2.4. The minimum is −3, so for a bad action whose probability rose too much the penalty is not capped. Clipping removes the incentive only on the side that would gain."
+    },
+    {
+      "q": "In a bandit, arm 1 has mean reward 0.9 and arm 2 has mean 0.5. After 100 pulls, of which 20 were arm 2, what is the expected regret?",
+      "a": "8",
+      "wrong": [
+        "40",
+        "0.4",
+        "18"
+      ],
+      "why": "Each pull of arm 2 loses 0.9 − 0.5 = 0.4 compared with the best arm, so the regret is 20 × 0.4 = 8. The value 40 would apply if every one of the 100 pulls had been of arm 2."
+    },
+    {
+      "q": "After t = 20 pulls, arm 1 has been pulled 5 times with average 0.4 and arm 2 has been pulled 15 times with average 0.55. With c = 1 and ln 20 = 3.0, which arm does UCB pull next?",
+      "a": "Arm 1, with index about 1.17 against about 1.00",
+      "wrong": [
+        "Arm 2, with index about 1.17 against about 1.00",
+        "Arm 2, because its average reward is higher",
+        "Arm 1 or 2 with equal probability, since both have been tried"
+      ],
+      "why": "Index = Q + √(ln t/N): arm 1 gives 0.4 + √0.6 = 1.17 and arm 2 gives 0.55 + √0.2 = 1.00. The larger bonus of the less-sampled arm outweighs its lower average."
+    },
+    {
+      "q": "A reward model gives a preferred answer a score of 2.0 and the rejected one 0.5. What is the value of ln σ(r_w − r_l) for this comparison, where σ is the logistic function?",
+      "a": "−0.20",
+      "wrong": [
+        "−0.69",
+        "1.5",
+        "0.82"
+      ],
+      "why": "σ(1.5) = 0.818 and ln 0.818 = −0.20. Training maximizes this term, pushing it toward 0 by widening the gap. The value −0.69 would be the case of equal scores, and 0.82 omits the logarithm."
+    },
+    {
+      "q": "In RLHF, a policy learns to write long, flattering answers that the reward model scores highly but that people do not find better. This is",
+      "a": "reward hacking, which the KL penalty to the reference model helps limit",
+      "wrong": [
+        "overfitting of the policy gradient, which a larger baseline fixes",
+        "bootstrapping error, which a target network fixes",
+        "catastrophic forgetting, which Double DQN fixes"
+      ],
+      "why": "The policy exploits flaws in the learned reward model to score high without being better. Penalizing drift from the starting model keeps outputs closer to text the reward model was trained on."
+    },
+    {
+      "q": "A site chooses which of five headlines to show each visitor. The choice does not change what later visitors will be like. Which approach is enough?",
+      "a": "A contextual bandit",
+      "wrong": [
+        "Full RL with a DQN, since several actions are available",
+        "Model-based planning with Monte Carlo tree search",
+        "Behavior cloning from expert demonstrations only"
+      ],
+      "why": "When actions do not change future states, there is no credit assignment over time and a bandit is enough. Full RL is only needed when choices affect what happens next."
+    }
+  ],
   "summary": [
     "Monte Carlo moves V toward the full return (unbiased, high variance). TD(0) moves it toward r + γV(s′) with TD error δ (lower variance, some bias, learns online).",
     "Q-learning, Q ← Q + α[r + γ max Q(s′, ·) − Q], is off-policy and learns Q*. SARSA uses the next action actually taken and is on-policy. ε-greedy balances exploration and exploitation.",

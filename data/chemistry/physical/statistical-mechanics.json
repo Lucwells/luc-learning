@@ -399,6 +399,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A molecule has a nondegenerate ground level and a threefold degenerate level 400 cm⁻¹ above it. At 298 K (kT = 207.2 cm⁻¹), what is N_upper/N_lower?",
+      "a": "0.44",
+      "wrong": [
+        "0.15",
+        "0.048",
+        "0.30"
+      ],
+      "why": "N₂/N₁ = (g₂/g₁)e^{−ΔE/kT} = 3 × e^{−1.93} = 0.44. Leaving out the degeneracy factor gives 0.15, and dividing by 3 instead of multiplying gives 0.048."
+    },
+    {
+      "q": "A nondegenerate lower level and a threefold-degenerate upper level are separated by a finite gap. As T → ∞, what fraction of the molecules is in the upper level?",
+      "a": "0.75",
+      "wrong": [
+        "0.50",
+        "1.0",
+        "0.25"
+      ],
+      "why": "At very high T the Boltzmann factors approach 1 and the populations are proportional to the degeneracies, 3 : 1. Equal populations (0.50) would apply only if both levels had the same degeneracy."
+    },
+    {
+      "q": "1 mol of an ideal gas expands into a vacuum until its volume is three times larger. Counting positions of molecules with S = k ln W, what is ΔS?",
+      "a": "9.13 J K⁻¹",
+      "wrong": [
+        "5.76 J K⁻¹",
+        "16.6 J K⁻¹",
+        "24.9 J K⁻¹"
+      ],
+      "why": "Each molecule has three times as many places to be, so W rises by 3ᴺ and ΔS = Nk ln 3 = R ln 3 = 9.13 J K⁻¹. The value 5.76 is R ln 2, for a doubling."
+    },
+    {
+      "q": "A molecule has levels at 0 (g = 1), 5.0 kJ mol⁻¹ (g = 1) and 10.0 kJ mol⁻¹ (g = 3). What is its partition function at 298 K?",
+      "a": "1.19",
+      "wrong": [
+        "1.15",
+        "5.0",
+        "1.42"
+      ],
+      "why": "q = 1 + e^{−2.02} + 3e^{−4.04} = 1 + 0.133 + 0.053 = 1.19. The 5.0 is the total number of states, which q approaches only at high T, and 1.15 omits the degeneracy of the top level."
+    },
+    {
+      "q": "For a gas, ln Q = (3N/2) ln T + (terms independent of T). Using U = kT²(∂ ln Q/∂T)_V, what is U?",
+      "a": "(3/2)NkT",
+      "wrong": [
+        "3NkT",
+        "(3/2)NkT²",
+        "(3/2)Nk"
+      ],
+      "why": "∂ ln Q/∂T = 3N/(2T), so U = kT² × 3N/(2T) = (3/2)NkT, the equipartition result for translation. Forgetting the factor T² in front gives (3/2)Nk."
+    },
+    {
+      "q": "How does the thermal wavelength of helium (4.00 u) compare with that of argon (39.95 u) at the same temperature?",
+      "a": "About 3.2 times longer",
+      "wrong": [
+        "About 10 times longer",
+        "About 3.2 times shorter",
+        "About 100 times longer"
+      ],
+      "why": "Λ = h/√(2πmkT) varies as m^{−1/2}, so Λ_He/Λ_Ar = √(39.95/4.00) = 3.2. The ratio of masses (10) would apply if Λ were proportional to 1/m."
+    },
+    {
+      "q": "What is the rotational partition function of HCl at 298 K, with Θ_rot = 15.2 K?",
+      "a": "19.6",
+      "wrong": [
+        "9.8",
+        "52",
+        "0.051"
+      ],
+      "why": "HCl is heteronuclear, so σ = 1 and q_rot = T/(σΘ_rot) = 298/15.2 = 19.6. The value 9.8 wrongly uses σ = 2, and 52 is the result for N₂."
+    },
+    {
+      "q": "What fraction of HCl molecules (Θ_vib = 4303 K) is in v = 1 at 1000 K?",
+      "a": "1.3%",
+      "wrong": [
+        "13%",
+        "0.13%",
+        "24%"
+      ],
+      "why": "With Θ/T = 4.30, the fraction is e^{−4.30}(1 − e^{−4.30}) = 0.0133. Even at 1000 K nearly every molecule is in v = 0, because Θ_vib is so much larger than T."
+    },
+    {
+      "q": "How does the molar entropy of argon change at 298 K when the pressure is lowered from 1 bar to 0.1 bar?",
+      "a": "It rises by 19.1 J K⁻¹ mol⁻¹",
+      "wrong": [
+        "It falls by 19.1 J K⁻¹ mol⁻¹",
+        "It rises by 5.76 J K⁻¹ mol⁻¹",
+        "It does not change, since T is constant"
+      ],
+      "why": "In the Sackur–Tetrode equation S = R[ln(kT/PΛ³) + 5/2], so ΔS = R ln(P₁/P₂) = R ln 10 = 19.1 J K⁻¹ mol⁻¹. Lower pressure means a larger volume and more accessible translational states."
+    },
+    {
+      "q": "How does q_rot at a given temperature change when ¹⁴N₂ is replaced by ¹⁴N¹⁵N?",
+      "a": "It roughly doubles, mainly because σ changes from 2 to 1",
+      "wrong": [
+        "It is unchanged, since the bond length is the same",
+        "It roughly halves, because the heavier molecule has fewer rotational levels",
+        "It rises by about 15% because the mass rises by about 7%"
+      ],
+      "why": "q_rot = T/(σΘ_rot). The mixed isotopologue is heteronuclear, so σ falls from 2 to 1; the slightly larger moment of inertia lowers Θ_rot by about 3%, which adds only a small further increase."
+    },
+    {
+      "q": "A hypothetical gas of CO₂ (linear, 3 atoms) has all translations, rotations and vibrations fully active classically. What does equipartition give for C_V,m?",
+      "a": "6.5R, or 54.0 J K⁻¹ mol⁻¹",
+      "wrong": [
+        "2.5R, or 20.8 J K⁻¹ mol⁻¹",
+        "3.5R, or 29.1 J K⁻¹ mol⁻¹",
+        "5.5R, or 45.7 J K⁻¹ mol⁻¹"
+      ],
+      "why": "Translation gives 3/2 R and rotation of a linear molecule R. Each of the 3N − 5 = 4 vibrational modes gives R, so the total is 6.5R. Using 3N − 6 modes gives 5.5R, and the others omit vibration or two of the modes."
+    },
+    {
+      "q": "A vibrational mode has Θ_vib = 1200 K. What is its contribution to C_V,m at 300 K, from R(Θ/T)² eᶿ/ᵀ/(eᶿ/ᵀ − 1)²?",
+      "a": "0.30R, or 2.5 J K⁻¹ mol⁻¹",
+      "wrong": [
+        "0.018R, or 0.15 J K⁻¹ mol⁻¹",
+        "0.25R, or 2.1 J K⁻¹ mol⁻¹",
+        "0.70R, or 5.8 J K⁻¹ mol⁻¹"
+      ],
+      "why": "With x = Θ/T = 4, f = 16 e⁴/(e⁴ − 1)² = 0.304. The value 0.018 is just the Boltzmann factor e⁻⁴, and 0.25 is the naive ratio T/Θ."
+    },
+    {
+      "q": "The heat capacity of a crystalline insulator at 2.0 K is 0.020 J K⁻¹ mol⁻¹. Assuming the Debye T³ law applies, what is it at 6.0 K?",
+      "a": "0.54 J K⁻¹ mol⁻¹",
+      "wrong": [
+        "0.060 J K⁻¹ mol⁻¹",
+        "0.18 J K⁻¹ mol⁻¹",
+        "4.9 J K⁻¹ mol⁻¹"
+      ],
+      "why": "C ∝ T³, so tripling T multiplies C by 3³ = 27: 0.020 × 27 = 0.54 J K⁻¹ mol⁻¹. A linear rise gives 0.060, and a T² law gives 0.18."
+    },
+    {
+      "q": "The heat capacity of diamond at 298 K is only about 6 J K⁻¹ mol⁻¹, far below the Dulong–Petit value. Why?",
+      "a": "Its Debye temperature (about 2230 K) is far above 298 K, so most lattice modes are not excited",
+      "wrong": [
+        "Diamond has fewer vibrational modes per mole than a metal",
+        "Covalent bonds do not vibrate, so only electrons carry heat",
+        "Equipartition applies only to metals"
+      ],
+      "why": "The Dulong–Petit value 3R needs T well above Θ_D. For stiff lattices with high Θ_D, the quantum spacing of vibrational levels exceeds kT and the modes are frozen out, as with molecular vibrations."
+    },
+    {
+      "q": "A crystal contains molecules that each can lie in three equally likely orientations in the solid at 0 K. What is its residual molar entropy?",
+      "a": "R ln 3 = 9.13 J K⁻¹ mol⁻¹",
+      "wrong": [
+        "R ln 2 = 5.76 J K⁻¹ mol⁻¹",
+        "3R = 24.9 J K⁻¹ mol⁻¹",
+        "R ln(3/2) = 3.37 J K⁻¹ mol⁻¹"
+      ],
+      "why": "W = 3ᴺ, so S₀ = k ln W = Nk ln 3 = R ln 3 = 9.13 J K⁻¹ mol⁻¹. The R ln 2 value is for two orientations, and R ln(3/2) is the Pauling estimate for ice."
+    },
+    {
+      "q": "Why does ice have a residual entropy at 0 K?",
+      "a": "Many arrangements of the hydrogen atoms satisfy the rule of two near and two far H atoms per oxygen",
+      "wrong": [
+        "The oxygen atoms occupy random positions in the lattice",
+        "Water molecules are polar and cannot order completely",
+        "The heat capacity of ice cannot be measured below 15 K"
+      ],
+      "why": "The O atoms form a regular lattice, but the proton positions along the hydrogen bonds have a large number of equivalent choices consistent with the ice rules. Pauling's count gives R ln(3/2)."
+    },
+    {
+      "q": "For an isomerization A ⇌ B in the gas phase, the partition functions of A and B are equal, and the zero-point-corrected energy of B is 5.0 kJ mol⁻¹ below that of A. What is K at 298 K?",
+      "a": "7.5",
+      "wrong": [
+        "0.13",
+        "2.0",
+        "1.0"
+      ],
+      "why": "With equal q's, K = exp(−Δ_rE₀/RT) = exp(+5000/(8.314 × 298)) = e^{2.02} = 7.5. The value 0.13 inverts the sign of the energy difference."
+    },
+    {
+      "q": "In how many distinct ways can 2 molecules of A and 2 molecules of B occupy 4 lattice sites?",
+      "a": "6",
+      "wrong": [
+        "24",
+        "12",
+        "4"
+      ],
+      "why": "W = N!/(N_A! N_B!) = 4!/(2! 2!) = 6, so the entropy of this arrangement is k ln 6. The 24 would count the molecules as all distinguishable."
+    }
+  ],
   "summary": [
     "The Boltzmann distribution gives Nᵢ/N = gᵢe^{−εᵢ/kT}/q. S = k ln W.",
     "q counts accessible states. All functions follow from Q (qᴺ/N! for a gas): U = kT²(∂lnQ/∂T)_V, A = −kT ln Q, S = U/T + k ln Q.",

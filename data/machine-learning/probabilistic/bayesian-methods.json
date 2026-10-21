@@ -343,6 +343,178 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "The prior is Beta(3, 3) and the data are 4 heads and 1 tail. What is the posterior predictive probability that the next flip is heads?",
+      "a": "7/11 ≈ 0.636",
+      "wrong": [
+        "0.8, the fraction of heads in the data",
+        "2/3 ≈ 0.667, the peak of the posterior",
+        "0.5, the mean of the prior"
+      ],
+      "why": "The posterior is Beta(7, 4), whose mean 7/11 is the predictive probability. The value 0.8 is the maximum likelihood estimate and 2/3 is the MAP estimate."
+    },
+    {
+      "q": "A Beta(5, 2) prior is equivalent to having already seen",
+      "a": "4 heads and 1 tail",
+      "wrong": [
+        "5 heads and 2 tails",
+        "6 heads and 3 tails",
+        "5 heads and 2 tails, plus 1 extra of each"
+      ],
+      "why": "The prior acts like α − 1 earlier heads and β − 1 earlier tails. Beta(1, 1) is the uniform prior and corresponds to no earlier flips."
+    },
+    {
+      "q": "The number of arrivals per minute is modeled as Poisson, with a Gamma(2, 1) prior on the rate. Counts of 3, 5 and 2 are observed. The posterior is",
+      "a": "Gamma(12, 4)",
+      "wrong": [
+        "Gamma(12, 1)",
+        "Gamma(5, 4)",
+        "Gamma(4, 12)"
+      ],
+      "why": "The update is a + Σx and b + n. Here a = 2 + 10 = 12 and b = 1 + 3 = 4. Gamma(5, 4) adds the number of observations to the shape instead of their sum."
+    },
+    {
+      "q": "In Bayesian linear regression the noise variance is σ² = 2 and the prior is w ~ N(0, τ²I) with τ² = 0.5. The posterior mean equals the ridge solution with λ =",
+      "a": "4",
+      "wrong": [
+        "0.25",
+        "1",
+        "1.5"
+      ],
+      "why": "λ = σ²/τ² = 2/0.5 = 4. The value 0.25 inverts the ratio. A tighter prior (smaller τ²) means stronger regularization."
+    },
+    {
+      "q": "One-feature Bayesian regression has XᵀX = 8, Xᵀy = 12, σ² = 1 and τ² = 0.5. What is the posterior mean of w?",
+      "a": "1.2",
+      "wrong": [
+        "1.5",
+        "1.33",
+        "0.1"
+      ],
+      "why": "The ridge parameter is λ = 1/0.5 = 2, so μ_N = 12/(8 + 2) = 1.2. The value 1.5 is the least squares estimate with no prior, and 0.1 is the posterior variance."
+    },
+    {
+      "q": "For the model above (σ² = 1, posterior variance Σ_N = 0.1), what is the predictive variance of y at the new input x* = 3?",
+      "a": "1.9",
+      "wrong": [
+        "0.9",
+        "1.3",
+        "0.1"
+      ],
+      "why": "The variance is σ² + x*²Σ_N = 1 + 9 × 0.1 = 1.9. The value 1.3 forgets to square x*, and 0.9 leaves out the irreducible noise."
+    },
+    {
+      "q": "In Bayesian linear regression, as the training set grows without bound, the predictive variance at a fixed input approaches",
+      "a": "the noise variance σ²",
+      "wrong": [
+        "zero",
+        "the prior variance τ²",
+        "infinity"
+      ],
+      "why": "The weight-uncertainty term x*ᵀΣ_Nx* shrinks with more data, but the irreducible noise σ² in each observation remains."
+    },
+    {
+      "q": "A GP with an RBF kernel (ℓ = 1, prior variance 1) has one training point (x = 0, y = 3) and noise σ² = 1. What is the predictive mean at x* = 0?",
+      "a": "1.5",
+      "wrong": [
+        "3",
+        "0.5",
+        "2"
+      ],
+      "why": "With K = 1 and k* = 1, the mean is k*(K + σ²)⁻¹y = 3/2 = 1.5. The prediction does not interpolate the observation because the data are noisy. The value 0.5 is the predictive variance."
+    },
+    {
+      "q": "In a GP with the RBF kernel, what happens to the functions drawn from the prior when the length scale ℓ is increased?",
+      "a": "They become smoother, with outputs correlated over larger distances",
+      "wrong": [
+        "They become more wiggly",
+        "Their noise variance increases",
+        "The covariance matrix K becomes diagonal"
+      ],
+      "why": "A larger ℓ makes exp(−(x − x′)²/(2ℓ²)) stay near 1 for farther apart inputs, so the function varies slowly. A very small ℓ would make K close to diagonal."
+    },
+    {
+      "q": "How are the GP hyperparameters (length scale, signal variance, noise variance) usually chosen?",
+      "a": "By maximizing the marginal likelihood",
+      "wrong": [
+        "By minimizing the error on a test set that is used only for this choice",
+        "By setting each of them equal to the sample variance of y",
+        "By running a cross-validation on every kernel in turn"
+      ],
+      "why": "The log marginal likelihood of a GP is available in closed form and can be maximized with gradients (type-II maximum likelihood), without a validation set."
+    },
+    {
+      "q": "Why is a point with high GP predictive variance attractive in Bayesian optimization?",
+      "a": "The true value there is uncertain, so it may hide a better result than anything seen",
+      "wrong": [
+        "A high variance means the predicted mean is high",
+        "A high variance means the function is cheap to evaluate there",
+        "The GP is guaranteed to be correct at points with high variance"
+      ],
+      "why": "An acquisition rule balances exploitation (high predicted mean) against exploration (high variance). The variance tells where the model is ignorant, not where the objective is large."
+    },
+    {
+      "q": "Two models have evidences p(D | A) = 0.02 and p(D | B) = 0.005, and equal prior probabilities. What is the posterior probability of model A?",
+      "a": "0.8",
+      "wrong": [
+        "4",
+        "0.2",
+        "0.02"
+      ],
+      "why": "With equal priors the posterior is proportional to the evidence: 0.02/(0.02 + 0.005) = 0.8. The value 4 is the Bayes factor, which is a ratio and not a probability."
+    },
+    {
+      "q": "The BIC, ln p(D | θ̂) − (p/2) ln m, is best described as",
+      "a": "a large-sample approximation to the log evidence",
+      "wrong": [
+        "the exact marginal likelihood for any model",
+        "an estimate of the error on held-out data",
+        "the log posterior probability at its peak"
+      ],
+      "why": "The marginal likelihood requires an integral over the parameters. BIC replaces it with the best-fit log-likelihood minus a complexity penalty that grows with the number of parameters and the data size."
+    },
+    {
+      "q": "The unnormalized posterior is 3 at the current state and 1.2 at a proposed state, and the normalizing constant is p(D) = 6. In Metropolis–Hastings, the acceptance probability is",
+      "a": "0.4",
+      "wrong": [
+        "0.2",
+        "1",
+        "0.8"
+      ],
+      "why": "The ratio is 1.2/3 = 0.4, and dividing both densities by 6 leaves the ratio unchanged. The value 0.2 divides only the proposal's density by the constant."
+    },
+    {
+      "q": "Which statement about variational inference is correct?",
+      "a": "It turns inference into optimization of the ELBO and tends to underestimate the posterior's spread",
+      "wrong": [
+        "It draws exact samples from the posterior if the chain is run long enough",
+        "It fits a Gaussian at the mode using the inverse Hessian",
+        "It requires the normalizing constant p(D) to be computed"
+      ],
+      "why": "Variational inference picks a simple family q and minimizes KL(q ‖ posterior). The other descriptions belong to MCMC and the Laplace approximation, and p(D) is exactly what is not available."
+    },
+    {
+      "q": "The negative log posterior has its minimum at θ = 1.5, with second derivative 4 there. The Laplace approximation of the posterior is",
+      "a": "N(1.5, 0.25)",
+      "wrong": [
+        "N(1.5, 4)",
+        "N(0, 0.25)",
+        "N(1.5, 2)"
+      ],
+      "why": "The Laplace approximation is a Gaussian centered at the mode with variance equal to the inverse of the curvature, 1/4. The value 4 would be the precision."
+    },
+    {
+      "q": "A regression model gives a very wide predictive interval for a test input unlike anything in the training set. This uncertainty is mainly",
+      "a": "epistemic, and it can be reduced by collecting data in that region",
+      "wrong": [
+        "aleatoric, and it can be reduced by collecting data in that region",
+        "aleatoric, and no amount of data will reduce it",
+        "epistemic, and no amount of data will reduce it"
+      ],
+      "why": "Ignorance about the model in an unexplored region is epistemic and shrinks as data arrive there. Aleatoric uncertainty is noise in the data itself."
+    }
+  ],
   "summary": [
     "Bayesian inference updates a prior to a posterior with the likelihood, and predicts by averaging over the posterior. With a conjugate prior the update is exact: a Beta(α, β) prior and h heads, t tails give Beta(α + h, β + t).",
     "Bayesian linear regression has a Gaussian posterior. Its mean is the ridge solution with λ = σ²/τ², and its predictive variance σ² + x*ᵀΣ_Nx* grows away from the data.",

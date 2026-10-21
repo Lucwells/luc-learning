@@ -333,6 +333,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "In A → B → C, k₁ = 0.20 s⁻¹ and k₂ = 0.050 s⁻¹, starting with pure A. At what time does [B] reach its maximum?",
+      "a": "9.2 s",
+      "wrong": [
+        "6.9 s",
+        "5.5 s",
+        "28 s"
+      ],
+      "why": "t_max = ln(k₁/k₂)/(k₁ − k₂) = ln 4/0.15 = 9.2 s. Dividing by k₁ alone gives 6.9 s, and dividing by the sum k₁ + k₂ gives 5.5 s."
+    },
+    {
+      "q": "A decays by two parallel first-order paths, A → B with k₁ = 6.0 × 10⁻³ s⁻¹ and A → C with k₂ = 2.0 × 10⁻³ s⁻¹. What is the half-life of A?",
+      "a": "87 s",
+      "wrong": [
+        "116 s",
+        "347 s",
+        "43 s"
+      ],
+      "why": "A decays with k₁ + k₂ = 8.0 × 10⁻³ s⁻¹, so t½ = ln 2/(8.0 × 10⁻³) = 87 s. Using only k₁ gives 116 s and only k₂ gives 347 s."
+    },
+    {
+      "q": "A forms B by a path with E_a = 80 kJ mol⁻¹ and C by a path with E_a = 60 kJ mol⁻¹, both first order. How does the ratio [B]/[C] change if the temperature is raised?",
+      "a": "It increases, since the path with the higher activation energy speeds up more",
+      "wrong": [
+        "It decreases, since the lower-barrier path dominates at high T",
+        "It is unchanged, since [B]/[C] = k₁/k₂ is fixed for all times",
+        "It approaches 1 at any temperature"
+      ],
+      "why": "The ratio is constant in time, but it equals k₁/k₂ = (A₁/A₂)exp(−(E₁ − E₂)/RT), which rises with T when E₁ > E₂. Being fixed during one run does not make it independent of temperature."
+    },
+    {
+      "q": "For A ⇌ B, the equilibrium constant is K = 4.0 and k_r = 0.050 s⁻¹. What is the relaxation time toward equilibrium?",
+      "a": "4.0 s",
+      "wrong": [
+        "5.0 s",
+        "20 s",
+        "6.7 s"
+      ],
+      "why": "k_f = K k_r = 0.20 s⁻¹, so τ = 1/(k_f + k_r) = 1/0.25 = 4.0 s. Using k_f alone gives 5.0 s, k_r alone 20 s, and the difference of the constants 6.7 s."
+    },
+    {
+      "q": "A unimolecular reaction has k_∞ = 2.0 × 10⁻⁴ s⁻¹, and k_uni falls to half of this at 0.20 atm. In the Lindemann model, what is k_uni at 1.0 atm?",
+      "a": "1.7 × 10⁻⁴ s⁻¹",
+      "wrong": [
+        "1.0 × 10⁻⁴ s⁻¹",
+        "2.0 × 10⁻⁴ s⁻¹",
+        "3.3 × 10⁻⁵ s⁻¹"
+      ],
+      "why": "k_uni = k_∞[M]/([M] + k₂/k₋₁) with k₂/k₋₁ = 0.20 atm, so k_uni = 2.0 × 10⁻⁴ × 1.0/1.2 = 1.7 × 10⁻⁴ s⁻¹. The 3.3 × 10⁻⁵ comes from inverting the fraction."
+    },
+    {
+      "q": "In the Lindemann scheme, a plot of 1/k_uni against 1/[M] is a straight line. What is its intercept?",
+      "a": "1/k_∞, equal to k₋₁/(k₁k₂)",
+      "wrong": [
+        "1/k₁",
+        "k_∞",
+        "k₁k₂/k₋₁ at low pressure"
+      ],
+      "why": "1/k_uni = k₋₁/(k₁k₂) + 1/(k₁[M]). As 1/[M] → 0 (high pressure), k_uni → k_∞, so the intercept is 1/k_∞. The slope is 1/k₁."
+    },
+    {
+      "q": "Which assumption is central to RRKM theory?",
+      "a": "Energy in an energized molecule is rapidly shared among all its vibrations",
+      "wrong": [
+        "The energy stays in the bond that will break",
+        "Every energized molecule reacts with the same rate constant",
+        "Only the translational energy of the collision partner is transferred"
+      ],
+      "why": "Fast intramolecular vibrational redistribution makes k(E) depend on the energy and on how many modes share it. A single constant k₂ for all energized molecules is the Lindemann assumption RRKM replaces."
+    },
+    {
+      "q": "Two molecules have mean relative speed √(8kT/πμ). What is this speed at 298 K for a reduced mass of 5.0 amu?",
+      "a": "1.1 × 10³ m s⁻¹",
+      "wrong": [
+        "5.6 × 10² m s⁻¹",
+        "2.2 × 10³ m s⁻¹",
+        "2.8 × 10² m s⁻¹"
+      ],
+      "why": "√(8 × 4.116 × 10⁻²¹/(π × 8.30 × 10⁻²⁷)) = 1.12 × 10³ m s⁻¹. The speed scales as μ^{−1/2}, so a reduced mass of 20 amu would give half of this, 5.6 × 10² m s⁻¹."
+    },
+    {
+      "q": "A reaction has σ = 0.50 nm², mean relative speed 1.1 × 10³ m s⁻¹ and steric factor P = 0.010. What is the collision-theory A in M⁻¹ s⁻¹?",
+      "a": "3.4 × 10⁹",
+      "wrong": [
+        "3.4 × 10⁶",
+        "3.4 × 10¹¹",
+        "3.4 × 10¹²"
+      ],
+      "why": "A = Pσc̄N_A = 0.010 × 5.0 × 10⁻¹⁹ × 1.1 × 10³ × 6.022 × 10²³ = 3.4 × 10⁶ m³ mol⁻¹ s⁻¹ = 3.4 × 10⁹ M⁻¹ s⁻¹. Without P the value is 3.4 × 10¹¹, and 3.4 × 10⁶ forgets the conversion from m³ to liters."
+    },
+    {
+      "q": "According to simple collision theory, how does the pre-exponential factor change when the temperature is raised from 300 K to 1200 K?",
+      "a": "It doubles",
+      "wrong": [
+        "It quadruples",
+        "It increases by a factor of 16",
+        "It is unchanged"
+      ],
+      "why": "A = Pσ√(8kT/πμ)N_A varies as √T, and √4 = 2. The exponential factor e^{−E_a/RT} carries the main temperature dependence, not A."
+    },
+    {
+      "q": "How does the diffusion-controlled rate constant 8RT/3η at 298 K change if the solvent viscosity is ten times that of water?",
+      "a": "It falls by a factor of 10 to about 7 × 10⁸ M⁻¹ s⁻¹",
+      "wrong": [
+        "It falls by about 3 times",
+        "It rises by a factor of 10",
+        "It does not change, since T is fixed"
+      ],
+      "why": "k_d is inversely proportional to η, so ten times the viscosity gives one tenth of the rate constant, about 7 × 10⁸ M⁻¹ s⁻¹. The rate constant is not limited by temperature here, since T is the same."
+    },
+    {
+      "q": "A first-order reaction has k = 1.0 × 10⁻² s⁻¹ at 298 K (kT/h = 6.2 × 10¹² s⁻¹). What is Δ‡G?",
+      "a": "84 kJ mol⁻¹",
+      "wrong": [
+        "11 kJ mol⁻¹",
+        "37 kJ mol⁻¹",
+        "169 kJ mol⁻¹"
+      ],
+      "why": "Δ‡G = −RT ln(kh/kT) = 2.478 kJ × ln(6.2 × 10¹⁴) = 2.478 × 34.0 = 84 kJ mol⁻¹. The value 11 kJ comes from −RT ln k alone, which leaves out the universal factor kT/h."
+    },
+    {
+      "q": "A solution reaction has an Arrhenius activation energy of 75.0 kJ mol⁻¹ at 298 K. What is Δ‡H?",
+      "a": "72.5 kJ mol⁻¹",
+      "wrong": [
+        "77.5 kJ mol⁻¹",
+        "75.0 kJ mol⁻¹",
+        "70.0 kJ mol⁻¹"
+      ],
+      "why": "For a reaction in solution E_a = Δ‡H + RT, so Δ‡H = 75.0 − 2.5 = 72.5 kJ mol⁻¹. Subtracting 2RT would be correct only for a gas-phase bimolecular reaction."
+    },
+    {
+      "q": "An Eyring plot of ln(k/T) against 1/T (k/T in s⁻¹ K⁻¹) has intercept 22.0. Given ln(k_B/h) = 23.76, what is Δ‡S?",
+      "a": "−14.6 J K⁻¹ mol⁻¹",
+      "wrong": [
+        "+14.6 J K⁻¹ mol⁻¹",
+        "−183 J K⁻¹ mol⁻¹",
+        "+183 J K⁻¹ mol⁻¹"
+      ],
+      "why": "The intercept equals ln(k_B/h) + Δ‡S/R, so Δ‡S = R(22.0 − 23.76) = −14.6 J K⁻¹ mol⁻¹. Taking R × 22.0 forgets the ln(k_B/h) term."
+    },
+    {
+      "q": "Which statement about transition state theory is correct?",
+      "a": "It treats the motion over the barrier classically, so tunneling is not included",
+      "wrong": [
+        "It assumes the activated complex is stable with real frequencies in every mode",
+        "It gives a rate that depends on the reactant but not on the temperature through kT/h",
+        "It requires the transmission coefficient κ to be exactly 1 in all cases"
+      ],
+      "why": "TST ignores tunneling, which matters for hydrogen transfer, and recrossing of the barrier makes κ less than 1. The complex has one imaginary frequency, the reaction coordinate."
+    },
+    {
+      "q": "The C–H and C–D stretching wavenumbers of a bond are 3100 and 2250 cm⁻¹. If the zero-point energy of this stretch is entirely lost in the transition state, what is the maximum k_H/k_D at 298 K?",
+      "a": "7.8",
+      "wrong": [
+        "60",
+        "2.8",
+        "5.1"
+      ],
+      "why": "ΔZPE = ½(3100 − 2250) = 425 cm⁻¹ = 5.08 kJ mol⁻¹, and k_H/k_D = exp(5080/(8.314 × 298)) = 7.8. Omitting the ½ gives 60, and losing only half the ZPE difference in the transition state gives 2.8."
+    },
+    {
+      "q": "A solvolysis shows k_H/k_D = 1.18 when deuterium is on the carbon that becomes a carbocation, with no C–H bond broken. What does it suggest?",
+      "a": "The carbon changes hybridization from sp³ to sp² in the rate-determining step",
+      "wrong": [
+        "The C–H bond is broken in the rate-determining step",
+        "The carbon changes from sp² to sp³ in the rate-determining step",
+        "The reaction proceeds by hydrogen tunneling"
+      ],
+      "why": "A secondary effect of 1.1–1.25 is typical of sp³ → sp² (a looser out-of-plane bend in the transition state). Values below 1 indicate sp² → sp³, and tunneling would give far larger effects."
+    },
+    {
+      "q": "A primary k_H/k_D is 6.0 at 298 K and arises only from zero-point energy. What is it expected to be at 350 K?",
+      "a": "4.6",
+      "wrong": [
+        "8.2",
+        "6.0",
+        "5.1"
+      ],
+      "why": "ln(k_H/k_D) = ΔZPE/RT, so it scales as 1/T: 1.79 × 298/350 = 1.53 and the ratio is e^{1.53} = 4.6. The ratio falls as T rises; scaling it linearly gives 5.1, and using T in the numerator gives 8.2."
+    }
+  ],
   "summary": [
     "A → B → C: B reaches a maximum at t_max = ln(k₁/k₂)/(k₁ − k₂). Parallel reactions have a fixed product ratio k₁/k₂. Opposing reactions relax with k_f + k_r and K = k_f/k_r.",
     "Lindemann–Hinshelwood: first order at high pressure (k_∞ = k₁k₂/k₋₁), second order at low pressure, and a falloff in between. RRKM theory includes the energy dependence of k₂.",

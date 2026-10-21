@@ -483,6 +483,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A table has one row per purchase, with columns customer_id and amount. An analyst computes the mean of amount. What does this number estimate?",
+      "a": "Average spend per purchase",
+      "wrong": [
+        "Average spend per customer",
+        "Average total spend per active customer",
+        "Average spend per customer per month"
+      ],
+      "why": "The mean averages over rows, and a row is one purchase. A per-customer average requires summing amounts by customer first, which changes the unit of observation."
+    },
+    {
+      "q": "For which variable is the statement \"this value is twice that value\" meaningful?",
+      "a": "Annual income in dollars",
+      "wrong": [
+        "Temperature in °C",
+        "Calendar year",
+        "Satisfaction rating from 1 to 5"
+      ],
+      "why": "Only a ratio scale has a true zero, so ratios are meaningful. Income is ratio; Celsius temperature and calendar year are interval, and a rating is ordinal."
+    },
+    {
+      "q": "Why is reporting the mean of a 1-to-5 satisfaction rating a modeling assumption rather than a neutral summary?",
+      "a": "It assumes the gaps between ratings are equal, which ordinal scales do not guarantee",
+      "wrong": [
+        "Ratings are nominal, so they have no order and therefore no meaningful median either",
+        "A mean can be computed only for continuous variables, never for integer-valued ratings",
+        "The mean of integer-valued ratings must itself be an integer, which makes it misleading"
+      ],
+      "why": "Ordinal categories are ordered but the distance between 1 and 2 need not equal the distance between 4 and 5. The mean uses those distances; the median does not."
+    },
+    {
+      "q": "A table has columns store, Jan, Feb and Mar holding monthly sales for 4 stores. It is reshaped to tidy form with columns store, month and sales. How many rows does the tidy table have?",
+      "a": "12",
+      "wrong": [
+        "4",
+        "7",
+        "16"
+      ],
+      "why": "Tidy form has one row per store-month combination: 4 × 3 = 12. The month, which was spread across column names, becomes a variable."
+    },
+    {
+      "q": "A tidy table has columns country, year and value. What is the first sanity check on its primary key?",
+      "a": "Each (country, year) pair appears exactly once",
+      "wrong": [
+        "Each country appears exactly once",
+        "The year column is sorted in increasing order",
+        "The value column contains no repeated numbers"
+      ],
+      "why": "The key is the combination of columns that identifies a row. A country appears in many rows (one per year), so uniqueness of country alone is the wrong test; repeated key pairs signal duplicates that inflate counts."
+    },
+    {
+      "q": "A team trains a churn model with excellent test accuracy, but nobody uses it. Which cause does the chapter treat as most common in projects like this?",
+      "a": "The question was never made precise enough to match a decision",
+      "wrong": [
+        "The test set was too large for the accuracy estimate to be reliable",
+        "The model class was not flexible enough to fit the underlying data",
+        "Data cleaning consumed more time than modeling did, delaying the launch"
+      ],
+      "why": "A precise question states the population, the quantity predicted and the decision that depends on it. Without that, a project can optimize a metric no one cares about."
+    },
+    {
+      "q": "Why does the lifecycle end with monitoring instead of stopping at deployment?",
+      "a": "The world changes, so a result that held at launch may stop holding",
+      "wrong": [
+        "Monitoring replaces the need for held-out evaluation before launch",
+        "Deployed models must be retrained from scratch every single day",
+        "Monitoring is the stage at which missing values are first discovered"
+      ],
+      "why": "The data-generating process drifts over time. Checking that results still hold feeds the next pass around the cycle."
+    },
+    {
+      "q": "A lab technician accidentally spills 5% of the blood samples, chosen with no pattern. How should the missing results be classified, and what happens if those rows are dropped?",
+      "a": "MCAR; some data are lost but no bias is introduced",
+      "wrong": [
+        "MAR; the results are biased unless modeled on other variables",
+        "MNAR; the bias cannot be repaired from the data",
+        "MCAR; the mean of the remaining values is biased upward"
+      ],
+      "why": "When the chance of being missing is unrelated to anything, the remaining rows are still a representative subset. Only precision is lost."
+    },
+    {
+      "q": "Missing values in a column are replaced by the column mean. What is a main drawback?",
+      "a": "It shrinks the variance and hides the uncertainty from missing values",
+      "wrong": [
+        "It inflates the variance, because new values are added to the column",
+        "It removes the bias when the data are MNAR, since the mean is preserved",
+        "It shifts the column mean away from the mean of the observed values"
+      ],
+      "why": "Every filled-in value sits exactly at the center, so spread is understated and the filled values are treated as if they were real observations. The column mean itself is unchanged."
+    },
+    {
+      "q": "In a survey of 1000 people, 600 earn $40,000 and 400 earn $120,000. All 600 lower earners answer the income question, but only 100 of the high earners do. What is the mean of the responses?",
+      "a": "$51,400",
+      "wrong": [
+        "$72,000",
+        "$80,000",
+        "$40,000"
+      ],
+      "why": "(600 × 40,000 + 100 × 120,000)/700 = $51,429. The true mean is $72,000, so refusals tied to income itself (MNAR) bias the average downward. $80,000 is the unweighted average of the two incomes."
+    },
+    {
+      "q": "A column of ages uses −999 for \"unknown\". Nine rows have age 40 and one row has −999. A mean that ignores the convention gives what, in years?",
+      "a": "−63.9",
+      "wrong": [
+        "40",
+        "36",
+        "−99.9"
+      ],
+      "why": "(9 × 40 − 999)/10 = −639/10 = −63.9. A sentinel value is treated as a real measurement, so it must be converted to a missing marker before summarizing."
+    },
+    {
+      "q": "A column of company salaries contains one value of $9,000,000, far above the rest. What does the chapter recommend?",
+      "a": "Use domain knowledge to judge whether it is an error or genuine",
+      "wrong": [
+        "Delete any value more than three standard deviations from the mean",
+        "Always keep it, since removing data always introduces bias",
+        "Replace it with the column median before any analysis begins"
+      ],
+      "why": "An outlier may be a typo to correct or the most interesting case to study. A mechanical rule cannot tell these apart."
+    },
+    {
+      "q": "Which question is inferential?",
+      "a": "From 40 sampled units, is the mean lifetime of all units above 500 hours?",
+      "wrong": [
+        "Among these same 40 units, what was the mean observed lifetime in hours?",
+        "Given this sample, will one particular unit last another 100 hours?",
+        "Would redesigning the cooling system lengthen the lifetime of units?"
+      ],
+      "why": "Inference generalizes from a sample to a population. The first alternative only describes the sample, the second predicts a single case, and the last asks about an intervention (causal)."
+    },
+    {
+      "q": "Carrying matches predicts lung cancer well, and both are driven by smoking. Would a ban on carrying matches reduce lung cancer?",
+      "a": "No: smoking is a confounder, and prediction does not show an intervention effect",
+      "wrong": [
+        "Yes, because a predictor this accurate must reflect a real effect of matches",
+        "Yes, as long as the sample used to estimate the association is large enough",
+        "No, since an association between two variables is always entirely spurious"
+      ],
+      "why": "A confounder is a common cause of two variables and creates an association between them. Predictive accuracy says nothing about what would happen if one variable were changed."
+    },
+    {
+      "q": "Drug P has a higher success rate than drug Q among mild cases and also among severe cases, yet Q has the higher overall success rate. What is the most likely explanation?",
+      "a": "Severity affected both which drug was given and the chance of success",
+      "wrong": [
+        "Q is truly better, since the overall rate counts all of the patients together",
+        "The subgroup rates must contain a calculation error somewhere in the table",
+        "Rates computed from groups of different sizes can never be compared at all"
+      ],
+      "why": "This is Simpson's paradox. If P was given mostly to severe cases, which have lower success for any drug, its overall rate is dragged down even though it wins within each group."
+    },
+    {
+      "q": "Drug P succeeds in 9 of 10 mild cases and 30 of 100 severe cases. What is its overall success rate?",
+      "a": "35.5%",
+      "wrong": [
+        "60%",
+        "39%",
+        "74.5%"
+      ],
+      "why": "(9 + 30)/(10 + 100) = 39/110 = 35.5%. Averaging 90% and 30% to get 60% ignores that the groups have very different sizes."
+    },
+    {
+      "q": "An online poll of internet users is used to describe all adults in a country. The conclusion is justified for",
+      "a": "the population of internet users who could be sampled, not for all adults",
+      "wrong": [
+        "all adults, provided the number of responses is large",
+        "all adults, once missing answers are imputed",
+        "only the specific people who answered, not any larger group"
+      ],
+      "why": "Inference reaches only the population from which the sample was actually drawn. A larger sample from the same frame reduces random error but not this mismatch."
+    },
+    {
+      "q": "A model predicts whether a loan will default, using information known when the loan is approved. Which feature would leak?",
+      "a": "The number of collection calls made after the loan went overdue",
+      "wrong": [
+        "The applicant's income at application",
+        "The requested loan amount",
+        "The credit score at application"
+      ],
+      "why": "Collection calls only happen after a default is looming, so the feature is unavailable at prediction time and encodes the outcome itself."
+    }
+  ],
   "summary": [
     "A data project cycles through question, data, cleaning, exploration, modeling, communication and monitoring. Precise questions and understanding of the data matter more than the model.",
     "Variables are nominal, ordinal, interval or ratio; the scale limits the meaningful operations. Identifiers and codes are nominal even when numeric.",

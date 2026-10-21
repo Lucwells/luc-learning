@@ -493,6 +493,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "Fluorine is the most electronegative halogen, yet BF₃ is the weakest Lewis acid of the boron trihalides. The main reason is that",
+      "a": "F lone pairs π-donate into boron’s empty p orbital best (2p–2p overlap)",
+      "wrong": [
+        "F is the least electronegative halogen, so it withdraws the least density from B",
+        "BF₃ dimerizes to B₂F₆, using up its acceptor sites",
+        "B–F bonds are so weak that BF₃ adds a base slowly"
+      ],
+      "why": "π donation from F fills boron’s empty p orbital and lowers its acidity. The pyramidalization energy needed for the adduct is also higher for the stronger B–F bonds."
+    },
+    {
+      "q": "[Be(H₂O)₄]²⁺ is a far stronger Brønsted acid than [Ca(H₂O)₆]²⁺ even though both ions are 2+. The reason is that",
+      "a": "Be²⁺ is much smaller, so its charge density polarizes the O–H bonds more",
+      "wrong": [
+        "Be²⁺ carries a higher charge than Ca²⁺, which polarizes the water more strongly",
+        "Be²⁺ has a partly filled d subshell that helps it to bind hydroxide",
+        "Ca²⁺ forms much stronger bonds to the water oxygen, which holds the protons on"
+      ],
+      "why": "Aqua ion acidity rises with charge and falls with radius. With equal charge, the smaller Be²⁺ has the greater charge density."
+    },
+    {
+      "q": "Al³⁺(aq) is slowly made basic. Al(OH)₃ precipitates, and at very high pH it dissolves again. The species in solution at very high pH is",
+      "a": "[Al(OH)₄]⁻",
+      "wrong": [
+        "[Al(H₂O)₆]³⁺",
+        "[Al(H₂O)₅(OH)]²⁺",
+        "Al₂O₃ dispersed as colloidal particles"
+      ],
+      "why": "Aluminum hydroxide is amphoteric. It dissolves in acid as the aqua ion and in strong base as the hydroxo anion [Al(OH)₄]⁻."
+    },
+    {
+      "q": "H₃PO₄ has pK₁ = 2.1. By Pauling’s second rule, pK₃ is about",
+      "a": "12",
+      "wrong": [
+        "7",
+        "17",
+        "5"
+      ],
+      "why": "Each successive ionization lowers acidity by about 5 pK units, so pK₃ ≈ 2.1 + 10 = 12.1 (observed 12.4). Adding only 5 gives pK₂."
+    },
+    {
+      "q": "Phosphorous acid, H₃PO₃, is diprotic. The reason is that",
+      "a": "One H is bonded directly to P, so only the two O–H protons ionize",
+      "wrong": [
+        "One of the three O–H protons is too weakly acidic to be measured in water",
+        "Phosphorus has only two terminal oxo groups available to stabilize the anion",
+        "Its third proton is lost only after the acid has dimerized"
+      ],
+      "why": "The structure is (HO)₂HPO, and a P–H bond does not ionize. The count of hydrogens in the formula is not the count of acidic protons."
+    },
+    {
+      "q": "Boric acid, B(OH)₃, is a weak acid (pK_a 9.2). It ionizes by",
+      "a": "Accepting OH⁻ from water to form [B(OH)₄]⁻",
+      "wrong": [
+        "Losing a proton from an O–H group, like a carboxylic acid",
+        "Losing a proton from a B–H bond",
+        "Transferring an oxo group to water"
+      ],
+      "why": "Boron is electron-deficient, so B(OH)₃ is a Lewis acid. It binds hydroxide and releases H₃O⁺ as the net effect."
+    },
+    {
+      "q": "A solution of HClO₄ and a solution of HSO₃F in water have the same acidity. This is due to",
+      "a": "The leveling effect: both are fully converted to H₃O⁺, the strongest acid water can support",
+      "wrong": [
+        "Both having p = 3 terminal oxo groups, so that Pauling’s rule gives the same pK_a",
+        "Their H₀ values being identical when measured in concentrated non-aqueous solution",
+        "Both acids being only partly ionized in water, and to the same degree in each case"
+      ],
+      "why": "Any acid stronger than H₃O⁺ protonates water completely. Superacids must be compared in non-leveling media, using the Hammett function."
+    },
+    {
+      "q": "Magic acid has H₀ = −23 and 100% sulfuric acid has H₀ = −12. How much more strongly does magic acid protonate a weak base?",
+      "a": "About 10¹¹ times",
+      "wrong": [
+        "About 2 times",
+        "About 11 times",
+        "About 10⁻¹¹ times"
+      ],
+      "why": "H₀ is a logarithmic scale, so a difference of 11 units is a factor of 10¹¹. The negative direction means stronger acid, not weaker."
+    },
+    {
+      "q": "In acid, a Latimer diagram for chromium reads Cr³⁺ —(−0.41 V)→ Cr²⁺ —(−0.91 V)→ Cr. E° for Cr³⁺/Cr is",
+      "a": "−0.74 V",
+      "wrong": [
+        "−0.66 V",
+        "−1.32 V",
+        "+0.74 V"
+      ],
+      "why": "The couples involve 1 and 2 electrons, so E° = (1(−0.41) + 2(−0.91))/3 = −0.74 V. A plain average (−0.66) ignores the number of electrons, and a sum is not allowed for potentials."
+    },
+    {
+      "q": "For mercury, Hg²⁺ —0.91 V→ Hg₂²⁺ —0.80 V→ Hg. Does Hg₂²⁺ disproportionate?",
+      "a": "No, because the potential on its right (0.80 V) is lower than on its left (0.91 V)",
+      "wrong": [
+        "Yes, because the potential on its left (0.91 V) is the higher of the two",
+        "Yes, because both of the potentials in the diagram are positive",
+        "No, because mercury(I) is a dimer, and so cannot undergo redox"
+      ],
+      "why": "Disproportionation requires E(right) > E(left). Here the reverse holds, so Hg²⁺ and Hg comproportionate to Hg₂²⁺."
+    },
+    {
+      "q": "On a Frost diagram, two species at oxidation numbers +2 and +4 have nE° = −1.0 V and +0.4 V. What is E° for the couple?",
+      "a": "+0.70 V",
+      "wrong": [
+        "+1.4 V",
+        "+0.35 V",
+        "−0.30 V"
+      ],
+      "why": "E° is the slope of the line: (0.4 − (−1.0))/(4 − 2) = +0.70 V. The rise alone (1.4) forgets to divide by the 2-electron change."
+    },
+    {
+      "q": "On a Frost diagram, species Y lies below the straight line joining its two neighbors. What happens when the neighbors are mixed?",
+      "a": "They comproportionate to give Y, which is stable toward disproportionation",
+      "wrong": [
+        "Y disproportionates into the two neighbors, which are more stable",
+        "The neighbors react to give a species higher on the diagram instead",
+        "Nothing happens, because the slope between the neighbors is negative"
+      ],
+      "why": "A point below the line has lower free energy than the average of its neighbors. The mixture is driven toward Y, as when Fe³⁺ and Fe give Fe²⁺."
+    },
+    {
+      "q": "In acid solution, manganate, MnO₄²⁻, lies above the line joining MnO₂ and MnO₄⁻ on the Frost diagram. It therefore",
+      "a": "Disproportionates to MnO₄⁻ and MnO₂",
+      "wrong": [
+        "Oxidizes water to O₂ and gives Mn²⁺",
+        "Is stable, because it is the highest species at +6",
+        "Comproportionates with Mn²⁺ to give MnO₂"
+      ],
+      "why": "A species above its neighbors’ line is unstable: 3MnO₄²⁻ + 4H⁺ → 2MnO₄⁻ + MnO₂ + 2H₂O. In strong base it is stable."
+    },
+    {
+      "q": "The half-reaction MnO₂ + 4H⁺ + 2e⁻ ⇌ Mn²⁺ + 2H₂O is a boundary on a Pourbaix diagram. Its slope is",
+      "a": "−0.118 V per pH unit",
+      "wrong": [
+        "−0.059 V per pH unit",
+        "−0.236 V per pH unit",
+        "0 (horizontal)"
+      ],
+      "why": "The slope is −0.059 × (m/n) with 4 protons and 2 electrons, which is −0.118. The −0.059 slope applies only when m = n."
+    },
+    {
+      "q": "At pH 10, an oxidant must have E greater than what to oxidize water to O₂ (O₂ + 4H⁺ + 4e⁻ ⇌ 2H₂O, E° = 1.23 V)?",
+      "a": "0.64 V",
+      "wrong": [
+        "1.23 V",
+        "0.59 V",
+        "−0.59 V"
+      ],
+      "why": "E = 1.23 − 0.059 × 10 = 0.64 V. The potential drops with pH because H⁺ is a reactant."
+    },
+    {
+      "q": "A Pourbaix diagram places aluminum in a region where it should dissolve in neutral water, yet aluminum pots are used. Why?",
+      "a": "Pourbaix diagrams give equilibrium only, and a thin oxide layer makes dissolution kinetically slow",
+      "wrong": [
+        "The diagram is wrong, because aluminum is thermodynamically stable in water",
+        "The potential of aluminum is above the water oxidation line",
+        "Neutral pH places aluminum in the immunity region"
+      ],
+      "why": "The diagrams predict thermodynamic stability, not rate. A coherent surface oxide protects the metal."
+    },
+    {
+      "q": "Why does Fe(VIII) not exist, while Mn(VII) does?",
+      "a": "Rising nuclear charge holds the d electrons too tightly after Mn",
+      "wrong": [
+        "Iron has fewer valence electrons than manganese, so it cannot reach an oxidation state of +8",
+        "Iron’s oxo anions would be too large for enough oxygen atoms to pack around the metal",
+        "Iron has no d orbitals available for bonding to oxygen in a high oxidation state, as manganese does"
+      ],
+      "why": "The highest state equals the group number up to Mn. After Mn, the nuclear charge increases and the d electrons are held more strongly."
+    },
+    {
+      "q": "Zinc is usually not counted as a typical transition metal because",
+      "a": "Its common ion, Zn²⁺, has a filled d¹⁰ subshell",
+      "wrong": [
+        "It forms no complexes",
+        "Zn²⁺ is paramagnetic",
+        "Its 4s electrons are not available for bonding"
+      ],
+      "why": "A transition metal forms at least one ion with a partly filled d subshell. Zn²⁺ is d¹⁰, colorless and diamagnetic, and it forms complexes without ligand field effects."
+    }
+  ],
   "summary": [
     "BF₃ < BCl₃ < BBr₃ in Lewis acidity, because of π donation from F. Metal aqua ions are acidic in proportion to their charge density.",
     "Pauling’s rule: pK_a ≈ 8 − 5p for (HO)ₘXOₚ, with successive pK_a values rising by 5. Superacids (H₀ < −12), such as magic acid, protonate even alkanes.",

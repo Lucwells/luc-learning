@@ -596,6 +596,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "What is the energy of one photon of ultraviolet light with wavelength 250 nm?",
+      "a": "7.95 × 10⁻¹⁹ J",
+      "wrong": [
+        "7.95 × 10⁻²⁸ J",
+        "3.97 × 10⁻¹⁹ J",
+        "2.65 × 10⁻²⁷ J"
+      ],
+      "why": "E = hc/λ = (6.626 × 10⁻³⁴)(2.998 × 10⁸)/(2.50 × 10⁻⁷ m) = 7.95 × 10⁻¹⁹ J. Leaving the wavelength in nanometers gives 7.95 × 10⁻²⁸, and h/λ omits c."
+    },
+    {
+      "q": "Beam A has wavelength 400 nm and beam B has wavelength 800 nm. Per photon, beam A carries",
+      "a": "twice the energy of B",
+      "wrong": [
+        "half the energy of B",
+        "four times the energy of B",
+        "the same energy as B if the beams have equal intensity"
+      ],
+      "why": "Photon energy is E = hc/λ, so it is inversely proportional to wavelength. Halving the wavelength doubles the energy of each photon."
+    },
+    {
+      "q": "A metal has a work function of 4.14 × 10⁻¹⁹ J. What happens when 600 nm light shines on it?",
+      "a": "No electrons are ejected, because each photon carries only 3.31 × 10⁻¹⁹ J",
+      "wrong": [
+        "Electrons are ejected with kinetic energy 8.3 × 10⁻²⁰ J",
+        "Electrons are ejected only if the beam is intense enough",
+        "Electrons are ejected, since 600 nm is visible light"
+      ],
+      "why": "Each photon gives all its energy to one electron, and 3.31 × 10⁻¹⁹ J is less than Φ. Brighter light means more photons, but none of them has enough energy."
+    },
+    {
+      "q": "An electron moves at 2.0 × 10⁶ m/s. Its de Broglie wavelength is closest to (m = 9.109 × 10⁻³¹ kg)",
+      "a": "3.6 × 10⁻¹⁰ m",
+      "wrong": [
+        "7.3 × 10⁻¹⁰ m",
+        "3.6 × 10⁻⁷ m",
+        "1.8 × 10⁻¹⁰ m"
+      ],
+      "why": "λ = h/(mv) = 6.626 × 10⁻³⁴ / (9.109 × 10⁻³¹ × 2.0 × 10⁶) = 3.6 × 10⁻¹⁰ m. Wavelength is inversely proportional to speed, so doubling v halves λ."
+    },
+    {
+      "q": "A hydrogen electron falls from n = 3 to n = 1. What is the energy of the emitted photon?",
+      "a": "1.94 × 10⁻¹⁸ J",
+      "wrong": [
+        "2.42 × 10⁻¹⁹ J",
+        "1.45 × 10⁻¹⁸ J",
+        "1.63 × 10⁻¹⁸ J"
+      ],
+      "why": "ΔE = 2.178 × 10⁻¹⁸ (1/1² − 1/3²) = 2.178 × 10⁻¹⁸ × 8/9 = 1.94 × 10⁻¹⁸ J. The value 1.45 comes from forgetting to square n, and 1.63 is the n = 2 → 1 transition."
+    },
+    {
+      "q": "Using the Rydberg equation, the n = 4 → n = 3 line of hydrogen has a wavelength of about",
+      "a": "1.88 × 10³ nm, in the infrared",
+      "wrong": [
+        "656 nm, in the visible (red) region",
+        "486 nm, in the visible (blue-green) region",
+        "122 nm, in the ultraviolet region"
+      ],
+      "why": "1/λ = 1.097 × 10⁷ (1/9 − 1/16) = 5.33 × 10⁵ m⁻¹, so λ = 1.88 × 10⁻⁶ m. Lines ending on n = 3 are the Paschen series. The other wavelengths belong to 3 → 2, 4 → 2 and 2 → 1."
+    },
+    {
+      "q": "Which statement follows from the Heisenberg uncertainty principle?",
+      "a": "The more precisely an electron's position is known, the less precisely its momentum can be known",
+      "wrong": [
+        "Better instruments can make Δx · Δp equal to zero",
+        "An electron in an s orbital has an exactly known momentum",
+        "An electron follows a definite path, but we cannot measure it"
+      ],
+      "why": "Δx · Δp ≥ ħ/2 is a limit built into nature, not a measurement error. It is why electrons in atoms are described by orbitals instead of paths."
+    },
+    {
+      "q": "How many electrons can the 4f subshell hold?",
+      "a": "14",
+      "wrong": [
+        "7",
+        "10",
+        "6"
+      ],
+      "why": "For f, l = 3, so there are 2l + 1 = 7 orbitals with two electrons each. The number 7 counts orbitals, not electrons."
+    },
+    {
+      "q": "What is the total number of nodes in a 4d orbital?",
+      "a": "3",
+      "wrong": [
+        "4",
+        "2",
+        "1"
+      ],
+      "why": "An orbital has n − 1 nodes in all. For 4d these are l = 2 angular nodes and n − l − 1 = 1 radial node."
+    },
+    {
+      "q": "How many subshells are there in the n = 4 shell?",
+      "a": "4 (s, p, d and f)",
+      "wrong": [
+        "16, one for each orbital",
+        "7, one for each f orbital",
+        "3, since l can only reach n − 1 = 3"
+      ],
+      "why": "l runs from 0 to n − 1, giving n subshells: l = 0, 1, 2, 3. The number 16 is n², the count of orbitals."
+    },
+    {
+      "q": "How many unpaired electrons does the Co²⁺ ion (Z = 27) have?",
+      "a": "3",
+      "wrong": [
+        "1",
+        "2",
+        "5"
+      ],
+      "why": "Co is [Ar]3d⁷4s². The 4s electrons are removed first, leaving [Ar]3d⁷, in which five orbitals hold seven electrons: two pairs and three unpaired."
+    },
+    {
+      "q": "Why is the ground state of copper [Ar]3d¹⁰4s¹ rather than the Aufbau-predicted [Ar]3d⁹4s²?",
+      "a": "A completely filled 3d subshell is especially stable",
+      "wrong": [
+        "The 4s subshell can hold only one electron in copper",
+        "A single electron in 4s lowers repulsion between the 3d electrons",
+        "Electrons always fill d subshells before s subshells"
+      ],
+      "why": "Filled and half-filled d subshells are unusually stable, so one 4s electron moves to 3d. Copper and chromium are the standard exceptions."
+    },
+    {
+      "q": "A student writes the ground state of carbon as 1s²2s²2p_x²2p_y¹. Which rule does this violate?",
+      "a": "Hund's rule: the two 2p electrons should be in separate orbitals with parallel spins",
+      "wrong": [
+        "The Pauli exclusion principle: an orbital can hold only one electron",
+        "The Aufbau principle: 2p must fill before 2s",
+        "Hund's rule: the 2p electrons should have opposite spins"
+      ],
+      "why": "Degenerate orbitals are filled singly with parallel spins before any pairing, so the correct state is 2p_x¹2p_y¹. Pairing two electrons in one orbital is allowed by Pauli but costs repulsion energy."
+    },
+    {
+      "q": "Why does atomic radius decrease from sodium to chlorine?",
+      "a": "The nuclear charge rises while the added electrons enter the same shell and shield poorly, so Z_eff increases",
+      "wrong": [
+        "The added electrons enter inner shells and shield the valence electrons more",
+        "Chlorine has fewer electron shells than sodium",
+        "Greater electron repulsion squeezes the valence electrons inward"
+      ],
+      "why": "Across a period each element adds one proton and one electron in the same shell. Electrons in a shell shield one another only weakly, so the outer electrons feel a stronger pull."
+    },
+    {
+      "q": "Which pair of radius comparisons is correct?",
+      "a": "K⁺ is smaller than K, and Br⁻ is larger than Br",
+      "wrong": [
+        "K⁺ is larger than K, and Br⁻ is smaller than Br",
+        "K⁺ is smaller than K, and Br⁻ is smaller than Br",
+        "K⁺ is larger than K, and Br⁻ is larger than Br"
+      ],
+      "why": "A cation has fewer electrons, less repulsion and often one fewer shell, so it is smaller than its atom. An anion has extra repulsion and a larger radius."
+    },
+    {
+      "q": "An element has successive ionization energies (kJ/mol) of 578, 1817, 2745, 11577 and 14842. How many valence electrons does it have?",
+      "a": "3",
+      "wrong": [
+        "2",
+        "4",
+        "5"
+      ],
+      "why": "The large jump comes after the third electron is removed, showing that the fourth must come from an inner shell. This pattern fits aluminum."
+    },
+    {
+      "q": "Which list gives the elements Na, H, Cl and C in order of increasing electronegativity?",
+      "a": "Na < H < C < Cl",
+      "wrong": [
+        "H < Na < C < Cl",
+        "Na < C < H < Cl",
+        "Cl < C < H < Na"
+      ],
+      "why": "Pauling values are Na 0.93, H 2.20, C 2.55 and Cl 3.16. Electronegativity increases toward the upper right of the periodic table."
+    },
+    {
+      "q": "What was the main result of Moseley's X-ray work?",
+      "a": "It showed that elements should be ordered by atomic number, not atomic mass",
+      "wrong": [
+        "It confirmed Mendeleev's prediction of eka-silicon, germanium",
+        "It showed that elements should be ordered by increasing atomic mass",
+        "It showed that the nucleus is made of protons and neutrons"
+      ],
+      "why": "Ordering by atomic number fixes the pairs (Ar and K, Te and I) where mass order puts elements in the wrong column. Winkler, not Moseley, found germanium."
+    }
+  ],
   "summary": [
     "c = λν and E = hν. Light is absorbed and emitted as photons.",
     "The photoelectric effect (KE = hν − Φ) shows light is particulate. Electrons are waves too: λ = h/mv.",

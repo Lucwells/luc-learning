@@ -518,6 +518,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A galvanic cell oxidizes copper metal and reduces Ag⁺. Which cell notation is correct?",
+      "a": "Cu(s) | Cu²⁺(aq) || Ag⁺(aq) | Ag(s)",
+      "wrong": [
+        "Ag(s) | Ag⁺(aq) || Cu²⁺(aq) | Cu(s)",
+        "Cu²⁺(aq) | Cu(s) || Ag(s) | Ag⁺(aq)",
+        "Cu(s) | Cu²⁺(aq) | Ag⁺(aq) | Ag(s)"
+      ],
+      "why": "The anode (oxidation) is written on the left, with a double line for the salt bridge. Each half-cell lists the electrode phase and its ion separated by a single phase-boundary line."
+    },
+    {
+      "q": "In a Zn(s) | Zn²⁺ || Cu²⁺ | Cu(s) cell, toward which side do anions of the salt bridge migrate, and why?",
+      "a": "Toward the zinc half-cell, to balance the Zn²⁺ being produced",
+      "wrong": [
+        "Toward the copper half-cell, to replace the Cu²⁺ being consumed",
+        "Toward both half-cells equally, so that no net charge moves",
+        "Anions do not move; only electrons cross between the half-cells"
+      ],
+      "why": "Oxidation at the anode adds positive charge to its solution, and anions move toward the anode to cancel it. Cations move toward the cathode, where Cu²⁺ is being used up."
+    },
+    {
+      "q": "A half-cell contains only Fe³⁺ and Fe²⁺ in solution. What electrode is used?",
+      "a": "An inert one, such as platinum or graphite",
+      "wrong": [
+        "An iron rod, since iron appears in the half-reaction",
+        "None, since the solution conducts electrons",
+        "A copper rod, since it is a good conductor"
+      ],
+      "why": "No solid metal takes part in Fe³⁺ + e⁻ → Fe²⁺, so an unreactive conductor is needed to deliver or receive electrons. Iron would itself react."
+    },
+    {
+      "q": "What is E°_cell for the reaction Fe(s) + 2Ag⁺(aq) → Fe²⁺(aq) + 2Ag(s)?",
+      "a": "+1.24 V",
+      "wrong": [
+        "+2.04 V",
+        "+0.36 V",
+        "−1.24 V"
+      ],
+      "why": "E° = E°(cathode) − E°(anode) = 0.80 − (−0.44) = +1.24 V. The coefficient 2 on Ag⁺ does not change it, and doubling 0.80 gives the wrong +2.04 V."
+    },
+    {
+      "q": "Which reaction is spontaneous under standard conditions?",
+      "a": "Cu²⁺ + Fe → Cu + Fe²⁺",
+      "wrong": [
+        "Zn²⁺ + Cu → Zn + Cu²⁺",
+        "Al³⁺ + Pb → Al + Pb²⁺",
+        "Mg²⁺ + Ag → Mg + Ag⁺"
+      ],
+      "why": "Only the first has a positive E°: 0.34 − (−0.44) = +0.78 V. In each other reaction the metal being oxidized has the higher (more positive) reduction potential."
+    },
+    {
+      "q": "A cell reaction has E° = +0.118 V with n = 2 at 25 °C. What is K?",
+      "a": "1 × 10⁴",
+      "wrong": [
+        "1 × 10²",
+        "1 × 10⁸",
+        "1 × 10⁻⁴"
+      ],
+      "why": "log K = nE°/0.05916 = 2(0.118)/0.05916 = 4.0, so K = 1 × 10⁴. Omitting n gives 1 × 10², and a positive E° always gives K > 1."
+    },
+    {
+      "q": "A balanced cell equation is multiplied by 2. What happens to E°_cell and ΔG°?",
+      "a": "E° is unchanged and ΔG° doubles",
+      "wrong": [
+        "E° doubles and ΔG° doubles",
+        "E° doubles and ΔG° is unchanged",
+        "Both are unchanged"
+      ],
+      "why": "E° is intensive, a driving force per unit charge, so it does not scale. ΔG° = −nFE° is extensive, and n doubles with the equation."
+    },
+    {
+      "q": "What is E for the Zn–Cu cell (E° = 1.10 V, n = 2) when [Zn²⁺] = 0.010 M and [Cu²⁺] = 1.0 M?",
+      "a": "1.16 V",
+      "wrong": [
+        "1.04 V",
+        "1.10 V",
+        "1.22 V"
+      ],
+      "why": "Q = [Zn²⁺]/[Cu²⁺] = 0.010, so E = 1.10 − (0.05916/2)(−2) = 1.16 V. Low product concentration raises the potential. Leaving out the factor of 1/n gives 1.22 V."
+    },
+    {
+      "q": "A cell has Ag electrodes in 0.010 M Ag⁺ and in 0.10 M Ag⁺ at 25 °C. What is its potential, and which is the anode?",
+      "a": "0.059 V; the electrode in 0.010 M Ag⁺",
+      "wrong": [
+        "0.059 V; the electrode in 0.10 M Ag⁺",
+        "0.118 V; the electrode in 0.010 M Ag⁺",
+        "0 V, because both electrodes are silver"
+      ],
+      "why": "E° = 0, so E = −(0.05916/1) log(0.010/0.10) = +0.059 V. Oxidation at the dilute side raises its Ag⁺ concentration, so concentrations move toward equality."
+    },
+    {
+      "q": "A glass pH electrode changes potential by 59 mV per pH unit. By how much does its potential change if the pH goes from 7.0 to 4.0?",
+      "a": "About 177 mV",
+      "wrong": [
+        "About 59 mV",
+        "About 413 mV",
+        "About 18 mV"
+      ],
+      "why": "The potential is linear in pH, so 3 units correspond to 3 × 59 ≈ 177 mV. It is not proportional to the concentration, which changes by a factor of 1000."
+    },
+    {
+      "q": "A current of 3.00 A flows for 30.0 min through NiSO₄ solution. What mass of nickel plates onto the cathode? (M = 58.69 g mol⁻¹)",
+      "a": "1.64 g",
+      "wrong": [
+        "3.28 g",
+        "0.822 g",
+        "0.0274 g"
+      ],
+      "why": "Q = 3.00 × 1800 s = 5400 C, which is 0.0560 mol of e⁻. Ni²⁺ needs two electrons, so 0.0280 mol Ni = 1.64 g. Forgetting to convert minutes to seconds (90 C) gives 0.0274 g."
+    },
+    {
+      "q": "How long must 10.0 A pass through brine to make 0.100 mol of Cl₂ at the anode?",
+      "a": "1.93 × 10³ s",
+      "wrong": [
+        "965 s",
+        "3.86 × 10³ s",
+        "1.93 × 10⁴ s"
+      ],
+      "why": "2Cl⁻ → Cl₂ + 2e⁻ takes 0.200 mol e⁻, which is 19,300 C. At 10.0 A, t = 1930 s. Using one electron per Cl₂ gives half of this."
+    },
+    {
+      "q": "A concentrated aqueous NaCl solution is electrolyzed. What forms at each electrode?",
+      "a": "H₂ and OH⁻ at the cathode; Cl₂ at the anode",
+      "wrong": [
+        "Na at the cathode; Cl₂ at the anode",
+        "H₂ at the cathode; O₂ at the anode",
+        "Na at the cathode; O₂ at the anode"
+      ],
+      "why": "Water is reduced more easily than Na⁺. At the anode O₂ evolution would be favored by E°, but its overpotential is high, so Cl⁻ is oxidized instead."
+    },
+    {
+      "q": "In an electrolytic cell, the anode is",
+      "a": "the positive electrode, and oxidation occurs there",
+      "wrong": [
+        "the negative electrode, and oxidation occurs there",
+        "the positive electrode, and reduction occurs there",
+        "the negative electrode, and reduction occurs there"
+      ],
+      "why": "Oxidation always occurs at the anode. The external supply pulls electrons away from it, making it positive, which is the reverse of the sign in a galvanic cell."
+    },
+    {
+      "q": "The electrolyte density of a lead–acid battery falls during discharge because",
+      "a": "H₂SO₄ is consumed as PbSO₄ and water form",
+      "wrong": [
+        "PbSO₄ dissolves in the electrolyte",
+        "Pb²⁺ ions accumulate in solution",
+        "water is consumed at the cathode"
+      ],
+      "why": "The overall discharge reaction is Pb + PbO₂ + 2H₂SO₄ → 2PbSO₄ + 2H₂O. Sulfate leaves solution as solid PbSO₄ and water is produced, so the density tracks the state of charge."
+    },
+    {
+      "q": "How does a hydrogen fuel cell differ from a primary battery?",
+      "a": "Fuel and oxidant are supplied continuously, so it is not used up while they last",
+      "wrong": [
+        "It does not involve a redox reaction",
+        "It is charged by driving the cell reaction in reverse",
+        "It has no anode or cathode"
+      ],
+      "why": "Both are galvanic cells with electrodes and redox reactions. A battery has its reactants built in, and a fuel cell gets them from outside."
+    },
+    {
+      "q": "The tin coating on a steel can is scratched, exposing the iron. Compared with the bare steel, the iron",
+      "a": "corrodes faster, because tin is less easily oxidized than iron",
+      "wrong": [
+        "is protected, because tin is more easily oxidized than iron",
+        "corrodes at the same rate as bare steel",
+        "is protected, because the tin still blocks oxygen"
+      ],
+      "why": "Tin (−0.14 V) is less active than iron (−0.44 V), so the iron becomes the anode of a small galvanic cell and is oxidized. Zinc (−0.76 V), by contrast, protects the iron."
+    },
+    {
+      "q": "Why do cars rust faster where roads are salted?",
+      "a": "Dissolved ions carry current between the anodic and cathodic regions of the metal",
+      "wrong": [
+        "Salt reacts directly with iron to form rust",
+        "Salt lowers the E° of the oxygen reduction",
+        "Salt supplies the oxygen needed for rusting"
+      ],
+      "why": "Rusting is a short-circuited galvanic cell, and ions in the water film complete the circuit. Salt is not a reactant: rust needs only iron, oxygen and water."
+    }
+  ],
   "summary": [
     "A galvanic cell separates oxidation (anode, −) from reduction (cathode, +). Electrons flow through the wire and ions through the salt bridge.",
     "E°_cell = E°_cathode − E°_anode, with no scaling by coefficients. A positive E° means a spontaneous reaction.",

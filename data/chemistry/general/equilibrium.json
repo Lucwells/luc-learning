@@ -170,6 +170,168 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "Nitrogen dioxide made with ¹⁵N is injected into a flask holding N₂O₄ ⇌ 2NO₂ at equilibrium. The concentrations do not change, yet ¹⁵N soon appears in N₂O₄ as well. This shows that at equilibrium",
+      "a": "both reactions continue to occur, at equal rates",
+      "wrong": [
+        "only the forward reaction continues",
+        "the system had not really reached equilibrium",
+        "the equilibrium constant increased"
+      ],
+      "why": "Labeled molecules can only end up in N₂O₄ if NO₂ is still combining. Constant concentrations come from equal forward and reverse rates, not from the reactions having stopped."
+    },
+    {
+      "q": "Flask A starts with 0.50 mol N₂O₄ and flask B starts with 1.00 mol NO₂. Both have the same volume and temperature. At equilibrium",
+      "a": "both contain the same mixture of N₂O₄ and NO₂",
+      "wrong": [
+        "A contains more N₂O₄ than B",
+        "B contains more NO₂ than A",
+        "the compositions differ, but K is the same in both"
+      ],
+      "why": "The two starting amounts hold the same number of N atoms. Equilibrium is the same state whichever side the reaction starts from, so K and the composition both match."
+    },
+    {
+      "q": "A ⇌ B has K = 2.0 × 10⁻⁵ at some temperature. Which statement about the equilibrium state is correct?",
+      "a": "A dominates, and the forward and reverse rates are equal",
+      "wrong": [
+        "The forward rate is far smaller than the reverse rate",
+        "The reaction proceeds very slowly",
+        "Equilibrium has not yet been reached"
+      ],
+      "why": "A small K means little B at equilibrium. It is a statement about position, not speed, and at equilibrium the two rates always match."
+    },
+    {
+      "q": "What is the K_c expression for C(s) + CO₂(g) ⇌ 2CO(g)?",
+      "a": "[CO]² / [CO₂]",
+      "wrong": [
+        "[CO]² / ([C][CO₂])",
+        "[CO] / [CO₂]",
+        "[C][CO₂] / [CO]²"
+      ],
+      "why": "Products over reactants, each raised to its coefficient, with the pure solid C left out because its concentration is constant."
+    },
+    {
+      "q": "For N₂O₄(g) ⇌ 2NO₂(g), K_c = 4.6 × 10⁻³ at 298 K. What is K_p? (R = 0.082057 L atm mol⁻¹ K⁻¹)",
+      "a": "0.11",
+      "wrong": [
+        "1.9 × 10⁻⁴",
+        "3.8 × 10⁻⁴",
+        "4.6 × 10⁻³"
+      ],
+      "why": "Δn = 2 − 1 = +1, so K_p = K_c(RT) = 4.6 × 10⁻³ × (0.082057 × 298) = 4.6 × 10⁻³ × 24.45 = 0.11. Dividing by RT gives 1.9 × 10⁻⁴, the error of using Δn = −1."
+    },
+    {
+      "q": "At fixed temperature, CaCO₃(s) ⇌ CaO(s) + CO₂(g) is at equilibrium in a closed vessel containing both solids. A student claims that doubling the amount of CaCO₃ would double the CO₂ pressure. Why is this wrong?",
+      "a": "K_p = P(CO₂), and the amount of a pure solid does not enter K",
+      "wrong": [
+        "Doubling CaCO₃ also doubles the CaO, and the two effects cancel",
+        "K_p is proportional to the mass of CaCO₃, so the pressure falls",
+        "A gas pressure cannot change at constant temperature"
+      ],
+      "why": "The equilibrium pressure of CO₂ is a function of temperature alone, provided some of each solid is present. Extra solid changes neither K nor the pressure."
+    },
+    {
+      "q": "For A ⇌ 2B, K = 36. What is K for B ⇌ ½A?",
+      "a": "1/6",
+      "wrong": [
+        "6",
+        "1/36",
+        "1/72"
+      ],
+      "why": "Reversing the reaction gives 1/36. Halving the equation takes the square root of that, 1/6. Taking only the reciprocal misses the halving."
+    },
+    {
+      "q": "A ⇌ B has K₁ = 0.50, and C ⇌ B has K₂ = 8.0. What is K for A ⇌ C?",
+      "a": "0.0625",
+      "wrong": [
+        "4.0",
+        "16",
+        "8.5"
+      ],
+      "why": "Write A ⇌ B (0.50) and then B ⇌ C, which is the reverse of the second reaction (1/8.0 = 0.125). Adding reactions multiplies the constants: 0.50 × 0.125 = 0.0625."
+    },
+    {
+      "q": "For N₂O₄ ⇌ 2NO₂, K_c = 4.6 × 10⁻³. A flask contains [N₂O₄] = 0.050 M and [NO₂] = 0.020 M. What are Q and the direction of net reaction?",
+      "a": "Q = 0.0080; toward reactants",
+      "wrong": [
+        "Q = 0.0080; toward products",
+        "Q = 0.40; toward products",
+        "Q = 0.0080; the mixture is at equilibrium"
+      ],
+      "why": "Q = (0.020)²/0.050 = 0.0080. This exceeds K = 0.0046, so there is too much product and the net change is toward N₂O₄. The concentration of NO₂ must be squared."
+    },
+    {
+      "q": "A reaction mixture has Q < K at fixed temperature. As the reaction proceeds to equilibrium, what happens to Q?",
+      "a": "It increases until it equals K",
+      "wrong": [
+        "It decreases until it equals K",
+        "It stays the same while K changes",
+        "It increases until it exceeds K, then settles back"
+      ],
+      "why": "Q < K means too little product, so the net reaction forward raises the product concentrations and lowers the reactants, increasing Q. It stops at Q = K."
+    },
+    {
+      "q": "CO(g) + H₂O(g) ⇌ CO₂(g) + H₂(g) has K_c = 4.00. Starting with 1.00 M CO and 1.00 M H₂O, what is [CO₂] at equilibrium?",
+      "a": "0.667 M",
+      "wrong": [
+        "0.800 M",
+        "0.500 M",
+        "0.333 M"
+      ],
+      "why": "x²/(1.00 − x)² = 4.00, so x/(1.00 − x) = 2.00 and x = 0.667. The value 0.333 M is the leftover [CO], and 0.800 would be right for a one-reactant system A ⇌ B."
+    },
+    {
+      "q": "For N₂O₄ ⇌ 2NO₂, K_c = 4.6 × 10⁻³. Starting with 1.0 M N₂O₄ and using the small-x approximation, what is [NO₂], and is the approximation acceptable?",
+      "a": "0.068 M; yes, because x is under 5% of 1.0 M",
+      "wrong": [
+        "0.068 M; no, because x is over 5% of 1.0 M",
+        "0.034 M; yes, because x is under 5% of 1.0 M",
+        "0.0046 M; yes, because K is small"
+      ],
+      "why": "With 1.0 − x ≈ 1.0, 4x² = 4.6 × 10⁻³ gives x = 0.034. Then [NO₂] = 2x = 0.068 M, not x. The ratio x/1.0 = 3.4%, which is below the 5% limit."
+    },
+    {
+      "q": "2NO₂ ⇌ N₂O₄ has ΔH° = −57 kJ. A sealed flask of the mixture at equilibrium is heated. What happens to K and to the color (NO₂ is brown, N₂O₄ is colorless)?",
+      "a": "K decreases and the brown color deepens",
+      "wrong": [
+        "K increases and the brown color deepens",
+        "K decreases and the brown color fades",
+        "K is unchanged and the brown color deepens"
+      ],
+      "why": "Heating favors the endothermic direction, which is the reverse reaction making NO₂. A shift that comes from a temperature change is a change in K, for formation of N₂O₄ it falls."
+    },
+    {
+      "q": "N₂ + 3H₂ ⇌ 2NH₃ is at equilibrium in a rigid vessel. Argon is added, with the volume and temperature held constant. The NH₃ yield",
+      "a": "does not change",
+      "wrong": [
+        "increases, because the total pressure rises",
+        "decreases, because argon dilutes the reactants",
+        "increases, because argon lowers the temperature"
+      ],
+      "why": "At constant volume the argon leaves every partial pressure and concentration unchanged, so Q still equals K. Only a change in the pressures of the reacting gases, as when the volume shrinks, can shift the position."
+    },
+    {
+      "q": "H₂(g) + I₂(g) ⇌ 2HI(g) is at equilibrium. The volume is halved at constant temperature. What happens?",
+      "a": "The amounts of each gas stay the same, though every concentration doubles",
+      "wrong": [
+        "The mixture shifts toward HI, because pressure has increased",
+        "The mixture shifts toward H₂ and I₂ to reduce pressure",
+        "K doubles, because all concentrations double"
+      ],
+      "why": "There are 2 moles of gas on each side, so Q = K immediately after the compression. K depends only on temperature."
+    },
+    {
+      "q": "A reaction has ΔH° = +60.0 kJ mol⁻¹ and K = 1.0 × 10⁻⁴ at 300 K. Estimate K at 320 K. (R = 8.314 J mol⁻¹ K⁻¹)",
+      "a": "4.5 × 10⁻⁴",
+      "wrong": [
+        "2.2 × 10⁻⁵",
+        "1.5 × 10⁻⁴",
+        "1.0 × 10⁻⁴"
+      ],
+      "why": "ln(K₂/K₁) = −(60,000/8.314)(1/320 − 1/300) = +1.50, so K₂ = 1.0 × 10⁻⁴ × e^{1.50} = 4.5 × 10⁻⁴. K rises with temperature for an endothermic reaction, and 1.5 × 10⁻⁴ would come from forgetting to exponentiate."
+    }
+  ],
   "summary": [
     "At equilibrium the forward and reverse rates are equal and concentrations are constant. A catalyst does not change the position of equilibrium.",
     "K = [C]^c[D]^d/([A]^a[B]^b). Pure solids and liquids are omitted. K_p = K_c(RT)^Δn.",

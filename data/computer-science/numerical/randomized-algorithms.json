@@ -413,6 +413,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "The generator x ← (3x + 1) mod 10 starts at seed x₀ = 4. What is its period?",
+      "a": "4",
+      "wrong": [
+        "10",
+        "3",
+        "5"
+      ],
+      "why": "The sequence is 4, 3, 0, 1 and then 4 again. With a = 3 and m = 10 the conditions for a full period do not hold, so the generator repeats long before using all 10 values."
+    },
+    {
+      "q": "Eight parallel workers need independent random streams that can be reproduced from one experiment seed. Which approach is appropriate?",
+      "a": "Spawn eight child seeds from one SeedSequence",
+      "wrong": [
+        "Give every worker the same seed",
+        "Seed worker i with the integer i",
+        "Seed each worker from the clock time at start-up"
+      ],
+      "why": "Spawned seeds are designed to give independent streams. A shared seed gives identical numbers, consecutive integers can give correlated streams, and a clock seed cannot be reproduced."
+    },
+    {
+      "q": "Which generator should create password-reset tokens?",
+      "a": "The operating system's cryptographic generator (Python's secrets module)",
+      "wrong": [
+        "The Mersenne Twister, whose period of 2¹⁹⁹³⁷ − 1 makes its outputs impossible to predict",
+        "NumPy's default_rng with a fixed seed",
+        "A linear congruential generator with a large modulus"
+      ],
+      "why": "Statistical generators are not secure: their internal state can be inferred from a few outputs, however long their period. Tokens must be unpredictable."
+    },
+    {
+      "q": "Inverse transform sampling is used to draw X with density f(x) = 3x² on [0, 1]. What value does U = 0.125 give?",
+      "a": "0.5",
+      "wrong": [
+        "0.354",
+        "0.0156",
+        "0.375"
+      ],
+      "why": "F(x) = x³, so F⁻¹(u) = u^(1/3) and 0.125^(1/3) = 0.5. The values 0.354 (√u) and 0.0156 (u²) come from the wrong inverse."
+    },
+    {
+      "q": "Rejection sampling for Beta(3, 2), f(x) = 12x²(1 − x) on [0, 1], uses a uniform proposal. The maximum of f is 16/9 at x = 2/3. On average, how many proposals are needed per accepted sample?",
+      "a": "16/9 ≈ 1.78",
+      "wrong": [
+        "9/16 ≈ 0.56",
+        "1.5",
+        "3"
+      ],
+      "why": "With g = 1 the constant is M = 16/9, and the acceptance rate is 1/M = 9/16, so proposals per sample is M. The value 0.56 is the acceptance rate, not the number of proposals."
+    },
+    {
+      "q": "In importance sampling, a point x has target density p(x) = 0.03 and proposal density q(x) = 0.12. What weight does it get?",
+      "a": "0.25",
+      "wrong": [
+        "4",
+        "0.15",
+        "0.0036"
+      ],
+      "why": "The weight is p(x)/q(x) = 0.03/0.12. The proposal over-represents this point four-fold, so it is down-weighted. Inverting the ratio gives 4."
+    },
+    {
+      "q": "In the Fisher–Yates function, `j = random.randint(0, i)` is replaced by `j = random.randint(0, len(xs) - 1)`. What happens?",
+      "a": "The shuffle becomes biased: some permutations are more likely than others",
+      "wrong": [
+        "It is still uniform, since j is uniform",
+        "It raises an IndexError",
+        "It becomes a stable sort"
+      ],
+      "why": "Swapping with any position gives nⁿ equally likely outcomes, which cannot be divided evenly among n! permutations. Restricting j to 0..i is what makes each permutation equally likely."
+    },
+    {
+      "q": "Reservoir sampling keeps k = 3 items from a stream. For the 7th item (i = 7 > k), what is the probability that it enters the reservoir?",
+      "a": "3/7",
+      "wrong": [
+        "1/7",
+        "3/10",
+        "1/3"
+      ],
+      "why": "The i-th item is kept with probability k/i = 3/7. This declining probability is what makes every item that has been seen equally likely to be in the final sample."
+    },
+    {
+      "q": "For a monotone function g, Var(g(U)) = 0.20 and Cov(g(U), g(1 − U)) = −0.15. What is the variance of the average of the antithetic pair (g(U) + g(1 − U))/2?",
+      "a": "0.025",
+      "wrong": [
+        "0.10",
+        "0.05",
+        "0.35"
+      ],
+      "why": "Var of the average = (0.20 + 0.20 + 2(−0.15))/4 = 0.025. Two independent samples would give 0.10, so the negative covariance reduces the variance by a factor of 4."
+    },
+    {
+      "q": "A Metropolis–Hastings chain is at x with p(x) ∝ 0.4, and proposes x′ with p(x′) ∝ 0.2. The proposal densities are q(x′ | x) = 0.3 and q(x | x′) = 0.1. What is the acceptance probability?",
+      "a": "1/6 ≈ 0.167",
+      "wrong": [
+        "0.5",
+        "1",
+        "1/3"
+      ],
+      "why": "α = min(1, p(x′)q(x | x′) / (p(x)q(x′ | x))) = (0.2 × 0.1)/(0.4 × 0.3) = 1/6. Ignoring q gives 0.5, and inverting the q ratio gives 1.5, capped at 1."
+    },
+    {
+      "q": "A Metropolis random-walk chain accepts 98% of its proposals, yet its trace plot drifts slowly and explores the target poorly. What is the most likely fix?",
+      "a": "Increase the proposal step size",
+      "wrong": [
+        "Decrease the proposal step size",
+        "Discard more samples at the end of the chain",
+        "Replace the target with a uniform density"
+      ],
+      "why": "Very high acceptance usually means the steps are tiny, so successive samples are strongly correlated. A rate of 20% to 40% is a common target."
+    },
+    {
+      "q": "A student writes the Metropolis test as `if rng.random() < log_p(proposal) - log_p(x):`. What is wrong?",
+      "a": "It compares a uniform number with a log-ratio; it needs the log of the uniform or the exponential of the ratio",
+      "wrong": [
+        "The comparison direction is reversed: a move should be accepted when the log-ratio is above the uniform number",
+        "log_p should be replaced by p, since logs break symmetry",
+        "It needs the normalizing constant of the target"
+      ],
+      "why": "The rule accepts when u < p(x′)/p(x), i.e. log u < log p(x′) − log p(x). Comparing u itself with a log-ratio, which is often negative, rejects nearly every move."
+    },
+    {
+      "q": "A Monte Carlo algorithm errs with probability 0.2 on each independent run. For a yes/no question, what is the probability that the majority of 3 runs is wrong?",
+      "a": "0.104",
+      "wrong": [
+        "0.008",
+        "0.096",
+        "0.2"
+      ],
+      "why": "The majority is wrong if exactly 2 runs err (3 × 0.2² × 0.8 = 0.096) or all 3 do (0.008), total 0.104. Counting only the case of exactly 2 gives 0.096."
+    },
+    {
+      "q": "What does universal hashing guarantee for a function h chosen at random from the family?",
+      "a": "For any two distinct keys, they collide with probability at most 1/M over the random choice of h",
+      "wrong": [
+        "No two keys ever collide",
+        "Keys collide with probability at most 1/M, but only when the keys themselves are drawn at random from a uniform distribution",
+        "Every key lands in a different slot until the table is full"
+      ],
+      "why": "The randomness is in the choice of the function, so no fixed set of keys is bad for every choice. Collisions can and do still occur, with controlled probability."
+    },
+    {
+      "q": "How many dimensions k does the Johnson–Lindenstrauss bound k ≥ 4 ln m / (ε²/2 − ε³/3) require for m = 1000 points with ε = 0.5, if the data have 10⁶ dimensions?",
+      "a": "About 332",
+      "wrong": [
+        "About 28",
+        "About 1,000",
+        "About 10⁶"
+      ],
+      "why": "4 ln 1000 = 27.6 and ε²/2 − ε³/3 = 0.0833, giving 332. The original dimension does not enter. The value 28 forgets to divide by the distortion term."
+    },
+    {
+      "q": "A count-min sketch uses w = ⌈e/ε⌉ columns and d = ⌈ln(1/δ)⌉ rows. How many counters are needed for ε = 0.01 and δ = 0.05?",
+      "a": "816",
+      "wrong": [
+        "272",
+        "1,000",
+        "8,160"
+      ],
+      "why": "w = ⌈271.8⌉ = 272 and d = ⌈ln 20⌉ = ⌈3.0⌉ = 3, so 272 × 3 = 816 counters, no matter how many distinct items the stream contains."
+    },
+    {
+      "q": "Accuracies from 4 seeds are 80, 82, 84 and 82. What is the standard error of the mean, using the sample standard deviation?",
+      "a": "0.82",
+      "wrong": [
+        "1.63",
+        "1.41",
+        "0.71"
+      ],
+      "why": "The mean is 82 and the squared deviations sum to 8, so the sample variance is 8/3 and s = 1.63. The standard error is s/√4 = 0.82. The value 1.63 is the spread of single runs, not of the mean."
+    },
+    {
+      "q": "A team changes one global seed for each experiment and finds that the test examples differ between runs, so the results cannot be compared. What is the mistake?",
+      "a": "Data splitting needed its own seed, with the test split kept fixed across experiments",
+      "wrong": [
+        "The test split should be re-drawn for every method, so that no method can overfit to one particular test set",
+        "The same seed should have been used for initialization and for data splitting",
+        "Seeds should be avoided so that results average out"
+      ],
+      "why": "Separate seeds for splitting, initialization and augmentation mean that changing one leaves the others unchanged. A fixed test split makes differences between methods attributable to the methods."
+    }
+  ],
   "summary": [
     "A PRNG expands a seed deterministically (LCG: x ← (ax + c) mod m; modern: PCG, xoshiro, Mersenne Twister, counter-based generators). Same seed gives the same sequence. Use spawned independent streams for parallel work and secrets for security.",
     "Sample by inverse transform, rejection sampling (accept with f/(Mg), rate 1/M), Box–Muller, the alias method and importance weights. Shuffle with Fisher–Yates, and sample a stream with reservoir sampling.",

@@ -446,6 +446,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "Coupling an aryl chloride in a Pd-catalyzed reaction usually needs a bulky, electron-rich phosphine ligand, whereas an aryl iodide does not. Why?",
+      "a": "Oxidative addition into C–Cl is slow, and an electron-rich Pd(0) center speeds it up",
+      "wrong": [
+        "Reductive elimination fails for chlorides unless the ligand blocks a second halide from binding",
+        "Chloride is a poor leaving group in transmetalation, and the ligand replaces it",
+        "Aryl chlorides are not electrophilic, and the ligand makes the ring more electron-poor"
+      ],
+      "why": "The reactivity order for oxidative addition is I > Br ≈ OTf ≫ Cl. Bulky, electron-donating ligands make the palladium a stronger nucleophile toward the strong C–Cl bond."
+    },
+    {
+      "q": "What is the oxidation state of palladium in R–Pd–X, formed right after oxidative addition?",
+      "a": "+2",
+      "wrong": [
+        "0",
+        "+1",
+        "+4"
+      ],
+      "why": "The catalytic cycle starts with Pd(0). Oxidative addition raises it to Pd(II), and reductive elimination of R–R′ returns it to Pd(0)."
+    },
+    {
+      "q": "Bromobenzene is coupled with piperidine using a Pd catalyst, a bulky phosphine ligand and a base. This reaction is the",
+      "a": "Buchwald–Hartwig amination",
+      "wrong": [
+        "Suzuki coupling",
+        "Stille coupling",
+        "Sonogashira coupling"
+      ],
+      "why": "The Buchwald–Hartwig reaction joins an aryl halide to an N–H of an amine and gives Ar–NR₂. The others make C–C bonds."
+    },
+    {
+      "q": "In drug manufacture a Suzuki coupling is usually preferred to a Stille coupling because",
+      "a": "boronic acids are stable to air and water and far less toxic than organotin reagents",
+      "wrong": [
+        "Suzuki coupling works on aryl chlorides, and Stille coupling does not",
+        "Suzuki coupling needs no palladium, whereas Stille coupling does",
+        "Suzuki coupling makes C–N bonds, which are more useful in drugs"
+      ],
+      "why": "Both reactions are Pd-catalyzed, and both can couple aryl halides. The practical difference is toxicity and handling, and tin residues are hard to remove from a drug."
+    },
+    {
+      "q": "4-Bromotoluene is treated with phenylacetylene, a Pd catalyst, CuI and triethylamine. The product is",
+      "a": "1-methyl-4-(phenylethynyl)benzene",
+      "wrong": [
+        "4-methylbiphenyl",
+        "1-methyl-4-(2-phenylethenyl)benzene, a stilbene",
+        "N-(4-methylphenyl)triethylamine"
+      ],
+      "why": "This is a Sonogashira coupling: the terminal alkyne carbon bonds to the aryl carbon and gives Ar–C≡C–Ph. The triple bond is retained."
+    },
+    {
+      "q": "A molecule carries a Boc-protected amine and a benzyl-protected alcohol. It is treated with trifluoroacetic acid. What is removed?",
+      "a": "Only the Boc group",
+      "wrong": [
+        "Only the benzyl group",
+        "Both groups",
+        "Neither group"
+      ],
+      "why": "Boc is acid-labile, while a benzyl ether is removed by H₂/Pd. The two are orthogonal, so each can be revealed independently."
+    },
+    {
+      "q": "Which pair of protecting groups is removed by H₂ over Pd/C?",
+      "a": "Cbz on an amine and a benzyl ether on an alcohol",
+      "wrong": [
+        "Boc on an amine and a TBS ether on an alcohol",
+        "Fmoc on an amine and a MOM ether on an alcohol",
+        "a cyclic acetal on a ketone and a THP ether on an alcohol"
+      ],
+      "why": "Benzyl-type C–O bonds are cleaved by hydrogenolysis. Boc and acetal-type groups need acid, TBS needs fluoride or acid, and Fmoc needs base."
+    },
+    {
+      "q": "In Fmoc solid-phase peptide synthesis, trifluoroacetic acid is used in the final step to",
+      "a": "release the peptide from the bead and remove the tert-butyl side-chain protecting groups",
+      "wrong": [
+        "remove the Fmoc group from the N-terminus before each new coupling",
+        "activate the carboxylic acid of the incoming amino acid for coupling",
+        "cleave only the peptide bond between the last two residues"
+      ],
+      "why": "Fmoc is removed each cycle with piperidine, a base. The acid-labile side-chain groups and the linker survive the cycles and come off together at the end."
+    },
+    {
+      "q": "A substrate has a free alcohol OH elsewhere in the molecule. Which reaction would require the OH to be protected first?",
+      "a": "addition of PhMgBr to a ketone",
+      "wrong": [
+        "reduction of a ketone with NaBH₄ in ethanol",
+        "a Suzuki coupling with K₂CO₃ as base",
+        "a Wittig reaction with the stabilized ylide Ph₃P=CHCO₂Et"
+      ],
+      "why": "A Grignard reagent is a strong base and would be destroyed by the alcohol proton. The other three conditions tolerate an ordinary alcohol."
+    },
+    {
+      "q": "1-Phenylethanol, PhCH(OH)CH₃, is to be made by a Grignard reaction. Which pair of reagents works?",
+      "a": "benzaldehyde and CH₃MgBr",
+      "wrong": [
+        "acetophenone and CH₃MgBr",
+        "acetone and PhMgBr",
+        "carbon dioxide and PhMgBr"
+      ],
+      "why": "The carbinol carbon has one H, so the carbonyl partner must be an aldehyde. Acetophenone or acetone would give a tertiary alcohol, and CO₂ would give benzoic acid."
+    },
+    {
+      "q": "Which reagent is the synthetic equivalent of the carbanion synthon Ph⁻?",
+      "a": "PhMgBr",
+      "wrong": [
+        "PhBr",
+        "PhCHO",
+        "PhNO₂"
+      ],
+      "why": "A Grignard reagent behaves as a carbon nucleophile. An alkyl or aryl bromide is the equivalent of the carbocation synthon, because the carbon is the electrophilic one."
+    },
+    {
+      "q": "Why is the benzoin condensation an example of umpolung?",
+      "a": "The aldehyde carbon, normally electrophilic, becomes nucleophilic after cyanide adds",
+      "wrong": [
+        "Cyanide makes the aldehyde oxygen the site of attack by the second molecule",
+        "The aromatic ring reverses its polarity and attacks the carbonyl of another molecule",
+        "Cyanide oxidizes the aldehyde to a carboxylic acid, which then attacks the aldehyde"
+      ],
+      "why": "The cyanohydrin’s C–H is acidic, and its carbanion acts as an acyl anion equivalent that attacks a second aldehyde. The polarity of that carbon has been reversed."
+    },
+    {
+      "q": "A linear synthesis has 8 steps, each in 90% yield. What is the overall yield?",
+      "a": "43%",
+      "wrong": [
+        "72%",
+        "90%",
+        "4.3%"
+      ],
+      "why": "Yields multiply, so the overall yield is 0.90⁸ = 0.43. Averaging them would wrongly give 90%."
+    },
+    {
+      "q": "The same 8 reactions at 90% yield are arranged as a convergent synthesis whose longest sequence is 5 steps. What is the overall yield, based on the longest sequence?",
+      "a": "59%",
+      "wrong": [
+        "66%",
+        "73%",
+        "90%"
+      ],
+      "why": "Only the steps in the longest branch compound the loss: 0.90⁵ = 0.59. This is why convergent routes are preferred for long syntheses."
+    },
+    {
+      "q": "tert-Butyl methyl ether, CH₃OC(CH₃)₃, is best made by a Williamson synthesis from",
+      "a": "potassium tert-butoxide and CH₃I",
+      "wrong": [
+        "sodium methoxide and tert-butyl bromide",
+        "sodium methoxide and iodomethane",
+        "potassium tert-butoxide and tert-butyl chloride"
+      ],
+      "why": "The Williamson reaction is an SN2, so the alkyl halide should be methyl or primary. A tertiary halide with a basic alkoxide gives mainly elimination to 2-methylpropene."
+    },
+    {
+      "q": "Formaldehyde, dimethylamine and acetone react together. The product is",
+      "a": "(CH₃)₂NCH₂CH₂COCH₃",
+      "wrong": [
+        "HOCH₂CH₂COCH₃",
+        "CH₃CON(CH₃)₂",
+        "(CH₃)₂C=CHCOCH₃"
+      ],
+      "why": "This is a Mannich reaction: formaldehyde and the amine form an iminium ion, which the enol of acetone attacks to give a β-amino ketone. The alcohol would be a simple crossed aldol."
+    },
+    {
+      "q": "Acetone is treated with TiCl₃ and LiAlH₄ (McMurry conditions). The main product is",
+      "a": "2,3-dimethylbut-2-ene",
+      "wrong": [
+        "2,3-dimethylbutane-2,3-diol",
+        "propan-2-ol",
+        "4-methylpent-3-en-2-one"
+      ],
+      "why": "The McMurry reaction couples two carbonyls and removes the oxygens to give an alkene. The diol is the pinacol that would form under milder reducing conditions."
+    },
+    {
+      "q": "The Reformatsky reaction uses zinc and not an organolithium or Grignard reagent because the zinc enolate",
+      "a": "adds to aldehydes and ketones but not to the ester of its own precursor",
+      "wrong": [
+        "is a stronger base, which deprotonates the aldehyde fully",
+        "forms a carbon–zinc bond that is stable to water, so no workup is needed",
+        "reacts only with the ester carbonyl, leaving ketones untouched"
+      ],
+      "why": "Zinc enolates are less reactive than lithium or magnesium reagents. They survive in the presence of the α-bromo ester and attack only the more electrophilic aldehyde or ketone, giving a β-hydroxy ester."
+    }
+  ],
   "summary": [
     "Palladium cross-coupling proceeds by oxidative addition, transmetalation and reductive elimination. Suzuki (boronic acids), Heck (alkenes), Sonogashira (alkynes) and Buchwald–Hartwig (amines) are the main variants.",
     "Protecting groups mask functionality: silyl ethers for alcohols, acetals for carbonyls, Boc/Cbz/Fmoc for amines. Orthogonal sets remove one group at a time.",

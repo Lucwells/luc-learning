@@ -547,6 +547,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "Using atomic masses ¹H 1.007825 u, n 1.008665 u and ²H 2.014102 u, what is the binding energy of the deuteron?",
+      "a": "2.22 MeV",
+      "wrong": [
+        "1.11 MeV",
+        "22.2 MeV",
+        "0.00239 MeV"
+      ],
+      "why": "Δm = 1.007825 + 1.008665 − 2.014102 = 0.002388 u, and 0.002388 × 931.494 = 2.22 MeV. The value 1.11 MeV is the binding energy per nucleon, and 0.00239 is Δm in u without conversion."
+    },
+    {
+      "q": "The only stable isotope of phosphorus is ³¹P. What is the expected decay of ³⁰P (Z = 15, N = 15)?",
+      "a": "β⁺ decay (p → n)",
+      "wrong": [
+        "β⁻ decay (n → p)",
+        "α decay",
+        "γ emission only"
+      ],
+      "why": "³⁰P has one neutron fewer than the stable isotope, so it lies below the band of stability and converts a proton to a neutron by positron emission (or electron capture). β⁻ decay is for neutron-rich nuclei."
+    },
+    {
+      "q": "Splitting ²³⁵U releases energy, but fusing two ²³⁵U nuclei would not. Why?",
+      "a": "Uranium lies past the binding-energy maximum at A ≈ 56, so the fused product would be less tightly bound",
+      "wrong": [
+        "Uranium nuclei contain too many neutrons to approach one another closely enough to fuse",
+        "The binding energy per nucleon of uranium is already at the maximum of the curve",
+        "Fusion releases energy only for isotopes of hydrogen, whatever the binding energy curve says"
+      ],
+      "why": "Energy is released when a reaction moves toward ⁵⁶Fe on the curve. Nuclei with A > 56 gain by splitting, while those with A < 56 gain by combining."
+    },
+    {
+      "q": "How many α and β⁻ decays take ²³²Th (Z = 90) to ²⁰⁸Pb (Z = 82)?",
+      "a": "6 α and 4 β⁻",
+      "wrong": [
+        "6 α and 2 β⁻",
+        "4 α and 6 β⁻",
+        "8 α and 4 β⁻"
+      ],
+      "why": "Only α decay changes A: (232 − 208)/4 = 6. Six α decays lower Z by 12, to 78, and 4 β⁻ decays (each Z + 1) bring it up to 82."
+    },
+    {
+      "q": "A proton-rich nuclide's atomic mass exceeds its daughter's by the equivalent of 0.80 MeV. Which decay is energetically possible?",
+      "a": "Electron capture only",
+      "wrong": [
+        "β⁺ emission only",
+        "Both β⁺ emission and electron capture",
+        "Neither, because proton-rich nuclei decay only by α emission"
+      ],
+      "why": "Positron emission needs a Q value above 1.022 MeV (two electron masses), whereas electron capture needs no such threshold. At 0.80 MeV only capture can proceed."
+    },
+    {
+      "q": "Masses: ²²²Rn 222.017578 u, ²¹⁸Po 218.008973 u, ⁴He 4.002603 u. What is Q for the α decay of ²²²Rn?",
+      "a": "5.59 MeV",
+      "wrong": [
+        "5.59 keV",
+        "0.0060 MeV",
+        "5590 MeV"
+      ],
+      "why": "Δm = 222.017578 − (218.008973 + 4.002603) = 0.006002 u, and 0.006002 × 931.494 = 5.59 MeV. The other options are unit-conversion slips."
+    },
+    {
+      "q": "A sample's activity falls from 800 Bq to 100 Bq in 15 days. What is its half-life?",
+      "a": "5.0 days",
+      "wrong": [
+        "7.5 days",
+        "1.9 days",
+        "3.8 days"
+      ],
+      "why": "800 → 100 is a factor of 8 = 2³, so three half-lives passed in 15 days: t½ = 5.0 d. Dividing by 8 or by 4 does not respect the halving."
+    },
+    {
+      "q": "A bone has a ¹⁴C activity of 12.5% of that of living tissue (t½ = 5730 y). How old is it?",
+      "a": "About 17,200 years",
+      "wrong": [
+        "About 5,700 years",
+        "About 11,500 years",
+        "About 45,800 years"
+      ],
+      "why": "12.5% = (½)³, so three half-lives have elapsed: 3 × 5730 = 17,190 y. One half-life corresponds to 50% and two to 25%."
+    },
+    {
+      "q": "Which assumption underlies the dating of a rock by K–Ar or U–Pb?",
+      "a": "Essentially all the daughter isotope formed by decay since the rock formed, or the initial amount can be corrected",
+      "wrong": [
+        "The rock exchanged parent atoms with its surroundings until it was found, as living tissue does with carbon",
+        "The decay rate was higher in the past and decreased as the rock cooled",
+        "The daughter isotope was present at the start in the same ratio as the parent"
+      ],
+      "why": "If daughter atoms were already present at the start, the ratio would overstate the age; isochron plots handle this case. Decay rates do not depend on temperature or chemical state."
+    },
+    {
+      "q": "Two samples hold the same number of atoms, one of ¹⁸F (t½ = 110 min) and one of ⁶⁰Co (t½ = 5.27 y). Which has the higher activity?",
+      "a": "¹⁸F, because its decay constant is larger",
+      "wrong": [
+        "⁶⁰Co, because a longer-lived sample keeps more of its atoms intact",
+        "They are equal, since the number of atoms N is the same in both",
+        "⁶⁰Co, because its nucleus is heavier"
+      ],
+      "why": "Activity A = λN, and λ = ln 2/t½ is much larger for the short-lived nuclide. Short half-life means high specific activity."
+    },
+    {
+      "q": "A 1000 MW (thermal) reactor releases 200 MeV per fission (1 MeV = 1.602 × 10⁻¹³ J). About how many fissions occur per second?",
+      "a": "3.1 × 10¹⁹",
+      "wrong": [
+        "6.2 × 10²¹",
+        "3.1 × 10¹⁶",
+        "3.1 × 10²²"
+      ],
+      "why": "200 MeV = 3.2 × 10⁻¹¹ J, so 10⁹ J s⁻¹ ÷ 3.2 × 10⁻¹¹ J = 3.1 × 10¹⁹ s⁻¹. Using 1 MeV instead of 200 MeV per fission gives 6.2 × 10²¹."
+    },
+    {
+      "q": "Why are the delayed neutrons important for controlling a reactor?",
+      "a": "They arrive seconds after fission, so power changes slowly enough for control rods to respond",
+      "wrong": [
+        "They are the only neutrons with enough energy to induce fission in ²³⁵U nuclei",
+        "They are absorbed by the moderator, which lowers k automatically each cycle",
+        "They keep k above 1 so that the reactor stays supercritical"
+      ],
+      "why": "About 0.65% of neutrons are emitted seconds after fission by fission products. This delay stretches the time scale of a change in power from milliseconds to seconds."
+    },
+    {
+      "q": "A chain reaction has k = 1.5, and one generation contains 1000 fissions. About how many fissions occur four generations later?",
+      "a": "About 5,060",
+      "wrong": [
+        "About 3,000",
+        "About 6,000",
+        "About 1,500"
+      ],
+      "why": "Growth is exponential: 1000 × 1.5⁴ = 5063. Adding 50% four times to the original (3000) is a linear error, and 1500 is the next generation only."
+    },
+    {
+      "q": "Neutron capture by ²³⁸U gives ²³⁹U. How does this become fissile ²³⁹Pu?",
+      "a": "Two successive β⁻ decays, through ²³⁹Np",
+      "wrong": [
+        "Two successive α decays",
+        "One β⁺ decay followed by electron capture",
+        "Capture of two more neutrons"
+      ],
+      "why": "Each β⁻ decay raises Z by one: U (92) → Np (93) → Pu (94), with A constant at 239. α decay would lower both Z and A."
+    },
+    {
+      "q": "Why must a D–T fuel be heated to about 10⁸ K?",
+      "a": "The nuclei need enough kinetic energy to approach within about 1 fm against their Coulomb repulsion",
+      "wrong": [
+        "Fusion is endothermic, and the heat supplies the energy that the reaction requires",
+        "Heat is needed to break the nuclei apart into free nucleons before they can recombine",
+        "The fuel must release neutrons that propagate a chain reaction, as in fission"
+      ],
+      "why": "Positive nuclei repel each other (≈ 0.4 MeV at 1 fm), so they must collide very fast, forming a plasma. Fusion of light nuclei is exothermic (17.6 MeV for D–T), and there is no neutron chain."
+    },
+    {
+      "q": "A tissue receives an absorbed dose of 3.0 mGy from α particles. What is the equivalent dose?",
+      "a": "60 mSv",
+      "wrong": [
+        "3.0 mSv",
+        "0.15 mSv",
+        "6.0 mSv"
+      ],
+      "why": "Equivalent dose = absorbed dose × w_R, and w_R = 20 for α particles: 3.0 mGy × 20 = 60 mSv. The value 3.0 mSv would apply to β or γ radiation (w_R = 1)."
+    },
+    {
+      "q": "Why is an α emitter harmless outside the body but dangerous when inhaled?",
+      "a": "Its dense ionization is stopped by the skin's outer layer, but inside the body all its energy is deposited in nearby tissue",
+      "wrong": [
+        "α particles are very penetrating, but the skin filters out the ones that matter",
+        "α decay produces only low-energy photons that tissue absorbs poorly",
+        "Inhaled α emitters undergo β decay in the lungs, and the β particles do the damage"
+      ],
+      "why": "α particles (+2 charge, heavy) lose their energy within a few cm of air or in dead skin, but once inside the body that energy goes into a few micrograms of tissue, which with w_R = 20 gives a large local equivalent dose."
+    },
+    {
+      "q": "Why does ¹⁸F-fluorodeoxyglucose reveal many tumors in PET imaging?",
+      "a": "It accumulates in tissue that takes up much glucose, and positron annihilation photons locate it",
+      "wrong": [
+        "It emits α particles that are absorbed by the tumor and detected outside the body",
+        "It is stable and shows up because it absorbs X-rays strongly",
+        "It binds the DNA of dividing cells and emits neutrons that are detected in coincidence"
+      ],
+      "why": "FDG is taken up like glucose, so tissue with high glucose use concentrates it. Each ¹⁸F positron annihilates to give two 511 keV photons in opposite directions, detected in coincidence to locate the source."
+    }
+  ],
   "summary": [
     "The strong force binds nucleons over ~2 fm; stable nuclei lie in a band with N/Z rising from 1 to 1.5. Magic numbers (2, 8, 20, 28, 50, 82, 126) and even–even composition add stability. E_b = Δm·c² with 1 u = 931.5 MeV; the binding energy per nucleon peaks at ⁵⁶Fe.",
     "Decay modes: α (Z−2, A−4), β⁻ (Z+1), β⁺ and electron capture (Z−1), γ. Balance A and Z. Q = Δm·c².",

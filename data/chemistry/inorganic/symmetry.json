@@ -403,6 +403,116 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "Which operation is equivalent to the improper rotation S₂?",
+      "a": "Inversion, i",
+      "wrong": ["Reflection, σ", "Rotation by 180°, C₂", "The identity, E"],
+      "why": "S₂ is a 180° rotation followed by reflection through the perpendicular plane, which sends (x, y, z) to (−x, −y, −z). S₁ is the one equal to a mirror plane."
+    },
+    {
+      "q": "A molecule is not linear and not cubic. Its highest-order axis is C₄, it has four perpendicular C₂ axes and a horizontal mirror plane. Its point group is",
+      "a": "D₄ₕ",
+      "wrong": ["C₄ₕ", "D₄d", "C₄ᵥ"],
+      "why": "Perpendicular C₂ axes make it a D group, and σₕ adds the h. C₄ₕ lacks the C₂ axes, D₄d has dihedral planes instead of σₕ, and C₄ᵥ has vertical planes only."
+    },
+    {
+      "q": "The presence of which symmetry element guarantees that a molecule is achiral?",
+      "a": "Any improper axis, such as a mirror plane or an inversion center",
+      "wrong": ["A proper rotation axis Cₙ", "The identity operation E", "Three mutually perpendicular C₂ axes"],
+      "why": "Only a molecule with proper rotations alone (Cₙ or Dₙ) can be chiral. Every molecule has E, and rotation axes never make a molecule superimposable on its mirror image."
+    },
+    {
+      "q": "A group has order 8 and five irreducible representations, four of them one-dimensional. What is the dimension of the fifth?",
+      "a": "2",
+      "wrong": ["1", "3", "4"],
+      "why": "The squares of the dimensions sum to the order: 1 + 1 + 1 + 1 + d² = 8, so d² = 4 and d = 2."
+    },
+    {
+      "q": "In C₂ᵥ, a one-dimensional irreducible representation has χ(C₂) = −1. Its Mulliken letter is",
+      "a": "B",
+      "wrong": ["A", "E", "T"],
+      "why": "A and B are one-dimensional, with A symmetric (+1) and B antisymmetric (−1) under the principal rotation. E and T have χ(E) = 2 and 3."
+    },
+    {
+      "q": "Using the C₂ᵥ table (A₂ goes with R_z and xy), a vibration of symmetry A₂ is",
+      "a": "Raman active only",
+      "wrong": ["IR active only", "both IR and Raman active", "neither IR nor Raman active"],
+      "why": "A₂ matches the quadratic function xy, so the mode changes the polarizability. It does not match x, y or z, so it does not change the dipole moment."
+    },
+    {
+      "q": "Which statement about vibrational activity is false?",
+      "a": "A mode is IR active if it changes the polarizability of the molecule",
+      "wrong": ["A mode is IR active if it transforms like x, y or z", "A mode is Raman active if it transforms like a quadratic function such as x² or xy", "IR activity requires a change in the dipole moment during the vibration"],
+      "why": "A change in polarizability gives Raman activity. IR activity needs a changing dipole, which is why x, y and z in the character table mark IR-active species."
+    },
+    {
+      "q": "Benzene, C₆H₆, has 12 atoms. How many vibrational degrees of freedom does it have?",
+      "a": "30",
+      "wrong": ["36", "33", "31"],
+      "why": "A nonlinear molecule has 3N − 6 = 36 − 6 = 30 vibrations. 36 counts every degree of freedom, and 31 wrongly uses the linear formula 3N − 5."
+    },
+    {
+      "q": "Acetylene, C₂H₂, is linear. How many vibrational degrees of freedom does it have?",
+      "a": "7",
+      "wrong": ["6", "8", "9"],
+      "why": "A linear molecule has 3N − 5 = 12 − 5 = 7 vibrations, because it has only two rotations. 6 is the nonlinear count."
+    },
+    {
+      "q": "Under inversion i, only the sulfur atom of SF₆ stays in place. What is the character of Γ₃N for i?",
+      "a": "−3",
+      "wrong": ["3", "−1", "1"],
+      "why": "The character is the number of unshifted atoms times the contribution per atom. Inversion contributes −3 per atom, and one atom is unshifted, giving −3."
+    },
+    {
+      "q": "In C₂ᵥ a reducible representation has characters 4, 0, 2, 2 for E, C₂, σᵥ(xz), σᵥ′(yz). How many times does A₁ occur?",
+      "a": "2",
+      "wrong": ["1", "3", "8"],
+      "why": "n(A₁) = ¼(4 + 0 + 2 + 2) = 2, since A₁ has character 1 for every operation. The value 8 forgets to divide by the group order, 4."
+    },
+    {
+      "q": "A molecule gives an IR band and a Raman band at the same frequency. What does this imply?",
+      "a": "The molecule has no inversion center",
+      "wrong": ["The molecule has an inversion center", "The mode is doubly degenerate", "The molecule must be linear"],
+      "why": "In a centrosymmetric molecule each mode is g (Raman only) or u (IR only), so a mode seen in both spectra rules out an inversion center."
+    },
+    {
+      "q": "Which CO₂ vibration appears in the Raman spectrum but not the IR, and why?",
+      "a": "The symmetric stretch, because it changes the polarizability but not the dipole moment",
+      "wrong": ["The antisymmetric stretch, because it changes the polarizability but not the dipole moment", "The bend, because it is the only gerade mode", "All three fundamentals, because CO₂ has no permanent dipole"],
+      "why": "The symmetric stretch is Σg⁺, symmetric to inversion, and the dipole stays zero as both bonds lengthen together. The antisymmetric stretch and bend are u and IR only."
+    },
+    {
+      "q": "The H 1s orbitals of water give SALCs of a₁ and b₁ symmetry. Which oxygen orbital can combine with the b₁ SALC (molecule in the xz plane)?",
+      "a": "2p_x",
+      "wrong": ["2s", "2p_y", "2p_z"],
+      "why": "Only orbitals of the same symmetry combine. O 2p_x is b₁, while 2s and 2p_z are a₁ and 2p_y is b₂, with no matching SALC."
+    },
+    {
+      "q": "How many molecular orbitals result in H₂O when O 2s, the three O 2p orbitals and two H 1s orbitals are combined?",
+      "a": "6",
+      "wrong": ["4", "5", "8"],
+      "why": "The number of MOs equals the number of atomic orbitals combined: 4 on oxygen + 2 on hydrogen = 6. The eight valence electrons then occupy four of them."
+    },
+    {
+      "q": "According to a Walsh diagram, why does H₂O, with 8 valence electrons, prefer a bent geometry?",
+      "a": "The 3a₁ orbital is occupied, and it falls steeply in energy as the molecule bends",
+      "wrong": ["The out-of-plane 1b₂ orbital falls steeply in energy on bending", "The 3a₁ orbital rises on bending, which pushes electron density out of plane", "Bending allows oxygen d orbitals to mix with the hydrogen 1s orbitals"],
+      "why": "On bending, the in-plane nonbonding component mixes with oxygen s and drops in energy. The out-of-plane 1b₂ barely changes, and d orbitals play no role."
+    },
+    {
+      "q": "Tetrahedral complexes typically absorb more intensely (ε ~ 10²) than octahedral ones (ε ~ 10). Why?",
+      "a": "With no inversion center, d–d transitions are not restricted by the Laporte g ↔ u rule",
+      "wrong": ["They have more d electrons available to be excited", "Their larger ligand-field splitting makes d–d transitions spin-allowed", "Their d orbitals are degenerate, so every transition is allowed"],
+      "why": "The Laporte rule applies only to centrosymmetric complexes. A tetrahedron lacks i, so d and p character can mix and the transitions gain intensity."
+    },
+    {
+      "q": "In C₂ᵥ (x ~ B₁, y ~ B₂, z ~ A₁), a transition from an A₁ ground state to a B₂ excited state is",
+      "a": "allowed, with polarization along y",
+      "wrong": ["forbidden, since the two states have different symmetry", "allowed, with polarization along z", "allowed, with polarization along x"],
+      "why": "The product of initial state, final state and dipole operator must contain A₁. A₁ × B₂ × y (B₂) = A₁, so the transition is allowed along y; with z (A₁) the product is B₂."
+    }
+  ],
   "summary": [
     "Symmetry elements (E, Cₙ, σ, i, Sₙ) define a point group. Assign it by the flow chart: linear, cubic, highest Cₙ, perpendicular C₂, then σₕ, σᵥ, σ_d.",
     "Character tables list irreducible representations (A, B, E, T) and the functions that transform as each. Dipole-like functions (x, y, z) govern IR activity and quadratic functions govern Raman activity.",

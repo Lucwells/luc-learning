@@ -538,6 +538,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "Pent-1-ene, (Z)-pent-2-ene and (E)-pent-2-ene are each hydrogenated to pentane. Which releases the most heat?",
+      "a": "Pent-1-ene",
+      "wrong": [
+        "(Z)-Pent-2-ene",
+        "(E)-Pent-2-ene",
+        "All three, since they give the same product and so release equal heat"
+      ],
+      "why": "Heat released measures how far the alkene sits above the common alkane. The monosubstituted alkene is the least stable, so it releases the most. A shared product does not make the starting energies equal."
+    },
+    {
+      "q": "What is the major product of 2-methylbut-1-ene with HBr in the absence of peroxides?",
+      "a": "2-Bromo-2-methylbutane",
+      "wrong": [
+        "1-Bromo-2-methylbutane",
+        "2-Bromo-3-methylbutane",
+        "1,2-Dibromo-2-methylbutane"
+      ],
+      "why": "The proton adds to the CH₂ carbon, which has more hydrogens, giving the tertiary cation, and bromide adds there. The bromine goes to the carbon that carried the cation, and one equivalent of HBr adds only once."
+    },
+    {
+      "q": "Which alkene is expected to give a rearranged product on addition of HCl?",
+      "a": "3,3-Dimethylbut-1-ene",
+      "wrong": [
+        "Propene",
+        "2-Methylpropene",
+        "Cyclohexene"
+      ],
+      "why": "Protonation of 3,3-dimethylbut-1-ene gives a secondary cation beside a quaternary carbon, and a methyl shift gives a tertiary cation. The other alkenes give cations with no more stable neighbor to shift to."
+    },
+    {
+      "q": "Which conditions favor the alcohol in the acid-catalyzed hydration of an alkene?",
+      "a": "Dilute aqueous acid, with a large excess of water",
+      "wrong": [
+        "Concentrated H₂SO₄ at high temperature, with the alkene distilled off as it forms",
+        "Anhydrous acid at high temperature",
+        "Dry HBr gas in an inert solvent"
+      ],
+      "why": "Hydration is the reverse of dehydration, so Le Chatelier's principle applies: water pushes toward the alcohol. Removing water and distilling off the alkene pushes the other way, and dry HBr gives an alkyl bromide."
+    },
+    {
+      "q": "3-Methylbut-1-ene is treated with Hg(OAc)₂ in water, then NaBH₄. What is the major product?",
+      "a": "3-Methylbutan-2-ol",
+      "wrong": [
+        "2-Methylbutan-2-ol",
+        "3-Methylbutan-1-ol",
+        "2-Methylbutan-1-ol"
+      ],
+      "why": "Water attacks the more substituted carbon of the mercurinium ion, and no free cation forms to rearrange. 2-Methylbutan-2-ol is what acid-catalyzed hydration would give after a hydride shift, and 3-methylbutan-1-ol is the hydroboration product."
+    },
+    {
+      "q": "2-Methylpropene is treated with BH₃·THF, then H₂O₂ and NaOH. What is the product?",
+      "a": "2-Methylpropan-1-ol",
+      "wrong": [
+        "2-Methylpropan-2-ol",
+        "Propan-2-ol",
+        "2-Methylpropane"
+      ],
+      "why": "Boron adds to the less hindered CH₂ carbon, and oxidation replaces it with OH, giving the anti-Markovnikov alcohol. The tertiary alcohol is what acid-catalyzed hydration or oxymercuration would give."
+    },
+    {
+      "q": "Cis-hex-3-ene reacts with Br₂ in CH₂Cl₂. What is the product?",
+      "a": "A racemic mixture of (3R,4R)- and (3S,4S)-3,4-dibromohexane",
+      "wrong": [
+        "meso-3,4-Dibromohexane",
+        "A single enantiomer of 3,4-dibromohexane",
+        "A mixture of cis and trans alkenes plus HBr"
+      ],
+      "why": "Anti addition through the bromonium ion to a cis alkene gives the enantiomeric pair; trans-hex-3-ene would give the meso compound. Without a chiral influence a single enantiomer cannot result."
+    },
+    {
+      "q": "What is the major product of 2-methylpropene with Br₂ in water?",
+      "a": "1-Bromo-2-methylpropan-2-ol",
+      "wrong": [
+        "2-Bromo-2-methylpropan-1-ol",
+        "1,2-Dibromo-2-methylpropane",
+        "2-Methylpropane-1,2-diol"
+      ],
+      "why": "Water is the more concentrated nucleophile and attacks the bromonium ion at the more substituted carbon, which has more positive character, so OH ends up on the tertiary carbon and Br on the CH₂."
+    },
+    {
+      "q": "cis-But-2-ene is treated with mCPBA. What is formed?",
+      "a": "cis-2,3-Dimethyloxirane",
+      "wrong": [
+        "trans-2,3-Dimethyloxirane",
+        "Butane-2,3-diol",
+        "Butan-2-one"
+      ],
+      "why": "Oxygen is delivered in a single concerted step, so the alkene geometry is kept: cis gives the cis epoxide. The diol needs a second, ring-opening step."
+    },
+    {
+      "q": "What are the products of ozonolysis of 3-methylpent-2-ene followed by Me₂S?",
+      "a": "Acetaldehyde and butan-2-one",
+      "wrong": [
+        "Acetone and propanal",
+        "Acetic acid and butan-2-one",
+        "Acetaldehyde and pentan-2-one"
+      ],
+      "why": "Each alkene carbon becomes C=O: CH₃CH= gives CH₃CHO, and =C(CH₃)CH₂CH₃ gives butan-2-one. Acetone and propanal come from 2-methylpent-2-ene. An oxidative workup, not Me₂S, would turn the aldehyde into an acid."
+    },
+    {
+      "q": "Which sequence converts cyclohexene to trans-cyclohexane-1,2-diol?",
+      "a": "mCPBA, then H₃O⁺ in water",
+      "wrong": [
+        "OsO₄, then NaHSO₃",
+        "Cold, dilute KMnO₄ with base",
+        "H₂, Pd/C, then H₂O₂"
+      ],
+      "why": "Epoxidation followed by backside opening with water gives the anti diol. Both OsO₄ and cold permanganate add the two OH groups to the same face (syn), giving cis."
+    },
+    {
+      "q": "cis-Hex-3-ene is treated with CH₂I₂ and Zn(Cu). What is the product?",
+      "a": "cis-1,2-Diethylcyclopropane",
+      "wrong": [
+        "trans-1,2-Diethylcyclopropane",
+        "1,1-Diethylcyclopropane",
+        "Heptane"
+      ],
+      "why": "The zinc carbenoid transfers CH₂ to both carbons in one concerted syn step, so the cis geometry of the alkene is kept in the ring."
+    },
+    {
+      "q": "Radical bromination of 2-methylbutane has relative reactivities per hydrogen 3° : 2° : 1° = 1600 : 82 : 1. About what percent of the monobromide is 2-bromo-2-methylbutane?",
+      "a": "90%",
+      "wrong": [
+        "95%",
+        "50%",
+        "10%"
+      ],
+      "why": "The molecule has 1 tertiary, 2 secondary and 9 primary hydrogens: 1600 / (1600 + 2 × 82 + 9 × 1) = 1600/1773 ≈ 90%. Ignoring the number of hydrogens of each type gives 95%."
+    },
+    {
+      "q": "Propene reacts with HCl in the presence of peroxides. What is the major product?",
+      "a": "2-Chloropropane",
+      "wrong": [
+        "1-Chloropropane",
+        "A 1:1 mixture of 1- and 2-chloropropane",
+        "Propane"
+      ],
+      "why": "The peroxide effect works for HBr only. For HCl the H–Cl abstraction by a carbon radical is too endothermic, so the ionic Markovnikov path operates."
+    },
+    {
+      "q": "Why does BHT slow the autoxidation of fats?",
+      "a": "It donates a hydrogen atom to a peroxy radical, leaving a stable resonance-delocalized phenoxy radical that does not propagate the chain",
+      "wrong": [
+        "It reacts with O₂ to remove it from solution before radicals can form",
+        "It is a strong acid that protonates the peroxy radical and ends its reactivity",
+        "It breaks the O–O bond by heterolysis to give two stable ions in the oil"
+      ],
+      "why": "Antioxidants interrupt the chain by trading a reactive radical for an unreactive one. Oxygen is not consumed, and the chain is radical, not ionic."
+    },
+    {
+      "q": "Sodium propynide, CH₃C≡C⁻ Na⁺, is mixed with 2-bromo-2-methylpropane. Why is the chain-extended alkyne not the main product?",
+      "a": "The acetylide acts as a base on a tertiary halide, giving E2 elimination to 2-methylpropene",
+      "wrong": [
+        "The acetylide is too weak a nucleophile to react with any alkyl halide",
+        "SN1 gives the tertiary alcohol instead",
+        "The triple bond adds the halide before the carbon–carbon bond can form"
+      ],
+      "why": "Acetylide alkylation is an SN2 reaction and works only with methyl and primary halides. A tertiary halide cannot be attacked from the back, and the strongly basic acetylide removes a β-hydrogen."
+    },
+    {
+      "q": "But-2-yne is hydrated with H₂SO₄, HgSO₄ and H₂O. What is the product?",
+      "a": "Butan-2-one",
+      "wrong": [
+        "Butanal",
+        "Butan-2-ol",
+        "But-2-en-2-ol, which is isolated"
+      ],
+      "why": "Markovnikov addition of water gives an enol, which tautomerizes to the far more stable ketone. The enol is not isolated, because the C=O form is favored by a factor of about 10⁸."
+    },
+    {
+      "q": "1-Hexyne is treated with disiamylborane, then H₂O₂ and NaOH. What is formed?",
+      "a": "Hexanal",
+      "wrong": [
+        "Hexan-2-one",
+        "Hexan-1-ol",
+        "cis-Hex-1-ene"
+      ],
+      "why": "Boron adds to the terminal carbon, and oxidation gives an enol with OH on C1, which tautomerizes to the aldehyde. Acid-catalyzed hydration of the same alkyne would give the methyl ketone."
+    }
+  ],
   "summary": [
     "More substituted alkenes are more stable (lower heat of hydrogenation), and trans is more stable than cis.",
     "HX and H₃O⁺ add by Markovnikov’s rule through carbocations, so rearrangements are possible. Oxymercuration is Markovnikov without rearrangement. Hydroboration–oxidation is anti-Markovnikov and syn.",

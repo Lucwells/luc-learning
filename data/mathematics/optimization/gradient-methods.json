@@ -313,6 +313,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "f is L-smooth with L = 4. At the current point ‖∇f‖² = 8, and a step of size α = 1/L is taken. What decrease in f does the descent lemma guarantee?",
+      "a": "At least 1",
+      "wrong": [
+        "At least 2",
+        "At least 4",
+        "At least 0.5"
+      ],
+      "why": "With α = 1/L the guaranteed decrease is ‖g‖²/(2L) = 8/8 = 1. The value 2 forgets the factor 2 in the denominator."
+    },
+    {
+      "q": "A quadratic has Hessian eigenvalues 0.5 and 5. Which constant step size makes gradient descent diverge?",
+      "a": "0.45",
+      "wrong": [
+        "0.35",
+        "0.2",
+        "0.1"
+      ],
+      "why": "Convergence needs α < 2/L = 0.4. At α = 0.45 the factor along the steep direction is 1 − 0.45 × 5 = −1.25, which grows in magnitude."
+    },
+    {
+      "q": "On a convex L-smooth function, gradient descent with step 1/L has error 0.2 after 50 iterations, following the O(1/k) bound. About how many iterations until the error is 0.02?",
+      "a": "500",
+      "wrong": [
+        "158",
+        "100",
+        "5,000"
+      ],
+      "why": "An error that falls like 1/k must be reduced tenfold by running ten times longer: 50 × 10 = 500. The value 158 would correspond to a 1/k² rate."
+    },
+    {
+      "q": "A strongly convex problem has κ = 50. About how many gradient descent iterations (α = 1/L) reduce the error by a factor of 1000?",
+      "a": "About 350",
+      "wrong": [
+        "About 7",
+        "About 50,000",
+        "About 1,000"
+      ],
+      "why": "The count is about κ ln(1/ε) = 50 × 6.9 ≈ 345. Linear convergence means the iterations depend on the logarithm of the accuracy, not on 1/ε."
+    },
+    {
+      "q": "Backtracking starts at α = 1 and halves it until f(x − αg) ≤ f(x) − cαg², with c = 0.1. For f(x) = 3x² at x = 1, g = 6. Which α is accepted first?",
+      "a": "0.25",
+      "wrong": [
+        "1",
+        "0.5",
+        "0.125"
+      ],
+      "why": "At α = 1 and 0.5 the step overshoots the minimum (f = 75 and 12, far above 3). At α = 0.25 the new point is −0.5, f = 0.75 ≤ 3 − 0.1 × 0.25 × 36 = 2.1, so it is accepted."
+    },
+    {
+      "q": "A quadratic has Hessian eigenvalues 2 and 18. With the best constant step, by what factor does the error shrink per step in the worst direction?",
+      "a": "0.8",
+      "wrong": [
+        "0.89",
+        "0.9",
+        "0.2"
+      ],
+      "why": "The best step is 2/(L + μ) = 0.1, giving factors |1 − 0.2| = |1 − 1.8| = 0.8, which equals (κ − 1)/(κ + 1) = 8/10 with κ = 9. The value 0.89 is the factor for the step 1/L."
+    },
+    {
+      "q": "Why does gradient descent crawl and zigzag in a long narrow valley of the loss?",
+      "a": "A step small enough to be stable across the valley makes little progress along it",
+      "wrong": [
+        "The gradient is exactly zero along the valley floor",
+        "The Hessian is not positive semidefinite there",
+        "The step size must exceed 2/L for the iterates to move"
+      ],
+      "why": "A large ratio between the steepest and shallowest curvature means any stable step is tiny in the shallow direction. A large step would make the iterates diverge across the valley."
+    },
+    {
+      "q": "κ = 900. Roughly how many times fewer iterations does an accelerated method need than plain gradient descent for the same accuracy?",
+      "a": "About 30 times",
+      "wrong": [
+        "About 900 times",
+        "About 450 times",
+        "About 3 times"
+      ],
+      "why": "Gradient descent needs about κ ln(1/ε) iterations and acceleration about √κ ln(1/ε), so the saving is √900 = 30."
+    },
+    {
+      "q": "Where does Nesterov's accelerated gradient evaluate the gradient?",
+      "a": "At a look-ahead point beyond the current iterate along the previous step",
+      "wrong": [
+        "At the current iterate x_k, like plain momentum",
+        "At the previous iterate x_{k−1}",
+        "At the average of all past iterates"
+      ],
+      "why": "Nesterov computes ∇f at y_k = x_k + β(x_k − x_{k−1}) and steps from there. Heavy-ball momentum evaluates the gradient at x_k."
+    },
+    {
+      "q": "In heavy-ball momentum x_{k+1} = x_k − α∇f(x_k) + β(x_k − x_{k−1}), take x_k = 1, x_{k−1} = 0.5, ∇f(x_k) = 2, α = 0.1 and β = 0.9. What is x_{k+1}?",
+      "a": "1.25",
+      "wrong": [
+        "0.8",
+        "0.35",
+        "1.45"
+      ],
+      "why": "x_{k+1} = 1 − 0.2 + 0.9 × 0.5 = 1.25. The value 0.8 drops the momentum term, and 1.45 drops the gradient step."
+    },
+    {
+      "q": "One Newton step is applied to f(x) = eˣ − 2x starting at x = 0. What is the new point?",
+      "a": "1",
+      "wrong": [
+        "0.5",
+        "−1",
+        "0.693"
+      ],
+      "why": "f′(0) = −1 and f″(0) = 1, so x₁ = 0 − (−1)/1 = 1. The minimizer ln 2 ≈ 0.693 is not reached in a single step because f is not quadratic."
+    },
+    {
+      "q": "In BFGS, with s = x_{k+1} − x_k and y = ∇f(x_{k+1}) − ∇f(x_k), the updated Hessian approximation B_{k+1} is chosen to satisfy",
+      "a": "B_{k+1}s = y, the secant equation",
+      "wrong": [
+        "B_{k+1}s = ∇f(x_{k+1})",
+        "B_{k+1} = y yᵀ",
+        "B_{k+1}y = x_{k+1}"
+      ],
+      "why": "The secant condition makes the approximate Hessian map the step to the observed change in gradient, as the true Hessian does for small steps. It needs only gradients, never second derivatives."
+    },
+    {
+      "q": "For nonlinear least squares f = ½‖r(θ)‖², the Gauss–Newton method drops which part of the Hessian JᵀJ + Σ r_i∇²r_i?",
+      "a": "The term Σ r_i∇²r_i",
+      "wrong": [
+        "The term JᵀJ",
+        "The Jacobian J itself",
+        "The residual vector r"
+      ],
+      "why": "Gauss–Newton keeps JᵀJ, which is positive semidefinite and needs only first derivatives. The dropped term is small when residuals are small or the model is nearly linear."
+    },
+    {
+      "q": "Per-example gradients have variance 64. What is the standard deviation of the gradient averaged over a mini-batch of 16?",
+      "a": "2",
+      "wrong": [
+        "4",
+        "8",
+        "0.5"
+      ],
+      "why": "The variance of the average is 64/16 = 4, so the standard deviation is 2. The value 4 is the variance, not the standard deviation."
+    },
+    {
+      "q": "SGD with a constant step size α fluctuates in a ball around the optimum whose radius is proportional to α. If α is cut by a factor of 10, the noise floor",
+      "a": "falls about tenfold, though progress per step becomes slower",
+      "wrong": [
+        "stays the same, since batch size sets the noise",
+        "falls about hundredfold",
+        "disappears, so SGD now converges exactly"
+      ],
+      "why": "The radius scales linearly with α, so a smaller step gives a tighter plateau at the cost of slower travel. Exact convergence needs the step to decay toward 0."
+    },
+    {
+      "q": "Which step size schedule satisfies both Robbins–Monro conditions, Σα_k = ∞ and Σα_k² < ∞?",
+      "a": "α_k = 1/k^0.75",
+      "wrong": [
+        "α_k = 1/√k",
+        "α_k = 0.01 for all k",
+        "α_k = 1/k²"
+      ],
+      "why": "Σk^{−0.75} diverges and Σk^{−1.5} converges. For 1/√k the squares 1/k diverge, a constant step has divergent squares, and 1/k² has a convergent sum, so the steps cannot travel far enough."
+    },
+    {
+      "q": "SGD converges more slowly per iteration than gradient descent. Why is it still preferred for a large training set with m examples?",
+      "a": "Its cost per iteration does not grow with m, and learning does not need high optimization accuracy",
+      "wrong": [
+        "Its gradient estimate is exact when the batch is small",
+        "It converges linearly on non-convex problems",
+        "It needs no step size to be chosen"
+      ],
+      "why": "Each SGD step touches one batch, so reaching modest accuracy costs far fewer gradient evaluations than full-batch passes. The statistical error of the fit is about 1/√m anyway."
+    },
+    {
+      "q": "Why can SVRG converge linearly on strongly convex finite sums when plain SGD with a constant step cannot?",
+      "a": "Occasional full gradients make the stochastic correction vanish at the optimum",
+      "wrong": [
+        "It uses a larger step size that cancels the noise",
+        "It replaces the gradient by the Hessian-vector product",
+        "It processes the examples in a fixed order"
+      ],
+      "why": "SVRG's gradient estimate has variance that shrinks to 0 as the iterates approach the optimum. In plain SGD the variance stays positive, leaving a noise floor."
+    }
+  ],
   "summary": [
     "Gradient descent x ← x − α∇f decreases an L-smooth f for α < 2/L (descent lemma). The rates are O(1/k) for convex and linear, (1 − μ/L)^k, for strongly convex functions: about κ ln(1/ε) iterations. Backtracking line search (Armijo) selects a step automatically.",
     "On a quadratic the error factor is |1 − αλ_i| per eigen-direction. The optimal step 2/(L + μ) gives the rate (κ − 1)/(κ + 1). Large κ means slow, zigzagging progress; standardization and preconditioning reduce κ.",

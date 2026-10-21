@@ -261,6 +261,178 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "Training data (x, y): (1, 2), (2, 4), (4, 9), (7, 13). A 2-nearest-neighbor regression predicts y at x = 3 as",
+      "a": "6.5",
+      "wrong": [
+        "5",
+        "7",
+        "9"
+      ],
+      "why": "The two nearest points are x = 2 and x = 4, both at distance 1, so the prediction is (4 + 9)/2 = 6.5. Using k = 3 would add x = 1 and give 5, and averaging all four labels gives 7."
+    },
+    {
+      "q": "On a line, the labels are 0 (A), 1 (A), 2.5 (B), 3 (B), 4 (A). For the query 2.2, the predictions for k = 1, 3 and 5 are",
+      "a": "B, B, A",
+      "wrong": [
+        "B, A, A",
+        "A, B, B",
+        "B, B, B"
+      ],
+      "why": "Sorted by distance the labels are B (2.5), B (3), A (1), A (4), A (0). The first neighbor is B, the first three are B, B, A, and all five are 3 A against 2 B."
+    },
+    {
+      "q": "What does a k-nearest-neighbor classifier predict when k equals the number of training points m?",
+      "a": "The majority class of the whole training set, for every query",
+      "wrong": [
+        "The label of the single nearest point",
+        "The Bayes optimal class at each query",
+        "A different class for every query, which gives zero training error"
+      ],
+      "why": "With k = m every query uses all the data, so the boundary has smoothed out completely. Zero training error is the property of k = 1."
+    },
+    {
+      "q": "A query has two neighbors: one at distance 1 with label 10, and one at distance 2 with label 20. With weights proportional to 1/distance, the regression prediction is about",
+      "a": "13.3",
+      "wrong": [
+        "15",
+        "16.7",
+        "10"
+      ],
+      "why": "The weights are 1 and 0.5, so the prediction is (1·10 + 0.5·20)/1.5 = 13.3. The unweighted average is 15, and reversing the weights gives 16.7."
+    },
+    {
+      "q": "A nearest-neighbor model uses 5 informative features. Fifty random, irrelevant features are added. What is the likely effect?",
+      "a": "Accuracy drops, since the irrelevant features add noise to every distance",
+      "wrong": [
+        "Accuracy is unchanged, since the informative features still count",
+        "Accuracy improves, since there are more features to separate the classes",
+        "Only the training time is affected, because the neighbors stay the same"
+      ],
+      "why": "The distance sums over all features, so random coordinates swamp the informative ones and the nearest neighbors become arbitrary."
+    },
+    {
+      "q": "Feature A takes values in [0, 1] and feature B in [0, 1000]. With Euclidean distance and no scaling, the neighbors are decided",
+      "a": "almost entirely by feature B",
+      "wrong": [
+        "almost entirely by feature A, since it is more precise",
+        "equally by the two, since distance is unit-free",
+        "by whichever feature has the lower variance"
+      ],
+      "why": "Differences in B are hundreds of times larger than in A, so they dominate the sum of squares. Standardizing the features removes the problem."
+    },
+    {
+      "q": "The Manhattan (L1) distance between (1, 2) and (4, 6) is",
+      "a": "7",
+      "wrong": [
+        "5",
+        "25",
+        "3.5"
+      ],
+      "why": "L1 distance is |1 − 4| + |2 − 6| = 3 + 4 = 7. The value 5 is the Euclidean distance."
+    },
+    {
+      "q": "Which pair of vectors has cosine similarity exactly 1?",
+      "a": "(1, 2) and (3, 6)",
+      "wrong": [
+        "(1, 2) and (2, 1)",
+        "(1, 2) and (−1, −2)",
+        "(1, 2) and (1, 2.1)"
+      ],
+      "why": "Cosine similarity compares only direction. (3, 6) = 3·(1, 2), so the angle is zero. The pair (1, 2) and (−1, −2) has similarity −1."
+    },
+    {
+      "q": "At a point x, P(y = 1 | x) = 0.8. The asymptotic error of the 1-nearest-neighbor rule at that point is",
+      "a": "0.32",
+      "wrong": [
+        "0.20",
+        "0.16",
+        "0.68"
+      ],
+      "why": "The query and its neighbor have labels drawn independently from the same distribution, so they disagree with probability 2(0.8)(0.2) = 0.32. The Bayes rule errs only 0.20 of the time."
+    },
+    {
+      "q": "Which claim about the 1-nearest-neighbor rule is false?",
+      "a": "As m → ∞, its error converges to the Bayes error for any distribution",
+      "wrong": [
+        "Its asymptotic error is at most 2R*(1 − R*)",
+        "Its training error is zero when there are no conflicting duplicate points",
+        "Its decision regions are the cells of a Voronoi diagram"
+      ],
+      "why": "The Cover–Hart bound allows up to twice the Bayes error, and it is reached on some distributions. Consistency needs k → ∞ with k/m → 0."
+    },
+    {
+      "q": "Which choice of k as a function of the number of training points m makes k-NN consistent?",
+      "a": "k = √m",
+      "wrong": [
+        "k = 1",
+        "k = 5, whatever m is",
+        "k = m/2"
+      ],
+      "why": "Consistency requires k → ∞ but k/m → 0, so that neighborhoods contain many points yet shrink. A fixed k does not average enough, and k = m/2 is not local."
+    },
+    {
+      "q": "Data are uniform in the unit cube [0, 1]³. A cube centered at the query that holds 12.5% of the data has side",
+      "a": "0.5",
+      "wrong": [
+        "0.125",
+        "0.25",
+        "0.042"
+      ],
+      "why": "The fraction of data inside equals the volume s³, so s = 0.125^{1/3} = 0.5. Using the fraction itself, 0.125, ignores the dimension."
+    },
+    {
+      "q": "For random points in a very high-dimensional space, the ratio of the farthest distance to the nearest distance from a query",
+      "a": "approaches 1, so neighbors become hard to distinguish from other points",
+      "wrong": [
+        "grows without bound, so the nearest neighbor is ever more distinctive",
+        "approaches 0, so all the points collapse onto the query",
+        "stays equal to the ratio in two dimensions"
+      ],
+      "why": "Distances concentrate: all points are almost equally far from the query. A vote among the nearest few then carries little information."
+    },
+    {
+      "q": "To cover each coordinate axis with 10 sample points in a 6-dimensional space, how many points are needed?",
+      "a": "10⁶",
+      "wrong": [
+        "60",
+        "600",
+        "10²"
+      ],
+      "why": "A grid with 10 values per axis has 10ⁿ cells, which is 10⁶ for n = 6. The requirement grows exponentially with the dimension."
+    },
+    {
+      "q": "Nadaraya–Watson regression at a query has kernel values (2, 1, 1) for training labels (3, 6, 10). The estimate is",
+      "a": "5.5",
+      "wrong": [
+        "6.33",
+        "22",
+        "4.5"
+      ],
+      "why": "It is the kernel-weighted average Σ K y/Σ K = (6 + 6 + 10)/4 = 5.5. Dividing by the number of points gives 7.33, and skipping the division gives 22."
+    },
+    {
+      "q": "In kernel regression, what happens as the bandwidth h grows very large?",
+      "a": "The prediction approaches the average of all training labels",
+      "wrong": [
+        "The prediction approaches the label of the nearest training point",
+        "The prediction approaches a straight line through the data",
+        "The prediction becomes undefined, since the weights sum to more than one"
+      ],
+      "why": "With a very wide kernel all weights become nearly equal, giving the global mean. A tiny h makes the nearest point dominate. The weights are normalized to sum to one."
+    },
+    {
+      "q": "How do k-d trees perform for nearest-neighbor search as the dimension grows?",
+      "a": "They give roughly O(log m) queries in low dimension but degrade toward brute force above about 20 dimensions",
+      "wrong": [
+        "They give O(log m) queries in any dimension",
+        "They get faster as the dimension grows, since there are more splits",
+        "They are exact in low dimension and approximate in high dimension, with the same speed"
+      ],
+      "why": "In high dimensions the distances concentrate, so little can be pruned and the search must visit most of the points, which is the cost of brute force."
+    }
+  ],
   "summary": [
     "k-NN predicts by majority vote (classification) or average (regression) of the k closest training points. There is no training, but each query scans the data. 1-NN gives Voronoi cells.",
     "k controls complexity: small k has low bias and high variance. Choose it by cross-validation. Scale the features, since the metric defines similarity.",

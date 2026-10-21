@@ -349,6 +349,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "What is the Nernstian slope of a pH electrode at 37 °C (body temperature)?",
+      "a": "61.5 mV per pH unit",
+      "wrong": [
+        "59.2 mV per pH unit",
+        "54.2 mV per pH unit",
+        "64.1 mV per pH unit"
+      ],
+      "why": "The slope is 2.303RT/F = 2.303 × 8.314 × 310.15/96,485 = 61.5 mV. It is proportional to T, which is why temperature compensation is needed; 59.2 mV is the 25 °C value."
+    },
+    {
+      "q": "A fluoride electrode reads −80.0 mV in a 1.00 × 10⁻³ M F⁻ standard and −103.7 mV in a sample (both with TISAB; slope −59.16 mV per decade). What is [F⁻] in the sample?",
+      "a": "2.5 × 10⁻³ M",
+      "wrong": [
+        "4.0 × 10⁻⁴ M",
+        "1.3 × 10⁻³ M",
+        "2.5 × 10⁻² M"
+      ],
+      "why": "E_x − E_s = −23.7 mV = −59.16 log(c_x/c_s), so log(c_x/c_s) = 0.40 and c_x = 2.5 × 10⁻³ M. A more negative potential means more fluoride, and reading the sign the other way gives 4.0 × 10⁻⁴."
+    },
+    {
+      "q": "A K⁺ electrode has K_{K,Na} = 1 × 10⁻⁴. What is the approximate error in measuring 0.50 mM K⁺ in 0.25 M Na⁺?",
+      "a": "5%",
+      "wrong": [
+        "0.5%",
+        "50%",
+        "0.25%"
+      ],
+      "why": "Error ≈ K a_Na/a_K = 1 × 10⁻⁴ × 0.25/5.0 × 10⁻⁴ = 0.05, or 5%. A small selectivity coefficient does not help if the interferent is 500 times more concentrated."
+    },
+    {
+      "q": "Why do reference electrodes use a concentrated KCl solution at the junction with the sample?",
+      "a": "K⁺ and Cl⁻ have almost equal mobilities, so they carry the current and keep the junction potential small",
+      "wrong": [
+        "KCl is oxidized at the junction, which holds the potential constant",
+        "The chloride precipitates the interfering ions in the sample",
+        "The high concentration of KCl stops the sample from entering the frit"
+      ],
+      "why": "A liquid junction potential arises from unequal ion mobilities. Filling the junction with ions of nearly equal mobility reduces it to 1–2 mV or less."
+    },
+    {
+      "q": "A 1 mV error in the cell potential of an ideal divalent-cation ISE at 25 °C corresponds to what relative error in the activity?",
+      "a": "About 8%",
+      "wrong": [
+        "About 4%",
+        "About 16%",
+        "About 2%"
+      ],
+      "why": "The error is zFΔE/RT = 2 × 1/25.7 = 0.078, about 8%. For a monovalent ion it is about 4%, so divalent ions are twice as sensitive to potential errors."
+    },
+    {
+      "q": "What gives a valinomycin electrode its selectivity for K⁺ over Na⁺?",
+      "a": "The cavity of the cyclic peptide fits K⁺ and binds it selectively",
+      "wrong": [
+        "The LaF₃ crystal conducts only through K⁺ vacancies",
+        "The glass membrane exchanges K⁺ but not Na⁺ in its gel layer",
+        "A gas-permeable membrane blocks the larger Na⁺ hydrates"
+      ],
+      "why": "Valinomycin is an ionophore in a polymer membrane, and its cavity wraps around K⁺, giving a selectivity of about 10⁴ over Na⁺. The other mechanisms belong to the fluoride, glass and gas-sensing electrodes."
+    },
+    {
+      "q": "How is the equivalence point located in a potentiometric titration?",
+      "a": "At the steepest point of the curve, the maximum of ΔE/ΔV",
+      "wrong": [
+        "At the point where the potential equals E° of the indicator electrode",
+        "At the first point where ΔE/ΔV falls to zero",
+        "At the volume where the potential first changes by 59 mV"
+      ],
+      "why": "Near the equivalence point the activity of the analyte changes by orders of magnitude, so the potential jumps. The inflection (maximum slope, zero second derivative) marks it."
+    },
+    {
+      "q": "A reversible one-electron process is compared with a reversible two-electron one, all else (A, D, c, v) being equal. What is the ratio of the peak currents, two-electron to one-electron?",
+      "a": "2.8",
+      "wrong": [
+        "2.0",
+        "4.0",
+        "1.4"
+      ],
+      "why": "The Randles–Sevcik equation has i_p ∝ n^(3/2), so the ratio is 2^(3/2) = 2.8. The factor 2.0 would hold for the current at fixed potential in a limiting-current measurement, not for a peak."
+    },
+    {
+      "q": "In CV, ΔE_p grows from 70 mV to 150 mV as the scan rate rises from 0.05 to 1 V/s, with i_pa/i_pc ≈ 1 throughout. What is the likely behavior of the couple?",
+      "a": "Quasi-reversible, with slow electron transfer",
+      "wrong": [
+        "Fully reversible, since i_pa/i_pc = 1",
+        "An EC mechanism, with a following chemical reaction",
+        "Adsorption of the analyte on the electrode"
+      ],
+      "why": "A reversible couple has a ΔE_p of 59/n mV independent of v. A separation that grows with scan rate while the peak ratio stays 1 is typical of slow electron transfer; an EC step would shrink the reverse peak."
+    },
+    {
+      "q": "If the scan rate in cyclic voltammetry is increased 4-fold, how does the ratio of Faradaic to capacitive current change?",
+      "a": "It is halved",
+      "wrong": [
+        "It is doubled",
+        "It is unchanged",
+        "It falls 4-fold"
+      ],
+      "why": "The Faradaic peak current grows as v^½ (×2), whereas the double-layer charging current is proportional to v (×4). The ratio falls by 2, so fast scans lower the detection limit."
+    },
+    {
+      "q": "After a potential step, the Cottrell current at 4.0 s is what fraction of the current at 1.0 s?",
+      "a": "0.50",
+      "wrong": [
+        "0.25",
+        "0.71",
+        "2.0"
+      ],
+      "why": "The Cottrell current is proportional to t^(−1/2), so i(4 s)/i(1 s) = (1/4)^½ = 0.50. The decay reflects the growth of the diffusion layer."
+    },
+    {
+      "q": "Why can differential pulse voltammetry detect lower concentrations than cyclic voltammetry?",
+      "a": "The current is sampled at the end of a pulse, after the capacitive current has decayed",
+      "wrong": [
+        "The pulse raises the Faradaic current by increasing the electrode area",
+        "The pulses stir the solution and thereby remove the diffusion layer",
+        "The pulses preconcentrate the analyte into the electrode"
+      ],
+      "why": "The charging current decays exponentially within a few milliseconds, while the Faradaic current decays only as t^(−1/2). Measuring late in the pulse leaves mostly the analyte signal; preconcentration is the feature of stripping methods."
+    },
+    {
+      "q": "In ASV an average current of 2.0 nA flows for 400 s while Cd²⁺ (2 e⁻ per ion) is reduced. How many moles of cadmium are deposited?",
+      "a": "4.1 pmol",
+      "wrong": [
+        "8.3 pmol",
+        "4.1 nmol",
+        "2.1 pmol"
+      ],
+      "why": "Q = 2.0 × 10⁻⁹ × 400 = 8.0 × 10⁻⁷ C, and n = Q/(2F) = 8.0 × 10⁻⁷/(2 × 96,485) = 4.1 × 10⁻¹² mol. Forgetting the 2 electrons gives 8.3 pmol."
+    },
+    {
+      "q": "Zn, Cd, Pb and Cu are co-deposited in a mercury film. Which is stripped first during the positive scan?",
+      "a": "Zn",
+      "wrong": [
+        "Cd",
+        "Pb",
+        "Cu"
+      ],
+      "why": "Metals are stripped in order of ease of oxidation, that is, from the most negative potential: Zn (about −1.0 V), Cd, Pb and finally Cu."
+    },
+    {
+      "q": "What mass percent of Na₂CO₃·10H₂O (286.14 g/mol) is lost when it is completely dehydrated in a TGA?",
+      "a": "63.0%",
+      "wrong": [
+        "37.0%",
+        "6.30%",
+        "53.0%"
+      ],
+      "why": "Ten waters weigh 10 × 18.015 = 180.15 g, and 180.15/286.14 = 63.0%. The value 37.0% is the mass that remains."
+    },
+    {
+      "q": "A 10.0 mg sample of PET shows a melting endotherm of area 840 mJ. The enthalpy of fusion of fully crystalline PET is 140 J/g. What is the degree of crystallinity?",
+      "a": "60%",
+      "wrong": [
+        "40%",
+        "84%",
+        "6.0%"
+      ],
+      "why": "ΔH = 0.840 J/0.0100 g = 84 J/g, and 84/140 = 60%. Quoting the 84 J/g itself as a percentage ignores the reference enthalpy."
+    },
+    {
+      "q": "Benzoic acid burns by C₇H₆O₂(s) + 7.5 O₂(g) → 7 CO₂(g) + 3 H₂O(l). What is ΔcH − ΔcU at 298 K?",
+      "a": "−1.24 kJ/mol",
+      "wrong": [
+        "+1.24 kJ/mol",
+        "−2.48 kJ/mol",
+        "0 kJ/mol"
+      ],
+      "why": "ΔH − ΔU = Δn_g RT with Δn_g = 7 − 7.5 = −0.5, giving −0.5 × 8.314 × 298 = −1.24 kJ/mol. Gas is consumed, so the sign is negative."
+    },
+    {
+      "q": "Burning 0.800 g of benzoic acid (ΔcU = −26.43 kJ/g) raises a bomb calorimeter’s temperature by 2.00 K. What is the calorimeter constant?",
+      "a": "10.6 kJ/K",
+      "wrong": [
+        "13.2 kJ/K",
+        "42.3 kJ/K",
+        "0.0946 kJ/K"
+      ],
+      "why": "Heat = 0.800 × 26.43 = 21.1 kJ, and C_cal = 21.1/2.00 = 10.6 kJ/K. Dividing the heat per gram without the mass gives 13.2."
+    }
+  ],
   "summary": [
     "Potentiometry: zero current, E = K − (59.16/z) log a. Reference electrodes: Ag/AgCl, SCE. Glass pH electrode: two-point calibration, alkaline and acid errors. ISEs: selectivity coefficient, ionic strength buffer (TISAB for F⁻).",
     "Voltammetry: three-electrode cell with supporting electrolyte. Diffusion-limited current is proportional to concentration. CV: Randles–Sevcik, ΔEp = 59/n mV for a reversible couple, E°′ = midpoint.",

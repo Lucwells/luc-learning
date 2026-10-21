@@ -436,6 +436,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "An orders table repeats each customer's full address in every order row. What problem does normalization remove?",
+      "a": "Changing an address means editing many rows, and missed rows leave inconsistent copies",
+      "wrong": [
+        "Orders can no longer be joined to customers, because the address is not a key",
+        "The primary key of the orders table can no longer be made unique",
+        "Indexes cannot be built on columns with repeated values in them"
+      ],
+      "why": "Normalization stores each fact once, in its own table linked by keys. Repeated copies can drift apart when only some of them are updated."
+    },
+    {
+      "q": "A column x in table t holds the values 1, 2, NULL and 4. What does SELECT AVG(x) FROM t return?",
+      "a": "2.33",
+      "wrong": [
+        "1.75",
+        "NULL",
+        "2.00"
+      ],
+      "why": "Aggregates ignore NULLs, so the average is (1 + 2 + 4)/3 = 2.33. Dividing 7 by 4 rows would treat the NULL as a zero."
+    },
+    {
+      "q": "A column x holds the values 1, 2, NULL and 4. How many rows does SELECT * FROM t WHERE x <> 2 return?",
+      "a": "2",
+      "wrong": [
+        "3",
+        "1",
+        "4"
+      ],
+      "why": "Only 1 and 4 satisfy the condition. NULL <> 2 is unknown, not true, and WHERE keeps only rows where the condition is true."
+    },
+    {
+      "q": "Which string matches the pattern LIKE 'B_b%'?",
+      "a": "Bobcat",
+      "wrong": [
+        "Bb",
+        "Baab",
+        "Rob"
+      ],
+      "why": "The underscore stands for exactly one character, so a character must sit between B and b, and % allows anything afterwards. 'Bb' has nothing in the middle, and in 'Baab' the third character is a, not b."
+    },
+    {
+      "q": "Table orders has rows (customer_id, amount): (1, 20), (1, 35), (2, 15), (4, 50), (4, 10). What does SELECT customer_id, SUM(amount) FROM orders WHERE amount >= 15 GROUP BY customer_id HAVING SUM(amount) >= 60 return?",
+      "a": "No rows",
+      "wrong": [
+        "One row: customer 4 with total 60",
+        "Two rows: customer 1 with 55 and customer 4 with 50",
+        "One row: customer 1 with total 55"
+      ],
+      "why": "WHERE runs before grouping, so the amount 10 is removed first and the totals are 55, 15 and 50. None reaches 60. Customer 4 would total 60 only if the filter ran after grouping."
+    },
+    {
+      "q": "Customer Cy has no orders. After customers LEFT JOIN orders and GROUP BY c.name, what do COUNT(*) and COUNT(o.order_id) return for Cy?",
+      "a": "1 and 0",
+      "wrong": [
+        "0 and 0",
+        "1 and 1",
+        "NULL and 0"
+      ],
+      "why": "The left join creates one row for Cy with NULLs in the orders columns. COUNT(*) counts that row, while COUNT(o.order_id) skips the NULL."
+    },
+    {
+      "q": "Ann has credit_limit 1000 in the customers table and 3 rows in orders. What does SELECT SUM(c.credit_limit) FROM customers c INNER JOIN orders o ON o.customer_id = c.id WHERE c.name = 'Ann' return?",
+      "a": "3000",
+      "wrong": [
+        "1000",
+        "3",
+        "NULL"
+      ],
+      "why": "The join repeats Ann's customer row once per matching order, so the customer-level column is summed three times. This is the classic inflated-aggregate bug."
+    },
+    {
+      "q": "Table A has key values 1, 2, 2, 3 and table B has key values 2, 3, 3, 4. How many rows does A LEFT JOIN B on the key produce?",
+      "a": "5",
+      "wrong": [
+        "4",
+        "6",
+        "8"
+      ],
+      "why": "Key 2 matches once per row of A (2 rows) and key 3 matches B twice (2 rows), which makes 4 matched rows. Key 1 has no partner but is kept, giving 5."
+    },
+    {
+      "q": "A query does customers LEFT JOIN orders and then adds WHERE o.amount > 20. What happens to customers with no orders?",
+      "a": "They disappear, because their NULL amount does not satisfy the condition",
+      "wrong": [
+        "They stay, with NULL in the amount column",
+        "They stay, because a LEFT JOIN always preserves its left table",
+        "The query fails because amount contains NULLs"
+      ],
+      "why": "The join keeps those customers, but WHERE is applied afterwards and NULL > 20 is unknown, so the rows are filtered out. The effect is that of an inner join."
+    },
+    {
+      "q": "To list customers with at least one order, how does WHERE EXISTS (SELECT 1 FROM orders o WHERE o.customer_id = c.id) differ from an INNER JOIN to orders?",
+      "a": "EXISTS returns each such customer once, while the join returns one row per matching order",
+      "wrong": [
+        "EXISTS also returns customers who have no orders",
+        "EXISTS returns the order columns, while a join does not",
+        "They differ only in speed and never in the rows returned"
+      ],
+      "why": "EXISTS only tests whether the subquery returns any row. A join multiplies the customer by the number of matching orders."
+    },
+    {
+      "q": "Orders sorted by amount descending are 50, 40, 40 and 30. What does RANK() OVER (ORDER BY amount DESC) give the row with 30?",
+      "a": "4",
+      "wrong": [
+        "3",
+        "2",
+        "5"
+      ],
+      "why": "Tied rows share rank 2, and RANK then skips to 4. DENSE_RANK would give 3 because it does not skip."
+    },
+    {
+      "q": "A table has values 3, 6, 9 and 12 in date order. What does AVG(v) OVER (ORDER BY d ROWS BETWEEN 2 PRECEDING AND CURRENT ROW) give at the last row?",
+      "a": "9",
+      "wrong": [
+        "7.5",
+        "10.5",
+        "12"
+      ],
+      "why": "The window holds the current row and the two before it: 6, 9 and 12, whose average is 9. The average of all four values would be 7.5."
+    },
+    {
+      "q": "One customer has two orders, of 20 and 60. What does 20 / SUM(amount) OVER (PARTITION BY customer_id) give on the first order?",
+      "a": "0.25",
+      "wrong": [
+        "0.33",
+        "0.75",
+        "1.0"
+      ],
+      "why": "The window sum is 80 on both rows, and 20/80 = 0.25. A window function keeps every row, so it does not collapse to a single total."
+    },
+    {
+      "q": "In a query with LAG(amount) OVER (PARTITION BY customer_id ORDER BY order_date), what value appears on each customer's earliest order?",
+      "a": "NULL",
+      "wrong": [
+        "0",
+        "The same row's amount",
+        "The previous customer's last amount"
+      ],
+      "why": "There is no earlier row inside the partition, so LAG returns NULL. The partition keeps one customer's rows from borrowing values from another."
+    },
+    {
+      "q": "A table receives thousands of inserts and updates per second but is rarely read. What is the main cost of adding several indexes?",
+      "a": "Every write must also update each index, which slows inserts and updates",
+      "wrong": [
+        "Queries that filter on the indexed column become slower",
+        "Joins on the indexed columns are no longer possible",
+        "The primary key must be dropped to make room for them"
+      ],
+      "why": "An index trades space and write speed for fast lookups. A write-heavy table pays the cost often and gains little from reads."
+    },
+    {
+      "q": "A transfer debits one account, then the system crashes before the matching credit. The database undoes the debit. Which ACID property is at work?",
+      "a": "Atomicity",
+      "wrong": [
+        "Consistency",
+        "Isolation",
+        "Durability"
+      ],
+      "why": "Atomicity means a transaction happens completely or not at all. Durability concerns surviving a crash after a commit, and isolation concerns concurrent transactions."
+    },
+    {
+      "q": "Which way of using a user-typed name in a query protects against SQL injection?",
+      "a": "Pass it separately as a parameter bound to a ? placeholder",
+      "wrong": [
+        "Insert it into the query text with an f-string",
+        "Convert it to lowercase and then concatenate it into the query",
+        "Wrap it in quote characters inside the query text"
+      ],
+      "why": "With a placeholder the value is sent separately and can never be read as SQL code. Pasting input into the text, however it is preprocessed, lets crafted input change the query."
+    },
+    {
+      "q": "A foreign key orders.customer_id REFERENCES customers(id) is declared and enforced. What happens when a row with customer_id 4 is inserted but no customer has id 4?",
+      "a": "The insert is rejected",
+      "wrong": [
+        "The row is inserted with customer_id changed to NULL",
+        "A customer with id 4 is created automatically",
+        "The row is inserted, and later joins skip it"
+      ],
+      "why": "An enforced foreign key guarantees that every order points to an existing customer. Unenforced data, like the chapter's order 104, can contain such orphans."
+    }
+  ],
   "summary": [
     "A relational database stores typed tables with primary and foreign keys, and provides scale, consistency, concurrency and a shared source of truth. SQL is declarative.",
     "SELECT … FROM … WHERE … ORDER BY … LIMIT filters and sorts. NULL means unknown: use IS NULL and COALESCE, and remember that comparisons with NULL are not true.",

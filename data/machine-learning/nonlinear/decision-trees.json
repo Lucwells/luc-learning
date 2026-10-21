@@ -272,6 +272,178 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A trained tree has depth 5 and 40 leaves. At most how many feature tests are needed to classify one new example?",
+      "a": "5",
+      "wrong": [
+        "40",
+        "32",
+        "The number of features"
+      ],
+      "why": "Prediction follows a single root-to-leaf path and makes one test per level, so the cost is bounded by the depth, not the number of leaves."
+    },
+    {
+      "q": "Labels follow (x₁ > 0) XOR (x₂ > 0). Why can a depth-2 tree classify the data perfectly when one split cannot?",
+      "a": "After the first split, each side can use a different test on the other feature",
+      "wrong": [
+        "A depth-2 tree can draw a diagonal boundary through the origin by combining two splits",
+        "A leaf can store the XOR rule directly as its prediction",
+        "Two splits are averaged, which cancels the errors of each"
+      ],
+      "why": "Each split is axis-aligned, but the second-level tests are conditional on the first answer. That is how a tree captures an interaction."
+    },
+    {
+      "q": "Every value of a positive feature is replaced by its logarithm before training. What happens to the tree CART builds?",
+      "a": "The same partition of the training examples results, with thresholds moved",
+      "wrong": [
+        "The tree gets deeper, since the feature spacing changes",
+        "The splits change, because the feature's scale changes the impurity of every candidate split",
+        "The tree is invalid until the feature is standardized"
+      ],
+      "why": "A split only depends on the ordering of the feature values. A monotone transformation keeps the ordering, so the same examples go left and right."
+    },
+    {
+      "q": "A node holds four classes in equal proportions. Its Gini impurity is",
+      "a": "0.75",
+      "wrong": [
+        "0.25",
+        "0.5",
+        "1"
+      ],
+      "why": "G = 1 − 4(0.25)² = 1 − 0.25 = 0.75. The value 0.25 is the proportion of each class, not the impurity."
+    },
+    {
+      "q": "A node is 25% positive and 75% negative. Its entropy is closest to",
+      "a": "0.81 bits",
+      "wrong": [
+        "0.375 bits",
+        "0.25 bits",
+        "0.5 bits"
+      ],
+      "why": "H = −0.25 log₂ 0.25 − 0.75 log₂ 0.75 = 0.5 + 0.311 = 0.811. The value 0.375 is the Gini impurity of the same node."
+    },
+    {
+      "q": "A parent node has 8 examples with Gini 0.375. A split sends 3 examples to a pure left child and 5 to a right child with Gini 0.48. What is the Gini gain?",
+      "a": "0.075",
+      "wrong": [
+        "0.135",
+        "0.18",
+        "0.3"
+      ],
+      "why": "The weighted child impurity is (5/8)(0.48) = 0.3, so the gain is 0.375 − 0.3 = 0.075. Averaging the children without weights would give 0.135."
+    },
+    {
+      "q": "Why do trees choose splits with entropy or Gini rather than the misclassification rate?",
+      "a": "A split can leave the error rate unchanged while still making the children purer",
+      "wrong": [
+        "The error rate cannot be computed for a child node that holds too few examples",
+        "Entropy and Gini give a different tree for every dataset",
+        "The error rate is not bounded between 0 and 1"
+      ],
+      "why": "Entropy and Gini are strictly concave, so they credit partial progress toward purity. The error rate depends only on the majority class and often shows no change."
+    },
+    {
+      "q": "A numeric feature takes 7 distinct values across 20 training examples. How many candidate thresholds does CART test for it?",
+      "a": "6",
+      "wrong": [
+        "19",
+        "7",
+        "13"
+      ],
+      "why": "Thresholds are the midpoints between consecutive distinct sorted values, and 7 distinct values leave 6 gaps. Splitting between equal values is impossible."
+    },
+    {
+      "q": "A categorical feature with 6 levels is used in a regression tree. Sorting the levels by mean response reduces the binary partitions CART must test from",
+      "a": "31 to 5",
+      "wrong": [
+        "63 to 6",
+        "32 to 6",
+        "6 to 5"
+      ],
+      "why": "There are 2⁵ − 1 = 31 binary partitions of 6 levels. Along the sorted order only the 5 cut points need testing, and this is optimal for regression."
+    },
+    {
+      "q": "A regression leaf contains the targets 4, 6 and 11. What is the sum of squared errors of the leaf around its prediction?",
+      "a": "26",
+      "wrong": [
+        "29",
+        "8.67",
+        "8"
+      ],
+      "why": "The leaf predicts the mean, 7, so the squared errors are 9, 1 and 16, which sum to 26. Measuring around the median, 6, would give 29."
+    },
+    {
+      "q": "On what kind of data does stopping at a minimum-gain threshold fail badly?",
+      "a": "XOR-like data, where the first split gains almost nothing but enables strong splits below it",
+      "wrong": [
+        "Data whose features are on very different scales, so gains cannot be compared across features",
+        "Data with a numeric target instead of classes",
+        "Data with more training examples than features"
+      ],
+      "why": "For balanced XOR data no single split reduces impurity, so a gain threshold stops the tree at the root. Post-pruning avoids this by growing first and cutting later."
+    },
+    {
+      "q": "In a tree, node t as a single leaf has error 0.10, while its subtree has 4 leaves and error 0.04. At what α does collapsing the subtree begin to pay off?",
+      "a": "0.02",
+      "wrong": [
+        "0.015",
+        "0.03",
+        "0.06"
+      ],
+      "why": "Collapsing removes 4 − 1 = 3 leaves and adds 0.06 error, so it pays once 3α ≥ 0.06, which is α ≥ 0.02. Dividing by 4 forgets that the collapsed node keeps one leaf."
+    },
+    {
+      "q": "Why is α chosen by cross-validation rather than by minimizing the training error R(T)?",
+      "a": "Training error never rises as leaves are added, so it always favors the largest tree",
+      "wrong": [
+        "Cross-validation is cheaper than computing R(T)",
+        "R(T) is undefined for pruned trees",
+        "A pruned tree has higher training error than a larger tree for every α"
+      ],
+      "why": "The fully grown tree has the lowest training error, so training error alone cannot justify pruning. Held-out error shows when extra leaves only fit noise."
+    },
+    {
+      "q": "After sorting a feature once, CART can score all thresholds for it in a single pass. Why?",
+      "a": "Moving the threshold past one example only shifts that example from the right child to the left, so the class counts update incrementally",
+      "wrong": [
+        "Only the median threshold can ever give the best split",
+        "The impurity does not depend on which examples are on each side",
+        "The gain increases steadily as the threshold moves right"
+      ],
+      "why": "Each step changes the class counts of the two children by one example, so the impurity is updated in constant time. The cost per node is dominated by sorting."
+    },
+    {
+      "q": "A tree reports a unique customer ID as its most important feature, though it carries no real signal. Why?",
+      "a": "Impurity-based importance favors features with many distinct values, which offer many chances to fit noise",
+      "wrong": [
+        "A unique ID is causally related to every label",
+        "Importance is measured on held-out data, so it is reliable",
+        "IDs are numeric, and numeric features always outrank categorical ones"
+      ],
+      "why": "A feature with a unique value per row can isolate examples in a tree and reduces impurity on the training set. Permutation importance on held-out data would show no drop."
+    },
+    {
+      "q": "Why does averaging many trees trained on different samples improve on a single deep tree?",
+      "a": "Each deep tree has low bias but high variance, and averaging reduces variance",
+      "wrong": [
+        "Averaging lowers the bias of every individual tree",
+        "Averaging makes each tree shallower and easier to read",
+        "Averaging removes the need to choose split thresholds"
+      ],
+      "why": "Deep trees fit the training data closely but change a lot with the sample. Averaging cancels part of that variation while leaving the average bias in place."
+    },
+    {
+      "q": "A regression tree is trained on y = 2x for x between 0 and 10. What does it predict at x = 20?",
+      "a": "About 20, the value of its rightmost leaf",
+      "wrong": [
+        "40, because it learns the line",
+        "About 10, the mean of all training targets",
+        "Zero, since x = 20 lies outside every leaf"
+      ],
+      "why": "Predictions are piecewise constant, and the rightmost box extends to infinity. The tree cannot extrapolate a trend beyond the training range."
+    }
+  ],
   "summary": [
     "A decision tree partitions the feature space into axis-aligned boxes with a constant prediction in each: the majority class or the mean.",
     "Splits are chosen to reduce impurity: entropy, Gini impurity or (for regression) squared error. Information gain is the parent impurity minus the size-weighted child impurities.",

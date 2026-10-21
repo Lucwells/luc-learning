@@ -310,6 +310,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A generator produces very realistic images, but all of them are dogs, although the training set contains cats, dogs and birds. Which quality is it lacking?",
+      "a": "Diversity: it covers only part of the data distribution",
+      "wrong": [
+        "Faithfulness: its samples do not look real",
+        "Exactness of the likelihood",
+        "Differentiability of the sampling step"
+      ],
+      "why": "A good generative model must be both faithful (samples look real) and diverse (it covers all the data). This one is faithful but misses most modes."
+    },
+    {
+      "q": "The Fréchet inception distance (FID) between generated and real images compares",
+      "a": "the distributions of features that a pretrained network extracts from the two sets of images",
+      "wrong": [
+        "each generated image with its nearest training image, pixel by pixel, and averages the squared differences over the set",
+        "the log-likelihood the model assigns to held-out images",
+        "the accuracy of a discriminator trained to separate real from generated images"
+      ],
+      "why": "FID is computed on network features of the two sets, so it needs no likelihood and works for models like GANs that have none."
+    },
+    {
+      "q": "Which family of generative models provides no likelihood of any kind, neither exact nor a bound?",
+      "a": "Generative adversarial networks",
+      "wrong": [
+        "Autoregressive models",
+        "Variational autoencoders",
+        "Diffusion models"
+      ],
+      "why": "A GAN defines the data distribution only implicitly, through its sampler. Autoregressive models give exact likelihoods, and VAEs and diffusion models give lower bounds."
+    },
+    {
+      "q": "An autoregressive model gives a three-token sequence the conditional probabilities 0.5, 0.2 and 0.9. What is the per-token perplexity of the sequence?",
+      "a": "2.23",
+      "wrong": [
+        "11.1",
+        "0.45",
+        "0.80"
+      ],
+      "why": "The sequence has probability 0.09, so the loss is −ln 0.09/3 = 0.803 nats per token and the perplexity is e^{0.803} = 2.23. The value 11.1 is the reciprocal of the sequence probability and 0.80 is the loss before exponentiating."
+    },
+    {
+      "q": "Why can an autoregressive model be trained in parallel across positions, yet must be sampled one element at a time?",
+      "a": "In training the true earlier elements are known, but in sampling each element depends on the one just generated",
+      "wrong": [
+        "Training uses a discriminator to score the sequences in parallel, which sampling does not need, so sampling is sequential",
+        "Training maximizes a bound, while sampling needs the exact likelihood",
+        "Sampling requires an integral over the latent code at each position"
+      ],
+      "why": "With teacher forcing, every conditional p(x_j | x_{<j}) can be evaluated at once from the data. At generation time the earlier elements do not exist until they are sampled."
+    },
+    {
+      "q": "A VAE encoder outputs μ = 0 and σ = 2 for a latent coordinate. What is its KL divergence from N(0, 1)?",
+      "a": "0.807 nats",
+      "wrong": [
+        "0",
+        "1.5 nats",
+        "1.614 nats"
+      ],
+      "why": "KL = ½(μ² + σ² − ln σ² − 1) = ½(0 + 4 − 1.386 − 1) = 0.807. A zero mean does not make the KL zero, since the variance also differs from 1."
+    },
+    {
+      "q": "In a VAE, the weight on the KL term is made extremely large. What is the likely effect on the encoder?",
+      "a": "It outputs nearly N(0, I) for every input, so the code carries little information about x",
+      "wrong": [
+        "It becomes deterministic, with σ near 0",
+        "It memorizes each training image in its own distant code, giving a very sharp reconstruction of every training example",
+        "It copies the input directly into the code"
+      ],
+      "why": "The KL is zero when q_φ(z | x) equals the prior. A dominant KL pushes every encoding toward the prior, so reconstruction suffers."
+    },
+    {
+      "q": "A VAE encoder gives μ = 2 and σ = 0.5. With ε = −1.2, the reparameterized sample z = μ + σε is",
+      "a": "1.4",
+      "wrong": [
+        "2.6",
+        "0.8",
+        "−0.6"
+      ],
+      "why": "z = 2 + 0.5 × (−1.2) = 1.4. Dropping σ gives 0.8, and the value −0.6 is the noise term alone."
+    },
+    {
+      "q": "VAE samples tend to look blurry. The chapter's explanation is that",
+      "a": "the decoder averages over its uncertainty about the fine details, which smooths them",
+      "wrong": [
+        "the reparameterization noise ε is added to the output pixels after the decoder, which blurs every sample",
+        "the KL term forces the latent space to be discrete",
+        "the discriminator is too weak to reward sharpness"
+      ],
+      "why": "A decoder that is unsure of the exact details outputs something like their average. Reparameterization noise is added to the code, not the image, and a VAE has no discriminator."
+    },
+    {
+      "q": "How is a new image generated from a trained VAE?",
+      "a": "Sample z from N(0, I) and pass it through the decoder",
+      "wrong": [
+        "Encode a training image and decode its mean",
+        "Pass random noise through the encoder",
+        "Sample from the decoder with a z taken from the discriminator"
+      ],
+      "why": "The KL term arranged the codes around the prior, so a draw from N(0, I) resembles codes the decoder has seen. The encoder is used only during training."
+    },
+    {
+      "q": "In a GAN, the real density at a point is 0.1 and the generator's density there is 0.4. What is the optimal discriminator's output?",
+      "a": "0.2",
+      "wrong": [
+        "0.25",
+        "0.8",
+        "0.5"
+      ],
+      "why": "D* = p_data/(p_data + p_g) = 0.1/0.5 = 0.2. The value 0.25 is the ratio p_data/p_g, which is not a probability of being real."
+    },
+    {
+      "q": "At the optimum of the GAN game, p_g = p_data. The value V(D, G) = E[ln D(x)] + E[ln(1 − D(G(z)))] is then",
+      "a": "−1.386",
+      "wrong": [
+        "−0.693",
+        "0",
+        "1.386"
+      ],
+      "why": "With D* = 1/2, each term is ln(1/2) = −0.693, and their sum is −ln 4 = −1.386. The value −0.693 counts only one term."
+    },
+    {
+      "q": "Why is the generator usually trained to maximize ln D(G(z)) instead of minimizing ln(1 − D(G(z)))?",
+      "a": "The original form gives vanishing gradients when the discriminator easily rejects the fakes",
+      "wrong": [
+        "It is cheaper to compute than the original form, because the logarithm is applied to a single probability",
+        "It makes the GAN likelihood tractable",
+        "It prevents mode collapse"
+      ],
+      "why": "If D(G(z)) is near 0, ln(1 − D) is nearly flat in G's parameters, so there is almost no learning signal. The non-saturating form has a strong gradient in exactly that case. It does not address mode collapse."
+    },
+    {
+      "q": "In a diffusion model ᾱ_t = 0.36. Given x₀ = 2 and noise ε = −1, what is x_t?",
+      "a": "0.4",
+      "wrong": [
+        "0.08",
+        "2.0",
+        "−0.4"
+      ],
+      "why": "x_t = √0.36 · 2 + √0.64 · (−1) = 1.2 − 0.8 = 0.4. The value 0.08 uses ᾱ and 1 − ᾱ without the square roots."
+    },
+    {
+      "q": "A diffusion forward process with ᾱ_t = 0.5 is applied to data whose variance is 4, with unit-variance noise ε. What is the variance of x_t?",
+      "a": "2.5",
+      "wrong": [
+        "4",
+        "1",
+        "2"
+      ],
+      "why": "Var(x_t) = ᾱ_t · 4 + (1 − ᾱ_t) · 1 = 2 + 0.5 = 2.5. The scale is preserved only when the data have unit variance."
+    },
+    {
+      "q": "A diffusion model is trained with a simple regression loss, yet sampling from it is slower than from a GAN. Why?",
+      "a": "Generation applies the network many times, once per denoising step",
+      "wrong": [
+        "The network must be retrained on every sample",
+        "The likelihood has to be computed for each sample",
+        "The generator and discriminator must alternate at sampling time"
+      ],
+      "why": "Starting from pure noise, the model removes a little noise per step, taking tens to a thousand network evaluations. A GAN needs one forward pass. Training is cheap because it uses a single random step per example."
+    },
+    {
+      "q": "In classifier-free guidance, ε̂ = ε_θ(x_t, ∅) + s(ε_θ(x_t, c) − ε_θ(x_t, ∅)). With unconditional prediction 0.2, conditional prediction 0.5 and scale s = 3, ε̂ is",
+      "a": "1.1",
+      "wrong": [
+        "1.5",
+        "0.5",
+        "0.6"
+      ],
+      "why": "ε̂ = 0.2 + 3(0.5 − 0.2) = 1.1. A scale above 1 extrapolates beyond the conditional prediction, which increases fidelity to the prompt at the cost of diversity."
+    },
+    {
+      "q": "Latent diffusion makes high-resolution image generation affordable because",
+      "a": "the denoising runs on compact codes from a pretrained autoencoder rather than on full-size pixel arrays",
+      "wrong": [
+        "it needs only a single denoising step",
+        "it replaces the noise prediction loss with an adversarial loss that needs far fewer training steps",
+        "it removes the need for a forward noising process"
+      ],
+      "why": "The expensive iterative network operates in a small latent space, and the autoencoder's decoder maps the final code back to an image."
+    }
+  ],
   "summary": [
     "Generative models learn p_data well enough to sample from it. Maximum likelihood is equivalent to minimizing KL(p_data ‖ p_θ). Faithfulness and diversity both matter.",
     "Autoregressive models factor p(x) by the chain rule: exact likelihood and stable training, but sequential sampling. Large language models are of this kind.",

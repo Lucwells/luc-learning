@@ -288,6 +288,178 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A one-unit RNN has h_t = tanh(2h_{t−1} + x_t) with h₀ = 0. The inputs are x₁ = 0.5 and x₂ = 0. What is h₂?",
+      "a": "0.73",
+      "wrong": [
+        "0.46",
+        "0.92",
+        "0.36"
+      ],
+      "why": "h₁ = tanh(0.5) = 0.462, and h₂ = tanh(2 · 0.462) = tanh(0.924) = 0.728. The value 0.92 forgets the tanh."
+    },
+    {
+      "q": "How many parameters (with the bias) does a recurrent layer with hidden size 64 and input size 32 have?",
+      "a": "6,208",
+      "wrong": [
+        "6,144",
+        "2,112",
+        "4,160"
+      ],
+      "why": "H(H + D + 1) = 64 × 97 = 6,208. Leaving out the biases gives 6,144, and 4,160 leaves out the input weights."
+    },
+    {
+      "q": "An audio model must assign an emotion label to every frame of a recorded clip. Which setup fits?",
+      "a": "Many-to-many with aligned outputs",
+      "wrong": [
+        "Many-to-one, from the final hidden state",
+        "One-to-many, from a single input",
+        "Unaligned sequence-to-sequence with an encoder and a decoder"
+      ],
+      "why": "There is exactly one output per input frame, so the sequences are aligned. Because the whole clip is available, a bidirectional RNN can also be used."
+    },
+    {
+      "q": "Which task cannot use an ordinary bidirectional RNN as it stands?",
+      "a": "Predicting the next word while a sentence is still being typed",
+      "wrong": [
+        "Tagging each word of a complete sentence with its part of speech",
+        "Classifying the sentiment of a complete review",
+        "Labeling every frame of a recorded audio clip"
+      ],
+      "why": "The backward RNN needs the future inputs, which exist only when the whole sequence is available. In next-word prediction the future is what is being predicted."
+    },
+    {
+      "q": "In a scalar RNN with recurrent weight 0.8, ignoring the activation derivative, about how large is ∂h₁₂/∂h₁?",
+      "a": "0.086",
+      "wrong": [
+        "0.069",
+        "0.8",
+        "9.6"
+      ],
+      "why": "From h₁ to h₁₂ there are 11 steps, so the product is 0.8¹¹ = 0.086. Using 12 factors would be an off-by-one error that gives 0.069."
+    },
+    {
+      "q": "The loss of an RNN suddenly becomes NaN, after a spike in the gradient norm. Which remedy addresses the cause directly?",
+      "a": "Gradient clipping",
+      "wrong": [
+        "Raising the sampling temperature",
+        "Using teacher forcing",
+        "Increasing the hidden size"
+      ],
+      "why": "A spike in the gradient norm is an exploding gradient, which clipping handles by rescaling it to a threshold. A larger hidden state gives no such bound."
+    },
+    {
+      "q": "A sequence of length 1000 is trained with truncated BPTT using K = 20. What happens?",
+      "a": "Gradients flow back at most 20 steps, while the hidden state is carried forward across chunks",
+      "wrong": [
+        "The sequence is cut into independent pieces, and the hidden state is reset for each",
+        "Only the last 20 tokens are given to the network as input",
+        "The gradient is exact, but computed 20 steps at a time"
+      ],
+      "why": "The state carries forward, but no gradient passes through the boundary between chunks. This limits memory and time at the cost of learning shorter dependencies."
+    },
+    {
+      "q": "A text generator is trained with teacher forcing. What mismatch does this create?",
+      "a": "In training it sees true previous tokens, but when generating it must use its own, possibly wrong, earlier outputs",
+      "wrong": [
+        "The training loss cannot be computed for the first token",
+        "The gradients vanish faster than with its own outputs",
+        "It cannot learn when to stop generating"
+      ],
+      "why": "This train and generation mismatch is called exposure bias. Teacher forcing still helps because it speeds up and stabilizes training."
+    },
+    {
+      "q": "An LSTM cell has c_{t−1} = −2, f = 0.5, i = 1, g = −0.5 and o = 0.8. What is h_t?",
+      "a": "−0.72",
+      "wrong": [
+        "−0.91",
+        "−1.2",
+        "−1.5"
+      ],
+      "why": "c_t = 0.5(−2) + 1(−0.5) = −1.5, and h_t = 0.8 tanh(−1.5) = 0.8(−0.905) = −0.72. The value −1.5 is c_t, not h_t."
+    },
+    {
+      "q": "An LSTM's forget gate is 0.95 at each of 10 consecutive steps. Ignoring new writes, what fraction of the original cell content remains?",
+      "a": "0.60",
+      "wrong": [
+        "0.95",
+        "0.05",
+        "0.90"
+      ],
+      "why": "∂c_t/∂c_{t−1} = f_t, so the content is scaled by 0.95¹⁰ = 0.60. A gate near 1 keeps information and gradient alive over many steps."
+    },
+    {
+      "q": "An LSTM layer with hidden size 100 and input size 50 has 60,400 parameters. How many does a GRU layer of the same size have?",
+      "a": "45,300",
+      "wrong": [
+        "30,200",
+        "15,100",
+        "60,400"
+      ],
+      "why": "The LSTM has four weight matrices and the GRU three, so the GRU has 3 × 100 × 151 = 45,300. A simple RNN with the same sizes would have 15,100."
+    },
+    {
+      "q": "A GRU has update gate z = 0.25, previous state h_{t−1} = 0.8 and candidate h̃_t = −0.4. What is h_t?",
+      "a": "0.5",
+      "wrong": [
+        "−0.1",
+        "0.2",
+        "0.6"
+      ],
+      "why": "h_t = (1 − z)h_{t−1} + z h̃_t = 0.75(0.8) + 0.25(−0.4) = 0.6 − 0.1 = 0.5. Swapping the roles of z and 1 − z gives −0.1."
+    },
+    {
+      "q": "A language model has a perplexity of 8 on a test set. What is its average cross-entropy per token?",
+      "a": "ln 8 ≈ 2.08 nats",
+      "wrong": [
+        "8 nats",
+        "3 nats",
+        "e⁸ nats"
+      ],
+      "why": "Perplexity is the exponential of the average cross-entropy, so the cross-entropy is its logarithm. The value 3 is log₂ 8, which is in bits."
+    },
+    {
+      "q": "A language model gives P(w₁) = 0.2, P(w₂ | w₁) = 0.5 and P(w₃ | w₁, w₂) = 0.1. What probability does it assign to the three-token sequence?",
+      "a": "0.01",
+      "wrong": [
+        "0.8",
+        "0.1",
+        "0.05"
+      ],
+      "why": "By the chain rule the joint probability is the product 0.2 × 0.5 × 0.1 = 0.01. Adding the probabilities would not give a probability at all."
+    },
+    {
+      "q": "Two logits are (3, 1). What probability does the first token get at temperature T = 2?",
+      "a": "0.73",
+      "wrong": [
+        "0.88",
+        "0.50",
+        "0.98"
+      ],
+      "why": "The logits become (1.5, 0.5), giving e^{1.5}/(e^{1.5} + e^{0.5}) = 0.731. The values 0.88 (T = 1) and 0.98 (T = 0.5) show the distribution flattening as T grows."
+    },
+    {
+      "q": "Why can beam search find a better output than greedy decoding?",
+      "a": "Greedy decoding commits to the top token at each step, though a weaker first choice could lead to a more probable whole sequence",
+      "wrong": [
+        "Beam search samples randomly, which always finds higher-probability text",
+        "Beam search uses a larger model than greedy decoding",
+        "Greedy decoding cannot produce an end-of-sequence token"
+      ],
+      "why": "Greedy decoding is a myopic choice. Beam search keeps the B best partial sequences by total log-probability and so can recover from a locally attractive but poor choice."
+    },
+    {
+      "q": "What does attention let a decoder do that a plain encoder–decoder cannot?",
+      "a": "Look at all encoder hidden states at each step and focus on the relevant ones",
+      "wrong": [
+        "Reset its hidden state after every generated token",
+        "Generate the whole target sequence without reading the source",
+        "Replace its word embeddings with one-hot vectors"
+      ],
+      "why": "A plain model squeezes the source through one fixed-size vector. Attention gives the decoder direct access to every source position, which removes that bottleneck."
+    }
+  ],
   "summary": [
     "An RNN keeps a hidden state h_t = tanh(W_hh h_{t−1} + W_xh x_t + b), applying the same weights at every step, so its size does not depend on the sequence length.",
     "BPTT unrolls the network. The gradient to early states is a product of Jacobians that vanishes or explodes exponentially in the number of steps. Clip gradients to handle explosion.",

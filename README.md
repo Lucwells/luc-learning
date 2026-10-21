@@ -68,10 +68,13 @@ Chapters in `parts` are numbered in order across the whole book. Chapters in `fr
       "check": [ { "q": "Question?", "a": "Right", "wrong": ["A", "B", "C"], "why": "Optional explanation." } ]
     }
   ],
+  "quiz": [ { "q": "New scenario?", "a": "Right", "wrong": ["A", "B", "C"], "why": "Required explanation." } ],
   "summary": ["Key point."],
   "problems": [ { "q": "Problem.", "solution": "Worked solution.", "a": "Final answer." } ]
 }
 ```
+
+`check` questions are inline practice after a section. `quiz` is the separate chapter test used by "Quiz this chapter" and "Quiz this book": 12+ multiple-choice questions covering every section, none repeating a `check` question, with 3 plausible wrong answers and a `why`. `npm run validate` enforces this, including that the right answer is not usually the longest option.
 
 A section has a `body`, `subs` (subsections), or both. Sections are numbered automatically (9.1, 9.1.1). The `title` and every entry in `terms` become links wherever those words appear in other sections.
 

@@ -133,6 +133,116 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "Using N–N = 160 and N≡N = 945 kJ mol⁻¹, what is ΔH for tetrahedral N₄ → 2 N₂? (N₄ has six N–N single bonds.)",
+      "a": "−930 kJ mol⁻¹",
+      "wrong": ["+930 kJ mol⁻¹", "−465 kJ mol⁻¹", "−1890 kJ mol⁻¹"],
+      "why": "Breaking six N–N bonds costs 960 kJ and forming two N≡N bonds releases 1890 kJ, a net −930 kJ. Nitrogen therefore prefers N₂, whereas for phosphorus the single bonds of P₄ win."
+    },
+    {
+      "q": "Ga, In and Tl all have the outer configuration ns²np¹. Going down the group, which lower oxidation state becomes more stable?",
+      "a": "+1, because the ns² pair is held tightly and resists bonding",
+      "wrong": ["+3, because larger atoms lose all valence electrons more easily", "+2, because it leaves the np subshell half filled", "−1, because heavier atoms are more electronegative"],
+      "why": "The inert pair effect makes the ns² electrons reluctant to participate, so the state two units below the group maximum (+1) grows stable; Tl⁺ is far more common than Tl³⁺."
+    },
+    {
+      "q": "Be(OH)₂ dissolves in both acid and excess NaOH. Which element’s hydroxide behaves most like it, and why?",
+      "a": "Al, its diagonal neighbor with a similar charge-to-size ratio",
+      "wrong": ["Mg, since elements in the same group have identical hydroxide behavior", "Li, since it is the other small s-block metal and strongly polarizing", "B, since it lies next to Be in period 2 and is amphoteric"],
+      "why": "Be and Al form a diagonal pair, so Be(OH)₂ and Al(OH)₃ are both amphoteric. Mg(OH)₂ is simply basic, and boron(III) hydroxide is a weak acid."
+    },
+    {
+      "q": "Which hydride is covalent and gives a basic solution in water?",
+      "a": "NH₃",
+      "wrong": ["HCl", "CH₄", "CaH₂"],
+      "why": "NH₃ is a covalent p-block hydride that accepts a proton. HCl is acidic and CH₄ is neutral; CaH₂ also yields a basic solution (Ca(OH)₂), but it is an ionic hydride."
+    },
+    {
+      "q": "Which statement about the oxides of period 3 is false?",
+      "a": "SiO₂ is a molecular oxide that reacts with water to give a strong acid",
+      "wrong": ["Na₂O is an ionic oxide that gives a strongly basic solution", "Al₂O₃ is amphoteric, with ionic and covalent character", "SO₃ is a molecular oxide that is a strong acid anhydride"],
+      "why": "SiO₂ is a network solid of Si–O single bonds and is only weakly acidic. Strong acids form from molecular oxides such as SO₃ and Cl₂O₇."
+    },
+    {
+      "q": "Emergency breathing apparatus uses 4KO₂ + 2CO₂ → 2K₂CO₃ + 3O₂. How much O₂ is released per mole of CO₂ absorbed?",
+      "a": "1.5 mol",
+      "wrong": ["3.0 mol", "0.75 mol", "0.67 mol"],
+      "why": "The equation gives 3 mol O₂ for 2 mol CO₂, so 1.5 mol per mole of CO₂. Using the coefficient 3 alone, or inverting the ratio (0.67), gives the wrong values."
+    },
+    {
+      "q": "Mg(OH)₂ has K_sp = 5.6 × 10⁻¹². What is its molar solubility in pure water, ignoring hydrolysis?",
+      "a": "1.1 × 10⁻⁴ M",
+      "wrong": ["1.4 × 10⁻⁴ M", "2.4 × 10⁻⁶ M", "1.8 × 10⁻⁴ M"],
+      "why": "K_sp = [Mg²⁺][OH⁻]² = s(2s)² = 4s³, so s = (1.4 × 10⁻¹²)^(1/3) = 1.1 × 10⁻⁴ M. Dropping the factor 4 gives 1.8 × 10⁻⁴, and treating it as an s² problem gives 2.4 × 10⁻⁶."
+    },
+    {
+      "q": "Sodium dissolves in liquid ammonia to give a deep blue solution that is a strong reducing agent. The blue species is",
+      "a": "an electron solvated by ammonia molecules",
+      "wrong": ["colloidal sodium metal suspended in the ammonia", "the amide ion NH₂⁻, formed with release of H₂", "the dimer Na₂ dissolved in the solvent"],
+      "why": "The metal ionizes, M → M⁺ + e⁻(am), and the solvated electron absorbs red light. The amide forms only slowly on standing, with catalysis, and is colorless."
+    },
+    {
+      "q": "A flame test gives a brick-red color. The cation is most likely",
+      "a": "Ca²⁺",
+      "wrong": ["Sr²⁺", "Ba²⁺", "K⁺"],
+      "why": "Calcium emits brick-red light. Strontium is crimson, barium apple-green and potassium lilac."
+    },
+    {
+      "q": "AlCl₃ catalyzes Friedel–Crafts reactions because aluminum in it is",
+      "a": "electron deficient and accepts a lone pair as a strong Lewis acid",
+      "wrong": ["a strong oxidant that removes an electron from the arene", "a Brønsted acid that readily donates H⁺ to the substrate", "a hydride donor that reduces the alkyl halide"],
+      "why": "Al in AlCl₃ has only six electrons around it and takes a lone pair from the halide to generate the electrophile. In the dimer Al₂Cl₆ it completes its octet by bridging chlorines."
+    },
+    {
+      "q": "At 1 atm, how do the energies of graphite and diamond compare?",
+      "a": "Graphite is slightly more stable than diamond",
+      "wrong": ["Diamond is more stable, since its sp³ network is denser", "They are equal in energy, since both are pure carbon", "Diamond is more stable, since graphite has weak interlayer forces"],
+      "why": "The chapter gives graphite as the (slightly) lower-energy allotrope. Hardness and density of diamond do not make it the more stable form."
+    },
+    {
+      "q": "How many moles of H₃PO₄ form when 0.50 mol of P₄O₁₀ reacts with excess water (P₄O₁₀ + 6H₂O → 4H₃PO₄)?",
+      "a": "2.0 mol",
+      "wrong": ["3.0 mol", "1.0 mol", "0.125 mol"],
+      "why": "The ratio is 4 H₃PO₄ per P₄O₁₀, so 0.50 × 4 = 2.0 mol. The value 3.0 is the water consumed, and 0.125 divides instead of multiplying."
+    },
+    {
+      "q": "Liquid sulfur becomes much more viscous when heated to about 160 °C. Why?",
+      "a": "The S₈ rings open and join into long polymeric chains",
+      "wrong": ["The S₈ rings break into small S₂ molecules that tangle", "Sulfur is oxidized by air to non-volatile SO₃", "The rings pack into a rigid crystalline lattice"],
+      "why": "Ring-opening polymerization produces long chains that entangle. Breaking the rings into small molecules would lower, not raise, the viscosity."
+    },
+    {
+      "q": "Molecular orbital theory describes ground-state O₂ as having",
+      "a": "bond order 2 and two unpaired electrons, so it is paramagnetic",
+      "wrong": ["bond order 2 and all electrons paired, as O=O suggests", "bond order 3 and all electrons paired, as in N₂", "bond order 1.5 and one unpaired electron, as in O₂⁻"],
+      "why": "O₂ is a paramagnetic diradical, a result the simple Lewis structure cannot predict. The superoxide ion has bond order 1.5 and one unpaired electron."
+    },
+    {
+      "q": "Given E° = +1.36 V (Cl₂/Cl⁻) and +1.07 V (Br₂/Br⁻), what is E°cell for Cl₂ + 2Br⁻ → 2Cl⁻ + Br₂?",
+      "a": "+0.29 V",
+      "wrong": ["−0.29 V", "+2.43 V", "+0.58 V"],
+      "why": "E°cell = E°cathode − E°anode = 1.36 − 1.07 = +0.29 V, so chlorine displaces bromide. Adding the potentials gives 2.43 V, and reversing them gives −0.29 V."
+    },
+    {
+      "q": "BrF₃ is an interhalogen compound that follows VSEPR as ClF₃ does. Its shape is",
+      "a": "T-shaped",
+      "wrong": ["trigonal planar", "trigonal pyramidal", "seesaw"],
+      "why": "Br has three bonds and two lone pairs, five domains in a trigonal bipyramid with the lone pairs equatorial. Seesaw needs four bonds and one lone pair."
+    },
+    {
+      "q": "Iodine barely dissolves in water but dissolves readily in aqueous KI to give a brown solution, because of formation of",
+      "a": "triiodide, I₃⁻, from I₂ + I⁻",
+      "wrong": ["hypoiodite, IO⁻, from I₂ and water", "an I⁺ cation stabilized by K⁺", "HI, by oxidation of water"],
+      "why": "The halide adds to the I₂ molecule, giving the linear polyhalide I₃⁻, which is also the species detected by starch."
+    },
+    {
+      "q": "A student says XeF₂ exists because xenon has empty 5d orbitals for hybridization, which neon lacks. Which correction is best?",
+      "a": "Xe’s lower ionization energy lets fluorine oxidize it, and the bonding is 3c–4e without d orbitals",
+      "wrong": ["The claim is right, because hypervalent bonding needs low-lying d orbitals", "Neon also forms stable fluorides, but they decompose on warming", "Xe is more electronegative than Ne, so it shares electrons better"],
+      "why": "Chemistry of the heavier noble gases is possible because the ionization energy falls (Xe 1170 kJ mol⁻¹). The 3c–4e model explains the geometry without d orbitals."
+    }
+  ],
   "summary": [
     "The first element of each group is small and prefers multiple bonds and octets. Heavier p-block elements show the inert pair effect, and diagonal relationships link Li–Mg, Be–Al and B–Si.",
     "Hydrides are ionic, covalent or metallic. Oxides change from basic through amphoteric to acidic across a period.",

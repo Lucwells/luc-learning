@@ -275,6 +275,178 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "Events A and B have P(A) = 0.6 and P(B) = 0.7. What is the smallest possible value of P(A ∩ B)?",
+      "a": "0.3",
+      "wrong": [
+        "0",
+        "0.42",
+        "0.1"
+      ],
+      "why": "P(A ∩ B) = P(A) + P(B) − P(A ∪ B) ≥ 1.3 − 1 = 0.3, since a probability cannot exceed 1. The value 0.42 would hold only for independent events."
+    },
+    {
+      "q": "Three fair dice are rolled. What is the probability that at least one shows a six?",
+      "a": "0.421",
+      "wrong": [
+        "0.5",
+        "0.579",
+        "0.167"
+      ],
+      "why": "Use the complement: no six has probability (5/6)³ = 125/216 = 0.579, so at least one six has 1 − 0.579 = 0.421. The value 0.5 comes from wrongly adding 3 × 1/6."
+    },
+    {
+      "q": "Which assignment of probabilities to the outcomes a, b, c of an experiment is NOT a valid probability measure?",
+      "a": "P(a) = 0.5, P(b) = 0.4, P(c) = 0.3",
+      "wrong": [
+        "P(a) = 0.5, P(b) = 0.5, P(c) = 0",
+        "P(a) = 1, P(b) = 0, P(c) = 0",
+        "P(a) = 0.2, P(b) = 0.3, P(c) = 0.5"
+      ],
+      "why": "The three probabilities sum to 1.2, violating P(Ω) = 1. Probabilities of zero are allowed by the axioms."
+    },
+    {
+      "q": "How many distinct arrangements are there of the letters of the word BOOK?",
+      "a": "12",
+      "wrong": [
+        "24",
+        "6",
+        "4"
+      ],
+      "why": "There are 4! = 24 orderings if all letters were distinct, but swapping the two O's gives the same word, so divide by 2!: 24/2 = 12."
+    },
+    {
+      "q": "How many ways can a president, a vice president and a treasurer (distinct roles) be chosen from 8 people, with no one holding two roles?",
+      "a": "336",
+      "wrong": [
+        "56",
+        "512",
+        "24"
+      ],
+      "why": "The roles are ordered, so the count is 8 · 7 · 6 = 336. Choosing an unordered committee of 3 would give C(8, 3) = 56."
+    },
+    {
+      "q": "A fair coin is flipped 5 times. What is the probability of exactly 2 heads?",
+      "a": "0.3125",
+      "wrong": [
+        "0.4",
+        "0.0625",
+        "0.25"
+      ],
+      "why": "There are C(5, 2) = 10 outcomes with 2 heads out of 2⁵ = 32 equally likely outcomes, so 10/32 = 0.3125."
+    },
+    {
+      "q": "How many Boolean functions are there on 3 input bits?",
+      "a": "256",
+      "wrong": [
+        "8",
+        "64",
+        "9"
+      ],
+      "why": "There are 2³ = 8 possible inputs, and each independently gets one of 2 outputs, so 2⁸ = 256. The value 64 would be 8²."
+    },
+    {
+      "q": "Of 200 emails, 80 are spam and 120 are not. The word \"free\" appears in 60 of the spam and 12 of the non-spam emails. What is P(spam | \"free\")?",
+      "a": "5/6",
+      "wrong": [
+        "3/4",
+        "2/5",
+        "9/25"
+      ],
+      "why": "The word appears in 72 emails, of which 60 are spam: 60/72 = 5/6. The fraction 60/80 = 3/4 is the reverse conditional, P(\"free\" | spam)."
+    },
+    {
+      "q": "Two cards are dealt from a standard 52-card deck without replacement. What is the probability that both are hearts?",
+      "a": "1/17",
+      "wrong": [
+        "1/16",
+        "1/4",
+        "12/51"
+      ],
+      "why": "By the chain rule, (13/52)(12/51) = 1/17. The value 1/16 = (1/4)² wrongly treats the draws as independent."
+    },
+    {
+      "q": "With probability 0.7 a bag with 3 red and 1 blue ball is chosen, otherwise a bag with 1 red and 3 blue. One ball is drawn from the chosen bag. What is P(red)?",
+      "a": "0.6",
+      "wrong": [
+        "0.5",
+        "0.525",
+        "0.75"
+      ],
+      "why": "By total probability, P(red) = 0.7(0.75) + 0.3(0.25) = 0.525 + 0.075 = 0.6. The value 0.525 omits the second case."
+    },
+    {
+      "q": "P(A) = 0.4, P(B) = 0.5 and P(A ∪ B) = 0.7. Which statement is correct?",
+      "a": "A and B are independent, since P(A ∩ B) = 0.2 = P(A)P(B)",
+      "wrong": [
+        "A and B are mutually exclusive, since the union is nearly the sum",
+        "A and B are dependent, since P(A ∩ B) ≠ 0",
+        "A and B are dependent, since P(A ∪ B) ≠ 0.9"
+      ],
+      "why": "Inclusion–exclusion gives P(A ∩ B) = 0.4 + 0.5 − 0.7 = 0.2, which equals 0.4 × 0.5. A non-zero overlap does not make events dependent, and mutually exclusive events would have union 0.9."
+    },
+    {
+      "q": "Two symptoms S₁ and S₂ are dependent overall, but independent given the disease D. Which equation expresses this?",
+      "a": "P(S₁ ∩ S₂ | D) = P(S₁ | D) P(S₂ | D)",
+      "wrong": [
+        "P(S₁ ∩ S₂) = P(S₁) P(S₂)",
+        "P(S₁ | S₂) = P(S₁)",
+        "P(D | S₁ ∩ S₂) = P(D)"
+      ],
+      "why": "Conditional independence means the product rule holds within the condition D. The second and third options would make the symptoms independent overall."
+    },
+    {
+      "q": "Flip two fair coins. A = first is heads, B = second is heads, C = the two coins agree. Which statement is true?",
+      "a": "Each pair is independent, but P(A ∩ B ∩ C) = 1/4 ≠ 1/8",
+      "wrong": [
+        "A, B and C are mutually independent",
+        "A and B are dependent, because C links them",
+        "A and C are dependent, because C includes the outcome HH"
+      ],
+      "why": "P(A ∩ C) = P(HH) = 1/4 = (1/2)(1/2), and similarly for the other pairs, so every pair is independent. But A ∩ B ∩ C = {HH} has probability 1/4, not (1/2)³."
+    },
+    {
+      "q": "A disease has prevalence 2%. A test is positive for 80% of the sick and for 10% of the healthy. What is P(disease | positive)?",
+      "a": "About 14%",
+      "wrong": [
+        "About 80%",
+        "About 1.6%",
+        "About 50%"
+      ],
+      "why": "P(+) = 0.8(0.02) + 0.1(0.98) = 0.016 + 0.098 = 0.114, so the posterior is 0.016/0.114 = 0.14. Ignoring the prior would give 80%."
+    },
+    {
+      "q": "A hypothesis has prior probability 0.2. Evidence arrives with likelihood ratio P(E | H)/P(E | Hᶜ) = 6. What is the posterior probability?",
+      "a": "0.6",
+      "wrong": [
+        "0.86",
+        "0.45",
+        "0.3"
+      ],
+      "why": "Prior odds are 0.2/0.8 = 0.25, so posterior odds are 0.25 × 6 = 1.5, which is a probability of 1.5/2.5 = 0.6. The value 0.86 = 6/7 ignores the prior."
+    },
+    {
+      "q": "Prior odds for a hypothesis are 1 : 8. Two independent pieces of evidence each have likelihood ratio 4. What is the posterior probability?",
+      "a": "2/3",
+      "wrong": [
+        "1/3",
+        "1/2",
+        "16/17"
+      ],
+      "why": "Likelihood ratios multiply: 1/8 × 4 × 4 = 2, which is a probability of 2/3. A single piece of evidence would give odds 1/2 and probability 1/3."
+    },
+    {
+      "q": "In the Monty Hall game, suppose the host does not know where the car is. He opens one of the other two doors at random, and it happens to show a goat. What is the probability the car is behind the remaining unopened door?",
+      "a": "1/2",
+      "wrong": [
+        "2/3",
+        "1/3",
+        "1"
+      ],
+      "why": "Now P(host opens door 3 and sees a goat) is 1/2 whether the car is behind door 1 or door 2, so the posterior splits evenly. The 2/3 answer needs a host who knows and always avoids the car."
+    }
+  ],
   "summary": [
     "A probability measure on a sample space satisfies P ≥ 0, P(Ω) = 1 and additivity for mutually exclusive events. P(Aᶜ) = 1 − P(A) and P(A ∪ B) = P(A) + P(B) − P(A ∩ B).",
     "With equally likely outcomes, count: n! orderings, C(n, k) = n!/(k!(n − k)!) subsets.",

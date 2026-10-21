@@ -581,6 +581,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A skeletal structure is an unbranched zigzag of seven line segments with no heteroatoms. What is its molecular formula?",
+      "a": "C₈H₁₈",
+      "wrong": [
+        "C₇H₁₆",
+        "C₈H₁₆",
+        "C₇H₁₄"
+      ],
+      "why": "Seven segments have eight ends and vertices, so eight carbons. Two end carbons carry three hydrogens and six interior carbons carry two, giving 6 + 12 = 18 hydrogens."
+    },
+    {
+      "q": "What are the shape and bond angles at the carbonyl carbon of acetone, CH₃COCH₃?",
+      "a": "Trigonal planar, about 120°",
+      "wrong": [
+        "Tetrahedral, about 109.5°",
+        "Linear, 180°",
+        "Trigonal pyramidal, about 107°"
+      ],
+      "why": "The carbonyl carbon is sp² hybridized, with three σ bonds in a plane and one π bond to oxygen. Only sp³ carbons are tetrahedral."
+    },
+    {
+      "q": "Why do most reactions of organic molecules occur at C–O, C–N or C–halogen bonds and not at C–C or C–H bonds?",
+      "a": "The heteroatom bonds are polar, creating electron-poor and electron-rich sites, while C–C and C–H bonds are strong and nearly nonpolar",
+      "wrong": [
+        "C–C and C–H bonds are weaker than bonds to heteroatoms, but they are shielded by the hydrocarbon framework",
+        "Carbon’s electronegativity is so close to hydrogen’s that it shares electrons equally with every atom, so none of its bonds can ever react",
+        "Heteroatoms are larger than hydrogen, so their bonds are easier to reach"
+      ],
+      "why": "Carbon’s electronegativity (2.55) is close to hydrogen’s and to carbon’s own, so those bonds have little polarity. Reactivity centers on the polar bonds. Bond strength does not favor the heteroatom bonds in the way option one claims."
+    },
+    {
+      "q": "Which compound is a ketone?",
+      "a": "CH₃COCH₂CH₃",
+      "wrong": [
+        "CH₃CH₂CHO",
+        "CH₃COOCH₃",
+        "CH₃CH₂COOH"
+      ],
+      "why": "A ketone has a carbonyl carbon bonded to two carbons. CH₃CH₂CHO has one hydrogen on the carbonyl carbon (aldehyde), CH₃COOCH₃ has an extra oxygen on the carbonyl carbon (ester) and CH₃CH₂COOH has an OH there (acid)."
+    },
+    {
+      "q": "Why does a nucleophile attack the carbon of a C=O group and not the oxygen?",
+      "a": "Oxygen is more electronegative, so the carbon carries a partial positive charge",
+      "wrong": [
+        "Carbon has a lone pair that makes it a better target",
+        "Oxygen carries the partial positive charge and repels the nucleophile",
+        "The carbonyl carbon is sp³ and therefore has an empty orbital"
+      ],
+      "why": "The C=O bond is polarized toward oxygen (δ⁻), leaving carbon δ⁺ and electrophilic. The carbonyl carbon is sp², not sp³."
+    },
+    {
+      "q": "What is the molecular formula of the saturated acyclic alkane with twelve carbons?",
+      "a": "C₁₂H₂₆",
+      "wrong": [
+        "C₁₂H₂₄",
+        "C₁₂H₂₈",
+        "C₁₂H₂₂"
+      ],
+      "why": "Acyclic alkanes follow CₙH₂ₙ₊₂, so n = 12 gives 26 hydrogens. CₙH₂ₙ (24 hydrogens) is the formula for a monocyclic alkane or an alkene."
+    },
+    {
+      "q": "What is the IUPAC name of CH₃CH(CH₃)CH(CH₃)CH₂CH₃?",
+      "a": "2,3-Dimethylpentane",
+      "wrong": [
+        "3,4-Dimethylpentane",
+        "2-Ethyl-3-methylbutane",
+        "2,3-Dimethylhexane"
+      ],
+      "why": "The longest chain has five carbons. Numbering from the end nearer the branches gives locants {2,3} instead of {3,4}. Choosing a four-carbon chain with an ethyl group ignores the longest-chain rule."
+    },
+    {
+      "q": "In the name 3-ethyl-2,2-dimethylpentane, ethyl is listed before dimethyl. Why?",
+      "a": "The prefix di- is ignored in alphabetizing, so e comes before m",
+      "wrong": [
+        "Substituents are listed in order of increasing locant, and 3 follows 2",
+        "Ethyl is the larger group, and larger groups are listed first",
+        "Ethyl is the principal group, so it is named first"
+      ],
+      "why": "Alphabetical order uses the first letter of the substituent name, ignoring multiplying prefixes. Locants fix numbering of the chain but do not set the order in which names are written."
+    },
+    {
+      "q": "What is the IUPAC name of CH₃CH(OH)CH₂CHO?",
+      "a": "3-Hydroxybutanal",
+      "wrong": [
+        "4-Oxobutan-2-ol",
+        "2-Hydroxybutanal",
+        "4-Hydroxybutanal"
+      ],
+      "why": "The aldehyde outranks the alcohol, so it is the suffix (-al) and carbon 1, and the OH is a hydroxy prefix at C3. Naming the alcohol as the suffix reverses the priority order."
+    },
+    {
+      "q": "A cyclopentane carries a methyl group and an ethyl group on adjacent carbons. What is its name?",
+      "a": "1-Ethyl-2-methylcyclopentane",
+      "wrong": [
+        "1-Methyl-2-ethylcyclopentane",
+        "2-Ethyl-1-methylcyclopentane",
+        "1,2-Ethylmethylcyclopentane"
+      ],
+      "why": "The locants {1,2} are the same either way, so the alphabetically first substituent (ethyl) receives locant 1 and the names are listed alphabetically."
+    },
+    {
+      "q": "A compound has the formula C₉H₁₃NO. How many degrees of unsaturation does it have?",
+      "a": "4",
+      "wrong": [
+        "3",
+        "5",
+        "6"
+      ],
+      "why": "DoU = (2 × 9 + 2 + 1 − 13)/2 = 8/2 = 4. Nitrogen adds one to the numerator and oxygen is ignored, so a benzene ring plus saturated side chains fits."
+    },
+    {
+      "q": "What is the number of rings plus π bonds in C₇H₅ClO?",
+      "a": "5",
+      "wrong": [
+        "4",
+        "6",
+        "3"
+      ],
+      "why": "Treat chlorine as hydrogen and ignore oxygen: (2 × 7 + 2 − 5 − 1)/2 = 5. Leaving the halogen out of the formula gives 5.5, which is impossible, so it must be subtracted."
+    },
+    {
+      "q": "Cyclobutane and but-1-ene are",
+      "a": "constitutional isomers",
+      "wrong": [
+        "geometric (cis–trans) isomers",
+        "the same compound",
+        "stereoisomers with different connectivity"
+      ],
+      "why": "Both are C₄H₈ with one degree of unsaturation (a ring or a π bond), but the atoms are connected differently. Stereoisomers share the same connectivity."
+    },
+    {
+      "q": "Ethanol and dimethyl ether have the same formula, C₂H₆O. Which has the higher boiling point and why?",
+      "a": "Ethanol, because its molecules hydrogen bond to one another through O–H",
+      "wrong": [
+        "Dimethyl ether, because it has two C–O bonds",
+        "Dimethyl ether, because it is more polar than ethanol",
+        "They boil at the same temperature because they have the same molar mass"
+      ],
+      "why": "Only ethanol has an O–H that can donate a hydrogen bond. Molar mass is equal, so the difference comes from the strong intermolecular attraction (78 °C against −24 °C)."
+    },
+    {
+      "q": "Hexane and 2,2-dimethylbutane have the same formula. Which boils lower and why?",
+      "a": "2,2-Dimethylbutane, because its compact shape has less surface contact and weaker dispersion forces",
+      "wrong": [
+        "Hexane, because it is less branched and so packs less tightly",
+        "2,2-Dimethylbutane, because branched alkanes are more polar",
+        "Neither, because isomers have identical boiling points"
+      ],
+      "why": "Branching makes a molecule more spherical, so there is less surface area for dispersion forces. The straight chain has more contact and boils higher."
+    },
+    {
+      "q": "Butanoic acid (88 g/mol) boils at 163.5 °C and butan-1-ol (74 g/mol) at 117.7 °C. What best explains the larger gap than the mass difference alone would suggest?",
+      "a": "Acid molecules pair up into hydrogen-bonded dimers",
+      "wrong": [
+        "Acids have a longer carbon chain than alcohols",
+        "Acids form covalent bonds between molecules",
+        "Alcohols cannot form any hydrogen bonds"
+      ],
+      "why": "The COOH group forms two O–H···O=C hydrogen bonds with a partner, giving a stable dimer. Both compounds have four carbons, and alcohols do hydrogen bond, only less strongly."
+    },
+    {
+      "q": "Why does catalytic reforming improve gasoline?",
+      "a": "It converts straight-chain alkanes into branched alkanes and aromatics, which resist knocking",
+      "wrong": [
+        "It breaks heavy fractions into smaller molecules to increase the amount of gasoline",
+        "It removes sulfur compounds from crude oil before distillation",
+        "It lowers the boiling range of the whole oil by distilling off the heaviest fractions, so that more of it ends up in the gas fraction used as fuel"
+      ],
+      "why": "Octane number rises with branching and aromatic content. Breaking large molecules into smaller ones is cracking, a different process."
+    },
+    {
+      "q": "How many moles of O₂ are needed for complete combustion of one mole of octane, C₈H₁₈?",
+      "a": "12.5 mol",
+      "wrong": [
+        "8 mol",
+        "9 mol",
+        "25 mol"
+      ],
+      "why": "With n = 8, (3n + 1)/2 = 12.5. Balancing atoms confirms it: 8 CO₂ and 9 H₂O need 16 + 9 = 25 oxygen atoms, which is 12.5 O₂."
+    }
+  ],
   "summary": [
     "Carbon forms four bonds with sp³, sp² or sp geometry. Skeletal structures show vertices as carbons with implied hydrogens.",
     "Functional groups (C=C, –OH, C=O, –NH₂ and others) determine reactivity.",

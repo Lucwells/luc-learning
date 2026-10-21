@@ -424,6 +424,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A conductivity cell filled with 0.0100 M KCl (κ = 1.413 mS cm⁻¹) has a resistance of 500 Ω. What is its cell constant?",
+      "a": "0.707 cm⁻¹",
+      "wrong": [
+        "2.83 × 10⁻⁶ cm⁻¹",
+        "1.41 cm⁻¹",
+        "1.41 × 10⁻³ cm⁻¹"
+      ],
+      "why": "κ = K_cell/R, so K_cell = κR = 1.413 × 10⁻³ S cm⁻¹ × 500 Ω = 0.707 cm⁻¹. Dividing κ by R inverts the relation."
+    },
+    {
+      "q": "A 0.0100 M solution of a weak acid has κ = 2.50 × 10⁻⁴ S cm⁻¹, and Λ₀ = 390.5 S cm² mol⁻¹. What is K_a?",
+      "a": "4.4 × 10⁻⁵",
+      "wrong": [
+        "4.1 × 10⁻⁵",
+        "6.4 × 10⁻⁴",
+        "4.1 × 10⁻³"
+      ],
+      "why": "Λ_m = 1000κ/c = 25.0 S cm² mol⁻¹, so α = 25.0/390.5 = 0.0640 and K_a = cα²/(1 − α) = 0.0100 × 0.00410/0.936 = 4.4 × 10⁻⁵. Dropping the (1 − α) gives 4.1 × 10⁻⁵."
+    },
+    {
+      "q": "A one-electron cell has E = 0.800 V at 298.15 K, with (∂E/∂T) = +2.0 × 10⁻⁴ V K⁻¹. What is ΔH of the cell reaction?",
+      "a": "−71.4 kJ",
+      "wrong": [
+        "−82.9 kJ",
+        "−77.2 kJ",
+        "+71.4 kJ"
+      ],
+      "why": "ΔG = −FE = −77.2 kJ, ΔS = F(∂E/∂T) = +19.3 J K⁻¹, so ΔH = ΔG + TΔS = −77.2 + 5.75 = −71.4 kJ. Subtracting TΔS gives −82.9, and −77.2 is only ΔG."
+    },
+    {
+      "q": "50.0 mL of 0.200 M acetic acid is shaken with 2.00 g of charcoal, and the equilibrium concentration is 0.150 M. What is the amount adsorbed per gram?",
+      "a": "1.25 mmol g⁻¹",
+      "wrong": [
+        "2.50 mmol g⁻¹",
+        "5.00 mmol g⁻¹",
+        "25.0 mmol g⁻¹"
+      ],
+      "why": "Γ = (c₀ − c)V/m = 0.050 mol L⁻¹ × 0.0500 L/2.00 g = 1.25 mmol g⁻¹. Forgetting to divide by the mass gives 2.50."
+    },
+    {
+      "q": "A Langmuir plot of c/Γ against c (c in mmol L⁻¹, Γ in mmol g⁻¹) has slope 0.50 g mmol⁻¹ and intercept 20 g L⁻¹. What are Γ_max and K?",
+      "a": "Γ_max = 2.0 mmol g⁻¹, K = 0.025 L mmol⁻¹",
+      "wrong": [
+        "Γ_max = 0.50 mmol g⁻¹, K = 40 L mmol⁻¹",
+        "Γ_max = 2.0 mmol g⁻¹, K = 40 L mmol⁻¹",
+        "Γ_max = 0.50 mmol g⁻¹, K = 0.025 L mmol⁻¹"
+      ],
+      "why": "The slope is 1/Γ_max, so Γ_max = 2.0, and the intercept is 1/(KΓ_max), so K = slope/intercept = 0.50/20 = 0.025. Inverting either quantity gives the wrong pairs."
+    },
+    {
+      "q": "A polymer solution of c = 4.0 g L⁻¹ has an efflux time of 138.0 s, and the solvent takes 120.0 s. What is the reduced viscosity η_sp/c?",
+      "a": "37.5 mL g⁻¹",
+      "wrong": [
+        "288 mL g⁻¹",
+        "4.5 mL g⁻¹",
+        "0.15 mL g⁻¹"
+      ],
+      "why": "η_rel ≈ t/t₀ = 1.15 and η_sp = 0.15, so η_sp/c = 0.15/4.0 g L⁻¹ = 0.0375 L g⁻¹ = 37.5 mL g⁻¹. Using η_rel in place of η_sp gives 288."
+    },
+    {
+      "q": "A polymer has [η] = 100 mL g⁻¹ in a solvent where K = 0.010 mL g⁻¹ and a = 0.75. What is its viscosity-average molar mass?",
+      "a": "2.2 × 10⁵ g mol⁻¹",
+      "wrong": [
+        "1.0 × 10⁴ g mol⁻¹",
+        "1.0 × 10³ g mol⁻¹",
+        "1.0 × 10⁶ g mol⁻¹"
+      ],
+      "why": "M = ([η]/K)^{1/a} = (10⁴)^{1.333} = 2.2 × 10⁵ g mol⁻¹. Omitting the exponent 1/a gives 10⁴, and multiplying by a gives 10³."
+    },
+    {
+      "q": "In the free-electron model, which is the lowest-energy absorption of a conjugated chain with 6 π electrons?",
+      "a": "From n = 3 to n = 4",
+      "wrong": [
+        "From n = 6 to n = 7",
+        "From n = 1 to n = 2",
+        "From n = 2 to n = 3"
+      ],
+      "why": "The electrons fill levels in pairs, so 6 electrons occupy n = 1, 2, 3. The HOMO is n = N/2 = 3, and the lowest transition goes to the LUMO, n = 4."
+    },
+    {
+      "q": "In the free-electron model, what happens to the transition energy of a chain with a fixed number of π electrons when the box length doubles?",
+      "a": "It falls to one quarter",
+      "wrong": [
+        "It is halved",
+        "It doubles",
+        "It quadruples"
+      ],
+      "why": "ΔE = (N + 1)h²/(8m_eL²) varies as 1/L², so doubling L divides ΔE by 4 and moves the absorption to longer wavelength."
+    },
+    {
+      "q": "The R(1) line of H³⁵Cl is at 2928.0 cm⁻¹ and P(2) is at 2844.0 cm⁻¹. What is B in the rigid-rotor model?",
+      "a": "10.5 cm⁻¹",
+      "wrong": [
+        "21.0 cm⁻¹",
+        "42.0 cm⁻¹",
+        "5.25 cm⁻¹"
+      ],
+      "why": "R(1) = ν̃₀ + 4B and P(2) = ν̃₀ − 4B, so their difference is 8B = 84.0 cm⁻¹ and B = 10.5 cm⁻¹. The band origin is the midpoint, 2886.0 cm⁻¹."
+    },
+    {
+      "q": "The line spacing 2B of the HCl rovibrational spectrum is 21.2 cm⁻¹. With the same bond length, what spacing is expected for DCl (μ_H/μ_D = 0.514)?",
+      "a": "10.9 cm⁻¹",
+      "wrong": [
+        "15.2 cm⁻¹",
+        "21.2 cm⁻¹",
+        "41.2 cm⁻¹"
+      ],
+      "why": "B = h/(8π²cμr²) is proportional to 1/μ, so the spacing scales as μ_H/μ_D = 0.514. The square root, 0.717, applies to the vibrational wavenumber, not to B."
+    },
+    {
+      "q": "Why is every line in the HCl spectrum of natural gas a closely spaced doublet?",
+      "a": "Natural chlorine is a 3:1 mixture of ³⁵Cl and ³⁷Cl, which give slightly different reduced masses",
+      "wrong": [
+        "The molecule has two different vibrational modes that lie close together in energy",
+        "Spin–orbit coupling splits each rotational level into two closely spaced sublevels",
+        "The P and R branches overlap at each value of J, giving two lines for each J"
+      ],
+      "why": "H³⁵Cl and H³⁷Cl have different reduced masses and so slightly different B and ν̃₀, with intensities in the abundance ratio of about 3:1. A diatomic has only one vibration."
+    },
+    {
+      "q": "In a Stern–Volmer experiment, F₀/F = 3.0 at [Q] = 0.020 M. What is K_SV?",
+      "a": "100 M⁻¹",
+      "wrong": [
+        "150 M⁻¹",
+        "50 M⁻¹",
+        "0.010 M⁻¹"
+      ],
+      "why": "F₀/F = 1 + K_SV[Q], so K_SV = (3.0 − 1)/0.020 = 100 M⁻¹. Using 3.0 without subtracting the 1 gives 150."
+    },
+    {
+      "q": "Why should the absorbance of the sample at the excitation wavelength stay below about 0.05 in a quenching experiment?",
+      "a": "Excitation light is absorbed near the cell face and emission is reabsorbed, which distorts F",
+      "wrong": [
+        "The quencher would be photolyzed by the excitation light at higher absorbances of the quinine",
+        "The ionic strength would drift as the solution warms under the stronger excitation light",
+        "The unquenched lifetime τ₀ itself becomes concentration dependent above this absorbance"
+      ],
+      "why": "This inner-filter effect lowers the measured F without any quenching and makes the plot of F₀/F against [Q] unreliable."
+    },
+    {
+      "q": "What wavelength is predicted for the Balmer n = 6 → 2 line, using R_H = 1.09678 × 10⁷ m⁻¹?",
+      "a": "410 nm",
+      "wrong": [
+        "365 nm",
+        "486 nm",
+        "93.8 nm"
+      ],
+      "why": "1/λ = R_H(1/4 − 1/36) = 1.09678 × 10⁷ × 0.2222 = 2.437 × 10⁶ m⁻¹, so λ = 410 nm. The 365 nm value is the series limit, 486 nm is the n = 4 line, and 93.8 nm would be the n = 6 → 1 line."
+    },
+    {
+      "q": "A grating has 600 lines per mm. At what angle does the first-order line of 656.3 nm appear?",
+      "a": "23.2°",
+      "wrong": [
+        "21.5°",
+        "66.8°",
+        "46.4°"
+      ],
+      "why": "d = 1/600 mm = 1.667 µm, and d sin θ = λ gives sin θ = 0.6563/1.667 = 0.394, so θ = 23.2°. Using the tangent gives 21.5°, and the cosine gives 66.8°."
+    },
+    {
+      "q": "A 785 nm laser excites a band with a Raman shift of 459 cm⁻¹. Where does the Stokes line appear?",
+      "a": "814 nm",
+      "wrong": [
+        "758 nm",
+        "785 nm",
+        "1244 nm"
+      ],
+      "why": "The laser is at 12,739 cm⁻¹. Stokes scattering is lower in energy, 12,739 − 459 = 12,280 cm⁻¹, which is 814 nm. The anti-Stokes line would be at 758 nm."
+    },
+    {
+      "q": "What is the Boltzmann population ratio N(v = 1)/N(v = 0) at 298.15 K for a vibration of 218 cm⁻¹ (hc/k = 1.4388 cm K)?",
+      "a": "0.35",
+      "wrong": [
+        "0.65",
+        "1.05",
+        "3.5"
+      ],
+      "why": "The ratio is exp(−1.4388 × 218/298.15) = exp(−1.052) = 0.35. A low-frequency mode is appreciably populated, so its anti-Stokes line is relatively strong."
+    }
+  ],
   "summary": [
     "Conductivity: κ = K_cell/R; Λ_m = 1000κ/c; strong electrolytes Λ_m = Λ₀ − K√c; weak electrolytes K_a = cα²/(1 − α) with α = Λ_m/Λ₀. Cells: ΔG = −nFE, ΔS = nF(∂E/∂T), ΔH = ΔG + TΔS.",
     "Adsorption: Freundlich log Γ = log K + (1/n) log c; Langmuir c/Γ = 1/(KΓ_max) + c/Γ_max; surface area = Γ_max N_A σ. Viscometry: η_sp/c extrapolated to c = 0 gives [η]; [η] = K M^a.",

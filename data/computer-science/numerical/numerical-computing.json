@@ -412,6 +412,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "In Python (double precision), what does `2.0**53 + 1.0 == 2.0**53` evaluate to?",
+      "a": "True",
+      "wrong": [
+        "False",
+        "It raises OverflowError",
+        "nan"
+      ],
+      "why": "Above 2⁵³ the spacing between doubles is 2, so adding 1 rounds back to the same number. Integers up to 2⁵³ are exact, but not beyond."
+    },
+    {
+      "q": "With NumPy, what does `np.float16(60000) + np.float16(60000)` give?",
+      "a": "inf",
+      "wrong": [
+        "120000.0",
+        "65504.0",
+        "nan"
+      ],
+      "why": "The true sum 120000 exceeds the float16 maximum of 65,504, so the result overflows to inf. nan would need an invalid operation such as inf − inf."
+    },
+    {
+      "q": "In Python, with a = 1e16, b = −1e16 and c = 1.0, what are (a + b) + c and a + (b + c)?",
+      "a": "1.0 and 0.0",
+      "wrong": [
+        "1.0 and 1.0",
+        "0.0 and 0.0",
+        "0.0 and 1.0"
+      ],
+      "why": "(a + b) is exactly 0, so adding c gives 1.0. In b + c the 1 is lost, because the spacing near 1e16 is 2. Floating-point addition is not associative."
+    },
+    {
+      "q": "Data are 10⁹ + 1, 10⁹ + 2, 10⁹ + 3. Why can Var = E[x²] − (E[x])² return a wrong or even negative value?",
+      "a": "Both terms are about 10¹⁸ and agree in their leading 16 digits, so the subtraction cancels them",
+      "wrong": [
+        "x² overflows double precision for values near 10⁹, so the squared terms become inf and the result is nan",
+        "The formula is wrong unless it divides by n − 1",
+        "Squaring changes the order of the data"
+      ],
+      "why": "The subtraction is exact; the damage is that the rounding errors already present in the large terms become the result. The two-pass or Welford forms work with deviations from the mean instead."
+    },
+    {
+      "q": "What does the chapter's welford function return for welford([2, 4, 6])?",
+      "a": "(4.0, 4.0)",
+      "wrong": [
+        "(4.0, 8.0)",
+        "(4.0, 2.67)",
+        "(4.0, 16.0)"
+      ],
+      "why": "The mean is 4, and the sum of squared deviations m2 is 4 + 0 + 4 = 8. The function divides by n − 1 = 2, giving 4.0. Dividing by n would give 2.67 and returning m2 gives 8."
+    },
+    {
+      "q": "What does Kahan compensated summation add to a plain running sum?",
+      "a": "A second variable that holds the low-order part lost in each addition",
+      "wrong": [
+        "A pre-pass that sorts the terms from largest to smallest in absolute value before adding",
+        "A float64 copy of every term",
+        "A division of each term by the number of terms"
+      ],
+      "why": "Each addition to a large total drops low-order digits. Kahan summation keeps that lost part and feeds it back into the next addition, so the error does not grow with n."
+    },
+    {
+      "q": "A plain left-to-right sum of n = 10⁶ doubles has a worst-case relative error of about n·ε. Taking ε = 2.2 × 10⁻¹⁶, how large is that bound?",
+      "a": "About 2 × 10⁻¹⁰",
+      "wrong": [
+        "About 2 × 10⁻¹⁶",
+        "About 4 × 10⁻¹⁵",
+        "About 2 × 10⁻²²"
+      ],
+      "why": "n·ε = 10⁶ × 2.2 × 10⁻¹⁶ ≈ 2 × 10⁻¹⁰. Pairwise summation, with error about log n · ε, would give roughly 4 × 10⁻¹⁵."
+    },
+    {
+      "q": "A least-squares problem has κ(X) = 10³. It is solved in double precision (about 16 digits) through the normal equations. Roughly how many digits of the weights are correct?",
+      "a": "About 10",
+      "wrong": [
+        "About 13",
+        "About 16",
+        "About 3"
+      ],
+      "why": "κ(XᵀX) = κ(X)² = 10⁶, so about 16 − 6 = 10 digits survive. A QR or SVD solve works with κ(X) = 10³ and keeps about 13."
+    },
+    {
+      "q": "A linear system is ill-conditioned. Which statement is true?",
+      "a": "Even a backward stable algorithm may lose many digits, because the sensitivity belongs to the problem",
+      "wrong": [
+        "A backward stable algorithm always restores full double precision, whatever the condition number of the matrix",
+        "It means round-off in the algorithm is large",
+        "It happens only when the matrix is exactly singular"
+      ],
+      "why": "Conditioning describes how the exact answer reacts to input perturbations, whatever the method. The fix is to reformulate: regularize, rescale or reparameterize."
+    },
+    {
+      "q": "The eigenvalues of XᵀX are 100 and 0.0001. Ridge regression with λ = 0.01 is used. About what is the condition number of XᵀX + λI, compared with 10⁶ before?",
+      "a": "About 10⁴",
+      "wrong": [
+        "About 10⁶, unchanged",
+        "About 10²",
+        "About 10⁸"
+      ],
+      "why": "The eigenvalues become 100.01 and 0.0101, and the ratio is about 9,900. Adding λ lifts the smallest eigenvalue to at least λ, which is what improves the conditioning."
+    },
+    {
+      "q": "Logits in float32 are z = (90, 91), and exp overflows above about 88. What is the correct softmax(z)?",
+      "a": "(0.269, 0.731)",
+      "wrong": [
+        "(0.5, 0.5), since both logits are large and nearly equal",
+        "(0.0, 1.0), since e⁹¹ dwarfs e⁹⁰",
+        "(0.731, 0.269)"
+      ],
+      "why": "Softmax is unchanged by subtracting the maximum: (e⁻¹, 1)/(e⁻¹ + 1) = (0.269, 0.731). Computed naively, both exponentials overflow to inf and the result is nan."
+    },
+    {
+      "q": "For z = (0, −1000), what is log softmax(z)₂ computed with the log-sum-exp form, and what goes wrong with log(softmax(z))₂?",
+      "a": "It is about −1000; the softmax value underflows to 0, so the naive log gives −inf",
+      "wrong": [
+        "It is about −1; the naive log gives 0",
+        "It is about −1000; the naive log gives the same value",
+        "It is −inf; the log-sum-exp form fails too"
+      ],
+      "why": "With m = 0 the formula gives −1000 − ln(1 + e⁻¹⁰⁰⁰) ≈ −1000. The probability e⁻¹⁰⁰⁰ is smaller than the smallest double, so it becomes 0 and its log is −inf."
+    },
+    {
+      "q": "Using the chapter's bce_with_logits formula max(z, 0) − yz + log1p(e^{−|z|}), what is the loss for z = 2 and y = 0?",
+      "a": "2.127",
+      "wrong": [
+        "0.127",
+        "2.000",
+        "0.693"
+      ],
+      "why": "2 − 0 + ln(1 + e⁻²) = 2 + 0.127 = 2.127. This equals ln(1 + e²). The 0.127 term alone forgets the max(z, 0) part."
+    },
+    {
+      "q": "With NumPy, `np.log(1 + np.exp(z))` is used as softplus. What does it return for z = 1000.0 in double precision?",
+      "a": "inf",
+      "wrong": [
+        "1000.0",
+        "0.0",
+        "nan"
+      ],
+      "why": "exp(1000) overflows to inf, and the log of inf is inf, although the true value is very close to 1000. The stable form max(z, 0) + log1p(e^{−|z|}) never exponentiates a large positive number."
+    },
+    {
+      "q": "Gradients are checked in float32 (ε ≈ 1.2 × 10⁻⁷) with a forward difference. Roughly which step h minimizes the total error?",
+      "a": "About 3 × 10⁻⁴",
+      "wrong": [
+        "About 10⁻⁸",
+        "About 1.2 × 10⁻⁷",
+        "About 10⁻¹⁶"
+      ],
+      "why": "The best forward-difference step is about √ε, and √(1.2 × 10⁻⁷) ≈ 3.5 × 10⁻⁴. The value 10⁻⁸ is the answer for float64."
+    },
+    {
+      "q": "In bfloat16 (7 fraction bits), a weight of 1.0 receives an update of +0.005. What is the stored result?",
+      "a": "1.0078125",
+      "wrong": [
+        "1.005",
+        "1.0",
+        "1.015625"
+      ],
+      "why": "The spacing near 1 is 2⁻⁷ = 0.0078125. The update is more than half of this spacing, so the sum rounds up to the next number 1.0078125, rather than being stored exactly or lost."
+    },
+    {
+      "q": "A team multiplies the loss by 1024 for float16 training but forgets to divide the gradients by 1024 before the weight update. What is the effect?",
+      "a": "Every update is 1024 times too large, as if the learning rate were multiplied by 1024",
+      "wrong": [
+        "There is no effect, because the loss scale cancels out automatically when gradients are propagated through the layers",
+        "Small gradients underflow to zero more often",
+        "The weights are stored in float32 instead of float16"
+      ],
+      "why": "Scaling the loss scales every gradient by the same factor. It must be undone, in float32, before the update, or the step size silently becomes 1024 times larger."
+    },
+    {
+      "q": "The weights of a model with 7 billion parameters are quantized to 8-bit integers. About how much memory do the weights need?",
+      "a": "About 7 GB",
+      "wrong": [
+        "About 14 GB",
+        "About 28 GB",
+        "About 3.5 GB"
+      ],
+      "why": "8 bits is one byte per parameter, so 7 × 10⁹ bytes ≈ 7 GB. 14 GB and 28 GB are the sizes in 16-bit and 32-bit formats, and 3.5 GB would need 4-bit weights."
+    }
+  ],
   "summary": [
     "Floating-point numbers store a sign, exponent and significand. Double precision has ε = 2.2 × 10⁻¹⁶ (16 digits), float32 has 1.2 × 10⁻⁷ (7 digits). Spacing grows with magnitude, most decimals are inexact (0.1 + 0.2 ≠ 0.3), overflow gives inf, invalid operations give nan, and floats must be compared with tolerances.",
     "Catastrophic cancellation destroys accuracy when subtracting nearly equal numbers. Rewrite the formula (log1p, expm1, 2 sin²(x/2)), use Welford for variance, and sum with pairwise or compensated summation.",

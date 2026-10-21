@@ -545,6 +545,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "The calcium resonance line at 422.7 nm corresponds to E = 2.93 eV, with g*/g₀ = 3. What fraction of Ca atoms is excited in a 2500 K flame (kT = 0.2154 eV)?",
+      "a": "3.7 × 10⁻⁶",
+      "wrong": [
+        "1.2 × 10⁻⁶",
+        "3.7 × 10⁻³",
+        "0.37"
+      ],
+      "why": "N*/N₀ = 3e^(−2.93/0.2154) = 3e^(−13.6) = 3 × 1.24 × 10⁻⁶ = 3.7 × 10⁻⁶. Leaving out the degeneracy ratio g*/g₀ gives 1.2 × 10⁻⁶. Nearly all the atoms are in the ground state, so absorption is practical."
+    },
+    {
+      "q": "Why is the beam from the hollow-cathode lamp pulsed or chopped in flame AAS?",
+      "a": "So the detector can tell the lamp light from the flame’s own emission at the same wavelength",
+      "wrong": [
+        "To stop the cathode from overheating and broadening its lines",
+        "To make the lamp lines narrower than the atomic absorption lines",
+        "To keep Beer’s law linear at high atom concentrations"
+      ],
+      "why": "Excited atoms in the flame emit light at the analyte wavelength, which would be read as negative absorbance. A modulated lamp signal can be separated from this steady emission electronically."
+    },
+    {
+      "q": "How does continuum-source AAS differ from conventional line-source AAS?",
+      "a": "One xenon lamp covers all elements, with a high-resolution echelle spectrometer",
+      "wrong": [
+        "It uses a hollow-cathode lamp for each element but a much hotter flame than usual",
+        "It measures the emission of the flame instead of absorption, with a wide monochromator slit",
+        "It requires atoms in an excited state instead of the ground state, made in a hotter plasma"
+      ],
+      "why": "A single continuum lamp replaces the set of element lamps, and the high spectral resolution selects the narrow atomic line from the broad output. It still measures absorption by ground-state atoms."
+    },
+    {
+      "q": "A nebulizer takes up 5.0 mL/min of a 10 mg/L solution, and 8% of the aerosol reaches the flame. How much analyte enters the flame per minute?",
+      "a": "4.0 µg",
+      "wrong": [
+        "50 µg",
+        "0.40 µg",
+        "40 µg"
+      ],
+      "why": "The flow reaching the flame is 5.0 × 0.08 = 0.40 mL/min, which carries 0.40 mL × 10 µg/mL = 4.0 µg. The figure 50 µg ignores the nebulizer efficiency, which is only 5–10%."
+    },
+    {
+      "q": "EDTA is added to calcium samples containing phosphate in an air–acetylene flame. Its role is…",
+      "a": "A protecting agent: it holds the calcium in a complex until it reaches the flame",
+      "wrong": [
+        "A releasing agent: it binds the phosphate more strongly than calcium does",
+        "An ionization suppressor: it supplies electrons to the flame",
+        "A background corrector: it absorbs the molecular bands of CaOH"
+      ],
+      "why": "A protecting agent shields the analyte from the interferent, while a releasing agent (La or Sr) works by binding the interferent. EDTA acts on the calcium side, so it belongs to the first kind."
+    },
+    {
+      "q": "Why does a deuterium continuum lamp measure only the background absorption in flame AAS?",
+      "a": "Atoms absorb a negligible part of the broad band, but molecules and particles absorb it",
+      "wrong": [
+        "Deuterium emission lies at wavelengths that ground-state atoms cannot absorb at all",
+        "The deuterium beam is directed around the flame, so that only the lamp background is seen",
+        "Deuterium light is polarized, so that atoms cannot absorb it but particles can"
+      ],
+      "why": "Atomic lines are only about 0.005 nm wide, a minute fraction of the monochromator bandwidth, so the continuum beam is attenuated mainly by broad molecular absorption and scattering. The result is subtracted from the hollow-cathode reading."
+    },
+    {
+      "q": "A graphite furnace has a concentration LOD of 0.50 µg/L for a 25 µL injection. What is the absolute LOD?",
+      "a": "12.5 pg",
+      "wrong": [
+        "12.5 ng",
+        "1.25 pg",
+        "0.020 pg"
+      ],
+      "why": "Mass = 0.50 µg/L × 25 × 10⁻⁶ L = 1.25 × 10⁻⁵ µg = 12.5 pg. Slipping by a factor of 1000 in the µg to pg conversion gives 12.5 ng."
+    },
+    {
+      "q": "What does an L’vov platform do in a graphite furnace?",
+      "a": "It delays vaporization until the gas in the tube has reached the atomization temperature",
+      "wrong": [
+        "It heats the sample faster than the tube wall, so that atoms leave the surface sooner",
+        "It seals the pores of the graphite so that the sample cannot soak into the tube wall",
+        "It cools the tube between steps so that the next sample can be loaded at once"
+      ],
+      "why": "The platform is heated mainly by radiation, so the sample vaporizes late, into hot gas (isothermal atomization), giving less matrix interference and reproducible peaks. Sealing the pores is the job of the pyrolytic coating."
+    },
+    {
+      "q": "Why does Zeeman background correction handle a rapidly changing, structured background in a furnace better than a deuterium lamp?",
+      "a": "Both readings use one light source at the same wavelength, nearly simultaneously",
+      "wrong": [
+        "It measures at a nearby wavelength where no molecule in the matrix absorbs",
+        "It averages the background over many furnace firings before it subtracts it",
+        "It uses a more intense lamp, so that the background becomes negligible in comparison"
+      ],
+      "why": "With the magnetic field off and on, the same lamp line is measured through the same atom cloud, so the background seen is the one under the analyte line. A second lamp has a different optical path and band pass, and cannot follow structured, fast changes."
+    },
+    {
+      "q": "Why is ammonium nitrate added to a sample with a high NaCl content before graphite-furnace analysis?",
+      "a": "It converts NaCl to NaNO₃ and volatile NH₄Cl, which are removed in the pyrolysis step",
+      "wrong": [
+        "It forms an alloy with the analyte so that it survives a higher atomization temperature",
+        "It binds chloride as a releasing agent, so the analyte atomizes completely",
+        "It raises the atomization temperature so that NaCl no longer absorbs"
+      ],
+      "why": "NH₄NO₃ + NaCl → NaNO₃ + NH₄Cl, and NH₄Cl vaporizes at moderate temperatures, removing the chloride matrix that would otherwise give large background absorption. This is a matrix modifier acting on the matrix rather than on the analyte."
+    },
+    {
+      "q": "Selenium in a water sample is present as selenate, Se(VI). What is needed before hydride generation with NaBH₄?",
+      "a": "Reduction to Se(IV), for example by heating in HCl",
+      "wrong": [
+        "Nothing, since Se(VI) gives H₂Se as efficiently as Se(IV)",
+        "Oxidation with H₂O₂, to convert all Se to a volatile oxide",
+        "Addition of KI and ascorbic acid, to reduce Se(VI) to elemental Se"
+      ],
+      "why": "Only Se(IV) is efficiently converted to H₂Se, so selenate is prereduced first; otherwise the selenium would be underestimated. Elemental Se would not form a hydride either."
+    },
+    {
+      "q": "Why is the fluorescence in atomic fluorescence spectrometry viewed at 90° to the exciting beam?",
+      "a": "The detector then does not see the source light, so it records against a dark background",
+      "wrong": [
+        "Atoms emit fluorescence only at right angles to the beam",
+        "It lengthens the path through the atom cloud and so raises absorbance",
+        "It avoids self-absorption of the fluorescence by hydrides"
+      ],
+      "why": "Fluorescence is emitted in all directions, whereas the transmitted source beam goes straight on. Viewing at 90° gives a signal on almost zero background, which allows detection limits at ng/L."
+    },
+    {
+      "q": "Which of these is an isobaric interference in ICP-MS?",
+      "a": "¹¹⁴Sn on ¹¹⁴Cd",
+      "wrong": [
+        "⁴⁰Ar³⁵Cl⁺ on ⁷⁵As",
+        "⁴⁰Ar¹⁶O⁺ on ⁵⁶Fe",
+        "³⁵Cl¹⁶O⁺ on ⁵¹V"
+      ],
+      "why": "An isobaric interference is another element with an isotope of the same mass. The other three are polyatomic ions formed from the plasma gas, solvent and matrix."
+    },
+    {
+      "q": "The ions ⁵⁶Fe⁺ (55.9349) and ⁴⁰Ar¹⁶O⁺ (55.9573) must be separated by mass resolution alone. What resolving power is needed?",
+      "a": "About 2,500, far beyond a quadrupole",
+      "wrong": [
+        "About 250, within the capability of a quadrupole",
+        "About 25,000, beyond even a sector-field instrument",
+        "About 56, since the masses differ by one unit"
+      ],
+      "why": "R = m/Δm = 55.94/0.0224 ≈ 2,500. A quadrupole cannot do this, which is why a collision cell is used for iron, or a high-resolution instrument."
+    },
+    {
+      "q": "A high-salt wastewater is analyzed by ICP-OES over a wide range of concentrations. Which viewing mode is preferable?",
+      "a": "Radial, since it tolerates high-matrix samples and has a wider linear range",
+      "wrong": [
+        "Axial, since it lowers detection limits by 5–10 times, which matters most for wastewater",
+        "Axial, since it avoids self-absorption at high concentrations",
+        "Either, since the viewing direction does not change matrix effects"
+      ],
+      "why": "End-on viewing sees more of the plasma channel and improves detection limits but suffers more from matrix effects and self-absorption. For concentrated, salty samples the radial view is the robust choice."
+    },
+    {
+      "q": "Why does isotope dilution ICP-MS give results independent of analyte losses after the spike has equilibrated?",
+      "a": "Losses remove the spike isotope and the sample isotope in equal proportion, so their ratio is unchanged",
+      "wrong": [
+        "The enriched isotope is added in large excess, so losses become negligible",
+        "The quadrupole counts only the ions that survived the sample preparation",
+        "An internal standard such as Rh or In corrects for losses of the spike"
+      ],
+      "why": "The result depends on the isotope ratio of the mixture, and the two isotopes of the same element behave identically in the chemistry. That is what makes it the most accurate calibration."
+    },
+    {
+      "q": "Which statement about atomic spectroscopic techniques is false?",
+      "a": "GFAAS has a wider linear range than FAAS",
+      "wrong": [
+        "ICP-MS has a linear range of 8–9 orders of magnitude",
+        "GFAAS needs only 5–50 µL of sample",
+        "ICP-OES can measure 20–70 elements simultaneously"
+      ],
+      "why": "GFAAS has a narrow linear range, about 2 orders of magnitude, against 2–3 for FAAS. Its advantage is sensitivity and small sample volume."
+    },
+    {
+      "q": "A laboratory must measure 40 elements at 0.01–1 µg/L in groundwater. Which technique is most suitable?",
+      "a": "ICP-MS",
+      "wrong": [
+        "ICP-OES, whose detection limits are 0.1–10 µg/L",
+        "GFAAS, run once for each element",
+        "FAAS with a releasing agent"
+      ],
+      "why": "Only ICP-MS combines ng/L detection limits with coverage of most of the periodic table in one run. ICP-OES is not sensitive enough at the bottom of the range, and the AAS methods are single-element."
+    }
+  ],
   "summary": [
     "Atoms absorb and emit narrow resonance lines. AAS uses element-specific hollow-cathode lamps. Excited-state populations rise exponentially with T, so hot plasmas excite nearly all elements.",
     "FAAS: nebulizer and burner, ppm limits. Air–acetylene is standard and N₂O–acetylene is for refractory oxides. Interferences are chemical (releasing agents), ionization (suppressors), physical and spectral.",

@@ -429,6 +429,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "Ultraviolet light splits Cl₂ into two chlorine atoms. How is this step described and drawn?",
+      "a": "Homolytic cleavage, drawn with two half-headed arrows, one electron to each Cl",
+      "wrong": [
+        "Heterolytic cleavage, drawn with one full-headed arrow, giving Cl⁺ and Cl⁻",
+        "Homolytic cleavage, drawn with one full-headed arrow moving an electron pair to one Cl",
+        "Heterolytic cleavage, drawn with two half-headed arrows giving two ions"
+      ],
+      "why": "Light supplies the energy to split the bond evenly, so each atom keeps one electron and becomes a radical. Fishhook arrows move one electron each, and full arrows move pairs."
+    },
+    {
+      "q": "Which species can act as a nucleophile?",
+      "a": "The π bond of propene",
+      "wrong": [
+        "The tert-butyl cation",
+        "The hydronium ion, H₃O⁺",
+        "The carbonyl carbon of acetone"
+      ],
+      "why": "A nucleophile donates an electron pair, and a π bond can do so. The cation, the proton donor and the polarized carbonyl carbon are all electron-poor electrophiles."
+    },
+    {
+      "q": "The isopropyl cation, (CH₃)₂CH⁺, is stabilized by hyperconjugation. How many C–H bonds on the carbons next to the positive carbon can overlap with its empty p orbital?",
+      "a": "6",
+      "wrong": [
+        "3",
+        "9",
+        "7"
+      ],
+      "why": "The positive carbon has two methyl neighbors, each with three C–H bonds, so 6. The hydrogen on the cationic carbon itself lies in the plane of the empty p orbital and does not overlap with it. A tert-butyl cation has 9."
+    },
+    {
+      "q": "Why is a methyl carbanion more stable than a tertiary carbanion?",
+      "a": "Alkyl groups donate electron density, which adds to a carbon that already carries a lone pair",
+      "wrong": [
+        "Alkyl groups withdraw electrons and so cancel the negative charge",
+        "A tertiary carbanion is planar, so its lone pair is delocalized",
+        "Hyperconjugation with C–H bonds stabilizes carbanions more as they get larger"
+      ],
+      "why": "Hyperconjugation and induction help an electron-poor center, but they push more density onto an electron-rich one. This is why carbanion stability runs opposite to carbocation stability."
+    },
+    {
+      "q": "Which curved-arrow move is NOT valid?",
+      "a": "An arrow that starts at the empty p orbital of a carbocation",
+      "wrong": [
+        "An arrow that starts at an oxygen lone pair and points to a carbon to form a bond",
+        "An arrow that starts at a C=C π bond and points to a proton",
+        "An arrow that starts at a σ bond and ends on an atom to make a lone pair"
+      ],
+      "why": "An arrow starts at the electron source, a lone pair or a bond. An empty orbital has no electrons to move, though it can be where an arrow ends."
+    },
+    {
+      "q": "Acetic acid (pK_a 4.76) reacts with an amine RNH₂ whose conjugate acid RNH₃⁺ has pK_a 10.5. What is K for CH₃COOH + RNH₂ ⇌ CH₃COO⁻ + RNH₃⁺?",
+      "a": "about 10^5.7, favoring products",
+      "wrong": [
+        "about 10^−5.7, favoring reactants",
+        "about 10^15.3, favoring products",
+        "about 10^0.5, close to 1"
+      ],
+      "why": "K = 10^(pK_a of acid on the right − pK_a of acid on the left) = 10^(10.5 − 4.76) = 10^5.7. The stronger acid (acetic) gives up its proton, and adding the two values is a common error."
+    },
+    {
+      "q": "Phenol has pK_a 10 and ethanol 16. Which conjugate base is stronger?",
+      "a": "Ethoxide, because ethanol is the weaker acid",
+      "wrong": [
+        "Phenoxide, because phenol has the lower pK_a",
+        "Phenoxide, because its charge is delocalized into the ring",
+        "They are equally strong, because both are oxygen anions"
+      ],
+      "why": "The weaker the acid, the stronger its conjugate base. Delocalization stabilizes phenoxide, which makes it a weaker base."
+    },
+    {
+      "q": "Which is the stronger acid, H₂S (pK_a 7.0) or H₂O (pK_a 15.7), and what is the reason?",
+      "a": "H₂S, because the larger sulfur spreads the negative charge over more volume",
+      "wrong": [
+        "H₂O, because oxygen is more electronegative than sulfur and so holds the negative charge more tightly",
+        "H₂S, because sulfur is more electronegative than oxygen",
+        "They are equally acidic, because both are Group 16 hydrides"
+      ],
+      "why": "Down a group, atom size outweighs electronegativity in setting anion stability. Oxygen is the more electronegative atom, but that fact answers the trend across a period, not down a group."
+    },
+    {
+      "q": "Which is the stronger acid?",
+      "a": "ClCH₂COOH, because the chlorine is closer to the carboxylate",
+      "wrong": [
+        "ClCH₂CH₂COOH, because it has more carbon atoms to stabilize the anion",
+        "ClCH₂CH₂COOH, because inductive effects grow with distance",
+        "They are equal, because each contains one chlorine"
+      ],
+      "why": "The inductive pull of an electronegative atom falls off rapidly through σ bonds. Chlorine one carbon from the COOH stabilizes the anion more than chlorine two carbons away."
+    },
+    {
+      "q": "Why is the α-hydrogen of a ketone (pK_a about 19) so much more acidic than a hydrogen of an alkane (pK_a about 50)?",
+      "a": "The conjugate base can delocalize its negative charge onto the carbonyl oxygen",
+      "wrong": [
+        "The α-carbon is sp-hybridized and holds the lone pair in an orbital of high s character",
+        "The carbonyl group donates electrons into the α-carbon and stabilizes the anion",
+        "A ketone has more C–H bonds, so more protons are available to leave"
+      ],
+      "why": "Removing the proton gives an enolate, whose negative charge is shared between carbon and the more electronegative oxygen. The α-carbon is sp³ in the ketone, and the carbonyl withdraws rather than donates."
+    },
+    {
+      "q": "Which list orders C–H bonds from strongest to weakest acid?",
+      "a": "ethyne > ethene > ethane",
+      "wrong": [
+        "ethane > ethene > ethyne",
+        "ethene > ethyne > ethane",
+        "ethyne > ethane > ethene"
+      ],
+      "why": "The pK_a values are 25, 44 and 50. An sp carbon has 50% s character, which holds the lone pair closer to the nucleus, and sp³ has only 25%."
+    },
+    {
+      "q": "Which pair is NOT a pair of resonance structures?",
+      "a": "Acetone, CH₃COCH₃, and its enol, CH₂=C(OH)CH₃",
+      "wrong": [
+        "CH₂=CH–CH₂⁺ and ⁺CH₂–CH=CH₂",
+        "CH₃C(=O)O⁻ and CH₃C(O⁻)=O",
+        "The two Kekulé drawings of benzene"
+      ],
+      "why": "Resonance structures differ only in where electrons are placed. Acetone and its enol differ in the position of a hydrogen atom, so they are distinct compounds (tautomers) in equilibrium."
+    },
+    {
+      "q": "The π system of 1,3-butadiene is built from four π molecular orbitals. How many nodes does the LUMO have?",
+      "a": "2",
+      "wrong": [
+        "1",
+        "3",
+        "0"
+      ],
+      "why": "The four orbitals have 0, 1, 2 and 3 nodes. The four π electrons fill ψ₁ and ψ₂, so the lowest empty orbital is ψ₃, which has 2 nodes. The orbital with 1 node is the HOMO."
+    },
+    {
+      "q": "A conjugated triene releases 330 kJ/mol on complete hydrogenation. An isolated C=C releases about 120 kJ/mol. What is the stabilization from conjugation?",
+      "a": "30 kJ/mol",
+      "wrong": [
+        "90 kJ/mol",
+        "330 kJ/mol",
+        "150 kJ/mol"
+      ],
+      "why": "Three isolated double bonds would release 3 × 120 = 360 kJ/mol. The conjugated compound releases 30 kJ/mol less, so it started 30 kJ/mol lower in energy."
+    },
+    {
+      "q": "β-Carotene absorbs light near 450 nm and looks orange. What does this show about its structure?",
+      "a": "Its long conjugated system narrows the HOMO–LUMO gap, so it absorbs blue light and transmits the rest",
+      "wrong": [
+        "It absorbs orange light, so the wavelength must be about 600 nm",
+        "It has few π bonds, which pushes absorption into the visible region",
+        "It emits orange light after absorbing ultraviolet"
+      ],
+      "why": "More conjugation lowers the energy needed for the π → π* transition and moves the absorption to longer wavelengths. A compound that absorbs blue appears in the complementary color, orange."
+    },
+    {
+      "q": "A mixture of HBr and 1,3-butadiene at −80 °C gives mainly the 1,2-adduct. On warming to 40 °C for a long time, it converts to the 1,4-adduct. What does this show?",
+      "a": "At 40 °C the products interconvert, and the 1,4-adduct is lower in energy",
+      "wrong": [
+        "The 1,4-adduct forms over a lower barrier than the 1,2-adduct, and heating only lets it form faster",
+        "The kinetic product is always the more stable one",
+        "The 1,2-adduct cannot form at 40 °C because the cation is not allylic"
+      ],
+      "why": "If both can revert to the allylic cation, the mixture settles on the lower-energy product (thermodynamic control). The 1,2-adduct formed first because its barrier was lower, which is a separate fact."
+    },
+    {
+      "q": "Formation of a carbocation from an alkyl halide is strongly endothermic. According to the Hammond postulate, why do factors that stabilize the carbocation also speed up its formation?",
+      "a": "The transition state is late and resembles the cation, so it gains most of the same stabilization",
+      "wrong": [
+        "The transition state is early and resembles the alkyl halide, so stabilizing the cation changes the barrier very little",
+        "A more stable cation lowers the energy of the reactants",
+        "The postulate says rate depends only on the stability of the products, never the reactants"
+      ],
+      "why": "For an endothermic step the transition state lies close to the product in structure and energy. Stabilizing the cation therefore lowers the barrier by nearly the same amount."
+    },
+    {
+      "q": "Why does HBr add a proton to C1 of 1,3-butadiene and not to C2?",
+      "a": "Protonating C1 gives a resonance-stabilized allylic cation, whereas C2 would give a localized primary cation",
+      "wrong": [
+        "Protonating C2 gives a carbanion that is destabilized by the neighboring double bond",
+        "Protonating C1 gives a tertiary cation",
+        "Both give the same cation, so the choice is arbitrary"
+      ],
+      "why": "The reaction goes through the most stable available intermediate. The allylic cation shares its charge between C2 and C4, and the cation from C2 protonation is a primary one on C1 that cannot delocalize."
+    }
+  ],
   "summary": [
     "Curved arrows show electron-pair movement from a nucleophile to an electrophile. Carbocations and radicals are stabilized by alkyl substitution and resonance, but carbanions are destabilized by it.",
     "pK_a values predict acid–base equilibria. The equilibrium lies toward the weaker acid. A useful base has a conjugate acid with pK_a at least 2 higher than the acid to be deprotonated.",

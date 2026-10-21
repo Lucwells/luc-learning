@@ -355,6 +355,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "In a test of H₀ that a redesigned page converts at the same rate as the old one, a Type I error occurs when",
+      "a": "we conclude the pages differ although their true rates are equal",
+      "wrong": [
+        "we fail to reject H₀ although the true rates differ",
+        "the observed difference is smaller than the minimum detectable effect",
+        "the p-value is computed under H₁ instead of under H₀"
+      ],
+      "why": "A Type I error is rejecting a true H₀, and it happens with probability α. Failing to detect a real difference is the Type II error."
+    },
+    {
+      "q": "An analyst writes: \"p = 0.03, so there is only a 3% chance that the result is due to chance.\" What is wrong with this reading?",
+      "a": "The p-value is computed assuming H₀ is true, so it cannot be the probability that H₀ (chance alone) is true",
+      "wrong": [
+        "Chance should be quoted as 1 − 0.03 = 97%, because a p-value measures the confidence that the effect is real",
+        "p-values apply only to one-sided tests",
+        "The 3% should be halved because the test is two-sided"
+      ],
+      "why": "The p-value is P(data this extreme | H₀), not P(H₀ | data). Turning one into the other would need prior probabilities that the test does not use."
+    },
+    {
+      "q": "A z-test of a mean is one-sided with the alternative μ > μ₀ and the data lie above μ₀, giving p = 0.03. The two-sided p-value for the same z is",
+      "a": "0.06",
+      "wrong": [
+        "0.015",
+        "0.03",
+        "0.97"
+      ],
+      "why": "For a symmetric null distribution, the two-sided p-value counts both tails and is twice the one-sided value when the data fall in the predicted direction."
+    },
+    {
+      "q": "Which change lowers the Type II error probability β without raising α?",
+      "a": "Increase the sample size",
+      "wrong": [
+        "Lower α from 0.05 to 0.01 so the test is stricter",
+        "Switch from a one-sided to a two-sided alternative",
+        "Rerun the same test on the same data"
+      ],
+      "why": "More data narrow the null and alternative distributions, which reduces both error rates. Lowering α trades fewer false positives for more false negatives."
+    },
+    {
+      "q": "Two groups of 50 users have mean task times of 85 s and 80 s, and both have standard deviation 10 s. The Welch t statistic is",
+      "a": "2.5",
+      "wrong": [
+        "3.5",
+        "1.8",
+        "5.0"
+      ],
+      "why": "SE = √(10²/50 + 10²/50) = √4 = 2, so t = 5/2 = 2.5. Using only one group's variance gives 3.5, and adding the two standard errors instead of the variances gives 1.8."
+    },
+    {
+      "q": "Why is a paired t-test usually more sensitive than an unpaired test on before-and-after measurements from the same people?",
+      "a": "Taking differences cancels stable person-to-person variation, which shrinks the standard error",
+      "wrong": [
+        "It has more degrees of freedom",
+        "It does not need the differences to be roughly normal, because pairing removes the need for any distributional assumption",
+        "It counts each person twice, which doubles the effective sample"
+      ],
+      "why": "A person's baseline level appears in both measurements and drops out of the difference. Pairing actually leaves fewer degrees of freedom (n − 1 for n pairs), not more."
+    },
+    {
+      "q": "In a 2×2 table the row totals are 40 and 60, the column totals are 30 and 70 and the grand total is 100. The expected count under independence for row 1, column 1 is",
+      "a": "12",
+      "wrong": [
+        "15",
+        "18",
+        "28"
+      ],
+      "why": "E = (row total × column total)/grand total = 40 × 30/100 = 12. The values 18 and 28 are the expected counts of two other cells, so they come from using the wrong row or column."
+    },
+    {
+      "q": "A chi-square test of independence is planned on a table in which one cell has expected count 2. What is the problem?",
+      "a": "The chi-square approximation is unreliable when expected counts are well below about 5",
+      "wrong": [
+        "The test requires equal numbers of observations in every cell, which is why unbalanced tables cannot be analyzed",
+        "The statistic Σ(O − E)²/E becomes negative",
+        "The degrees of freedom drop to zero"
+      ],
+      "why": "The chi-square distribution is only an approximation, and it is poor with small expected counts. An exact test or merging categories is the usual remedy."
+    },
+    {
+      "q": "Eight units are split into two groups of four, and a two-sided exact permutation test uses the difference in means. The smallest p-value that can be obtained is",
+      "a": "2/70 ≈ 0.029",
+      "wrong": [
+        "1/70 ≈ 0.014",
+        "1/8 = 0.125",
+        "1/256 ≈ 0.004"
+      ],
+      "why": "There are C(8, 4) = 70 equally likely labelings. The observed split and its mirror image are the two most extreme, so the two-sided minimum is 2/70; 1/70 would be a one-sided value."
+    },
+    {
+      "q": "A permutation test of a difference in medians is valid mainly because",
+      "a": "under H₀ the units are exchangeable, so every relabeling is equally likely",
+      "wrong": [
+        "the sampling distribution of a median is exactly normal, which is why the usual formula can be applied",
+        "it estimates a standard error by resampling with replacement",
+        "it only works for statistics with a closed-form sampling distribution"
+      ],
+      "why": "Exchangeability under H₀ lets the shuffled labels generate the null distribution of any statistic. This is why no normality or formula for the median's standard error is needed."
+    },
+    {
+      "q": "A Monte Carlo permutation test makes 999 random relabelings, and 24 give a difference at least as large in magnitude as the observed one. Using the (count + 1)/(n + 1) rule, the p-value is",
+      "a": "0.025",
+      "wrong": [
+        "0.024",
+        "0.048",
+        "0.975"
+      ],
+      "why": "(24 + 1)/(999 + 1) = 0.025. The observed labeling is itself one possible permutation, which is why it is added to both counts and p is never exactly 0."
+    },
+    {
+      "q": "Which change would decrease the power of a two-sample t-test?",
+      "a": "A larger within-group standard deviation",
+      "wrong": [
+        "A larger true difference between the groups",
+        "More users in each group",
+        "Raising α from 0.01 to 0.05"
+      ],
+      "why": "Power grows with the effect size, the sample size and α, and falls with the noise σ. More noise buries the same difference."
+    },
+    {
+      "q": "Response times have σ = 10 ms. Using n = 2(z_{α/2} + z_β)²σ²/δ² with α = 0.05 (two-sided) and 90% power (z_β = 1.28), the sample size per group to detect δ = 5 ms is about",
+      "a": "84",
+      "wrong": [
+        "63",
+        "42",
+        "168"
+      ],
+      "why": "n = 2(1.96 + 1.28)² × 100/25 = 2 × 10.5 × 4 ≈ 84. Using 80% power (0.84) gives 63, dropping the factor 2 gives 42, and 168 is the total across both groups."
+    },
+    {
+      "q": "A team checks an A/B test every day and stops the first time p < 0.05. Why is the 5% false positive guarantee lost?",
+      "a": "Each look is another chance to cross the threshold by luck, so the overall false positive rate climbs above 5%",
+      "wrong": [
+        "Adding data changes the true effect, so earlier p-values are invalid",
+        "Early data are biased toward the alternative hypothesis",
+        "A p-value can be computed only once per experiment"
+      ],
+      "why": "Under a true H₀ the p-value wanders, and enough looks make a dip below 0.05 likely. Fix the sample size in advance or use a sequential method built for repeated looks."
+    },
+    {
+      "q": "A pilot with 20 users per group gives p = 0.4 for a new design, with a 95% interval for the lift of (−10%, +30%). The best reading is",
+      "a": "inconclusive: the data are compatible with no effect and with a large benefit",
+      "wrong": [
+        "the designs perform the same, because p exceeds 0.05",
+        "there is a 40% probability that the new design works",
+        "the new design has been shown not to help"
+      ],
+      "why": "A wide interval from an underpowered study cannot rule out a sizable effect. Non-significance is not equivalence."
+    },
+    {
+      "q": "Ten independent tests are run on true null hypotheses, each at α = 0.05. The probability of at least one false positive is about",
+      "a": "40%",
+      "wrong": [
+        "5%",
+        "50%",
+        "60%"
+      ],
+      "why": "P(none) = 0.95¹⁰ ≈ 0.60, so P(at least one) = 1 − 0.60 ≈ 0.40. The 60% option is the chance of no false positive, and 50% comes from simply adding 0.05 ten times."
+    },
+    {
+      "q": "Six p-values are 0.004, 0.012, 0.035, 0.036, 0.047 and 0.200. At q = 0.05, the Benjamini–Hochberg procedure rejects how many hypotheses?",
+      "a": "2",
+      "wrong": [
+        "1",
+        "3",
+        "5"
+      ],
+      "why": "The BH thresholds (i/6)(0.05) are 0.0083, 0.0167, 0.025, 0.033, 0.042, 0.05. Only the first two p-values pass; Bonferroni (0.05/6 = 0.0083) would keep just one, while uncorrected testing gives 5."
+    },
+    {
+      "q": "Why is a Bonferroni correction a poor choice for screening 20,000 genes?",
+      "a": "The per-test threshold of 0.05/20,000 is so small that most true effects are missed",
+      "wrong": [
+        "It controls the false discovery rate and so allows too many false positives",
+        "It can only be applied to at most about 100 tests",
+        "It requires the 20,000 tests to be strongly dependent"
+      ],
+      "why": "Bonferroni controls the chance of any false positive, which costs power as m grows. Benjamini–Hochberg accepts a small fraction of false discoveries in return for finding many more real effects."
+    }
+  ],
   "summary": [
     "A test compares the data with H₀. The p-value is the probability, under H₀, of a statistic at least as extreme as observed. Reject when p < α. Type I error has probability α; Type II has probability β; power is 1 − β. Failing to reject is not proof of no effect.",
     "Welch's t = (x̄₁ − x̄₂)/√(s₁²/n₁ + s₂²/n₂); paired data use the differences. Proportions use the pooled z-test, and categorical association the χ² test, Σ(O − E)²/E. Always report the effect with its confidence interval.",

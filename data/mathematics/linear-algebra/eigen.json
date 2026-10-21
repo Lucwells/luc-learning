@@ -304,6 +304,178 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "What are the eigenvalues of A = [[1, 4], [2, 3]]?",
+      "a": "5 and −1",
+      "wrong": [
+        "5 and 1",
+        "−5 and 1",
+        "4 and −5"
+      ],
+      "why": "tr A = 4 and det A = 3 − 8 = −5, so λ² − 4λ − 5 = (λ − 5)(λ + 1) = 0. The pair 4 and −5 mixes up the trace and determinant with the roots."
+    },
+    {
+      "q": "A real 2 × 2 matrix has the eigenvalue 1 + 2i. What is its other eigenvalue?",
+      "a": "1 − 2i",
+      "wrong": [
+        "−1 − 2i",
+        "1 + 2i again",
+        "−1 + 2i"
+      ],
+      "why": "Complex eigenvalues of a real matrix come in conjugate pairs, because the characteristic polynomial has real coefficients. The magnitude √5 > 1 means repeated application grows vectors."
+    },
+    {
+      "q": "A 3 × 3 matrix has trace 9, and two of its eigenvalues are 2 and 3. What is its determinant?",
+      "a": "24",
+      "wrong": [
+        "54",
+        "18",
+        "6"
+      ],
+      "why": "The eigenvalues sum to the trace, so the third is 9 − 5 = 4. The determinant is the product 2 · 3 · 4 = 24."
+    },
+    {
+      "q": "A has eigenvalues 2 and −1. What are the eigenvalues of A⁶?",
+      "a": "64 and 1",
+      "wrong": [
+        "12 and −6",
+        "64 and −1",
+        "8 and −1"
+      ],
+      "why": "If Av = λv then A⁶v = λ⁶v. Here 2⁶ = 64 and (−1)⁶ = 1; an even power removes the sign."
+    },
+    {
+      "q": "x ← Ax is iterated from a generic start. Which set of eigenvalues makes the iteration diverge?",
+      "a": "0.9 and −1.1",
+      "wrong": [
+        "0.8 + 0.5i and 0.8 − 0.5i",
+        "−0.95 and 0.3",
+        "0.99 and 0.99"
+      ],
+      "why": "Divergence needs a magnitude above 1, and |−1.1| > 1. The complex pair has magnitude √(0.64 + 0.25) ≈ 0.94, which is below 1, so it shrinks despite the large real part."
+    },
+    {
+      "q": "On sunny days the weather stays sunny with probability 0.8, and a rainy day turns sunny with probability 0.3. With T = [[0.8, 0.3], [0.2, 0.7]] and p ← Tp, what is the long-run (sunny, rainy) distribution?",
+      "a": "(0.6, 0.4)",
+      "wrong": [
+        "(0.4, 0.6)",
+        "(0.8, 0.2)",
+        "(0.5, 0.5)"
+      ],
+      "why": "The stationary vector solves (T − I)p = 0, which gives −0.2p₁ + 0.3p₂ = 0, so p₁ = 1.5p₂ and with p₁ + p₂ = 1, p = (0.6, 0.4). It is the eigenvector for λ = 1."
+    },
+    {
+      "q": "Gradient descent on a quadratic with Hessian eigenvalues 4 and 1 uses the best fixed step size. What is it?",
+      "a": "0.4",
+      "wrong": [
+        "0.5",
+        "0.25",
+        "0.2"
+      ],
+      "why": "Balance the two shrink factors: 1 − α = −(1 − 4α) gives α = 2/5 = 0.4, with factor ±0.6 per step. The step 0.5 equals 2/λ_max and is only the stability limit, where one component neither grows nor shrinks."
+    },
+    {
+      "q": "Why is A = [[3, 1], [0, 3]] not diagonalizable?",
+      "a": "The repeated eigenvalue 3 has only one independent eigenvector",
+      "wrong": [
+        "It is not symmetric",
+        "Its eigenvalues are complex",
+        "It is singular"
+      ],
+      "why": "A − 3I = [[0, 1], [0, 0]] has a one-dimensional null space, so there are not 2 independent eigenvectors. Non-symmetric matrices with distinct eigenvalues can still be diagonalized."
+    },
+    {
+      "q": "What is the operator norm ‖A‖₂ of the symmetric matrix A = [[−1, 2], [2, −1]]?",
+      "a": "3",
+      "wrong": [
+        "1",
+        "−3",
+        "5"
+      ],
+      "why": "Its eigenvalues are 1 and −3 (trace −2, determinant −3). For a symmetric matrix ‖A‖₂ = max|λ_i| = 3, so the sign is irrelevant and the largest eigenvalue 1 is not the answer."
+    },
+    {
+      "q": "Which matrix is guaranteed to have an orthonormal set of eigenvectors?",
+      "a": "BᵀB for any real matrix B",
+      "wrong": [
+        "[[1, 1], [0, 2]], since its eigenvalues are real and distinct",
+        "Any matrix with real eigenvalues",
+        "[[0, −1], [1, 0]]"
+      ],
+      "why": "BᵀB is symmetric, so the spectral theorem applies. The matrix [[1, 1], [0, 2]] has eigenvectors (1, 0) and (1, 1), which are not orthogonal."
+    },
+    {
+      "q": "A = 10 q₁q₁ᵀ with q₁ = (0.6, 0.8). What is the entry in row 1, column 2 of A?",
+      "a": "4.8",
+      "wrong": [
+        "6",
+        "8",
+        "0.48"
+      ],
+      "why": "(q₁q₁ᵀ)₁₂ = 0.6 × 0.8 = 0.48, and multiplying by the eigenvalue 10 gives 4.8. A is a rank-one matrix with eigenvalue 10 along q₁ and 0 otherwise."
+    },
+    {
+      "q": "For which values of k is [[2, k], [k, 8]] positive definite?",
+      "a": "−4 < k < 4",
+      "wrong": [
+        "−4 ≤ k ≤ 4",
+        "0 < k < 4",
+        "|k| < 2√2"
+      ],
+      "why": "The minors are 2 and 16 − k², so we need k² < 16. At k = ±4 the determinant is 0 and the matrix is only semidefinite. Negative k works equally, since only k² appears."
+    },
+    {
+      "q": "What is the Rayleigh quotient xᵀAx/xᵀx of A = [[2, 1], [1, 3]] at x = (1, −1)?",
+      "a": "1.5",
+      "wrong": [
+        "3",
+        "1",
+        "2.5"
+      ],
+      "why": "xᵀAx = 3 and xᵀx = 2, so the quotient is 1.5, between the eigenvalues 1.38 and 3.62. The value 3 forgets to divide by xᵀx."
+    },
+    {
+      "q": "A is positive definite with eigenvalues 4 and 25. What are the semi-axis lengths of the ellipse {x : xᵀAx = 1}?",
+      "a": "0.5 and 0.2",
+      "wrong": [
+        "2 and 5",
+        "4 and 25",
+        "0.25 and 0.04"
+      ],
+      "why": "The semi-axis along an eigenvector is 1/√λ, so 1/2 and 1/5. Large eigenvalues (steep curvature) give short axes."
+    },
+    {
+      "q": "A data matrix X has a third column equal to the sum of its first two columns. What is true of XᵀX?",
+      "a": "It is positive semidefinite and singular",
+      "wrong": [
+        "It is positive definite",
+        "It is indefinite",
+        "It is not symmetric"
+      ],
+      "why": "XᵀX is always symmetric and PSD, since vᵀXᵀXv = ‖Xv‖² ≥ 0. With dependent columns some v ≠ 0 has Xv = 0, so 0 is an eigenvalue and XᵀX is not PD."
+    },
+    {
+      "q": "Gradient descent with the best fixed step runs on a quadratic with Hessian eigenvalues 9 and 1. After 10 steps, the error is multiplied by about",
+      "a": "0.11",
+      "wrong": [
+        "0.35",
+        "0.8",
+        "0.01"
+      ],
+      "why": "The factor per step is (κ − 1)/(κ + 1) = 8/10 = 0.8, and 0.8¹⁰ ≈ 0.107. Using (κ − 1)/κ ≈ 0.89 would give 0.35."
+    },
+    {
+      "q": "Power iteration without normalization is applied to A = [[1, 2], [2, 1]], starting from (1, 0). What is the vector after two steps?",
+      "a": "(5, 4)",
+      "wrong": [
+        "(4, 5)",
+        "(1, 2)",
+        "(5, 5)"
+      ],
+      "why": "The first step gives A(1, 0) = (1, 2) and the second gives A(1, 2) = (1 + 4, 2 + 2) = (5, 4). The direction is moving toward (1, 1), the dominant eigenvector for λ = 3."
+    }
+  ],
   "summary": [
     "Av = λv. Eigenvalues are the roots of det(A − λI) = 0; their sum is the trace and their product is the determinant.",
     "A diagonalizable matrix is A = PDP⁻¹, so Aᵏ = PDᵏP⁻¹. Iterations converge when the spectral radius is below 1, at a rate set by the second-largest eigenvalue. Stationary distributions of Markov chains are eigenvectors with λ = 1.",

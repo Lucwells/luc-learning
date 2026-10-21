@@ -478,6 +478,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "Benzoic acid (5.00 g, 122.12 g mol⁻¹) is esterified with excess methanol to methyl benzoate (136.15 g mol⁻¹), and 4.10 g is isolated. What is the percent yield?",
+      "a": "73.6%",
+      "wrong": [
+        "82.0%",
+        "91.5%",
+        "136%"
+      ],
+      "why": "The theoretical yield is 5.00 × 136.15/122.12 = 5.57 g, and 4.10/5.57 = 73.6%. Dividing by the mass of starting material alone gives 82.0%, and inverting the molar mass ratio gives 91.5%."
+    },
+    {
+      "q": "A student pours waste from a bleach cleanup into a container holding ammonia-based cleaner waste. What is the hazard?",
+      "a": "Toxic chloramine vapors are produced",
+      "wrong": [
+        "Explosive peroxides form from the oxidizer",
+        "Hydrogen cyanide is released by the mixture",
+        "The mixture only warms slightly and is harmless"
+      ],
+      "why": "Hypochlorite reacts with ammonia to give chloramines (and with acids, Cl₂). Oxidizers and ammonia are on the list of chemicals that must not be mixed."
+    },
+    {
+      "q": "A bottle of THF has been open on the shelf for two years. What must be done before it is distilled?",
+      "a": "Test it for peroxides, and never distill it to dryness",
+      "wrong": [
+        "Distill it to dryness to remove the peroxides in the residue",
+        "Add a drying agent, because water is the only hazard in old THF",
+        "Heat it with an open flame to decompose the peroxides first"
+      ],
+      "why": "Ethers form explosive peroxides on storage, and distillation concentrates them in the pot residue. The solvent should be dated, tested, and always left with some liquid in the flask."
+    },
+    {
+      "q": "Why is the top of a reflux condenser never closed with a stopper?",
+      "a": "A closed, heated system builds up pressure from the expanding vapor and can burst",
+      "wrong": [
+        "The solvent would condense too fast and flood the flask",
+        "The stir bar would lose its magnetism at the reflux temperature",
+        "Closing it would stop water from flowing through the jacket"
+      ],
+      "why": "The vapor and the heated gas have to be able to escape; use a drying tube or a nitrogen bubbler if moisture must be excluded."
+    },
+    {
+      "q": "An esterification of 0.250 mol of acid with 0.300 mol of alcohol is run with a Dean–Stark trap. What volume of water collects at complete reaction (ρ = 1.00 g mL⁻¹)?",
+      "a": "4.5 mL",
+      "wrong": [
+        "5.4 mL",
+        "9.0 mL",
+        "18 mL"
+      ],
+      "why": "The acid is limiting, and each mole of ester formed releases 1 mol of water: 0.250 × 18.02 g = 4.5 g = 4.5 mL. Using the alcohol gives 5.4 mL."
+    },
+    {
+      "q": "Why is glassware for a Grignard reaction oven-dried and cooled under nitrogen?",
+      "a": "Water adsorbed on the glass would destroy the organometallic reagent",
+      "wrong": [
+        "Hot glass is needed to initiate the formation of the Grignard reagent",
+        "Nitrogen removes the grease from the joints before use",
+        "The septa would not seal unless the glass is above 100 °C"
+      ],
+      "why": "Grignard reagents are strong bases and are protonated by traces of water. A film of moisture on glass is enough to quench a small-scale reaction."
+    },
+    {
+      "q": "An ether solution contains an ester and an aniline impurity. Which wash removes the aniline?",
+      "a": "1 M HCl, which converts the amine into a water-soluble ammonium salt",
+      "wrong": [
+        "Saturated NaHCO₃, which converts the amine into an anion",
+        "Brine, which dissolves amines selectively",
+        "Water alone, because amines are always more soluble in water than esters"
+      ],
+      "why": "Protonating the amine gives a salt that partitions into the aqueous layer, and the neutral ester stays in ether. Bicarbonate removes acids, not bases."
+    },
+    {
+      "q": "What is the theoretical mass of MgSO₄ (1.05 g water per g) needed to take up 1.80 g of water?",
+      "a": "1.71 g",
+      "wrong": [
+        "1.89 g",
+        "2.29 g",
+        "0.58 g"
+      ],
+      "why": "The mass of drying agent is the mass of water divided by the capacity: 1.80/1.05 = 1.71 g. Multiplying by 1.05 gives 1.89, and multiplying by the capacity of Na₂SO₄ (1.27) gives 2.29."
+    },
+    {
+      "q": "On a rotary evaporator, the condenser is at 0 °C. By the Delta 20 rule, what are the vapor and bath temperatures?",
+      "a": "Vapor 20 °C, bath 40 °C",
+      "wrong": [
+        "Vapor 0 °C, bath 20 °C",
+        "Vapor 40 °C, bath 20 °C",
+        "Vapor 20 °C, bath 20 °C"
+      ],
+      "why": "The vapor is 20 °C above the condenser and the bath is 20 °C above the vapor. The vacuum is then set so that the solvent boils at about 20–30 °C."
+    },
+    {
+      "q": "On a silica plate, two spots travel 1.0 cm and 2.5 cm while the solvent front travels 5.0 cm. Which statement is correct?",
+      "a": "The 1.0 cm spot is more polar; R_f = 0.20 and 0.50",
+      "wrong": [
+        "The 2.5 cm spot is more polar; R_f = 0.20 and 0.50",
+        "The 1.0 cm spot is more polar; R_f = 1.0 and 2.5",
+        "The 2.5 cm spot is more polar; R_f = 0.50 and 0.20"
+      ],
+      "why": "R_f is the spot distance divided by the front distance. Silica is polar, so the more polar compound sticks more strongly and travels less."
+    },
+    {
+      "q": "A compound has R_f = 0.20 in the eluent chosen for a flash column. Approximately how many column volumes are needed to elute it?",
+      "a": "5",
+      "wrong": [
+        "0.2",
+        "2.5",
+        "20"
+      ],
+      "why": "The elution volume is about 1/R_f column volumes, so 1/0.20 = 5. This is why R_f of 0.25–0.35 (3–4 column volumes) is preferred."
+    },
+    {
+      "q": "An amine streaks badly on a TLC plate in 30% EtOAc/hexanes. What is the usual remedy?",
+      "a": "Add about 1% triethylamine to the eluent to cap the acidic silanol groups",
+      "wrong": [
+        "Add about 1% acetic acid to the eluent to protonate the silica",
+        "Switch to a pure hexane eluent so the amine moves as a tight spot",
+        "Spot a larger volume so the streak is spread over more silica"
+      ],
+      "why": "Basic amines bind strongly to acidic silica and tail. A little Et₃N competes for those sites. Acetic acid is used for carboxylic acids."
+    },
+    {
+      "q": "A liquid boils at 250 °C at 760 torr. Using Trouton's rule (ΔH_vap ≈ 88T_b J mol⁻¹), what is its approximate boiling point at 10 torr?",
+      "a": "About 98 °C",
+      "wrong": [
+        "About 130 °C",
+        "About 60 °C",
+        "About 180 °C"
+      ],
+      "why": "ΔH_vap ≈ 46 kJ mol⁻¹, and 1/T₂ = 1/523 K + 8.314 ln(76)/46,000 = 2.69 × 10⁻³ K⁻¹, so T₂ = 371 K = 98 °C."
+    },
+    {
+      "q": "A solid has solubility 8.0 g/100 mL at 100 °C and 1.0 g/100 mL at 0 °C. 4.0 g of crude solid is dissolved in the minimum hot solvent and cooled to 0 °C. What is the maximum recovery?",
+      "a": "87.5%",
+      "wrong": [
+        "92.5%",
+        "75.0%",
+        "12.5%"
+      ],
+      "why": "The minimum volume is 4.0/8.0 × 100 = 50 mL, which keeps 0.50 g dissolved at 0 °C. The recovery is (4.0 − 0.50)/4.0 = 87.5%. The 12.5% value is the fraction lost."
+    },
+    {
+      "q": "An unknown melts at 120–121 °C, and an authentic sample of the suspected compound melts at 121 °C. A 1:1 mixture melts at 105–112 °C. What is the conclusion?",
+      "a": "The two are different compounds that happen to have similar melting points",
+      "wrong": [
+        "The two are identical, because the melting points are close",
+        "The authentic sample is impure, because the mixture melted lower",
+        "The thermometer is miscalibrated by about 10 °C"
+      ],
+      "why": "A mixed melting point is depressed and broadened when the second substance acts as an impurity. If the compounds were the same, the mixture would melt unchanged."
+    },
+    {
+      "q": "In a ¹H NMR spectrum, the product shows a 3H singlet (integral 3.00) and the starting material a 2H singlet (integral 0.50). What mole percent of the mixture is product?",
+      "a": "80%",
+      "wrong": [
+        "86%",
+        "75%",
+        "50%"
+      ],
+      "why": "Normalizing per hydrogen gives 3.00/3 = 1.00 for the product and 0.50/2 = 0.25 for the starting material, so the product fraction is 1.00/1.25 = 80%. Using the raw integrals gives 86%."
+    },
+    {
+      "q": "A product spectrum in CDCl₃ shows extra peaks at 4.12 (q), 2.05 (s) and 1.26 (t) ppm. What is the likely impurity?",
+      "a": "Residual ethyl acetate",
+      "wrong": [
+        "Residual diethyl ether from the extraction",
+        "Silicone grease from the joints",
+        "Acetone left from washing the glassware"
+      ],
+      "why": "Ethyl acetate gives a quartet at 4.12, a singlet at 2.05 and a triplet at 1.26. Ether has a quartet at 3.48, and grease is a singlet at 0.07."
+    },
+    {
+      "q": "0.250 g of a sample in 5.00 mL of solution gives α = −1.50° in a 2.00 dm tube. The pure enantiomer has [α] = −25.0°. What is the ee?",
+      "a": "60%",
+      "wrong": [
+        "30%",
+        "40%",
+        "75%"
+      ],
+      "why": "c = 0.0500 g mL⁻¹, so [α] = −1.50/(2.00 × 0.0500) = −15.0°, and ee = 15.0/25.0 = 60%. Leaving out the path length would give −30°, more than the pure enantiomer, which is impossible."
+    }
+  ],
   "summary": [
     "Read the SDS, wear goggles, work in a hood, segregate halogenated waste, never heat a closed system. Keep an ink notebook; percent yield = actual/theoretical (limiting reagent) × 100.",
     "Standard-taper glassware; reflux condenser water in at the bottom; addition funnel for exotherms; Dean–Stark for water; Schlenk line/septa for air-sensitive reagents.",

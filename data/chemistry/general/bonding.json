@@ -858,6 +858,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "Pauling electronegativities are H 2.20, C 2.55, O 3.44, F 3.98. Which bond is the most polar yet still classified as covalent (ΔEN below about 1.7)?",
+      "a": "C–F",
+      "wrong": [
+        "C–H",
+        "O–H",
+        "C–O"
+      ],
+      "why": "ΔEN is 1.43 for C–F, 1.24 for O–H, 0.89 for C–O and 0.35 for C–H. A difference above about 1.7 would be mostly ionic."
+    },
+    {
+      "q": "In ozone, written O=O–O with one lone pair on the central oxygen, what is the formal charge of the central O?",
+      "a": "+1",
+      "wrong": [
+        "0",
+        "−1",
+        "+2"
+      ],
+      "why": "FC = 6 − 2 − ½(6) = +1. The terminal single-bonded O has FC = 6 − 6 − ½(2) = −1."
+    },
+    {
+      "q": "Ozone has two equivalent resonance structures, O=O–O and O–O=O. What is the O–O bond order in the real molecule?",
+      "a": "1.5",
+      "wrong": [
+        "1",
+        "2",
+        "1.33"
+      ],
+      "why": "The resonance hybrid averages the structures: each bond is single in one and double in the other, so (1 + 2)/2 = 1.5. The value 4/3 belongs to species with three equivalent structures, such as nitrate."
+    },
+    {
+      "q": "Which molecule has an expanded octet on its central atom?",
+      "a": "ClF₃",
+      "wrong": [
+        "BeCl₂",
+        "NO₂",
+        "CH₄"
+      ],
+      "why": "Cl in ClF₃ has three bonding pairs and two lone pairs, ten electrons in all. BeCl₂ has an incomplete octet, NO₂ has an odd number of electrons, and CH₄ obeys the octet rule."
+    },
+    {
+      "q": "What is the molecular shape of the sulfite ion, SO₃²⁻?",
+      "a": "Trigonal pyramidal",
+      "wrong": [
+        "Trigonal planar",
+        "Bent",
+        "Tetrahedral"
+      ],
+      "why": "S has 6 + 18 + 2 = 26 valence electrons: three bonds and one lone pair, four domains. Only the atoms count in the molecular shape, so it is pyramidal like NH₃."
+    },
+    {
+      "q": "What are the electron-domain geometry and the molecular shape of XeF₂?",
+      "a": "Trigonal bipyramidal and linear",
+      "wrong": [
+        "Linear and linear",
+        "Trigonal planar and linear",
+        "Tetrahedral and linear"
+      ],
+      "why": "Xe has two bonds and three lone pairs, five domains. The lone pairs sit in the equatorial plane, so the two F atoms lie on the axis, 180° apart."
+    },
+    {
+      "q": "The H–N–H angle in NH₃ is 107°, between CH₄ (109.5°) and H₂O (104.5°). Why?",
+      "a": "NH₃ has one lone pair, which compresses the bond angles less than the two in water",
+      "wrong": [
+        "Nitrogen is more electronegative than oxygen, which opens the angle",
+        "NH₃ has a double bond that pushes the hydrogens apart",
+        "Nitrogen atoms are larger than oxygen atoms"
+      ],
+      "why": "All three have four electron domains. A lone pair takes up more space than a bonding pair, so more lone pairs mean smaller bond angles."
+    },
+    {
+      "q": "Which of these molecules is polar?",
+      "a": "SF₄",
+      "wrong": [
+        "SF₆",
+        "XeF₄",
+        "CS₂"
+      ],
+      "why": "SF₄ is seesaw shaped, so its bond dipoles do not cancel. SF₆ (octahedral), XeF₄ (square planar) and CS₂ (linear) are symmetric and nonpolar."
+    },
+    {
+      "q": "A diatomic molecule has partial charges of +0.200e and −0.200e separated by 130 pm. What is its dipole moment? (e = 1.602 × 10⁻¹⁹ C; 1 D = 3.336 × 10⁻³⁰ C m)",
+      "a": "1.25 D",
+      "wrong": [
+        "6.24 D",
+        "4.17 D",
+        "12.5 D"
+      ],
+      "why": "μ = Qr = (0.200 × 1.602 × 10⁻¹⁹ C)(1.30 × 10⁻¹⁰ m) = 4.17 × 10⁻³⁰ C m, which is 1.25 D. Using the full electron charge instead of 0.200e gives 6.24 D."
+    },
+    {
+      "q": "What are the hybridizations of the two carbon atoms in acetonitrile, CH₃–C≡N?",
+      "a": "The CH₃ carbon is sp³ and the nitrile carbon is sp",
+      "wrong": [
+        "Both are sp³",
+        "The CH₃ carbon is sp² and the nitrile carbon is sp",
+        "The CH₃ carbon is sp³ and the nitrile carbon is sp²"
+      ],
+      "why": "The CH₃ carbon has four σ bonds (four domains). The nitrile carbon has one σ bond to C and one to N (two domains) plus two π bonds, which use its two unhybridized p orbitals."
+    },
+    {
+      "q": "Rotation is easy about the C–C bond in ethane but not about the C=C bond in ethene. Why?",
+      "a": "Twisting the double bond would break the sideways overlap of the p orbitals that forms the π bond",
+      "wrong": [
+        "The σ bond in ethene is shorter, so the carbon atoms cannot move",
+        "Ethene carbons are sp hybridized, which locks the geometry",
+        "The hydrogens on ethene repel each other too strongly"
+      ],
+      "why": "The σ bond is symmetric about the bond axis and survives rotation. The π bond has its overlap above and below the axis, which depends on the p orbitals staying parallel."
+    },
+    {
+      "q": "What is the bond order of C₂²⁻?",
+      "a": "3",
+      "wrong": [
+        "2",
+        "2.5",
+        "1"
+      ],
+      "why": "C₂²⁻ has 8 + 2 = 10 valence electrons, the same as N₂: 8 bonding and 2 antibonding, so (8 − 2)/2 = 3. Neutral C₂ has bond order 2."
+    },
+    {
+      "q": "N₂ loses an electron to form N₂⁺. The N–N bond becomes",
+      "a": "weaker and longer, because a bonding electron is removed",
+      "wrong": [
+        "stronger and shorter, because the ion carries a positive charge",
+        "weaker and longer, because an antibonding electron is removed",
+        "unchanged, because the electron is lost from a nonbonding orbital"
+      ],
+      "why": "The highest occupied orbital of N₂ is the bonding σ₂ₚ. Removing from it lowers the bond order from 3 to 2.5."
+    },
+    {
+      "q": "The six carbon p orbitals of benzene combine in MO theory to give",
+      "a": "six π molecular orbitals, three bonding, holding six electrons",
+      "wrong": [
+        "three π molecular orbitals, all bonding",
+        "six π molecular orbitals, all bonding",
+        "twelve π molecular orbitals, six of them bonding"
+      ],
+      "why": "N atomic orbitals always give N molecular orbitals, here half bonding and half antibonding. Six electrons fill the three bonding MOs, spread over the entire ring."
+    },
+    {
+      "q": "Which molecule can act as both a donor and an acceptor of hydrogen bonds?",
+      "a": "CH₃NH₂",
+      "wrong": [
+        "(CH₃)₃N",
+        "CH₃OCH₃",
+        "CH₄"
+      ],
+      "why": "Donation needs an H bonded to N, O or F, and acceptance needs a lone pair on one of those atoms. CH₃NH₂ has both. (CH₃)₃N and CH₃OCH₃ have lone pairs but no N–H or O–H, and CH₄ has neither."
+    },
+    {
+      "q": "What is the main attraction responsible for dissolving NaCl in water?",
+      "a": "Ion–dipole forces between the ions and water molecules",
+      "wrong": [
+        "Hydrogen bonds between Na⁺ and the hydrogen atoms of water",
+        "Dispersion forces between NaCl and water molecules",
+        "Dipole–dipole forces between NaCl units and water"
+      ],
+      "why": "An ion attracts the oppositely charged end of a polar water molecule. Ion–dipole forces are strong enough to offset the lattice energy of the salt."
+    },
+    {
+      "q": "Which compound should have the largest lattice energy?",
+      "a": "NaF",
+      "wrong": [
+        "NaCl",
+        "NaBr",
+        "All three are equal, because the ion charges are the same"
+      ],
+      "why": "With equal charges, lattice energy depends on the separation of the ions. F⁻ is the smallest anion, so NaF has the shortest distance and the strongest attraction."
+    },
+    {
+      "q": "Compared with an ion pair of charges +1 and −1, a pair of +3 and −3 ions at the same separation has a potential energy of attraction that is",
+      "a": "9 times larger",
+      "wrong": [
+        "3 times larger",
+        "6 times larger",
+        "27 times larger"
+      ],
+      "why": "Since E ∝ Q₁Q₂/r, tripling both charges multiplies the product by 3 × 3 = 9. This is why lattice energies rise steeply with ionic charge."
+    }
+  ],
   "summary": [
     "Bond type follows electronegativity difference: ionic (large), polar covalent (intermediate), nonpolar covalent (zero). More shared pairs mean a shorter, stronger bond.",
     "Lewis structures count valence electrons. Choose structures that minimize formal charge, and use resonance when several are equivalent. Know the octet-rule exceptions.",

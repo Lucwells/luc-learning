@@ -66,6 +66,19 @@ function checkChapter(d, where) {
   if (d.view === 'chapter') {
     if (!Array.isArray(d.sections) || !d.sections.length) return fail('"sections" must be a non-empty array');
     checkSections(d.sections, new Set(), where);
+    checkQuestions(d.quiz, `${where}/quiz`);
+    const seen = new Set((d.sections ?? []).flatMap(function all(s) { return [...(s.check ?? []).map((q) => q.q), ...(s.subs ?? []).flatMap(all)]; }));
+    (d.quiz ?? []).forEach((q) => {
+      if (seen.has(q.q)) fail(`${where}/quiz: repeats a check question: ${q.q.slice(0, 50)}`);
+      if (q.wrong && q.wrong.length !== 3) fail(`${where}/quiz: "${q.q.slice(0, 40)}" needs exactly 3 wrong answers`);
+      if (!q.why) fail(`${where}/quiz: "${q.q.slice(0, 40)}" needs a "why"`);
+      if (q.wrong && new Set([q.a, ...q.wrong].map((x) => x.trim().toLowerCase())).size !== 4) fail(`${where}/quiz: "${q.q.slice(0, 40)}" has duplicate options`);
+    });
+    // Quiz must be a real test: enough questions, and the right answer must not give itself away by length.
+    if (d.sections?.length && !(d.items && d.modes) && (d.quiz?.length ?? 0) < 12) fail(`${where}: needs a "quiz" of at least 12 questions (has ${d.quiz?.length ?? 0})`);
+    const mc = (d.quiz ?? []).filter((q) => q.wrong?.length);
+    const longest = mc.filter((q) => q.a.length > Math.max(...q.wrong.map((w) => w.length))).length;
+    if (mc.length >= 10 && longest / mc.length > 0.4) fail(`${where}/quiz: right answer is the longest option in ${longest}/${mc.length} questions; balance the lengths`);
     d.problems?.forEach((p, i) => { if (!p.q || !p.a) fail(`problem ${i + 1} needs q and a`); else checkBlocks(p.q, `problem ${i + 1}`); checkBlocks(p.solution, `problem ${i + 1}`); });
     return undefined;
   }

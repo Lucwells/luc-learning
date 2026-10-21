@@ -613,6 +613,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "What is the energy of the n = 3 → 2 transition of Li²⁺ (Z = 3)?",
+      "a": "17.0 eV",
+      "wrong": [
+        "1.89 eV",
+        "5.67 eV",
+        "109 eV"
+      ],
+      "why": "ΔE = Z²R_H(1/4 − 1/9) = 9 × 13.6 × 0.1389 = 17.0 eV. The hydrogen value is 1.89 eV; 5.67 eV comes from using Z in place of Z², and 109 eV is the 3 → 1 transition."
+    },
+    {
+      "q": "Which hydrogenic orbital has two radial nodes and one angular node?",
+      "a": "4p",
+      "wrong": [
+        "3p",
+        "4d",
+        "5p"
+      ],
+      "why": "An orbital has n − l − 1 radial nodes and l angular nodes. One angular node means l = 1 (p), and n − 1 − 1 = 2 gives n = 4. The 3p has one radial node, the 4d has one radial and two angular nodes, and the 5p has three radial nodes."
+    },
+    {
+      "q": "In the Stern–Gerlach experiment, silver atoms (one unpaired 5s electron) split into two beams. What does this show?",
+      "a": "The spin angular momentum has only two allowed orientations along the field",
+      "wrong": [
+        "The orbital angular momentum of the 5s electron has two orientations in the field",
+        "Silver atoms in the beam differ in nuclear charge, so they are deflected differently",
+        "The magnetic field gradient is quantized into two strengths, one per beam"
+      ],
+      "why": "A 5s electron has l = 0, so there is no orbital contribution. The two beams reflect m_s = +½ and −½, an intrinsic property with no classical analogue."
+    },
+    {
+      "q": "Why can a lithium atom not have the configuration 1s³?",
+      "a": "Two electrons would share a spin orbital, so the Slater determinant is zero",
+      "wrong": [
+        "Three electrons in one orbital would give a wavefunction symmetric on exchange",
+        "A 1s orbital can hold only one electron, according to the exclusion principle",
+        "The electron repulsion in a 1s³ configuration would make the energy infinite"
+      ],
+      "why": "Only α and β spin orbitals exist for a 1s orbital, so a third electron repeats one of them. The determinant then has two identical rows and vanishes. A 1s orbital holds two electrons with opposite spins."
+    },
+    {
+      "q": "The same trial function 1s(1)1s(2) with effective charge ζ is used for H⁻ (Z = 1), with E(ζ) = ζ² − 2Zζ + (5/8)ζ. What is the optimum ζ?",
+      "a": "0.6875",
+      "wrong": [
+        "1.0000",
+        "0.3125",
+        "1.3125"
+      ],
+      "why": "Setting dE/dζ = 2ζ − 2Z + 5/8 = 0 gives ζ = Z − 5/16 = 0.6875. The effective charge is below Z because each electron screens the other, so adding 5/16 is the wrong sign."
+    },
+    {
+      "q": "Be²⁺ has two electrons. Treating electron repulsion as a first-order perturbation, what is its ground-state energy?",
+      "a": "−367.2 eV",
+      "wrong": [
+        "−435.2 eV",
+        "−503.2 eV",
+        "−401.2 eV"
+      ],
+      "why": "E⁰ = 2 × (−16 × 13.6) = −435.2 eV and the repulsion is (5/8)Z hartree = 2.5 × 27.2 = +68.0 eV, so E = −367.2 eV. Omitting it gives −435.2 eV, a sign error −503.2 eV, and using 13.6 in place of 27.2 eV for the hartree −401.2 eV."
+    },
+    {
+      "q": "Why does a Hartree–Fock calculation with an infinitely large basis set still not give the exact energy of helium?",
+      "a": "It uses one determinant in an average field, so electron avoidance is missed",
+      "wrong": [
+        "Gaussian basis functions can never describe the cusp of a 1s orbital exactly",
+        "It ignores the antisymmetry of the electrons",
+        "It leaves out the attraction of the electrons to the nucleus"
+      ],
+      "why": "The Hartree–Fock limit is set by the method, not the basis. The remaining difference, about 1.1 eV for helium, is the correlation energy."
+    },
+    {
+      "q": "What is the ground term symbol of a fluorine atom (2p⁵)?",
+      "a": "²P₃/₂",
+      "wrong": [
+        "²P₁/₂",
+        "⁴S₃/₂",
+        "²S₁/₂"
+      ],
+      "why": "2p⁵ is one hole in a closed shell, so it has the terms of a single p electron: L = 1, S = ½, ²P. The subshell is more than half filled, so J = L + S = 3/2 is lowest."
+    },
+    {
+      "q": "When does the Born–Oppenheimer approximation break down?",
+      "a": "When two electronic potential energy surfaces come close together",
+      "wrong": [
+        "When the molecule contains more than two nuclei",
+        "When the nuclei are heavier than about 1836 electron masses",
+        "When the nuclei are held at fixed positions"
+      ],
+      "why": "The approximation rests on one electronic surface being well separated from the others, so nuclear motion does not mix them. It fails near conical intersections. Heavy nuclei and fixed geometries are what make it work."
+    },
+    {
+      "q": "Why do two helium atoms form no stable He₂ molecule in simple MO theory?",
+      "a": "Net repulsion: the antibonding level rises more than the bonding level falls",
+      "wrong": [
+        "The 1s orbitals of the two atoms have zero overlap at every internuclear distance",
+        "A bond order of zero means the energy equals that of separated atoms at every R",
+        "The σ_g orbital lies above the 1s atomic level"
+      ],
+      "why": "With overlap included, the antibonding combination rises by more than the bonding combination falls, so four electrons give net repulsion. The bonding orbital does lie below the atomic level."
+    },
+    {
+      "q": "What is the bond order of the superoxide ion O₂⁻?",
+      "a": "1.5",
+      "wrong": [
+        "2.5",
+        "2",
+        "1"
+      ],
+      "why": "O₂⁻ has 13 valence electrons, 8 bonding and 5 antibonding (the extra one enters π_g*), so the bond order is (8 − 5)/2 = 1.5. O₂⁺ is the one with order 2.5."
+    },
+    {
+      "q": "In the HF molecule, the bonding σ orbital is mostly",
+      "a": "fluorine 2p in character",
+      "wrong": [
+        "hydrogen 1s in character",
+        "a pure 50:50 mixture of hydrogen 1s and fluorine 2p",
+        "fluorine 2s in character"
+      ],
+      "why": "The more electronegative atom has the lower-energy atomic orbital, and it contributes most to the bonding orbital. Here the F 2p lies far below H 1s, so the bond is polarized toward F."
+    },
+    {
+      "q": "Which statement is part of simple Hückel theory?",
+      "a": "Overlap integrals between different carbon 2p orbitals are set to zero",
+      "wrong": [
+        "The σ and π electrons are treated together in one determinant",
+        "Every pair of carbons has the same resonance integral β",
+        "The Coulomb integral α varies with the number of neighbors"
+      ],
+      "why": "Hückel theory treats only the π electrons, uses one α for all carbons, and sets β only between bonded neighbors (zero otherwise). It also sets Sᵢⱼ = 0 for i ≠ j."
+    },
+    {
+      "q": "What is the Hückel π energy of the butadiene radical cation (one electron removed from the HOMO)?",
+      "a": "3α + 3.85β",
+      "wrong": [
+        "3α + 4.47β",
+        "3α + 2.85β",
+        "3α + 5.09β"
+      ],
+      "why": "The butadiene HOMO is at α + 0.618β, so removing its electron from 4α + 4.472β gives 3α + 3.854β. Removing the electron from the lowest level would instead leave 2.85β, and adding 0.618β rather than subtracting it gives 5.09β."
+    },
+    {
+      "q": "In a Hückel treatment, an electrophile is expected to attack the carbon with the largest coefficient in which orbital?",
+      "a": "The HOMO",
+      "wrong": [
+        "The LUMO",
+        "The lowest-energy π orbital",
+        "The highest σ orbital"
+      ],
+      "why": "An electrophile takes electrons from the molecule, so it reacts where the highest occupied π orbital is largest. Nucleophiles supply electrons and so attack where the LUMO is largest."
+    },
+    {
+      "q": "The cost of CCSD(T) scales as N⁷ in the basis-set size N. If the basis set is doubled, the cost rises by a factor of about",
+      "a": "128",
+      "wrong": [
+        "32",
+        "16",
+        "8"
+      ],
+      "why": "Doubling N multiplies the cost by 2⁷ = 128. The factors 32, 16 and 8 correspond to N⁵ (MP2), N⁴ (HF) and N³ (DFT)."
+    },
+    {
+      "q": "A frequency calculation on a converged geometry gives two imaginary frequencies. What has been found?",
+      "a": "QM/MM: quantum mechanics at the reactive site, a force field elsewhere",
+      "wrong": [
+        "A classical force field for the whole system, because it scales to 50 000 atoms",
+        "CCSD(T) with a large basis set for the whole system, for chemical accuracy",
+        "Hartree–Fock for the whole system"
+      ],
+      "why": "A minimum has no imaginary frequencies and a transition state has exactly one. Two imaginary modes mean the structure is a maximum along two directions."
+    },
+    {
+      "q": "A bond-breaking reaction in the active site of a solvated enzyme with 50 000 atoms is to be modeled. Which approach is suited to it?",
+      "a": "A higher-order saddle point, neither a minimum nor a true transition state",
+      "wrong": [
+        "A transition state with two independent reaction coordinates, one for each mode",
+        "A minimum whose frequencies need to be recomputed more accurately",
+        "A stable molecule in a triplet state"
+      ],
+      "why": "A force field has fixed bonding and cannot describe bond breaking, while correlated or Hartree–Fock methods on 50 000 atoms are far too costly. QM/MM puts the expensive method only where electrons rearrange."
+    }
+  ],
   "summary": [
     "Hydrogenic atoms: E_n = −Z²R_H/n², degenerate in l, with a₀ = 52.9 pm. The 1s radial distribution peaks at a₀.",
     "Electrons are fermions with spin ½. The antisymmetry principle is built into Slater determinants. Spin–orbit coupling grows as Z⁴.",

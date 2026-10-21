@@ -92,8 +92,12 @@ function finalizeChapter(ch) {
       mode: q.wrong?.length >= 3 ? { id: 'check', label, mcOnly: true } : { id: 'check', label, grade: 'self' },
       q: q.q, a: q.a, alts: q.alts ?? [], wrong: q.wrong,
     });
-    walk(ch.sections, (s) => (s.check ?? []).forEach((q, i) => cards.push(asCard(q, s, i, s.id, `${s.num} ${s.title}`))));
-    ch.problems.forEach((p, i) => { if (typeof p.q === 'string') cards.push(asCard(p, ch, i, 'problem', 'Problems')); });
+    // A chapter-level "quiz" replaces the check questions, which the reader has just seen inline.
+    if (ch.quiz?.length) ch.quiz.forEach((q, i) => cards.push(asCard(q, ch, i, 'quiz', 'Chapter quiz')));
+    else {
+      walk(ch.sections, (s) => (s.check ?? []).forEach((q, i) => cards.push(asCard(q, s, i, s.id, `${s.num} ${s.title}`))));
+      ch.problems.forEach((p, i) => { if (typeof p.q === 'string') cards.push(asCard(p, ch, i, 'problem', 'Problems')); });
+    }
   }
   ch.cards = cards;
 }

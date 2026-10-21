@@ -397,6 +397,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A classifier f(x) = wᵀx + b has w = (1, 2) and b = −3. The example x = (2, 3) has label y = −1. Its geometric margin is",
+      "a": "−2.24",
+      "wrong": [
+        "−1.12",
+        "−5",
+        "2.24"
+      ],
+      "why": "f(x) = 2 + 6 − 3 = 5, so the functional margin is y f = −5, and dividing by ‖w‖ = √5 gives −2.24. The negative sign shows the example is misclassified."
+    },
+    {
+      "q": "In a hard-margin SVM, the nearest points have functional margin 1 and w = (1.5, 2). How far are those points from the hyperplane?",
+      "a": "0.4",
+      "wrong": [
+        "0.8",
+        "2.5",
+        "1"
+      ],
+      "why": "‖w‖ = 2.5, so the geometric margin is 1/‖w‖ = 0.4. The value 0.8 is the width of the whole band, which is 2/‖w‖."
+    },
+    {
+      "q": "What do margin-based generalization bounds for SVMs depend on?",
+      "a": "The margin, rather than the dimension of the feature space",
+      "wrong": [
+        "The number of features in the feature space",
+        "The number of misclassified training points only",
+        "The number of support vectors, which must equal the dimension"
+      ],
+      "why": "A large margin keeps training points far from the boundary, and this is what the bounds measure. That is how a kernel SVM can work in an enormous feature space."
+    },
+    {
+      "q": "In one dimension, x = 1 has label +1 and x = −3 has label −1. The hard-margin dual gives α₁ = α₂ = 1/8. The weight and intercept are",
+      "a": "w = 0.5, b = 0.5",
+      "wrong": [
+        "w = 1, b = 0",
+        "w = 0.25, b = 0.5",
+        "w = 0.5, b = −0.5"
+      ],
+      "why": "w = Σ α_i y_i x_i = (1/8)(1) + (1/8)(−1)(−3) = 0.5. The constraint at x = 1 is active, so 0.5 + b = 1 and b = 0.5. The boundary x = −1 is the midpoint."
+    },
+    {
+      "q": "In a separable data set, which change can alter the hard-margin SVM hyperplane?",
+      "a": "Removing a point that lies on the edge of the margin",
+      "wrong": [
+        "Removing a point far outside the margin",
+        "Adding a correctly classified point far beyond the margin",
+        "Moving a non-support vector farther from the boundary"
+      ],
+      "why": "Only points with α_i > 0, which sit on the margin, determine w. Other points have no effect while they stay outside the margin."
+    },
+    {
+      "q": "In the soft-margin dual, a training point has α_i = C. It",
+      "a": "violates the margin: it is inside the band or misclassified",
+      "wrong": [
+        "lies exactly on the edge of the margin, with zero slack",
+        "lies well outside the margin and is classified with room to spare",
+        "lies exactly on the decision boundary"
+      ],
+      "why": "Points outside the margin have α = 0 and points on it have 0 < α < C. The upper bound α = C is reached by points that pay slack."
+    },
+    {
+      "q": "A point has label y = −1 and the classifier outputs f(x) = 0.6. The hinge loss is",
+      "a": "1.6",
+      "wrong": [
+        "0.4",
+        "0.6",
+        "0"
+      ],
+      "why": "The margin is y f = −0.6, so the loss is max(0, 1 − (−0.6)) = 1.6. The point is on the wrong side, and the loss grows linearly."
+    },
+    {
+      "q": "An example has margin z = y f(x) = 3. Compare the hinge and logistic losses on it.",
+      "a": "The hinge loss is exactly 0; the logistic loss is small but positive",
+      "wrong": [
+        "Both losses are exactly 0, because the example is far beyond the margin",
+        "The hinge loss is small but positive, and the logistic loss is exactly 0",
+        "The hinge loss is 2 and the logistic loss is 0.5, since both measure distance"
+      ],
+      "why": "Hinge loss max(0, 1 − 3) = 0 ignores points beyond the margin. Logistic loss ln(1 + e⁻³) ≈ 0.049 never reaches zero."
+    },
+    {
+      "q": "A soft-margin SVM with C = 1000 reaches 100% training accuracy but only 80% test accuracy. What is the most sensible first step?",
+      "a": "Lower C, for example to 1",
+      "wrong": [
+        "Raise C further to fit the training data more tightly",
+        "Remove the support vectors from the training set",
+        "Replace the RBF kernel by one with a smaller width σ"
+      ],
+      "why": "A large C punishes every violation, which gives a narrow margin and high variance. Reducing C allows violations for a wider margin, and a smaller σ would overfit even more."
+    },
+    {
+      "q": "A correctly classified example has functional margin y f(x) = 0.4. Its slack is",
+      "a": "0.6, inside the margin",
+      "wrong": [
+        "0.4, inside the margin",
+        "1.4, misclassified",
+        "0, on the margin"
+      ],
+      "why": "The slack is ξ = max(0, 1 − y f) = 0.6, which is between 0 and 1. The point is on the correct side of the boundary but has not reached the margin of 1."
+    },
+    {
+      "q": "The polynomial kernel is (xᵀz + 1)³. For x = (1, 2) and z = (2, 1), its value is",
+      "a": "0.6",
+      "wrong": [
+        "0.4",
+        "1.4",
+        "0"
+      ],
+      "why": "xᵀz = 2 + 2 = 4, so the kernel is (4 + 1)³ = 125. The value 64 forgets the +1."
+    },
+    {
+      "q": "For an RBF kernel with σ = 2, two points satisfy ‖x − z‖² = 8. The kernel value is about",
+      "a": "0.37",
+      "wrong": [
+        "0.14",
+        "0.02",
+        "0.61"
+      ],
+      "why": "K = exp(−‖x − z‖²/(2σ²)) = exp(−8/8) = e⁻¹ ≈ 0.37. Leaving out the factor 2 in the denominator gives the too-small 0.14."
+    },
+    {
+      "q": "As the RBF width σ grows very large while C stays fixed, the SVM's decision boundary tends to become",
+      "a": "smooth and nearly linear, risking underfitting",
+      "wrong": [
+        "wiggly, with a bump centered on each individual training point",
+        "undefined, because the kernel stops being valid for large widths",
+        "identical to the hard-margin classifier whatever the value of C"
+      ],
+      "why": "With a wide kernel every pair of nearby points looks similar, so the model cannot bend much. A small σ is the setting that overfits."
+    },
+    {
+      "q": "Which of these is a valid kernel for real numbers x and z?",
+      "a": "K(x, z) = xz + (xz)²",
+      "wrong": [
+        "K(x, z) = x − z, since it measures the difference of the two inputs",
+        "K(x, z) = −(x − z)², the negative squared distance",
+        "K(x, z) = −xz, the negated product of the inputs"
+      ],
+      "why": "A sum of valid kernels (linear and quadratic) is a valid kernel. K = x − z is not symmetric, and the other two have Gram matrices with negative eigenvalues."
+    },
+    {
+      "q": "A similarity function gives K(x, x) = 1, K(z, z) = 4 and K(x, z) = 3 for two points. Could it be a valid kernel?",
+      "a": "No: K(x, x)K(z, z) = 4 is less than K(x, z)² = 9",
+      "wrong": [
+        "Yes, because it is symmetric and all values are positive",
+        "Yes, because every pair of points has non-negative similarity",
+        "No, because the kernel must equal 1 at x = z"
+      ],
+      "why": "The 2×2 Gram matrix [[1, 3], [3, 4]] has determinant 4 − 9 < 0, so it has a negative eigenvalue and cannot be positive semidefinite."
+    },
+    {
+      "q": "Kernel ridge regression has K = [[1, 0.2], [0.2, 1]], λ = 0.8 and targets y = (2, 0). The prediction at a point whose kernel values to the two training points are (0.5, 0.5) is",
+      "a": "0.5",
+      "wrong": [
+        "1",
+        "0.25",
+        "1.125"
+      ],
+      "why": "α = (K + λI)⁻¹y = (1.125, −0.125), and f = 0.5(1.125) + 0.5(−0.125) = 0.5. Weighting the targets directly (0.5 × 2 = 1) skips the solve."
+    },
+    {
+      "q": "What are the memory and time costs of kernel ridge regression with m training examples?",
+      "a": "O(m²) memory and O(m³) time",
+      "wrong": [
+        "O(m) memory and O(m²) time",
+        "O(m²) memory and O(m²) time, regardless of λ",
+        "A cost that does not depend on m, since only the kernel is evaluated"
+      ],
+      "why": "The m × m Gram matrix must be stored, and solving (K + λI)α = y costs cubic time. This is why large data sets call for low-rank approximations or other models."
+    },
+    {
+      "q": "Why should features be scaled before using an RBF kernel?",
+      "a": "The distance sums over all features, so a large-range feature dominates",
+      "wrong": [
+        "The kernel is a valid kernel only when each feature lies between 0 and 1",
+        "Scaling is what makes the Gram matrix positive semidefinite",
+        "Scaling removes the need to choose the regularization parameter C"
+      ],
+      "why": "‖x − z‖² adds the squared differences of every feature, so unscaled features with big units dominate the similarity. The kernel stays valid either way."
+    }
+  ],
   "summary": [
     "The maximum-margin classifier minimizes ½‖w‖² subject to y(wᵀx + b) ≥ 1. The margin band has width 2/‖w‖.",
     "The dual depends only on inner products, and w = Σα_i y_i x_i. Support vectors, the points with α_i > 0, lie on the margin and are the only ones that matter.",

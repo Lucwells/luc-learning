@@ -364,6 +364,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "What is the cosine of the angle between x = (3, 4) and y = (4, 3)?",
+      "a": "0.96",
+      "wrong": [
+        "24",
+        "0.6",
+        "0.8"
+      ],
+      "why": "x·y = 12 + 12 = 24 and ‖x‖‖y‖ = 5 · 5 = 25, so cos θ = 24/25 = 0.96. The value 24 is the dot product without dividing by the norms."
+    },
+    {
+      "q": "For x = (−6, 8), what are ‖x‖_∞, ‖x‖₂ and ‖x‖₁ in that order?",
+      "a": "8, 10, 14",
+      "wrong": [
+        "8, 14, 10",
+        "8, 10, 2",
+        "6, 10, 14"
+      ],
+      "why": "The largest absolute entry is 8, √(36 + 64) = 10, and |−6| + |8| = 14. The sum 2 results from forgetting the absolute values in the ℓ1 norm."
+    },
+    {
+      "q": "Two vectors have ‖x‖₂ = 2 and ‖y‖₂ = 3. Which value of x·y is impossible?",
+      "a": "7",
+      "wrong": [
+        "6",
+        "−5",
+        "0"
+      ],
+      "why": "Cauchy–Schwarz gives |x·y| ≤ 2 · 3 = 6. A value of 6 occurs when the vectors are parallel, and 0 when they are perpendicular."
+    },
+    {
+      "q": "Vectors x and y are orthogonal, with ‖x‖₂ = 3 and ‖y‖₂ = 4. What is ‖x + y‖₂?",
+      "a": "5",
+      "wrong": [
+        "7",
+        "1",
+        "25"
+      ],
+      "why": "‖x + y‖² = ‖x‖² + 2x·y + ‖y‖² = 9 + 0 + 16 = 25. The triangle inequality only bounds the norm by 7, and equality there needs parallel vectors."
+    },
+    {
+      "q": "Let A = [[1, 0], [2, 3]] and B = [[4, 1], [0, 2]]. Which matrix is AB?",
+      "a": "[[4, 1], [8, 8]]",
+      "wrong": [
+        "[[6, 3], [4, 6]]",
+        "[[4, 0], [0, 6]]",
+        "[[4, 1], [8, 6]]"
+      ],
+      "why": "Row 2 of A is (2, 3), so AB has row 2 = 2·(4, 1) + 3·(0, 2) = (8, 8). The matrix BA is the first wrong option, and the entrywise product is the second."
+    },
+    {
+      "q": "For A = [[1, 2], [3, 4], [5, 6]] and x = (2, −1), what is Ax?",
+      "a": "(0, 2, 4)",
+      "wrong": [
+        "(3, 5, 7)",
+        "(2, 6, 10)",
+        "(−2, −4, −6)"
+      ],
+      "why": "Ax = 2·(1, 3, 5) − 1·(2, 4, 6) = (0, 2, 4): a combination of the columns with coefficients from x. Swapping the coefficients gives (3, 5, 7)."
+    },
+    {
+      "q": "For u = (1, 2) and v = (3, 4, 5), what is the entry in row 2, column 3 of the outer product uvᵀ?",
+      "a": "10",
+      "wrong": [
+        "8",
+        "6",
+        "5"
+      ],
+      "why": "(uvᵀ)_ij = u_i v_j, so the entry is u₂v₃ = 2 · 5 = 10. The other options are u₂v₂, u₂v₁ and u₁v₃."
+    },
+    {
+      "q": "Q = [[0.6, −0.8], [0.8, 0.6]] satisfies QᵀQ = I. What is ‖Qx‖₂ for x = (3, 4)?",
+      "a": "5",
+      "wrong": [
+        "6.2",
+        "4.8",
+        "1"
+      ],
+      "why": "An orthogonal matrix preserves length, so ‖Qx‖ = ‖x‖ = 5. Directly, Qx = (−1.4, 4.8), whose ℓ2 norm is 5. The value 6.2 is its ℓ1 norm."
+    },
+    {
+      "q": "For which value of k does the system x + 2y = 4, 3x + 6y = k have a solution?",
+      "a": "Only k = 12, and then infinitely many",
+      "wrong": [
+        "Every k, with a unique solution",
+        "Only k = 4",
+        "Only k = 0"
+      ],
+      "why": "Eliminating gives 0 = k − 12. This is consistent only when k = 12, leaving y free. For any other k the equations contradict each other."
+    },
+    {
+      "q": "What is the solution (x, y) of x + 2y = 5, 3x + 4y = 11?",
+      "a": "(1, 2)",
+      "wrong": [
+        "(3, 1)",
+        "(−1, 3)",
+        "(2, 1.5)"
+      ],
+      "why": "R₂ − 3R₁ gives −2y = −4, so y = 2 and x = 1. Each wrong option satisfies the first equation but fails the second."
+    },
+    {
+      "q": "Dense elimination on a 1000 × 1000 system takes 2 seconds. About how long does a 3000 × 3000 system take?",
+      "a": "54 seconds",
+      "wrong": [
+        "6 seconds",
+        "18 seconds",
+        "162 seconds"
+      ],
+      "why": "The cost grows like n³, and tripling n multiplies the time by 3³ = 27, so 2 × 27 = 54 seconds. A factor of 9 would correspond to n²."
+    },
+    {
+      "q": "A consistent system of 3 equations in 5 unknowns reduces to 3 pivots. How many free variables does it have?",
+      "a": "2",
+      "wrong": [
+        "0",
+        "3",
+        "5"
+      ],
+      "why": "Unknowns without a pivot are free: 5 − 3 = 2. With any free variable a consistent system has infinitely many solutions."
+    },
+    {
+      "q": "Which matrix is the inverse of A = [[1, 2], [3, 4]]?",
+      "a": "[[−2, 1], [1.5, −0.5]]",
+      "wrong": [
+        "[[2, −1], [−1.5, 0.5]]",
+        "[[−2, 1.5], [1, −0.5]]",
+        "[[4, −2], [−3, 1]]"
+      ],
+      "why": "ad − bc = 4 − 6 = −2, so A⁻¹ = (1/−2)[[4, −2], [−3, 1]]. The last option forgets the factor 1/det, and the first has the wrong overall sign."
+    },
+    {
+      "q": "A 3 × 3 matrix A has det A = 4. What is det(2A)?",
+      "a": "32",
+      "wrong": [
+        "8",
+        "16",
+        "12"
+      ],
+      "why": "Doubling the matrix doubles each of the 3 rows, and the determinant is multiplied by 2 for each, so 2³ · 4 = 32."
+    },
+    {
+      "q": "Elimination on a 3 × 3 matrix gives pivots 2, 3 and 4 after one row swap. What is the determinant?",
+      "a": "−24",
+      "wrong": [
+        "24",
+        "9",
+        "−9"
+      ],
+      "why": "The determinant is the product of the pivots, 2 · 3 · 4 = 24, with a sign change for each row swap, here one swap, so −24."
+    },
+    {
+      "q": "For which value of k is the matrix [[1, 2], [2, k]] singular?",
+      "a": "4",
+      "wrong": [
+        "2",
+        "1",
+        "0"
+      ],
+      "why": "det = k − 4, which vanishes at k = 4. Then the second row is twice the first, and the map squashes the plane onto a line."
+    },
+    {
+      "q": "A = LU with L = [[1, 0], [3, 1]] and U = [[1, 2], [0, 2]]. What is the solution of Ax = (3, 10)?",
+      "a": "(2, 0.5)",
+      "wrong": [
+        "(3, 1)",
+        "(−7, 26)",
+        "(2, 5)"
+      ],
+      "why": "Forward: y = (3, 10 − 9) = (3, 1). Back: x₂ = 0.5 and x₁ = 3 − 2(0.5) = 2. The option (3, 1) is the intermediate y, and (−7, 26) results from solving with U before L."
+    },
+    {
+      "q": "For which matrix is Cholesky factorization A = LLᵀ the appropriate, faster alternative to LU?",
+      "a": "XᵀX, where X has linearly independent columns",
+      "wrong": [
+        "The symmetric matrix [[0, 1], [1, 0]]",
+        "Any square invertible matrix",
+        "Any upper triangular matrix"
+      ],
+      "why": "Cholesky needs a symmetric positive definite matrix. XᵀX is one when X has independent columns, whereas [[0, 1], [1, 0]] is symmetric but has eigenvalues of both signs."
+    }
+  ],
   "summary": [
     "A vector is a list of numbers. The dot product x·y = ‖x‖‖y‖cos θ; norms ‖·‖₁, ‖·‖₂, ‖·‖_∞; triangle and Cauchy–Schwarz inequalities.",
     "A matrix is a linear map. The product AB composes maps, costs mkn, is associative but not commutative, and (AB)ᵀ = BᵀAᵀ. View it by entries, by columns (linear combinations) or as a sum of outer products.",

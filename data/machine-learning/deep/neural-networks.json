@@ -353,6 +353,178 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A sigmoid unit has weights w = (2, −1), bias b = 0.5, and input x = (1, 3). What is its output?",
+      "a": "0.38",
+      "wrong": [
+        "0.62",
+        "0.5",
+        "−0.5"
+      ],
+      "why": "The pre-activation is 2 − 3 + 0.5 = −0.5, and σ(−0.5) = 1/(1 + e^{0.5}) ≈ 0.38. The value 0.62 is σ(+0.5), and −0.5 is the pre-activation, not the output."
+    },
+    {
+      "q": "A tanh unit outputs a = 0.6. What is its derivative g′(z) at that point?",
+      "a": "0.64",
+      "wrong": [
+        "0.24",
+        "0.4",
+        "0.36"
+      ],
+      "why": "For tanh, g′ = 1 − g² = 1 − 0.36 = 0.64. The value 0.24 is g(1 − g), which is the sigmoid derivative formula."
+    },
+    {
+      "q": "A ReLU unit has a negative pre-activation on every training example. What happens during training?",
+      "a": "Its output and gradient are zero on all of them, so its weights stop changing and it is dead",
+      "wrong": [
+        "It outputs negative values and the gradient is −1",
+        "It behaves as a linear unit with slope 0.01",
+        "It saturates at 1, like a sigmoid unit"
+      ],
+      "why": "ReLU is 0 for z < 0 and its gradient there is 0, so no learning signal reaches the unit's weights. Leaky ReLU was designed to avoid this."
+    },
+    {
+      "q": "A two-layer network has no activation functions. W₁ is 4 × 3 and W₂ is 2 × 4. The network computes one linear map with a matrix of shape",
+      "a": "2 × 3",
+      "wrong": [
+        "4 × 4",
+        "3 × 2",
+        "8 × 3"
+      ],
+      "why": "W₂(W₁x) = (W₂W₁)x, and a (2 × 4) times (4 × 3) product is 2 × 3. Without a nonlinearity the two layers collapse into one."
+    },
+    {
+      "q": "The input is x = (2, 1). The hidden layer has ReLU units with W^{[1]} = [[1, 2], [−1, 1]] and b^{[1]} = (0, 0). The output is the linear unit y = a₁ + 3a₂ − 1. What is y?",
+      "a": "3",
+      "wrong": [
+        "0",
+        "4",
+        "7"
+      ],
+      "why": "z^{[1]} = (2 + 2, −2 + 1) = (4, −1) and a^{[1]} = (4, 0), so y = 4 + 0 − 1 = 3. Skipping the ReLU would give 4 − 3 − 1 = 0."
+    },
+    {
+      "q": "How many parameters does a 20–30–10–1 fully connected network have?",
+      "a": "951",
+      "wrong": [
+        "910",
+        "970",
+        "941"
+      ],
+      "why": "Layer l has n_l(n_{l−1} + 1) parameters: 30(21) + 10(31) + 1(11) = 630 + 310 + 11 = 951. Leaving out the biases gives 910."
+    },
+    {
+      "q": "A layer has 5 units and is fed by a layer of 7 units. A batch of 32 examples is stacked as columns. What is the shape of Z^{[l]}?",
+      "a": "5 × 32",
+      "wrong": [
+        "32 × 5",
+        "7 × 32",
+        "5 × 7"
+      ],
+      "why": "Z = WA + b1ᵀ with W of size 5 × 7 and A of size 7 × 32, giving 5 × 32: one column of pre-activations per example."
+    },
+    {
+      "q": "The XOR network is h₁ = ReLU(x₁ + x₂), h₂ = ReLU(x₁ + x₂ − 1), y = h₁ − 2h₂. What does it output at the input (2, 2)?",
+      "a": "−2",
+      "wrong": [
+        "0",
+        "2",
+        "4"
+      ],
+      "why": "h₁ = 4 and h₂ = 3, so y = 4 − 6 = −2. The network computes XOR only on 0/1 inputs, and the output is just a function of the weights elsewhere."
+    },
+    {
+      "q": "In a deep classification network, how should the final layer be understood in relation to the earlier layers?",
+      "a": "As a linear or logistic model applied to features learned by the earlier layers",
+      "wrong": [
+        "As a decision tree applied to the raw inputs",
+        "As a layer that selects which earlier layer to trust",
+        "As a regularizer that shrinks the earlier weights"
+      ],
+      "why": "The hidden layers learn a feature map, as the XOR example shows, and the output layer then solves a linear problem in that learned space."
+    },
+    {
+      "q": "A network with a hidden layer of 10,000 units uses the identity activation. What functions can it represent?",
+      "a": "Only linear functions of the input",
+      "wrong": [
+        "Any continuous function on a bounded domain",
+        "Polynomials of degree up to 10,000",
+        "Piecewise linear functions with 10,000 pieces"
+      ],
+      "why": "The universal approximation theorem requires a non-polynomial activation. With the identity, layers compose into a single linear map regardless of width."
+    },
+    {
+      "q": "A one-hidden-layer ReLU network on a 1-D input makes about N linear pieces with N units. What happens to the number of pieces as ReLU layers are stacked, with a few units per layer?",
+      "a": "It can grow exponentially with the depth",
+      "wrong": [
+        "It grows only linearly with the depth",
+        "It stays at N, however many layers are added",
+        "It grows only with the width of the first layer"
+      ],
+      "why": "Each layer can fold the output of the previous one, so the pieces multiply layer by layer. A single wide layer only adds pieces."
+    },
+    {
+      "q": "A model predicts the number of insurance claims a customer files in a year, a non-negative integer. Which output layer and loss follow from the chapter's logic?",
+      "a": "An exponential output with the Poisson negative log-likelihood",
+      "wrong": [
+        "A sigmoid output with binary cross-entropy",
+        "A softmax output with cross-entropy",
+        "An identity output with squared error, with no change to the output"
+      ],
+      "why": "Counts are modeled as Poisson, and exp keeps the predicted rate positive. Squared error with an identity output assumes Gaussian noise and can predict negative counts."
+    },
+    {
+      "q": "A photo may contain any subset of five objects: cat, dog, car, tree, person. Which output layer is appropriate?",
+      "a": "Five sigmoid outputs, with a sum of binary cross-entropies",
+      "wrong": [
+        "One softmax over five outputs, with cross-entropy",
+        "One sigmoid output, with binary cross-entropy",
+        "Five identity outputs, with squared error"
+      ],
+      "why": "Several labels can be true at once, so each is an independent Bernoulli. Softmax forces the probabilities to sum to 1, which allows only one label."
+    },
+    {
+      "q": "A 3-class softmax receives the logits (0, 0, 0). The true class is the second. What is the cross-entropy loss?",
+      "a": "1.10",
+      "wrong": [
+        "0.33",
+        "0.48",
+        "3"
+      ],
+      "why": "Equal logits give p = 1/3 for each class, so the loss is −ln(1/3) = ln 3 ≈ 1.10. The value 0.48 is log₁₀ 3, a different base."
+    },
+    {
+      "q": "A sigmoid output gives p = 0.8, and the true label is y = 0. What is the binary cross-entropy?",
+      "a": "1.61",
+      "wrong": [
+        "0.22",
+        "0.80",
+        "0.20"
+      ],
+      "why": "For y = 0 the loss is −ln(1 − p) = −ln 0.2 = 1.61. The value 0.22 is −ln 0.8, the loss if the label were 1."
+    },
+    {
+      "q": "Which statement about the training objective of a neural network is correct?",
+      "a": "It is not convex in the parameters, so different initializations can reach different solutions",
+      "wrong": [
+        "It is convex whenever the loss is cross-entropy, so a global minimum is guaranteed",
+        "It becomes convex once the network is wide enough",
+        "It is not convex, so gradient descent cannot reduce the loss"
+      ],
+      "why": "The hidden layers make the output depend nonlinearly on the weights, so the objective is non-convex. Gradient descent still lowers the loss and finds a local minimum, usually good enough."
+    },
+    {
+      "q": "Why is it better to compute a classification loss directly from the logits than to apply softmax and then take a logarithm?",
+      "a": "The log-sum-exp form avoids overflow and underflow in the exponentials",
+      "wrong": [
+        "Softmax is not differentiable for large logits",
+        "The two methods give different loss values, and the direct one is correct",
+        "Softmax probabilities do not sum to 1 in floating point"
+      ],
+      "why": "Exponentials of large logits overflow and tiny probabilities underflow to 0, making the log undefined. The two forms are mathematically equal, but the direct one is stable."
+    }
+  ],
   "summary": [
     "A neuron computes g(wᵀx + b). A layer applies this to every unit, and a network chains layers: z^{[l]} = W^{[l]}a^{[l−1]} + b^{[l]}, a^{[l]} = g(z^{[l]}).",
     "The nonlinearity is essential: without it the network is linear. ReLU is the standard hidden activation; sigmoid and softmax are used at the output.",

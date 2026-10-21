@@ -346,6 +346,178 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A model predicts patients' future health needs from their past health spending. Patients from one group have the same illnesses but spend less, because of poorer access to care. Which kind of bias is this?",
+      "a": "Measurement bias",
+      "wrong": [
+        "Representation bias",
+        "Aggregation bias",
+        "Evaluation bias"
+      ],
+      "why": "Spending is a flawed proxy for the quantity that matters, so a model that predicts it faithfully inherits the distortion. Representation bias would concern who is in the training data."
+    },
+    {
+      "q": "A group has 80 qualified and 120 unqualified people. A model approves 60 of the qualified and 30 of the unqualified. The false positive rate is",
+      "a": "0.25",
+      "wrong": [
+        "0.33",
+        "0.75",
+        "0.15"
+      ],
+      "why": "FPR = false positives / all truly unqualified = 30/120 = 0.25. The value 0.33 divides by the number approved, 0.75 is the true positive rate, and 0.15 divides by the whole group."
+    },
+    {
+      "q": "A model selects 42% of applicants from group P and 50% from group Q. The disparate impact ratio and the four-fifths rule give",
+      "a": "0.84, above 0.8, so adverse impact is not flagged",
+      "wrong": [
+        "0.84, below the threshold, so adverse impact is flagged",
+        "0.08, so adverse impact is flagged",
+        "1.19, so adverse impact is flagged"
+      ],
+      "why": "The ratio is the lower selection rate over the higher: 0.42/0.50 = 0.84, which passes the 0.8 threshold. The difference of 0.08 is not the ratio."
+    },
+    {
+      "q": "A risk score is calibrated within each of two groups, whose base rates differ, yet one group has a higher false positive rate. Can retraining remove this?",
+      "a": "Not in general: with unequal base rates an imperfect classifier cannot be both calibrated and have equal error rates",
+      "wrong": [
+        "Yes, with enough data any classifier can meet every fairness criterion",
+        "Yes, because calibration implies equal false positive rates",
+        "No, because the base rates must first be made equal in the training data"
+      ],
+      "why": "The impossibility results show these criteria conflict unless the classifier is perfect or the base rates are equal. Choosing which to satisfy is a value decision."
+    },
+    {
+      "q": "A predictive policing model sends patrols where past arrests were recorded. Why can it create a feedback loop?",
+      "a": "More patrols there produce more recorded arrests, which become training data that appear to confirm the model's predictions",
+      "wrong": [
+        "Its predictions are always random, so errors average out",
+        "The model refuses to update after deployment",
+        "Arrests in other areas are deleted from the data"
+      ],
+      "why": "The model's own actions shape the data it later learns from. Recorded arrests partly measure where police looked, not just where crime occurred."
+    },
+    {
+      "q": "Demographic parity requires that",
+      "a": "the rate of favorable decisions is equal across groups",
+      "wrong": [
+        "the true positive rate is equal across groups",
+        "the false positive rate is the same in every group, regardless of base rates",
+        "a given score has the same meaning in every group"
+      ],
+      "why": "Demographic parity compares P(Ŷ = 1) across groups. The other options describe equal opportunity, the false positive half of equalized odds, and calibration."
+    },
+    {
+      "q": "A data set is 5-anonymous, but all five people in one group share the same diagnosis. What is the weakness?",
+      "a": "Homogeneity: anyone who places a person in that group learns their diagnosis",
+      "wrong": [
+        "Re-identification becomes easier than in a 1-anonymous data set, since the groups are larger",
+        "The group must be suppressed because k should equal the group count",
+        "Noise has not been added to the diagnosis column"
+      ],
+      "why": "k-anonymity only guarantees that records cannot be distinguished by their quasi-identifiers. If the sensitive value is the same for all of them, it is revealed anyway."
+    },
+    {
+      "q": "A count query with sensitivity 1 is released with the Laplace mechanism at ε = 0.25. The noise scale b is",
+      "a": "4",
+      "wrong": [
+        "0.25",
+        "16",
+        "5.7"
+      ],
+      "why": "b = Δ/ε = 1/0.25 = 4. The value 5.7 is the standard deviation of the noise (√2 × 4), not its scale."
+    },
+    {
+      "q": "What does the guarantee of ε-differential privacy say?",
+      "a": "The distribution of the output barely depends on whether any one person's record is in the data",
+      "wrong": [
+        "No individual's data is ever used by the algorithm, so the output cannot contain information about any person",
+        "The released statistics are exact for large data sets",
+        "An observer can learn nothing at all about anyone from the output"
+      ],
+      "why": "The bound compares the output distribution on two data sets differing in one person. Statistics about the population can still be learned, but little about any particular individual."
+    },
+    {
+      "q": "An analyst runs 10 queries on the same data, each released with ε = 0.1. The total privacy loss is about",
+      "a": "ε = 1",
+      "wrong": [
+        "ε = 0.1",
+        "ε = 0.01",
+        "ε = 10"
+      ],
+      "why": "Each query consumes part of the privacy budget, and the ε values add up: 10 × 0.1 = 1."
+    },
+    {
+      "q": "A bank's SHAP analysis shows a large attribution for postal code in a loan denial. What can be concluded?",
+      "a": "The model relies heavily on postal code for this prediction, which does not show that it causes default",
+      "wrong": [
+        "Postal code causes the applicant to default",
+        "Removing postal code would leave the prediction unchanged",
+        "The model is guaranteed to be fair, since postal code is not a protected attribute"
+      ],
+      "why": "Attributions describe the model, not the world. A heavily used postal code may also act as a proxy for a protected attribute, which makes it worth auditing."
+    },
+    {
+      "q": "A model validated for predicting who will repay a loan is now used to set interest rates. Which principle is violated?",
+      "a": "Fit for purpose: a model should be validated on the task and population where it is used",
+      "wrong": [
+        "Data minimization: the model was trained on more variables than the new pricing decision strictly needed",
+        "Calibration: the scores no longer match observed rates in each group",
+        "Differential privacy: the outputs must be noisy"
+      ],
+      "why": "Validation for one purpose says little about another. A new use is a new task and needs new evaluation, which is a form of deployment bias if skipped."
+    },
+    {
+      "q": "What problem does pre-registering an analysis plan address?",
+      "a": "Choosing analyses after seeing the results, which inflates false positives",
+      "wrong": [
+        "Small sample sizes, which make the estimates noisy and the confidence intervals wide",
+        "Re-identification of participants",
+        "Dataset shift after deployment"
+      ],
+      "why": "Fixing the hypotheses and analyses in advance removes the flexibility that p-hacking exploits. It does not change the sample size or protect privacy."
+    },
+    {
+      "q": "The risk of a side effect rises from 4 in 1000 to 6 in 1000 with a drug. The number needed to harm is",
+      "a": "500",
+      "wrong": [
+        "2",
+        "50",
+        "200"
+      ],
+      "why": "The absolute increase is 0.002, so 1/0.002 = 500 people treated per extra case. The relative increase of 50% sounds large and is the source of the value 2."
+    },
+    {
+      "q": "Which is the best way to report an A/B test result to a manager?",
+      "a": "Conversion rose by an estimated 2 points (95% interval 0.5 to 3.5)",
+      "wrong": [
+        "Conversion rose by 2.0371 points, with the 95% interval left out for simplicity",
+        "Conversion rose by 2 points, which proves the design works",
+        "The result was statistically significant (p = 0.01)"
+      ],
+      "why": "An interval conveys the uncertainty, and rounding conveys the precision the data support. A bare p-value says nothing about the size of the effect."
+    },
+    {
+      "q": "A headline says users of a feature are three times as likely to churn. What is most needed to put this in context?",
+      "a": "The baseline churn rate, so the absolute difference is visible",
+      "wrong": [
+        "The ratio quoted to more decimal places, so that it looks more precise and credible",
+        "The p-value of the comparison alone",
+        "The type of model that computed it"
+      ],
+      "why": "A ratio without the denominator and base rate can make a tiny change sound dramatic or hide a large one. Absolute figures show how much it matters."
+    },
+    {
+      "q": "Which statement about a project ethics checklist is correct?",
+      "a": "Its questions need judgment and discussion with affected people, not a mechanical yes-or-no answer",
+      "wrong": [
+        "It is enough to complete it once at the start of the project, before any data are collected or modeling begins",
+        "Passing one fairness metric answers all of its questions",
+        "Only the deployment stage raises questions about harm"
+      ],
+      "why": "Questions about harm and fairness arise at every stage, from the framing of the question to monitoring after launch. Technical tools can measure some of them but cannot decide what is acceptable."
+    }
+  ],
   "summary": [
     "Bias enters through history, representation, measurement, aggregation, evaluation and deployment. Dropping the protected attribute does not remove it, since proxies remain. Group criteria (demographic parity, equal opportunity, equalized odds, calibration) can be computed from confusion matrices; with different base rates they cannot all hold, so fairness involves value choices.",
     "Anonymization by removing names fails: quasi-identifiers re-identify people. k-anonymity helps against linkage; differential privacy gives a formal guarantee, via noise of scale Δ/ε (Laplace mechanism), at a cost in accuracy and a privacy budget. Models can leak their training data.",

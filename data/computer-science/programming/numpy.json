@@ -419,6 +419,178 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "a = np.array([1, 2, 3, 4]). Then m = a[a > 2]; m[0] = 0; v = a[2:]; v[1] = 0. What is a now?",
+      "a": "[1, 2, 3, 0]",
+      "wrong": [
+        "[1, 2, 0, 0]",
+        "[1, 2, 3, 4]",
+        "[1, 2, 0, 4]"
+      ],
+      "why": "The boolean mask returns a copy, so changing m leaves a alone. The slice a[2:] is a view, so setting v[1] = 0 changes the last entry of a."
+    },
+    {
+      "q": "X = np.array([[1, 5], [7, 2], [3, 9]]). What does X[X[:, 0] > 2] return?",
+      "a": "[[7, 2], [3, 9]]",
+      "wrong": [
+        "[7, 3]",
+        "[[5], [9]]",
+        "[[1, 5], [7, 2], [3, 9]]"
+      ],
+      "why": "The condition X[:, 0] > 2 gives the boolean vector [False, True, True], which selects whole rows (here rows 1 and 2). Applying the condition to the full array X would instead flatten the surviving elements."
+    },
+    {
+      "q": "What dtype does np.array([1, 2.5, 3]) have?",
+      "a": "float64",
+      "wrong": [
+        "int64",
+        "object",
+        "float32"
+      ],
+      "why": "An array holds one dtype, so the integers are upcast to the float type. The default float type is float64; float32 must be requested explicitly."
+    },
+    {
+      "q": "T has shape (4, 6, 3). What is the shape of T.sum(axis=1)?",
+      "a": "(4, 3)",
+      "wrong": [
+        "(4, 6)",
+        "(6,)",
+        "(4, 6, 1)"
+      ],
+      "why": "The axis that is summed disappears from the shape. Axis 1 has size 6, which leaves (4, 3); a size-1 axis would remain only with keepdims=True."
+    },
+    {
+      "q": "In a vectorized training loop, which loop is normally acceptable to keep as a Python loop?",
+      "a": "The loop over epochs, since each iteration does a large amount of array work",
+      "wrong": [
+        "A loop over the individual examples that adds up their squared errors",
+        "A loop over the entries of a vector that applies the sigmoid",
+        "A loop over the features that computes each column mean"
+      ],
+      "why": "A few thousand iterations that each run big array operations cost little interpreter overhead. Loops over individual numbers pay that overhead per element, and each has a one-line array form."
+    },
+    {
+      "q": "Shapes (8, 1, 4) and (3, 1) are added. What is the result shape?",
+      "a": "(8, 3, 4)",
+      "wrong": [
+        "(8, 3, 1)",
+        "(3, 4)",
+        "they cannot be broadcast"
+      ],
+      "why": "Aligned from the right, (3, 1) acts as (1, 3, 1). Each pair of sizes is equal or contains a 1, giving 8, 3 and 4."
+    },
+    {
+      "q": "X has shape (4, 4) and a student writes X / X.sum(axis=1) to divide every row by its own sum. What happens?",
+      "a": "It runs without an error but divides column j by the sum of row j, which is wrong",
+      "wrong": [
+        "It raises a shape error",
+        "It correctly divides each row by its sum",
+        "It divides every entry by the sum of the whole array"
+      ],
+      "why": "The vector of shape (4,) is aligned with the last axis, so it is applied across columns. Because the matrix happens to be square no error appears; X.sum(axis=1, keepdims=True) fixes it."
+    },
+    {
+      "q": "A data column is [1, 1, 5, 5]. After standardizing with its mean and np.std (divide by n), what is the value for 5?",
+      "a": "1.0",
+      "wrong": [
+        "2.0",
+        "0.5",
+        "-1.0"
+      ],
+      "why": "The mean is 3 and the variance is (4 + 4 + 4 + 4)/4 = 4, so the standard deviation is 2 and (5 - 3)/2 = 1. Dividing by the variance instead of the standard deviation would give 0.5."
+    },
+    {
+      "q": "A has 1000 points and B has 2000 points, each in 50 dimensions. How many numbers does the intermediate array A[:, None, :] - B[None, :, :] contain?",
+      "a": "1 × 10⁸",
+      "wrong": [
+        "2 × 10⁶",
+        "5 × 10⁴",
+        "3.05 × 10³"
+      ],
+      "why": "The broadcast difference has shape (1000, 2000, 50), so 1000 × 2000 × 50 = 10⁸ entries. The distance matrix itself has only 2 × 10⁶, which is why the expanded-square formula is cheaper."
+    },
+    {
+      "q": "np.einsum('bij,bjk->bik', A, B) is applied to A of shape (10, 3, 4) and B of shape (10, 4, 5). What is the result shape?",
+      "a": "(10, 3, 5)",
+      "wrong": [
+        "(10, 4, 4)",
+        "(3, 5)",
+        "(10, 3, 4, 5)"
+      ],
+      "why": "The index b is kept (a batch of 10 products) and j is summed over. Each product is (3, 4) @ (4, 5), giving (3, 5)."
+    },
+    {
+      "q": "A softmax receives z = [1002, 1000, 1000]. After subtracting the maximum, what is the first output, to three decimals?",
+      "a": "0.787",
+      "wrong": [
+        "0.667",
+        "0.500",
+        "0.953"
+      ],
+      "why": "The shifted inputs are [0, -2, -2], with exponentials 1, 0.135 and 0.135, so the first output is 1/1.271 = 0.787. The shift cancels in the ratio and avoids overflow of exp(1002)."
+    },
+    {
+      "q": "In batch gradient descent, grad = X.T @ (X @ theta - y) / m. For one example X = [[1, 2]], y = [3], m = 1 and theta = [0, 0], what is grad?",
+      "a": "[-3, -6]",
+      "wrong": [
+        "[3, 6]",
+        "[-3, -3]",
+        "[-1.5, -3]"
+      ],
+      "why": "The prediction is 0, so the residual is 0 - 3 = -3. Multiplying by Xᵀ = [[1], [2]] gives (-3, -6); the sign is negative because the prediction is too low."
+    },
+    {
+      "q": "X has two identical columns. Why can lstsq(X, y) still return a least squares solution when solve(X.T @ X, X.T @ y) fails?",
+      "a": "XᵀX is singular, while lstsq uses an orthogonal factorization that handles rank-deficient X",
+      "wrong": [
+        "lstsq adds a small penalty to the weights automatically",
+        "solve works only when X is square",
+        "XᵀX has too many rows for solve to handle"
+      ],
+      "why": "Identical columns make XᵀX singular, so the normal equations have no unique solution. lstsq returns a minimum-norm least squares solution; the failing call is not a shape problem, since XᵀX is always square."
+    },
+    {
+      "q": "rng = np.random.default_rng(0); a = rng.random(3); b = rng.random(3). How do a and b compare?",
+      "a": "They differ, because the generator's state advances after each draw",
+      "wrong": [
+        "They are identical, because the seed is the same",
+        "They are identical only if the arrays have the same shape",
+        "They differ only in the last element"
+      ],
+      "why": "A seed fixes the whole sequence, not each call. Creating a second generator with the same seed would reproduce a, and that is what reproducibility relies on."
+    },
+    {
+      "q": "A bootstrap sample of size m is drawn with replacement from m examples. For large m, about what fraction of the distinct original examples appears in it?",
+      "a": "0.63",
+      "wrong": [
+        "0.37",
+        "0.50",
+        "0.80"
+      ],
+      "why": "An example is missed with probability (1 - 1/m)^m ≈ 1/e ≈ 0.37, so it appears with probability 1 - 1/e ≈ 0.63. The 0.37 is the fraction left out."
+    },
+    {
+      "q": "50,000 color images of size 32 × 32 × 3 are stored as one float32 array. About how much memory does it use?",
+      "a": "614 MB",
+      "wrong": [
+        "153.6 MB",
+        "1.23 GB",
+        "4.9 GB"
+      ],
+      "why": "There are 50,000 × 3072 = 1.536 × 10⁸ elements at 4 bytes each, which is 614 MB. 153.6 MB would be one byte per element, and 1.23 GB corresponds to float64."
+    },
+    {
+      "q": "A loop must collect 100,000 results into an array. Which approach avoids the repeated copying of appending to an array?",
+      "a": "Append to a Python list and convert once at the end, or preallocate with np.empty",
+      "wrong": [
+        "Call np.append inside the loop, since NumPy does it in place",
+        "Use np.concatenate on the growing array at every step",
+        "Convert each result to float32 first so that the copies are smaller"
+      ],
+      "why": "Growing an array copies all existing elements each time, so the total work is quadratic. A list append is cheap, and a preallocated array is filled in place."
+    }
+  ],
   "summary": [
     "A NumPy array has a dtype and a shape; indexing uses slices (views), boolean masks and integer arrays (copies). reshape(-1, 1) makes a column.",
     "Vectorized operations and reductions along an axis replace Python loops and are 50 to 100 times faster: np.mean((p − t) ** 2).",

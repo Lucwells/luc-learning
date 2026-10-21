@@ -394,6 +394,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "Benzaldehyde is less reactive toward nucleophiles than butanal. The reason is that",
+      "a": "conjugation with the ring donates electron density to the carbonyl carbon",
+      "wrong": [
+        "the flat ring blocks the approach of the nucleophile to the carbonyl carbon",
+        "the ring withdraws electron density from the carbonyl carbon by induction",
+        "benzaldehyde has no hydrogen on the carbonyl carbon, unlike aliphatic aldehydes"
+      ],
+      "why": "Resonance with the ring spreads positive character away from the carbonyl carbon, lowering its electrophilicity. Benzaldehyde does have the aldehyde H, and the ring is no more hindering than a small alkyl group."
+    },
+    {
+      "q": "A compound has a strong IR band at 1730 cm⁻¹ and weak bands at 2720 and 2820 cm⁻¹. It is most likely",
+      "a": "an aldehyde",
+      "wrong": [
+        "a ketone",
+        "an alcohol",
+        "a carboxylic acid"
+      ],
+      "why": "The pair of C–H stretches near 2720 and 2820 cm⁻¹ belongs to the aldehyde hydrogen. A ketone has the C=O band but not these, and alcohols and ethers lack a carbonyl band."
+    },
+    {
+      "q": "Why is the addition of a Grignard reagent to a ketone irreversible, whereas hydrate formation is reversible?",
+      "a": "R⁻ is a very poor leaving group, so the alkoxide cannot revert, whereas a hydrate readily loses water or hydroxide",
+      "wrong": [
+        "Grignard additions release a gas, which removes the product from the equilibrium as it forms, unlike hydrations",
+        "Hydrate formation changes the carbon from sp² to sp³, but Grignard addition leaves it trigonal planar",
+        "The Grignard product is stabilized by hydrogen bonding to the ether solvent, which prevents reversal"
+      ],
+      "why": "Reversal needs a leaving group. R⁻ from a Grignard is a very poor one, whereas a hydrate can lose water or hydroxide and return to the carbonyl."
+    },
+    {
+      "q": "A carbonyl compound hydrates with equilibrium constant K = [hydrate]/[carbonyl] = 9. What percentage is present as the hydrate?",
+      "a": "90%",
+      "wrong": [
+        "9%",
+        "10%",
+        "81%"
+      ],
+      "why": "The hydrate fraction is K/(1 + K) = 9/10. Reading K as a percentage gives 9%, and 10% is the fraction of carbonyl that remains."
+    },
+    {
+      "q": "Chloral (CCl₃CHO) forms a stable, crystalline hydrate. This is because the CCl₃ group",
+      "a": "withdraws electrons, making the carbonyl carbon more electrophilic and less stabilized",
+      "wrong": [
+        "donates electrons to the carbonyl carbon, which stabilizes the resulting diol by resonance",
+        "hydrogen-bonds to incoming water, holding it close to the carbonyl carbon",
+        "blocks every other addition reaction, so hydration is the only path left"
+      ],
+      "why": "Electron-withdrawing groups destabilize the C=O relative to the sp³ hydrate, so the equilibrium shifts toward the gem-diol."
+    },
+    {
+      "q": "A cyanohydrin R₂C(OH)C≡N is treated with LiAlH₄ and then water. The product is",
+      "a": "a β-amino alcohol, R₂C(OH)CH₂NH₂",
+      "wrong": [
+        "an α-hydroxy acid, R₂C(OH)COOH",
+        "an α-hydroxy aldehyde, R₂C(OH)CHO",
+        "the starting ketone, regenerated"
+      ],
+      "why": "LiAlH₄ reduces the nitrile C≡N to CH₂NH₂. The α-hydroxy acid is what hydrolysis with H₃O⁺ and heat would give."
+    },
+    {
+      "q": "4-Hydroxybutanal (HOCH₂CH₂CH₂CHO) exists mainly as",
+      "a": "a five-membered cyclic hemiacetal",
+      "wrong": [
+        "a five-membered cyclic acetal, with a second OR group",
+        "a six-membered cyclic hemiacetal (a tetrahydropyranol)",
+        "an open-chain hydrate"
+      ],
+      "why": "The OH adds to the carbonyl carbon intramolecularly, giving a ring of the four carbons and the oxygen. It has only one OR group and one OH on the former carbonyl carbon, so it is a hemiacetal."
+    },
+    {
+      "q": "To make a Grignard reagent from 4-bromobutanal, the aldehyde is first converted to an acetal. Why?",
+      "a": "The Grignard reagent would add to the C=O of another molecule, but acetals are inert to it",
+      "wrong": [
+        "Magnesium metal would reduce the aldehyde to an alcohol before the Grignard reagent could form",
+        "Acetal formation makes the C–Br bond more reactive toward insertion of magnesium metal",
+        "Acetals are the only functional groups that dissolve in the ether solvent"
+      ],
+      "why": "A Grignard reagent attacks carbonyls. An acetal is stable to bases and nucleophiles, so the reagent can be made and used, and aqueous acid later restores the aldehyde."
+    },
+    {
+      "q": "A secondary amine adds to a ketone, and the intermediate loses water. Why does the product end up as an enamine and not a neutral imine?",
+      "a": "The nitrogen has no second N–H to lose, so an α hydrogen is lost instead",
+      "wrong": [
+        "Secondary amines cannot add to the carbonyl carbon",
+        "The carbinolamine from a secondary amine cannot lose water under any conditions",
+        "The C=N bond of an imine is always hydrolyzed under the reaction conditions"
+      ],
+      "why": "Loss of water gives an iminium ion. With no N–H to remove, the base takes an α hydrogen to give C=C–N. A primary amine can lose its N–H and stop at the imine."
+    },
+    {
+      "q": "Reductive amination is run with NaBH₃CN rather than NaBH₄ at pH about 6 because NaBH₃CN",
+      "a": "reduces the iminium ion far faster than the ketone, so the ketone lasts long enough to form the imine",
+      "wrong": [
+        "is a stronger hydride donor, so it reduces the carbonyl and the iminium ion at similar rates",
+        "cannot reduce any C=N bond, which prevents the amine product from being reduced further",
+        "reacts with the amine to make the iminium ion, so no acid catalyst is needed"
+      ],
+      "why": "The reagent is selective for the protonated C=N⁺ over C=O. The amine product forms in one pot instead of the alcohol that a stronger hydride would give."
+    },
+    {
+      "q": "Butan-2-one and dimethylamine are treated with NaBH₃CN at pH about 6. The product is",
+      "a": "N,N-dimethylbutan-2-amine",
+      "wrong": [
+        "N-methylbutan-2-amine",
+        "butan-2-ol",
+        "N,N-dimethylbutan-1-amine"
+      ],
+      "why": "The secondary amine forms an iminium ion at the carbonyl carbon, and hydride adds there. The nitrogen ends up on C2 with two methyl groups, so the product is a tertiary amine."
+    },
+    {
+      "q": "A ketone also contains a cyclic acetal that must be kept. Which method converts C=O to CH₂?",
+      "a": "Wolff–Kishner reduction",
+      "wrong": [
+        "Clemmensen reduction",
+        "NaBH₄ in ethanol",
+        "Wittig reaction with Ph₃P=CH₂"
+      ],
+      "why": "Wolff–Kishner is basic, and acetals survive base. Clemmensen uses concentrated HCl, which would hydrolyze the acetal."
+    },
+    {
+      "q": "How is the ylide Ph₃P=CHCH₃ made?",
+      "a": "Ph₃P is alkylated with CH₃CH₂Br, then the phosphonium salt is deprotonated with n-BuLi",
+      "wrong": [
+        "it gives Z-α,β-unsaturated esters selectively, which a stabilized ylide never does",
+        "it produces triphenylphosphine oxide, which crystallizes and is therefore easily removed",
+        "it works only with unstabilized ylides, so it avoids ester groups"
+      ],
+      "why": "SN2 of triphenylphosphine on a primary halide gives the phosphonium salt, whose α-H (pK_a about 22) needs a strong base. A weak base such as bicarbonate is not strong enough."
+    },
+    {
+      "q": "Which combination gives (E)-ethyl cinnamate, PhCH=CHCO₂Et, with high E selectivity?",
+      "a": "PhCHO and Ph₃P=CHCO₂Et",
+      "wrong": [
+        "benzyl alcohol, PhCH₂OH, as esters and acids would give",
+        "benzaldehyde, PhCHO, after hydrolysis of an intermediate imine",
+        "benzoic acid, PhCOOH"
+      ],
+      "why": "The ester-stabilized ylide adds to benzaldehyde to place the new double bond between the two carbons, and stabilized ylides give mainly the E alkene."
+    },
+    {
+      "q": "An organic chemist prefers a Horner–Wadsworth–Emmons reagent to a stabilized Wittig ylide for a hindered ketone mainly because",
+      "a": "the phosphonate carbanion is more reactive, and its phosphate by-product is water-soluble",
+      "wrong": [
+        "it gives Z alkenes selectively, which Wittig ylides cannot",
+        "it produces triphenylphosphine oxide, which is easy to crystallize",
+        "it works only with unstabilized ylides, so it avoids ester groups"
+      ],
+      "why": "Phosphonate carbanions add to ketones that stabilized ylides ignore, and the phosphate is washed out with water. They also give E-α,β-unsaturated esters."
+    },
+    {
+      "q": "Benzamide, PhCONH₂, is treated with excess LiAlH₄, and then water is added. The product is",
+      "a": "benzylamine, PhCH₂NH₂",
+      "wrong": [
+        "benzyl alcohol, PhCH₂OH",
+        "benzaldehyde, PhCHO",
+        "benzoic acid, PhCOOH"
+      ],
+      "why": "LiAlH₄ reduces amides to amines, in contrast to esters and acids, which give alcohols. NaBH₄ would leave the amide alone."
+    },
+    {
+      "q": "Which pair of compounds can be distinguished by Tollens’ reagent?",
+      "a": "Pentanal and pentan-3-one",
+      "wrong": [
+        "Pentan-2-one and pentan-3-one",
+        "Cyclohexanone and acetophenone",
+        "Propan-2-ol and propanone"
+      ],
+      "why": "Only the aldehyde is oxidized and reduces [Ag(NH₃)₂]⁺ to a silver mirror. Each other pair gives no reaction in either member."
+    },
+    {
+      "q": "Which compound undergoes the Cannizzaro reaction in concentrated NaOH?",
+      "a": "2,2-Dimethylpropanal",
+      "wrong": [
+        "Propanal",
+        "Butan-2-one",
+        "Phenylacetaldehyde (PhCH₂CHO)"
+      ],
+      "why": "Cannizzaro needs an aldehyde with no α-hydrogens, so that it cannot form an enolate. Aldehydes with α-H, such as propanal and phenylacetaldehyde, react at the α carbon instead."
+    }
+  ],
   "summary": [
     "The carbonyl carbon is electrophilic. Aldehydes are more reactive than ketones, because of less steric hindrance and less electron donation.",
     "Strong nucleophiles add irreversibly. Weak ones add reversibly and need acid activation. Hydrate formation depends on carbonyl electrophilicity.",

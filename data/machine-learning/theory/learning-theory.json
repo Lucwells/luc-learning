@@ -274,6 +274,178 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A consistent learner chooses from a finite class with |ℋ| = 2³⁰. How many examples guarantee risk at most 0.1 with probability at least 95%?",
+      "a": "238",
+      "wrong": [
+        "24",
+        "208",
+        "2,380"
+      ],
+      "why": "m ≥ (1/ε)(ln|ℋ| + ln(1/δ)) = 10 (20.79 + 3.00) = 238. The value 24 forgets the factor 1/ε, and 208 leaves out the confidence term ln(1/δ)."
+    },
+    {
+      "q": "A consistent learner's class grows from 2¹⁰ to 2²⁰ hypotheses, with ε = 0.1 and δ = 0.05 fixed. How does the guaranteed number of examples change?",
+      "a": "It increases by about 69",
+      "wrong": [
+        "It is multiplied by about 1,000",
+        "It doubles exactly",
+        "It increases by about 10"
+      ],
+      "why": "The bound grows with ln|ℋ|, which rises by 10 ln 2 = 6.93, and dividing by ε = 0.1 gives about 69 more examples (from about 99 to 169). It does not double, because the ln(1/δ) term stays the same."
+    },
+    {
+      "q": "A linear classifier is trained by ERM on a very large data set whose true boundary is a circle. The test error stays high however much data is added. Which error dominates?",
+      "a": "The approximation error: no linear rule is close to the best possible rule",
+      "wrong": [
+        "The estimation error: the sample is too small to pick the best linear rule",
+        "The estimation error, because a linear class has too many hypotheses",
+        "Neither, because ERM with enough data always reaches the Bayes risk"
+      ],
+      "why": "Estimation error shrinks with more data, but the approximation error R(h*) − R* is the price of restricting to the class and does not. A richer class is needed."
+    },
+    {
+      "q": "A fixed classifier is evaluated on m = 2000 independent test examples. Hoeffding's inequality bounds the probability that the observed error is off by more than 0.05 by",
+      "a": "2e^{−10} ≈ 9 × 10⁻⁵",
+      "wrong": [
+        "e^{−10} ≈ 4.5 × 10⁻⁵",
+        "2e^{−5} ≈ 0.0135",
+        "2e^{−0.1} ≈ 1.8"
+      ],
+      "why": "P ≤ 2e^{−2mγ²} = 2e^{−2(2000)(0.0025)} = 2e^{−10}. The value 0.0135 corresponds to m = 1000."
+    },
+    {
+      "q": "By what factor must the number of examples increase to reduce the uniform convergence width γ from 0.04 to 0.01?",
+      "a": "16",
+      "wrong": [
+        "4",
+        "8",
+        "12"
+      ],
+      "why": "γ falls like 1/√m, so a factor of 4 in γ needs a factor of 4² = 16 in m. Halving γ needs 4 times as many examples."
+    },
+    {
+      "q": "Uniform convergence holds with width γ = 0.03 for a class. How far above the best hypothesis in the class can the true risk of an ERM solution be?",
+      "a": "At most 0.06",
+      "wrong": [
+        "At most 0.03",
+        "At most 0.09",
+        "At most 0.015"
+      ],
+      "why": "R(ĥ) ≤ R̂(ĥ) + γ ≤ R̂(h*) + γ ≤ R(h*) + 2γ. One γ is paid for the training error of ĥ being optimistic, and one for that of h* being pessimistic."
+    },
+    {
+      "q": "A team trains 100 models, picks the one with the lowest test error, and reports the single-hypothesis Hoeffding interval for it. What is wrong?",
+      "a": "The model was chosen using the test data, so a union bound over all 100 candidates is needed and the interval is too narrow",
+      "wrong": [
+        "Hoeffding's inequality needs the model to be trained on the test set",
+        "The interval is valid as long as all 100 models were trained on the same data and scored on the test set in the same order",
+        "The interval is too wide, since each model was evaluated independently"
+      ],
+      "why": "A single-hypothesis bound applies when the hypothesis is fixed before looking at the test set. Selecting the best of K on it adds a term of order √(ln K), which is the selection effect."
+    },
+    {
+      "q": "The class of half-lines h_a(x) = 1 if x ≥ a (and 0 otherwise) on the real line has VC dimension",
+      "a": "1",
+      "wrong": [
+        "2",
+        "0",
+        "infinite"
+      ],
+      "why": "A single point can be labeled both ways by moving a. For two points x₁ < x₂, the labeling (1, 0) is impossible, because a half-line containing x₁ also contains x₂."
+    },
+    {
+      "q": "A class shatters a particular set of 4 points. What can be concluded about its VC dimension?",
+      "a": "It is at least 4, and could be larger",
+      "wrong": [
+        "It is exactly 4",
+        "It is at most 4",
+        "It is 16, the number of labelings"
+      ],
+      "why": "The VC dimension is the size of the largest shattered set, so a shattered set of 4 points gives a lower bound. Another, larger set might also be shattered."
+    },
+    {
+      "q": "A classifier family is h_ω(x) = sign(sin(ωx)), with one real parameter ω. Which is correct?",
+      "a": "Its VC dimension is infinite, so counting parameters understates its complexity",
+      "wrong": [
+        "Its VC dimension is 1, since there is one parameter",
+        "Its VC dimension is finite but large, because ω can take very many values and so the class has many hypotheses",
+        "Its VC dimension is 2, since sine is periodic"
+      ],
+      "why": "By choosing ω a suitable way, sin(ωx) can realize any labeling of points of the form x_i = 10^{−i}. So the number of parameters is not the measure of complexity."
+    },
+    {
+      "q": "By Sauer's lemma, a class with d_VC = 2 can produce at most how many labelings of m = 10 points?",
+      "a": "About 185",
+      "wrong": [
+        "1,024",
+        "100",
+        "20"
+      ],
+      "why": "(em/d)^d = (e · 10/2)² = 13.59² ≈ 185, far below 2¹⁰ = 1,024. The values 100 and 20 are the simpler polynomials m^d and md, which the lemma does not give."
+    },
+    {
+      "q": "Class A has VC dimension 10 and class B has VC dimension 50. For the same ε and δ, roughly how do the numbers of examples needed by the VC bound compare?",
+      "a": "Class B needs about 5 times as many",
+      "wrong": [
+        "Class B needs about 25 times as many",
+        "Class B needs about √5 times as many",
+        "They need the same number, since both are finite"
+      ],
+      "why": "The number of examples required scales roughly in proportion to d_VC. Finite VC dimension guarantees learnability, but its size sets the cost."
+    },
+    {
+      "q": "A hypothesis class can match any pattern of random signs σ_i on a sample, i.e. for every pattern some h has h(x_i) = σ_i. For ±1-valued h, its empirical Rademacher complexity (1/m)·E_σ sup_h Σ σ_i h(x_i) is",
+      "a": "1, the largest possible value",
+      "wrong": [
+        "0",
+        "1/2",
+        "1/√m"
+      ],
+      "why": "The best h agrees with every sign, so each term σ_i h(x_i) equals 1 and the average is 1. A class that cannot correlate with noise has complexity near 0."
+    },
+    {
+      "q": "A linear classifier has inputs with ‖x‖ ≤ R = 6, weights ‖w‖ = 2, margin γ = 3 and m = 400 training points. What is the complexity term R‖w‖/(γ√m)?",
+      "a": "0.2",
+      "wrong": [
+        "0.01",
+        "4",
+        "0.1"
+      ],
+      "why": "R‖w‖/γ = 6 · 2/3 = 4 and √400 = 20, so the term is 4/20 = 0.2. Dividing by m instead of √m gives 0.01."
+    },
+    {
+      "q": "A thousand irrelevant features are appended to the inputs of a linear classifier, while R, ‖w‖, the margin γ and m stay the same. What happens to the margin bound?",
+      "a": "It is unchanged, since it depends on R‖w‖/γ and m, not on the number of features",
+      "wrong": [
+        "It grows with the number of features, as the VC dimension does",
+        "It shrinks, since more features make the data easier to separate",
+        "It becomes vacuous, since the new dimension of the inputs far exceeds the number of training examples"
+      ],
+      "why": "The Rademacher complexity of norm-bounded linear classifiers is at most BR/√m, independent of the dimension. This is why SVMs can work in very high-dimensional kernel spaces."
+    },
+    {
+      "q": "According to algorithmic stability, why does a learning algorithm generalize?",
+      "a": "Changing one training example changes the learned hypothesis's loss only slightly",
+      "wrong": [
+        "Its hypothesis class has a small number of hypotheses",
+        "It always returns the hypothesis with the lowest training error",
+        "Its output is independent of the order of the training examples, so order cannot matter for generalization"
+      ],
+      "why": "Stability is a property of the algorithm and holds whatever the size of the class. Ridge regression and SVMs are stable because strong regularization limits how far one example can move the solution."
+    },
+    {
+      "q": "A deep network can fit training data with completely random labels, yet generalizes on real labels. What does the first fact imply?",
+      "a": "Uniform bounds over the whole class are vacuous, so explanations must involve the algorithm or the data",
+      "wrong": [
+        "The network has a small VC dimension, so classical bounds are tight",
+        "The network cannot have fit the random labels without overfitting the real ones, so its true-label fit must be spurious",
+        "Hoeffding's inequality is false for deep networks"
+      ],
+      "why": "Fitting random labels shows the class can shatter the sample, so any bound that holds uniformly over the class cannot guarantee generalization. Implicit regularization, PAC-Bayes and compression bounds depend on the learning algorithm."
+    }
+  ],
   "summary": [
     "PAC learning asks for risk below ε with probability 1 − δ. For a finite class and a consistent learner, m ≥ (1/ε)(ln|ℋ| + ln(1/δ)) examples suffice. The proof uses the union bound.",
     "Hoeffding plus the union bound gives uniform convergence: |R̂(h) − R(h)| ≤ √((ln|ℋ| + ln(2/δ))/(2m)) for all h, so ERM is within 2γ of the best hypothesis in the class.",

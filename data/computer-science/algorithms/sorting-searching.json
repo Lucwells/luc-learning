@@ -394,6 +394,178 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "What is the worst-case number of comparisons of binary search on 1,000 sorted items?",
+      "a": "10",
+      "wrong": [
+        "9",
+        "500",
+        "100"
+      ],
+      "why": "At most ⌊log₂ n⌋ + 1 comparisons are needed, and ⌊log₂ 1000⌋ = 9, so 10. Linear search could need all 1,000."
+    },
+    {
+      "q": "Binary search with lo, hi = 0, len(xs) - 1 and mid = (lo + hi) // 2 looks for 7 in [2, 3, 5, 7, 11, 13]. Which indices does it probe, in order?",
+      "a": "2, 4, 3",
+      "wrong": [
+        "2, 3",
+        "2, 4, 5",
+        "3, 1, 2"
+      ],
+      "why": "mid = 2 holds 5, which is smaller than 7, so lo becomes 3. Then mid = 4 holds 11, which is larger, so hi becomes 3. Finally mid = 3 holds 7."
+    },
+    {
+      "q": "A programmer changes the loop condition of binary search from lo <= hi to lo < hi. What does it return for xs = [1, 3, 5] and target 5?",
+      "a": "-1",
+      "wrong": [
+        "2",
+        "1",
+        "It loops forever"
+      ],
+      "why": "The first probe is index 1 (value 3), so lo becomes 2 and lo < hi is false. The loop stops with the one remaining candidate, index 2, never examined."
+    },
+    {
+      "q": "A predicate fits(b) is true for every batch size b up to an unknown limit and false above it, with b between 1 and 1024. About how many evaluations does binary search on b need to find the limit?",
+      "a": "About 10",
+      "wrong": [
+        "About 1024",
+        "About 512",
+        "About 32"
+      ],
+      "why": "Each evaluation halves the remaining range, and log₂ 1024 = 10. Trying every value from the bottom would take up to 1024 training runs."
+    },
+    {
+      "q": "How many shifts does insertion sort perform on [4, 1, 3, 2]?",
+      "a": "4",
+      "wrong": [
+        "6",
+        "3",
+        "5"
+      ],
+      "why": "Each shift removes one inversion. The inversions are (4, 1), (4, 3), (4, 2) and (3, 2), so there are 4 shifts. The reversed list would have all 6 pairs."
+    },
+    {
+      "q": "The records A2, B1, C2, D1 (the digit is the key) are sorted by key with a stable sort. What is the resulting order?",
+      "a": "B1, D1, A2, C2",
+      "wrong": [
+        "D1, B1, C2, A2",
+        "B1, D1, C2, A2",
+        "D1, B1, A2, C2"
+      ],
+      "why": "A stable sort keeps items with equal keys in their original relative order, so B stays before D and A stays before C. The other options each reverse at least one tied pair."
+    },
+    {
+      "q": "Selection sort runs on a list of 1,000 items. Roughly how many comparisons and how many swaps does it make?",
+      "a": "About 500,000 comparisons and at most 999 swaps",
+      "wrong": [
+        "About 1,000 comparisons and 1,000 swaps",
+        "About 10,000 comparisons and 500,000 swaps",
+        "About 500,000 comparisons and 500,000 swaps"
+      ],
+      "why": "Selection sort always compares n(n - 1)/2 = 499,500 pairs, but it swaps once per position, at most n - 1 times. That is why it is chosen when writes are costly."
+    },
+    {
+      "q": "In the merge step of merge sort, the test left[i] <= right[j] is replaced by left[i] < right[j]. What changes?",
+      "a": "Equal items from the right half now come out first, so stability is lost",
+      "wrong": [
+        "The running time becomes quadratic, because ties are now compared twice",
+        "The result is no longer sorted when the input has repeated values",
+        "The sort now needs no extra memory, since ties are never copied"
+      ],
+      "why": "With < an equal pair takes the right-hand item first, which reverses their original order. The output is still sorted and the cost is still n log n."
+    },
+    {
+      "q": "The three-way quicksort (smaller, equal, larger lists) is run on a list of n identical numbers. What is its running time?",
+      "a": "O(n)",
+      "wrong": [
+        "Θ(n²)",
+        "Θ(n log n)",
+        "It recurses forever"
+      ],
+      "why": "Every item equals the pivot, so equal holds the whole list and both recursive calls get empty lists and stop at once. One pass over the list is all the work."
+    },
+    {
+      "q": "A sort must guarantee O(n log n) in the worst case and use O(1) extra memory. Which is the best fit?",
+      "a": "Heapsort",
+      "wrong": [
+        "Merge sort",
+        "Quicksort with a random pivot",
+        "Insertion sort"
+      ],
+      "why": "Heapsort is n log n in every case and works in place. Merge sort needs O(n) extra memory, and randomized quicksort is only expected n log n."
+    },
+    {
+      "q": "Why can quickselect find the median in expected O(n) time when quicksort needs n log n to sort?",
+      "a": "After partitioning it recurses into only the one side that contains the wanted item",
+      "wrong": [
+        "It uses a better pivot that is always the median",
+        "It compares each item with the pivot only once for the whole run",
+        "It sorts the data with counting sort first"
+      ],
+      "why": "The work is n + n/2 + n/4 + … = O(n) in expectation, since one half is discarded each time. Quicksort must sort both sides."
+    },
+    {
+      "q": "A decision tree that sorts 4 distinct items by comparisons must have how many leaves, and so at least how many comparisons in the worst case?",
+      "a": "24 leaves, so at least 5 comparisons",
+      "wrong": [
+        "24 leaves, so at least 24 comparisons",
+        "16 leaves, so at least 4 comparisons",
+        "4 leaves, so at least 2 comparisons"
+      ],
+      "why": "Each of the 4! = 24 orderings needs its own leaf, and a tree of height h has at most 2ʰ leaves. Since 2⁴ = 16 < 24 ≤ 32 = 2⁵, the height is at least 5."
+    },
+    {
+      "q": "Counting sort sorts n integers from {0, …, k - 1} in O(n + k) time. Why does this not contradict the Ω(n log n) bound?",
+      "a": "It never compares items; it uses the key values as array indices",
+      "wrong": [
+        "The bound holds only for lists of fewer than k items",
+        "It makes up for the missing comparisons by using more memory than n",
+        "The decision tree argument holds only for stable sorts"
+      ],
+      "why": "The bound is derived for algorithms that learn about the order only through comparisons. Counting sort uses the numeric value of each key directly, which requires a small known range."
+    },
+    {
+      "q": "Radix sort handles the digits from least to most significant. Why must the sort used on each digit be stable?",
+      "a": "Ties on the current digit must keep the order set by earlier digits",
+      "wrong": [
+        "A stable sort is the only kind that works on single-digit keys",
+        "It guarantees that no digit is counted twice during the passes",
+        "It lets each pass run in constant time, whatever the number of items"
+      ],
+      "why": "Sorting by a later digit must not undo the earlier work on ties. Stability carries the ordering of lower digits through to the end."
+    },
+    {
+      "q": "How many multiplications does exponentiation by squaring use to compute x⁶⁴?",
+      "a": "6",
+      "wrong": [
+        "63",
+        "32",
+        "8"
+      ],
+      "why": "x⁶⁴ = (x³²)², and each squaring doubles the exponent: x², x⁴, x⁸, x¹⁶, x³², x⁶⁴. That is 6 multiplications rather than 63."
+    },
+    {
+      "q": "A merge sort counts inversions while merging the sorted halves [2, 4] and [1, 3]. How many inversions are found in this merge?",
+      "a": "3",
+      "wrong": [
+        "2",
+        "4",
+        "1"
+      ],
+      "why": "Taking 1 before the remaining left items 2 and 4 counts 2 inversions. Taking 3 before the remaining left item 4 counts 1 more, for 3 in all."
+    },
+    {
+      "q": "Why is a batch of text sequences usually built from sequences of similar length?",
+      "a": "Little padding is wasted when all the sequences in the batch are about equally long",
+      "wrong": [
+        "Sorting by length makes the model more accurate",
+        "Equal-length sequences can be compared in constant time",
+        "Short sequences cannot be processed in a batch with long ones"
+      ],
+      "why": "Sequences in a batch are padded to the longest one. Grouping by length (bucketing) cuts the padding, and so the wasted computation."
+    }
+  ],
   "summary": [
     "Binary search finds an item in a sorted array in O(log n) comparisons (20 for a million items), by halving the range while maintaining an invariant. It also applies to any monotone yes/no predicate.",
     "Insertion sort is Θ(n + inversions): quadratic in the worst case, linear on nearly sorted data. Stable sorts keep equal items in order.",

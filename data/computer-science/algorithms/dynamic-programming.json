@@ -335,6 +335,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "Memoizing merge sort's recursion gives no speedup. Why?",
+      "a": "Its subproblems never repeat: each sub-array is sorted once",
+      "wrong": [
+        "It has no optimal substructure, so cached results cannot be combined",
+        "Its recursion is too shallow for a cache to pay off",
+        "Merge sort is iterative, so there is nothing to memoize"
+      ],
+      "why": "Memoization pays off only when subproblems overlap. Divide and conquer splits the input into independent pieces, so no result is ever looked up twice."
+    },
+    {
+      "q": "Let C(n) be the number of calls the naive recursive Fibonacci makes, with C(0) = C(1) = 1 and C(n) = C(n − 1) + C(n − 2) + 1. What is C(5)?",
+      "a": "15",
+      "wrong": [
+        "8",
+        "11",
+        "25"
+      ],
+      "why": "C(2) = 3, C(3) = 5, C(4) = 9, C(5) = 9 + 5 + 1 = 15. The count itself grows like 1.618ⁿ, not like F(5) = 5."
+    },
+    {
+      "q": "Which is an advantage of bottom-up tabulation over top-down memoization?",
+      "a": "It can free table entries that later subproblems no longer need",
+      "wrong": [
+        "It solves only the subproblems that the final answer actually depends on",
+        "It needs no base cases",
+        "It works without optimal substructure"
+      ],
+      "why": "Filling the table in order lets you keep just the last few entries (two values for Fibonacci). Solving only the needed subproblems is the top-down strength, and both styles need base cases and optimal substructure."
+    },
+    {
+      "q": "A student writes the coin-change recurrence as dp[a] = min over i of dp[a − c_i]. What is missing?",
+      "a": "The + 1 that counts the coin just used",
+      "wrong": [
+        "A base case dp[0] = 1",
+        "A max in place of the min",
+        "A sum over all coins instead of one"
+      ],
+      "why": "Each step spends one coin, so dp[a] = 1 + min dp[a − c_i]. Without the + 1 every entry would be 0, since dp[0] = 0."
+    },
+    {
+      "q": "What is the minimum number of coins that make 10 from coins {1, 5, 6}?",
+      "a": "2",
+      "wrong": [
+        "3",
+        "4",
+        "5"
+      ],
+      "why": "5 + 5 uses two coins. Taking the largest coin first gives 6 + 1 + 1 + 1 + 1 = 5 coins, which is why greedy fails here and DP is needed."
+    },
+    {
+      "q": "Items have (weight, value) = (5, 10), (4, 7), (4, 7) and the 0/1 knapsack capacity is 8. What is the best total value?",
+      "a": "14",
+      "wrong": [
+        "10",
+        "17",
+        "24"
+      ],
+      "why": "The two items of weight 4 fit together for 14. Greedy by value-to-weight ratio takes the weight-5 item first (ratio 2) and then nothing else fits, giving only 10."
+    },
+    {
+      "q": "In the knapsack recurrence, the 'take item i' option is changed from v_i + K[i − 1][c − w_i] to v_i + K[i][c − w_i]. What does the table then compute?",
+      "a": "Values where each item may be used any number of times",
+      "wrong": [
+        "Values that ignore the capacity limit",
+        "Values where item i is never used",
+        "Values that are correct but computed faster"
+      ],
+      "why": "Row i already allows item i, so looking up row i again lets the item be chosen repeatedly. The 0/1 version must look back at row i − 1."
+    },
+    {
+      "q": "Why is the O(nW) running time of the knapsack DP called pseudo-polynomial?",
+      "a": "W is a number, and its value can be exponential in the bits needed to write it",
+      "wrong": [
+        "The running time grows exponentially with the number of items n, as in brute force over subsets",
+        "Knapsack is solvable in polynomial time by other means",
+        "The table gives only an approximate optimum"
+      ],
+      "why": "Polynomial time must be measured in input length. Adding one bit to W doubles its value and the table width, even though knapsack stays NP-hard."
+    },
+    {
+      "q": "What is the LCS length of ABCBDAB and BDCABA?",
+      "a": "4",
+      "wrong": [
+        "3",
+        "5",
+        "6"
+      ],
+      "why": "BCBA is a common subsequence of length 4, and no length-5 common subsequence exists. Length 6 would need all of BDCABA to appear in order in the first string, which it does not."
+    },
+    {
+      "q": "In the LCS table, when X[i] ≠ Y[j], the entry L[i][j] equals",
+      "a": "max(L[i − 1][j], L[i][j − 1])",
+      "wrong": [
+        "L[i − 1][j − 1]",
+        "L[i − 1][j − 1] + 1",
+        "min(L[i − 1][j], L[i][j − 1])"
+      ],
+      "why": "A mismatch means at least one of the last characters is unused, so the better prefix result is kept. Adding 1 is only for a match."
+    },
+    {
+      "q": "What is the edit distance between 'sunday' and 'saturday'?",
+      "a": "3",
+      "wrong": [
+        "2",
+        "4",
+        "5"
+      ],
+      "why": "Insert 'a' and 't' after the first letter, and substitute 'n' by 'r': 3 operations. The length difference alone forces at least 2, but 'n' must also change."
+    },
+    {
+      "q": "Intervals (1,10), (2,3), (4,5), (6,7), (8,9). How many jobs does the earliest-start-first greedy rule schedule?",
+      "a": "1",
+      "wrong": [
+        "2",
+        "3",
+        "4"
+      ],
+      "why": "It takes (1,10) first, which overlaps everything else. Earliest-finish-first would take (2,3), (4,5), (6,7), (8,9) and schedule 4."
+    },
+    {
+      "q": "In the exchange argument for earliest-finish scheduling, why can the optimal schedule's first job o be replaced by the greedy job g?",
+      "a": "g finishes no later than o, so it cannot overlap jobs that start after o",
+      "wrong": [
+        "g is shorter than o, so it overlaps fewer jobs",
+        "g starts before o, so it fits in front of the schedule",
+        "g is the only job that can be first"
+      ],
+      "why": "Everything else in the schedule starts after o ends, hence after g ends. The length of g plays no role: only its finish time matters."
+    },
+    {
+      "q": "Greedy by value-to-weight ratio is optimal for the fractional knapsack but not for the 0/1 knapsack. Why?",
+      "a": "Items can be split, so the capacity is always filled and none is wasted",
+      "wrong": [
+        "Ratios exist only for items that can be split",
+        "The fractional problem has a much smaller capacity",
+        "The 0/1 problem has no optimal solution"
+      ],
+      "why": "In the 0/1 case a high-ratio item can leave unusable space, as with weights 5, 4, 4 and capacity 8. Splitting removes the waste."
+    },
+    {
+      "q": "A student checks largest-coin-first on {1, 5, 10, 25} for every amount up to 200, finds it always optimal, and concludes it works for every coin system. What is wrong with this?",
+      "a": "Greedy correctness depends on the coin system, and {1, 5, 6} with amount 10 is a counterexample",
+      "wrong": [
+        "Amounts above 200 always break greedy",
+        "Largest-coin-first is optimal for a coin system only when its values are multiples of 5, so the test amounts must have been chosen badly",
+        "Greedy is optimal only when there are exactly four coin values"
+      ],
+      "why": "The greedy-choice property belongs to the particular coins and has to be proved. For {1, 5, 6}, greedy gives 6 + 1 + 1 + 1 + 1 for 10 against 5 + 5."
+    },
+    {
+      "q": "Viterbi decoding for a hidden Markov model with N = 5 states over T = 100 steps needs about how many transition evaluations?",
+      "a": "2,500 (T·N²)",
+      "wrong": [
+        "500 (T·N)",
+        "5¹⁰⁰ (Nᵀ)",
+        "12,500 (T·N³)"
+      ],
+      "why": "Each of the T steps updates N states, each by a max over N predecessors, so T·N² = 2,500. Enumerating every state sequence would take 5¹⁰⁰."
+    },
+    {
+      "q": "A decoder keeps only the 3 best partial sequences at each step. Compared with exact DP decoding, it",
+      "a": "may miss the best full sequence because pruning can drop its prefix",
+      "wrong": [
+        "is guaranteed to return the best sequence, since it is a pruned form of exact DP",
+        "is the same as greedy decoding",
+        "must examine every possible sequence"
+      ],
+      "why": "Beam search is a pruned DP: a prefix that looks poor early can still lead to the best sequence. Width 1 would be greedy decoding, not 3."
+    },
+    {
+      "q": "A robot moves only right or down on a 4 × 4 grid of cells from the top-left to the bottom-right. How many paths are there?",
+      "a": "20",
+      "wrong": [
+        "12",
+        "16",
+        "24"
+      ],
+      "why": "P[i][j] = P[i − 1][j] + P[i][j − 1] fills the table to 20, which equals C(6, 3): three rights and three downs in some order."
+    }
+  ],
   "summary": [
     "Dynamic programming stores the solutions of overlapping subproblems with optimal substructure. Memoization (top-down) or tabulation (bottom-up) turns exponential recursions, such as naive Fibonacci with 1.6ⁿ calls, into polynomial ones.",
     "Recipe: define the subproblem, write the recurrence, give base cases and an order, read the answer, count the cost (entries × work per entry).",

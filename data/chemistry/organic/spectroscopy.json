@@ -506,6 +506,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "Which carbonyl compound is expected to show its C=O stretch at the highest wavenumber?",
+      "a": "Cyclobutanone",
+      "wrong": [
+        "Acetophenone",
+        "Cyclohexanone",
+        "N,N-Dimethylacetamide"
+      ],
+      "why": "Ring strain raises the C=O frequency (cyclobutanone about 1780 cm⁻¹), whereas conjugation (acetophenone, 1685) and amide resonance lower it."
+    },
+    {
+      "q": "An IR spectrum shows a sharp, strong band near 3300 cm⁻¹ and a weak band near 2120 cm⁻¹. Which functional group is present?",
+      "a": "A terminal alkyne",
+      "wrong": [
+        "A nitrile",
+        "A primary amine",
+        "An alcohol"
+      ],
+      "why": "The sharp ≡C–H stretch and the weak C≡C stretch together mark a terminal alkyne. A nitrile has a medium band near 2250 and no 3300 band, a primary amine has two N–H bands, and an alcohol O–H is broad."
+    },
+    {
+      "q": "Why is the C=O stretch in an IR spectrum so much more intense than the C=C stretch of an alkene?",
+      "a": "The polar C=O bond changes the dipole moment much more as it vibrates",
+      "wrong": [
+        "The C=O bond is stronger, so it absorbs more energy per photon",
+        "Oxygen is heavier than carbon, which shifts the band to higher intensity",
+        "C=C bonds do not vibrate at room temperature"
+      ],
+      "why": "A vibration absorbs infrared strongly only if it changes the dipole moment. Bond strength sets the frequency, not the intensity."
+    },
+    {
+      "q": "A compound shows a molecular ion pair at m/z 112 and 114 in a 3 : 1 ratio, and a base peak at m/z 77. What is it?",
+      "a": "Chlorobenzene",
+      "wrong": [
+        "Bromobenzene",
+        "Toluene",
+        "Iodobenzene"
+      ],
+      "why": "A 3 : 1 M : M+2 pair means one chlorine. 112 − 35 = 77, a phenyl group. Bromobenzene would give 156 and 158 in a 1 : 1 ratio."
+    },
+    {
+      "q": "In the mass spectrum of a hydrocarbon the M+1 peak is 7.7% of the height of M. Assuming only ¹³C contributes, how many carbon atoms does it have?",
+      "a": "7",
+      "wrong": [
+        "8",
+        "6",
+        "77"
+      ],
+      "why": "Each carbon contributes about 1.1% to M+1, so 7.7/1.1 = 7 carbons."
+    },
+    {
+      "q": "Which molecular formula can give a molecular ion at m/z 87 (nominal mass)?",
+      "a": "C₅H₁₃N",
+      "wrong": [
+        "C₅H₁₂O",
+        "C₄H₈O₂",
+        "C₄H₁₀O₂"
+      ],
+      "why": "An odd molecular mass requires an odd number of nitrogen atoms. C₅H₁₃N = 60 + 13 + 14 = 87, and the three formulas with no nitrogen all have even masses."
+    },
+    {
+      "q": "Which compound can undergo a McLafferty rearrangement?",
+      "a": "Hexan-2-one",
+      "wrong": [
+        "Acetone",
+        "Propanal",
+        "Pentan-3-one"
+      ],
+      "why": "The rearrangement needs a γ-hydrogen, reached through a six-membered transition state. Hexan-2-one has one. The others have no hydrogen three carbons from the carbonyl carbon."
+    },
+    {
+      "q": "Which set of hydrogens is expected to appear furthest downfield in a ¹H NMR spectrum?",
+      "a": "The CH₃ of a methyl ether, CH₃–O",
+      "wrong": [
+        "The CH₃ of an ethyl group, CH₃–CH₂",
+        "The CH₃ of a methyl ketone, CH₃–C(=O)",
+        "The CH₃ of toluene, CH₃–Ar"
+      ],
+      "why": "Typical shifts are about 3.3–4.5 for H–C–O, 2.0–2.7 for methyl ketones and toluene, and 0.8–1.7 for alkyl. The more electronegative oxygen deshields most."
+    },
+    {
+      "q": "How many lines does the signal of the middle CH₂ group of 1-bromopropane, CH₃CH₂CH₂Br, show?",
+      "a": "6",
+      "wrong": [
+        "3",
+        "4",
+        "5"
+      ],
+      "why": "It has five neighbors (3 H on CH₃ and 2 H on CH₂Br), so n + 1 = 6 lines, a sextet. Counting only one neighboring group gives 4 or 3."
+    },
+    {
+      "q": "How many signals appear in the ¹H NMR spectrum of 2,2-dimethylbutane?",
+      "a": "3",
+      "wrong": [
+        "2",
+        "4",
+        "5"
+      ],
+      "why": "The three methyls on C2 are equivalent (9H), the CH₂ is one set (2H) and the CH₃ of the ethyl group is another (3H)."
+    },
+    {
+      "q": "The ¹H NMR spectrum of a disubstituted benzene shows two doublets, each integrating for 2H, at δ 7.2 and δ 7.9. What is the substitution pattern?",
+      "a": "Para",
+      "wrong": [
+        "Ortho",
+        "Meta",
+        "Monosubstituted"
+      ],
+      "why": "A para-disubstituted ring with two different groups has two sets of two equivalent hydrogens, each split by its ortho neighbor. A monosubstituted ring integrates for 5H."
+    },
+    {
+      "q": "A broad 1H signal at δ 2.5 vanishes when the sample is shaken with D₂O. What does this show?",
+      "a": "The proton is on oxygen or nitrogen",
+      "wrong": [
+        "The proton is an aldehyde proton",
+        "The proton is on a carbon next to a carbonyl group",
+        "The proton is a vinyl proton"
+      ],
+      "why": "Hydrogens on O or N exchange rapidly with deuterium and their signal disappears. C–H protons are unaffected."
+    },
+    {
+      "q": "Why is the CH₂ in CH₃CH₂Cl at δ 3.5 whereas the CH₂ in propane is near δ 1.3?",
+      "a": "Chlorine withdraws electron density, deshielding the nearby protons",
+      "wrong": [
+        "Chlorine donates electron density, which shields the protons from the field",
+        "The CH₂ in chloroethane has more hydrogen neighbors, which moves its signal",
+        "The C–Cl bond breaks in the magnetic field"
+      ],
+      "why": "Electron-withdrawing atoms reduce the electron density around a nucleus, so it feels more of the applied field and absorbs at larger δ. Neighbor count changes splitting, not shift."
+    },
+    {
+      "q": "How many signals appear in the proton-decoupled ¹³C NMR spectrum of 3-methylpentane?",
+      "a": "4",
+      "wrong": [
+        "6",
+        "3",
+        "5"
+      ],
+      "why": "The two CH₃ groups of the ethyls are equivalent, the two CH₂ groups are equivalent, and the CH and the methyl branch are each unique: 2 + 1 + 1 = 4."
+    },
+    {
+      "q": "Which carbon does NOT appear in a DEPT-135 spectrum?",
+      "a": "The C=O carbon of a ketone",
+      "wrong": [
+        "The CH₃ carbon of an ethyl group",
+        "The CH₂ carbon of a ring",
+        "The CH carbon of an isopropyl group"
+      ],
+      "why": "DEPT-135 detects only carbons that carry hydrogens (CH₃ and CH up, CH₂ down). Quaternary carbons and carbonyl carbons without H are absent."
+    },
+    {
+      "q": "A chemist must decide which protons on a cyclohexane ring lie on the same face of the ring. Which 2D experiment is most useful?",
+      "a": "NOESY, which shows protons close together in space",
+      "wrong": [
+        "COSY, which shows protons coupled through three bonds",
+        "HSQC, which links each proton to its own carbon",
+        "HMBC, which links protons to carbons two or three bonds away"
+      ],
+      "why": "Cis or trans relationships are about distance through space, and NOESY detects protons within about 5 Å. The other three experiments map the bond connectivity."
+    },
+    {
+      "q": "A compound C₅H₁₀O shows a strong IR band at 1715 cm⁻¹. Its ¹H NMR has a 6H triplet at δ 1.05 and a 4H quartet at δ 2.4. What is it?",
+      "a": "Pentan-3-one",
+      "wrong": [
+        "Pentanal",
+        "Pentan-2-one",
+        "3-Methylbutan-2-one"
+      ],
+      "why": "DoU = 1 and the 1715 band indicate a ketone. Two equivalent ethyl groups (triplet and quartet) on the carbonyl make it symmetrical: CH₃CH₂C(=O)CH₂CH₃."
+    },
+    {
+      "q": "A compound C₃H₆O₂ has a strong IR band at 1745 cm⁻¹ and no O–H band. Its ¹H NMR shows only two singlets, 3H at δ 2.05 and 3H at δ 3.67. What is it?",
+      "a": "Methyl acetate",
+      "wrong": [
+        "Ethyl formate",
+        "Propanoic acid",
+        "Hydroxyacetone"
+      ],
+      "why": "The IR points to an ester. The 3.67 singlet is CH₃–O and the 2.05 singlet is CH₃–C=O. Ethyl formate would show a triplet and a quartet, and propanoic acid would show a broad O–H."
+    }
+  ],
   "summary": [
     "IR identifies functional groups: C=O near 1700–1750, O–H above 3200, C≡C and C≡N near 2100–2260, and C–H bands at 2850–3300.",
     "MS gives the molecular mass, isotope patterns (Cl 3:1, Br 1:1), the nitrogen rule and structural fragments such as acylium, tropylium and McLafferty ions.",

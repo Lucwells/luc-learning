@@ -280,6 +280,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A blank has a standard deviation of 0.0030 absorbance units, and the calibration slope is 0.250 absorbance per mg/L. What is the limit of quantitation?",
+      "a": "0.12 mg/L",
+      "wrong": [
+        "0.036 mg/L",
+        "0.0075 mg/L",
+        "8.3 mg/L"
+      ],
+      "why": "LOQ = 10 s_blank/m = 10 × 0.0030/0.250 = 0.12 mg/L. The 0.036 mg/L value is the LOD (factor 3), and multiplying by the slope instead of dividing gives 0.0075."
+    },
+    {
+      "q": "A calibration line is y = 0.0500x + 0.0400, with x in mg/L. A sample gives y = 0.290. What is its concentration?",
+      "a": "5.0 mg/L",
+      "wrong": [
+        "5.8 mg/L",
+        "6.6 mg/L",
+        "0.0125 mg/L"
+      ],
+      "why": "x = (y − b)/m = (0.290 − 0.0400)/0.0500 = 5.0 mg/L. Ignoring the intercept gives 5.8, adding it gives 6.6, and multiplying y by m gives 0.0125."
+    },
+    {
+      "q": "Three 20.0 mL portions of a sample receive 0, 1.0 and 2.0 mL of a 5.0 mg/L standard and are each diluted to 50.0 mL. The signals are 0.200, 0.300 and 0.400. What is the analyte concentration in the sample?",
+      "a": "0.50 mg/L",
+      "wrong": [
+        "0.20 mg/L",
+        "0.25 mg/L",
+        "2.0 mg/L"
+      ],
+      "why": "The slope is 0.100 per mL and the intercept 0.200, so the x-intercept is −2.0 mL of standard: 2.0 × 5.0 = 10 µg in the 20.0 mL portion, or 0.50 mg/L. Dividing by the 50.0 mL final volume gives the wrong 0.20."
+    },
+    {
+      "q": "A sample has a spectral background that adds the same signal whatever the analyte concentration. What does the method of standard additions do for this?",
+      "a": "Nothing: it corrects multiplicative matrix effects, so the offset biases the x-intercept",
+      "wrong": [
+        "It removes the offset, because the extrapolation to the x-intercept cancels constant terms",
+        "It removes the offset, because every portion contains the same matrix",
+        "It removes the offset only if the standard is made up in pure solvent"
+      ],
+      "why": "The background shifts every signal by the same amount, so the intercept changes and the extrapolated amount is wrong. Standard additions fixes a change of slope caused by the matrix, not an additive term."
+    },
+    {
+      "q": "A GC analyst finds that the injected volume varies by up to 10% between runs. Which calibration best compensates for this?",
+      "a": "An internal standard added at a fixed concentration to every standard and sample",
+      "wrong": [
+        "An external calibration with more concentration levels",
+        "A standard addition series without an internal standard",
+        "Subtraction of a blank signal from every run"
+      ],
+      "why": "The analyte and internal standard signals change by the same factor with injection volume, so their ratio stays constant. More standard levels or blank subtraction cannot correct a run-to-run change in the amount injected."
+    },
+    {
+      "q": "A method has LOD = 0.060 mg/L and LOQ = 0.20 mg/L. A sample reads 0.09 mg/L. How should this be reported?",
+      "a": "Detected, but below the quantitation limit, so not reliably quantified",
+      "wrong": [
+        "As 0.09 mg/L, since it is above the LOD",
+        "As not detected, since it is below the LOQ",
+        "As 0.20 mg/L, the lowest quantifiable value"
+      ],
+      "why": "A signal above 3 s_blank is distinguishable from the blank, but only above 10 s_blank is the precision good enough to quote a value. Between the two the analyte is detected but not quantified."
+    },
+    {
+      "q": "A single scan has S/N = 2.5. How many scans must be averaged to reach S/N = 10?",
+      "a": "16",
+      "wrong": [
+        "4",
+        "8",
+        "100"
+      ],
+      "why": "S/N grows as √n, so n = (10/2.5)² = 16. The answer 4 treats S/N as proportional to n."
+    },
+    {
+      "q": "The photocurrent in a photodiode is quadrupled and shot noise dominates (i_rms ∝ √I). By what factor does S/N change?",
+      "a": "It doubles",
+      "wrong": [
+        "It quadruples",
+        "It increases 16-fold",
+        "It is unchanged"
+      ],
+      "why": "The signal rises 4-fold and the shot noise only √4 = 2-fold, so S/N rises by 4/2 = 2, that is as √I."
+    },
+    {
+      "q": "The load resistance on a detector is increased 9-fold, with temperature and bandwidth unchanged. How does the thermal (Johnson) noise voltage change?",
+      "a": "It increases 3-fold",
+      "wrong": [
+        "It increases 9-fold",
+        "It decreases 3-fold",
+        "It is unchanged"
+      ],
+      "why": "V_rms = √(4kTRΔf) is proportional to √R, so a 9-fold increase in R raises it √9 = 3-fold. Lowering R, T or Δf is what reduces it."
+    },
+    {
+      "q": "Why does averaging 100 scans fail to remove a slow upward drift of the lamp intensity?",
+      "a": "The drift repeats in each scan like the signal, so it does not average down as random noise does",
+      "wrong": [
+        "Drift is a high-frequency noise that averaging amplifies",
+        "Averaging works only on shot noise and not on thermal noise",
+        "Each scan must be longer than the drift for averaging to work"
+      ],
+      "why": "Signal averaging works because random fluctuations are different in each scan and add as √n. Drift and flicker are not random from scan to scan, so they add like the signal."
+    },
+    {
+      "q": "Why is dry ashing at 450–550 °C unsuitable for determining mercury, arsenic or selenium?",
+      "a": "These elements are volatile and are lost during ashing",
+      "wrong": [
+        "Their ash cannot be dissolved in acid",
+        "They form refractory oxides that need a lithium borate fusion",
+        "Furnace walls always contaminate samples with these elements"
+      ],
+      "why": "In an open furnace the volatile elements or their compounds escape, which is why sealed-vessel acid digestion is preferred for them. Refractory oxides are a problem for other materials, such as silicates."
+    },
+    {
+      "q": "500 mL of river water passes through an SPE cartridge, and the retained analyte is eluted in 2.0 mL with complete recovery. By what factor is the analyte concentrated?",
+      "a": "250",
+      "wrong": [
+        "500",
+        "1000",
+        "25"
+      ],
+      "why": "The same amount of analyte is now in 2.0 mL instead of 500 mL, a factor of 500/2.0 = 250. This is the preconcentration achieved besides the removal of matrix."
+    },
+    {
+      "q": "Why are polar compounds with –OH and –NH groups treated with BSTFA before GC?",
+      "a": "Silylation replaces the active hydrogens and makes them volatile enough for GC",
+      "wrong": [
+        "It attaches a fluorescent group that GC detectors require",
+        "It raises their boiling points so that they separate from the solvent",
+        "It removes sugars, fats and pigments from the extract"
+      ],
+      "why": "Hydrogen bonding through –OH and –NH keeps these compounds involatile; replacing H with a silyl group removes it. Fluorescent tagging is a different derivatization, for HPLC detection."
+    },
+    {
+      "q": "A sample contains 4.0 µg/L of lead. After a 10.0 µg/L spike, it measures 13.2 µg/L. What is the spike recovery?",
+      "a": "92%",
+      "wrong": [
+        "132%",
+        "94%",
+        "40%"
+      ],
+      "why": "Recovery = (13.2 − 4.0)/10.0 = 92%, since only the increase over the unspiked value belongs to the spike. Dividing the total by the spike gives 132%."
+    },
+    {
+      "q": "Four replicate measurements give a mean of 20.0 mg/L and s = 0.50 mg/L. What is the 95% confidence interval (t = 3.182 for 3 degrees of freedom)?",
+      "a": "20.0 ± 0.8 mg/L",
+      "wrong": [
+        "20.0 ± 1.6 mg/L",
+        "20.0 ± 0.25 mg/L",
+        "20.0 ± 0.5 mg/L"
+      ],
+      "why": "The interval is ts/√n = 3.182 × 0.50/√4 = 0.80. Omitting √n gives ± 1.6, and omitting t gives ± 0.25."
+    },
+    {
+      "q": "Five replicate results on a CRM certified at 30.0 µg/g are 25.1, 25.0, 25.2, 25.1 and 25.1 µg/g. How is the method best described?",
+      "a": "Precise but not accurate",
+      "wrong": [
+        "Accurate and precise",
+        "Accurate but not precise",
+        "Neither accurate nor precise"
+      ],
+      "why": "The results agree closely with each other (good precision) but are all about 5 µg/g below the certified value, which is a bias. The CRM is what reveals the lack of accuracy."
+    },
+    {
+      "q": "Seven consecutive control-standard results all fall between the mean and +2s. All are within ±3s. What is the status of the system?",
+      "a": "Out of control, since a run of points on one side of the mean signals a systematic shift",
+      "wrong": [
+        "In control, since no point is beyond ±3s",
+        "In control, since every point is within the 2s warning limit",
+        "Out of control, since all points are above the mean line by more than 1s"
+      ],
+      "why": "Seven successive points on one side of the mean are very unlikely by chance, so they indicate a drift or bias even though no single point breaches the action limit."
+    },
+    {
+      "q": "Which quality-control sample is designed to reveal contamination from reagents and containers?",
+      "a": "A method blank",
+      "wrong": [
+        "A duplicate sample",
+        "A spiked sample",
+        "A certified reference material"
+      ],
+      "why": "A blank carried through the whole procedure without analyte shows any signal the process adds. Duplicates test precision, spikes test recovery and a CRM tests accuracy."
+    }
+  ],
   "summary": [
     "Calibrate with external standards (slope = sensitivity), standard addition (matrix effects) or internal standards (drift and injection errors). LOD = 3s_blank/m, LOQ = 10s_blank/m.",
     "Noise: thermal (√T R Δf), shot (√I) and flicker (1/f). Signal averaging improves S/N as √n. Modulation moves the signal away from 1/f noise.",

@@ -351,6 +351,168 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A 1.00 L buffer contains 0.30 mol NH₃ and 0.20 mol NH₄Cl. What is its pH? (pK_a of NH₄⁺ = 9.25)",
+      "a": "9.43",
+      "wrong": [
+        "9.07",
+        "9.25",
+        "4.75"
+      ],
+      "why": "pH = 9.25 + log(0.30/0.20) = 9.25 + 0.18 = 9.43. Inverting the ratio gives 9.07, and the base is in excess, so the pH is above the pK_a."
+    },
+    {
+      "q": "A 1.00 L buffer holds 0.100 mol CH₃COOH and 0.100 mol CH₃COONa (pK_a 4.74). What is the pH after 0.020 mol NaOH is added?",
+      "a": "4.92",
+      "wrong": [
+        "4.56",
+        "4.74",
+        "12.30"
+      ],
+      "why": "OH⁻ converts 0.020 mol of acid to acetate: [HA] = 0.080 and [A⁻] = 0.120. pH = 4.74 + log(1.5) = 4.92. A strong base raises the pH, so 4.56 is the wrong direction."
+    },
+    {
+      "q": "Which weak acid and its conjugate base would give the most effective buffer at pH 7.5?",
+      "a": "HOCl, pK_a 7.54",
+      "wrong": [
+        "H₂CO₃, pK_a 6.35",
+        "CH₃COOH, pK_a 4.74",
+        "HCN, pK_a 9.21"
+      ],
+      "why": "A buffer has the greatest capacity and works best when the pH is at the pK_a, so the 1:1 ratio is easy to reach. The ratio needed with the other acids is more than 10:1 or less than 1:10."
+    },
+    {
+      "q": "A buffer of acetic acid and sodium acetate is diluted tenfold with pure water. What happens?",
+      "a": "The pH barely changes, but the buffer capacity falls",
+      "wrong": [
+        "The pH rises by one unit and the capacity is unchanged",
+        "The pH falls by one unit and the capacity is unchanged",
+        "Both the pH and the capacity are unchanged"
+      ],
+      "why": "The pH depends on the ratio [A⁻]/[HA], which does not change when both are diluted equally. The amounts of acid and base available to absorb additions are ten times smaller."
+    },
+    {
+      "q": "Blood at pH 7.4 has a [HCO₃⁻]/[H₂CO₃] ratio of about 20:1, yet the pair buffers well against added acid. Why?",
+      "a": "Breathing and the kidneys keep restoring the CO₂ and HCO₃⁻ levels",
+      "wrong": [
+        "The Henderson–Hasselbalch equation does not apply to carbonate",
+        "A 20:1 ratio is the ideal ratio for maximum capacity",
+        "The pK_a of H₂CO₃ in blood is exactly 7.4"
+      ],
+      "why": "A ratio this far from 1:1 would be weak in a closed beaker. In the body both reservoirs are continually regulated, so the system keeps working. The apparent pK_a is about 6.1."
+    },
+    {
+      "q": "25.00 mL of 0.100 M HCl is titrated with 10.00 mL of 0.100 M NaOH. What is the pH?",
+      "a": "1.37",
+      "wrong": [
+        "1.00",
+        "1.22",
+        "7.00"
+      ],
+      "why": "Excess H₃O⁺ is 2.50 − 1.00 = 1.50 mmol in 35.00 mL, which is 0.0429 M, so pH = 1.37. Dividing by the original 25.00 mL, not the total volume, gives 1.22."
+    },
+    {
+      "q": "25.00 mL of 0.100 M acetic acid (pK_a 4.74) is titrated with 0.100 M NaOH. What is the pH after 6.25 mL of base has been added?",
+      "a": "4.26",
+      "wrong": [
+        "4.74",
+        "5.22",
+        "2.87"
+      ],
+      "why": "The base converts 0.625 mmol of the 2.50 mmol of acid to acetate, leaving 1.875 mmol HA. pH = 4.74 + log(0.625/1.875) = 4.74 − 0.48 = 4.26. The pH equals the pK_a only at half-equivalence (12.50 mL)."
+    },
+    {
+      "q": "What volume of 0.125 M NaOH is needed to reach the equivalence point for 20.0 mL of 0.100 M formic acid (HCOOH)?",
+      "a": "16.0 mL",
+      "wrong": [
+        "20.0 mL",
+        "25.0 mL",
+        "8.0 mL"
+      ],
+      "why": "The acid holds 2.00 mmol and reacts with NaOH in a 1:1 ratio, so the volume is 2.00 mmol / 0.125 M = 16.0 mL. The more concentrated base needs less volume."
+    },
+    {
+      "q": "An indicator HIn (yellow) and In⁻ (blue) has pK_a 7.0. What does the solution look like at pH 6.0?",
+      "a": "Mostly yellow, with [In⁻]/[HIn] about 0.1",
+      "wrong": [
+        "Mostly blue, with [In⁻]/[HIn] about 10",
+        "Green, with equal amounts of the two forms",
+        "Entirely yellow, because there is no In⁻ below pH 7"
+      ],
+      "why": "log([In⁻]/[HIn]) = pH − pK_a = −1.0, so the ratio is 0.1. The change in color is gradual and spans roughly one unit on each side of the pK_a."
+    },
+    {
+      "q": "What is the molar solubility of Ca(OH)₂ in pure water? (K_sp = 5.5 × 10⁻⁶)",
+      "a": "1.1 × 10⁻² M",
+      "wrong": [
+        "2.3 × 10⁻³ M",
+        "1.4 × 10⁻⁶ M",
+        "1.8 × 10⁻² M"
+      ],
+      "why": "K_sp = (s)(2s)² = 4s³, so s = (5.5 × 10⁻⁶ / 4)^{1/3} = 1.1 × 10⁻². Taking √K_sp ignores the stoichiometry, and omitting the 4 gives 1.8 × 10⁻²."
+    },
+    {
+      "q": "CaF₂ has K_sp = 3.9 × 10⁻¹¹ and AgCl has K_sp = 1.8 × 10⁻¹⁰. Which is more soluble in pure water?",
+      "a": "CaF₂, even though its K_sp is smaller",
+      "wrong": [
+        "AgCl, because its K_sp is larger",
+        "They are equally soluble, since both are sparingly soluble",
+        "AgCl, because it is a 1:1 salt"
+      ],
+      "why": "The solubilities are 2.1 × 10⁻⁴ M for CaF₂ (4s³) and 1.3 × 10⁻⁵ M for AgCl (s²). K_sp values can be ranked directly only for salts with the same formula type."
+    },
+    {
+      "q": "What is the molar solubility of BaSO₄ in 0.020 M Na₂SO₄? (K_sp = 1.1 × 10⁻¹⁰)",
+      "a": "5.5 × 10⁻⁹ M",
+      "wrong": [
+        "1.0 × 10⁻⁵ M",
+        "2.8 × 10⁻⁹ M",
+        "5.5 × 10⁻¹² M"
+      ],
+      "why": "The sulfate from the added salt, 0.020 M, dominates, so s = K_sp/[SO₄²⁻] = 1.1 × 10⁻¹⁰ / 0.020 = 5.5 × 10⁻⁹ M. In pure water s would be 1.0 × 10⁻⁵ M, and Na₂SO₄ gives one sulfate per formula unit."
+    },
+    {
+      "q": "What is the solubility of Mg(OH)₂ in a solution buffered at pH 10.00? (K_sp = 5.6 × 10⁻¹²; pure-water solubility is 1.1 × 10⁻⁴ M)",
+      "a": "5.6 × 10⁻⁴ M",
+      "wrong": [
+        "5.6 × 10⁻⁸ M",
+        "1.1 × 10⁻⁴ M",
+        "2.8 × 10⁻⁴ M"
+      ],
+      "why": "At pH 10, [OH⁻] = 1.0 × 10⁻⁴ M, so s = K_sp/[OH⁻]² = 5.6 × 10⁻¹² / 1.0 × 10⁻⁸ = 5.6 × 10⁻⁴ M. This is more soluble than in pure water, because the buffer holds [OH⁻] below the value water alone would reach."
+    },
+    {
+      "q": "Equal volumes of 0.0040 M Pb(NO₃)₂ and 0.0040 M NaI are mixed. Does PbI₂ (K_sp = 9.8 × 10⁻⁹) precipitate?",
+      "a": "No, because Q = 8.0 × 10⁻⁹ is below K_sp",
+      "wrong": [
+        "Yes, because Q = 6.4 × 10⁻⁸ exceeds K_sp",
+        "Yes, because Q = 3.2 × 10⁻⁸ exceeds K_sp",
+        "No, because Q = K_sp exactly"
+      ],
+      "why": "Mixing halves each concentration, so Q = (0.0020)(0.0020)² = 8.0 × 10⁻⁹ < K_sp. Using the stock concentrations without dilution would wrongly predict a precipitate."
+    },
+    {
+      "q": "For AgBr (K_sp = 5 × 10⁻¹³) and [Ag(NH₃)₂]⁺ (K_f = 1.6 × 10⁷), what is K for AgBr(s) + 2NH₃ ⇌ [Ag(NH₃)₂]⁺ + Br⁻?",
+      "a": "8 × 10⁻⁶",
+      "wrong": [
+        "3 × 10⁻²⁰",
+        "3 × 10¹⁹",
+        "5 × 10⁻¹³"
+      ],
+      "why": "The overall reaction is the sum of the dissolution and complex-formation reactions, so K = K_sp × K_f = (5 × 10⁻¹³)(1.6 × 10⁷) = 8 × 10⁻⁶. Dividing the constants would not correspond to adding the reactions."
+    },
+    {
+      "q": "A white precipitate of Zn(OH)₂ forms when a little NaOH is added to Zn²⁺ solution, but it dissolves again in a large excess of NaOH. This happens because",
+      "a": "excess OH⁻ converts the solid into a soluble hydroxo complex such as [Zn(OH)₄]²⁻",
+      "wrong": [
+        "excess OH⁻ lowers K_sp so that the solid is more soluble",
+        "the common-ion effect of OH⁻ drives the solid to dissolve",
+        "Na⁺ forms a soluble salt with the hydroxide"
+      ],
+      "why": "An amphoteric hydroxide reacts with more OH⁻ and the complex is soluble, so the free Zn²⁺ is removed. A common ion would reduce the solubility, and K_sp depends only on temperature."
+    }
+  ],
   "summary": [
     "A buffer holds a weak acid and its conjugate base. pH = pK_a + log([A⁻]/[HA]), with useful range pK_a ± 1.",
     "Titration curves: the pH at the half-equivalence point is pK_a for a weak acid, and the equivalence point of a weak acid with a strong base is above pH 7. Pick an indicator that changes color at the equivalence pH.",

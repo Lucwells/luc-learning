@@ -297,6 +297,168 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "How is one new data point sampled from a fitted Gaussian mixture?",
+      "a": "Draw a component z with probability φ_z, then draw x from N(μ_z, Σ_z)",
+      "wrong": [
+        "Draw x from every component and average the draws, weighted by φ",
+        "Draw x from a single Gaussian whose mean is Σ_j φ_j μ_j",
+        "Compute the responsibilities of a random point and keep the most likely component's mean"
+      ],
+      "why": "The model is a two-step process: a hidden label first, then an observation from that label's Gaussian. Averaging draws would produce a single blurred point rather than a sample from the mixture."
+    },
+    {
+      "q": "A two-component mixture has φ = (0.25, 0.75). At a point x, the component densities are N(x; μ₁, Σ₁) = 0.4 and N(x; μ₂, Σ₂) = 0.1. The responsibility of component 1 is",
+      "a": "4/7 ≈ 0.571",
+      "wrong": [
+        "0.8",
+        "0.25",
+        "3/7 ≈ 0.429"
+      ],
+      "why": "The weighted densities are 0.25 × 0.4 = 0.10 and 0.75 × 0.1 = 0.075, so w₁ = 0.10/0.175 = 4/7. The value 0.8 = 0.4/0.5 ignores the mixing proportions, and 3/7 is the responsibility of component 2."
+    },
+    {
+      "q": "Four points x = 1, 2, 6, 8 have responsibilities for component 1 of 0.9, 0.7, 0.2, 0.2. After the M-step, what is μ₁?",
+      "a": "2.55",
+      "wrong": [
+        "4.25",
+        "5.1",
+        "1.275"
+      ],
+      "why": "The weighted sum is 0.9 + 1.4 + 1.2 + 1.6 = 5.1 and the weights sum to 2.0, so μ₁ = 2.55. The value 4.25 is the unweighted mean, 5.1 forgets to normalize, and 1.275 divides by m."
+    },
+    {
+      "q": "Why does maximum likelihood for a Gaussian mixture have no closed-form solution?",
+      "a": "The sum over components sits inside the logarithm, so the derivative couples all the parameters",
+      "wrong": [
+        "Gaussian densities are not differentiable in their covariance matrices, which blocks the usual calculus derivation of the estimates",
+        "The mixing proportions must sum to one, which rules out calculus",
+        "The latent labels are continuous, so the sum cannot be evaluated"
+      ],
+      "why": "ln Σ_j φ_j N(x; μ_j, Σ_j) does not split into separate terms per component. With known labels the log would apply to a single term and the estimates would be simple frequencies, means and covariances."
+    },
+    {
+      "q": "How does EM deal with the component labels that are not observed?",
+      "a": "It uses the posterior probabilities of the labels, computed under the current parameters, as weights",
+      "wrong": [
+        "It discards points whose labels are unknown",
+        "It sets each label to the single most likely component and then fits",
+        "It samples each label once from the mixing proportions φ and keeps those sampled labels fixed for the whole run"
+      ],
+      "why": "Filling in the labels with their expected values (the responsibilities) gives weighted maximum likelihood. Setting each label to its most likely value is the hard-assignment limit that gives k-means."
+    },
+    {
+      "q": "Which quantities are held fixed while the M-step updates the parameters of a Gaussian mixture?",
+      "a": "The responsibilities computed in the preceding E-step",
+      "wrong": [
+        "The means μ_j, which are re-estimated only in the E-step",
+        "The covariances Σ_j, which are estimated once at initialization",
+        "The mixing proportions φ_j, which are set by the user"
+      ],
+      "why": "The M-step treats the responsibilities as given weights and re-estimates φ, μ and Σ from them. The E-step is the one that uses the old parameters to recompute the responsibilities."
+    },
+    {
+      "q": "Two overlapping clusters are elongated ellipses tilted at different angles. Why can a Gaussian mixture with full covariances describe them better than k-means?",
+      "a": "Each component has its own covariance, so it can take its own size, shape and orientation",
+      "wrong": [
+        "EM minimizes squared distance more accurately than Lloyd's algorithm does",
+        "A mixture does not need the number of components to be chosen",
+        "EM is guaranteed to reach the global optimum, which k-means is not"
+      ],
+      "why": "k-means uses Euclidean distance to a mean and so favors round clusters of similar size. The covariances Σ_j in a GMM give each cluster a different shape, and soft assignment handles the overlap."
+    },
+    {
+      "q": "A GMM has been fit to data. Which point is flagged as an outlier?",
+      "a": "One where the mixture density p(x) is very low",
+      "wrong": [
+        "One whose responsibilities are spread almost evenly between two components",
+        "One whose largest responsibility is exactly 1",
+        "One with the highest value of φ_j for its component"
+      ],
+      "why": "A fitted mixture is a density model, so a point of very low p(x) is unlikely under every component. Even responsibilities mark a point between two components, which can be perfectly typical."
+    },
+    {
+      "q": "X equals 2 or 8, each with probability 1/2. Which pair gives ln E[X] and E[ln X]?",
+      "a": "1.609 and 1.386",
+      "wrong": [
+        "1.386 and 1.609",
+        "1.609 and 1.609",
+        "1.609 and 2.079"
+      ],
+      "why": "E[X] = 5 so ln E[X] = ln 5 = 1.609. E[ln X] = (ln 2 + ln 8)/2 = ln 4 = 1.386. Jensen's inequality for the concave log gives ln E[X] ≥ E[ln X], with equality only if X is constant."
+    },
+    {
+      "q": "In the chain ℓ(θ_{t+1}) ≥ ELBO(Q_t, θ_{t+1}) ≥ ELBO(Q_t, θ_t) = ℓ(θ_t), the second inequality holds because",
+      "a": "the M-step chose θ_{t+1} to maximize the bound for the fixed Q_t",
+      "wrong": [
+        "Jensen's inequality applies to the logarithm",
+        "the E-step set Q to the posterior, which made the bound equal to the likelihood at the current parameters θ_t",
+        "the likelihood of a mixture is concave in θ"
+      ],
+      "why": "The first inequality is the bound itself (Jensen), the equality is the tight bound from the E-step, and the middle step is the M-step improving the bound. Nothing here requires the likelihood to be concave."
+    },
+    {
+      "q": "The M-step of EM maximizes, over θ with Q held fixed,",
+      "a": "the expected complete-data log-likelihood Σ_i Σ_z Q_i(z) ln p(x^{(i)}, z; θ)",
+      "wrong": [
+        "the observed-data log-likelihood Σ_i ln p(x^{(i)}; θ) directly",
+        "the entropy of Q",
+        "the distance between Q and the posterior"
+      ],
+      "why": "With Q fixed, the entropy term of the ELBO does not depend on θ. What remains is a weighted complete-data log-likelihood, which has a simple closed-form maximizer for a mixture of Gaussians."
+    },
+    {
+      "q": "Two EM runs from different initializations end with log-likelihoods of −510 and −498. What is the right conclusion?",
+      "a": "Keep the run at −498; both are only local maxima, so neither is known to be the global one",
+      "wrong": [
+        "Average the two sets of parameters, since both converged",
+        "The run at −510 must have failed to converge, because EM run to convergence always reaches the global maximum",
+        "The run at −498 is the global maximum because it is higher"
+      ],
+      "why": "EM never decreases the likelihood but stops at a local maximum or saddle point, so different starts can give different answers. The higher likelihood is the better model found, yet there is no certificate that it is the best possible."
+    },
+    {
+      "q": "One component of a fitted GMM has a covariance near zero around a single data point, and the log-likelihood is enormous. What is the standard remedy?",
+      "a": "Add a small ridge εI to each covariance, or require a minimum number of points per component",
+      "wrong": [
+        "Run more EM iterations until the covariance recovers",
+        "Increase the number of components",
+        "Drop the mixing proportions and use equal weights"
+      ],
+      "why": "A component centered on one point with variance shrinking to zero makes the density, hence the likelihood, grow without bound. The ridge keeps covariances from collapsing. More iterations only push further into the singularity."
+    },
+    {
+      "q": "A full-covariance GMM has k = 3 components on n = 100 features. How many free covariance parameters does it have?",
+      "a": "15,150",
+      "wrong": [
+        "30,000",
+        "5,050",
+        "300"
+      ],
+      "why": "Each symmetric covariance has n(n + 1)/2 = 5,050 parameters, so three components have 15,150. The value 30,000 ignores symmetry, and 300 counts only the diagonals."
+    },
+    {
+      "q": "Two GMMs are fit to m = 100 points. Model A has ln L = −300 with 5 free parameters. Model B has ln L = −290 with 17. Using BIC = −2 ln L + p ln m (ln 100 ≈ 4.605), which is preferred?",
+      "a": "A, because its BIC of about 623 is below B's of about 658",
+      "wrong": [
+        "B, because its log-likelihood is higher and the extra parameters were needed to reach that fit",
+        "B, because its BIC of about 658 is above A's of about 623",
+        "Neither, since BIC cannot compare models with different numbers of parameters"
+      ],
+      "why": "BIC = 600 + 23.0 for A and 580 + 78.3 for B, and the lowest BIC wins. The penalty of 12 extra parameters outweighs the gain of 10 in log-likelihood."
+    },
+    {
+      "q": "The Baum–Welch algorithm for fitting a hidden Markov model is",
+      "a": "EM, with the hidden states playing the role of the latent variables",
+      "wrong": [
+        "k-means run on the sequence of observations",
+        "gradient descent on the labels of the states",
+        "EM, but with the observations treated as latent"
+      ],
+      "why": "In an HMM the states are never observed, which is exactly the latent variable setting: the E-step computes state posteriors and the M-step re-estimates the transition and emission parameters."
+    }
+  ],
   "summary": [
     "A mixture model draws a hidden label z, then x from component z. For a GMM, p(x) = Σ φ_j N(x; μ_j, Σ_j), and the responsibility w_{ij} is the posterior of component j for point i.",
     "The log-likelihood has a sum inside the log, so there is no closed form. EM alternates an E-step (compute responsibilities) and an M-step (weighted frequencies, means and covariances).",

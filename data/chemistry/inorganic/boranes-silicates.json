@@ -330,6 +330,116 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "How many of diborane’s 12 valence electrons occupy the two B–H–B bridge bonds?",
+      "a": "4",
+      "wrong": ["2", "6", "8"],
+      "why": "The four terminal B–H bonds are 2c-2e bonds and use 8 electrons, leaving 4 for the two 3c-2e bridges (one pair each)."
+    },
+    {
+      "q": "Why can BH₃ not be isolated as a stable monomer?",
+      "a": "Boron has only six electrons and an empty orbital, so two BH₃ units share hydrogens",
+      "wrong": ["Three hydrogens cannot fit around such a small boron atom", "The B–H bonds are too polar for three of them to bind one boron", "It polymerizes at once through B=B double bonds"],
+      "why": "BH₃ is electron-deficient, with an empty p orbital on boron. Dimerization through 3c-2e B–H–B bridges relieves the deficiency."
+    },
+    {
+      "q": "What skeletal-electron class is [B₈H₈]²⁻?",
+      "a": "Closo",
+      "wrong": ["Nido", "Arachno", "Hypho"],
+      "why": "Eight BH units give 16 electrons and the 2− charge adds 2: 18 electrons = 9 pairs = n + 1, a closo cluster."
+    },
+    {
+      "q": "An arachno borane cluster contains 6 boron atoms. How many skeletal electron pairs does it have?",
+      "a": "9",
+      "wrong": ["7", "8", "10"],
+      "why": "Arachno clusters have n + 3 pairs, so 6 + 3 = 9. The values 7 and 8 correspond to closo and nido, and 10 to hypho."
+    },
+    {
+      "q": "A nido cluster of 6 boron atoms is built from a closo polyhedron with how many vertices?",
+      "a": "7",
+      "wrong": ["6", "5", "8"],
+      "why": "Nido means a closo shape with one vertex missing. A 6-atom nido cage therefore comes from a 7-vertex closo polyhedron (compare B₅H₉, a square pyramid from an octahedron)."
+    },
+    {
+      "q": "How many skeletal electrons does the carborane C₂B₄H₆ (two CH units and four BH units) have?",
+      "a": "14",
+      "wrong": ["12", "16", "18"],
+      "why": "A CH unit supplies 3 and a BH unit 2: 2 × 3 + 4 × 2 = 14, or 7 pairs. With n = 6 that is n + 1, a closo octahedron. Counting every unit as 3 would give 18."
+    },
+    {
+      "q": "A student counts each BH unit as contributing 3 skeletal electrons because boron has 3 valence electrons. What is the error?",
+      "a": "Boron’s 3 plus hydrogen’s 1, less the 2 used in the terminal B–H bond, leaves 2",
+      "wrong": ["Boron contributes only 2 electrons because it is in period 2", "The terminal hydrogen contributes nothing, leaving 3 minus 1", "Each BH unit contributes 1 because the cluster is electron-deficient"],
+      "why": "Of the 4 electrons available from B and H, a pair holds the exo B–H bond, so each BH unit leaves 2 for the cage."
+    },
+    {
+      "q": "In the 3c-4e description of F–Xe–F, what is the bond order of each Xe–F link?",
+      "a": "½",
+      "wrong": ["1", "2", "0"],
+      "why": "Four electrons fill the bonding and nonbonding orbitals of the three-atom set, giving one bonding pair shared over two links: ½ each. The nonbonding pair sits on the fluorines."
+    },
+    {
+      "q": "Which prediction does the 3c-4e model make for the axial bonds of trigonal bipyramidal PCl₅?",
+      "a": "They are longer and weaker than the equatorial bonds",
+      "wrong": ["They are shorter and stronger than the equatorial bonds", "They are identical to the equatorial bonds", "They are 2c-2e bonds, while the equatorial bonds are 3c-4e"],
+      "why": "The axial Cl–P–Cl unit forms a 3c-4e bond with bond order ½ per link, so those bonds are weaker and longer than the ordinary equatorial 2c-2e bonds."
+    },
+    {
+      "q": "Why is the d-orbital explanation of hypervalency no longer accepted for main-group atoms?",
+      "a": "The d orbitals are too high in energy and too diffuse to take part significantly",
+      "wrong": ["The d orbitals are already filled, so they cannot accept electron pairs", "The d orbitals are too small to overlap with ligand orbitals", "SF₆ is purely ionic, S⁶⁺ with six F⁻, so there is no bonding to explain"],
+      "why": "Calculations show only a minor role for d orbitals. SF₆ has substantial ionic character, but the bonding is still described with s and p orbitals as 3c-4e bonds, not as an ion pair."
+    },
+    {
+      "q": "In a single-chain silicate each SiO₄ tetrahedron shares two corners. What is the anion per silicon?",
+      "a": "SiO₃²⁻",
+      "wrong": ["SiO₄⁴⁻", "Si₂O₅²⁻", "SiO₂"],
+      "why": "Two unshared oxygens plus two shared oxygens counted as ½ each give 3 O per Si, and the charge is 4 − 6 = −2. SiO₄⁴⁻ is the isolated tetrahedron and Si₂O₅²⁻ the sheet."
+    },
+    {
+      "q": "A mineral splits easily into thin, flat flakes. Its silicate anion is most likely built from",
+      "a": "tetrahedra sharing three corners in layers",
+      "wrong": ["tetrahedra in double chains (ribbons)", "isolated tetrahedra bound by cations", "tetrahedra sharing all four corners in a framework"],
+      "why": "Sheet silicates (micas, talc, clays) have strong bonding within layers and weak bonding between them, so they cleave into flakes. Double chains give fibers such as asbestos."
+    },
+    {
+      "q": "An aluminosilicate framework has the anion [(AlO₂)₄(SiO₂)₈]. How many Ca²⁺ ions balance its charge?",
+      "a": "2",
+      "wrong": ["4", "1", "8"],
+      "why": "Each AlO₂ unit in place of SiO₂ adds one negative charge, so the framework is 4−. Each Ca²⁺ balances two charges, so 2 ions are needed."
+    },
+    {
+      "q": "How do the pores of ZSM-5 impose shape selectivity during acid catalysis?",
+      "a": "Pore size decides which reactants can enter and which products can leave",
+      "wrong": ["The pores have a fixed negative charge that repels all organic molecules", "The pores contain d orbitals that bind the reactant", "The framework changes its Si–O bonds to match each substrate"],
+      "why": "The acid sites are inside channels of molecular dimensions, so only molecules that fit can react or diffuse out. This is the basis of the methanol-to-gasoline process."
+    },
+    {
+      "q": "How many moles of HCl are released when 5.0 mol of (CH₃)₂SiCl₂ hydrolyze and condense to silicone?",
+      "a": "10 mol",
+      "wrong": ["5.0 mol", "20 mol", "2.5 mol"],
+      "why": "The equation n (CH₃)₂SiCl₂ + 2n H₂O → [–Si(CH₃)₂–O–]ₙ + 2n HCl releases two HCl per monomer, so 10 mol."
+    },
+    {
+      "q": "What best explains why silicones resist heat, light and oxidation better than hydrocarbon polymers?",
+      "a": "The Si–O bond is stronger than C–C, and the backbone is already oxidized",
+      "wrong": ["Silicones are heavily cross-linked into rigid networks", "Silicones are crystalline, and crystals do not oxidize", "Silicones contain C=C double bonds that absorb light safely"],
+      "why": "The silicon–oxygen backbone is strong and cannot be oxidized further, and the methyl groups protect it. Silicones are flexible rubbers and oils, not rigid crystals."
+    },
+    {
+      "q": "Poly(dichlorophosphazene), (NPCl₂)ₙ, hydrolyzes in moist air. How is it turned into a stable polyphosphazene?",
+      "a": "The reactive P–Cl bonds are replaced by alkoxide, aryloxide or amine groups",
+      "wrong": ["The N=P backbone is reduced to saturated N–P single bonds", "The polymer is cross-linked through Si–O–P bridges", "The chlorines are retained, and the polymer is stored under water"],
+      "why": "Substituting OR, OCH₂CF₃ or NHR groups for chlorine removes the hydrolytically labile P–Cl bonds. The side groups then set the polymer’s properties."
+    },
+    {
+      "q": "How is the bonding in the –N=P– backbone of a phosphazene best described?",
+      "a": "Delocalized, closer to ionic (N⁻–P⁺) than to localized double bonds",
+      "wrong": ["Two localized N=P double bonds per repeat unit, as the formula suggests", "Pure σ single bonds with no π component", "Localized N≡P triple bonds alternating with P–N single bonds"],
+      "why": "The “double bond” notation is a convenience. As with Si–O, π overlap is poor, and the delocalized bonding resembles polarized N⁻–P⁺ links."
+    }
+  ],
   "summary": [
     "Diborane has 3c-2e bridging B–H–B bonds. Compounds with fewer electrons than needed for 2c-2e bonding are electron-deficient.",
     "Wade’s rules: skeletal electron pairs n + 1, n + 2, n + 3 give closo, nido, arachno clusters. A BH unit gives 2 skeletal electrons and a CH unit 3.",

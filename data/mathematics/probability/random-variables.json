@@ -396,6 +396,178 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A discrete variable has p(1) = 0.1, p(2) = 0.3, p(3) = c and p(4) = 0.2, and takes no other values. What is c?",
+      "a": "0.4",
+      "wrong": [
+        "0.6",
+        "0.3",
+        "1.0"
+      ],
+      "why": "A PMF must sum to 1, so c = 1 − (0.1 + 0.3 + 0.2) = 0.4. The value 0.6 is the total of the other three probabilities."
+    },
+    {
+      "q": "X is uniform on [0, 0.2], so its density equals 5 on that interval. What is P(X ≤ 0.1)?",
+      "a": "0.5",
+      "wrong": [
+        "5",
+        "0.1",
+        "1"
+      ],
+      "why": "Probability is area under the density: 5 × 0.1 = 0.5. The density value 5 is a height, not a probability, and it may exceed 1."
+    },
+    {
+      "q": "X has CDF F(x) = x³ on [0, 1]. What is P(X > 0.5)?",
+      "a": "0.875",
+      "wrong": [
+        "0.125",
+        "0.5",
+        "0.75"
+      ],
+      "why": "P(X > 0.5) = 1 − F(0.5) = 1 − 0.125 = 0.875. The value 0.125 is P(X ≤ 0.5), the other tail."
+    },
+    {
+      "q": "A game pays 6 with probability 1/3 and otherwise costs 2. What is the expected net payoff per play?",
+      "a": "2/3",
+      "wrong": [
+        "4",
+        "2",
+        "4/3"
+      ],
+      "why": "E = 6 × (1/3) + (−2) × (2/3) = 2 − 4/3 = 2/3. Averaging the two payoffs without weighting by probability would give 2, which is wrong."
+    },
+    {
+      "q": "X has standard deviation 3. What is the standard deviation of 4 − 2X?",
+      "a": "6",
+      "wrong": [
+        "−6",
+        "10",
+        "36"
+      ],
+      "why": "Var(4 − 2X) = (−2)² · 9 = 36, so the standard deviation is 6. A standard deviation is never negative, and the constant 4 does not change the spread."
+    },
+    {
+      "q": "X and Y are dependent. Which statement about them is false?",
+      "a": "Var(X + Y) = Var(X) + Var(Y)",
+      "wrong": [
+        "E[X + Y] = E[X] + E[Y]",
+        "E[2X − Y] = 2E[X] − E[Y]",
+        "E[X + Y + 3] = E[X] + E[Y] + 3"
+      ],
+      "why": "Expectation is linear with no condition. Variances add only when the covariance is zero; otherwise Var(X + Y) includes the term 2Cov(X, Y)."
+    },
+    {
+      "q": "25 independent measurements each have standard deviation 10. What is the standard deviation of their average?",
+      "a": "2",
+      "wrong": [
+        "0.4",
+        "4",
+        "10"
+      ],
+      "why": "Var of the mean is σ²/n = 100/25 = 4, so the standard deviation is σ/√n = 10/5 = 2. The value 4 is the variance, and 0.4 divides σ by n instead of √n."
+    },
+    {
+      "q": "A constant c is chosen to minimize the average absolute error |x − c| over a skewed income sample. The best c is the",
+      "a": "median",
+      "wrong": [
+        "mean",
+        "mode",
+        "midpoint of the smallest and largest values"
+      ],
+      "why": "Squared error is minimized by the mean, absolute error by the median. For skewed data the two can differ a lot."
+    },
+    {
+      "q": "A fair coin is flipped 4 times. What is the probability of exactly 2 heads?",
+      "a": "0.375",
+      "wrong": [
+        "0.0625",
+        "0.25",
+        "0.5"
+      ],
+      "why": "Binomial(4, 0.5): C(4, 2)(0.5)⁴ = 6 × 0.0625 = 0.375. The value 0.0625 forgets the 6 orderings."
+    },
+    {
+      "q": "Each independent attempt succeeds with probability 0.2. What is the expected number of attempts up to and including the first success?",
+      "a": "5",
+      "wrong": [
+        "4",
+        "0.2",
+        "25"
+      ],
+      "why": "The geometric distribution has mean 1/p = 5. The value 4 is the expected number of failures before the first success, and the count here includes the successful attempt."
+    },
+    {
+      "q": "A help desk gets calls at an average of 1.5 per minute, independently at a constant rate. What is the probability of no calls in a 2-minute window?",
+      "a": "e⁻³ ≈ 0.050",
+      "wrong": [
+        "e⁻¹·⁵ ≈ 0.223",
+        "3e⁻³ ≈ 0.149",
+        "1 − e⁻³ ≈ 0.950"
+      ],
+      "why": "The count in 2 minutes is Poisson with λ = 1.5 × 2 = 3, and P(0) = e⁻³. Using the one-minute rate ignores the window length, and 1 − e⁻³ is the probability of at least one call."
+    },
+    {
+      "q": "A component's lifetime is exponential, and it has already survived 5 hours. Which statement about its next 3 hours is correct?",
+      "a": "The chance it survives them equals the chance a brand-new component survives 3 hours",
+      "wrong": [
+        "The chance is lower, because the component is now older",
+        "The chance is higher, because it has proven itself reliable",
+        "The chance equals the chance a new component survives 8 hours"
+      ],
+      "why": "The exponential distribution is memoryless: P(X > 8 | X > 5) = P(X > 3). Age neither helps nor hurts, and the 8-hour survival chance for a new part is smaller."
+    },
+    {
+      "q": "X ~ N(10, 4), meaning variance 4. What is the probability that X lies between 6 and 14?",
+      "a": "0.954",
+      "wrong": [
+        "0.683",
+        "0.977",
+        "0.997"
+      ],
+      "why": "The standard deviation is 2, so the interval is μ ± 2σ and has probability about 0.954. The value 0.683 would result from wrongly taking the standard deviation to be 4."
+    },
+    {
+      "q": "X ~ N(1, 4) and Y ~ N(3, 9) are independent. What is the distribution of X + Y?",
+      "a": "N(4, 13)",
+      "wrong": [
+        "N(4, 25)",
+        "N(4, 5)",
+        "N(−2, 13)"
+      ],
+      "why": "Means add (1 + 3) and variances add (4 + 9). Adding the standard deviations 2 + 3 would give N(4, 25), which is wrong."
+    },
+    {
+      "q": "X ~ Uniform(0, 1) and Y = 2X + 1. What is the density of Y?",
+      "a": "1/2 on [1, 3]",
+      "wrong": [
+        "1 on [1, 3]",
+        "2 on [1, 3]",
+        "1/2 on [0, 1]"
+      ],
+      "why": "Y ranges over [1, 3], a stretch by 2, so the density must fall by the factor 1/2 to keep the total area 1. This is f_X(g⁻¹(y)) |dg⁻¹/dy| with |dg⁻¹/dy| = 1/2."
+    },
+    {
+      "q": "To sample an Exponential(λ = 0.5) variable by x = F⁻¹(u) with F(x) = 1 − e^{−λx}, what is x for u = 0.75?",
+      "a": "2.77",
+      "wrong": [
+        "1.39",
+        "0.58",
+        "2.00"
+      ],
+      "why": "Solving u = 1 − e^{−λx} gives x = −ln(1 − u)/λ = −ln(0.25)/0.5 = 1.386/0.5 = 2.77. The value 1.39 forgets to divide by λ."
+    },
+    {
+      "q": "Among all distributions with a given mean and variance, which has the largest entropy?",
+      "a": "The Gaussian",
+      "wrong": [
+        "The uniform",
+        "The exponential",
+        "The Poisson"
+      ],
+      "why": "The Gaussian is the maximum entropy distribution for a fixed mean and variance, which is one reason it is the default model. The uniform is maximal only on a fixed bounded interval."
+    }
+  ],
   "summary": [
     "A random variable has a PMF (discrete) or a PDF (continuous), and a CDF F(x) = P(X ≤ x). Probabilities of intervals are integrals of the density.",
     "E[X] is the weighted average, with linearity E[aX + bY] = aE[X] + bE[Y] always. Var(X) = E[X²] − (E[X])², Var(aX + b) = a²Var(X), and variances of independent variables add, so the mean of n samples has variance σ²/n.",

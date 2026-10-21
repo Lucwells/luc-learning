@@ -321,6 +321,178 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "With d_k = 4, a query has dot products 4 and 0 with two keys. What attention weight does the first key receive?",
+      "a": "0.88",
+      "wrong": [
+        "0.98",
+        "0.73",
+        "0.50"
+      ],
+      "why": "Scaling by √4 = 2 gives scores (2, 0), so the weight is e²/(e² + 1) = 0.881. Skipping the scaling gives 0.98, and dividing by d_k instead of √d_k gives 0.73."
+    },
+    {
+      "q": "Attention weights (0.75, 0.25) are applied to the values (4, 0) and (0, 8). What is the output?",
+      "a": "(3, 2)",
+      "wrong": [
+        "(1, 6)",
+        "(2, 4)",
+        "(4, 8)"
+      ],
+      "why": "The output is 0.75(4, 0) + 0.25(0, 8) = (3, 2). The wrong options come from swapped weights, an unweighted average and an unweighted sum."
+    },
+    {
+      "q": "The components of q and k are independent with mean 0 and variance 1, and d_k = 16. What is the standard deviation of qᵀk, and of qᵀk/√d_k?",
+      "a": "4, and 1",
+      "wrong": [
+        "16, and 1",
+        "4, and 0.25",
+        "256, and 16"
+      ],
+      "why": "The variance of qᵀk is d_k = 16, so its standard deviation is 4. Dividing by √d_k = 4 brings the standard deviation back to 1."
+    },
+    {
+      "q": "A model has width d = 512 and uses h = 8 heads. What is the key dimension d_k of each head?",
+      "a": "64",
+      "wrong": [
+        "512",
+        "8",
+        "4096"
+      ],
+      "why": "Each head works in the smaller dimension d/h = 512/8 = 64, so all the heads together cost about as much as one full-width head."
+    },
+    {
+      "q": "Under a causal mask, token 2 has raw scores (0, ln 3, 5) for tokens 1, 2 and 3. What are its attention weights?",
+      "a": "(0.25, 0.75, 0)",
+      "wrong": [
+        "(0.5, 0.5, 0)",
+        "(0.01, 0.02, 0.97)",
+        "(0, 1, 0)"
+      ],
+      "why": "The score for token 3 becomes −∞, leaving e⁰ = 1 and e^{ln 3} = 3, so the weights are 1/4 and 3/4. The third option is the unmasked result."
+    },
+    {
+      "q": "A context length is increased from 2,000 to 8,000 tokens. By what factor does the attention score matrix grow?",
+      "a": "16",
+      "wrong": [
+        "4",
+        "8",
+        "64"
+      ],
+      "why": "The matrix has n² entries, and the length grows by 4, so the matrix grows by 4² = 16."
+    },
+    {
+      "q": "During text generation, what does the KV cache store?",
+      "a": "The keys and values of the tokens processed so far",
+      "wrong": [
+        "The queries of all previous tokens, so that attention scores need not be recomputed",
+        "The softmax outputs of the previous layer",
+        "The gradients of the previous tokens"
+      ],
+      "why": "A new token's query must be compared with all earlier keys and values. Caching them avoids recomputing those projections at each step."
+    },
+    {
+      "q": "With d = 4, the sinusoidal positional encoding at position 0 is",
+      "a": "(0, 1, 0, 1)",
+      "wrong": [
+        "(0, 0, 0, 0)",
+        "(1, 0, 1, 0)",
+        "(1, 1, 1, 1)"
+      ],
+      "why": "The even entries are sin(0) = 0 and the odd entries are cos(0) = 1, whatever the wavelength."
+    },
+    {
+      "q": "Rotary position embeddings (RoPE) inject position by",
+      "a": "rotating the queries and keys by position-dependent angles",
+      "wrong": [
+        "adding a fixed vector of sines and cosines of several wavelengths to each token embedding",
+        "appending a learned position vector to each value",
+        "masking scores according to the distance between tokens"
+      ],
+      "why": "The rotation makes the query–key dot product depend on the relative offset between two positions. Adding fixed sinusoids is the original scheme."
+    },
+    {
+      "q": "A transformer block has width d = 100 and a feed-forward inner width of 2d. Ignoring biases and normalization, how many weights does it have?",
+      "a": "80,000",
+      "wrong": [
+        "120,000",
+        "60,000",
+        "40,000"
+      ],
+      "why": "Attention has 4d² = 40,000 weights, and the feed-forward network has d·2d + 2d·d = 4d² = 40,000. The 12d² rule holds only for an inner width of 4d."
+    },
+    {
+      "q": "How is the position-wise feed-forward network applied in a transformer block?",
+      "a": "To each position separately, with the same weights at every position",
+      "wrong": [
+        "To all positions jointly, mixing information between tokens at different positions",
+        "Only to the first token of the sequence",
+        "Only once, after the last block of the model"
+      ],
+      "why": "Mixing across positions is the job of attention. The feed-forward network transforms each token's representation on its own."
+    },
+    {
+      "q": "A BERT-style model combines which attention pattern and training objective?",
+      "a": "Bidirectional attention with masked token prediction",
+      "wrong": [
+        "Causal attention with next-token prediction",
+        "Bidirectional attention with next-token prediction",
+        "Causal attention with masked token prediction"
+      ],
+      "why": "Masked prediction uses context on both sides, so no causal mask is needed. Next-token prediction requires a causal mask, or the model could see the answer."
+    },
+    {
+      "q": "A 3-billion-parameter model is trained compute-optimally at about 20 tokens per parameter. Approximately how much compute (6ND) does the run need?",
+      "a": "1 × 10²¹ FLOPs",
+      "wrong": [
+        "2 × 10¹⁰ FLOPs",
+        "1 × 10²⁰ FLOPs",
+        "1 × 10²² FLOPs"
+      ],
+      "why": "D = 20 × 3 × 10⁹ = 6 × 10¹⁰ tokens, and 6ND = 6 × 3 × 10⁹ × 6 × 10¹⁰ ≈ 1.1 × 10²¹."
+    },
+    {
+      "q": "What was the main finding of the Chinchilla analysis?",
+      "a": "For a fixed compute budget, many models were too large and should have been trained on more tokens",
+      "wrong": [
+        "Loss does not fall as a power law in model size beyond a threshold",
+        "Models of any size need the same number of training tokens",
+        "Compute budgets should go entirely to larger models, with data held fixed, because loss depends mainly on parameter count"
+      ],
+      "why": "The analysis found a best split between parameters and data for a given compute, near 20 training tokens per parameter."
+    },
+    {
+      "q": "In reinforcement learning from human preferences, what do people provide?",
+      "a": "Rankings of the model's outputs, which the model is trained to match",
+      "wrong": [
+        "The correct next token for every position of the training text",
+        "Class labels for the images in the pretraining corpus",
+        "The vocabulary and the tokenization rules"
+      ],
+      "why": "Instruction tuning uses examples of desired behavior, and RLHF then trains the model toward outputs that people rank higher."
+    },
+    {
+      "q": "A model scores 95% on a benchmark, but its test questions turn out to appear in its training data. What is this problem called, and what is its effect?",
+      "a": "Benchmark contamination, which makes the score overstate the model's ability",
+      "wrong": [
+        "Hallucination, which makes the model's answers shorter",
+        "Exposure bias, which makes the training loss fall too fast",
+        "Overfitting a validation set, which has no effect on the test score"
+      ],
+      "why": "If test items were seen in training, the model may recall them instead of solving them. Held-out evaluation needs data the model has not seen."
+    },
+    {
+      "q": "Within one attention layer, how many steps separate the information flow between token 1 and token 500, compared with an RNN?",
+      "a": "One direct step, against 499 recurrent steps for an RNN",
+      "wrong": [
+        "Two steps, against 250 for an RNN",
+        "499 steps, the same as an RNN",
+        "One step, but only if the tokens are within the same head's window"
+      ],
+      "why": "Every pair of positions interacts directly in attention. In an RNN the information must pass through every intermediate hidden state."
+    }
+  ],
   "summary": [
     "Attention computes softmax(QKᵀ/√d_k)V: a query is compared with all keys, and the output is the weighted average of the values. The √d_k keeps the softmax from saturating.",
     "Self-attention takes Q, K and V from the same sequence. Multi-head attention runs several in parallel. A causal mask blocks attention to the future. Cost grows as n².",

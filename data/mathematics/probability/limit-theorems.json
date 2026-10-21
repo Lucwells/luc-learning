@@ -260,6 +260,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A non-negative quantity has mean 8. What does Markov's inequality say about P(X ≥ 40)?",
+      "a": "It is at most 0.2",
+      "wrong": [
+        "It is at most 0.8",
+        "It is at most 0.025",
+        "It is exactly 0.2"
+      ],
+      "why": "P(X ≥ t) ≤ E[X]/t = 8/40 = 0.2. Markov gives only an upper bound, and the actual probability may be far smaller."
+    },
+    {
+      "q": "A variable has mean 100 and standard deviation 5, with an unknown distribution. Which bound on P(|X − 100| ≥ 15) is guaranteed?",
+      "a": "1/9",
+      "wrong": [
+        "1/3",
+        "0.0027, the Gaussian tail beyond 3σ",
+        "1/225"
+      ],
+      "why": "15 is k = 3 standard deviations, so Chebyshev gives 1/k² = 1/9. The Gaussian figure 0.0027 is not guaranteed for a general distribution, and 1/3 uses 1/k instead of 1/k²."
+    },
+    {
+      "q": "For the average of n independent bounded variables, how do the Chebyshev and Hoeffding bounds on a deviation behave as n grows?",
+      "a": "Chebyshev decays like 1/n, and Hoeffding decays exponentially in n",
+      "wrong": [
+        "Chebyshev decays exponentially in n, and Hoeffding decays like 1/n",
+        "Both decay like 1/√n",
+        "Chebyshev decays like 1/n², and Hoeffding like 1/n"
+      ],
+      "why": "Chebyshev uses only the variance σ²/n, giving a 1/n rate. Boundedness lets Hoeffding exploit the exponential moment, so the tail falls like e^{−2nt²}."
+    },
+    {
+      "q": "n = 200 independent variables lie in [0, 1]. What is Hoeffding's bound on P(|X̄ − E[X̄]| ≥ 0.1)?",
+      "a": "2e⁻⁴ ≈ 0.037",
+      "wrong": [
+        "2e⁻² ≈ 0.271",
+        "e⁻⁴ ≈ 0.018",
+        "2e⁻⁸ ≈ 0.0007"
+      ],
+      "why": "The bound is 2e^{−2nt²} = 2e^{−2(200)(0.01)} = 2e⁻⁴. Dropping the factor 2 (which covers both tails) gives 0.018."
+    },
+    {
+      "q": "Chebyshev guarantees accuracy ε with probability 1 − δ when n ≥ σ²/(ε²δ). With σ² = 1, ε = 0.1 and δ = 0.05, how many samples suffice?",
+      "a": "2000",
+      "wrong": [
+        "200",
+        "100",
+        "20000"
+      ],
+      "why": "n ≥ 1/(0.01 × 0.05) = 2000. Using ε instead of ε² gives 200, and dropping δ gives 100."
+    },
+    {
+      "q": "After 1,000 fair-coin flips there are 40 more heads than tails. What does the law of large numbers imply about later flips?",
+      "a": "They are unaffected; the heads fraction still tends to 0.5 because the early excess is diluted",
+      "wrong": [
+        "Tails become more likely until the counts even out",
+        "The excess of heads must also tend to 0, so later flips favor tails",
+        "The law says nothing about the heads fraction for a finite number of flips"
+      ],
+      "why": "The law concerns the fraction X̄_n, which converges to 0.5. The raw difference between heads and tails does not need to return to 0, and the coin has no memory."
+    },
+    {
+      "q": "A Monte Carlo estimate with 10,000 samples has standard error 0.02. About how many samples are needed for a standard error of 0.005?",
+      "a": "160,000",
+      "wrong": [
+        "40,000",
+        "80,000",
+        "400,000"
+      ],
+      "why": "The error falls as 1/√n, so cutting it by a factor of 4 needs 4² = 16 times as many samples. A factor of 4 in samples only halves the error."
+    },
+    {
+      "q": "Why is Monte Carlo the standard tool for high-dimensional expectations?",
+      "a": "Its error behaves like σ/√n whatever the dimension of X",
+      "wrong": [
+        "Its error falls like 1/n regardless of the dimension",
+        "It evaluates the integrand at fewer points than any grid method in every dimension",
+        "It is exact whenever the integrand is smooth"
+      ],
+      "why": "The law of large numbers and the standard error σ/√n do not involve the dimension, whereas grids need exponentially many points. The 1/√n rate is slow but dimension-free."
+    },
+    {
+      "q": "The sum of 64 i.i.d. variables, each with mean 2 and variance 4, is used. What is the approximate probability that the sum exceeds 140?",
+      "a": "0.227",
+      "wrong": [
+        "0.773",
+        "0.0013",
+        "0.159"
+      ],
+      "why": "The sum has mean 128 and variance 256, so sd 16, and z = 12/16 = 0.75. P(Z > 0.75) ≈ 0.227; the value 0.773 is the probability of falling below."
+    },
+    {
+      "q": "X ~ Binomial(100, 0.3). With a continuity correction, the normal approximation to P(X ≤ 24) is Φ of",
+      "a": "(24.5 − 30)/√21",
+      "wrong": [
+        "(24 − 30)/√21",
+        "(25.5 − 30)/√21",
+        "(24.5 − 30)/21"
+      ],
+      "why": "The mean is 30 and the variance is 100(0.3)(0.7) = 21. The event X ≤ 24 covers the interval up to 24.5, and the denominator is the standard deviation √21, not the variance."
+    },
+    {
+      "q": "What is the distribution of the average of 1,000 independent standard Cauchy samples?",
+      "a": "The same standard Cauchy as a single sample, so averaging does not concentrate it",
+      "wrong": [
+        "Approximately normal with standard deviation about 1/√1000",
+        "A Cauchy distribution about 1000 times narrower",
+        "Approximately normal, but with heavier tails than usual"
+      ],
+      "why": "The Cauchy has no mean or finite variance, so neither the law of large numbers nor the CLT applies. The sample average is distributed exactly as one observation."
+    },
+    {
+      "q": "A sensor logs 100,000 readings, each repeating the previous one with probability 0.99. Why does the standard error σ/√100000 understate the uncertainty in the mean?",
+      "a": "The readings are strongly dependent, so the effective sample size is far below 100,000",
+      "wrong": [
+        "The σ/√n formula is valid only for n below 10,000",
+        "Repeated values make the variance infinite",
+        "The CLT requires the readings to be bounded"
+      ],
+      "why": "The σ/√n rate assumes independent (or weakly dependent) observations. With long runs of near-identical readings there is much less information than the count suggests."
+    },
+    {
+      "q": "A classifier is right on 360 of 400 independent test examples. Which 95% confidence interval for its accuracy does the CLT give?",
+      "a": "0.90 ± 0.029",
+      "wrong": [
+        "0.90 ± 0.015",
+        "0.90 ± 0.059",
+        "0.90 ± 0.0004"
+      ],
+      "why": "SE = √(0.9 × 0.1/400) = 0.015, and the interval is 1.96 SE = 0.029. The value 0.015 is one standard error without the factor 1.96."
+    },
+    {
+      "q": "A poll wants a 95% margin of error of 0.03 for a proportion near 0.5. Using the CLT, about how many respondents are needed?",
+      "a": "1,070",
+      "wrong": [
+        "385",
+        "33",
+        "10,700"
+      ],
+      "why": "Solve 1.96 × 0.5/√n ≤ 0.03: √n ≥ 32.7, so n ≥ 1,067. The figure 385 corresponds to a margin of 0.05."
+    },
+    {
+      "q": "Which distribution would need the largest n before the normal approximation to its sample mean is accurate?",
+      "a": "A highly skewed distribution with rare large values",
+      "wrong": [
+        "A symmetric distribution such as the uniform",
+        "A Bernoulli(0.5) variable",
+        "A Gaussian variable"
+      ],
+      "why": "The Berry–Esseen error is governed by the third moment relative to σ³ and falls as 1/√n, so skew slows convergence. Gaussians are exactly normal for every n."
+    },
+    {
+      "q": "A mini-batch of 32 examples gives a gradient with noise standard deviation 0.5. What batch size gives noise standard deviation 0.1?",
+      "a": "800",
+      "wrong": [
+        "160",
+        "400",
+        "1,600"
+      ],
+      "why": "Noise falls as 1/√b, so a fivefold reduction needs 5² = 25 times the batch: 25 × 32 = 800. A factor of 5 in batch size (160) reduces noise only by about 2.2."
+    },
+    {
+      "q": "Fifty models each have error variance 4, with pairwise error correlation 0.5. As more such models are averaged, the variance of the average approaches",
+      "a": "2",
+      "wrong": [
+        "0",
+        "0.08",
+        "4"
+      ],
+      "why": "The variance of the average is ρσ² + (1 − ρ)σ²/B, which tends to the floor ρσ² = 2. The formula σ²/B applies only to independent errors."
+    },
+    {
+      "q": "A neuron's pre-activation sums 256 independent terms w_i x_i, with Var(w) = 0.01 and E[x²] = 1. What is the variance of the sum?",
+      "a": "2.56",
+      "wrong": [
+        "1.6",
+        "0.01",
+        "25.6"
+      ],
+      "why": "Variances of independent terms add: 256 × 0.01 × 1 = 2.56. The value 1.6 is the standard deviation, and by the CLT the sum is approximately Gaussian."
+    }
+  ],
   "summary": [
     "Markov: P(X ≥ t) ≤ E[X]/t for X ≥ 0. Chebyshev: P(|X − μ| ≥ kσ) ≤ 1/k². Hoeffding gives exponentially small tails for bounded independent variables: P(|X̄ − μ| ≥ t) ≤ 2e^{−2nt²} on [0, 1].",
     "The law of large numbers: the sample mean converges to μ (weakly in probability by Chebyshev, strongly almost surely). Its standard error is σ/√n.",

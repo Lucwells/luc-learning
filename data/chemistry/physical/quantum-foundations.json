@@ -402,6 +402,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A particle in a box of length L has ψ = A sin(πx/L) for 0 < x < L. What value of A normalizes it?",
+      "a": "A = √(2/L)",
+      "wrong": [
+        "A = 1/√L",
+        "A = 2/L",
+        "A = √(L/2)"
+      ],
+      "why": "Normalization needs A²∫₀ᴸ sin²(πx/L) dx = A²L/2 = 1, so A = √(2/L). The integral of sin² over a half-period is L/2, not L."
+    },
+    {
+      "q": "A particle is in the state Ψ = 0.6ψ₁ + 0.8ψ₂, where ψ₁ and ψ₂ are normalized energy eigenstates with E₁ = 1 eV and E₂ = 4 eV. What is ⟨E⟩?",
+      "a": "2.92 eV",
+      "wrong": [
+        "3.80 eV",
+        "2.50 eV",
+        "5.00 eV"
+      ],
+      "why": "The weights are the squared coefficients, 0.36 and 0.64: ⟨E⟩ = 0.36(1) + 0.64(4) = 2.92 eV. Using the coefficients 0.6 and 0.8 directly gives 3.8 eV, which is wrong because they are amplitudes, not probabilities."
+    },
+    {
+      "q": "The position of an electron is known to within Δx = 0.10 nm. What is the smallest possible momentum uncertainty?",
+      "a": "5.3 × 10⁻²⁵ kg m s⁻¹",
+      "wrong": [
+        "1.1 × 10⁻²⁴ kg m s⁻¹",
+        "6.6 × 10⁻²⁴ kg m s⁻¹",
+        "3.3 × 10⁻²⁴ kg m s⁻¹"
+      ],
+      "why": "Δp ≥ ħ/(2Δx) = 1.055 × 10⁻³⁴ / (2 × 1.0 × 10⁻¹⁰) = 5.3 × 10⁻²⁵ kg m s⁻¹. The other values come from using ħ/Δx, h/Δx or h/2Δx, which are not the bound Δx Δp ≥ ħ/2."
+    },
+    {
+      "q": "Which pair of observables can have sharp values at the same time?",
+      "a": "The magnitude of the angular momentum and its z component",
+      "wrong": [
+        "The x and z components of the angular momentum",
+        "Position x and momentum pₓ",
+        "The x and y components of the angular momentum"
+      ],
+      "why": "L² commutes with L_z, so they share eigenfunctions. Different components of L do not commute with one another, and [x̂, p̂ₓ] = iħ."
+    },
+    {
+      "q": "Why must the operator for a measurable quantity be Hermitian?",
+      "a": "Its eigenvalues are real, as measured values must be",
+      "wrong": [
+        "Its eigenvalues are always positive",
+        "It must commute with every other operator",
+        "Its eigenfunctions are automatically normalized to 1"
+      ],
+      "why": "Hermitian operators have real eigenvalues (and orthogonal eigenfunctions for different eigenvalues). They need not be positive, and they do not all commute."
+    },
+    {
+      "q": "A superposition of the n = 1 and n = 3 states of an electron in a box of length 1.0 nm has a probability density that oscillates in time. At what frequency?",
+      "a": "7.3 × 10¹⁴ Hz",
+      "wrong": [
+        "9.1 × 10¹⁴ Hz",
+        "8.2 × 10¹⁴ Hz",
+        "4.6 × 10¹⁵ Hz"
+      ],
+      "why": "The frequency is (E₃ − E₁)/h = 8h/(8mL²) = 8 × 6.02 × 10⁻²⁰ J / h = 7.3 × 10¹⁴ Hz. Using E₃ + E₁ or E₃ alone, or dividing by ħ in place of h, gives the other values."
+    },
+    {
+      "q": "A student claims cos(πx/L) is also a solution of the box equation −(ħ²/2m)ψ″ = Eψ with the same energy as the n = 1 state. Why is it not an allowed wavefunction?",
+      "a": "It does not vanish at the walls x = 0 and x = L",
+      "wrong": [
+        "It does not satisfy the Schrödinger equation inside the box",
+        "It cannot be normalized over the box",
+        "Its energy would be negative"
+      ],
+      "why": "cos(πx/L) does solve the equation inside, with the same E, but it equals ±1 at the walls. Only sin solutions meet the boundary conditions ψ(0) = ψ(L) = 0, and these conditions quantize the energy."
+    },
+    {
+      "q": "An electron in a box of length L has E₁ = 8 eV. What is the energy of its n = 3 state in a box of length 2L?",
+      "a": "18 eV",
+      "wrong": [
+        "72 eV",
+        "36 eV",
+        "288 eV"
+      ],
+      "why": "E ∝ n²/L², so E = 8 × 9 / 4 = 18 eV. Forgetting the larger box gives 72 eV, using 1/L in place of 1/L² gives 36 eV, and multiplying by L² gives 288 eV."
+    },
+    {
+      "q": "How many distinct states of a particle in a cubic box have energy 14h²/(8mL²)?",
+      "a": "6",
+      "wrong": [
+        "3",
+        "1",
+        "9"
+      ],
+      "why": "The only way to get nₓ² + n_y² + n_z² = 14 is 9 + 4 + 1, with (3, 2, 1) and its five permutations. All three quantum numbers differ, so there are 3! = 6 arrangements."
+    },
+    {
+      "q": "The four π electrons of butadiene are modeled as particles in a one-dimensional box of length 5.8 Å. At what wavelength does the lowest-energy absorption fall?",
+      "a": "222 nm",
+      "wrong": [
+        "370 nm",
+        "158 nm",
+        "139 nm"
+      ],
+      "why": "Four electrons fill n = 1 and 2, so the lowest excitation is n = 2 → 3, ΔE = 5h²/8mL² = 8.95 × 10⁻¹⁹ J and λ = hc/ΔE = 222 nm. Using n = 1 → 2 (370 nm) forgets that the lower level is already full."
+    },
+    {
+      "q": "An electron has transmission probability T = 0.10 through a barrier. A particle with four times the mass, same energy and same barrier, has T closest to",
+      "a": "0.01",
+      "wrong": [
+        "0.025",
+        "1 × 10⁻⁴",
+        "0.05"
+      ],
+      "why": "κ ∝ √m, so four times the mass doubles κ and squares the exponent factor: T = exp(−2·2κa) = (0.10)² = 0.01. T is not divided by 4, and mass enters through √m rather than m."
+    },
+    {
+      "q": "A hydrogen-transfer reaction has k_H/k_D = 40 at 25 °C. Why does this point to tunneling?",
+      "a": "Zero-point energy differences alone give a ratio of at most about 7",
+      "wrong": [
+        "Classical barrier crossing gives k_H/k_D = 1 exactly",
+        "Tunneling makes deuterium transfer faster than protium transfer",
+        "A ratio above 1 is only possible for tunneling"
+      ],
+      "why": "The loss of zero-point energy on going to the transition state limits the semiclassical isotope effect to about 7. Protons tunnel much more than deuterons (κ ∝ √m), so the ratio can be far larger."
+    },
+    {
+      "q": "HBr has a force constant of 412 N m⁻¹ and a reduced mass of 1.653 × 10⁻²⁷ kg. What is its harmonic vibrational wavenumber?",
+      "a": "2650 cm⁻¹",
+      "wrong": [
+        "16 650 cm⁻¹",
+        "1330 cm⁻¹",
+        "5300 cm⁻¹"
+      ],
+      "why": "ω = √(k/μ) = 4.99 × 10¹⁴ s⁻¹ and ν̃ = ω/(2πc) = 2650 cm⁻¹. Leaving out the 2π gives 16 650 cm⁻¹."
+    },
+    {
+      "q": "A diatomic has D_e = 450 kJ mol⁻¹ and a harmonic wavenumber of 2990 cm⁻¹. What is the dissociation energy D₀ from the ground vibrational level?",
+      "a": "432 kJ mol⁻¹",
+      "wrong": [
+        "468 kJ mol⁻¹",
+        "414 kJ mol⁻¹",
+        "450 kJ mol⁻¹"
+      ],
+      "why": "The ground state sits ½ħω above the bottom of the well, which is ½ × 2990 cm⁻¹ = 17.9 kJ mol⁻¹, so D₀ = 450 − 17.9 = 432 kJ mol⁻¹. Subtracting the full ħω gives 414."
+    },
+    {
+      "q": "A bond has a fundamental vibration at 3000 cm⁻¹. Where would its first overtone (v = 0 → 2) be found?",
+      "a": "Slightly below 6000 cm⁻¹",
+      "wrong": [
+        "Exactly 6000 cm⁻¹",
+        "Slightly above 6000 cm⁻¹",
+        "Near 1500 cm⁻¹"
+      ],
+      "why": "Anharmonic levels get closer together as v rises, so the 0 → 2 energy is a little less than twice the 0 → 1 energy. Exactly 6000 would need the equally spaced harmonic ladder."
+    },
+    {
+      "q": "A C–D bond breaks more slowly than a C–H bond. What is the main reason?",
+      "a": "It starts lower in the same potential well because its zero-point energy is smaller",
+      "wrong": [
+        "Its force constant is larger, so the bond is stiffer",
+        "The deuterium nucleus is more strongly bound to carbon electronically",
+        "It vibrates at a higher frequency, so it is harder to stretch"
+      ],
+      "why": "The potential curve, and so k, is the same for both. The heavier D has a smaller ω and a lower zero-point energy, so more energy is needed to reach the same dissociation limit or transition state."
+    },
+    {
+      "q": "A rigid rotor has B = 2.0 cm⁻¹. At what wavenumber does the J = 2 → 3 transition occur?",
+      "a": "12 cm⁻¹",
+      "wrong": [
+        "4.0 cm⁻¹",
+        "8.0 cm⁻¹",
+        "10 cm⁻¹"
+      ],
+      "why": "E_J = BJ(J + 1), so E₃ − E₂ = 12B − 6B = 6B = 12 cm⁻¹, which is 2B(J + 1) with J = 2. The value 2B = 4.0 is the J = 0 → 1 line."
+    },
+    {
+      "q": "HCl has B = 10.59 cm⁻¹ with the bond length unchanged on isotopic substitution, and its reduced mass is 0.972 amu. For DCl (μ = 1.89 amu), B is closest to",
+      "a": "5.45 cm⁻¹",
+      "wrong": [
+        "20.6 cm⁻¹",
+        "7.60 cm⁻¹",
+        "10.59 cm⁻¹"
+      ],
+      "why": "B ∝ 1/I = 1/(μr²) with r fixed, so B(DCl) = 10.59 × 0.972/1.89 = 5.45 cm⁻¹. The √ ratio (7.60) belongs to vibrational frequencies, not rotations."
+    }
+  ],
   "summary": [
     "The state is a wavefunction with |Ψ|² as probability density. Observables are Hermitian operators, measurements give eigenvalues, and ⟨A⟩ = ∫Ψ*ÂΨ dτ. Operators that do not commute obey an uncertainty relation.",
     "Ĥψ = Eψ with boundary conditions gives quantized energies. A superposition of stationary states oscillates at the transition frequencies.",

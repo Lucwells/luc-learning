@@ -493,6 +493,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "How is 2-methylbutan-1-ol classified?",
+      "a": "Primary",
+      "wrong": [
+        "Secondary, because the chain is branched",
+        "Tertiary, because it has a methyl branch near the OH",
+        "It cannot be classified because it is chiral"
+      ],
+      "why": "Classification counts the carbons attached to the carbinol carbon (the carbon bearing OH). That carbon, C1, has only one carbon neighbor, so the alcohol is primary no matter how branched the chain is elsewhere."
+    },
+    {
+      "q": "A compound contains both a ketone and an ethyl ester. It is treated with NaBH₄ in ethanol. What happens?",
+      "a": "The ketone is reduced to a secondary alcohol and the ester is unchanged",
+      "wrong": [
+        "Both the ketone and the ester are reduced",
+        "Only the ester is reduced, to a primary alcohol, because esters are more electrophilic than ketones",
+        "Neither is reduced, because NaBH₄ reduces only aldehydes and needs an acidic workup to touch a ketone"
+      ],
+      "why": "NaBH₄ is mild enough to reduce aldehydes and ketones but not esters or acids. LiAlH₄ would reduce both groups."
+    },
+    {
+      "q": "Four alcohols are shaken at room temperature with ZnCl₂ in concentrated HCl. Which becomes cloudy immediately?",
+      "a": "2-Methylpropan-2-ol",
+      "wrong": [
+        "Butan-2-ol",
+        "Butan-1-ol",
+        "Propan-2-ol"
+      ],
+      "why": "The tertiary alcohol ionizes by SN1 almost at once to give the insoluble alkyl chloride. The secondary alcohols take minutes, and the primary alcohol does not react at room temperature."
+    },
+    {
+      "q": "(S)-Butan-2-ol is converted to its tosylate with TsCl and pyridine, and the tosylate is then treated with NaN₃. What is the configuration of the 2-azidobutane?",
+      "a": "R",
+      "wrong": [
+        "S, because inversion occurs in both steps and they cancel",
+        "S, because the nucleophile replaces the leaving group in the same position",
+        "A racemic mixture"
+      ],
+      "why": "Tosylate formation does not touch the C–O bond, so the configuration is retained. Azide then displaces tosylate by SN2 with one inversion. Azide and OH hold the same priority rank, so the label changes from S to R."
+    },
+    {
+      "q": "(R)-Octan-2-ol reacts with PPh₃, DEAD and benzoic acid. What is the configuration of the benzoate ester?",
+      "a": "S, with inversion at the carbinol carbon",
+      "wrong": [
+        "R, with retention, since the C–O bond is never broken",
+        "A racemic mixture, since the intermediate is a carbocation",
+        "No ester forms unless a carbodiimide is added"
+      ],
+      "why": "In the Mitsunobu reaction the oxygen is activated in place, and the carboxylate displaces it by SN2 from the back. Benzoate-O and OH have the same priority rank, so inversion changes R to S."
+    },
+    {
+      "q": "Butan-1-ol is treated with CrO₃ and H₂SO₄ in aqueous acetone (Jones reagent). What is the main product?",
+      "a": "Butanoic acid",
+      "wrong": [
+        "Butanal",
+        "Butan-2-one",
+        "No reaction"
+      ],
+      "why": "In water the aldehyde forms a hydrate, which is oxidized a second time. Stopping at the aldehyde would need anhydrous PCC or a Swern or Dess–Martin oxidation."
+    },
+    {
+      "q": "An orange solution of acidified dichromate is added to an unknown alcohol and slowly turns green. What can be concluded?",
+      "a": "The alcohol has at least one hydrogen on its carbinol carbon, so it is primary or secondary",
+      "wrong": [
+        "The alcohol must be tertiary",
+        "The alcohol is a phenol",
+        "The solution changed color only because the dichromate was diluted by the alcohol"
+      ],
+      "why": "Orange Cr(VI) is reduced to green Cr(III) only when something is oxidized. A tertiary alcohol has no carbinol hydrogen and gives no reaction."
+    },
+    {
+      "q": "Pinacol, (CH₃)₂C(OH)C(OH)(CH₃)₂, is treated with NaIO₄. What is formed?",
+      "a": "Two molecules of acetone",
+      "wrong": [
+        "Pinacolone",
+        "Two molecules of acetic acid",
+        "2,3-Dimethylbut-2-ene"
+      ],
+      "why": "Periodate cleaves the bond between the two carbinol carbons of a 1,2-diol, giving a carbonyl compound from each. Pinacolone arises from pinacol under acid by a methyl shift, not from periodate."
+    },
+    {
+      "q": "Methyl tert-butyl ether is treated with one equivalent of cold HI. Which products are formed mainly?",
+      "a": "tert-Butyl iodide and methanol",
+      "wrong": [
+        "Iodomethane and tert-butyl alcohol",
+        "Methanol and 2-methylpropene only",
+        "No reaction, since ethers are inert to acids"
+      ],
+      "why": "After protonation of oxygen, the tertiary side leaves as a stable cation (SN1) and is captured by iodide. Backside SN2 on the hindered tertiary carbon is not possible."
+    },
+    {
+      "q": "Why does adding 18-crown-6 allow potassium fluoride to react in an organic solvent as a very strong nucleophile?",
+      "a": "The crown ether wraps K⁺ in its cavity and carries the salt into solution, leaving the fluoride bare",
+      "wrong": [
+        "The crown ether protonates fluoride to make HF",
+        "The crown ether reacts with the alkyl halide first and then delivers fluorine",
+        "The crown ether is a strong acid that dissolves the salt"
+      ],
+      "why": "A polyether cavity of the right size binds the cation. Without hydrogen bonding or ion pairing, the anion is highly nucleophilic."
+    },
+    {
+      "q": "Why can a bottle of THF that has stood open in air for years be dangerous?",
+      "a": "Autoxidation forms explosive hydroperoxides",
+      "wrong": [
+        "THF polymerizes to a shock-sensitive solid on standing",
+        "THF hydrolyzes to butane-1,4-diol and pressure builds up",
+        "THF absorbs carbon dioxide and forms carbonates"
+      ],
+      "why": "Ethers react slowly with O₂ in a radical chain, giving hydroperoxides that can detonate when the solvent is concentrated or distilled."
+    },
+    {
+      "q": "2,2-Dimethyloxirane reacts with NH₃ in ethanol (neutral or basic conditions). What is the major product?",
+      "a": "1-Amino-2-methylpropan-2-ol",
+      "wrong": [
+        "2-Amino-2-methylpropan-1-ol",
+        "2-Methylpropane-1,2-diol",
+        "2-Methylpropene"
+      ],
+      "why": "Under basic or neutral conditions the nucleophile attacks the less hindered CH₂ carbon by SN2, leaving the oxygen on the tertiary carbon. Attack at the tertiary carbon is typical only under acid."
+    },
+    {
+      "q": "Cyclohexene oxide reacts with sodium methoxide in methanol. What is the product?",
+      "a": "trans-2-Methoxycyclohexan-1-ol",
+      "wrong": [
+        "cis-2-Methoxycyclohexan-1-ol",
+        "1-Methoxycyclohexan-1-ol",
+        "Cyclohexene"
+      ],
+      "why": "Methoxide attacks from the side opposite the epoxide oxygen, so the two groups end up on opposite faces of the ring (anti opening)."
+    },
+    {
+      "q": "Ethylmagnesium bromide reacts with ethylene oxide, followed by H₃O⁺. What is the product?",
+      "a": "Butan-1-ol",
+      "wrong": [
+        "Propan-1-ol",
+        "Butan-2-ol",
+        "Ethanol"
+      ],
+      "why": "The carbanion-like ethyl group attacks a CH₂ of the epoxide, adding two carbons to give CH₃CH₂CH₂CH₂OH after protonation of the alkoxide."
+    },
+    {
+      "q": "Excess ethylmagnesium bromide reacts with methyl propanoate, then H₃O⁺. What is the product?",
+      "a": "3-Ethylpentan-3-ol",
+      "wrong": [
+        "Pentan-3-one",
+        "Pentan-3-ol",
+        "Propan-1-ol"
+      ],
+      "why": "The first addition expels methoxide to give pentan-3-one, which is more reactive than the ester and adds a second ethyl group. The result is a tertiary alcohol with two identical added groups."
+    },
+    {
+      "q": "Cyclohex-2-en-1-one reacts with lithium dimethylcuprate, then H₃O⁺. What is the major product?",
+      "a": "3-Methylcyclohexanone",
+      "wrong": [
+        "1-Methylcyclohex-2-en-1-ol",
+        "2-Methylcyclohexanone",
+        "1,3-Dimethylcyclohexane"
+      ],
+      "why": "Gilman reagents add in a conjugate (1,4) fashion to α,β-unsaturated ketones. A Grignard reagent such as CH₃MgBr would give the 1,2-adduct, the allylic alcohol."
+    },
+    {
+      "q": "Which alkyl bromide cannot usefully be converted to its Grignard reagent with magnesium?",
+      "a": "6-Bromohex-1-yne",
+      "wrong": [
+        "1-Bromohexane",
+        "Bromobenzene",
+        "1-Bromo-4-methoxybutane"
+      ],
+      "why": "The terminal alkyne C–H (pK_a 25) is far more acidic than the conjugate acid of a Grignard carbon (about 50), so the reagent would protonate itself. The ether and aryl or alkyl halide are compatible."
+    },
+    {
+      "q": "Why is CH₃CH₂S⁻ a better choice than CH₃CH₂O⁻ for substitution on a secondary alkyl bromide?",
+      "a": "Thiolate is a stronger nucleophile but a weaker base, so less E2 competes",
+      "wrong": [
+        "Thiolate is a stronger base, so it is better at pulling the leaving group off the carbon",
+        "Alkoxide cannot act as a nucleophile at all",
+        "Thiolate is smaller than alkoxide, so it avoids steric hindrance at the secondary carbon"
+      ],
+      "why": "Sulfur is larger and more polarizable than oxygen, and RSH (pK_a about 10) is a stronger acid than ROH (16–18), so RS⁻ is the weaker base. Alkoxides do act as nucleophiles, but they also drive elimination."
+    }
+  ],
   "summary": [
     "Alcohols come from alkene hydration, carbonyl reduction and Grignard additions. They are 1°, 2° or 3°, and phenols are much more acidic.",
     "OH is made a leaving group through HX, SOCl₂ or PBr₃ (inversion), tosylation (retention, then SN2 inversion) or the Mitsunobu reaction (inversion).",

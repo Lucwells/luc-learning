@@ -524,6 +524,158 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A chess program plays games against a fixed opponent, and its win rate rises as it plays more games. Which item is the performance measure P in Mitchell's definition?",
+      "a": "The fraction of games won against the opponent",
+      "wrong": [
+        "The games it has already played against the opponent",
+        "Choosing a move on each turn of a game",
+        "The rules of chess that the program is given"
+      ],
+      "why": "The games played are the experience E, choosing moves is the task T, and the win rate is the number that is expected to improve."
+    },
+    {
+      "q": "A model is trained on millions of photographs. A patch is blacked out in each, and the model must predict the missing pixels from the rest. No person labels anything. This is best called",
+      "a": "self-supervised learning",
+      "wrong": [
+        "reinforcement learning",
+        "clustering",
+        "semi-supervised learning"
+      ],
+      "why": "The labels (the hidden pixels) are made from the data itself. Semi-supervised learning would need a small set of human labels."
+    },
+    {
+      "q": "What most separates reinforcement learning from supervised learning?",
+      "a": "The learner's own actions determine the data it sees next, and feedback is only a reward",
+      "wrong": [
+        "It needs far more data than supervised learning does, in every case and for every task",
+        "Its outputs must always be real numbers rather than categories",
+        "It has no loss or objective to optimize, only a fixed set of rules"
+      ],
+      "why": "In supervised learning the data are fixed and each example has a correct answer. An agent's choices change what it observes, and it is told only how good the outcome was."
+    },
+    {
+      "q": "A training set has 500 houses, each described by 8 features, and one price per house. What are the shapes of X and y?",
+      "a": "X ∈ ℝ^{500×8} and y ∈ ℝ^{500}",
+      "wrong": [
+        "X ∈ ℝ^{8×500} and y ∈ ℝ^{8}",
+        "X ∈ ℝ^{500×8} and y ∈ ℝ^{8}",
+        "X ∈ ℝ^{500×500} and y ∈ ℝ^{500}"
+      ],
+      "why": "Row i of X is one example, so X has m = 500 rows and n = 8 columns. There is one label per example, so y has m entries."
+    },
+    {
+      "q": "Why is zero-one loss a poor choice for predicting house prices?",
+      "a": "Nearly every prediction counts as a mistake, however close it is",
+      "wrong": [
+        "It cannot be averaged over the examples of a training set",
+        "It is only defined when every label is a positive number",
+        "It makes the empirical risk impossible to compute from data"
+      ],
+      "why": "Zero-one loss counts mistakes. For a continuous output nearly every prediction is a mistake, whether it is off by one dollar or a million. Squared loss grows with the size of the error."
+    },
+    {
+      "q": "The training data are (1, 1), (2, 3), (3, 2), and the hypothesis is h(x) = x. What is the squared-loss empirical risk?",
+      "a": "2/3",
+      "wrong": [
+        "2",
+        "1/3",
+        "0"
+      ],
+      "why": "The errors are 0, −1 and 1, so the squares are 0, 1 and 1. The sum is 2, and the empirical risk is the mean, 2/3."
+    },
+    {
+      "q": "Which situation breaks the i.i.d. assumption most seriously?",
+      "a": "A spam filter is trained on 2015 emails and used on 2025 emails, after spammers changed tactics",
+      "wrong": [
+        "Two training emails have exactly the same text but carry different labels",
+        "A training set has far more features than it has examples, so the fit is unstable",
+        "Some features are measured on a much larger scale than the other features"
+      ],
+      "why": "i.i.d. means training and future examples come from the same distribution P. Drift in the world breaks that link. The other options make learning hard, but they do not change P."
+    },
+    {
+      "q": "A learner picks the hypothesis ĥ with the lowest empirical risk on a sample. Why is R̂(ĥ) usually lower than the true risk R(ĥ)?",
+      "a": "ĥ was chosen for fitting this very sample, noise included",
+      "wrong": [
+        "The true risk is computed with a harsher loss function",
+        "The sample is always too small to contain any errors",
+        "Empirical risk ignores the examples the model gets wrong"
+      ],
+      "why": "Choosing the minimizer on the sample partly fits noise that is specific to that sample. New data do not share the noise, so the error there is higher."
+    },
+    {
+      "q": "A team tries ten values of a regularization strength and reports the test error of the best one as its performance estimate. The estimate is",
+      "a": "optimistic, because the test set was used to make a decision",
+      "wrong": [
+        "unbiased, because the test set never trained the weights of any model",
+        "pessimistic, because ten different models were tried on the same data",
+        "unbiased, but with a larger variance than a single-model estimate"
+      ],
+      "why": "Using test error to choose among models selects the value that happened to do well on that test set. A validation set should make the choice, and the test set is used once at the end."
+    },
+    {
+      "q": "Five points have distinct x values. A polynomial of degree 4 is fit to them. Which is the most accurate description?",
+      "a": "It hits all five points but may swing wildly between them",
+      "wrong": [
+        "It misses some points, because five points need degree 5 to be fit",
+        "It passes through all five points, which guarantees a low test error",
+        "It cannot be fit at all, because the data have no noise in them"
+      ],
+      "why": "A degree m − 1 polynomial can interpolate m points exactly. Zero training error says nothing about the curve between and beyond them."
+    },
+    {
+      "q": "Inputs are 2-bit strings, so there are 4 inputs, and each output is 0, 1 or 2. How many functions are there from inputs to outputs?",
+      "a": "81",
+      "wrong": [
+        "64",
+        "12",
+        "16"
+      ],
+      "why": "Each of the 4 inputs independently picks one of 3 outputs, so 3 × 3 × 3 × 3 = 3⁴ = 81. The number of outputs is the base and the number of inputs is the exponent."
+    },
+    {
+      "q": "With 2-bit inputs and outputs in {0, 1}, you are shown the correct labels for 3 of the 4 inputs. How many functions agree with them, and what do they say about the fourth input?",
+      "a": "2 functions, which give opposite answers on the fourth input, so the data cannot choose",
+      "wrong": [
+        "1 function, because the three known labels fix the fourth label too",
+        "2 functions, which both give the same answer on the fourth input",
+        "8 functions, which all give the same answer on the fourth input"
+      ],
+      "why": "Three rows are fixed and one row is free. The free row can be 0 or 1, so 2 tables fit. They differ on exactly the input you must predict."
+    },
+    {
+      "q": "Algorithm A beats algorithm B on every image task you try. Why does this not contradict the no free lunch theorem?",
+      "a": "The theorem averages over all problems, and image tasks suit A's assumptions",
+      "wrong": [
+        "The theorem applies only to algorithms that have no hyperparameters to tune",
+        "The theorem holds only when the training set is small compared with the input space",
+        "A must have been tuned on the test set, which makes the comparison unfair"
+      ],
+      "why": "No free lunch says no algorithm wins across all possible target functions. Real problems are a structured subset, and an algorithm whose inductive bias matches that structure can win on it."
+    },
+    {
+      "q": "In the model, objective and optimizer decomposition, \"the average squared error on the training set plus a penalty on the size of the weights\" is the",
+      "a": "objective",
+      "wrong": [
+        "model",
+        "optimizer",
+        "hyperparameter"
+      ],
+      "why": "The model is the form of the function, the objective is the quantity to be minimized, and the optimizer (such as gradient descent) is the procedure that minimizes it."
+    },
+    {
+      "q": "Which goal best marks the emphasis of machine learning, as opposed to classical statistics?",
+      "a": "Accurate prediction on new data, even if the model is hard to interpret",
+      "wrong": [
+        "Confidence intervals and hypothesis tests for each parameter",
+        "Proving that the assumed model form is exactly correct",
+        "Using as few parameters as possible, so a person can read the model"
+      ],
+      "why": "Statistics stresses inference and interpretable parameters. Machine learning accepts opaque models when they predict better on held-out data."
+    }
+  ],
   "summary": [
     "A program learns when its performance on a task improves with experience, and the performance that counts is on new inputs.",
     "Supervised learning fits a function from labeled examples (regression for numbers, classification for categories). Unsupervised learning finds structure without labels. Reinforcement learning maximizes reward through trial and error.",

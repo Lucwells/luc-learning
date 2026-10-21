@@ -381,6 +381,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "For an SN2 reaction, the concentrations of both the alkyl halide and the nucleophile are doubled. By what factor does the rate change?",
+      "a": "4",
+      "wrong": [
+        "2",
+        "8",
+        "1"
+      ],
+      "why": "The rate law is k[R–X][Nu⁻], so doubling each concentration multiplies the rate by 2 × 2 = 4. Only an SN1 reaction would ignore the nucleophile."
+    },
+    {
+      "q": "Neopentyl bromide, (CH₃)₃CCH₂Br, is a primary halide, yet it is almost inert to SN2. Why?",
+      "a": "The bulky tert-butyl group next to the reacting carbon blocks backside attack",
+      "wrong": [
+        "A primary carbocation is too unstable to form",
+        "The C–Br bond is much stronger than in other primary bromides because of the electron-donating methyl groups",
+        "Bromide is a poor leaving group from a primary carbon"
+      ],
+      "why": "SN2 needs the nucleophile to reach the back of the carbon, and branching at the adjacent carbon prevents it. Carbocation stability is irrelevant to SN2, which forms none."
+    },
+    {
+      "q": "Why can water leave from a protonated alcohol, R–OH₂⁺, although HO⁻ will not leave from R–OH?",
+      "a": "Water is a weak base, the conjugate base of a strong acid, so it carries the electron pair away stably",
+      "wrong": [
+        "Hydroxide is too large to depart from carbon, whereas the smaller water molecule fits in the leaving-group position",
+        "Water is a stronger base than hydroxide",
+        "The positive charge on oxygen makes the C–O bond longer, which is the only factor"
+      ],
+      "why": "A good leaving group is a weak base. Hydroxide is a strong base (its conjugate acid, water, has pK_a 15.7), whereas H₂O is the conjugate base of H₃O⁺, a strong acid."
+    },
+    {
+      "q": "In methanol, which is the stronger nucleophile toward CH₃CH₂CH₂Br, Br⁻ or Cl⁻, and why?",
+      "a": "Br⁻, because it is larger and more polarizable and is less tightly solvated",
+      "wrong": [
+        "Cl⁻, because it is more electronegative and holds its electrons more strongly",
+        "Cl⁻, because it is a stronger base",
+        "They are equal, because both are halides"
+      ],
+      "why": "In protic solvents, nucleophilicity rises down a group because larger anions are less tightly held by hydrogen bonds and are more polarizable. Basicity points the other way."
+    },
+    {
+      "q": "Which solvent would give the fastest SN2 reaction of sodium azide with 1-bromobutane?",
+      "a": "DMF",
+      "wrong": [
+        "Methanol",
+        "Water",
+        "Acetic acid"
+      ],
+      "why": "DMF is polar aprotic, so it dissolves the salt but cannot hydrogen bond to azide, leaving it highly reactive. The protic solvents cage the anion and slow SN2 by factors of 10³ or more."
+    },
+    {
+      "q": "Why does NaI in acetone convert an alkyl chloride to the iodide essentially completely?",
+      "a": "NaCl is insoluble in acetone and precipitates, removing a product from the equilibrium",
+      "wrong": [
+        "Iodide is a poorer nucleophile than chloride, so the product is stable",
+        "Acetone protonates the chloride and makes it a better leaving group",
+        "The reaction proceeds by SN1 because acetone stabilizes the carbocation"
+      ],
+      "why": "The Finkelstein reaction is an SN2 equilibrium driven to the right by the precipitation of NaCl. Iodide is a better nucleophile and acetone is aprotic, which helps the rate."
+    },
+    {
+      "q": "In the SN1 solvolysis of tert-butyl bromide, the substrate concentration is halved and the concentration of added nucleophile is tripled. How does the rate change?",
+      "a": "It is halved",
+      "wrong": [
+        "It increases by a factor of 1.5",
+        "It increases by a factor of 3",
+        "It is unchanged"
+      ],
+      "why": "The rate is k[R–X], independent of the nucleophile, because only the ionization step is slow. Halving the substrate halves the rate."
+    },
+    {
+      "q": "An optically pure secondary alkyl bromide heated in ethanol gives an ethyl ether that is almost racemic. What does this indicate?",
+      "a": "A planar carbocation intermediate formed and was attacked from either face",
+      "wrong": [
+        "A concerted backside attack, as in SN2",
+        "A rapid hydride shift to a different carbon",
+        "The ethanol acted as a base to give elimination"
+      ],
+      "why": "A single backside attack would invert the center and give optically pure product. Loss of stereochemistry is the signature of the planar cation in SN1."
+    },
+    {
+      "q": "2-Bromo-3,3-dimethylbutane ionizes in ethanol. Which rearrangement is expected?",
+      "a": "A methyl shift to give the tertiary cation (CH₃)₂C⁺–CH(CH₃)₂",
+      "wrong": [
+        "A hydride shift to give the primary cation (CH₃)₃C–CH₂⁺",
+        "No shift, because a secondary cation is already the most stable one possible here",
+        "A hydride shift from a methyl to give a tertiary cation"
+      ],
+      "why": "The secondary cation sits next to a quaternary carbon that has no hydrogen, so a methyl group migrates with its electrons, giving a tertiary cation. Shifts that lead to a less stable cation are not favored."
+    },
+    {
+      "q": "2-Bromo-3-methylbutane reacts with sodium ethoxide in ethanol. What is the major alkene?",
+      "a": "2-Methylbut-2-ene",
+      "wrong": [
+        "3-Methylbut-1-ene",
+        "2-Methylbut-1-ene",
+        "2-Ethoxy-3-methylbutane"
+      ],
+      "why": "Ethoxide is a small base, so Zaitsev's rule applies and the more substituted trisubstituted alkene forms by removing the tertiary hydrogen. The ether is a substitution product, not an alkene."
+    },
+    {
+      "q": "Heating a 2-alkyltrimethylammonium hydroxide, R–CH(NMe₃⁺)–CH₂CH₃ OH⁻, gives mainly which type of alkene?",
+      "a": "The less substituted (Hofmann) alkene",
+      "wrong": [
+        "The more substituted (Zaitsev) alkene",
+        "An equal mixture of both alkenes",
+        "An alkene formed by a carbocation rearrangement"
+      ],
+      "why": "–NR₃⁺ is a poor leaving group and the transition state has little alkene character. The base removes the more accessible, more acidic hydrogen, so the Hofmann product dominates."
+    },
+    {
+      "q": "For E2 in a cyclohexane chair, which arrangement is required?",
+      "a": "The leaving group and the β-hydrogen both axial, on opposite faces",
+      "wrong": [
+        "The leaving group and the β-hydrogen both equatorial",
+        "The leaving group axial and the β-hydrogen equatorial",
+        "The leaving group and the β-hydrogen axial on the same face"
+      ],
+      "why": "E2 needs an anti-periplanar H–C–C–X arrangement (180°), which in a chair is trans-diaxial. An equatorial leaving group is anti to ring C–C bonds, not to a C–H bond."
+    },
+    {
+      "q": "tert-Butyl bromide gives a mixture of SN1 and E1 products in ethanol at 25 °C. Which change favors the E1 product?",
+      "a": "Raising the temperature",
+      "wrong": [
+        "Lowering the temperature",
+        "Switching to DMSO and adding NaI",
+        "Increasing the concentration of a good, weakly basic nucleophile"
+      ],
+      "why": "Elimination has the larger entropy gain, so heating favors it over substitution. The other changes would promote SN2-type or substitution pathways, or remove the carbocation conditions."
+    },
+    {
+      "q": "Which alcohol dehydrates most readily in hot concentrated H₂SO₄?",
+      "a": "2-Methylpropan-2-ol",
+      "wrong": [
+        "Butan-1-ol",
+        "Butan-2-ol",
+        "Methanol"
+      ],
+      "why": "Dehydration proceeds by loss of water from the protonated alcohol to give a carbocation, and the tertiary cation is the easiest to form. The order is tertiary > secondary > primary."
+    },
+    {
+      "q": "Which reagent converts 2-bromopentane mainly to substitution?",
+      "a": "NaN₃ in DMF",
+      "wrong": [
+        "NaOEt in ethanol at 78 °C",
+        "KOtBu in tert-butanol",
+        "LDA in THF"
+      ],
+      "why": "Azide is a good nucleophile but a weak base, so it takes the SN2 route at a secondary carbon. The other three are strong bases and give mainly E2."
+    },
+    {
+      "q": "Which Williamson ether synthesis will NOT give the ether in good yield?",
+      "a": "Sodium ethoxide with tert-butyl bromide",
+      "wrong": [
+        "Potassium tert-butoxide with ethyl bromide",
+        "Sodium phenoxide with methyl iodide",
+        "Sodium ethoxide with 1-bromopropane"
+      ],
+      "why": "The halide must be methyl or primary for SN2. A tertiary halide with a strong base such as ethoxide undergoes E2 and gives 2-methylpropene."
+    },
+    {
+      "q": "Why does raising the temperature favor elimination over substitution?",
+      "a": "Elimination forms more molecules, so ΔS is positive and the −TΔS term grows with T",
+      "wrong": [
+        "Elimination is exothermic and heat always favors exothermic reactions",
+        "Heat converts nucleophiles into bases",
+        "Substitution requires a catalyst that decomposes on heating"
+      ],
+      "why": "Substitution makes two products from two reactants, while elimination makes three species (alkene, HX-derived products and the base's conjugate acid), so it gains entropy. Higher T makes this entropy term more important."
+    },
+    {
+      "q": "Potassium tert-butoxide reacts with methyl bromide. What is the main product?",
+      "a": "tert-Butyl methyl ether, by SN2",
+      "wrong": [
+        "Methane, by E2",
+        "No reaction, because the base is too bulky to attack carbon",
+        "Ethene, by E2 after coupling"
+      ],
+      "why": "Methyl bromide has no β-hydrogen, so E2 is impossible. The unhindered methyl carbon still allows SN2 by even a bulky alkoxide."
+    }
+  ],
   "summary": [
     "SN2: one step, rate = k[RX][Nu], inversion, methyl > 1° > 2°, favored by polar aprotic solvents and good nucleophiles.",
     "SN1: two steps through a carbocation, rate = k[RX], racemization, 3° > 2°, favored by polar protic solvents, with rearrangements possible.",

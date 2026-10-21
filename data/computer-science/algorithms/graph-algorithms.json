@@ -432,6 +432,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "Using the chapter's bfs_distances on g = {'S': ['X', 'Y'], 'X': ['Z'], 'Y': ['Z', 'W'], 'Z': [], 'W': ['Z']}, what is bfs_distances(g, 'S')['Z']?",
+      "a": "2",
+      "wrong": [
+        "1",
+        "3",
+        "4"
+      ],
+      "why": "Z is reached from X (distance 1) so dist['Z'] = 2. The later routes through Y and W are ignored because 'Z' is already in dist."
+    },
+    {
+      "q": "In bfs_distances, which single change makes the function loop forever on a graph that contains a cycle?",
+      "a": "Removing the test `if v not in dist`",
+      "wrong": [
+        "Replacing deque with an ordinary list",
+        "Initializing dist as {start: 1} instead of {start: 0}",
+        "Calling queue.append(v) before setting dist[v]"
+      ],
+      "why": "The membership test is the visited set. Without it, vertices on a cycle are queued again and again. The other changes affect speed or values but not termination."
+    },
+    {
+      "q": "bfs_distances is edited to use queue.pop() (take from the right) instead of queue.popleft(). On g = {'A': ['C', 'B'], 'B': ['D'], 'D': ['E'], 'C': ['E'], 'E': []}, what does it report for dist['E']?",
+      "a": "3, although the true shortest distance is 2",
+      "wrong": [
+        "2, which is correct",
+        "4",
+        "The code never terminates"
+      ],
+      "why": "With a stack, B is expanded first and E is reached via B → D → E (length 3) before C is expanded. The queue order is what guarantees that vertices are reached in order of distance."
+    },
+    {
+      "q": "A directed graph has edges A→B, A→C, B→D, C→D. DFS from A goes to B, then D, backtracks, and later reaches D again from C. Does this show a cycle?",
+      "a": "No, D has already finished and is not on the current recursion path",
+      "wrong": [
+        "Yes, because a vertex was reached twice",
+        "Yes, because D has two incoming edges",
+        "No, because directed graphs cannot have cycles"
+      ],
+      "why": "A directed cycle exists only if DFS meets a vertex still on the current path. Here A, B, C, D form a DAG, a diamond shape."
+    },
+    {
+      "q": "In Dijkstra's algorithm on the directed graph S→A 4, S→B 1, B→A 2, A→C 1, B→C 5, C→D 3, what is the shortest distance from S to D?",
+      "a": "7",
+      "wrong": [
+        "8",
+        "9",
+        "11"
+      ],
+      "why": "The best route is S → B → A → C → D with 1 + 2 + 1 + 3 = 7. The direct edge S→A (4) gives 8, and going through B → C gives 9."
+    },
+    {
+      "q": "Bellman–Ford has relaxed every edge V − 1 times. A further pass still lowers some distance. What does that indicate?",
+      "a": "A negative-weight cycle is reachable from the source",
+      "wrong": [
+        "The graph is disconnected",
+        "The graph contains a cycle with positive weight",
+        "Two vertices have equal distances"
+      ],
+      "why": "Without negative cycles, shortest paths have at most V − 1 edges and V − 1 passes suffice. Further improvement means a cycle that keeps reducing the length."
+    },
+    {
+      "q": "A graph has V = 1000 vertices and E = 5000 edges. Roughly how many edge relaxations does Bellman–Ford perform in the worst case?",
+      "a": "About 5 million",
+      "wrong": [
+        "About 6,000",
+        "About 60,000",
+        "About 1 billion"
+      ],
+      "why": "Bellman–Ford does (V − 1) · E ≈ 1000 · 5000 = 5 × 10⁶. The price of handling negative weights is a factor near V. A figure of 10⁹ would be V³, the cost of Floyd–Warshall."
+    },
+    {
+      "q": "An A* search uses a heuristic that sometimes overestimates the remaining distance to the target. What can happen?",
+      "a": "It may return a path that is not the shortest",
+      "wrong": [
+        "It is still guaranteed to find the shortest path",
+        "It visits every vertex in the graph",
+        "It fails on graphs with non-negative weights"
+      ],
+      "why": "A* is optimal only when the heuristic never overestimates. An overestimate can make the search skip the best route as too costly."
+    },
+    {
+      "q": "Kruskal's algorithm runs on edges a–b 4, a–c 1, b–c 3, b–d 2, c–d 6, d–e 5, c–e 7. What is the weight of the MST?",
+      "a": "11",
+      "wrong": [
+        "10",
+        "12",
+        "14"
+      ],
+      "why": "Take a–c (1), b–d (2), b–c (3); a–b (4) closes a cycle and is skipped; take d–e (5). The total is 1 + 2 + 3 + 5 = 11."
+    },
+    {
+      "q": "Using the same edges (a–b 4, a–c 1, b–c 3, b–d 2, c–d 6, d–e 5, c–e 7), in which order does Prim's algorithm started at a add edges?",
+      "a": "a–c, b–c, b–d, d–e",
+      "wrong": [
+        "a–c, b–d, b–c, d–e",
+        "a–c, a–b, b–d, d–e",
+        "a–c, c–d, b–d, d–e"
+      ],
+      "why": "Prim only considers edges leaving the current tree. After a–c, the cheapest is b–c (3), then b–d (2), then d–e (5). The order a–c, b–d, b–c is Kruskal's, which sorts all edges globally."
+    },
+    {
+      "q": "A triangle has edges A–B 3, B–C 3 and A–C 5. The MST is {A–B, B–C} with weight 6. What does this show?",
+      "a": "An MST need not contain the shortest path between two vertices",
+      "wrong": [
+        "Kruskal's algorithm can return a non-minimal tree",
+        "The cut property fails when edge weights tie",
+        "Shortest paths always go through the middle vertex"
+      ],
+      "why": "The shortest A–C path is the single edge of length 5, which the MST leaves out. MSTs minimize total weight, not distances from a vertex."
+    },
+    {
+      "q": "Single-linkage clustering is run on points at positions 0, 1, 5, 6 and 15 on a line, by cutting the two longest edges of the MST. What clusters result?",
+      "a": "{0, 1}, {5, 6}, {15}",
+      "wrong": [
+        "{0, 1, 5, 6}, {15}",
+        "{0, 1}, {5, 6, 15}",
+        "{0}, {1, 5}, {6, 15}"
+      ],
+      "why": "The MST joins neighbours with edge lengths 1, 4, 1 and 9. Cutting the two longest (9 and 4) leaves the three groups. Cutting only the longest would give two groups."
+    },
+    {
+      "q": "What does topological_order({'A': ['C'], 'B': ['C', 'D'], 'C': ['E'], 'D': ['E'], 'E': []}) return in the chapter's Kahn implementation?",
+      "a": "['A', 'B', 'C', 'D', 'E']",
+      "wrong": [
+        "['A', 'C', 'B', 'D', 'E']",
+        "['B', 'A', 'D', 'C', 'E']",
+        "None"
+      ],
+      "why": "A and B start with in-degree 0 and leave the queue in that order. B's removal frees both C and D, and C was queued first. E comes last. None would signal a cycle, and there is none."
+    },
+    {
+      "q": "Tasks A (3 days), B (2), C (4) and D (1). A must precede B and C, and both B and C must precede D. B and C can run in parallel. What is the minimum total completion time?",
+      "a": "8 days",
+      "wrong": [
+        "6 days",
+        "7 days",
+        "10 days"
+      ],
+      "why": "It is the longest path in the DAG: A → C → D = 3 + 4 + 1 = 8. Adding all durations (10) ignores parallelism, and A → B → D (6) is not the critical path."
+    },
+    {
+      "q": "A neural network's forward pass evaluates its computational graph in a topological order. In what order does backpropagation visit the nodes?",
+      "a": "In the reverse of that topological order",
+      "wrong": [
+        "In the same order",
+        "In order of increasing in-degree",
+        "In any order, since gradients are independent"
+      ],
+      "why": "A node's gradient needs the gradients of all nodes that use its output, which come later in the forward order. Reversing the order guarantees they are ready."
+    },
+    {
+      "q": "A flow network has edges s→a 3, s→b 2, a→t 2, b→t 3 and a→b 1. What is the maximum flow from s to t?",
+      "a": "5",
+      "wrong": [
+        "4",
+        "6",
+        "11"
+      ],
+      "why": "Sending 2 along s→a→t, 2 along s→b→t and 1 along s→a→b→t gives 5. That matches the cut that removes s→a and s→b (capacity 3 + 2 = 5), so by max-flow min-cut it is optimal."
+    },
+    {
+      "q": "Predicted boxes (rows) are matched to labelled objects (columns) one-to-one with cost matrix [[1, 2], [2, 10]]. What is the minimum total cost?",
+      "a": "4",
+      "wrong": [
+        "3",
+        "11",
+        "12"
+      ],
+      "why": "Pairing row 1 with column 2 and row 2 with column 1 costs 2 + 2 = 4. Taking the cheapest cell first (cost 1) forces the 10 and gives 11, so greedy matching fails. The Hungarian algorithm finds the optimum."
+    },
+    {
+      "q": "In PageRank with damping d = 0.85 over N = 4 pages, one page has no incoming links. What is its rank after one update?",
+      "a": "0.0375",
+      "wrong": [
+        "0.15",
+        "0.2125",
+        "0.25"
+      ],
+      "why": "With no in-links the sum term is zero, leaving (1 − d)/N = 0.15 / 4 = 0.0375. The value 0.15 forgets to divide by N."
+    }
+  ],
   "summary": [
     "BFS (queue) and DFS (stack) traverse a graph in O(V + E). BFS gives shortest paths in unweighted graphs; DFS finds components, cycles and topological orders.",
     "Dijkstra's algorithm settles vertices in order of tentative distance, O((V + E) log V) with a heap, for non-negative weights. Bellman–Ford handles negative weights in O(VE), Floyd–Warshall computes all pairs in O(V³), A* adds a heuristic.",

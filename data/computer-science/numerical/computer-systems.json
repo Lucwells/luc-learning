@@ -482,6 +482,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A program sums a contiguous float32 array front to back. Cache lines are 64 bytes. About what fraction of the accesses miss the cache?",
+      "a": "1 in 16",
+      "wrong": [
+        "1 in 8",
+        "1 in 4",
+        "1 in 64"
+      ],
+      "why": "A line holds 64 / 4 = 16 floats, and all of them are used, so only the first access to each line misses. 1 in 8 would be right for float64."
+    },
+    {
+      "q": "A float64 array with 2000 columns is stored in row-major order. How many bytes apart in memory are two consecutive elements of the same column?",
+      "a": "16,000 bytes",
+      "wrong": [
+        "8 bytes",
+        "2,000 bytes",
+        "64 bytes"
+      ],
+      "why": "Moving down one row skips a whole row of 2000 elements of 8 bytes each. Each access therefore lands on a different cache line, which is why column traversal is slow."
+    },
+    {
+      "q": "Computing a sum and a sum of squares over a 2 GB array is done either in two separate passes or in one loop that does both per element. Why is the single loop usually faster?",
+      "a": "Each element is used twice while it is still in cache, so memory is read only once",
+      "wrong": [
+        "It performs fewer floating-point operations, because the sum and the squares share work",
+        "It makes SIMD instructions unnecessary",
+        "It avoids the Python global interpreter lock"
+      ],
+      "why": "This is temporal locality: the second use of a value comes right after the first. Two passes read the array from main memory twice, and the arithmetic is the same either way."
+    },
+    {
+      "q": "The update y ← a·x + y runs on float32 vectors. Per element it does 2 FLOPs, reads x and y and writes y. What is its arithmetic intensity?",
+      "a": "1/6 FLOP per byte",
+      "wrong": [
+        "2 FLOPs per byte",
+        "1/12 FLOP per byte",
+        "1/4 FLOP per byte"
+      ],
+      "why": "Each element moves 4 + 4 + 4 = 12 bytes for 2 FLOPs, so 2/12 = 1/6. Counting only the two reads gives 1/4, and counting a single FLOP gives 1/12."
+    },
+    {
+      "q": "A machine has peak P = 50 TFLOP/s and bandwidth B = 1 TB/s. What rate can an operation with arithmetic intensity 4 FLOPs/byte reach?",
+      "a": "At most 4 TFLOP/s",
+      "wrong": [
+        "At most 50 TFLOP/s",
+        "At most 12.5 TFLOP/s",
+        "At most 0.25 TFLOP/s"
+      ],
+      "why": "The roofline gives min(P, B·I) = min(50, 1 × 4) = 4 TFLOP/s. The balance point is 50 FLOPs/byte, so this operation is memory-bound."
+    },
+    {
+      "q": "Multiplying two n × n float32 matrices has intensity n/6 FLOPs per byte. On a machine whose balance point is 50 FLOPs/byte, the product becomes compute-bound for n above about",
+      "a": "300",
+      "wrong": [
+        "50",
+        "8",
+        "600"
+      ],
+      "why": "n/6 > 50 gives n > 300. Dividing 50 by 6 instead gives about 8, and an intensity of n/12 would double the threshold to 600."
+    },
+    {
+      "q": "What makes kernel fusion speed up a chain of elementwise operations such as bias add, activation and dropout?",
+      "a": "Intermediate results stay in fast memory instead of returning to main memory",
+      "wrong": [
+        "It reduces the number of floating-point operations",
+        "It converts the operations into one matrix multiplication",
+        "It raises the memory bandwidth of the GPU"
+      ],
+      "why": "Elementwise operations are memory-bound, so time is set by bytes moved. One pass over the data rather than three removes most of the traffic, without changing the FLOP count."
+    },
+    {
+      "q": "Why do serving systems group several requests into a batch when a large model generates tokens?",
+      "a": "Each weight read from memory is reused for every request in the batch, raising arithmetic intensity",
+      "wrong": [
+        "Batching shrinks the number of weights that must be stored in GPU memory and so lowers the traffic per request",
+        "Memory bandwidth grows in proportion to the batch size",
+        "A GPU cannot process a single request at all"
+      ],
+      "why": "A single token needs every weight but does only about 2 FLOPs per weight, so the step is memory-bound. A batch of B uses the same weight reads for B times the work."
+    },
+    {
+      "q": "90% of a program's running time parallelizes perfectly and the rest is serial. What is the speedup on 10 cores?",
+      "a": "About 5.3",
+      "wrong": [
+        "About 9",
+        "10",
+        "About 1.9"
+      ],
+      "why": "1/(0.1 + 0.9/10) = 1/0.19 = 5.26. Even with unlimited cores the speedup could not exceed 1/0.1 = 10."
+    },
+    {
+      "q": "In CPython, for which task do threads give a real speedup despite the global interpreter lock?",
+      "a": "Downloading 100 files at the same time",
+      "wrong": [
+        "Evaluating a polynomial 100 million times in a pure-Python loop",
+        "Running a pure-Python nested-loop matrix multiplication",
+        "Counting primes below 10 million with a pure-Python loop"
+      ],
+      "why": "The lock is released while a thread waits for input/output. Threads running pure-Python bytecode take turns, so they give no speedup, and multiprocessing is the remedy."
+    },
+    {
+      "q": "Two threads each execute `counter += 1` on a shared counter that starts at 5, with no lock. Which final values are possible?",
+      "a": "6 or 7, depending on how the steps interleave",
+      "wrong": [
+        "Always 7",
+        "Always 6",
+        "5, 6 or 7"
+      ],
+      "why": "If both read 5 before either writes, both write 6. If one finishes before the other reads, the result is 7. The value 5 cannot occur, since each thread writes at least 6."
+    },
+    {
+      "q": "A model with 3 billion parameters is trained with mixed-precision Adam (16 bytes per parameter) and fully sharded over 8 GPUs. About how much memory does each GPU need for weights, gradients and optimizer states, excluding activations?",
+      "a": "6 GB",
+      "wrong": [
+        "48 GB",
+        "24 GB",
+        "3 GB"
+      ],
+      "why": "3 × 10⁹ × 16 = 48 GB in total, and sharding divides it evenly over 8 devices. Without sharding every GPU would need the full 48 GB."
+    },
+    {
+      "q": "The columns of one huge weight matrix are divided over 4 GPUs, which exchange partial results at every layer. What is this form of parallelism?",
+      "a": "Tensor parallelism",
+      "wrong": [
+        "Data parallelism",
+        "Pipeline parallelism",
+        "Gradient checkpointing"
+      ],
+      "why": "Splitting each matrix across devices is tensor (model) parallelism and needs a very fast interconnect. Pipeline parallelism splits by layers instead, and data parallelism replicates the whole model."
+    },
+    {
+      "q": "How does gradient checkpointing save memory?",
+      "a": "It stores only some activations and recomputes the others during the backward pass",
+      "wrong": [
+        "It stores the gradients in 8-bit integers, which cuts the memory needed by the backward pass",
+        "It splits the optimizer states over the devices",
+        "It removes the second moment from Adam"
+      ],
+      "why": "The saving comes from trading computation (roughly 30% more) for memory. Sharding the optimizer states is a different technique, ZeRO or FSDP."
+    },
+    {
+      "q": "Code on a GPU times a forward pass with `t = time.perf_counter(); y = model(x); dt = time.perf_counter() - t` and reports an absurdly small dt. What is the bug?",
+      "a": "GPU calls return before the work finishes; it needs torch.cuda.synchronize() before reading the clock",
+      "wrong": [
+        "perf_counter cannot measure intervals shorter than a second",
+        "model(x) is executed on the CPU instead of the GPU",
+        "The time includes the transfer of the data over PCIe"
+      ],
+      "why": "Kernel launches are asynchronous, so the timer measures only the launch. Synchronizing before stopping the clock waits for the results."
+    },
+    {
+      "q": "In the MapReduce style, documents = ['a b a', 'b a'] are mapped to (word, 1) pairs, shuffled by key and reduced by summing. What is the result?",
+      "a": "{'a': 3, 'b': 2}",
+      "wrong": [
+        "{'a': 2, 'b': 2}",
+        "{'a': 3, 'b': 3}",
+        "{'a': 1, 'b': 1}"
+      ],
+      "why": "The word a appears twice in the first document and once in the second, and b once in each. Reduce adds the 1s that the shuffle grouped under each key."
+    },
+    {
+      "q": "Gradients of 10 GB are synchronized across many workers by ring all-reduce, with each worker connected at 50 GB/s. About how long does one all-reduce take?",
+      "a": "About 0.4 s",
+      "wrong": [
+        "About 0.2 s",
+        "About 0.8 s",
+        "About 2 s"
+      ],
+      "why": "Each worker sends and receives about 2N = 20 GB, and 20/50 = 0.4 s, almost regardless of the number of workers. Using N alone would give 0.2 s."
+    },
+    {
+      "q": "Why are large training sets stored in a columnar binary format such as Parquet rather than CSV?",
+      "a": "The files are smaller, and a program can read just the columns it needs",
+      "wrong": [
+        "Columnar files can be opened and edited in a text editor, unlike CSV, and are smaller",
+        "They make every row load into the cache faster",
+        "They remove the need for a data loader"
+      ],
+      "why": "Compression and column pruning cut the bytes read, which matters when data loading is the bottleneck. Parquet is binary, so it cannot be edited as text."
+    }
+  ],
   "summary": [
     "Memory is a hierarchy from registers (<1 ns) through caches and RAM (100 ns) to SSD (100 µs) and network (ms). Cache lines of 64 bytes make locality decisive: traverse arrays in memory order.",
     "Arithmetic intensity (FLOPs per byte) against the machine balance decides whether an operation is memory-bound (elementwise ops, small-batch inference) or compute-bound (large matrix multiplications). Fusion and batching raise intensity.",

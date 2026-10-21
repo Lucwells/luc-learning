@@ -470,6 +470,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A temperature difference is found from two thermometer readings, each uncertain by ±0.020 K. What is the uncertainty of the difference?",
+      "a": "±0.028 K",
+      "wrong": [
+        "±0.040 K",
+        "±0.020 K",
+        "±0.014 K"
+      ],
+      "why": "For a difference the absolute uncertainties add in quadrature: (0.020² + 0.020²)^{1/2} = 0.028 K. Adding them directly gives 0.040, which overestimates the independent random errors."
+    },
+    {
+      "q": "A least-squares fit of a straight line to a set of data has R² = 0.998, but the residuals form a clear arch (positive in the middle, negative at the ends). What should you conclude?",
+      "a": "The linear model is inadequate for the data, despite the high R²",
+      "wrong": [
+        "The fit is excellent, because R² is close to 1",
+        "The measurements have large random errors",
+        "The slope is probably zero within its uncertainty"
+      ],
+      "why": "A systematic pattern in the residuals means the model (or linearization) is wrong. Random scatter about zero is the sign of a good fit, and a high R² alone does not prove it."
+    },
+    {
+      "q": "A fitted slope is 2.50 with standard error 0.040, from six data points (t = 2.78 for 95% and 4 degrees of freedom). What is the 95% confidence interval?",
+      "a": "2.50 ± 0.11",
+      "wrong": [
+        "2.50 ± 0.04",
+        "2.50 ± 0.08",
+        "2.50 ± 0.13"
+      ],
+      "why": "The interval is m ± t·s_m with n − 2 = 4 degrees of freedom: 2.78 × 0.040 = 0.11. The value 0.13 would come from the t of a five-point fit (3.18), and 0.04 ignores t."
+    },
+    {
+      "q": "A benzoic acid pellet of 0.9500 g (ΔcU = −26.434 kJ g⁻¹) with a fuse-wire correction of 0.300 kJ gives a corrected rise of 2.380 K. What is the calorimeter constant?",
+      "a": "10.43 kJ K⁻¹",
+      "wrong": [
+        "10.55 kJ K⁻¹",
+        "10.68 kJ K⁻¹",
+        "11.1 kJ K⁻¹"
+      ],
+      "why": "The heat from the acid is 25.112 kJ, and the fuse contributes 0.300 kJ of it, leaving 24.812 kJ from the benzoic acid. Dividing by 2.380 K gives 10.43 kJ K⁻¹. Ignoring the fuse gives 10.55, and adding it gives 10.68."
+    },
+    {
+      "q": "Naphthalene burns by C₁₀H₈(s) + 12 O₂(g) → 10 CO₂(g) + 4 H₂O(l). A bomb calorimeter gives ΔcU = −5154 kJ mol⁻¹. What is ΔcH at 298 K?",
+      "a": "−5159 kJ mol⁻¹",
+      "wrong": [
+        "−5154 kJ mol⁻¹",
+        "−5149 kJ mol⁻¹",
+        "−5164 kJ mol⁻¹"
+      ],
+      "why": "ΔcH = ΔcU + Δn_g RT, with Δn_g = 10 − 12 = −2. The correction is −2 × 8.314 × 298/1000 = −4.96 kJ, so ΔcH = −5159 kJ mol⁻¹. The sign of Δn_g matters."
+    },
+    {
+      "q": "The slope of ln P against 1/T for a liquid is −4120 K. What is ΔH_vap?",
+      "a": "34.3 kJ mol⁻¹",
+      "wrong": [
+        "4.12 kJ mol⁻¹",
+        "0.50 kJ mol⁻¹",
+        "−34.3 kJ mol⁻¹"
+      ],
+      "why": "The slope is −ΔH_vap/R, so ΔH_vap = 4120 × 8.314 = 34,250 J mol⁻¹. Vaporization absorbs heat, so ΔH_vap is positive."
+    },
+    {
+      "q": "A liquid has ΔH_vap = 38.5 kJ mol⁻¹ and a normal boiling point of 350 K. What does its entropy of vaporization suggest?",
+      "a": "ΔS_vap = 110 J K⁻¹ mol⁻¹, above the usual 85–88, so the liquid is likely hydrogen-bonded",
+      "wrong": [
+        "ΔS_vap = 110 J K⁻¹ mol⁻¹, which fits a typical non-associated liquid",
+        "ΔS_vap = 110 J K⁻¹ mol⁻¹, below the Trouton value, so the vapor is dissociated",
+        "ΔS_vap = 11.0 J K⁻¹ mol⁻¹, so the liquid is almost ideal"
+      ],
+      "why": "ΔS_vap = 38,500/350 = 110 J K⁻¹ mol⁻¹. Trouton's rule gives about 88 for non-associated liquids, and a larger value means the liquid is more ordered than usual."
+    },
+    {
+      "q": "1.20 g of a nonelectrolyte dissolved in 25.0 g of benzene (K_f = 5.12 K kg mol⁻¹) lowers the freezing point by 0.800 K. What is its molar mass?",
+      "a": "307 g mol⁻¹",
+      "wrong": [
+        "154 g mol⁻¹",
+        "614 g mol⁻¹",
+        "3070 g mol⁻¹"
+      ],
+      "why": "M = K_f w₂/(ΔT_f w₁) = 5.12 × 1.20/(0.800 × 0.0250) = 307 g mol⁻¹. The solvent mass must be in kg, and a slip of the decimal point gives 3070."
+    },
+    {
+      "q": "In a cooling curve of a solution, the temperature keeps falling slowly after the first crystals appear, while pure solvent shows a flat plateau. Why?",
+      "a": "Freezing removes solvent, so the solution gets more concentrated and freezes lower",
+      "wrong": [
+        "The solute crystallizes first, which releases heat steadily and keeps the temperature falling",
+        "The thermometer lags behind the sample, so what would be a plateau is smeared out over time",
+        "The solution can no longer be supercooled once the solute is present, so there is no plateau"
+      ],
+      "why": "As solvent crystallizes the molality of the liquid rises, so ΔT_f increases and the freezing point keeps dropping. A pure liquid has a fixed freezing point."
+    },
+    {
+      "q": "A mixture with 20 wt% B lies in the region where pure solid A is in equilibrium with a liquid of 50 wt% B. What fraction of the mass is liquid?",
+      "a": "0.40",
+      "wrong": [
+        "0.60",
+        "0.67",
+        "0.25"
+      ],
+      "why": "Solid A has 0 wt% B, so the lever rule gives (20 − 0)/(50 − 0) = 0.40 liquid and 0.60 solid. The ratio of the other arm gives the solid fraction."
+    },
+    {
+      "q": "A mixture of the eutectic composition is cooled slowly from the melt. What does its cooling curve show?",
+      "a": "No break until the eutectic temperature, then a single plateau, like a pure substance",
+      "wrong": [
+        "A break at the liquidus, then a steady fall, then a plateau at the eutectic temperature",
+        "A steady fall with no plateau at all, because the mixture has two components",
+        "Two plateaus, one at the melting point of each pure component"
+      ],
+      "why": "At the eutectic composition both solids crystallize together at the eutectic temperature, with F = 0. Any other composition first freezes one component and follows a liquidus."
+    },
+    {
+      "q": "A mixture has initial [Fe³⁺] = 1.00 × 10⁻³ M and [SCN⁻] = 2.00 × 10⁻⁴ M, and the measured [FeSCN²⁺] at equilibrium is 1.00 × 10⁻⁴ M. What is K_c?",
+      "a": "1.1 × 10³ M⁻¹",
+      "wrong": [
+        "5.0 × 10² M⁻¹",
+        "5.6 × 10² M⁻¹",
+        "9.0 × 10⁻⁴ M⁻¹"
+      ],
+      "why": "At equilibrium [Fe³⁺] = 9.0 × 10⁻⁴ M and [SCN⁻] = 1.0 × 10⁻⁴ M, so K = 1.0 × 10⁻⁴/(9.0 × 10⁻⁴ × 1.0 × 10⁻⁴) = 1.1 × 10³ M⁻¹. Using initial concentrations gives 5.0 × 10²."
+    },
+    {
+      "q": "In Job's method the absorbance of a complex M_aL_b peaks at ligand mole fraction 0.75. What is the formula?",
+      "a": "ML₃",
+      "wrong": [
+        "ML",
+        "ML₂",
+        "M₃L"
+      ],
+      "why": "The maximum occurs at x_L = b/(a + b) = 3/4 when a = 1 and b = 3. A 1:1 complex peaks at 0.5, and 1:2 at 0.67."
+    },
+    {
+      "q": "In the crystal violet experiment, the slope of ln A against t is −3.2 × 10⁻³ s⁻¹ in 0.020 M NaOH. What is the second-order rate constant k?",
+      "a": "0.16 L mol⁻¹ s⁻¹",
+      "wrong": [
+        "3.2 × 10⁻³ L mol⁻¹ s⁻¹",
+        "6.4 × 10⁻⁵ L mol⁻¹ s⁻¹",
+        "0.32 L mol⁻¹ s⁻¹"
+      ],
+      "why": "The slope is −k′ with k′ = k[OH⁻], so k = 3.2 × 10⁻³/0.020 = 0.16 L mol⁻¹ s⁻¹. Multiplying by [OH⁻] instead of dividing gives 6.4 × 10⁻⁵."
+    },
+    {
+      "q": "In an iodine clock run with [S₂O₃²⁻]₀ = 4.0 × 10⁻⁴ M in the mixture, the blue color appears after 100 s. What is the initial rate of consumption of S₂O₈²⁻?",
+      "a": "2.0 × 10⁻⁶ M s⁻¹",
+      "wrong": [
+        "4.0 × 10⁻⁶ M s⁻¹",
+        "1.0 × 10⁻⁶ M s⁻¹",
+        "8.0 × 10⁻⁶ M s⁻¹"
+      ],
+      "why": "Each S₂O₈²⁻ that reacts produces I₃⁻, which uses 2 S₂O₃²⁻, so the persulfate consumed is 2.0 × 10⁻⁴ M in 100 s: 2.0 × 10⁻⁶ M s⁻¹. Forgetting the 2 gives 4.0 × 10⁻⁶."
+    },
+    {
+      "q": "The clock time is 60 s at 20 °C and 30 s at 30 °C, for the same composition. What is E_a?",
+      "a": "51.2 kJ mol⁻¹",
+      "wrong": [
+        "25.6 kJ mol⁻¹",
+        "103 kJ mol⁻¹",
+        "5.76 kJ mol⁻¹"
+      ],
+      "why": "The rate is proportional to 1/Δt, so k₃₀/k₂₀ = 2. Then E_a = R ln 2/(1/293.15 − 1/303.15) = 5.76 J mol⁻¹ K⁻¹/1.125 × 10⁻⁴ K⁻¹ = 51.2 kJ mol⁻¹."
+    },
+    {
+      "q": "In a Clément–Desormes run, h₁ = 18.0 cm and h₂ = 5.0 cm. What is γ?",
+      "a": "1.38",
+      "wrong": [
+        "3.60",
+        "0.72",
+        "1.28"
+      ],
+      "why": "γ = h₁/(h₁ − h₂) = 18.0/13.0 = 1.38. The ratio h₁/h₂ gives 3.60, and h₁ + h₂ in the denominator gives 0.78 or 1.28."
+    },
+    {
+      "q": "What is the speed of sound in argon at 300 K, from c = (γRT/M)^{1/2}, with M = 39.95 g mol⁻¹?",
+      "a": "323 m s⁻¹",
+      "wrong": [
+        "296 m s⁻¹",
+        "10.2 m s⁻¹",
+        "228 m s⁻¹"
+      ],
+      "why": "Argon is monatomic, so γ = 5/3. Then c = (1.667 × 8.314 × 300/0.03995)^{1/2} = 323 m s⁻¹, with M in kg mol⁻¹. Using γ = 7/5 gives 296, and M in g gives 10.2."
+    }
+  ],
   "summary": [
     "Uncertainties add in quadrature: absolute for sums, relative for products. Least-squares slope m = (nΣxy − ΣxΣy)/(nΣx² − (Σx)²), s_m from the residual standard deviation, CI = ± t·s_m. A residual plot tests the model.",
     "Bomb calorimetry: calibrate with benzoic acid, correct for heat exchange (extrapolation), fuse wire and acid formation; ΔcH = ΔcU + Δn_g RT.",

@@ -365,6 +365,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "An oxide has ΔG°(2M + O₂ → 2MO) = −600 + 0.200T kJ and the carbon line is ΔG°(2C + O₂ → 2CO) = −221 − 0.179T kJ. At what temperature can carbon reduce MO?",
+      "a": "Above 1000 K",
+      "wrong": [
+        "Above 379 K",
+        "Above 1580 K",
+        "Above 2170 K"
+      ],
+      "why": "Carbon works when its line lies below the metal's: −221 − 0.179T < −600 + 0.200T gives 379 < 0.379T, so T > 1000 K. Dividing the intercept difference by the wrong slope gives the other values."
+    },
+    {
+      "q": "In the thermite reaction Fe₂O₃ + 2 Al → 2 Fe + Al₂O₃, what does the Ellingham diagram show?",
+      "a": "The Al → Al₂O₃ line lies well below the Fe → Fe₂O₃ line, so Al is the stronger reductant",
+      "wrong": [
+        "The C → CO line lies below the Al line at the temperature of the reaction",
+        "Fe₂O₃ is more stable than Al₂O₃ at all temperatures, and so Al is oxidized only above its melting point",
+        "Aluminum has a higher melting point than iron, and so the line slopes upward more steeply"
+      ],
+      "why": "A metal reduces any oxide whose line lies above its own. Al₂O₃ is far more stable than Fe₂O₃, and the large exothermicity (−852 kJ) is enough to melt the iron."
+    },
+    {
+      "q": "In a blast furnace, CO₂ formed during reduction is converted back to the reductant by which reaction?",
+      "a": "CO₂ + C ⇌ 2 CO, which is endothermic and is favored at high temperature",
+      "wrong": [
+        "2 CO ⇌ CO₂ + C, which is favored at high temperature because it is exothermic",
+        "CO₂ + CaO → CaCO₃, which regenerates the limestone in the shaft",
+        "CO₂ + 2 H₂ → C + 2 H₂O, using hydrogen from the hot blast"
+      ],
+      "why": "The Boudouard reaction (ΔH = +172 kJ) takes CO₂ plus hot coke to two CO, and the gas increases in volume, so heat favors it. The reverse is favored at low temperature."
+    },
+    {
+      "q": "How much SO₂ is released by roasting 10.0 t of ZnS (97.47 g mol⁻¹) by 2 ZnS + 3 O₂ → 2 ZnO + 2 SO₂?",
+      "a": "6.57 t",
+      "wrong": [
+        "3.29 t",
+        "13.1 t",
+        "8.35 t"
+      ],
+      "why": "Each mole of ZnS gives one mole of SO₂, so the mass ratio is 64.06/97.47 = 0.657 and 10.0 t gives 6.57 t. The 8.35 t figure is the mass of ZnO."
+    },
+    {
+      "q": "What mass of CO is needed, ideally, to reduce 1.00 t of Fe₃O₄ (231.53 g mol⁻¹) to iron by Fe₃O₄ + 4 CO → 3 Fe + 4 CO₂?",
+      "a": "484 kg",
+      "wrong": [
+        "121 kg",
+        "363 kg",
+        "726 kg"
+      ],
+      "why": "1.00 t is 4.319 × 10³ mol Fe₃O₄, which needs 4 × 4.319 × 10³ = 1.728 × 10⁴ mol CO = 484 kg. Using 3 CO would give 363 kg."
+    },
+    {
+      "q": "The basic oxygen furnace is lined with magnesia (MgO). Why?",
+      "a": "The slag is basic, so the lining must resist the acidic oxides SiO₂ and P₄O₁₀ it absorbs",
+      "wrong": [
+        "MgO reacts with carbon in the melt and removes it as CO, which speeds up the blow",
+        "MgO conducts heat from the bath to the water-cooled lance, which protects the steel shell",
+        "An acidic lining such as silica would be needed instead if the slag were basic, to avoid attack"
+      ],
+      "why": "Lime in the slag combines with SiO₂ and P₄O₁₀ to give silicate and phosphate. A basic lining resists this basic slag, while an acidic lining would be attacked by it."
+    },
+    {
+      "q": "Which description fits the electric arc furnace (EAF) route to steel?",
+      "a": "Scrap or direct-reduced iron is melted with graphite electrodes, about 400 kWh per tonne",
+      "wrong": [
+        "A supersonic oxygen lance oxidizes the carbon in molten pig iron, so no fuel is needed at all",
+        "Iron ore is reduced by coke and CO in a 30 m shaft, with a hot blast blown in at the base",
+        "Pig iron is reacted with limestone to give a slag, and then sent to a Bessemer converter"
+      ],
+      "why": "The EAF is an electric melting route that is mostly based on recycling, with much lower CO₂ emissions. The other options describe the BOF, the blast furnace and an older converter route."
+    },
+    {
+      "q": "Rapidly quenching hot steel (austenite) traps carbon and gives martensite. What are its properties, and what is the remedy?",
+      "a": "Very hard but brittle, so it is tempered to reduce brittleness",
+      "wrong": [
+        "Soft and ductile, so it is tempered to make it harder",
+        "Very hard but chemically inert, so it is tempered to make it stainless",
+        "Brittle because it contains pure ferrite, so it is tempered to dissolve the carbon"
+      ],
+      "why": "Quenching prevents carbon from leaving as cementite, which distorts the lattice. Reheating (tempering) relieves this strain and trades some hardness for toughness."
+    },
+    {
+      "q": "Why does hot concentrated NaOH dissolve alumina from bauxite but leave the iron oxide as red mud?",
+      "a": "Al(OH)₃ is amphoteric and forms soluble Na[Al(OH)₄]; iron oxide does not dissolve in base",
+      "wrong": [
+        "NaOH reduces Fe₂O₃ to metallic iron, which then settles out as a dense solid sludge",
+        "Al₂O₃ is a purely acidic oxide, and Fe₂O₃ a purely basic oxide, so only Al₂O₃ reacts with a base",
+        "Iron oxide forms a soluble complex that is washed out, and the alumina reacts to a solid"
+      ],
+      "why": "Alumina is amphoteric and reacts with hydroxide to form the aluminate ion. Neither Fe₂O₃ nor most TiO₂ dissolves, and the alkaline residue is the red mud."
+    },
+    {
+      "q": "What mass of pure Al₂O₃ (101.96 g mol⁻¹) is needed, in theory, to make 5.00 t of Al?",
+      "a": "9.45 t",
+      "wrong": [
+        "4.73 t",
+        "18.9 t",
+        "5.00 t"
+      ],
+      "why": "Two Al₂O₃ give four Al, so 5.00 t of Al is 1.853 × 10⁵ mol, which needs 0.927 × 10⁵ mol of Al₂O₃ = 9.45 t. Forgetting that each Al₂O₃ holds two Al gives 4.73 t."
+    },
+    {
+      "q": "How much charge is needed to deposit 5.40 g of Al (26.98 g mol⁻¹) in the Hall–Héroult cell?",
+      "a": "5.79 × 10⁴ C",
+      "wrong": [
+        "1.93 × 10⁴ C",
+        "3.86 × 10⁴ C",
+        "1.16 × 10⁵ C"
+      ],
+      "why": "5.40 g is 0.200 mol Al, and Al³⁺ + 3 e⁻ → Al needs 0.600 mol e⁻ = 0.600 × 96,485 = 5.79 × 10⁴ C. Using 1 or 2 electrons per atom gives the lower values."
+    },
+    {
+      "q": "Primary aluminum needs 14 kWh per kg. Recycling needs only 5% of that. How much energy does remelting 1.0 t of scrap need?",
+      "a": "0.70 MWh",
+      "wrong": [
+        "14 MWh",
+        "7.0 MWh",
+        "0.14 MWh"
+      ],
+      "why": "Smelting 1.0 t takes 14 MWh, and 5% of it is 0.70 MWh. The recycled metal is already reduced, so no electrolysis is required."
+    },
+    {
+      "q": "What happens in the anode effect of a Hall–Héroult cell, and why is it a climate concern?",
+      "a": "Alumina runs short, the voltage jumps, and C₂F₆ and CF₄ form: strong greenhouse gases",
+      "wrong": [
+        "Carbon anodes dissolve into the cryolite, and the extra carbon is later emitted as methane gas",
+        "Oxygen gas is released at the cathode, and the aluminum already formed then burns in it",
+        "Sodium vapor forms at the cathode and escapes as an aerosol that scatters sunlight upward"
+      ],
+      "why": "With too little alumina the oxide ions are no longer available at the anode, and the electrolyte's fluoride is discharged and reacts with carbon. The perfluorocarbons have very large GWPs."
+    },
+    {
+      "q": "Why do the lighter fractions of crude oil rise higher in a distillation column?",
+      "a": "Weaker dispersion forces give them low boiling points, so they stay vapor until the cooler top",
+      "wrong": [
+        "They are less dense than the heavy fractions, and gravity pulls the heavier molecules down the tower",
+        "They react with the heavier fractions in the column to form gases that rise",
+        "They have a higher heat capacity, so they absorb the heat of the lower trays and are carried up"
+      ],
+      "why": "Fractional distillation separates by boiling range. Small molecules have weaker intermolecular attraction, so they are not condensed until the column is cooler."
+    },
+    {
+      "q": "Why do branched alkanes have higher octane numbers than straight-chain ones?",
+      "a": "Knock comes from radical chain branching, and branched radicals are more stable, so it is slower",
+      "wrong": [
+        "Branched alkanes have a higher heat of combustion per mole, so they burn more cleanly in the cylinder",
+        "Branched alkanes cannot form carbocations in the engine, so they cannot ignite by themselves early",
+        "Branched alkanes have higher boiling points and so burn more slowly than straight chains do"
+      ],
+      "why": "Octane number measures resistance to auto-ignition. Straight chains form radicals that propagate branching chain reactions readily, which leads to knock."
+    },
+    {
+      "q": "Which pairing of process and mechanism is correct?",
+      "a": "Catalytic cracking goes via carbocations; steam cracking goes via a radical chain",
+      "wrong": [
+        "Catalytic cracking proceeds through radicals, and steam cracking through carbocations on acid sites",
+        "Both processes proceed through carbocations that form on the acid sites of a solid catalyst",
+        "Catalytic cracking proceeds through carbanions, and steam cracking proceeds through carbenes"
+      ],
+      "why": "On zeolite acid sites the chemistry is carbenium-ion chemistry (β-scission, hydride shift). At 800–900 °C with no catalyst, homolysis and radical chains dominate."
+    },
+    {
+      "q": "For C₂H₆ ⇌ C₂H₄ + H₂, ΔH° = +137 kJ mol⁻¹ and ΔS° = +120 J K⁻¹ mol⁻¹. What is K at 1000 K?",
+      "a": "0.13",
+      "wrong": [
+        "7.8",
+        "0.58",
+        "1.0"
+      ],
+      "why": "ΔG° = 137 − 1000 × 0.120 = +17 kJ, so K = exp(−17,000/(8.314 × 1000)) = 0.13. The value 7.8 comes from a sign error, and 0.58 is the value at 1100 K."
+    },
+    {
+      "q": "How much H₂ is consumed to remove 10.0 kg of sulfur as thiophene by C₄H₄S + 4 H₂ → C₄H₁₀ + H₂S?",
+      "a": "2.52 kg",
+      "wrong": [
+        "1.26 kg",
+        "5.04 kg",
+        "0.63 kg"
+      ],
+      "why": "10.0 kg of S is 312 mol, which needs 4 × 312 mol of H₂ × 2.016 g mol⁻¹ = 2.52 kg. The 1.26 kg figure would be for 2 H₂ per S, as in dibenzothiophene."
+    }
+  ],
   "summary": [
     "Ellingham diagrams plot ΔG° of oxide formation vs T; a reductant works when its line lies below the metal’s. C → CO slopes downward, so carbon reduces many oxides at high T (FeO above ≈ 720 °C). Al, Mg, Na oxides need electrolysis.",
     "Blast furnace: coke → CO; Fe₂O₃ + 3 CO → 2 Fe + 3 CO₂; limestone → CaO → CaSiO₃ slag; pig iron 4% C. BOF blows O₂ to oxidize C, Si, Mn, P to give steel; EAF recycles scrap.",

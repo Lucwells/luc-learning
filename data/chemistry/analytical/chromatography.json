@@ -556,6 +556,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "With a dead time of 1.5 min, two solutes elute at 6.0 and 7.5 min. What is the selectivity factor α?",
+      "a": "1.33",
+      "wrong": [
+        "1.25",
+        "0.75",
+        "1.50"
+      ],
+      "why": "k₁ = (6.0 − 1.5)/1.5 = 3.0 and k₂ = 4.0, so α = 4.0/3.0 = 1.33. The ratio of raw retention times (1.25) ignores the dead time."
+    },
+    {
+      "q": "A peak at 10.0 min has a width at half height of 0.20 min. What is the plate number?",
+      "a": "13,900",
+      "wrong": [
+        "40,000",
+        "3,500",
+        "277"
+      ],
+      "why": "With the half-height width, N = 5.54(t_R/W½)² = 5.54 × 50² ≈ 13,900. The factor 16 belongs to the baseline width W and would give 40,000 here."
+    },
+    {
+      "q": "By what factor does R_s change if α rises from 1.05 to 1.10 with N and k unchanged?",
+      "a": "1.9",
+      "wrong": [
+        "1.05",
+        "0.52",
+        "2.0"
+      ],
+      "why": "The factor (α − 1)/α is 0.0476 at α = 1.05 and 0.0909 at α = 1.10, a ratio of 1.9. A small change in α buys nearly a doubling of resolution."
+    },
+    {
+      "q": "A column is replaced by one twice as long, with the same packing and run at its optimum flow. By what factor does the resolution of a pair change?",
+      "a": "1.4",
+      "wrong": [
+        "2.0",
+        "4.0",
+        "1.0"
+      ],
+      "why": "N doubles, and R_s ∝ √N, so the resolution rises by √2 ≈ 1.4. Doubling resolution would need four times the plates, with a correspondingly longer analysis."
+    },
+    {
+      "q": "A packed column has A = 0.40 mm, B = 6.0 mm²/s and C = 0.015 s. What is the optimum linear velocity?",
+      "a": "20 mm/s",
+      "wrong": [
+        "400 mm/s",
+        "0.05 mm/s",
+        "40 mm/s"
+      ],
+      "why": "u_opt = √(B/C) = √(6.0/0.015) = √400 = 20 mm/s. Forgetting the square root gives 400, and inverting the ratio gives a meaningless 0.05."
+    },
+    {
+      "q": "A solute has k = 0.3 in an HPLC separation. What is the best adjustment?",
+      "a": "Weaken the eluent, to bring k into the range 1–10",
+      "wrong": [
+        "Increase the organic fraction, so the peak elutes sooner",
+        "Double the flow rate, so the peak becomes sharper",
+        "Inject a larger volume, to improve the signal"
+      ],
+      "why": "With k below 1 the peak elutes next to the dead time and is not separated from unretained interferences. A weaker mobile phase increases retention; a stronger one does the opposite."
+    },
+    {
+      "q": "In capillary GC the film thickness of the stationary phase is doubled. Which change in band broadening is expected?",
+      "a": "The C_S term rises about fourfold, since it scales with d_f²",
+      "wrong": [
+        "The A term rises twofold, since eddy diffusion scales with the film",
+        "The B term rises twofold, since there is more phase for the band to diffuse in",
+        "The C_S term rises twofold, since it scales with d_f"
+      ],
+      "why": "In the Golay equation the stationary-phase mass-transfer term is proportional to d_f², so doubling the film multiplies it by four. An open tube has no A term."
+    },
+    {
+      "q": "n-Hexane and n-heptane have adjusted retention times of 4.0 and 8.0 min on a nonpolar column, isothermally. An unknown peak is at 5.0 min. What is its Kovats index?",
+      "a": "632",
+      "wrong": [
+        "625",
+        "650",
+        "732"
+      ],
+      "why": "I = 100[6 + (log 5.0 − log 4.0)/(log 8.0 − log 4.0)] = 100[6 + 0.0969/0.3010] = 632. Linear interpolation of the times gives 625, but the index uses logarithms."
+    },
+    {
+      "q": "Which of the following gives essentially no signal in a flame ionization detector?",
+      "a": "Carbon dioxide",
+      "wrong": [
+        "Hexane",
+        "Ethanol",
+        "Toluene"
+      ],
+      "why": "A flame ionization detector responds to carbon atoms that are burned to ions in the hydrogen flame. Fully oxidized species such as CO₂, CO and H₂O give almost no response."
+    },
+    {
+      "q": "In splitless injection the oven is started 10–20 °C below the solvent’s boiling point. Why?",
+      "a": "The solvent condenses at the column head and refocuses the analytes into a narrow band",
+      "wrong": [
+        "It prevents the stationary phase from bleeding during injection",
+        "It keeps the analytes in the inlet until the split vent is opened",
+        "It stops the solvent from extinguishing the detector flame"
+      ],
+      "why": "Splitless transfer is slow, which would give a broad initial band. Trapping the solvent at the cooler head concentrates the analytes before the temperature program starts."
+    },
+    {
+      "q": "Which column is best suited to separating fatty acid methyl esters that differ in the number of double bonds?",
+      "a": "A polar polyethylene glycol (WAX) column",
+      "wrong": [
+        "A nonpolar 100% PDMS column, since it separates by boiling point",
+        "A molecular sieve PLOT column, since it retains gases",
+        "A 5% diphenyl PDMS column, since it is the general-purpose phase"
+      ],
+      "why": "Separation follows polarity (like dissolves like), and the double bonds change the polarity of otherwise similar esters, which a polar phase can distinguish. A nonpolar phase mostly sorts them by volatility."
+    },
+    {
+      "q": "A solute has k = 12 in 30% methanol. With S = 3, what is k in 50% methanol?",
+      "a": "3.0",
+      "wrong": [
+        "6.0",
+        "0.75",
+        "9.5"
+      ],
+      "why": "log k falls by SΔφ = 3 × 0.20 = 0.60, so k = 12 × 10^(−0.60) = 3.0. Retention in reversed phase falls exponentially, not linearly, with the organic fraction."
+    },
+    {
+      "q": "Why is a mobile-phase pH equal to the pKa of an acidic analyte avoided in reversed-phase HPLC?",
+      "a": "The analyte is half ionized, so small pH changes shift its retention strongly",
+      "wrong": [
+        "Buffers do not work at the pKa of the analyte",
+        "The analyte precipitates when it is half ionized",
+        "The UV absorbance of the analyte vanishes at its pKa"
+      ],
+      "why": "At pH = pKa the neutral and ionized forms are present in equal amounts, and the retention depends steeply on the pH. Working two units away puts the analyte in a single form."
+    },
+    {
+      "q": "What can a diode array detector do that a fixed-wavelength UV detector cannot?",
+      "a": "Compare spectra across a peak to test whether it contains a single compound",
+      "wrong": [
+        "Detect compounds that have no chromophore",
+        "Run gradients without any baseline drift",
+        "Raise the sensitivity by 10–1000 times"
+      ],
+      "why": "The DAD records a full spectrum at every time point, so identification by spectrum and peak-purity checks become possible. Compounds with no chromophore need ELSD, RI or MS."
+    },
+    {
+      "q": "A protein monomer (60 kDa) and its dimer (120 kDa) are run on a size-exclusion column. Which elutes first?",
+      "a": "The dimer",
+      "wrong": [
+        "The monomer",
+        "They coelute, since they have the same chemistry",
+        "The one with the higher net charge"
+      ],
+      "why": "Large molecules are excluded from the pores and pass through quickly, whereas smaller ones enter the pores and are delayed. Separation is by size, not by chemistry or charge."
+    },
+    {
+      "q": "A CE separation at 30 kV for an ion with μ_app = 2.0 × 10⁻⁴ cm² V⁻¹ s⁻¹ and D = 2.0 × 10⁻⁵ cm² s⁻¹. What plate number is expected from N = μ_app V/(2D)?",
+      "a": "1.5 × 10⁵",
+      "wrong": [
+        "3.0 × 10⁵",
+        "7.5 × 10⁴",
+        "1.5 × 10⁶"
+      ],
+      "why": "N = (2.0 × 10⁻⁴ × 30,000)/(2 × 2.0 × 10⁻⁵) = 6.0/4.0 × 10⁻⁵ = 1.5 × 10⁵. Leaving out the factor 2 in the denominator doubles the result."
+    },
+    {
+      "q": "In CZE with normal EOF, anions migrate toward the anode, yet they reach a detector at the cathode end. Why?",
+      "a": "The EOF toward the cathode is faster than their electrophoretic migration",
+      "wrong": [
+        "The negatively charged wall attracts the anions toward the cathode",
+        "The buffer neutralizes the anions during the run",
+        "The detector window is placed at the anode"
+      ],
+      "why": "The apparent mobility is μ_ep + μ_eo, and for anions μ_ep is negative but smaller in magnitude than the EOF, so the net motion is toward the cathode. Anions simply arrive last."
+    },
+    {
+      "q": "On an anion-exchange column, which ion is retained longest?",
+      "a": "SO₄²⁻",
+      "wrong": [
+        "F⁻",
+        "Cl⁻",
+        "NO₃⁻"
+      ],
+      "why": "Ions with a larger charge and stronger affinity for the quaternary ammonium sites are retained longer. Sulfate is divalent, so it elutes after the monovalent anions."
+    }
+  ],
   "summary": [
     "k = (tR − tM)/tM, α = k₂/k₁, N = 16(tR/W)², H = L/N. Resolution Rs = 2Δt/(W₁+W₂) = (√N/4)((α−1)/α)(k/(1+k)); Rs ≥ 1.5 is baseline. Selectivity is the most powerful lever.",
     "van Deemter: H = A + B/u + Cu, with u_opt = √(B/C). Golay for open tubes has no A term. Temperature (GC) and gradient (HPLC) programs solve the general elution problem.",

@@ -144,6 +144,168 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "A cured epoxy adhesive cannot be melted and reshaped by heating. The reason is that it",
+      "a": "is a covalently cross-linked network, so it decomposes before it can flow",
+      "wrong": [
+        "is a linear polymer with a melting point above its decomposition temperature",
+        "is a chain-growth polymer, and these never melt",
+        "has crystallinity of nearly 100%, so no chain segments can move"
+      ],
+      "why": "Curing joins the chains into one network, which makes the material a thermoset. A thermoplastic has separate chains that slide past each other when heated."
+    },
+    {
+      "q": "A polystyrene sample has a number-average molar mass of 52,000 g mol⁻¹. The repeat unit, C₈H₈, has a mass of 104 g mol⁻¹. The average degree of polymerization is",
+      "a": "500",
+      "wrong": [
+        "50",
+        "5,000",
+        "104"
+      ],
+      "why": "The degree of polymerization is the number of repeat units per chain: 52,000/104 = 500."
+    },
+    {
+      "q": "In the radical polymerization of vinyl chloride, CH₂=CHCl, an initiator radical R• attacks",
+      "a": "the CH₂ carbon, leaving the radical on the chlorine-bearing carbon",
+      "wrong": [
+        "the CHCl carbon, leaving the radical on the CH₂ carbon, which is less hindered",
+        "the chlorine atom, displacing a chlorine radical from the monomer",
+        "either carbon equally, since the double bond is symmetric and the product is the same"
+      ],
+      "why": "Radicals add to the less substituted end of the alkene, so as to give the more stable, more substituted radical. Each propagation step repeats this head-to-tail addition."
+    },
+    {
+      "q": "What produces the branches in polyethylene made by high-pressure radical polymerization?",
+      "a": "Chain transfer: a radical abstracts a hydrogen from a chain and growth restarts there",
+      "wrong": [
+        "Insertion of monomer into a titanium–carbon bond at an irregular site on the catalyst",
+        "Termination by disproportionation, which leaves an alkene end that then grows again",
+        "Cross-linking of the chains by sulfur atoms that bridge neighboring polymer molecules"
+      ],
+      "why": "Hydrogen abstraction moves the radical to the middle of a chain, and new monomers add there as a side chain. Ziegler–Natta catalysts avoid this and give linear polyethylene."
+    },
+    {
+      "q": "Which monomer is best suited to cationic polymerization?",
+      "a": "isobutylene (2-methylpropene)",
+      "wrong": [
+        "acrylonitrile",
+        "methyl acrylate",
+        "tetrafluoroethylene"
+      ],
+      "why": "Cationic polymerization needs a monomer that gives a stable carbocation, and isobutylene gives a tertiary one. Acrylonitrile and acrylates carry electron-withdrawing groups and suit anionic polymerization."
+    },
+    {
+      "q": "Styrene is polymerized anionically with n-BuLi until all monomer is consumed. Butadiene is then added to the same flask. What results?",
+      "a": "a polystyrene–polybutadiene block copolymer, since the chain ends are still active",
+      "wrong": [
+        "a mixture of polystyrene and polybutadiene homopolymers, with no covalent link between them",
+        "a random copolymer of styrene and butadiene, as the two monomers share the active chain ends",
+        "no further reaction, because the chains were terminated when the styrene ran out"
+      ],
+      "why": "An anionic polymerization has no termination step, so its chains are living. They add the new monomer and produce a block of the second polymer, with very low dispersity."
+    },
+    {
+      "q": "TiCl₄ with Al(C₂H₅)₃ polymerizes ethene at low pressure and temperature. The product is",
+      "a": "linear, highly crystalline high-density polyethylene",
+      "wrong": [
+        "highly branched low-density polyethylene, formed by chain transfer",
+        "polyethylene cross-linked through titanium atoms into a network",
+        "a low-molar-mass wax with a branch at each carbon atom"
+      ],
+      "why": "Monomer inserts into the Ti–C bond at a surface site, which avoids chain transfer and gives unbranched chains that pack into crystals."
+    },
+    {
+      "q": "A sample of polypropylene is a soft, tacky, amorphous solid. It was most likely made by",
+      "a": "radical polymerization, which gives atactic chains",
+      "wrong": [
+        "Ziegler–Natta polymerization, which gives isotactic chains",
+        "anionic polymerization, which gives living syndiotactic chains",
+        "step-growth polymerization of propane-1,3-diol"
+      ],
+      "why": "Radical addition does not control the stereochemistry of each CHCH₃ center. The irregular atactic chains cannot crystallize."
+    },
+    {
+      "q": "One mole each of adipic acid (146 g mol⁻¹) and hexamethylenediamine (116 g mol⁻¹) react completely to give nylon-6,6. Ignoring end groups, what mass of polymer forms?",
+      "a": "226 g",
+      "wrong": [
+        "262 g",
+        "244 g",
+        "208 g"
+      ],
+      "why": "Each repeat unit contains two amide links, and each link forms with loss of one water. The mass is 146 + 116 − 2 × 18 = 226 g."
+    },
+    {
+      "q": "What conversion of functional groups does a step-growth polymerization need to reach an average degree of polymerization of 500?",
+      "a": "99.8%",
+      "wrong": [
+        "99.5%",
+        "99.9%",
+        "98%"
+      ],
+      "why": "Xₙ = 1/(1 − p), so 1 − p = 1/500 = 0.002 and p = 0.998."
+    },
+    {
+      "q": "A step-growth polymerization has reached 50% conversion. The average chain contains about",
+      "a": "2 monomer units",
+      "wrong": [
+        "50 monomer units",
+        "500 monomer units",
+        "10 monomer units"
+      ],
+      "why": "Xₙ = 1/(1 − 0.5) = 2, so the mixture is mostly dimers and small oligomers. Long chains appear only near complete conversion, unlike in chain-growth polymerization."
+    },
+    {
+      "q": "Which pair of monomers gives Kevlar?",
+      "a": "terephthaloyl chloride and p-phenylenediamine",
+      "wrong": [
+        "adipoyl chloride and hexamethylenediamine",
+        "terephthalic acid and ethylene glycol",
+        "a diisocyanate and a diol, such as ethylene glycol"
+      ],
+      "why": "Kevlar is an aromatic polyamide. The aliphatic pair gives nylon-6,6, the diacid–glycol pair gives PET, and the isocyanate–diol pair gives polyurethane."
+    },
+    {
+      "q": "A mixture contains 3 mol of chains with M = 10,000 g mol⁻¹ and 1 mol of chains with M = 50,000 g mol⁻¹. What is the weight-average molar mass M_w?",
+      "a": "35,000 g mol⁻¹",
+      "wrong": [
+        "20,000 g mol⁻¹",
+        "30,000 g mol⁻¹",
+        "40,000 g mol⁻¹"
+      ],
+      "why": "M_w = ΣNᵢMᵢ²/ΣNᵢMᵢ = (3 × 10⁸ + 1 × 2.5 × 10⁹)/(3 × 10⁴ + 5 × 10⁴) = 2.8 × 10⁹/8 × 10⁴ = 35,000. The number average is 20,000, and the dispersity is 1.75."
+    },
+    {
+      "q": "Poly(vinyl chloride) is hard at room temperature (T_g about 80 °C). A phthalate plasticizer makes it flexible by",
+      "a": "lowering T_g below room temperature",
+      "wrong": [
+        "raising the crystallinity of the polymer",
+        "cross-linking the chains into a network",
+        "lowering the molar mass of the chains"
+      ],
+      "why": "The plasticizer molecules sit between chains and let segments move at lower temperature. Below T_g the polymer is a hard glass, and above it the segments move and the material is soft."
+    },
+    {
+      "q": "Rubber is vulcanized with 30% sulfur instead of a few percent. The product is",
+      "a": "hard and rigid (ebonite), since heavy cross-linking prevents chain motion",
+      "wrong": [
+        "softer and stickier, since sulfur acts as a plasticizer",
+        "more elastic than tire rubber, since there are more cross-links to spring back",
+        "a thermoplastic that melts and can be remolded"
+      ],
+      "why": "A few percent sulfur gives a loose network that stretches and recovers. A dense network leaves the chains little freedom, and cross-linking is permanent, so the product is a thermoset."
+    },
+    {
+      "q": "Polylactic acid can be broken down in industrial composting, whereas polyethylene persists. Why?",
+      "a": "PLA has ester links that hydrolyze, but polyethylene has only C–C and C–H bonds",
+      "wrong": [
+        "PLA has a higher glass transition temperature, which makes it chemically reactive",
+        "Polyethylene is cross-linked into a network, whereas PLA is a linear polymer",
+        "PLA is made by radical polymerization and so contains weak bonds in its chain"
+      ],
+      "why": "Water cleaves the ester bonds in the backbone of PLA, a polyester of lactic acid. The saturated hydrocarbon chain of polyethylene has no such site."
+    }
+  ],
   "summary": [
     "Chain-growth polymers form by adding monomers to a reactive chain end (radical, cationic, anionic, coordination). Step-growth polymers form by reaction between functional groups and need high conversion.",
     "Radical polymerization makes LDPE, PS, PVC and PMMA. Ziegler–Natta catalysts make HDPE and isotactic polypropylene. Anionic living polymerization gives block copolymers.",

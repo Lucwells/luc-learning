@@ -363,6 +363,188 @@
       ]
     }
   ],
+  "quiz": [
+    {
+      "q": "The data are 2, 4, 5, 7, 9, 11, 50. Using Q₁ and Q₃ as the medians of the lower and upper halves, which values does the 1.5 × IQR rule flag as potential outliers?",
+      "a": "Only 50",
+      "wrong": [
+        "11 and 50",
+        "None of the values",
+        "2 and 50"
+      ],
+      "why": "Q₁ = 4 and Q₃ = 11, so IQR = 7 and the fences are 4 − 10.5 = −6.5 and 11 + 10.5 = 21.5. Only 50 lies outside them."
+    },
+    {
+      "q": "In the data 2, 4, 5, 7, 9, 11, 50, the largest value is replaced by 500. What happens to the mean, median and IQR?",
+      "a": "The mean rises sharply, while the median and IQR stay the same",
+      "wrong": [
+        "The mean and the median both rise, but the IQR stays the same",
+        "The mean and the IQR both rise, but the median stays the same",
+        "All three rise by the same amount as the new value"
+      ],
+      "why": "The mean uses the size of every value. The median (7) and the quartiles (4 and 11) depend only on order, and 500 still ranks last, so they are unchanged."
+    },
+    {
+      "q": "The values 2, 4 and 6 form a sample. What is the sample variance s²?",
+      "a": "4",
+      "wrong": [
+        "2.67",
+        "8",
+        "2"
+      ],
+      "why": "The mean is 4 and the squared deviations sum to 4 + 0 + 4 = 8. Dividing by n − 1 = 2 gives 4; dividing by n would give 2.67, and 2 is the standard deviation."
+    },
+    {
+      "q": "What is the median absolute deviation (MAD) of the values 1, 2, 4, 8 and 20?",
+      "a": "3",
+      "wrong": [
+        "5",
+        "4",
+        "16"
+      ],
+      "why": "The median is 4, and the absolute deviations are 3, 2, 0, 4 and 16, whose median is 3. The mean of the deviations would be 5, and 4 is just the median of the data."
+    },
+    {
+      "q": "Why is it common to take logarithms of incomes before analysis?",
+      "a": "A log compresses the long right tail and turns multiplicative differences into additive ones",
+      "wrong": [
+        "It removes the outliers from the data set without any loss of rows",
+        "It forces the mean and the median to be exactly equal in any sample",
+        "It makes the income column nominal, so that it can be grouped"
+      ],
+      "why": "Incomes grow multiplicatively, so a doubling is the same step on a log scale wherever it occurs. The transformed variable is usually much closer to symmetric."
+    },
+    {
+      "q": "How many bins does Sturges' rule, ⌈log₂ n⌉ + 1, suggest for a histogram of n = 100 values?",
+      "a": "8",
+      "wrong": [
+        "7",
+        "10",
+        "6"
+      ],
+      "why": "log₂ 100 ≈ 6.64, which rounds up to 7, and adding 1 gives 8. Forgetting the +1 gives 7."
+    },
+    {
+      "q": "A histogram of customer ages is smooth except for one very tall bar at age 0. What is the most likely explanation?",
+      "a": "Unknown ages were recorded with a default or sentinel value of 0",
+      "wrong": [
+        "A large share of customers are newborns",
+        "The bins are too wide to resolve the ages near zero",
+        "The ages follow a heavy-tailed distribution with an outlier at 0"
+      ],
+      "why": "Spikes at one exact value usually come from defaults, rounding or codes for missing data. They should be investigated before any model is fitted."
+    },
+    {
+      "q": "A box plot is drawn for 2, 4, 5, 7, 9, 11 and 50, with Q₁ = 4 and Q₃ = 11. Where does the upper whisker end?",
+      "a": "11",
+      "wrong": [
+        "21.5",
+        "50",
+        "9"
+      ],
+      "why": "The whisker reaches the farthest data point inside the fence, not the fence itself. The fence is 21.5, the largest point below it is 11, and 50 is drawn separately as an outlier."
+    },
+    {
+      "q": "A normal Q–Q plot of a sample forms a clear S-shaped curve around the reference line. What does this indicate?",
+      "a": "The tails are heavier or lighter than those of a normal distribution",
+      "wrong": [
+        "The data are skewed to the right and nothing else",
+        "The sample is consistent with a normal distribution",
+        "The histogram used too few bins to show the shape"
+      ],
+      "why": "Points near a straight line mean resemblance to the reference. A one-sided bend signals skew, while an S-shape indicates tails that differ from the normal."
+    },
+    {
+      "q": "For x = (1, 2, 3) and y = (2, 4, 3), what is Pearson's correlation r?",
+      "a": "0.5",
+      "wrong": [
+        "0.25",
+        "0.71",
+        "0.33"
+      ],
+      "why": "With x̄ = 2 and ȳ = 3, the cross-products sum to 1, while Σ(x − x̄)² = 2 and Σ(y − ȳ)² = 2. So r = 1/√(2 × 2) = 0.5."
+    },
+    {
+      "q": "For x = (1, 2, 3, 4, 5) and y = (1, 2, 3, 4, 100), what is the Spearman correlation?",
+      "a": "1.0, because the ranks agree exactly",
+      "wrong": [
+        "About 0.73, the same as the Pearson correlation",
+        "About 0.50, because of the outlier at 100",
+        "0, because the last point breaks any linear pattern"
+      ],
+      "why": "Spearman is the Pearson correlation of the ranks, and both variables have ranks 1 to 5 in the same order. The outlier pulls the Pearson value down to about 0.73 but cannot change the ranks."
+    },
+    {
+      "q": "Among primary-school children, shoe size and reading score are strongly positively correlated. What is the most plausible explanation?",
+      "a": "Age affects both, so older children have bigger feet and read better",
+      "wrong": [
+        "Larger shoes cause better reading",
+        "Better reading makes feet grow",
+        "The correlation must be due to chance"
+      ],
+      "why": "A third variable that causes both (a confounder) can create a strong association without any causal link between the two. Chance is unlikely to produce a strong pattern across many children."
+    },
+    {
+      "q": "The points (x, y) with y = x² for x = −3, −2, −1, 0, 1, 2, 3 are plotted. What is Pearson's r?",
+      "a": "0, although y is completely determined by x",
+      "wrong": [
+        "1, because y is a function of x",
+        "About 0.5, a moderate positive association",
+        "−1, because the curve turns downward on the left"
+      ],
+      "why": "Pearson's r measures linear association. The left and right halves cancel exactly, so r = 0 despite a perfect nonlinear dependence."
+    },
+    {
+      "q": "A bubble chart sets the radius of each circle in proportion to the value. A value 3 times as large is drawn with a circle whose area is",
+      "a": "9 times as large",
+      "wrong": [
+        "3 times as large",
+        "6 times as large",
+        "27 times as large"
+      ],
+      "why": "Area grows with the square of the radius, so tripling the radius multiplies the area by 9. Viewers read area, so the chart exaggerates the difference."
+    },
+    {
+      "q": "Two bars show 40 and 50 units, and the vertical axis starts at 35. How many times as tall does the second bar look compared with the first?",
+      "a": "3",
+      "wrong": [
+        "1.25",
+        "2",
+        "1.5"
+      ],
+      "why": "The visible heights are 50 − 35 = 15 and 40 − 35 = 5, a ratio of 3. The true ratio of the values is only 1.25, which is why bars must start at zero."
+    },
+    {
+      "q": "Which color scale suits a heatmap of correlations between variables, which range from −1 to 1?",
+      "a": "A diverging scale with a neutral midpoint at 0",
+      "wrong": [
+        "A sequential scale running from light to dark",
+        "A red and green pair, one color for each sign",
+        "A different unrelated hue for each tenth of the range"
+      ],
+      "why": "Correlations have a meaningful center, so two hues around a neutral midpoint show sign and strength together. Red–green pairs fail for viewers with color vision deficiency."
+    },
+    {
+      "q": "City A reports 500 cases with a population of 1,000,000, and city B reports 200 cases with a population of 100,000. Which has the higher rate?",
+      "a": "City B, with 20 per 10,000 against 5 per 10,000",
+      "wrong": [
+        "City A, with 500 cases against 200",
+        "City A, with 50 per 10,000 against 20 per 10,000",
+        "They are equal once population is considered"
+      ],
+      "why": "Counts mislead when denominators differ. A is 500/1,000,000 = 5 per 10,000 and B is 200/100,000 = 20 per 10,000."
+    },
+    {
+      "q": "In bivariate EDA, one predictor is almost perfectly related to the target. What should be suspected first?",
+      "a": "Leakage: the feature may carry information unavailable at prediction time",
+      "wrong": [
+        "The feature is surely the best predictor and should be kept as is",
+        "The target is imbalanced and must be resampled",
+        "The correlation matrix was computed on too few rows"
+      ],
+      "why": "A near-perfect relationship is more often a sign that the feature is derived from the outcome than a real discovery. Check how and when the feature is recorded."
+    }
+  ],
   "summary": [
     "Summarize a variable by center, spread and shape. The mean and standard deviation are sensitive to outliers, while the median, IQR and MAD are robust. Skewed variables such as income are best summarized by quantiles, and often analyzed on a log scale.",
     "Histograms (bin width matters), box plots (1.5 IQR rule), density estimates and Q–Q plots show distributions. Spikes and multiple peaks signal data issues and subgroups.",
