@@ -173,3 +173,16 @@
   .search { max-width: none; }
   nav.top { gap: .8rem; }
 }
+
+/* job search guide */
+.navlink { margin-left: 1.2rem; font-size: .92rem; color: var(--muted); }
+.navlink:hover { color: var(--text); text-decoration: none; }
+.job-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.2rem; margin-top: 1rem; }
+.job-card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 1.1rem 1.2rem; }
+.job-card h3 { font-family: var(--serif); font-size: 1.3rem; margin: 0 0 .5rem; }
+.job-card h4 { font-size: .78rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 1rem 0 .3rem; }
+.job-card ul { margin: .2rem 0; padding-left: 1.2rem; }
+.job-roles { display: flex; flex-wrap: wrap; gap: .4rem; margin: 0; }
+.job-roles span { background: var(--tint); border-radius: 999px; padding: .15rem .65rem; font-size: .82rem; }
+.job-coming { font-size: .85rem; margin: .8rem 0 0; }
+.job-gaps li { margin: .5rem 0; line-height: 1.55; }

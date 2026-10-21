@@ -1,0 +1,85 @@
+{
+  "title": "Job Search Guide",
+  "dek": "What entry-level roles in my target fields ask for, where the gaps are, and which chapters close them. Built from about 30 real postings read in October 2026.",
+  "intro": [
+    "This page turns postings into a study plan. Each track lists the roles I am aiming at, what the postings keep asking for, and where to learn it in this library. The gaps are ranked by how many postings they blocked.",
+    "No application details are kept here. This page is only about skills."
+  ],
+  "tracks": [
+    {
+      "title": "Lab, QC and production chemistry",
+      "roles": ["QC associate", "Production chemist I", "Laboratory technician (media and reagents)", "Research technician"],
+      "asks": [
+        "Good manufacturing and documentation practice: cGMP, GDP, ALCOA+, SOPs, batch records, deviations.",
+        "Aseptic technique, media and buffer preparation, pH and osmolality, lab calculations (molarity, dilutions).",
+        "HPLC and UPLC for peptides and biologics: reversed-phase, size-exclusion, ion-exchange, capillary electrophoresis, system suitability.",
+        "Cell culture and molecular biology: PCR, qPCR, gels, cloning, ELISA.",
+        "Accurate records, careful work, and 0 to 2 years of lab experience."
+      ],
+      "study": [
+        { "label": "Assay Data: Calibration, Replicates and QC", "href": "#/biotech-data-ml/assay-data" },
+        { "label": "Analytical Chemistry: Chromatography", "href": "#/chemistry/chromatography" }
+      ],
+      "coming": "Biotech Lab and Quality book (GMP, bench skills, biologics methods), planned."
+    },
+    {
+      "title": "Data and machine learning for biotech and medtech",
+      "roles": ["Assay or lab data analyst", "Junior data scientist", "Bioinformatics analyst"],
+      "asks": [
+        "Python with pandas and plots, applied to instrument and plate-reader exports.",
+        "SQL, including joins, aggregation and window functions.",
+        "Statistics for lab decisions: confidence intervals, t-tests, method comparison.",
+        "Dashboards and reporting (Power BI, Tableau) and clean documentation.",
+        "Scikit-learn on assay data; for regulated work, traceability and validation."
+      ],
+      "study": [
+        { "label": "Python and pandas for Lab Data", "href": "#/biotech-data-ml/python-pandas" },
+        { "label": "Assay Data: Calibration, Replicates and QC", "href": "#/biotech-data-ml/assay-data" },
+        { "label": "Databases and SQL", "href": "#/data-science/sql" }
+      ],
+      "coming": "Statistics for lab decisions, machine learning on assay data and intro bioinformatics chapters, planned."
+    },
+    {
+      "title": "AI training and evaluation",
+      "roles": ["AI trainer or fellow (remote, asynchronous)", "Quality analyst for AI responses"],
+      "asks": [
+        "Domain knowledge to check content for accuracy, and clear written reasoning for each judgment.",
+        "Following evaluation guidelines exactly and meeting turnaround targets.",
+        "Comfort with chatbots and AI tools. Prior annotation experience helps but is often not required.",
+        "Many of the best-paid versions are for current students or advanced degrees."
+      ],
+      "study": [
+        { "label": "Assay Data: reporting and data integrity", "href": "#/biotech-data-ml/assay-data/reporting" }
+      ],
+      "coming": "A short AI-evaluation chapter, planned."
+    },
+    {
+      "title": "Game development and design",
+      "roles": ["Game design intern", "Gameplay or tools programmer (entry level)"],
+      "asks": [
+        "A portfolio of playable projects.",
+        "Experience in the studio's engine, often Unreal with Blueprints and the Gameplay Ability System.",
+        "Level design systems and basic multiplayer replication.",
+        "Clear written design documents and playtest feedback."
+      ],
+      "study": [],
+      "coming": "Unreal Engine basics and a Godot-to-Unreal comparison, planned."
+    }
+  ],
+  "gaps": [
+    { "title": "Years of experience", "detail": "Almost every posting labeled entry level asked for 1 to 3 years. The fix is projects with real data, a short hands-on lab course, and listing projects as experience." },
+    { "title": "GMP and QC lab practice", "detail": "The most common lab blocker: documentation rules, SOPs, deviations and data integrity." },
+    { "title": "Bench biology", "detail": "Aseptic technique, cell culture, media preparation, PCR and ELISA." },
+    { "title": "The reporting stack", "detail": "Advanced SQL, Power BI and DAX, Tableau, and Jira for requirements." },
+    { "title": "Biotech data and machine learning", "detail": "Instrument data, bioinformatics, and scikit-learn on lab data." },
+    { "title": "Game engine experience", "detail": "Unreal Engine and a playable portfolio in it." },
+    { "title": "Not fixable by study", "detail": "Current-student status and security clearances rule out some internships. Skip those postings and look for early-career versions." }
+  ],
+  "ready": [
+    "Explain how a calibration curve turns a signal into a concentration, and when a result is out of range.",
+    "Calculate CV% and percent recovery from replicates and say what an acceptable value depends on.",
+    "Read an instrument export in Python, clean it, and plot it with labeled axes and error bars.",
+    "Say what happens when a control fails: investigate and document, never delete.",
+    "Describe a project of your own, what you built, what you measured, and what you would do next."
+  ]
+}

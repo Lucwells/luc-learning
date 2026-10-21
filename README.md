@@ -17,6 +17,7 @@ Open http://localhost:8080. Node 18+ is the only requirement. There are no depen
 - **Chapter**: a long, readable page with a sticky contents sidebar. Each section ends with "Check your understanding" questions. "Quiz this chapter" and "Quiz this book" are optional.
 - **Cross-references**: a term explained elsewhere is linked where it appears, and a Back button returns you to where you were. Links stay inside a book unless its `book.json` names other books in `links` (the Machine Learning, Mathematics, Computer Science and Data Science books link to each other).
 - **Search**: press `/` to search section titles, terms and text.
+- **Job Search Guide** (`#/jobs`, linked in the top bar): target roles, what postings ask for, ranked skill gaps and which chapters close them. It reads `data/job-search.json` and holds no application details.
 
 Some chapters are interactive: the periodic table and the world map.
 

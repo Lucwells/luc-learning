@@ -7,6 +7,7 @@ import { buildTerms } from './terms.js';
 import { viewShelf, viewBook, viewChapter, viewQuiz, notFound } from './reader.js';
 import { viewPeriodicTable } from './periodic.js';
 import { viewWorldMap } from './worldmap.js';
+import { viewJobSearch } from './jobs.js';
 import { initSearch } from './search.js';
 
 let shownHash = null;
@@ -24,6 +25,7 @@ function route(restoreY) {
 
   if (!seg.length) { scrollTop(); return viewShelf(); }
   if (seg[0] === 'quiz') { scrollTop(); return viewQuiz(seg[1], seg[2]); }
+  if (seg[0] === 'jobs') { scrollTop(); return viewJobSearch(); }
 
   const book = lib.bookById.get(seg[0]);
   if (!book) { scrollTop(); return notFound(); }
