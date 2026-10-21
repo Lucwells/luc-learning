@@ -45,49 +45,163 @@
    ]
   },
   {
-   "id": "python-basics",
-   "title": "Python essentials",
+   "id": "variables",
+   "title": "Variables and printing",
    "terms": [
-    "variable",
-    "list",
-    "dictionary",
-    "loop",
-    "function",
     "f-string"
    ],
    "body": [
-    "You need only a small part of the language. A **variable** is a name attached to a value. Numbers can be integers (5) or floats (0.12), text is a string ('Plate1'), and True or False is a boolean.",
+    "A **variable** is a name attached to a value. Use = to store a value and print() to see it. Text goes in quotes. A comparison like conc > 10 gives True or False.",
     {
      "code": [
-      "conc = 20.0            # a float, in ug/mL",
-      "name = 'Standard 3'     # a string",
-      "passed = conc > 10      # a boolean: True",
-      "print(f'{name}: {conc} ug/mL')   # f-string: Standard 3: 20.0 ug/mL"
+      "conc = 20.0",
+      "name = 'Standard 3'",
+      "passed = conc > 10",
+      "print(name, conc, passed)",
+      "print(f'{name}: {conc} ug/mL')"
      ],
-     "caption": "Variables and an f-string. Everything after # is a comment."
+     "caption": "The code"
     },
-    "A **list** holds an ordered collection and is written with square brackets. A **dictionary** stores pairs of a key and a value in curly braces. A **loop** repeats work, and a **function** packages work under a name so you can reuse it.",
     {
      "code": [
-      "od = [0.10, 0.12, 0.11]            # list of replicate readings",
-      "print(od[0], len(od))              # 0.1  3   (counting starts at 0)",
-      "",
-      "meta = {'plate': 'P1', 'analyst': 'LW'}   # dictionary",
-      "print(meta['plate'])                      # P1",
-      "",
+      "Standard 3 20.0 True",
+      "Standard 3: 20.0 ug/mL"
+     ],
+     "caption": "What it prints"
+    },
+    "An **f-string** puts values inside text: write f before the quotes and put each value in curly braces.",
+    {
+     "exercise": {
+      "id": "variables-try",
+      "title": "Variables",
+      "prompt": [
+       "Three replicate readings are 0.10, 0.12 and 0.11. Store them in **r1**, **r2** and **r3**, store their mean in **mean_od**, and print a labeled line such as: Mean OD: 0.11"
+      ],
+      "starter": [
+       "# Define r1, r2, r3 and mean_od, then print the labeled mean",
+       "",
+       ""
+      ],
+      "check": [
+       "assert (r1, r2, r3) == (0.10, 0.12, 0.11), 'Store the three readings in r1, r2 and r3.'",
+       "assert abs(mean_od - 0.11) < 1e-9, 'mean_od is the sum of the three readings divided by 3.'"
+      ],
+      "solution": [
+       "r1 = 0.10",
+       "r2 = 0.12",
+       "r3 = 0.11",
+       "mean_od = (r1 + r2 + r3) / 3",
+       "print(f'Mean OD: {mean_od:.2f}')"
+      ],
+      "hint": "Add the three variables, divide by 3, and format with f\"{mean_od:.2f}\" to show two decimals.",
+      "packages": [
+       "numpy",
+       "pandas"
+      ]
+     }
+    }
+   ],
+   "check": [
+    {
+     "q": "What does od[0] return if od = [0.10, 0.12, 0.11]?",
+     "a": "0.10, the first element, because counting starts at 0",
+     "wrong": [
+      "0.12, the first element, because counting starts at 1",
+      "The number of elements in the list",
+      "An error, because 0 is not a valid position"
+     ],
+     "why": "Python lists are zero-indexed, so position 0 is the first item."
+    }
+   ]
+  },
+  {
+   "id": "lists-dicts",
+   "title": "Lists and dictionaries",
+   "body": [
+    "A **list** keeps values in order inside square brackets. Counting starts at 0, and -1 means the last item. A **dictionary** keeps labeled values, written key: value inside curly braces.",
+    {
+     "code": [
+      "od = [0.10, 0.12, 0.11]",
+      "print(od[0])",
+      "print(od[-1])",
+      "print(len(od))",
+      "od.append(0.13)",
+      "print(od)",
+      "meta = {'plate': 'P1', 'analyst': 'LW'}",
+      "print(meta['plate'])",
+      "meta['run'] = 42",
+      "print(meta)"
+     ],
+     "caption": "The code"
+    },
+    {
+     "code": [
+      "0.1",
+      "0.11",
+      "3",
+      "[0.1, 0.12, 0.11, 0.13]",
+      "P1",
+      "{'plate': 'P1', 'analyst': 'LW', 'run': 42}"
+     ],
+     "caption": "What it prints"
+    },
+    {
+     "exercise": {
+      "id": "lists-try",
+      "title": "Lists and dictionaries",
+      "prompt": [
+       "Make a list **conc** of the five standards 0, 10, 20, 40 and 80, then add 160 to the end. Make a dictionary **run** with the keys plate (value \"P2\") and n_wells (value 96). Print len(conc) and run[\"plate\"]."
+      ],
+      "starter": [
+       "# Define conc and run, then print len(conc) and run[\"plate\"]",
+       "",
+       ""
+      ],
+      "check": [
+       "assert conc == [0, 10, 20, 40, 80, 160], 'conc should be the five standards plus 160 at the end. Use append.'",
+       "assert run == {'plate': 'P2', 'n_wells': 96}, 'run needs the keys plate and n_wells with the given values.'"
+      ],
+      "solution": [
+       "conc = [0, 10, 20, 40, 80]",
+       "conc.append(160)",
+       "run = {'plate': 'P2', 'n_wells': 96}",
+       "print(len(conc), run['plate'])"
+      ],
+      "hint": "conc.append(160) adds to the end of a list.",
+      "packages": [
+       "numpy",
+       "pandas"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "functions",
+   "title": "Functions and loops",
+   "body": [
+    "A **function** packages steps under a name so you can reuse them. def starts it, the indented lines are its body, and return hands back the answer. A **loop** repeats indented lines for each item. Indentation is part of Python: use four spaces.",
+    {
+     "code": [
       "def mean(values):",
       "    return sum(values) / len(values)",
       "",
-      "for x in od:",
+      "for x in [0.10, 0.12, 0.11]:",
       "    print(x * 2)",
-      "print(round(mean(od), 3))          # 0.11"
+      "",
+      "print(round(mean([0.10, 0.12, 0.11]), 3))"
      ],
-     "caption": "A list, a dictionary, a function and a loop. Indented lines belong to the line above them."
+     "caption": "The code"
     },
     {
-     "warn": "Indentation is part of the syntax. Four spaces after a colon mark the body of a loop or function. A missing or inconsistent indent is the most common beginner error."
+     "code": [
+      "0.2",
+      "0.24",
+      "0.22",
+      "0.11"
+     ],
+     "caption": "What it prints"
     },
-    "When code fails, Python prints a traceback. Read it from the bottom: the last line names the error (for example KeyError means a dictionary key or column name does not exist) and the lines above show where it happened.",
     {
      "exercise": {
       "id": "cv-function",
@@ -123,142 +237,231 @@
       ]
      }
     }
-   ],
-   "check": [
-    {
-     "q": "What does od[0] return if od = [0.10, 0.12, 0.11]?",
-     "a": "0.10, the first element, because counting starts at 0",
-     "wrong": [
-      "0.12, the first element, because counting starts at 1",
-      "The number of elements in the list",
-      "An error, because 0 is not a valid position"
-     ],
-     "why": "Python lists are zero-indexed, so position 0 is the first item."
-    }
    ]
   },
   {
    "id": "dataframes",
-   "title": "Tables with pandas",
+   "title": "Open a table with pandas",
    "terms": [
     "pandas",
-    "DataFrame",
-    "Series",
-    "CSV"
+    "DataFrame"
    ],
    "body": [
-    "The **pandas** library represents a table as a **DataFrame**: rows are observations, columns have names and each column is a **Series** of one type. Instrument exports are usually **CSV** files, plain text with values separated by commas.",
+    "The **pandas** library holds a table as a **DataFrame**: named columns, one row per observation. Instruments export tables as CSV files, plain text with values separated by commas. Run these three commands on every new file: head to look at it, shape for its size, info for column types.",
+    {
+     "code": [
+      "well,sample,group,od450",
+      "A1,S1,ctrl,0.10",
+      "A2,S1,ctrl,0.12",
+      "A3,S1,ctrl,0.11",
+      "B1,S2,drug,0.35",
+      "B2,S2,drug,0.31",
+      "B3,S2,drug,0.33"
+     ],
+     "caption": "The file plate1.csv"
+    },
     {
      "code": [
       "import pandas as pd",
-      "",
-      "df = pd.read_csv('plate1.csv')   # or pd.read_excel('plate1.xlsx')",
-      "print(df.head())                 # first 5 rows",
-      "print(df.shape)                  # (rows, columns)",
-      "df.info()                        # column names, types, non-null counts",
-      "print(df.describe())             # count, mean, std, min, max of numeric columns"
+      "df = pd.read_csv('plate1.csv')",
+      "print(df.head(3))",
+      "print(df.shape)",
+      "df.info()"
      ],
-     "caption": "The first four commands to run on any new file."
+     "caption": "The code"
     },
-    "Suppose the file holds one row per well.",
-    {
-     "table": {
-      "head": [
-       "well",
-       "sample",
-       "group",
-       "od450"
-      ],
-      "rows": [
-       [
-        "A1",
-        "S1",
-        "ctrl",
-        "0.10"
-       ],
-       [
-        "A2",
-        "S1",
-        "ctrl",
-        "0.12"
-       ],
-       [
-        "A3",
-        "S1",
-        "ctrl",
-        "0.11"
-       ],
-       [
-        "B1",
-        "S2",
-        "drug",
-        "0.35"
-       ],
-       [
-        "B2",
-        "S2",
-        "drug",
-        "0.31"
-       ],
-       [
-        "B3",
-        "S2",
-        "drug",
-        "0.33"
-       ]
-      ],
-      "caption": "A tidy plate table: one row per well, one column per variable."
-     }
-    },
-    "Select columns with square brackets, filter rows with a condition, and add a column by assigning to a new name.",
     {
      "code": [
-      "df['od450']                       # one column (a Series)",
-      "df[['sample', 'od450']]           # several columns (a DataFrame)",
-      "ctrl = df[df['group'] == 'ctrl']  # keep rows where the condition is True",
-      "hi = df[(df['od450'] > 0.2) & (df['group'] == 'drug')]   # & means and, | means or",
-      "df['od_corrected'] = df['od450'] - 0.02   # new column: subtract a blank of 0.02"
+      "  well sample group  od450",
+      "0   A1     S1  ctrl   0.10",
+      "1   A2     S1  ctrl   0.12",
+      "2   A3     S1  ctrl   0.11",
+      "(6, 4)",
+      "<class 'pandas.core.frame.DataFrame'>",
+      "RangeIndex: 6 entries, 0 to 5",
+      "Data columns (total 4 columns):",
+      " #   Column  Non-Null Count  Dtype  ",
+      "---  ------  --------------  -----  ",
+      " 0   well    6 non-null      object ",
+      " 1   sample  6 non-null      object ",
+      " 2   group   6 non-null      object ",
+      " 3   od450   6 non-null      float64",
+      "dtypes: float64(1), object(3)",
+      "memory usage: 192.0+ bytes"
      ],
-     "caption": "Selecting, filtering and creating columns. Wrap each condition in parentheses when combining them."
-    },
-    {
-     "key": "Think in columns. A pandas operation on a column applies to every row at once, so you almost never need a loop over rows."
+     "caption": "What it prints"
     },
     {
      "exercise": {
-      "id": "filter-rows",
-      "title": "Load and filter a plate",
+      "id": "load-try",
+      "title": "Load a file",
       "prompt": [
-       "The file **plate1.csv** is already available to your code. It has the columns well, sample, group and od450.",
-       "Load it into a DataFrame called **df**, keep only the rows where group is 'drug' in a new DataFrame called **drug**, and print the mean of drug's od450 column. The mean is 0.33."
-      ],
-      "files": {
-       "plate1.csv": "well,sample,group,od450\nA1,S1,ctrl,0.10\nA2,S1,ctrl,0.12\nA3,S1,ctrl,0.11\nB1,S2,drug,0.35\nB2,S2,drug,0.31\nB3,S2,drug,0.33\n"
-      },
-      "packages": [
-       "numpy",
-       "pandas"
+       "The file **plate2.csv** is already available. It has the same layout but measures fluorescence (rfu) instead of absorbance. Load it into **df**, then print its first 3 rows and its shape."
       ],
       "starter": [
-       "# Load plate1.csv, keep the drug wells, and print their mean od450",
-       "# Variables to define: df (all wells) and drug (drug wells only)",
+       "# Load plate2.csv into df, then print the first 3 rows and the shape",
        "",
        ""
       ],
       "check": [
-       "assert len(df) == 6, 'df should hold all six wells loaded from plate1.csv.'",
-       "assert drug is not None and len(drug) == 3, 'drug should contain only the three drug wells.'",
-       "assert set(drug['group']) == {'drug'}, \"Filter with df[df['group'] == 'drug'].\"",
-       "assert abs(drug['od450'].mean() - 0.33) < 1e-9, 'The mean of the drug wells should be 0.33.'"
+       "assert df.shape == (6, 4), 'df should have 6 rows and 4 columns. Load plate2.csv with pd.read_csv.'",
+       "assert list(df.columns) == ['well', 'sample', 'group', 'rfu'], 'The columns should be well, sample, group and rfu.'"
       ],
-      "hint": "df[df['group'] == 'drug'] keeps the rows where the condition is True.",
       "solution": [
        "import pandas as pd",
+       "df = pd.read_csv('plate2.csv')",
+       "print(df.head(3))",
+       "print(df.shape)"
+      ],
+      "hint": "pd.read_csv('plate2.csv') returns a DataFrame. Remember to import pandas first.",
+      "files": {
+       "plate2.csv": "well,sample,group,rfu\nA1,S1,ctrl,1200\nA2,S1,ctrl,1150\nA3,S1,ctrl,1230\nB1,S2,treated,2400\nB2,S2,treated,2330\nB3,S2,treated,2510\n"
+      },
+      "packages": [
+       "numpy",
+       "pandas"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "select-filter",
+   "title": "Select and filter",
+   "body": [
+    "Pick one column with df['name']. Keep only some rows by putting a condition inside the brackets: df[df['group'] == 'ctrl']. Join conditions with & (and) or | (or), and wrap each in parentheses.",
+    {
+     "code": [
+      "well,sample,group,od450",
+      "A1,S1,ctrl,0.10",
+      "A2,S1,ctrl,0.12",
+      "A3,S1,ctrl,0.11",
+      "B1,S2,drug,0.35",
+      "B2,S2,drug,0.31",
+      "B3,S2,drug,0.33"
+     ],
+     "caption": "The file plate1.csv"
+    },
+    {
+     "code": [
+      "import pandas as pd",
+      "df = pd.read_csv('plate1.csv')",
+      "print(df['od450'])",
+      "ctrl = df[df['group'] == 'ctrl']",
+      "print(ctrl)",
+      "both = df[(df['od450'] > 0.2) & (df['group'] == 'drug')]",
+      "print(len(both))"
+     ],
+     "caption": "The code"
+    },
+    {
+     "code": [
+      "0    0.10",
+      "1    0.12",
+      "2    0.11",
+      "3    0.35",
+      "4    0.31",
+      "5    0.33",
+      "Name: od450, dtype: float64",
+      "  well sample group  od450",
+      "0   A1     S1  ctrl   0.10",
+      "1   A2     S1  ctrl   0.12",
+      "2   A3     S1  ctrl   0.11",
+      "3"
+     ],
+     "caption": "What it prints"
+    },
+    {
+     "exercise": {
+      "id": "filter-rows",
+      "title": "Filter rows",
+      "prompt": [
+       "**df** holds the six wells of plate2.csv (columns well, sample, group, rfu). Keep only the rows where group is \"treated\" in a new DataFrame called **treated**, and print the mean of its rfu column. The mean is 2413.33."
+      ],
+      "starter": [
+       "# df is already loaded. Define treated and print its mean rfu",
        "",
-       "df = pd.read_csv('plate1.csv')",
-       "drug = df[df['group'] == 'drug']",
+       ""
+      ],
+      "check": [
+       "assert treated is not None and len(treated) == 3, 'treated should contain only the three treated wells.'",
+       "assert set(treated['group']) == {'treated'}, \"Filter with df[df['group'] == 'treated'].\"",
+       "assert abs(treated['rfu'].mean() - 2413.3333) < 0.01, 'The mean rfu of the treated wells should be 2413.33.'"
+      ],
+      "solution": [
+       "treated = df[df['group'] == 'treated']",
+       "print(treated['rfu'].mean())"
+      ],
+      "hint": "df[df['group'] == 'treated'] keeps the rows where the condition is True.",
+      "files": {
+       "plate2.csv": "well,sample,group,rfu\nA1,S1,ctrl,1200\nA2,S1,ctrl,1150\nA3,S1,ctrl,1230\nB1,S2,treated,2400\nB2,S2,treated,2330\nB3,S2,treated,2510\n"
+      },
+      "setup": [
+       "import pandas as pd",
+       "df = pd.read_csv('plate2.csv')"
+      ],
+      "packages": [
+       "numpy",
+       "pandas"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "new-column",
+   "title": "Add a calculated column",
+   "body": [
+    "Assigning to a new column name creates it, and the calculation runs on every row at once. You almost never need a loop over rows.",
+    {
+     "code": [
+      "import pandas as pd",
+      "df = pd.read_csv('plate1.csv')",
+      "df['od_corrected'] = df['od450'] - 0.02",
+      "print(df.head(3))"
+     ],
+     "caption": "The code"
+    },
+    {
+     "code": [
+      "  well sample group  od450  od_corrected",
+      "0   A1     S1  ctrl   0.10          0.08",
+      "1   A2     S1  ctrl   0.12          0.10",
+      "2   A3     S1  ctrl   0.11          0.09"
+     ],
+     "caption": "What it prints"
+    },
+    {
+     "exercise": {
+      "id": "newcol-try",
+      "title": "New column",
+      "prompt": [
+       "**df** again holds plate2.csv. The blank reading was 100 rfu. Add a column **rfu_corrected** equal to rfu minus 100, then print the first 3 rows."
+      ],
+      "starter": [
+       "# df is already loaded. Add rfu_corrected and print the first 3 rows",
        "",
-       "print(drug['od450'].mean())"
+       ""
+      ],
+      "check": [
+       "assert 'rfu_corrected' in df.columns, 'Create a column named rfu_corrected.'",
+       "assert df['rfu_corrected'].iloc[0] == 1100 and df['rfu_corrected'].iloc[3] == 2300, 'rfu_corrected = rfu - 100 for every row.'"
+      ],
+      "solution": [
+       "df['rfu_corrected'] = df['rfu'] - 100",
+       "print(df.head(3))"
+      ],
+      "hint": "df['rfu_corrected'] = df['rfu'] - 100",
+      "files": {
+       "plate2.csv": "well,sample,group,rfu\nA1,S1,ctrl,1200\nA2,S1,ctrl,1150\nA3,S1,ctrl,1230\nB1,S2,treated,2400\nB2,S2,treated,2330\nB3,S2,treated,2510\n"
+      },
+      "setup": [
+       "import pandas as pd",
+       "df = pd.read_csv('plate2.csv')"
+      ],
+      "packages": [
+       "numpy",
+       "pandas"
       ]
      }
     }
@@ -280,55 +483,310 @@
    "id": "cleaning",
    "title": "Cleaning instrument exports",
    "terms": [
-    "missing value",
-    "NaN",
-    "data type",
+    "skiprows",
     "melt",
-    "skiprows"
+    "NaN"
    ],
    "body": [
-    "Real exports are never as tidy as the example above. Expect extra header lines, units mixed into numbers, blank cells, text where numbers belong, and duplicate rows. Clean them in code, in a fixed order, and leave the raw file untouched.",
-    {
-     "h": "Skip header lines and name columns"
-    },
-    "Many instruments write run information above the table. Use **skiprows** to start at the real header, and rename columns to short names without spaces.",
+    "Real exports are never as tidy as plate1.csv. They have extra header lines, text where numbers belong, stray spaces, duplicate rows and grid layouts. The next four steps fix one problem each. Clean in code, and never edit the raw file."
+   ]
+  },
+  {
+   "id": "clean-header",
+   "title": "Skip header lines and rename columns",
+   "body": [
+    "Many instruments write run information above the table. skiprows=2 ignores the first two lines so pandas starts at the real header. rename gives columns short names.",
     {
      "code": [
-      "df = pd.read_csv('export.csv', skiprows=4)          # ignore 4 lines of run info",
+      "Instrument: Reader X",
+      "Date: 2026-10-01",
+      "Well Position,Result (mAU)",
+      "A1,120.5",
+      "A2,118.2"
+     ],
+     "caption": "The file run3.csv"
+    },
+    {
+     "code": [
+      "import pandas as pd",
+      "df = pd.read_csv('run3.csv', skiprows=2)",
+      "print(df)",
       "df = df.rename(columns={'Well Position': 'well', 'Result (mAU)': 'area'})",
-      "df.columns = df.columns.str.strip().str.lower()     # tidy names"
+      "print(df)"
      ],
-     "caption": "Starting at the real header and standardizing column names."
+     "caption": "The code"
     },
-    {
-     "h": "Fix data types and missing values"
-    },
-    "A column that should be numeric but contains text such as '<0.5' or 'OOR' (out of range) loads as text. Convert it and turn failures into a **missing value**, shown as **NaN**, then decide deliberately what to do about them.",
     {
      "code": [
-      "df['area'] = pd.to_numeric(df['area'], errors='coerce')   # bad entries become NaN",
-      "print(df['area'].isna().sum())            # how many are missing",
-      "df = df.drop_duplicates()                  # remove exact duplicate rows",
-      "df['sample'] = df['sample'].str.strip()    # remove stray spaces in text"
+      "  Well Position  Result (mAU)",
+      "0            A1         120.5",
+      "1            A2         118.2",
+      "  well   area",
+      "0   A1  120.5",
+      "1   A2  118.2"
      ],
-     "caption": "Converting types and counting missing values. Report how many values were affected."
+     "caption": "What it prints"
     },
     {
-     "warn": "Do not silently fill or delete missing values. Record how many were missing and why, and follow the method's SOP. Filling a gap with a guess can create a result that never existed."
-    },
-    {
-     "h": "Reshape plate layouts"
-    },
-    "Plate readers often export a grid, with rows A to H and columns 1 to 12. Analysis tools want one row per well. The **melt** function turns the grid into a tidy table.",
+     "exercise": {
+      "id": "skip-try",
+      "title": "Skip and rename",
+      "prompt": [
+       "**run7.csv** has three lines of run information, then a header with the columns Position and Signal (RFU). Load it into **df** with the columns renamed to **well** and **signal**, and print df."
+      ],
+      "starter": [
+       "# Load run7.csv into df with columns well and signal, then print df",
+       "",
+       ""
+      ],
+      "check": [
+       "assert list(df.columns) == ['well', 'signal'], 'Columns should be named well and signal. Use rename after skipping the info lines.'",
+       "assert len(df) == 3, 'Three wells should remain. Use skiprows=3 so the header row is read correctly.'"
+      ],
+      "solution": [
+       "import pandas as pd",
+       "df = pd.read_csv('run7.csv', skiprows=3)",
+       "df = df.rename(columns={'Position': 'well', 'Signal (RFU)': 'signal'})",
+       "print(df)"
+      ],
+      "hint": "skiprows=3, then rename(columns={'Position': 'well', 'Signal (RFU)': 'signal'}).",
+      "files": {
+       "run7.csv": "Instrument: Chromatograph 2\nOperator: LW\nRun: 7\nPosition,Signal (RFU)\nA1,980\nA2,1010\nA3,995\n"
+      },
+      "packages": [
+       "numpy",
+       "pandas"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "clean-numbers",
+   "title": "Text in a number column",
+   "body": [
+    "One text entry such as OOR (out of range) makes the whole column load as text, so you cannot do math on it. pd.to_numeric with errors=\"coerce\" converts what it can and turns the rest into **NaN**, pandas' missing value. Count the NaNs and report them. Do not fill them with guesses.",
     {
      "code": [
-      "grid = pd.read_csv('grid.csv', index_col=0)        # rows A-H, columns 1-12",
+      "well,area",
+      "A1,120.5",
+      "A2,OOR",
+      "A3,118.2",
+      "A4,<LOQ"
+     ],
+     "caption": "The file scan3.csv"
+    },
+    {
+     "code": [
+      "import pandas as pd",
+      "df = pd.read_csv('scan3.csv')",
+      "print(df['area'].dtype)",
+      "df['area'] = pd.to_numeric(df['area'], errors='coerce')",
+      "print(df)",
+      "print(df['area'].isna().sum())"
+     ],
+     "caption": "The code"
+    },
+    {
+     "code": [
+      "object",
+      "  well   area",
+      "0   A1  120.5",
+      "1   A2    NaN",
+      "2   A3  118.2",
+      "3   A4    NaN",
+      "2"
+     ],
+     "caption": "What it prints"
+    },
+    {
+     "exercise": {
+      "id": "nan-try",
+      "title": "Text in numbers",
+      "prompt": [
+       "**conc.csv** has a conc column with entries such as n/a and <0.5. Load it into **df**, convert conc to numbers so bad entries become NaN, and save the number of missing values in **n_missing**. Print it. The answer is 2."
+      ],
+      "starter": [
+       "# Load conc.csv, convert conc, define n_missing, and print it",
+       "",
+       ""
+      ],
+      "check": [
+       "assert str(df['conc'].dtype).startswith('float'), \"conc should be numeric. Use pd.to_numeric(df['conc'], errors='coerce').\"",
+       "assert int(n_missing) == 2, 'Two entries (n/a and <0.5) should be NaN.'"
+      ],
+      "solution": [
+       "import pandas as pd",
+       "df = pd.read_csv('conc.csv')",
+       "df['conc'] = pd.to_numeric(df['conc'], errors='coerce')",
+       "n_missing = df['conc'].isna().sum()",
+       "print(n_missing)"
+      ],
+      "hint": "to_numeric(..., errors='coerce'), then df['conc'].isna().sum().",
+      "files": {
+       "conc.csv": "sample,conc\nS1,4.2\nS2,n/a\nS3,5.1\nS4,<0.5\nS5,4.8\n"
+      },
+      "packages": [
+       "numpy",
+       "pandas"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "clean-dups",
+   "title": "Stray spaces and duplicate rows",
+   "body": [
+    "A stray space makes \"S1 \" a different value from \"S1\". str.strip() removes spaces at both ends. drop_duplicates() removes rows that repeat exactly. Strip first, so rows that differ only by a space also match.",
+    {
+     "code": [
+      "well,sample,od",
+      "A1,S1 ,0.10",
+      "A2,S1,0.12",
+      "A2,S1,0.12",
+      "B1, S2,0.35"
+     ],
+     "caption": "The file dup.csv"
+    },
+    {
+     "code": [
+      "import pandas as pd",
+      "df = pd.read_csv('dup.csv')",
+      "print(df['sample'].tolist())",
+      "df['sample'] = df['sample'].str.strip()",
+      "df = df.drop_duplicates()",
+      "print(df)"
+     ],
+     "caption": "The code"
+    },
+    {
+     "code": [
+      "['S1 ', 'S1', 'S1', ' S2']",
+      "  well sample    od",
+      "0   A1     S1  0.10",
+      "1   A2     S1  0.12",
+      "3   B1     S2  0.35"
+     ],
+     "caption": "What it prints"
+    },
+    {
+     "exercise": {
+      "id": "dups-try",
+      "title": "Spaces and duplicates",
+      "prompt": [
+       "**dup2.csv** has spaces around some sample names and one repeated row. Load it into **df**, strip the spaces from the sample column, remove the duplicate rows, and print len(df). The answer is 4."
+      ],
+      "starter": [
+       "# Load dup2.csv, strip sample, drop duplicates, print len(df)",
+       "",
+       ""
+      ],
+      "check": [
+       "assert set(df['sample']) == {'ctrl', 'drug'}, \"Strip the spaces: df['sample'].str.strip().\"",
+       "assert len(df) == 4, 'After removing the repeated row, four rows should remain.'"
+      ],
+      "solution": [
+       "import pandas as pd",
+       "df = pd.read_csv('dup2.csv')",
+       "df['sample'] = df['sample'].str.strip()",
+       "df = df.drop_duplicates()",
+       "print(len(df))"
+      ],
+      "hint": "df['sample'] = df['sample'].str.strip(), then df = df.drop_duplicates().",
+      "files": {
+       "dup2.csv": "well,sample,od\nA1, ctrl,0.11\nA2,ctrl ,0.10\nA3,drug,0.31\nA3,drug,0.31\nB1,drug,0.33\n"
+      },
+      "packages": [
+       "numpy",
+       "pandas"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "clean-grid",
+   "title": "Reshape a plate grid",
+   "body": [
+    "Plate readers often export a grid: rows are letters, columns are numbers. Analysis wants one row per well. melt turns the grid into a long table, and a little string math builds the well names.",
+    {
+     "code": [
+      ",1,2,3",
+      "A,0.10,0.12,0.11",
+      "B,0.35,0.31,0.33"
+     ],
+     "caption": "The file grid.csv"
+    },
+    {
+     "code": [
+      "import pandas as pd",
+      "grid = pd.read_csv('grid.csv', index_col=0)",
+      "print(grid)",
       "tidy = grid.reset_index().melt(id_vars='index', var_name='col', value_name='od450')",
-      "tidy['well'] = tidy['index'] + tidy['col'].astype(str)   # A + 1 -> A1",
-      "tidy = tidy.drop(columns=['index', 'col'])"
+      "tidy['well'] = tidy['index'] + tidy['col'].astype(str)",
+      "tidy = tidy[['well', 'od450']]",
+      "print(tidy)"
      ],
-     "caption": "Wide to long: one row per well."
+     "caption": "The code"
     },
+    {
+     "code": [
+      "      1     2     3",
+      "A  0.10  0.12  0.11",
+      "B  0.35  0.31  0.33",
+      "  well  od450",
+      "0   A1   0.10",
+      "1   B1   0.35",
+      "2   A2   0.12",
+      "3   B2   0.31",
+      "4   A3   0.11",
+      "5   B3   0.33"
+     ],
+     "caption": "What it prints"
+    },
+    {
+     "exercise": {
+      "id": "melt-try",
+      "title": "Reshape a grid",
+      "prompt": [
+       "**grid2.csv** is a grid with rows A to C and columns 1 and 2. Reshape it into **tidy**, a table with the columns **well** (A1, B1, ...) and **signal**, and print it. It should have 6 rows."
+      ],
+      "starter": [
+       "# Load grid2.csv and reshape it into tidy with columns well and signal",
+       "",
+       ""
+      ],
+      "check": [
+       "assert list(tidy.columns) == ['well', 'signal'], 'tidy needs the columns well and signal, in that order.'",
+       "assert set(tidy['well']) == {'A1', 'A2', 'B1', 'B2', 'C1', 'C2'}, 'Build the wells from the row letter plus the column number, like A1.'",
+       "assert tidy.loc[tidy['well'] == 'C2', 'signal'].iloc[0] == 9.5, 'The value for C2 should be 9.5.'"
+      ],
+      "solution": [
+       "import pandas as pd",
+       "grid = pd.read_csv('grid2.csv', index_col=0)",
+       "tidy = grid.reset_index().melt(id_vars='index', var_name='col', value_name='signal')",
+       "tidy['well'] = tidy['index'] + tidy['col'].astype(str)",
+       "tidy = tidy[['well', 'signal']]",
+       "print(tidy)"
+      ],
+      "hint": "Follow the example: reset_index, melt with value_name='signal', build well, then keep the two columns.",
+      "files": {
+       "grid2.csv": ",1,2\nA,5.0,6.5\nB,7.5,8.0\nC,9.0,9.5\n"
+      },
+      "packages": [
+       "numpy",
+       "pandas"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "clean-all",
+   "title": "Put it together",
+   "body": [
+    "Now all four problems at once, on one file. Clean in this order: skip the header lines, rename, strip spaces, convert numbers, drop duplicates.",
     {
      "exercise": {
       "id": "clean-export",
@@ -384,81 +842,146 @@
   },
   {
    "id": "summaries",
-   "title": "Summaries, groups and joins",
+   "title": "Summaries by group",
    "terms": [
     "groupby",
-    "aggregate",
-    "merge",
-    "coefficient of variation",
-    "pivot"
+    "coefficient of variation"
    ],
    "body": [
-    "Replicates exist so you can average them and measure their spread. **groupby** splits a table by a column, applies a calculation to each piece and combines the results. **aggregate** (agg) lets you request several statistics at once.",
+    "Replicates exist so you can average them and measure their spread. groupby splits the table by a column, agg calculates several statistics at once, and the **coefficient of variation** (CV%) is 100 × std / mean. pandas std uses n − 1, which is right for replicates.",
     {
      "code": [
+      "well,sample,group,od450",
+      "A1,S1,ctrl,0.10",
+      "A2,S1,ctrl,0.12",
+      "A3,S1,ctrl,0.11",
+      "B1,S2,drug,0.35",
+      "B2,S2,drug,0.31",
+      "B3,S2,drug,0.33"
+     ],
+     "caption": "The file plate1.csv"
+    },
+    {
+     "code": [
+      "import pandas as pd",
+      "df = pd.read_csv('plate1.csv')",
       "summary = df.groupby('group')['od450'].agg(['count', 'mean', 'std'])",
       "summary['cv_pct'] = 100 * summary['std'] / summary['mean']",
       "print(summary.round(3))"
      ],
-     "caption": "Mean, standard deviation and coefficient of variation per group."
+     "caption": "The code"
     },
-    {
-     "example": {
-      "title": "Replicate summary",
-      "problem": "Using the six-row plate table above, what are the mean, standard deviation and CV% of each group?",
-      "solution": [
-       "Control wells: 0.10, 0.12, 0.11 give mean 0.110 and sample standard deviation 0.0100, so CV% = 100 × 0.0100 / 0.110 = 9.1%.",
-       "Drug wells: 0.35, 0.31, 0.33 give mean 0.330 and standard deviation 0.0200, so CV% = 100 × 0.0200 / 0.330 = 6.1%.",
-       "pandas std uses the sample formula (divide by n − 1), which is the right choice for replicates."
-      ]
-     }
-    },
-    "The **coefficient of variation** (CV) is the standard deviation divided by the mean, usually written as a percentage. It lets you compare spread across measurements of different size, and many methods set a maximum acceptable CV for replicates.",
-    "Sample information such as dose, lot number or patient group usually lives in a separate table. **merge** joins two tables on a shared key column, like a lookup.",
     {
      "code": [
-      "meta = pd.read_csv('sample_info.csv')          # columns: sample, dose_uM, lot",
-      "full = df.merge(meta, on='sample', how='left')   # keep every row of df",
-      "table = full.pivot_table(index='dose_uM', columns='lot', values='od450', aggfunc='mean')"
+      "       count  mean   std  cv_pct",
+      "group                           ",
+      "ctrl       3  0.11  0.01   9.091",
+      "drug       3  0.33  0.02   6.061"
      ],
-     "caption": "Merge adds metadata to results. pivot_table builds a summary grid."
-    },
-    {
-     "note": "Always check the row count before and after a merge. A key that appears twice in the second table duplicates rows and quietly inflates counts."
+     "caption": "What it prints"
     },
     {
      "exercise": {
       "id": "group-cv",
       "title": "Summarize replicates",
       "prompt": [
-       "A table **df** with columns group and od450 is already loaded (the six wells from the chapter). Build a DataFrame called **summary** with one row per group and the columns count, mean and std, then add a column **cv_pct**. The control CV is 9.09 and the drug CV is 6.06."
-      ],
-      "setup": [
-       "import pandas as pd",
-       "df = pd.DataFrame({'group': ['ctrl']*3 + ['drug']*3, 'od450': [0.10, 0.12, 0.11, 0.35, 0.31, 0.33]})"
-      ],
-      "packages": [
-       "numpy",
-       "pandas"
+       "**df** holds plate2.csv (columns group and rfu among others). Build **summary** with one row per group and the columns count, mean and std of rfu, then add **cv_pct**. Print it. CV% is about 3.39 for ctrl and 3.76 for treated."
       ],
       "starter": [
-       "# df is already loaded. Build summary with count, mean, std and cv_pct, then print it",
-       "",
+       "# df is already loaded. Define summary with count, mean, std and cv_pct, then print it",
        "",
        ""
       ],
       "check": [
        "assert summary is not None, 'Build summary with groupby and agg.'",
        "assert {'count', 'mean', 'std', 'cv_pct'} <= set(summary.columns), 'summary needs the columns count, mean, std and cv_pct.'",
-       "assert abs(summary.loc['ctrl', 'cv_pct'] - 9.0909) < 0.01, 'Control CV should be about 9.09. CV% = 100 * std / mean.'",
-       "assert abs(summary.loc['drug', 'cv_pct'] - 6.0606) < 0.01, 'Drug CV should be about 6.06.'"
+       "assert abs(summary.loc['ctrl', 'cv_pct'] - 3.386) < 0.02, 'CV% = 100 * std / mean.'",
+       "assert abs(summary.loc['treated', 'cv_pct'] - 3.760) < 0.02, 'treated CV should be about 3.76.'"
       ],
-      "hint": "df.groupby('group')['od450'].agg(['count', 'mean', 'std']), then summary['cv_pct'] = 100 * summary['std'] / summary['mean'].",
       "solution": [
-       "summary = df.groupby('group')['od450'].agg(['count', 'mean', 'std'])",
+       "summary = df.groupby('group')['rfu'].agg(['count', 'mean', 'std'])",
        "summary['cv_pct'] = 100 * summary['std'] / summary['mean']",
-       "",
        "print(summary.round(3))"
+      ],
+      "hint": "df.groupby('group')['rfu'].agg(['count', 'mean', 'std']), then add the column.",
+      "files": {
+       "plate2.csv": "well,sample,group,rfu\nA1,S1,ctrl,1200\nA2,S1,ctrl,1150\nA3,S1,ctrl,1230\nB1,S2,treated,2400\nB2,S2,treated,2330\nB3,S2,treated,2510\n"
+      },
+      "setup": [
+       "import pandas as pd",
+       "df = pd.read_csv('plate2.csv')"
+      ],
+      "packages": [
+       "numpy",
+       "pandas"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "merge",
+   "title": "Join sample information",
+   "body": [
+    "Sample details such as lot or dose usually sit in a separate table. merge joins two tables on a shared column, like a lookup, and how=\"left\" keeps every row of the first table. Always compare the row counts before and after: a repeated key in the second table would duplicate rows.",
+    {
+     "code": [
+      "import pandas as pd",
+      "df = pd.read_csv('plate1.csv')",
+      "info = pd.read_csv('info.csv')",
+      "print(info)",
+      "full = df.merge(info, on='sample', how='left')",
+      "print(len(df), len(full))",
+      "print(full.head(4))"
+     ],
+     "caption": "The code"
+    },
+    {
+     "code": [
+      "  sample  lot",
+      "0     S1  L77",
+      "1     S2  L78",
+      "6 6",
+      "  well sample group  od450  lot",
+      "0   A1     S1  ctrl   0.10  L77",
+      "1   A2     S1  ctrl   0.12  L77",
+      "2   A3     S1  ctrl   0.11  L77",
+      "3   B1     S2  drug   0.35  L78"
+     ],
+     "caption": "What it prints"
+    },
+    {
+     "exercise": {
+      "id": "merge-try",
+      "title": "Merge",
+      "prompt": [
+       "**results.csv** (well, sample, od) and **meta.csv** (sample, dose_uM) are available. Load both, merge the dose onto the results into **full** keeping every result row, and print the row counts before and after. Both should be 3."
+      ],
+      "starter": [
+       "# Load results.csv and meta.csv, merge into full, print the row counts",
+       "",
+       ""
+      ],
+      "check": [
+       "assert len(full) == 3, 'The merge should keep all 3 rows.'",
+       "assert 'dose_uM' in full.columns, 'full needs the dose_uM column.'",
+       "assert full.loc[full['sample'] == 'S3', 'dose_uM'].iloc[0] == 10, 'S3 should have dose 10.'"
+      ],
+      "solution": [
+       "import pandas as pd",
+       "results = pd.read_csv('results.csv')",
+       "meta = pd.read_csv('meta.csv')",
+       "full = results.merge(meta, on='sample', how='left')",
+       "print(len(results), len(full))"
+      ],
+      "hint": "results.merge(meta, on='sample', how='left')",
+      "files": {
+       "results.csv": "well,sample,od\nA1,S1,0.10\nA2,S2,0.35\nA3,S3,0.60\n",
+       "meta.csv": "sample,dose_uM\nS1,0\nS2,1\nS3,10\n"
+      },
+      "packages": [
+       "numpy",
+       "pandas"
       ]
      }
     }
@@ -481,28 +1004,22 @@
    "title": "Plotting with matplotlib",
    "terms": [
     "matplotlib",
-    "error bar",
-    "axis label"
+    "error bar"
    ],
    "body": [
-    "A plot is a result, so it must stand alone: labeled axes with units, a title or caption, error bars when you show means, and a saved file rather than a screenshot. **matplotlib** is the standard library.",
+    "A plot is a result, so it must stand alone: labeled axes with units, a title, error bars when you show means, and a saved file. Bars need two numbers per group: the mean for the height and the standard deviation for the error bar. Say in the title what the bars are and how many replicates were used.",
     {
      "code": [
       "import matplotlib.pyplot as plt",
       "",
       "fig, ax = plt.subplots(figsize=(4, 3))",
-      "ax.bar(summary.index, summary['mean'], yerr=summary['std'], capsize=4)",
+      "ax.bar(['ctrl', 'drug'], [0.11, 0.33], yerr=[0.01, 0.02], capsize=4)",
       "ax.set_xlabel('Group')",
       "ax.set_ylabel('OD450 (AU)')",
-      "ax.set_title('Mean absorbance by group (n = 3, bars = SD)')",
-      "fig.tight_layout()",
-      "fig.savefig('od_by_group.png', dpi=200)"
+      "ax.set_title('Mean absorbance (n = 3, bars = SD)')",
+      "fig.savefig('od.png', dpi=200)"
      ],
-     "caption": "A bar chart of group means with standard deviation error bars."
-    },
-    "For a calibration curve use points for standards and a line for the fit (ax.scatter and ax.plot). Choose bars for categories and points or lines for measurements along a numeric axis. State in the caption what the error bars show: standard deviation, standard error or a confidence interval. Readers cannot guess.",
-    {
-     "tip": "Put the number of replicates in the title or caption. A mean without n is hard to judge."
+     "caption": "The code. It draws two bars, ctrl about 0.11 high and drug about 0.33 high, each with a small error bar."
     },
     {
      "exercise": {

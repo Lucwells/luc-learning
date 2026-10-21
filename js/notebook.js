@@ -129,6 +129,11 @@ export async function selfTestChain(list) {
   }
   return out;
 }
+// For authors: runs code in a fresh kernel and returns what it printed, so examples can show real output.
+export async function runCode(code, { files = {}, packages = ['numpy', 'pandas'], setup = [] } = {}) {
+  return run({ files, packages, setup }, code, `author-${Math.random()}`, () => {});
+}
+window.__lucRunCode = runCode;
 window.__lucSelfTest = selfTest;
 window.__lucSelfTestChain = selfTestChain;
 
