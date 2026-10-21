@@ -1,0 +1,125 @@
+/* Print edition (print.html). Page size and margins are set by js/print.js.
+   Black and grey only, so a black-and-white paperback interior prints cleanly. */
+
+:root {
+  --text: #000;
+  --muted: #555;
+  --line: #999;
+  --tint: #ebebeb; /* KDP recommends fills of at least 10% grey */
+  --accent: #333;  /* SVG figures draw with var(--accent) */
+  --serif: 'STIX Two Text', serif;
+  --sans: 'Source Sans 3', sans-serif;
+}
+
+html { font: 10.5pt/1.45 var(--serif); color: var(--text); }
+body { margin: 0; }
+p { margin: 0 0 .55em; text-align: justify; hyphens: auto; orphans: 2; widows: 2; }
+h1, h2, h3, h4 { font-family: var(--sans); line-height: 1.2; break-after: avoid; }
+sub, sup { line-height: 0; }
+a { color: inherit; text-decoration: none; }
+strong { font-weight: 700; }
+
+/* Page margin boxes (running heads and folios) */
+.pagedjs_margin-content { font: 8.5pt var(--sans); color: var(--muted); letter-spacing: .03em; }
+
+/* ---------- front matter ---------- */
+
+.title-page, .copyright, .part { page: front; }
+.title-page { break-before: right; padding-top: 2.2in; text-align: center; }
+.title-page .kicker { font: 600 10pt var(--sans); text-transform: uppercase; letter-spacing: .2em; color: var(--muted); text-align: center; }
+.title-page h1 { font-size: 34pt; margin: .2em 0 .3em; }
+.title-page .subtitle { font-size: 13pt; font-style: italic; text-align: center; max-width: 4.2in; margin: 0 auto; }
+.title-page .author { font: 600 14pt var(--sans); margin-top: 1.4in; text-align: center; }
+.title-page .site { font: 9pt var(--sans); color: var(--muted); margin-top: .6in; text-align: center; }
+
+.copyright { break-before: left; display: flex; flex-direction: column; justify-content: flex-end; height: 100%; font-size: 9pt; }
+.copyright p { text-align: left; }
+
+.contents, .preface, .answers { break-before: right; }
+.contents h1, .preface h1, .answers h1 { font-size: 22pt; margin: 0 0 1em; }
+.contents ol { list-style: none; padding: 0; margin: 0; }
+.contents li { margin: .25em 0; }
+.contents li.part { margin-top: 1em; font-family: var(--sans); font-weight: 700; }
+.contents li.front { margin-top: 1em; font-family: var(--sans); font-weight: 600; }
+.contents a { display: flex; align-items: baseline; gap: .4em; }
+.contents .n { width: 1.8em; text-align: right; flex: none; }
+.contents .dots { flex: 1; border-bottom: 1px dotted var(--line); min-width: 1em; }
+.contents a::after { content: target-counter(attr(href url), page); font-family: var(--sans); }
+
+.preface h2 { font-size: 13pt; margin: 1.4em 0 .5em; }
+
+/* ---------- parts and chapters ---------- */
+
+.part { break-before: right; break-after: page; padding-top: 2.5in; text-align: center; }
+.part-label { font: 600 11pt var(--sans); text-transform: uppercase; letter-spacing: .2em; color: var(--muted); text-align: center; }
+.part h1 { font-size: 28pt; margin: .2em 0 .5em; }
+.part .dek { text-align: center; font-style: italic; max-width: 4in; margin: 0 auto; }
+
+.chapter { page: chapter; break-before: right; }
+.chapter > h1, .answers > h1 { string-set: chapter content(text); }
+.ch-label { font: 600 10pt var(--sans); text-transform: uppercase; letter-spacing: .18em; color: var(--muted); margin: 1in 0 .2em; text-align: left; }
+.chapter > h1 { font-size: 26pt; margin: 0 0 .3em; }
+.chapter > .dek { font-size: 12pt; font-style: italic; text-align: left; margin-bottom: 1.4em; }
+
+.sec.d0 > h2 { font-size: 15pt; margin: 1.5em 0 .5em; }
+.sec.d1 > h3 { font-size: 12pt; margin: 1.2em 0 .4em; }
+.sec.d2 > h3 { font-size: 11pt; margin: 1em 0 .3em; }
+.num { color: var(--muted); margin-right: .35em; }
+.lead { font-style: italic; }
+h4.run { font-size: 8.5pt; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 1.1em 0 .25em; }
+
+ul, ol { margin: .3em 0 .7em; padding-left: 1.4em; }
+li { margin: .15em 0; }
+
+/* ---------- blocks (same markup as the site, from renderBlocks) ---------- */
+
+.eq { text-align: center; margin: .8em 0; line-height: 1.7; break-inside: avoid; }
+.eq-note { display: block; font: 8.5pt var(--sans); color: var(--muted); }
+.code pre { font: 8pt/1.4 ui-monospace, Consolas, monospace; background: var(--tint); padding: .5em .7em; margin: .8em 0 .3em; white-space: pre-wrap; break-inside: avoid; }
+.code figcaption { font: 8.5pt var(--sans); color: var(--muted); }
+.eq-line { font-style: normal; }
+dl.terms { display: grid; grid-template-columns: max-content 1fr; gap: .25em 1em; margin: .8em 0; padding: .5em .8em; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+dl.terms dt { font: 600 9pt var(--sans); }
+dl.terms dd { margin: 0; }
+.def { border-left: 2pt solid var(--text); padding-left: .8em; margin: .8em 0; break-inside: avoid; }
+
+.callout, .example, .objectives { margin: 1em 0; padding: .55em .8em; border: 1px solid var(--line); break-inside: avoid; }
+.callout.key { border-left: 4pt solid var(--text); }
+.callout.warn { border-left: 4pt double var(--text); }
+.callout.tip, .callout.note { border-left: 4pt solid var(--line); }
+.callout p, .example p, .objectives p { margin: .3em 0; }
+.box-head { font: 700 8.5pt var(--sans); text-transform: uppercase; letter-spacing: .07em; margin-bottom: .3em; }
+.example { background: none; }
+.example .ex-solution { border-top: 1px dotted var(--line); margin-top: .5em; padding-top: .4em; }
+.example .sol { font: 700 8.5pt var(--sans); text-transform: uppercase; letter-spacing: .07em; display: block; }
+.objectives ul { margin-bottom: 0; }
+
+figure { margin: 1em 0; break-inside: avoid; }
+figcaption { font: 8.5pt/1.35 var(--sans); color: var(--muted); margin-top: .35em; }
+.fig svg { width: 100%; height: auto; max-width: 4.6in; display: block; margin: 0 auto; color: var(--text); font-family: var(--sans); }
+.tbl table { margin: 0 auto; border-collapse: collapse; font-size: 9.5pt; border-top: 1.2pt solid var(--text); border-bottom: 1.2pt solid var(--text); }
+.tbl th, .tbl td { padding: .2em .6em; border-bottom: .5pt solid var(--line); text-align: left; }
+.tbl th { font: 600 8.5pt var(--sans); border-bottom: .8pt solid var(--text); }
+.tbl figcaption { text-align: center; }
+
+/* ---------- questions, summary, problems ---------- */
+
+.checks { margin: 1.2em 0; padding: .5em .8em; background: var(--tint); }
+.checks h4 { font-size: 9pt; text-transform: uppercase; letter-spacing: .07em; margin: 0 0 .4em; }
+.checks > ol > li { break-inside: avoid; margin-bottom: .5em; }
+.checks p { margin: 0 0 .2em; }
+.opts { list-style: none; padding-left: .4em; margin: 0; }
+.opts li { margin: 0; }
+
+.summary, .problems { margin-top: 1.6em; }
+.summary h2, .problems h2 { font-size: 14pt; border-top: 1.2pt solid var(--text); padding-top: .4em; }
+.problems > ol > li { margin-bottom: .8em; }
+
+/* ---------- answer key ---------- */
+
+.answers { font-size: 9.5pt; }
+.ans-chapter h2 { font-size: 13pt; margin: 1.4em 0 .3em; break-after: avoid; }
+.ans-chapter h3 { font-size: 10pt; margin: .9em 0 .2em; }
+.ans-chapter li { break-inside: avoid; }
+.why { color: var(--muted); }
+.solutions > li { margin-bottom: .7em; }

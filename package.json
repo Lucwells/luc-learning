@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "node serve.mjs",
-    "validate": "node scripts/validate.mjs"
+    "validate": "node scripts/validate.mjs",
+    "pdf": "node scripts/export-pdf.mjs"
   }
 }
