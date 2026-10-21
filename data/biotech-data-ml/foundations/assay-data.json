@@ -244,12 +244,10 @@
        "numpy"
       ],
       "starter": [
-       "slope, intercept = None, None   # np.polyfit(x, y, 1)",
-       "pred = None                     # slope * x + intercept",
-       "r2 = None                       # 1 - ss_res / ss_tot",
-       "conc = None                     # (0.34 - intercept) / slope",
+       "# x and y are already loaded.",
+       "# Define slope, intercept, r2 and conc (the concentration at absorbance 0.34), then print them",
        "",
-       "print(round(slope, 4), round(intercept, 3), round(r2, 5), round(conc, 1))"
+       ""
       ],
       "check": [
        "assert abs(slope - 0.0108) < 1e-4, 'Slope should be 0.0108. Use np.polyfit(x, y, 1), which returns slope first.'",
@@ -338,11 +336,10 @@
        "numpy"
       ],
       "starter": [
-       "sd = None    # sample SD, remember ddof=1",
-       "lod = None",
-       "loq = None",
+       "# blanks and slope are already loaded.",
+       "# Define sd, lod and loq, then print lod and loq",
        "",
-       "print(round(lod, 2), round(loq, 2))"
+       ""
       ],
       "check": [
        "assert abs(sd - 0.001496) < 1e-5, 'Use np.std(blanks, ddof=1) for the sample standard deviation.'",
@@ -449,10 +446,11 @@
        "scipy"
       ],
       "starter": [
-       "params, cov = None, None   # curve_fit(four_pl, x, y, p0=[1.0, 1.0, 3.0, 0.05], maxfev=10000)",
-       "ec50 = None                # the third parameter, c",
+       "# four_pl, x and y are already defined.",
+       "# Fit with curve_fit from p0=[1.0, 1.0, 3.0, 0.05] and maxfev=10000.",
+       "# Define ec50 and print it",
        "",
-       "print(round(ec50, 1))"
+       ""
       ],
       "check": [
        "assert ec50 is not None, 'Fit with curve_fit and take the third parameter.'",
@@ -535,11 +533,10 @@
        "numpy"
       ],
       "starter": [
-       "z = None",
-       "flag_2s = None",
+       "# vals is already loaded. The baseline mean is 50.0 and the SD is 2.0.",
+       "# Define z and flag_2s, then print both",
        "",
-       "print(np.round(z, 2))",
-       "print(flag_2s)"
+       ""
       ],
       "check": [
        "assert abs(z[3] - 2.15) < 0.01 and abs(z[4] - 2.3) < 0.01, 'z = (value - 50.0) / 2.0.'",
@@ -595,6 +592,208 @@
       "Results must always be rounded to a whole number"
      ],
      "why": "Significant figures reflect the precision of the measurement. Extra digits overstate it."
+    }
+   ]
+  },
+  {
+   "id": "project",
+   "title": "Project: validate an ELISA run",
+   "body": [
+    "This project is the work a QC or assay analyst does after every plate: fit the standard curve, check that the standards back-calculate, report the unknowns, and decide whether the controls allow the run to be accepted. The data are already in the page. Almost no code is given, so you write the whole analysis. Work through the five steps in order; Python remembers your variables while the page stays open.",
+    {
+     "note": "Real methods set their own acceptance criteria. The limits used here are for practice. In a lab, follow the SOP."
+    },
+    {
+     "exercise": {
+      "id": "p1-fit",
+      "title": "Step 1: fit the standard curve",
+      "prompt": [
+       "An ELISA run measured seven standards in duplicate. The data are already loaded: **std_conc** (ng/mL), **rep1** and **rep2** (OD450), plus the function **four_pl**.",
+       "Average the duplicates into **od_mean**, then fit the four-parameter logistic with curve_fit starting from p0=[0.05, 1.0, 5.0, 2.5] and maxfev=10000. Save the four fitted values in **a, b, c, d** (c is the EC50). Print them rounded to 3 places."
+      ],
+      "setup": [
+       "import numpy as np",
+       "from scipy.optimize import curve_fit",
+       "def four_pl(x, a, b, c, d):",
+       "    return d + (a - d) / (1 + (x / c) ** b)",
+       "std_conc = np.array([0.1, 0.3, 1, 3, 10, 30, 100])",
+       "rep1 = np.array([0.082, 0.141, 0.318, 0.725, 1.402, 1.995, 2.310])",
+       "rep2 = np.array([0.078, 0.136, 0.327, 0.711, 1.420, 1.972, 2.327])",
+       "blanks = np.array([0.041, 0.044, 0.040, 0.043, 0.042, 0.045])",
+       "unknown_od = {'U1': 0.55, 'U2': 1.20, 'U3': 2.45, 'U4': 0.05}",
+       "qc = np.array([5.1, 4.8, 5.3, 5.9, 5.9, 5.2])"
+      ],
+      "packages": [
+       "numpy",
+       "scipy"
+      ],
+      "starter": [
+       "# Step 1. Define od_mean, a, b, c, d",
+       "",
+       ""
+      ],
+      "check": [
+       "assert abs(od_mean[3] - 0.718) < 1e-3, 'od_mean is the average of rep1 and rep2, element by element.'",
+       "assert 0 < a < 0.3 and 2.2 < d < 2.8, 'a is the bottom plateau (near 0.05) and d the top (near 2.5). Check p0 and the order of the parameters.'",
+       "assert 5 < c < 12, 'The EC50 c should be near 8 ng/mL.'"
+      ],
+      "hint": "od_mean = (rep1 + rep2) / 2, then params, cov = curve_fit(four_pl, std_conc, od_mean, p0=[0.05, 1.0, 5.0, 2.5], maxfev=10000) and a, b, c, d = params",
+      "solution": [
+       "od_mean = (rep1 + rep2) / 2",
+       "params, cov = curve_fit(four_pl, std_conc, od_mean, p0=[0.05, 1.0, 5.0, 2.5], maxfev=10000)",
+       "a, b, c, d = params",
+       "print([round(v, 3) for v in params])"
+      ]
+     }
+    },
+    {
+     "exercise": {
+      "id": "p2-recovery",
+      "title": "Step 2: check the standards",
+      "prompt": [
+       "Solving the 4PL for concentration gives x = c * ((a - d) / (y - d) - 1) ** (1 / b). Write a function **inverse(y)** that does this, use it to back-calculate each standard from od_mean into **back**, and compute **recovery** = 100 * back / std_conc (percent). Print recovery rounded to 1 place.",
+       "Then set **max_dev** to the largest absolute distance of any recovery from 100, and print it."
+      ],
+      "packages": [
+       "numpy",
+       "scipy"
+      ],
+      "starter": [
+       "# Step 2. Define inverse, back, recovery, max_dev",
+       "",
+       ""
+      ],
+      "check": [
+       "assert abs(inverse(1.0) - c * ((a - d) / (1.0 - d) - 1) ** (1 / b)) < 1e-9, 'inverse(y) should return c * ((a - d) / (y - d) - 1) ** (1 / b).'",
+       "assert len(recovery) == 7, 'recovery should have one value per standard.'",
+       "assert all(60 < r < 140 for r in recovery), 'Recoveries should be near 100. Check the formula and the parameter order.'",
+       "assert abs(max_dev - max(abs(recovery - 100))) < 1e-9, 'max_dev is the largest |recovery - 100|.'"
+      ],
+      "hint": "back = inverse(od_mean); recovery = 100 * back / std_conc; max_dev = abs(recovery - 100).max()",
+      "solution": [
+       "def inverse(y):",
+       "    return c * ((a - d) / (y - d) - 1) ** (1 / b)",
+       "",
+       "back = inverse(od_mean)",
+       "recovery = 100 * back / std_conc",
+       "max_dev = abs(recovery - 100).max()",
+       "print(np.round(recovery, 1))",
+       "print(round(max_dev, 1))"
+      ]
+     }
+    },
+    {
+     "exercise": {
+      "id": "p3-unknowns",
+      "title": "Step 3: report the unknowns",
+      "prompt": [
+       "**blanks** holds six blank wells and **unknown_od** holds four unknown samples. Report each one as a dictionary **results** with these rules:",
+       {
+        "list": [
+         "LOQ signal = mean of blanks + 10 × sample SD of blanks (save as **loq_signal**). An unknown at or below it is reported as the string \"<LOQ\".",
+         "An unknown above the highest standard in od_mean is reported as the string \"dilute and rerun\".",
+         "Otherwise report its concentration from inverse(), as a number."
+        ]
+       },
+       "Print results."
+      ],
+      "packages": [
+       "numpy",
+       "scipy"
+      ],
+      "starter": [
+       "# Step 3. Define loq_signal and results",
+       "",
+       ""
+      ],
+      "check": [
+       "assert abs(loq_signal - (blanks.mean() + 10 * blanks.std(ddof=1))) < 1e-9, 'loq_signal = mean + 10 * sample SD (ddof=1).'",
+       "assert results['U4'] == '<LOQ', 'U4 is below the quantitation limit.'",
+       "assert results['U3'] == 'dilute and rerun', 'U3 is above the highest standard.'",
+       "assert isinstance(results['U1'], float) and 1.5 < results['U1'] < 3, 'U1 should be about 2 ng/mL.'",
+       "assert isinstance(results['U2'], float) and 5.5 < results['U2'] < 9, 'U2 should be about 7 ng/mL.'"
+      ],
+      "hint": "Loop over unknown_od.items() and use if / elif / else. Test the LOQ rule first, then the top-of-range rule.",
+      "solution": [
+       "loq_signal = blanks.mean() + 10 * blanks.std(ddof=1)",
+       "results = {}",
+       "for name, od in unknown_od.items():",
+       "    if od <= loq_signal:",
+       "        results[name] = '<LOQ'",
+       "    elif od > od_mean.max():",
+       "        results[name] = 'dilute and rerun'",
+       "    else:",
+       "        results[name] = float(inverse(od))",
+       "print(results)"
+      ]
+     }
+    },
+    {
+     "exercise": {
+      "id": "p4-qc",
+      "title": "Step 4: accept or reject the run",
+      "prompt": [
+       "The control sample has a baseline mean of 5.0 ng/mL and an SD of 0.4. The last six control results are in **qc**. Compute **z** (the z-scores), then decide the run: if any two consecutive controls are both beyond +2 SD or both beyond −2 SD, set **verdict** to the string \"REJECT\", otherwise \"ACCEPT\". Print z rounded to 2 places and the verdict."
+      ],
+      "packages": [
+       "numpy"
+      ],
+      "starter": [
+       "# Step 4. Define z and verdict",
+       "",
+       ""
+      ],
+      "check": [
+       "assert abs(z[3] - 2.25) < 0.01 and abs(z[0] - 0.25) < 0.01, 'z = (qc - 5.0) / 0.4.'",
+       "assert verdict == 'REJECT', 'Controls 4 and 5 are both beyond +2 SD, which is the 2-2s rule. The run should be rejected.'"
+      ],
+      "hint": "Loop over positions i from 0 to len(z) - 2 and test z[i] > 2 and z[i + 1] > 2, or the same for < -2.",
+      "solution": [
+       "z = (qc - 5.0) / 0.4",
+       "verdict = 'ACCEPT'",
+       "for i in range(len(z) - 1):",
+       "    if (z[i] > 2 and z[i + 1] > 2) or (z[i] < -2 and z[i + 1] < -2):",
+       "        verdict = 'REJECT'",
+       "print(np.round(z, 2))",
+       "print(verdict)"
+      ]
+     }
+    },
+    {
+     "exercise": {
+      "id": "p5-report",
+      "title": "Step 5: write the result line",
+      "prompt": [
+       "Finish with a one-line run report saved in **report**, built with an f-string, in exactly this form:",
+       {
+        "code": [
+         "Run verdict: REJECT | EC50 8.0 ng/mL | max recovery deviation 0.1% | U1: 2.1 ng/mL, U2: 7.1 ng/mL"
+        ],
+        "caption": "Your numbers will be the ones you computed. Round EC50 and the percentage to 1 place and the unknowns to 1 place."
+       },
+       "Include only the unknowns that have a numeric result. Print report."
+      ],
+      "packages": [
+       "numpy"
+      ],
+      "starter": [
+       "# Step 5. Define report",
+       "",
+       ""
+      ],
+      "check": [
+       "assert report.startswith('Run verdict: REJECT | EC50 '), 'Start the line with Run verdict: and the verdict, then | EC50 and the value.'",
+       "assert f'{c:.1f} ng/mL' in report, 'Report the EC50 rounded to 1 place with its unit.'",
+       "assert 'U1: ' in report and 'U2: ' in report, 'Include U1 and U2 with their concentrations.'",
+       "assert 'U3' not in report and 'U4' not in report, 'Leave out the unknowns that have no numeric result.'"
+      ],
+      "hint": "Build the unknown part with a list comprehension over results.items() that keeps only float values, then ', '.join(...).",
+      "solution": [
+       "parts = [f'{k}: {v:.1f} ng/mL' for k, v in results.items() if isinstance(v, float)]",
+       "report = f'Run verdict: {verdict} | EC50 {c:.1f} ng/mL | max recovery deviation {max_dev:.1f}% | ' + ', '.join(parts)",
+       "print(report)"
+      ]
+     }
     }
    ]
   }

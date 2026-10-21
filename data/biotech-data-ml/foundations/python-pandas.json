@@ -240,12 +240,10 @@
        "pandas"
       ],
       "starter": [
-       "import pandas as pd",
+       "# Load plate1.csv, keep the drug wells, and print their mean od450",
+       "# Variables to define: df (all wells) and drug (drug wells only)",
        "",
-       "df = pd.read_csv('plate1.csv')",
-       "drug = None   # replace None with a filter on df",
-       "",
-       "print(drug['od450'].mean())"
+       ""
       ],
       "check": [
        "assert len(df) == 6, 'df should hold all six wells loaded from plate1.csv.'",
@@ -347,12 +345,10 @@
        "pandas"
       ],
       "starter": [
-       "import pandas as pd",
+       "# Load export.csv, clean it, and print how many area values are missing",
+       "# Variable to define: df, with columns well and area",
        "",
-       "df = pd.read_csv('export.csv')   # change this line",
-       "# rename the columns, then convert area with pd.to_numeric",
-       "",
-       "print(df['area'].isna().sum())"
+       ""
       ],
       "check": [
        "assert list(df.columns) == ['well', 'area'], \"Columns should be named 'well' and 'area'. Use rename after skipping the two info lines.\"",
@@ -446,10 +442,10 @@
        "pandas"
       ],
       "starter": [
-       "summary = None   # use df.groupby(...)[...].agg([...])",
-       "# add the cv_pct column",
+       "# df is already loaded. Build summary with count, mean, std and cv_pct, then print it",
        "",
-       "print(summary.round(3))"
+       "",
+       ""
       ],
       "check": [
        "assert summary is not None, 'Build summary with groupby and agg.'",
@@ -526,12 +522,11 @@
        "matplotlib"
       ],
       "starter": [
-       "import matplotlib.pyplot as plt",
+       "# summary is already loaded.",
+       "# Make fig and ax: bar chart of the means with SD error bars,",
+       "# labeled axes with units, and a title that states n",
        "",
-       "fig, ax = plt.subplots(figsize=(4, 3))",
-       "# ax.bar(..., yerr=..., capsize=4)",
-       "# ax.set_xlabel(...), ax.set_ylabel(...), ax.set_title(...)",
-       "fig.tight_layout()"
+       ""
       ],
       "check": [
        "assert len(ax.patches) == 2, 'Draw two bars, one per group, with ax.bar.'",
@@ -613,6 +608,186 @@
       "So duplicates are removed automatically"
      ],
      "why": "Untouched raw data are the evidence behind every reported number. The other options describe effects that do not occur."
+    }
+   ]
+  },
+  {
+   "id": "project",
+   "title": "Project: process a plate run end to end",
+   "body": [
+    "This project uses everything in the chapter on one realistic file. You get a plate-reader export and a sample sheet, and you turn them into a cleaned table, a blank-corrected summary with a quality flag, and a plot. Almost no code is given. Work through the five steps in order; Python remembers your variables from one step to the next while the page stays open.",
+    {
+     "note": "Each step ends with a Check. If a check fails, read the message, fix the code and run again. The hint and solution are there if you are stuck, but try first."
+    },
+    {
+     "exercise": {
+      "id": "p1-clean",
+      "title": "Step 1: load and clean the run",
+      "prompt": [
+       "**run42.csv** is a plate-reader export. It begins with three lines of run information, has a header row, a result recorded as text (OVRFLW), a sample name with a stray space, and one duplicated row.",
+       "Load and clean it into **df** with the columns **well**, **sample** and **od** (numeric, bad values as NaN, no stray spaces, no duplicate rows). Print the shape and the number of missing readings. Expected: 15 rows and 1 missing."
+      ],
+      "files": {
+       "run42.csv": "Instrument: Reader X\nRun: 42\nDate: 2026-10-01\nWell,Sample ID,Reading (OD450)\nA1,BLANK,0.041\nA2,BLANK,0.044\nA3,BLANK,0.040\nB1,CTRL,0.512\nB2,CTRL,0.498\nB3,CTRL,0.530\nC1,D1,0.745\nC2,D1,0.760\nC3,D1,0.731\nD1,D10 ,1.102\nD2,D10,1.087\nD3,D10,OVRFLW\nE1,D100,1.455\nE2,D100,1.470\nE3,D100,1.441\nE3,D100,1.441\n"
+      },
+      "packages": [
+       "numpy",
+       "pandas"
+      ],
+      "starter": [
+       "# Step 1. Define df",
+       "",
+       ""
+      ],
+      "check": [
+       "assert list(df.columns) == ['well', 'sample', 'od'], \"Columns should be well, sample and od, in that order.\"",
+       "assert len(df) == 15, 'Expect 15 rows: the duplicate row must be removed and the three info lines skipped.'",
+       "assert int(df['od'].isna().sum()) == 1, 'Exactly one reading (OVRFLW) should be NaN. Use pd.to_numeric(..., errors=\"coerce\").'",
+       "assert 'D10' in set(df['sample']) and 'D10 ' not in set(df['sample']), 'Strip the stray space from the sample names (str.strip).'"
+      ],
+      "hint": "skiprows=3, then rename, strip the sample column, to_numeric with errors='coerce', and drop_duplicates.",
+      "solution": [
+       "import pandas as pd",
+       "df = pd.read_csv('run42.csv', skiprows=3)",
+       "df = df.rename(columns={'Well': 'well', 'Sample ID': 'sample', 'Reading (OD450)': 'od'})",
+       "df['sample'] = df['sample'].str.strip()",
+       "df['od'] = pd.to_numeric(df['od'], errors='coerce')",
+       "df = df.drop_duplicates()",
+       "print(df.shape, df[\"od\"].isna().sum())"
+      ]
+     }
+    },
+    {
+     "exercise": {
+      "id": "p2-merge",
+      "title": "Step 2: add the sample information",
+      "prompt": [
+       "**samples.csv** gives each sample a group and a dose in µM. Merge it onto df to make **full**, keeping every row of df. Print the number of rows before and after. They must match."
+      ],
+      "files": {
+       "samples.csv": "sample,group,dose_uM\nBLANK,blank,0\nCTRL,ctrl,0\nD1,drug,1\nD10,drug,10\nD100,drug,100\n"
+      },
+      "packages": [
+       "numpy",
+       "pandas"
+      ],
+      "starter": [
+       "# Step 2. Read samples.csv and define full",
+       "",
+       ""
+      ],
+      "check": [
+       "assert len(full) == len(df) == 15, 'The merge should keep all 15 rows. Check that the key columns match.'",
+       "assert {'group', 'dose_uM'} <= set(full.columns), 'full needs the group and dose_uM columns from samples.csv.'",
+       "assert full['group'].isna().sum() == 0, 'Every row should have a group. A sample name probably did not match, check the cleaning in step 1.'"
+      ],
+      "hint": "meta = pd.read_csv('samples.csv'); full = df.merge(meta, on='sample', how='left')",
+      "solution": [
+       "meta = pd.read_csv('samples.csv')",
+       "full = df.merge(meta, on='sample', how='left')",
+       "print(len(df), len(full))"
+      ]
+     }
+    },
+    {
+     "exercise": {
+      "id": "p3-blank",
+      "title": "Step 3: subtract the blank",
+      "prompt": [
+       "Compute the mean od of the blank wells (group blank) as **blank_mean**. Make **wells**: the rows that are not blanks, with a new column **corrected** equal to od minus blank_mean. Print blank_mean and the number of rows in wells. Expected: about 0.0417 and 12."
+      ],
+      "packages": [
+       "numpy",
+       "pandas"
+      ],
+      "starter": [
+       "# Step 3. Define blank_mean and wells",
+       "",
+       ""
+      ],
+      "check": [
+       "assert abs(blank_mean - 0.041667) < 1e-4, 'blank_mean should be the mean od of the three blank wells, about 0.0417.'",
+       "assert len(wells) == 12 and (wells['group'] != 'blank').all(), 'wells should hold the 12 non-blank rows.'",
+       "assert abs(wells.loc[wells['sample'] == 'CTRL', 'corrected'].mean() - 0.47167) < 1e-3, 'corrected = od - blank_mean.'"
+      ],
+      "hint": "blank_mean = full.loc[full['group'] == 'blank', 'od'].mean(); then filter and assign the new column.",
+      "solution": [
+       "blank_mean = full.loc[full['group'] == 'blank', 'od'].mean()",
+       "wells = full[full['group'] != 'blank'].copy()",
+       "wells['corrected'] = wells['od'] - blank_mean",
+       "print(round(blank_mean, 4), len(wells))"
+      ]
+     }
+    },
+    {
+     "exercise": {
+      "id": "p4-summary",
+      "title": "Step 4: summarize and flag",
+      "prompt": [
+       "Build **summary**: one row per sample with the columns count, mean, std and cv_pct of the corrected readings (NaN is skipped automatically). Then make a list **flagged** of the samples whose CV% is above 3, a deliberately tight limit for practice. Print the summary rounded to 3 places and the list."
+      ],
+      "packages": [
+       "numpy",
+       "pandas"
+      ],
+      "starter": [
+       "# Step 4. Define summary and flagged",
+       "",
+       ""
+      ],
+      "check": [
+       "assert set(summary.index) == {'CTRL', 'D1', 'D10', 'D100'}, 'summary should have one row per sample.'",
+       "assert int(summary.loc['D10', 'count']) == 2, 'D10 has one missing reading, so its count is 2.'",
+       "assert abs(summary.loc['CTRL', 'cv_pct'] - 3.39) < 0.05, 'CV% = 100 * std / mean of the corrected readings.'",
+       "assert list(flagged) == ['CTRL'], 'Only CTRL should be above 3% CV.'"
+      ],
+      "hint": "wells.groupby('sample')['corrected'].agg(['count', 'mean', 'std']); flagged = list(summary.index[summary['cv_pct'] > 3])",
+      "solution": [
+       "summary = wells.groupby('sample')['corrected'].agg(['count', 'mean', 'std'])",
+       "summary['cv_pct'] = 100 * summary['std'] / summary['mean']",
+       "flagged = list(summary.index[summary['cv_pct'] > 3])",
+       "print(summary.round(3))",
+       "print(flagged)"
+      ]
+     }
+    },
+    {
+     "exercise": {
+      "id": "p5-plot",
+      "title": "Step 5: plot the dose response",
+      "prompt": [
+       "Plot the mean corrected od of the three drug samples (D1, D10, D100) against dose in µM, with standard deviation error bars. Use a log scale on the x axis. Keep the figure in **fig** and the axes in **ax**, with labeled axes (units on both) and a title that states what the bars are."
+      ],
+      "packages": [
+       "numpy",
+       "pandas",
+       "matplotlib"
+      ],
+      "starter": [
+       "# Step 5. Define fig and ax",
+       "",
+       ""
+      ],
+      "check": [
+       "assert ax.get_xlabel().strip() and ax.get_ylabel().strip(), 'Label both axes, with units.'",
+       "assert ax.get_xscale() == 'log', 'Use ax.set_xscale(\"log\") so the doses are evenly spaced.'",
+       "assert len(ax.lines) >= 1 and len(ax.collections) >= 1, 'Use ax.errorbar so the plot shows points and error bars.'",
+       "assert 'sd' in ax.get_title().lower() or 'standard deviation' in ax.get_title().lower(), 'Say in the title that the bars are SD.'"
+      ],
+      "hint": "doses = full.drop_duplicates('sample').set_index('sample')['dose_uM']; then ax.errorbar(doses_list, means, yerr=sds, fmt='o-', capsize=4)",
+      "solution": [
+       "import matplotlib.pyplot as plt",
+       "drug = summary.loc[['D1', 'D10', 'D100']]",
+       "doses = [1, 10, 100]",
+       "fig, ax = plt.subplots(figsize=(4, 3))",
+       "ax.errorbar(doses, drug['mean'], yerr=drug['std'], fmt='o-', capsize=4)",
+       "ax.set_xscale('log')",
+       "ax.set_xlabel('Dose (uM)')",
+       "ax.set_ylabel('Corrected OD450 (AU)')",
+       "ax.set_title('Dose response (mean, bars = SD)')",
+       "fig.tight_layout()"
+      ]
+     }
     }
    ]
   }

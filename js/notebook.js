@@ -107,6 +107,8 @@ async function check(ex, code, key, status) {
   const c = exec(py, [].concat(ex.check).join('\n'), kernel(py, key));
   if (!c.err) return { res, ok: true, msg: null };
   const last = c.err.trim().split('\n').pop();
+  const nm = last.match(/NameError: name '(.+)' is not defined/);
+  if (nm) return { res, ok: false, msg: `Your code needs to define a variable named ${nm[1]}. Run the earlier steps first if it comes from one.` };
   return { res, ok: false, msg: last.replace(/^AssertionError:?\s*/, '') || 'Not quite. Check your result against the prompt.' };
 }
 
@@ -117,7 +119,18 @@ export async function selfTest(ex) {
   const r = await check(ex, [].concat(ex.solution).join('\n'), key, status);
   return { id: ex.id, ok: r.ok, msg: r.msg, err: r.res.err };
 }
+// Runs a list of exercises in order in one kernel (project steps depend on earlier steps).
+export async function selfTestChain(list) {
+  const key = `chain-${Math.random()}`;
+  const out = [];
+  for (const ex of list) {
+    const r = await check(ex, [].concat(ex.solution).join('\n'), key, () => {});
+    out.push({ id: ex.id, ok: r.ok, msg: r.msg, err: r.res.err });
+  }
+  return out;
+}
 window.__lucSelfTest = selfTest;
+window.__lucSelfTestChain = selfTestChain;
 
 function showResult(box, res, verdict) {
   const out = box.querySelector('.ex-out');
@@ -135,7 +148,7 @@ export function mountExercises(root) {
     const pre = box.querySelector('.ex-starter');
     const ta = document.createElement('textarea');
     ta.className = 'ex-code'; ta.spellcheck = false; ta.autocapitalize = 'off'; ta.value = starter;
-    ta.rows = Math.max(5, starter.split('\n').length + 2);
+    ta.rows = Math.max(7, starter.split('\n').length + 3);
     ta.setAttribute('aria-label', 'Python code');
     pre.replaceWith(ta);
 
