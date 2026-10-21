@@ -94,6 +94,7 @@ A section has a `body`, `subs` (subsections), or both. Sections are numbered aut
 | `eqs` | Equations with notes: `[["equation", "note"]]`. |
 | `code` | Code listing: an array of lines (or one string), with optional `caption`. Shown as is, not formatted or linked. |
 | `svg` | Inline diagram (use `currentColor` and `var(--accent)` so it follows the theme), with optional `caption`. |
+| `exercise` | Notebook-style coding exercise. The reader types Python in the page and runs it in the browser (Pyodide, loaded from a CDN on first use). Fields: `id`, `title`, `prompt`, `starter` (lines of code), `check` (Python `assert` lines run after the reader's code, with a message that explains a failure), `solution`, and optional `hint`, `setup` (hidden code run first), `files` (`{ "name.csv": "text" }` written before running) and `packages` (default `numpy`, `pandas`; add `matplotlib` or `scipy`). Variables persist between exercises in a chapter, like a notebook. In the browser console, `__lucSelfTest(exercise)` runs the solution against the check. |
 
 **Text markup** works in every string: `**bold**` for a term being defined, `//italic//`, `x^{2}` for superscripts and `x_{i}` for subscripts. Unicode (H₂O, Δ, →) is fine too.
 

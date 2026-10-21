@@ -87,7 +87,42 @@
     {
      "warn": "Indentation is part of the syntax. Four spaces after a colon mark the body of a loop or function. A missing or inconsistent indent is the most common beginner error."
     },
-    "When code fails, Python prints a traceback. Read it from the bottom: the last line names the error (for example KeyError means a dictionary key or column name does not exist) and the lines above show where it happened."
+    "When code fails, Python prints a traceback. Read it from the bottom: the last line names the error (for example KeyError means a dictionary key or column name does not exist) and the lines above show where it happened.",
+    {
+     "exercise": {
+      "id": "cv-function",
+      "title": "Write a function",
+      "prompt": [
+       "Write a function **cv_pct(values)** that takes a list of replicate readings and returns the coefficient of variation as a percentage, using the sample standard deviation. Use the statistics module: statistics.mean and statistics.stdev.",
+       "Then call it on [0.10, 0.12, 0.11]. The answer is about 9.09."
+      ],
+      "starter": [
+       "import statistics",
+       "",
+       "def cv_pct(values):",
+       "    # your code here",
+       "    pass",
+       "",
+       "cv_pct([0.10, 0.12, 0.11])"
+      ],
+      "check": [
+       "assert callable(cv_pct), 'Define a function named cv_pct.'",
+       "r = cv_pct([0.10, 0.12, 0.11])",
+       "assert r is not None, 'cv_pct returned nothing. Did you use return?'",
+       "assert abs(r - 9.0909) < 0.01, f'Expected about 9.09 but got {r:.3f}. Use stdev (n - 1) divided by mean, times 100.'",
+       "assert abs(cv_pct([20, 22]) - 6.734) < 0.01, 'Your function works on one list but not another. Avoid hard-coded numbers.'"
+      ],
+      "hint": "CV% = 100 * stdev / mean. Return the number instead of printing it.",
+      "solution": [
+       "import statistics",
+       "",
+       "def cv_pct(values):",
+       "    return 100 * statistics.stdev(values) / statistics.mean(values)",
+       "",
+       "cv_pct([0.10, 0.12, 0.11])"
+      ]
+     }
+    }
    ],
    "check": [
     {
@@ -188,6 +223,46 @@
     },
     {
      "key": "Think in columns. A pandas operation on a column applies to every row at once, so you almost never need a loop over rows."
+    },
+    {
+     "exercise": {
+      "id": "filter-rows",
+      "title": "Load and filter a plate",
+      "prompt": [
+       "The file **plate1.csv** is already available to your code. It has the columns well, sample, group and od450.",
+       "Load it into a DataFrame called **df**, keep only the rows where group is 'drug' in a new DataFrame called **drug**, and print the mean of drug's od450 column. The mean is 0.33."
+      ],
+      "files": {
+       "plate1.csv": "well,sample,group,od450\nA1,S1,ctrl,0.10\nA2,S1,ctrl,0.12\nA3,S1,ctrl,0.11\nB1,S2,drug,0.35\nB2,S2,drug,0.31\nB3,S2,drug,0.33\n"
+      },
+      "packages": [
+       "numpy",
+       "pandas"
+      ],
+      "starter": [
+       "import pandas as pd",
+       "",
+       "df = pd.read_csv('plate1.csv')",
+       "drug = None   # replace None with a filter on df",
+       "",
+       "print(drug['od450'].mean())"
+      ],
+      "check": [
+       "assert len(df) == 6, 'df should hold all six wells loaded from plate1.csv.'",
+       "assert drug is not None and len(drug) == 3, 'drug should contain only the three drug wells.'",
+       "assert set(drug['group']) == {'drug'}, \"Filter with df[df['group'] == 'drug'].\"",
+       "assert abs(drug['od450'].mean() - 0.33) < 1e-9, 'The mean of the drug wells should be 0.33.'"
+      ],
+      "hint": "df[df['group'] == 'drug'] keeps the rows where the condition is True.",
+      "solution": [
+       "import pandas as pd",
+       "",
+       "df = pd.read_csv('plate1.csv')",
+       "drug = df[df['group'] == 'drug']",
+       "",
+       "print(drug['od450'].mean())"
+      ]
+     }
     }
    ],
    "check": [
@@ -255,6 +330,47 @@
       "tidy = tidy.drop(columns=['index', 'col'])"
      ],
      "caption": "Wide to long: one row per well."
+    },
+    {
+     "exercise": {
+      "id": "clean-export",
+      "title": "Clean a messy export",
+      "prompt": [
+       "The file **export.csv** starts with two lines of run information, then a header row. Some results are text ('OOR') or blank.",
+       "Load it so the first line used is the real header, rename the columns to **well** and **area**, and convert area to numbers so bad entries become NaN. Save the result in **df**, and print how many values in area are missing. The answer is 2."
+      ],
+      "files": {
+       "export.csv": "Instrument: Reader X\nDate: 2026-10-01\nWell Position,Result (mAU)\nA1,120.5\nA2,OOR\nA3,118.2\nA4,\n"
+      },
+      "packages": [
+       "numpy",
+       "pandas"
+      ],
+      "starter": [
+       "import pandas as pd",
+       "",
+       "df = pd.read_csv('export.csv')   # change this line",
+       "# rename the columns, then convert area with pd.to_numeric",
+       "",
+       "print(df['area'].isna().sum())"
+      ],
+      "check": [
+       "assert list(df.columns) == ['well', 'area'], \"Columns should be named 'well' and 'area'. Use rename after skipping the two info lines.\"",
+       "assert len(df) == 4, 'Four wells should remain. Use skiprows=2 so the header row is read correctly.'",
+       "assert str(df['area'].dtype).startswith('float'), \"area should be numeric. Use pd.to_numeric(df['area'], errors='coerce').\"",
+       "assert int(df['area'].isna().sum()) == 2, 'Two values (OOR and the blank) should be NaN.'"
+      ],
+      "hint": "pd.read_csv('export.csv', skiprows=2), then df.rename(columns={...}), then to_numeric with errors='coerce'.",
+      "solution": [
+       "import pandas as pd",
+       "",
+       "df = pd.read_csv('export.csv', skiprows=2)",
+       "df = df.rename(columns={'Well Position': 'well', 'Result (mAU)': 'area'})",
+       "df['area'] = pd.to_numeric(df['area'], errors='coerce')",
+       "",
+       "print(df['area'].isna().sum())"
+      ]
+     }
     }
    ],
    "check": [
@@ -313,6 +429,42 @@
     },
     {
      "note": "Always check the row count before and after a merge. A key that appears twice in the second table duplicates rows and quietly inflates counts."
+    },
+    {
+     "exercise": {
+      "id": "group-cv",
+      "title": "Summarize replicates",
+      "prompt": [
+       "A table **df** with columns group and od450 is already loaded (the six wells from the chapter). Build a DataFrame called **summary** with one row per group and the columns count, mean and std, then add a column **cv_pct**. The control CV is 9.09 and the drug CV is 6.06."
+      ],
+      "setup": [
+       "import pandas as pd",
+       "df = pd.DataFrame({'group': ['ctrl']*3 + ['drug']*3, 'od450': [0.10, 0.12, 0.11, 0.35, 0.31, 0.33]})"
+      ],
+      "packages": [
+       "numpy",
+       "pandas"
+      ],
+      "starter": [
+       "summary = None   # use df.groupby(...)[...].agg([...])",
+       "# add the cv_pct column",
+       "",
+       "print(summary.round(3))"
+      ],
+      "check": [
+       "assert summary is not None, 'Build summary with groupby and agg.'",
+       "assert {'count', 'mean', 'std', 'cv_pct'} <= set(summary.columns), 'summary needs the columns count, mean, std and cv_pct.'",
+       "assert abs(summary.loc['ctrl', 'cv_pct'] - 9.0909) < 0.01, 'Control CV should be about 9.09. CV% = 100 * std / mean.'",
+       "assert abs(summary.loc['drug', 'cv_pct'] - 6.0606) < 0.01, 'Drug CV should be about 6.06.'"
+      ],
+      "hint": "df.groupby('group')['od450'].agg(['count', 'mean', 'std']), then summary['cv_pct'] = 100 * summary['std'] / summary['mean'].",
+      "solution": [
+       "summary = df.groupby('group')['od450'].agg(['count', 'mean', 'std'])",
+       "summary['cv_pct'] = 100 * summary['std'] / summary['mean']",
+       "",
+       "print(summary.round(3))"
+      ]
+     }
     }
    ],
    "check": [
@@ -355,6 +507,51 @@
     "For a calibration curve use points for standards and a line for the fit (ax.scatter and ax.plot). Choose bars for categories and points or lines for measurements along a numeric axis. State in the caption what the error bars show: standard deviation, standard error or a confidence interval. Readers cannot guess.",
     {
      "tip": "Put the number of replicates in the title or caption. A mean without n is hard to judge."
+    },
+    {
+     "exercise": {
+      "id": "bar-plot",
+      "title": "Plot group means",
+      "prompt": [
+       "A DataFrame **summary** with the columns mean and std for the groups ctrl and drug is already loaded. Draw a bar chart of the means with the standard deviations as error bars. Keep the figure in **fig** and the axes in **ax**, and give the axes an x label, a y label with units, and a title that states n.",
+       "After you run it, the plot appears below the editor."
+      ],
+      "setup": [
+       "import pandas as pd",
+       "summary = pd.DataFrame({'mean': [0.11, 0.33], 'std': [0.01, 0.02]}, index=['ctrl', 'drug'])"
+      ],
+      "packages": [
+       "numpy",
+       "pandas",
+       "matplotlib"
+      ],
+      "starter": [
+       "import matplotlib.pyplot as plt",
+       "",
+       "fig, ax = plt.subplots(figsize=(4, 3))",
+       "# ax.bar(..., yerr=..., capsize=4)",
+       "# ax.set_xlabel(...), ax.set_ylabel(...), ax.set_title(...)",
+       "fig.tight_layout()"
+      ],
+      "check": [
+       "assert len(ax.patches) == 2, 'Draw two bars, one per group, with ax.bar.'",
+       "assert ax.get_xlabel().strip(), 'Add an x label with ax.set_xlabel.'",
+       "assert ax.get_ylabel().strip(), 'Add a y label with units using ax.set_ylabel, for example OD450 (AU).'",
+       "assert 'n' in ax.get_title().lower(), 'State the number of replicates in the title, for example n = 3.'",
+       "assert len(ax.lines) >= 1 or len(ax.collections) >= 1, 'Pass yerr to ax.bar so the plot has error bars.'"
+      ],
+      "hint": "ax.bar(summary.index, summary['mean'], yerr=summary['std'], capsize=4)",
+      "solution": [
+       "import matplotlib.pyplot as plt",
+       "",
+       "fig, ax = plt.subplots(figsize=(4, 3))",
+       "ax.bar(summary.index, summary['mean'], yerr=summary['std'], capsize=4)",
+       "ax.set_xlabel('Group')",
+       "ax.set_ylabel('OD450 (AU)')",
+       "ax.set_title('Mean absorbance by group (n = 3, bars = SD)')",
+       "fig.tight_layout()"
+      ]
+     }
     }
    ],
    "check": [

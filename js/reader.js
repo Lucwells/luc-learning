@@ -4,6 +4,7 @@ import { $app, ui, nav, esc, shuffle, layout, navigate } from './util.js';
 import { lib, chapterHref, bookHref } from './data.js';
 import { inline, fmt } from './terms.js';
 import { runQuiz, runFlashcards, pickCards } from './quiz.js';
+import { mountExercises } from './notebook.js';
 
 export function crumbs(ch, last) {
   const parts = ['<a href="#/">Library</a>', `<a href="${bookHref(ch.book)}">${esc(ch.book.title)}</a>`];
@@ -80,6 +81,19 @@ export function renderBlocks(list, R, ctx) {
     if (b.h) return `<h4 class="run">${fmt(b.h)}</h4>`;
     if (b.eq) return `<div class="eq">${[].concat(b.eq).map((l) => `<div>${fmt(l)}</div>`).join('')}${b.note ? `<span class="eq-note">${fmt(b.note)}</span>` : ''}</div>`;
     if (b.code != null) return `<figure class="code"><pre><code>${esc([].concat(b.code).join('\n'))}</code></pre>${b.caption ? `<figcaption>${fmt(b.caption)}</figcaption>` : ''}</figure>`;
+    if (b.exercise) {
+      const x = b.exercise;
+      const lines = (v) => esc([].concat(v ?? []).join('\n'));
+      return `<div class="exercise" data-ex="${esc(JSON.stringify(x))}">
+        <div class="box-head">Try it${x.title ? ` · ${fmt(x.title)}` : ''}</div>
+        <div class="ex-prompt">${[].concat(x.prompt).map((t) => `<p>${R(t)}</p>`).join('')}</div>
+        <pre class="ex-starter"><code>${lines(x.starter)}</code></pre>
+        <div class="ex-bar" hidden><button class="btn primary" data-act="run">Run</button><button class="btn" data-act="check">Check</button><button class="btn" data-act="reset">Reset</button><span class="ex-status muted"></span></div>
+        <div class="ex-out" hidden></div>
+        ${x.hint ? `<details class="ex-hint"><summary>Hint</summary><p>${R(x.hint)}</p></details>` : ''}
+        <details class="ex-sol"><summary>Show a solution</summary><pre><code>${lines(x.solution)}</code></pre></details>
+      </div>`;
+    }
     if (b.list) { const t = b.ordered ? 'ol' : 'ul'; return `<${t}>${b.list.map((x) => `<li>${R(x)}</li>`).join('')}</${t}>`; }
     if (b.facts) return `<dl class="terms">${b.facts.map(([k, v]) => `<dt>${fmt(k)}</dt><dd>${R(v)}</dd>`).join('')}</dl>`;
     if (b.eqs) return `<ul class="eqs">${b.eqs.map(([e, n]) => `<li><span class="eq-line">${fmt(e)}</span>${n ? ` <span class="muted">· ${R(n)}</span>` : ''}</li>`).join('')}</ul>`;
@@ -148,7 +162,7 @@ export function viewChapter(ch, sectionId, restoreY) {
   $app.innerHTML = `
     <div class="reader-layout">
       <nav class="toc" id="toc" aria-label="Contents">${tocHtml(ch)}</nav>
-      <article class="chapter">
+      <article class="chapter" data-key="${esc(ch.book.id)}/${esc(ch.id)}">
         <nav class="crumbs"><a href="#/">Library</a> › <a href="${bookHref(ch.book)}">${esc(ch.book.title)}</a>${ch.part ? ` › <span>Part ${ch.part.roman}: ${esc(ch.part.title)}</span>` : ''}</nav>
         <header class="ch-head">
           <p class="eyebrow">${esc(ch.label)}</p>
@@ -189,6 +203,8 @@ function wireChapter(ch) {
   $app.querySelector('#toc-toggle').onclick = () => toc.classList.toggle('open');
   toc.addEventListener('click', (e) => { if (e.target.closest('a')) toc.classList.remove('open'); });
   $app.querySelector('#backpill')?.addEventListener('click', () => history.back());
+
+  mountExercises($app);
 
   // Check-your-understanding questions
   $app.querySelectorAll('.cq').forEach((box) => {

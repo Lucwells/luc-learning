@@ -5,7 +5,7 @@ let errors = 0;
 const fail = (msg) => { console.error(`  ✗ ${msg}`); errors++; };
 const readJSON = async (path) => JSON.parse(await readFile(`data/${path}`, 'utf8'));
 
-const BLOCKS = ['h', 'code', 'eq', 'list', 'facts', 'eqs', 'def', 'table', 'svg', 'example', 'key', 'warn', 'tip', 'note'];
+const BLOCKS = ['h', 'code', 'eq', 'list', 'facts', 'eqs', 'def', 'table', 'svg', 'example', 'key', 'warn', 'tip', 'note', 'exercise'];
 
 function checkBlocks(blocks, where) {
   for (const b of [].concat(blocks ?? [])) {
@@ -17,6 +17,10 @@ function checkBlocks(blocks, where) {
       b.table.rows.forEach((r, i) => { if (r.length !== n) fail(`${where}: table row ${i} has ${r.length} cells, expected ${n}`); });
     }
     if (kind === 'svg' && /<script|onload=|onclick=/i.test(b.svg)) fail(`${where}: svg must not contain scripts or handlers`);
+    if (kind === 'exercise') {
+      const x = b.exercise;
+      for (const f of ['id', 'title', 'prompt', 'starter', 'check', 'solution']) if (!x[f]) fail(`${where}: exercise needs ${f}`);
+    }
     if (kind === 'example') {
       if (!b.example.problem || !b.example.solution) fail(`${where}: example needs problem and solution`);
       checkBlocks(b.example.problem, where);

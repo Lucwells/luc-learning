@@ -186,3 +186,20 @@
 .job-roles span { background: var(--tint); border-radius: 999px; padding: .15rem .65rem; font-size: .82rem; }
 .job-coming { font-size: .85rem; margin: .8rem 0 0; }
 .job-gaps li { margin: .5rem 0; line-height: 1.55; }
+
+/* notebook-style exercises */
+.exercise { border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 8px; padding: .9rem 1.1rem; margin: 1.4rem 0; background: var(--panel); }
+.ex-prompt p { margin: .4rem 0; }
+.exercise pre { font: .9rem/1.55 var(--mono); background: var(--tint); border-radius: 6px; padding: .7rem .9rem; margin: .7rem 0; overflow-x: auto; white-space: pre; tab-size: 4; }
+.ex-code { width: 100%; box-sizing: border-box; font: .9rem/1.55 var(--mono); background: var(--bg); color: var(--text); border: 1px solid var(--line); border-radius: 6px; padding: .7rem .9rem; margin: .7rem 0; resize: vertical; tab-size: 4; }
+.ex-code:focus { outline: 2px solid var(--accent); outline-offset: 0; }
+.ex-bar { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+.ex-bar .btn:disabled { opacity: .55; cursor: wait; }
+.ex-out { margin-top: .7rem; }
+.ex-out pre { margin: .4rem 0; }
+.ex-out img { max-width: 100%; background: #fff; border-radius: 6px; margin: .4rem 0; }
+.ex-err { color: #f2777a; }
+.ex-ok { color: #4cc38a; font-weight: 600; }
+.ex-no { color: #f2a65a; font-weight: 600; }
+.exercise details { margin-top: .6rem; }
+.exercise summary { cursor: pointer; color: var(--muted); }

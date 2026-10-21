@@ -227,6 +227,48 @@
     },
     {
      "warn": "Interpolate, never extrapolate. Results are valid only inside the **linear range** covered by the standards, and the curve itself should be accepted only if the method's criteria for slope, R² and standard back-calculation are met."
+    },
+    {
+     "exercise": {
+      "id": "fit-curve",
+      "title": "Fit a calibration curve",
+      "prompt": [
+       "Fit a straight line to the five standards with np.polyfit. Save the slope and intercept in **slope** and **intercept**, compute **r2**, and back-calculate the concentration **conc** of a sample with absorbance 0.34. Expected: slope 0.0108, intercept 0.016, R² 0.99991, conc 30.0."
+      ],
+      "setup": [
+       "import numpy as np",
+       "x = np.array([0, 10, 20, 40, 80])",
+       "y = np.array([0.02, 0.12, 0.23, 0.45, 0.88])"
+      ],
+      "packages": [
+       "numpy"
+      ],
+      "starter": [
+       "slope, intercept = None, None   # np.polyfit(x, y, 1)",
+       "pred = None                     # slope * x + intercept",
+       "r2 = None                       # 1 - ss_res / ss_tot",
+       "conc = None                     # (0.34 - intercept) / slope",
+       "",
+       "print(round(slope, 4), round(intercept, 3), round(r2, 5), round(conc, 1))"
+      ],
+      "check": [
+       "assert abs(slope - 0.0108) < 1e-4, 'Slope should be 0.0108. Use np.polyfit(x, y, 1), which returns slope first.'",
+       "assert abs(intercept - 0.016) < 1e-3, 'Intercept should be 0.016.'",
+       "assert r2 > 0.9999, 'R squared should be 0.99991: 1 minus ss_res over ss_tot.'",
+       "assert abs(conc - 30.0) < 0.1, 'Back-calculate with (signal - intercept) / slope.'"
+      ],
+      "hint": "ss_res = ((y - pred)**2).sum() and ss_tot = ((y - y.mean())**2).sum().",
+      "solution": [
+       "slope, intercept = np.polyfit(x, y, 1)",
+       "pred = slope * x + intercept",
+       "ss_res = ((y - pred) ** 2).sum()",
+       "ss_tot = ((y - y.mean()) ** 2).sum()",
+       "r2 = 1 - ss_res / ss_tot",
+       "conc = (0.34 - intercept) / slope",
+       "",
+       "print(round(slope, 4), round(intercept, 3), round(r2, 5), round(conc, 1))"
+      ]
+     }
     }
    ],
    "check": [
@@ -279,6 +321,43 @@
     },
     {
      "tip": "Reports should state results below the limits in the form the method requires, for example '<LOQ', never as a made-up number."
+    },
+    {
+     "exercise": {
+      "id": "lod-loq",
+      "title": "Detection and quantitation limits",
+      "prompt": [
+       "Seven blank wells are in the array **blanks** and the calibration slope is **slope** = 0.0108. Compute the sample standard deviation of the blanks as **sd**, then **lod** and **loq**. Expected: LOD about 0.46 and LOQ about 1.4 µg/mL."
+      ],
+      "setup": [
+       "import numpy as np",
+       "blanks = np.array([0.018, 0.022, 0.020, 0.019, 0.021, 0.020, 0.022])",
+       "slope = 0.0108"
+      ],
+      "packages": [
+       "numpy"
+      ],
+      "starter": [
+       "sd = None    # sample SD, remember ddof=1",
+       "lod = None",
+       "loq = None",
+       "",
+       "print(round(lod, 2), round(loq, 2))"
+      ],
+      "check": [
+       "assert abs(sd - 0.001496) < 1e-5, 'Use np.std(blanks, ddof=1) for the sample standard deviation.'",
+       "assert abs(lod - 0.457) < 0.01, 'LOD = 3.3 * sd / slope.'",
+       "assert abs(loq - 1.385) < 0.02, 'LOQ = 10 * sd / slope.'"
+      ],
+      "hint": "np.std defaults to dividing by n. Pass ddof=1.",
+      "solution": [
+       "sd = np.std(blanks, ddof=1)",
+       "lod = 3.3 * sd / slope",
+       "loq = 10 * sd / slope",
+       "",
+       "print(round(lod, 2), round(loq, 2))"
+      ]
+     }
     }
    ],
    "check": [
@@ -349,6 +428,44 @@
     "Choose starting values from the plot: a and d near the two plateaus, c near the middle dose, b near 1. Fit on the concentration scale in the form above, and read unknown concentrations from the **inverse** of the equation. Unknowns must fall between the two plateaus, and the more reliable region is the steep middle section.",
     {
      "warn": "A 4PL fit that does not converge, or that gives an EC50 far outside the tested doses, is a warning about the data, not a result to report."
+    },
+    {
+     "exercise": {
+      "id": "fit-4pl",
+      "title": "Fit a 4PL curve",
+      "prompt": [
+       "Fit the four-parameter logistic to the dose-response data with scipy's curve_fit, using the starting values given. Save the fitted midpoint in **ec50** and print it. It should be between 3 and 6 nM."
+      ],
+      "setup": [
+       "import numpy as np",
+       "from scipy.optimize import curve_fit",
+       "def four_pl(x, a, b, c, d):",
+       "    return d + (a - d) / (1 + (x / c) ** b)",
+       "x = np.array([0.1, 0.3, 1, 3, 10, 30, 100])",
+       "y = np.array([1.00, 0.98, 0.90, 0.62, 0.30, 0.12, 0.08])"
+      ],
+      "packages": [
+       "numpy",
+       "scipy"
+      ],
+      "starter": [
+       "params, cov = None, None   # curve_fit(four_pl, x, y, p0=[1.0, 1.0, 3.0, 0.05], maxfev=10000)",
+       "ec50 = None                # the third parameter, c",
+       "",
+       "print(round(ec50, 1))"
+      ],
+      "check": [
+       "assert ec50 is not None, 'Fit with curve_fit and take the third parameter.'",
+       "assert 3 < ec50 < 6, f'EC50 came out as {ec50:.2f}, expected between 3 and 6. Check your starting values p0.'"
+      ],
+      "hint": "curve_fit returns (params, cov). params is [a, b, c, d], so c is params[2].",
+      "solution": [
+       "params, cov = curve_fit(four_pl, x, y, p0=[1.0, 1.0, 3.0, 0.05], maxfev=10000)",
+       "a, b, ec50, d = params",
+       "",
+       "print(round(ec50, 1))"
+      ]
+     }
     }
    ],
    "check": [
@@ -402,6 +519,42 @@
     },
     {
      "key": "A control chart answers one question: is the method behaving as it did before? A shift or trend matters even when no single point fails."
+    },
+    {
+     "exercise": {
+      "id": "control-z",
+      "title": "Flag control results",
+      "prompt": [
+       "A control has baseline mean 50.0 and SD 2.0. The last five runs are in **vals**. Compute the z-scores in **z** and a boolean array **flag_2s** that is True where a run is beyond 2 SD in either direction. Print both. Two runs should be flagged."
+      ],
+      "setup": [
+       "import numpy as np",
+       "vals = np.array([49.1, 51.3, 50.4, 54.3, 54.6])"
+      ],
+      "packages": [
+       "numpy"
+      ],
+      "starter": [
+       "z = None",
+       "flag_2s = None",
+       "",
+       "print(np.round(z, 2))",
+       "print(flag_2s)"
+      ],
+      "check": [
+       "assert abs(z[3] - 2.15) < 0.01 and abs(z[4] - 2.3) < 0.01, 'z = (value - 50.0) / 2.0.'",
+       "assert int(flag_2s.sum()) == 2, 'Exactly two runs should be flagged. Use np.abs(z) > 2.'",
+       "assert list(flag_2s) == [False, False, False, True, True], 'The last two runs are the flagged ones.'"
+      ],
+      "hint": "np.abs(z) > 2 gives True where the z-score is beyond 2 in either direction.",
+      "solution": [
+       "z = (vals - 50.0) / 2.0",
+       "flag_2s = np.abs(z) > 2",
+       "",
+       "print(np.round(z, 2))",
+       "print(flag_2s)"
+      ]
+     }
     }
    ],
    "check": [

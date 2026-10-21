@@ -123,3 +123,7 @@ figcaption { font: 8.5pt/1.35 var(--sans); color: var(--muted); margin-top: .35e
 .ans-chapter li { break-inside: avoid; }
 .why { color: var(--muted); }
 .solutions > li { margin-bottom: .7em; }
+
+.exercise { border: 1px solid var(--line); padding: .5em .8em; margin: .8em 0; break-inside: avoid; }
+.exercise pre { font: 8pt/1.4 ui-monospace, Consolas, monospace; background: var(--tint); padding: .5em .7em; white-space: pre-wrap; }
+.exercise details, .ex-bar, .ex-out { display: none; }
