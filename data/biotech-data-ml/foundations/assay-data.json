@@ -78,62 +78,131 @@
    ]
   },
   {
-   "id": "descriptive",
-   "title": "Replicate statistics",
+   "id": "numpy-basics",
+   "title": "Arrays for calculations",
    "terms": [
-    "mean",
-    "standard deviation",
-    "CV",
+    "NumPy"
+   ],
+   "body": [
+    "**NumPy** holds a list of numbers as an array, so one command works on every value at once. Use mean() for the average and std(ddof=1) for the sample standard deviation. NumPy divides by n unless you pass ddof=1, and replicates are a sample, so always pass it.",
+    {
+     "code": [
+      "import numpy as np",
+      "reps = np.array([19.8, 20.6, 20.2, 19.4])",
+      "print(reps.mean())",
+      "print(reps.std(ddof=1))",
+      "print(reps * 2)",
+      "print(reps.max(), len(reps))"
+     ],
+     "caption": "The code"
+    },
+    {
+     "code": [
+      "20.0",
+      "0.5163977794943232",
+      "[39.6 41.2 40.4 38.8]",
+      "20.6 4"
+     ],
+     "caption": "What it prints"
+    },
+    {
+     "exercise": {
+      "id": "np-try",
+      "title": "Arrays",
+      "prompt": [
+       "**a** holds three replicate readings: 0.231, 0.226 and 0.240. Define **mean_a** and **sd_a** (sample SD) and print both. Expected: 0.2323 0.0071."
+      ],
+      "starter": [
+       "# a is already loaded. Define mean_a and sd_a, then print them",
+       "",
+       ""
+      ],
+      "check": [
+       "assert abs(mean_a - 0.2323333) < 1e-6, 'mean_a is a.mean().'",
+       "assert abs(sd_a - 0.0070946) < 1e-6, 'Use a.std(ddof=1) for the sample standard deviation.'"
+      ],
+      "solution": [
+       "mean_a = a.mean()",
+       "sd_a = a.std(ddof=1)",
+       "print(round(mean_a, 4), round(sd_a, 4))"
+      ],
+      "hint": "a.mean() and a.std(ddof=1).",
+      "setup": [
+       "import numpy as np",
+       "a = np.array([0.231, 0.226, 0.240])"
+      ],
+      "packages": [
+       "numpy"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "replicates",
+   "title": "CV, standard error and recovery",
+   "terms": [
     "standard error",
     "percent recovery",
     "accuracy",
     "precision"
    ],
    "body": [
-    "The **mean** of replicates estimates the true value. The **standard deviation** (SD) measures spread. For n replicates with mean x̄, the sample SD divides by n − 1.",
-    {
-     "eq": "s = sqrt( Σ (x_{i} − x̄)^{2} / (n − 1) )"
-    },
-    "The **CV** (also written %RSD) divides SD by the mean and expresses it as a percentage, so it compares precision across levels. The **standard error** is the SD divided by the square root of n and describes how well the mean itself is known.",
-    {
-     "eqs": [
-      [
-       "CV% = 100 × s / x̄",
-       "Precision relative to the size of the result."
-      ],
-      [
-       "SE = s / sqrt(n)",
-       "Uncertainty of the mean, shrinks as n grows."
-      ],
-      [
-       "Recovery% = 100 × measured / expected",
-       "Accuracy against a known value."
-      ]
-     ]
-    },
-    "**Precision** is how closely repeated measurements agree. **Accuracy** is how close they are to the true value. A method can be precise but inaccurate, for example when a calibration is biased.",
-    {
-     "example": {
-      "title": "CV and recovery",
-      "problem": "Four replicates of a 20.0 µg/mL control read 19.8, 20.6, 20.2 and 19.4 µg/mL. A spike of 50.0 µg/mL is measured at 48.6 µg/mL. Find the CV% of the control and the spike recovery.",
-      "solution": [
-       "Mean = 20.0 and SD = 0.516, so CV% = 100 × 0.516 / 20.0 = 2.6%.",
-       "Recovery = 100 × 48.6 / 50.0 = 97.2%.",
-       "Whether 2.6% and 97.2% are acceptable depends on the acceptance criteria written in the method or SOP. Typical limits are set per method, so never assume one."
-      ]
-     }
-    },
+    "Three numbers describe replicates. **CV%** = 100 × SD / mean shows precision relative to size. The **standard error** = SD / sqrt(n) shows how well the mean is known. **Percent recovery** = 100 × measured / expected shows accuracy against a known value. Acceptable limits come from the method or SOP, never from a rule of thumb.",
     {
      "code": [
       "import numpy as np",
-      "c = np.array([19.8, 20.6, 20.2, 19.4])",
-      "mean = c.mean()",
-      "sd = c.std(ddof=1)            # ddof=1 gives the sample SD (n - 1)",
+      "reps = np.array([19.8, 20.6, 20.2, 19.4])",
+      "mean = reps.mean()",
+      "sd = reps.std(ddof=1)",
       "cv = 100 * sd / mean",
-      "se = sd / np.sqrt(len(c))",
-      "print(round(mean, 2), round(sd, 3), round(cv, 1), round(se, 3))   # 20.0 0.516 2.6 0.258"
+      "se = sd / np.sqrt(len(reps))",
+      "print(round(mean, 2), round(sd, 3), round(cv, 1), round(se, 3))",
+      "measured, expected = 48.6, 50.0",
+      "print(round(100 * measured / expected, 1))"
      ],
-     "caption": "Replicate statistics in NumPy. NumPy defaults to the population formula, so set ddof=1."
+     "caption": "The code"
+    },
+    {
+     "code": [
+      "20.0 0.516 2.6 0.258",
+      "97.2"
+     ],
+     "caption": "What it prints"
+    },
+    {
+     "exercise": {
+      "id": "cv-try",
+      "title": "CV and recovery",
+      "prompt": [
+       "**r** holds four replicate readings of a 10.0 ng/mL control: 101.2, 98.7, 100.4 and 99.5 (a different unit scale, but the math is the same). Define **cv**, **se** and **recovery**, where recovery compares a separate measured value of 9.4 against the expected 10.0. Print all three. Expected: 1.09 0.542 94.0."
+      ],
+      "starter": [
+       "# r is already loaded. Define cv, se and recovery, then print them",
+       "",
+       ""
+      ],
+      "check": [
+       "assert abs(cv - 1.0852) < 0.01, 'cv = 100 * sd / mean, using the sample SD (ddof=1).'",
+       "assert abs(se - 0.5424) < 0.005, 'se = sd / np.sqrt(len(r)).'",
+       "assert abs(recovery - 94.0) < 0.01, 'recovery = 100 * 9.4 / 10.0.'"
+      ],
+      "solution": [
+       "sd = r.std(ddof=1)",
+       "cv = 100 * sd / r.mean()",
+       "se = sd / np.sqrt(len(r))",
+       "recovery = 100 * 9.4 / 10.0",
+       "print(round(cv, 2), round(se, 3), round(recovery, 1))"
+      ],
+      "hint": "sd first, then the three formulas from the text.",
+      "setup": [
+       "import numpy as np",
+       "r = np.array([101.2, 98.7, 100.4, 99.5])"
+      ],
+      "packages": [
+       "numpy"
+      ]
+     }
     }
    ],
    "check": [
@@ -150,121 +219,126 @@
    ]
   },
   {
-   "id": "calibration",
-   "title": "Linear calibration curves",
+   "id": "calib-fit",
+   "title": "Fit a calibration line",
    "terms": [
     "calibration curve",
-    "least squares",
-    "slope",
-    "intercept",
-    "R²",
-    "residual",
-    "back-calculation",
-    "linear range"
+    "least squares"
    ],
    "body": [
-    "A **calibration curve** plots signal against the known concentration of standards. If the relationship is a straight line, **least squares** finds the line that minimizes the sum of squared vertical distances. The line is signal = slope × concentration + **intercept**.",
-    {
-     "table": {
-      "head": [
-       "Standard (µg/mL)",
-       "Absorbance"
-      ],
-      "rows": [
-       [
-        "0",
-        "0.02"
-       ],
-       [
-        "10",
-        "0.12"
-       ],
-       [
-        "20",
-        "0.23"
-       ],
-       [
-        "40",
-        "0.45"
-       ],
-       [
-        "80",
-        "0.88"
-       ]
-      ],
-      "caption": "Calibration standards for the worked example."
-     }
-    },
+    "A **calibration curve** plots signal against the known concentration of standards. Least squares finds the straight line signal = slope × concentration + intercept that fits them best. np.polyfit(x, y, 1) returns the slope and the intercept.",
     {
      "code": [
       "import numpy as np",
-      "x = np.array([0, 10, 20, 40, 80])           # concentration, ug/mL",
-      "y = np.array([0.02, 0.12, 0.23, 0.45, 0.88])  # absorbance",
+      "x = np.array([0, 5, 10, 20, 40])",
+      "y = np.array([0.012, 0.075, 0.131, 0.246, 0.488])",
       "slope, intercept = np.polyfit(x, y, 1)",
-      "pred = slope * x + intercept",
-      "ss_res = ((y - pred) ** 2).sum()",
-      "ss_tot = ((y - y.mean()) ** 2).sum()",
-      "r2 = 1 - ss_res / ss_tot",
-      "print(round(slope, 4), round(intercept, 3), round(r2, 5))   # 0.0108 0.016 0.99991",
-      "print(np.round(y - pred, 4))                 # residuals"
+      "print(round(slope, 4), round(intercept, 3))"
      ],
-     "caption": "Fitting a line with np.polyfit and computing R² and residuals."
-    },
-    "For these data the slope is 0.0108 absorbance units per µg/mL, the intercept is 0.016 and R² = 0.99991. **R²** is the fraction of variation in the signal explained by the line. A high R² alone does not prove a good calibration. Look at the **residuals**, the differences between each measured signal and the line. They should scatter randomly around zero. A curved pattern means a straight line is the wrong model, and residuals that grow with concentration suggest weighting.",
-    "**Back-calculation** turns a sample signal into a concentration by solving the line for x.",
-    {
-     "eq": "concentration = (signal − intercept) / slope"
+     "caption": "The code"
     },
     {
-     "example": {
-      "title": "Reading an unknown",
-      "problem": "A sample gives an absorbance of 0.34. Use the curve above. What is its concentration, and is another sample at absorbance 1.20 safe to report?",
-      "solution": [
-       "Concentration = (0.34 − 0.016) / 0.0108 = 30.0 µg/mL, inside the 0 to 80 µg/mL range of the standards.",
-       "An absorbance of 1.20 would give (1.20 − 0.016) / 0.0108 = 109.6 µg/mL, which is beyond the highest standard of 80 µg/mL. Do not report it from this curve. Dilute the sample and run it again."
-      ]
-     }
-    },
-    {
-     "warn": "Interpolate, never extrapolate. Results are valid only inside the **linear range** covered by the standards, and the curve itself should be accepted only if the method's criteria for slope, R² and standard back-calculation are met."
+     "code": [
+      "0.0118 0.013"
+     ],
+     "caption": "What it prints"
     },
     {
      "exercise": {
-      "id": "fit-curve",
-      "title": "Fit a calibration curve",
+      "id": "fit-try",
+      "title": "Fit a line",
       "prompt": [
-       "Fit a straight line to the five standards with np.polyfit. Save the slope and intercept in **slope** and **intercept**, compute **r2**, and back-calculate the concentration **conc** of a sample with absorbance 0.34. Expected: slope 0.0108, intercept 0.016, R² 0.99991, conc 30.0."
-      ],
-      "setup": [
-       "import numpy as np",
-       "x = np.array([0, 10, 20, 40, 80])",
-       "y = np.array([0.02, 0.12, 0.23, 0.45, 0.88])"
-      ],
-      "packages": [
-       "numpy"
+       "**x** and **y** hold five standards (µg/mL and absorbance). Fit a line and define **slope** and **intercept**. Print both. Expected: 0.0196 0.019."
       ],
       "starter": [
-       "# x and y are already loaded.",
-       "# Define slope, intercept, r2 and conc (the concentration at absorbance 0.34), then print them",
+       "# x and y are already loaded. Define slope and intercept, then print them",
        "",
        ""
       ],
       "check": [
-       "assert abs(slope - 0.0108) < 1e-4, 'Slope should be 0.0108. Use np.polyfit(x, y, 1), which returns slope first.'",
-       "assert abs(intercept - 0.016) < 1e-3, 'Intercept should be 0.016.'",
-       "assert r2 > 0.9999, 'R squared should be 0.99991: 1 minus ss_res over ss_tot.'",
-       "assert abs(conc - 30.0) < 0.1, 'Back-calculate with (signal - intercept) / slope.'"
+       "assert abs(slope - np.polyfit(x, y, 1)[0]) < 1e-9, 'Use np.polyfit(x, y, 1). It returns the slope first.'",
+       "assert abs(intercept - np.polyfit(x, y, 1)[1]) < 1e-9, 'The intercept is the second value from np.polyfit.'"
       ],
-      "hint": "ss_res = ((y - pred)**2).sum() and ss_tot = ((y - y.mean())**2).sum().",
+      "solution": [
+       "slope, intercept = np.polyfit(x, y, 1)",
+       "print(round(slope, 4), round(intercept, 3))"
+      ],
+      "hint": "slope, intercept = np.polyfit(x, y, 1)",
+      "setup": [
+       "import numpy as np",
+       "x = np.array([0, 10, 25, 50, 100])",
+       "y = np.array([0.03, 0.21, 0.50, 1.00, 1.98])"
+      ],
+      "packages": [
+       "numpy"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "calib-quality",
+   "title": "How good is the fit?",
+   "terms": [
+    "residual",
+    "R²"
+   ],
+   "body": [
+    "A **residual** is a measured signal minus the line's prediction. **R²** is the fraction of the variation the line explains. A high R² alone proves nothing: look at the residuals. They should scatter randomly around zero. A curve in the residuals means a straight line is the wrong model.",
+    {
+     "code": [
+      "import numpy as np",
+      "x = np.array([0, 5, 10, 20, 40])",
+      "y = np.array([0.012, 0.075, 0.131, 0.246, 0.488])",
+      "slope, intercept = np.polyfit(x, y, 1)",
+      "pred = slope * x + intercept",
+      "residuals = y - pred",
+      "r2 = 1 - (residuals ** 2).sum() / ((y - y.mean()) ** 2).sum()",
+      "print(round(r2, 5))",
+      "print(np.round(residuals, 4))"
+     ],
+     "caption": "The code"
+    },
+    {
+     "code": [
+      "0.99982",
+      "[-0.0007  0.003  -0.0002 -0.0036  0.0015]"
+     ],
+     "caption": "What it prints"
+    },
+    {
+     "exercise": {
+      "id": "r2-try",
+      "title": "R² and residuals",
+      "prompt": [
+       "**x** and **y** hold six standards that flatten at the top. Fit a line, define **residuals** (y minus the prediction) and **r2**, and print r2 and the residuals rounded to 3 places. Expected: 0.9558 [-0.078 -0.035  0.007  0.072  0.102 -0.068]. Notice the pattern: negative at the ends, positive in the middle."
+      ],
+      "starter": [
+       "# x and y are already loaded. Fit a line, then define residuals and r2 and print them",
+       "",
+       ""
+      ],
+      "check": [
+       "s, i = np.polyfit(x, y, 1)",
+       "ref = y - (s * x + i)",
+       "assert len(residuals) == 6 and abs(residuals - ref).max() < 1e-9, 'residuals = y - (slope * x + intercept), one per standard.'",
+       "assert abs(r2 - (1 - (ref ** 2).sum() / ((y - y.mean()) ** 2).sum())) < 1e-9, 'r2 = 1 - ss_res / ss_tot.'"
+      ],
       "solution": [
        "slope, intercept = np.polyfit(x, y, 1)",
        "pred = slope * x + intercept",
-       "ss_res = ((y - pred) ** 2).sum()",
-       "ss_tot = ((y - y.mean()) ** 2).sum()",
-       "r2 = 1 - ss_res / ss_tot",
-       "conc = (0.34 - intercept) / slope",
-       "",
-       "print(round(slope, 4), round(intercept, 3), round(r2, 5), round(conc, 1))"
+       "residuals = y - pred",
+       "r2 = 1 - (residuals ** 2).sum() / ((y - y.mean()) ** 2).sum()",
+       "print(round(r2, 4), np.round(residuals, 3))"
+      ],
+      "hint": "ss_res = (residuals ** 2).sum() and ss_tot = ((y - y.mean()) ** 2).sum().",
+      "setup": [
+       "import numpy as np",
+       "x = np.array([0, 10, 20, 40, 80, 160])",
+       "y = np.array([0.02, 0.12, 0.22, 0.40, 0.66, 0.95])"
+      ],
+      "packages": [
+       "numpy"
       ]
      }
     }
@@ -283,7 +357,71 @@
    ]
   },
   {
-   "id": "limits",
+   "id": "calib-read",
+   "title": "Read an unknown, and stay in range",
+   "terms": [
+    "back-calculation",
+    "linear range"
+   ],
+   "body": [
+    "**Back-calculation** turns a signal into a concentration: (signal − intercept) / slope. Only report results inside the range of your standards. A result above the top standard is extrapolation, so dilute the sample and run it again.",
+    {
+     "code": [
+      "slope, intercept = 0.0120, 0.010",
+      "top = 40            # highest standard, ug/mL",
+      "def read_signal(y):",
+      "    conc = (y - intercept) / slope",
+      "    return 'out of range' if conc > top else round(conc, 1)",
+      "",
+      "print(read_signal(0.19))",
+      "print(read_signal(0.80))"
+     ],
+     "caption": "The code"
+    },
+    {
+     "code": [
+      "15.0",
+      "out of range"
+     ],
+     "caption": "What it prints"
+    },
+    {
+     "exercise": {
+      "id": "back-try",
+      "title": "Back-calculate",
+      "prompt": [
+       "The calibration has **slope** 0.0199 and **intercept** 0.012, and the top standard is 100 µg/mL. Write a function **read_signal(y)** that returns the concentration rounded to 1 place, or the string \"out of range\" if it is above 100. Print read_signal(0.50) and read_signal(2.30). Expected: 24.5 and out of range."
+      ],
+      "starter": [
+       "# slope, intercept and top are already defined. Write read_signal, then print the two results",
+       "",
+       ""
+      ],
+      "check": [
+       "assert read_signal(0.50) == 24.5, 'read_signal(0.50) should be 24.5. conc = (y - intercept) / slope, rounded to 1 place.'",
+       "assert read_signal(2.30) == 'out of range', 'A concentration above 100 should return the string out of range.'",
+       "assert read_signal(1.0) == 49.6, 'Check your function on another value: (1.0 - 0.012) / 0.0199 = 49.6.'"
+      ],
+      "solution": [
+       "def read_signal(y):",
+       "    conc = (y - intercept) / slope",
+       "    return 'out of range' if conc > top else round(conc, 1)",
+       "",
+       "print(read_signal(0.50), read_signal(2.30))"
+      ],
+      "hint": "Follow the example: compute conc, then use a conditional expression.",
+      "setup": [
+       "slope, intercept, top = 0.0199, 0.012, 100"
+      ],
+      "packages": [
+       "numpy"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "lod-loq",
    "title": "Detection and quantitation limits",
    "terms": [
     "limit of detection",
@@ -292,67 +430,56 @@
     "LOQ"
    ],
    "body": [
-    "How small an amount can the method reliably see? The **limit of detection** (LOD) is the lowest concentration that can be distinguished from the blank. The **limit of quantitation** (LOQ) is the lowest concentration that can be measured with acceptable accuracy and precision. A common estimate from the calibration slope S and the standard deviation σ of blank (or low-level) measurements is:",
+    "The **LOD** is the lowest amount you can tell apart from the blank. The **LOQ** is the lowest you can measure with acceptable precision. From the blank SD (σ) and the calibration slope (S): LOD = 3.3σ / S and LOQ = 10σ / S. Report results below the LOQ as <LOQ, never as a made-up number.",
     {
-     "eqs": [
-      [
-       "LOD = 3.3 × σ / S",
-       "Detect, not yet measure."
-      ],
-      [
-       "LOQ = 10 × σ / S",
-       "Measure with acceptable precision."
-      ]
-     ]
+     "code": [
+      "import numpy as np",
+      "blanks = np.array([0.010, 0.012, 0.011, 0.009, 0.013])",
+      "slope = 0.012",
+      "sd = blanks.std(ddof=1)",
+      "print(round(sd, 5))",
+      "print(round(3.3 * sd / slope, 2), round(10 * sd / slope, 2))"
+     ],
+     "caption": "The code"
     },
     {
-     "example": {
-      "title": "LOD and LOQ",
-      "problem": "Seven blank wells read 0.018, 0.022, 0.020, 0.019, 0.021, 0.020 and 0.022 absorbance. The calibration slope is 0.0108 per µg/mL. Estimate the LOD and LOQ.",
-      "solution": [
-       "The sample SD of the blanks is 0.0015.",
-       "LOD = 3.3 × 0.0015 / 0.0108 = 0.46 µg/mL.",
-       "LOQ = 10 × 0.0015 / 0.0108 = 1.4 µg/mL.",
-       "A result below the LOQ can be reported as detected but not quantified, following the SOP wording."
-      ]
-     }
-    },
-    {
-     "tip": "Reports should state results below the limits in the form the method requires, for example '<LOQ', never as a made-up number."
+     "code": [
+      "0.00158",
+      "0.43 1.32"
+     ],
+     "caption": "What it prints"
     },
     {
      "exercise": {
-      "id": "lod-loq",
-      "title": "Detection and quantitation limits",
+      "id": "lod-try",
+      "title": "LOD and LOQ",
       "prompt": [
-       "Seven blank wells are in the array **blanks** and the calibration slope is **slope** = 0.0108. Compute the sample standard deviation of the blanks as **sd**, then **lod** and **loq**. Expected: LOD about 0.46 and LOQ about 1.4 µg/mL."
-      ],
-      "setup": [
-       "import numpy as np",
-       "blanks = np.array([0.018, 0.022, 0.020, 0.019, 0.021, 0.020, 0.022])",
-       "slope = 0.0108"
-      ],
-      "packages": [
-       "numpy"
+       "**blanks** holds six blank readings and **slope** is 0.0199. Define **sd**, **lod** and **loq**, then print them. Expected: 0.00187 0.31 0.94."
       ],
       "starter": [
-       "# blanks and slope are already loaded.",
-       "# Define sd, lod and loq, then print lod and loq",
+       "# blanks and slope are already loaded. Define sd, lod and loq, then print them",
        "",
        ""
       ],
       "check": [
-       "assert abs(sd - 0.001496) < 1e-5, 'Use np.std(blanks, ddof=1) for the sample standard deviation.'",
-       "assert abs(lod - 0.457) < 0.01, 'LOD = 3.3 * sd / slope.'",
-       "assert abs(loq - 1.385) < 0.02, 'LOQ = 10 * sd / slope.'"
+       "assert abs(sd - 0.0018) < 1e-4, 'Use blanks.std(ddof=1) for the sample SD.'",
+       "assert abs(lod - 3.3 * sd / slope) < 1e-9, 'LOD = 3.3 * sd / slope.'",
+       "assert abs(loq - 10 * sd / slope) < 1e-9, 'LOQ = 10 * sd / slope.'"
       ],
-      "hint": "np.std defaults to dividing by n. Pass ddof=1.",
       "solution": [
-       "sd = np.std(blanks, ddof=1)",
+       "sd = blanks.std(ddof=1)",
        "lod = 3.3 * sd / slope",
        "loq = 10 * sd / slope",
-       "",
-       "print(round(lod, 2), round(loq, 2))"
+       "print(round(sd, 5), round(lod, 2), round(loq, 2))"
+      ],
+      "hint": "Same three lines as the example.",
+      "setup": [
+       "import numpy as np",
+       "blanks = np.array([0.012, 0.015, 0.011, 0.014, 0.013, 0.016])",
+       "slope = 0.0199"
+      ],
+      "packages": [
+       "numpy"
       ]
      }
     }
@@ -371,60 +498,92 @@
    ]
   },
   {
-   "id": "four-pl",
-   "title": "Nonlinear curves: the four-parameter logistic",
+   "id": "fourpl-shape",
+   "title": "S-shaped curves: the 4PL",
    "terms": [
     "four-parameter logistic",
     "4PL",
+    "sigmoidal"
+   ],
+   "body": [
+    "ELISA and dose-response curves are S-shaped: flat at both ends, steep in the middle. A straight line cannot describe them. The **four-parameter logistic** can: y = d + (a − d) / (1 + (x / c)^b). Here a and d are the two plateaus, c is the midpoint concentration (the EC50), and b is the steepness.",
+    {
+     "code": [
+      "def four_pl(x, a, b, c, d):",
+      "    return d + (a - d) / (1 + (x / c) ** b)",
+      "",
+      "a, b, c, d = 0.05, 1.0, 10.0, 2.0",
+      "for x in [1, 10, 100]:",
+      "    print(x, round(four_pl(x, a, b, c, d), 3))"
+     ],
+     "caption": "The code"
+    },
+    {
+     "code": [
+      "1 0.227",
+      "10 1.025",
+      "100 1.823"
+     ],
+     "caption": "What it prints"
+    },
+    {
+     "exercise": {
+      "id": "fourpl-try",
+      "title": "Write the 4PL",
+      "prompt": [
+       "Write the function **four_pl(x, a, b, c, d)** from the equation. At x = c the curve is exactly halfway between the plateaus. Print four_pl(8, 0.05, 1.2, 8, 2.5) and four_pl(100, 0.05, 1.2, 8, 2.5). Expected: 1.275 2.387."
+      ],
+      "starter": [
+       "# Write four_pl, then print the two values",
+       "",
+       ""
+      ],
+      "check": [
+       "assert abs(four_pl(8, 0.05, 1.2, 8, 2.5) - 1.275) < 1e-9, 'At x = c the result should be (a + d) / 2 = 1.275.'",
+       "assert abs(four_pl(100, 0.05, 1.2, 8, 2.5) - 2.387) < 0.01, 'At a high x the curve approaches d = 2.5 but does not reach it. Check the formula.'",
+       "assert abs(four_pl(1, 0.05, 1.0, 10, 2.0) - 0.2) < 0.05, 'Check the formula again: d + (a - d) / (1 + (x / c) ** b).'"
+      ],
+      "solution": [
+       "def four_pl(x, a, b, c, d):",
+       "    return d + (a - d) / (1 + (x / c) ** b)",
+       "",
+       "print(round(four_pl(8, 0.05, 1.2, 8, 2.5), 3), round(four_pl(100, 0.05, 1.2, 8, 2.5), 3))"
+      ],
+      "hint": "Translate the equation directly. ** means power in Python.",
+      "packages": [
+       "numpy"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "fourpl-fit",
+   "title": "Fit a 4PL with curve_fit",
+   "terms": [
     "EC50",
-    "sigmoidal",
     "curve_fit"
    ],
    "body": [
-    "Immunoassays such as ELISA, and dose-response experiments, give an S-shaped signal that flattens at both ends. A straight line fits only the middle. The **four-parameter logistic** (**4PL**) curve describes the whole **sigmoidal** shape:",
-    {
-     "eq": "y = d + (a − d) / (1 + (x / c)^{b})"
-    },
-    {
-     "facts": [
-      [
-       "a",
-       "Signal at zero concentration (bottom or top asymptote)"
-      ],
-      [
-       "d",
-       "Signal at infinite concentration (the other asymptote)"
-      ],
-      [
-       "c",
-       "Midpoint, the concentration giving halfway between a and d (the EC50 or IC50)"
-      ],
-      [
-       "b",
-       "Slope factor, steepness of the transition"
-      ]
-     ]
-    },
-    "Unlike a line, a 4PL has no formula for the best parameters, so software searches for them. In Python, **curve_fit** from SciPy does it.",
+    "Unlike a line, a 4PL has no formula for its best parameters, so software searches for them. SciPy's curve_fit does the search. It needs starting guesses p0: plateaus near the ends of your data, c near the middle dose, b near 1. A fit that fails, or puts the EC50 far outside the tested doses, is a warning about the data.",
     {
      "code": [
       "import numpy as np",
       "from scipy.optimize import curve_fit",
-      "",
       "def four_pl(x, a, b, c, d):",
       "    return d + (a - d) / (1 + (x / c) ** b)",
-      "",
-      "x = np.array([0.1, 0.3, 1, 3, 10, 30, 100])          # dose, nM",
-      "y = np.array([1.00, 0.98, 0.90, 0.62, 0.30, 0.12, 0.08])   # response",
-      "params, cov = curve_fit(four_pl, x, y, p0=[1.0, 1.0, 3.0, 0.05], maxfev=10000)",
-      "a, b, c, d = params",
-      "print(round(c, 1))     # EC50 in nM"
+      "x = np.array([0.3, 1, 3, 10, 30, 100])",
+      "y = np.array([0.07, 0.20, 0.51, 1.05, 1.62, 1.88])",
+      "params, cov = curve_fit(four_pl, x, y, p0=[0.05, 1.0, 10.0, 2.0], maxfev=10000)",
+      "print([round(v, 2) for v in params])"
      ],
-     "caption": "Fitting a 4PL. p0 gives sensible starting guesses, which the search needs."
+     "caption": "The code"
     },
-    "Choose starting values from the plot: a and d near the two plateaus, c near the middle dose, b near 1. Fit on the concentration scale in the form above, and read unknown concentrations from the **inverse** of the equation. Unknowns must fall between the two plateaus, and the more reliable region is the steep middle section.",
     {
-     "warn": "A 4PL fit that does not converge, or that gives an EC50 far outside the tested doses, is a warning about the data, not a result to report."
+     "code": [
+      "[0.03, 1.07, 9.19, 2.04]"
+     ],
+     "caption": "What it prints"
     },
     {
      "exercise": {
@@ -480,43 +639,95 @@
    ]
   },
   {
-   "id": "qc-charts",
-   "title": "Control charts and run acceptance",
+   "id": "fourpl-inverse",
+   "title": "Read a concentration from a 4PL",
+   "terms": [
+    "inverse"
+   ],
+   "body": [
+    "To turn a signal back into a concentration, solve the equation for x: x = c × ((a − d) / (y − d) − 1)^(1/b). Only use it for signals between the plateaus, and check it by putting the answer back into the curve.",
+    {
+     "code": [
+      "def four_pl(x, a, b, c, d):",
+      "    return d + (a - d) / (1 + (x / c) ** b)",
+      "",
+      "a, b, c, d = 0.05, 1.0, 10.0, 2.0",
+      "def inverse(y):",
+      "    return c * ((a - d) / (y - d) - 1) ** (1 / b)",
+      "",
+      "x = inverse(1.0)",
+      "print(round(x, 2))",
+      "print(round(four_pl(x, a, b, c, d), 2))"
+     ],
+     "caption": "The code"
+    },
+    {
+     "code": [
+      "9.5",
+      "1.0"
+     ],
+     "caption": "What it prints"
+    },
+    {
+     "exercise": {
+      "id": "inverse-try",
+      "title": "Invert the curve",
+      "prompt": [
+       "The fitted parameters are **a, b, c, d** = 0.05, 1.0, 8.0, 2.5. Write **inverse(y)** and define **conc** as inverse(1.0). Print it. Expected: 5.07."
+      ],
+      "starter": [
+       "# a, b, c, d are already defined. Write inverse, define conc, and print it",
+       "",
+       ""
+      ],
+      "check": [
+       "assert abs(conc - 5.0667) < 0.01, 'conc = c * ((a - d) / (y - d) - 1) ** (1 / b) with y = 1.0.'",
+       "assert abs(inverse(2.0) - 8.0 * ((0.05 - 2.5) / (2.0 - 2.5) - 1) ** 1) < 1e-6, 'inverse(y) should work for any y between the plateaus.'"
+      ],
+      "solution": [
+       "def inverse(y):",
+       "    return c * ((a - d) / (y - d) - 1) ** (1 / b)",
+       "",
+       "conc = inverse(1.0)",
+       "print(round(conc, 2))"
+      ],
+      "hint": "Copy the formula from the text, using the variables a, b, c, d.",
+      "setup": [
+       "a, b, c, d = 0.05, 1.0, 8.0, 2.5"
+      ],
+      "packages": [
+       "numpy"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "qc-z",
+   "title": "Control charts and z-scores",
    "terms": [
     "control chart",
     "Levey-Jennings chart",
-    "Westgard rules",
-    "outlier",
-    "out of specification"
+    "z-score"
    ],
    "body": [
-    "A control sample is run in every batch. Plot its result against run number with lines at the mean, ±2 SD and ±3 SD from a baseline of earlier runs. This is a **control chart** (in clinical labs, a **Levey-Jennings chart**). A stable method scatters randomly around the mean.",
-    {
-     "example": {
-      "title": "Reading a control chart",
-      "problem": "A control has baseline mean 50.0 and SD 2.0. Five consecutive runs give 49.1, 51.3, 50.4, 54.3 and 54.6. Express each as a z-score and say what happens.",
-      "solution": [
-       "z = (value − 50.0) / 2.0 gives −0.45, 0.65, 0.20, 2.15 and 2.30.",
-       "The last two runs are both beyond +2 SD on the same side. The classic 2-2s rule (two consecutive controls beyond 2 SD on the same side) is violated, which signals a possible systematic shift.",
-       "The runs should be investigated before results are released."
-      ]
-     }
-    },
-    "Simple **Westgard rules** help decide what a pattern means: 1-3s (one control beyond ±3 SD) and 2-2s (two in a row beyond 2 SD, same side) flag shifts, while R-4s (a range of 4 SD between two controls in one run) flags increased random error. Your lab's SOP defines which rules apply and what to do.",
-    "An **outlier** is a value far from the rest. Do not delete it because it looks wrong. A result that fails its criteria is **out of specification**, and the correct response is documented investigation under the SOP: check the sample, the standards, the instrument and the calculation. Only a documented, justified cause allows excluding a value.",
+    "Run a control sample in every batch. Compare each result with a baseline mean and SD from earlier runs using the **z-score**: (value − mean) / SD. A stable method scatters around zero. A value beyond ±2 SD is unusual, and beyond ±3 SD is very unusual.",
     {
      "code": [
       "import numpy as np",
       "vals = np.array([49.1, 51.3, 50.4, 54.3, 54.6])",
       "z = (vals - 50.0) / 2.0",
-      "flag_2s = np.abs(z) > 2",
-      "print(np.round(z, 2))     # [-0.45  0.65  0.2   2.15  2.3 ]",
-      "print(flag_2s)            # [False False False  True  True]"
+      "print(np.round(z, 2))",
+      "print(np.abs(z) > 2)"
      ],
-     "caption": "Z-scores against a baseline and a 2 SD flag."
+     "caption": "The code"
     },
     {
-     "key": "A control chart answers one question: is the method behaving as it did before? A shift or trend matters even when no single point fails."
+     "code": [
+      "[-0.45  0.65  0.2   2.15  2.3 ]",
+      "[False False False  True  True]"
+     ],
+     "caption": "What it prints"
     },
     {
      "exercise": {
@@ -553,6 +764,70 @@
       ]
      }
     }
+   ]
+  },
+  {
+   "id": "qc-rules",
+   "title": "Rules for flagging a run",
+   "terms": [
+    "Westgard rules",
+    "outlier",
+    "out of specification"
+   ],
+   "body": [
+    "Simple **Westgard rules** turn z-scores into decisions. 1-3s: one control beyond ±3 SD. 2-2s: two controls in a row beyond 2 SD on the same side, a sign of a systematic shift. If a rule is broken, investigate and document under the SOP. Never delete a value because it looks wrong, and never repeat controls until they pass.",
+    {
+     "code": [
+      "def two_two_s(z):",
+      "    for i in range(len(z) - 1):",
+      "        if (z[i] > 2 and z[i + 1] > 2) or (z[i] < -2 and z[i + 1] < -2):",
+      "            return True",
+      "    return False",
+      "",
+      "print(two_two_s([0.2, -0.5, 2.1, 2.3]))",
+      "print(two_two_s([0.2, 2.4, -0.1, 2.2]))"
+     ],
+     "caption": "The code"
+    },
+    {
+     "code": [
+      "True",
+      "False"
+     ],
+     "caption": "What it prints"
+    },
+    {
+     "exercise": {
+      "id": "rule-try",
+      "title": "Write a rule",
+      "prompt": [
+       "Write **one_three_s(z)**, a function that returns True if any z-score in the list is beyond ±3 (above 3 or below −3), otherwise False. Print one_three_s([0.5, -3.2, 1.0]) and one_three_s([0.5, 2.9, -2.9]). Expected: True and False."
+      ],
+      "starter": [
+       "# Write one_three_s, then print the two results",
+       "",
+       ""
+      ],
+      "check": [
+       "assert one_three_s([0.5, -3.2, 1.0]) is True, 'A z-score of -3.2 is beyond 3, so the result is True.'",
+       "assert one_three_s([0.5, 2.9, -2.9]) is False, 'Neither 2.9 nor -2.9 is beyond 3.'",
+       "assert one_three_s([3.5]) is True, 'A single value above 3 should return True.'"
+      ],
+      "solution": [
+       "def one_three_s(z):",
+       "    for v in z:",
+       "        if v > 3 or v < -3:",
+       "            return True",
+       "    return False",
+       "",
+       "print(one_three_s([0.5, -3.2, 1.0]), one_three_s([0.5, 2.9, -2.9]))"
+      ],
+      "hint": "Loop over z; return True as soon as one value is beyond 3 in either direction.",
+      "packages": [
+       "numpy"
+      ]
+     }
+    }
    ],
    "check": [
     {
@@ -576,10 +851,56 @@
     "data integrity"
    ],
    "body": [
-    "A calculated number is not a finished result. **Data integrity** rules, summarized as **ALCOA+**, say data must be Attributable (who did it), Legible, Contemporaneous (recorded at the time), Original and Accurate, plus Complete, Consistent, Enduring and Available. Raw files, scripts and a note of any decision are how analysis meets them.",
-    "Report with sensible **significant figures**: do not quote 30.0000 µg/mL from a measurement good to two or three digits. State the method, the calibration acceptance, replicate count, CV%, and how results below the LOQ were reported. Include controls and any deviations. If someone repeating your analysis cannot get your number, it is not ready to report.",
+    "**Data integrity** rules, summarized as **ALCOA+**, require records that are attributable, legible, contemporaneous, original and accurate. Keep raw files, scripts and notes of every decision. Report with honest **significant figures** and say how results below the LOQ were reported.",
     {
-     "tip": "Keep a short checklist: curve accepted, controls in range, replicates within CV limit, results within the range, deviations noted, second person review where required."
+     "code": [
+      "def report(value, loq):",
+      "    if value < loq:",
+      "        return '<LOQ'",
+      "    return f'{value:.1f} ng/mL'",
+      "",
+      "print(report(0.4, 1.4))",
+      "print(report(12.3456, 1.4))"
+     ],
+     "caption": "The code"
+    },
+    {
+     "code": [
+      "<LOQ",
+      "12.3 ng/mL"
+     ],
+     "caption": "What it prints"
+    },
+    {
+     "exercise": {
+      "id": "report-try",
+      "title": "Report a result",
+      "prompt": [
+       "Write **report(value, loq)** that returns \"<LOQ\" when value is below loq, otherwise the value rounded to 1 place with the unit, like \"12.3 ng/mL\". Print report(0.4, 1.4) and report(12.3456, 1.4). Expected: <LOQ and 12.3 ng/mL."
+      ],
+      "starter": [
+       "# Write report, then print the two results",
+       "",
+       ""
+      ],
+      "check": [
+       "assert report(0.4, 1.4) == '<LOQ', 'A value below the LOQ should return the string <LOQ.'",
+       "assert report(12.3456, 1.4) == '12.3 ng/mL', 'Format with an f-string: f\"{value:.1f} ng/mL\".'",
+       "assert report(1.4, 1.4) == '1.4 ng/mL', 'A value equal to the LOQ is reportable.'"
+      ],
+      "solution": [
+       "def report(value, loq):",
+       "    if value < loq:",
+       "        return '<LOQ'",
+       "    return f'{value:.1f} ng/mL'",
+       "",
+       "print(report(0.4, 1.4), report(12.3456, 1.4))"
+      ],
+      "hint": "Follow the example in the text, with if and return.",
+      "packages": [
+       "numpy"
+      ]
+     }
     }
    ],
    "check": [
