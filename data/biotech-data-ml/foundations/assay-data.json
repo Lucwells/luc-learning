@@ -1,0 +1,676 @@
+{
+ "id": "assay-data",
+ "view": "chapter",
+ "title": "Assay Data: Calibration, Replicates and QC",
+ "description": "Standard curves, replicate statistics, detection limits, four-parameter fits and control charts for lab assays.",
+ "overview": [
+  "Most lab results are not read off an instrument directly. An instrument reports a signal, such as absorbance or peak area, and a calibration turns that signal into a concentration. Whether the result can be trusted depends on replicates, controls and a few simple statistics. These are the calculations that QC, assay development and research associates do every day, and the ones interviewers ask about.",
+  "This chapter teaches them from the ground up with the code from the previous chapter: replicate statistics, linear calibration curves, detection and quantitation limits, the four-parameter logistic curve used for ELISA and dose-response, control charts and rules for flagging a run, and the habits that keep results defensible."
+ ],
+ "objectives": [
+  "Describe a plate or run in terms of blanks, standards, controls and replicates.",
+  "Compute mean, standard deviation, CV%, percent recovery and standard error.",
+  "Fit a linear calibration curve, judge it with residuals and R², and back-calculate unknowns.",
+  "Calculate limits of detection and quantitation from blank variability.",
+  "Fit a four-parameter logistic curve and read off an EC50.",
+  "Build a control chart and apply simple rules to decide whether a run is in control."
+ ],
+ "sections": [
+  {
+   "id": "anatomy",
+   "title": "Anatomy of an assay",
+   "terms": [
+    "blank",
+    "standard",
+    "control",
+    "replicate",
+    "analyte"
+   ],
+   "body": [
+    "An **analyte** is the thing being measured. A typical run contains four kinds of wells or injections. A **blank** has everything except the analyte and measures the background signal. **Standards** contain known amounts of analyte and define the calibration. **Controls** are samples with a known, stable result, run alongside unknowns to show the method is working. **Replicates** are repeated measurements of the same sample, used to estimate how much the measurement varies.",
+    {
+     "table": {
+      "head": [
+       "Item",
+       "Contains",
+       "Used for"
+      ],
+      "rows": [
+       [
+        "Blank",
+        "No analyte",
+        "Background and detection limit"
+       ],
+       [
+        "Standards",
+        "Known concentrations",
+        "Calibration curve"
+       ],
+       [
+        "Controls",
+        "Known, stable concentration",
+        "Judging whether the run is valid"
+       ],
+       [
+        "Unknowns",
+        "Samples to measure",
+        "Reported results, in replicate"
+       ]
+      ],
+      "caption": "The four kinds of sample in a run."
+     }
+    },
+    {
+     "key": "A result is only as good as the blanks, standards and controls that surround it. Report them together."
+    }
+   ],
+   "check": [
+    {
+     "q": "What is the purpose of a control sample in a run?",
+     "a": "To show the method performs as expected, because its true value is known",
+     "wrong": [
+      "To define the calibration curve slope",
+      "To measure the background signal of the plate",
+      "To replace replicate measurements of unknowns"
+     ],
+     "why": "Controls have a known result, so a wrong control result signals a problem with the run. Standards define the curve and blanks give the background."
+    }
+   ]
+  },
+  {
+   "id": "descriptive",
+   "title": "Replicate statistics",
+   "terms": [
+    "mean",
+    "standard deviation",
+    "CV",
+    "standard error",
+    "percent recovery",
+    "accuracy",
+    "precision"
+   ],
+   "body": [
+    "The **mean** of replicates estimates the true value. The **standard deviation** (SD) measures spread. For n replicates with mean x̄, the sample SD divides by n − 1.",
+    {
+     "eq": "s = sqrt( Σ (x_{i} − x̄)^{2} / (n − 1) )"
+    },
+    "The **CV** (also written %RSD) divides SD by the mean and expresses it as a percentage, so it compares precision across levels. The **standard error** is the SD divided by the square root of n and describes how well the mean itself is known.",
+    {
+     "eqs": [
+      [
+       "CV% = 100 × s / x̄",
+       "Precision relative to the size of the result."
+      ],
+      [
+       "SE = s / sqrt(n)",
+       "Uncertainty of the mean, shrinks as n grows."
+      ],
+      [
+       "Recovery% = 100 × measured / expected",
+       "Accuracy against a known value."
+      ]
+     ]
+    },
+    "**Precision** is how closely repeated measurements agree. **Accuracy** is how close they are to the true value. A method can be precise but inaccurate, for example when a calibration is biased.",
+    {
+     "example": {
+      "title": "CV and recovery",
+      "problem": "Four replicates of a 20.0 µg/mL control read 19.8, 20.6, 20.2 and 19.4 µg/mL. A spike of 50.0 µg/mL is measured at 48.6 µg/mL. Find the CV% of the control and the spike recovery.",
+      "solution": [
+       "Mean = 20.0 and SD = 0.516, so CV% = 100 × 0.516 / 20.0 = 2.6%.",
+       "Recovery = 100 × 48.6 / 50.0 = 97.2%.",
+       "Whether 2.6% and 97.2% are acceptable depends on the acceptance criteria written in the method or SOP. Typical limits are set per method, so never assume one."
+      ]
+     }
+    },
+    {
+     "code": [
+      "import numpy as np",
+      "c = np.array([19.8, 20.6, 20.2, 19.4])",
+      "mean = c.mean()",
+      "sd = c.std(ddof=1)            # ddof=1 gives the sample SD (n - 1)",
+      "cv = 100 * sd / mean",
+      "se = sd / np.sqrt(len(c))",
+      "print(round(mean, 2), round(sd, 3), round(cv, 1), round(se, 3))   # 20.0 0.516 2.6 0.258"
+     ],
+     "caption": "Replicate statistics in NumPy. NumPy defaults to the population formula, so set ddof=1."
+    }
+   ],
+   "check": [
+    {
+     "q": "Replicates average 20.0 with an SD of 0.516. What is the standard error for n = 4?",
+     "a": "0.258",
+     "wrong": [
+      "0.516",
+      "1.032",
+      "2.6"
+     ],
+     "why": "SE = 0.516 / sqrt(4) = 0.258. The value 2.6 is the CV%."
+    }
+   ]
+  },
+  {
+   "id": "calibration",
+   "title": "Linear calibration curves",
+   "terms": [
+    "calibration curve",
+    "least squares",
+    "slope",
+    "intercept",
+    "R²",
+    "residual",
+    "back-calculation",
+    "linear range"
+   ],
+   "body": [
+    "A **calibration curve** plots signal against the known concentration of standards. If the relationship is a straight line, **least squares** finds the line that minimizes the sum of squared vertical distances. The line is signal = slope × concentration + **intercept**.",
+    {
+     "table": {
+      "head": [
+       "Standard (µg/mL)",
+       "Absorbance"
+      ],
+      "rows": [
+       [
+        "0",
+        "0.02"
+       ],
+       [
+        "10",
+        "0.12"
+       ],
+       [
+        "20",
+        "0.23"
+       ],
+       [
+        "40",
+        "0.45"
+       ],
+       [
+        "80",
+        "0.88"
+       ]
+      ],
+      "caption": "Calibration standards for the worked example."
+     }
+    },
+    {
+     "code": [
+      "import numpy as np",
+      "x = np.array([0, 10, 20, 40, 80])           # concentration, ug/mL",
+      "y = np.array([0.02, 0.12, 0.23, 0.45, 0.88])  # absorbance",
+      "slope, intercept = np.polyfit(x, y, 1)",
+      "pred = slope * x + intercept",
+      "ss_res = ((y - pred) ** 2).sum()",
+      "ss_tot = ((y - y.mean()) ** 2).sum()",
+      "r2 = 1 - ss_res / ss_tot",
+      "print(round(slope, 4), round(intercept, 3), round(r2, 5))   # 0.0108 0.016 0.99991",
+      "print(np.round(y - pred, 4))                 # residuals"
+     ],
+     "caption": "Fitting a line with np.polyfit and computing R² and residuals."
+    },
+    "For these data the slope is 0.0108 absorbance units per µg/mL, the intercept is 0.016 and R² = 0.99991. **R²** is the fraction of variation in the signal explained by the line. A high R² alone does not prove a good calibration. Look at the **residuals**, the differences between each measured signal and the line. They should scatter randomly around zero. A curved pattern means a straight line is the wrong model, and residuals that grow with concentration suggest weighting.",
+    "**Back-calculation** turns a sample signal into a concentration by solving the line for x.",
+    {
+     "eq": "concentration = (signal − intercept) / slope"
+    },
+    {
+     "example": {
+      "title": "Reading an unknown",
+      "problem": "A sample gives an absorbance of 0.34. Use the curve above. What is its concentration, and is another sample at absorbance 1.20 safe to report?",
+      "solution": [
+       "Concentration = (0.34 − 0.016) / 0.0108 = 30.0 µg/mL, inside the 0 to 80 µg/mL range of the standards.",
+       "An absorbance of 1.20 would give (1.20 − 0.016) / 0.0108 = 109.6 µg/mL, which is beyond the highest standard of 80 µg/mL. Do not report it from this curve. Dilute the sample and run it again."
+      ]
+     }
+    },
+    {
+     "warn": "Interpolate, never extrapolate. Results are valid only inside the **linear range** covered by the standards, and the curve itself should be accepted only if the method's criteria for slope, R² and standard back-calculation are met."
+    }
+   ],
+   "check": [
+    {
+     "q": "A calibration has R² = 0.999 but the residuals form a clear U-shaped curve. What does this suggest?",
+     "a": "A straight line is the wrong model, so the fit should not be accepted as is",
+     "wrong": [
+      "The calibration is ideal because R² is high",
+      "The instrument must be recalibrated to zero R²",
+      "The residuals show random noise, which is normal"
+     ],
+     "why": "Systematic structure in residuals reveals model misfit even when R² is high."
+    }
+   ]
+  },
+  {
+   "id": "limits",
+   "title": "Detection and quantitation limits",
+   "terms": [
+    "limit of detection",
+    "limit of quantitation",
+    "LOD",
+    "LOQ"
+   ],
+   "body": [
+    "How small an amount can the method reliably see? The **limit of detection** (LOD) is the lowest concentration that can be distinguished from the blank. The **limit of quantitation** (LOQ) is the lowest concentration that can be measured with acceptable accuracy and precision. A common estimate from the calibration slope S and the standard deviation σ of blank (or low-level) measurements is:",
+    {
+     "eqs": [
+      [
+       "LOD = 3.3 × σ / S",
+       "Detect, not yet measure."
+      ],
+      [
+       "LOQ = 10 × σ / S",
+       "Measure with acceptable precision."
+      ]
+     ]
+    },
+    {
+     "example": {
+      "title": "LOD and LOQ",
+      "problem": "Seven blank wells read 0.018, 0.022, 0.020, 0.019, 0.021, 0.020 and 0.022 absorbance. The calibration slope is 0.0108 per µg/mL. Estimate the LOD and LOQ.",
+      "solution": [
+       "The sample SD of the blanks is 0.0015.",
+       "LOD = 3.3 × 0.0015 / 0.0108 = 0.46 µg/mL.",
+       "LOQ = 10 × 0.0015 / 0.0108 = 1.4 µg/mL.",
+       "A result below the LOQ can be reported as detected but not quantified, following the SOP wording."
+      ]
+     }
+    },
+    {
+     "tip": "Reports should state results below the limits in the form the method requires, for example '<LOQ', never as a made-up number."
+    }
+   ],
+   "check": [
+    {
+     "q": "Blank SD is 0.0015 absorbance and the calibration slope is 0.0108 per µg/mL. What is the LOQ using 10σ/S?",
+     "a": "1.4 µg/mL",
+     "wrong": [
+      "0.46 µg/mL",
+      "0.14 µg/mL",
+      "14 µg/mL"
+     ],
+     "why": "10 × 0.0015 / 0.0108 = 1.39, about 1.4 µg/mL. The value 0.46 is the LOD."
+    }
+   ]
+  },
+  {
+   "id": "four-pl",
+   "title": "Nonlinear curves: the four-parameter logistic",
+   "terms": [
+    "four-parameter logistic",
+    "4PL",
+    "EC50",
+    "sigmoidal",
+    "curve_fit"
+   ],
+   "body": [
+    "Immunoassays such as ELISA, and dose-response experiments, give an S-shaped signal that flattens at both ends. A straight line fits only the middle. The **four-parameter logistic** (**4PL**) curve describes the whole **sigmoidal** shape:",
+    {
+     "eq": "y = d + (a − d) / (1 + (x / c)^{b})"
+    },
+    {
+     "facts": [
+      [
+       "a",
+       "Signal at zero concentration (bottom or top asymptote)"
+      ],
+      [
+       "d",
+       "Signal at infinite concentration (the other asymptote)"
+      ],
+      [
+       "c",
+       "Midpoint, the concentration giving halfway between a and d (the EC50 or IC50)"
+      ],
+      [
+       "b",
+       "Slope factor, steepness of the transition"
+      ]
+     ]
+    },
+    "Unlike a line, a 4PL has no formula for the best parameters, so software searches for them. In Python, **curve_fit** from SciPy does it.",
+    {
+     "code": [
+      "import numpy as np",
+      "from scipy.optimize import curve_fit",
+      "",
+      "def four_pl(x, a, b, c, d):",
+      "    return d + (a - d) / (1 + (x / c) ** b)",
+      "",
+      "x = np.array([0.1, 0.3, 1, 3, 10, 30, 100])          # dose, nM",
+      "y = np.array([1.00, 0.98, 0.90, 0.62, 0.30, 0.12, 0.08])   # response",
+      "params, cov = curve_fit(four_pl, x, y, p0=[1.0, 1.0, 3.0, 0.05], maxfev=10000)",
+      "a, b, c, d = params",
+      "print(round(c, 1))     # EC50 in nM"
+     ],
+     "caption": "Fitting a 4PL. p0 gives sensible starting guesses, which the search needs."
+    },
+    "Choose starting values from the plot: a and d near the two plateaus, c near the middle dose, b near 1. Fit on the concentration scale in the form above, and read unknown concentrations from the **inverse** of the equation. Unknowns must fall between the two plateaus, and the more reliable region is the steep middle section.",
+    {
+     "warn": "A 4PL fit that does not converge, or that gives an EC50 far outside the tested doses, is a warning about the data, not a result to report."
+    }
+   ],
+   "check": [
+    {
+     "q": "In a four-parameter logistic fit, what does the parameter c represent?",
+     "a": "The concentration at the midpoint of the curve, such as the EC50",
+     "wrong": [
+      "The signal at zero concentration",
+      "The steepness of the transition",
+      "The signal at saturation"
+     ],
+     "why": "In y = d + (a − d)/(1 + (x/c)^b), c is the midpoint concentration. a and d are the asymptotes and b controls steepness."
+    }
+   ]
+  },
+  {
+   "id": "qc-charts",
+   "title": "Control charts and run acceptance",
+   "terms": [
+    "control chart",
+    "Levey-Jennings chart",
+    "Westgard rules",
+    "outlier",
+    "out of specification"
+   ],
+   "body": [
+    "A control sample is run in every batch. Plot its result against run number with lines at the mean, ±2 SD and ±3 SD from a baseline of earlier runs. This is a **control chart** (in clinical labs, a **Levey-Jennings chart**). A stable method scatters randomly around the mean.",
+    {
+     "example": {
+      "title": "Reading a control chart",
+      "problem": "A control has baseline mean 50.0 and SD 2.0. Five consecutive runs give 49.1, 51.3, 50.4, 54.3 and 54.6. Express each as a z-score and say what happens.",
+      "solution": [
+       "z = (value − 50.0) / 2.0 gives −0.45, 0.65, 0.20, 2.15 and 2.30.",
+       "The last two runs are both beyond +2 SD on the same side. The classic 2-2s rule (two consecutive controls beyond 2 SD on the same side) is violated, which signals a possible systematic shift.",
+       "The runs should be investigated before results are released."
+      ]
+     }
+    },
+    "Simple **Westgard rules** help decide what a pattern means: 1-3s (one control beyond ±3 SD) and 2-2s (two in a row beyond 2 SD, same side) flag shifts, while R-4s (a range of 4 SD between two controls in one run) flags increased random error. Your lab's SOP defines which rules apply and what to do.",
+    "An **outlier** is a value far from the rest. Do not delete it because it looks wrong. A result that fails its criteria is **out of specification**, and the correct response is documented investigation under the SOP: check the sample, the standards, the instrument and the calculation. Only a documented, justified cause allows excluding a value.",
+    {
+     "code": [
+      "import numpy as np",
+      "vals = np.array([49.1, 51.3, 50.4, 54.3, 54.6])",
+      "z = (vals - 50.0) / 2.0",
+      "flag_2s = np.abs(z) > 2",
+      "print(np.round(z, 2))     # [-0.45  0.65  0.2   2.15  2.3 ]",
+      "print(flag_2s)            # [False False False  True  True]"
+     ],
+     "caption": "Z-scores against a baseline and a 2 SD flag."
+    },
+    {
+     "key": "A control chart answers one question: is the method behaving as it did before? A shift or trend matters even when no single point fails."
+    }
+   ],
+   "check": [
+    {
+     "q": "Two consecutive controls fall beyond +2 SD, both on the high side. What should you do?",
+     "a": "Treat the run as suspect and investigate before releasing results",
+     "wrong": [
+      "Release the results because no value passed 3 SD",
+      "Delete the two controls and keep the rest",
+      "Re-run only the controls until they pass"
+     ],
+     "why": "Two in a row beyond 2 SD on the same side signals a systematic shift. Deleting or repeating controls until they pass hides the problem."
+    }
+   ]
+  },
+  {
+   "id": "reporting",
+   "title": "Reporting results defensibly",
+   "terms": [
+    "ALCOA+",
+    "significant figures",
+    "data integrity"
+   ],
+   "body": [
+    "A calculated number is not a finished result. **Data integrity** rules, summarized as **ALCOA+**, say data must be Attributable (who did it), Legible, Contemporaneous (recorded at the time), Original and Accurate, plus Complete, Consistent, Enduring and Available. Raw files, scripts and a note of any decision are how analysis meets them.",
+    "Report with sensible **significant figures**: do not quote 30.0000 µg/mL from a measurement good to two or three digits. State the method, the calibration acceptance, replicate count, CV%, and how results below the LOQ were reported. Include controls and any deviations. If someone repeating your analysis cannot get your number, it is not ready to report.",
+    {
+     "tip": "Keep a short checklist: curve accepted, controls in range, replicates within CV limit, results within the range, deviations noted, second person review where required."
+    }
+   ],
+   "check": [
+    {
+     "q": "A calibration curve gives 30.0000 µg/mL from absorbances readable to three digits. What is wrong with reporting 30.0000?",
+     "a": "It claims more precision than the measurement supports",
+     "wrong": [
+      "The trailing zeros change the concentration",
+      "The unit must be written in capital letters",
+      "Results must always be rounded to a whole number"
+     ],
+     "why": "Significant figures reflect the precision of the measurement. Extra digits overstate it."
+    }
+   ]
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Which sample contains everything except the analyte?",
+   "a": "A blank",
+   "wrong": [
+    "A standard",
+    "A control",
+    "A replicate"
+   ],
+   "why": "The blank measures background signal and sets the baseline for detection limits."
+  },
+  {
+   "q": "A method gives tightly clustered results that are all about 10% too high. How is it best described?",
+   "a": "Precise but inaccurate",
+   "wrong": [
+    "Accurate but imprecise",
+    "Both accurate and precise",
+    "Neither precise nor accurate"
+   ],
+   "why": "Tight clustering means precision. A consistent bias means low accuracy."
+  },
+  {
+   "q": "Replicates have mean 0.330 and SD 0.0200. What is the CV%?",
+   "a": "6.1%",
+   "wrong": [
+    "0.6%",
+    "16.5%",
+    "61%"
+   ],
+   "why": "100 × 0.0200 / 0.330 = 6.1%."
+  },
+  {
+   "q": "A 50.0 µg/mL spike is measured as 48.6 µg/mL. What is the percent recovery?",
+   "a": "97.2%",
+   "wrong": [
+    "102.9%",
+    "2.8%",
+    "48.6%"
+   ],
+   "why": "100 × 48.6 / 50.0 = 97.2%."
+  },
+  {
+   "q": "Why does NumPy's std need ddof=1 for replicate data?",
+   "a": "By default it divides by n, the population formula, instead of n − 1",
+   "wrong": [
+    "By default it returns the variance",
+    "ddof=1 converts the result to a CV%",
+    "ddof=1 removes outliers before computing in routine laboratory practice under normal operating conditions"
+   ],
+   "why": "NumPy defaults to ddof=0. Replicates are a sample, so use n − 1."
+  },
+  {
+   "q": "A calibration fit has R² = 0.9999. Which extra check is still needed?",
+   "a": "A look at the residuals for a pattern",
+   "wrong": [
+    "Nothing, because high R² proves the model is right",
+    "A check that the intercept is negative",
+    "A change of the slope to exactly 1"
+   ],
+   "why": "R² can be high while residuals show curvature or growing spread."
+  },
+  {
+   "q": "With slope 0.0108 and intercept 0.016, what concentration gives an absorbance of 0.34?",
+   "a": "30.0 µg/mL",
+   "wrong": [
+    "31.5 µg/mL for most standard assay methods",
+    "0.03 µg/mL",
+    "3.67 µg/mL"
+   ],
+   "why": "(0.34 − 0.016) / 0.0108 = 30.0 µg/mL."
+  },
+  {
+   "q": "The highest standard is 80 µg/mL. A sample's signal back-calculates to 109.6 µg/mL. What is correct?",
+   "a": "Dilute and re-run, because the value is beyond the calibrated range",
+   "wrong": [
+    "Report 109.6 because the line continues according to common bench habit",
+    "Report 80 µg/mL as a ceiling value",
+    "Add a standard at 109.6 after the run"
+   ],
+   "why": "Results outside the standards are extrapolated and not valid."
+  },
+  {
+   "q": "Residuals grow larger as concentration increases. What does this suggest?",
+   "a": "A weighted fit may be more appropriate than an unweighted line",
+   "wrong": [
+    "The calibration is perfect",
+    "The blank is too high",
+    "R² must be exactly 1"
+   ],
+   "why": "Variance that rises with concentration breaks the equal-variance assumption of ordinary least squares."
+  },
+  {
+   "q": "Which formula estimates the limit of detection from blank SD σ and slope S?",
+   "a": "3.3 × σ / S",
+   "wrong": [
+    "10 × σ / S",
+    "σ × S / 3.3 in routine laboratory practice",
+    "3.3 × S / σ"
+   ],
+   "why": "LOD = 3.3σ/S and LOQ = 10σ/S."
+  },
+  {
+   "q": "Blank SD is 0.0015 and slope is 0.0108 per µg/mL. What is the LOD?",
+   "a": "0.46 µg/mL",
+   "wrong": [
+    "1.4 µg/mL",
+    "0.0046 µg/mL",
+    "4.6 µg/mL"
+   ],
+   "why": "3.3 × 0.0015 / 0.0108 = 0.46 µg/mL."
+  },
+  {
+   "q": "Why can a straight line not describe a full ELISA standard curve?",
+   "a": "The signal flattens at low and high concentrations, giving an S shape",
+   "wrong": [
+    "ELISA signals are always negative",
+    "ELISA curves have no midpoint",
+    "A line fits only when n is below 3 under normal operating conditions for most standard assay methods"
+   ],
+   "why": "ELISA and dose-response curves are sigmoidal, which the 4PL models."
+  },
+  {
+   "q": "In the 4PL equation, which parameter is the EC50?",
+   "a": "c, the midpoint concentration",
+   "wrong": [
+    "a, the bottom asymptote according to common bench habit",
+    "b, the slope factor",
+    "d, the top asymptote"
+   ],
+   "why": "c is the concentration halfway between the asymptotes."
+  },
+  {
+   "q": "Why does curve_fit need starting values (p0)?",
+   "a": "The best parameters are found by iterative search, which needs a sensible start",
+   "wrong": [
+    "The equation has an exact closed-form solution that needs them",
+    "They replace the experimental data",
+    "They set the units of the axes"
+   ],
+   "why": "Nonlinear fits are found by iteration, and poor starts can fail or find wrong solutions."
+  },
+  {
+   "q": "A control with baseline mean 50.0 and SD 2.0 reads 54.6. What is its z-score?",
+   "a": "2.3",
+   "wrong": [
+    "4.6",
+    "0.23",
+    "2.0"
+   ],
+   "why": "(54.6 − 50.0) / 2.0 = 2.3."
+  },
+  {
+   "q": "Two controls in a row are above +2 SD. Which rule is violated?",
+   "a": "2-2s",
+   "wrong": [
+    "1-3s",
+    "R-4s",
+    "No rule, since neither exceeds 3 SD"
+   ],
+   "why": "2-2s flags two consecutive controls beyond 2 SD on the same side."
+  },
+  {
+   "q": "A result fails its acceptance criteria and looks like an outlier. What is the correct action?",
+   "a": "Investigate and document under the SOP before deciding anything",
+   "wrong": [
+    "Delete it and keep the other replicates",
+    "Repeat the test until the number passes",
+    "Round it to the nearest acceptable value in routine laboratory practice"
+   ],
+   "why": "Excluding or replacing values without documented cause breaks data integrity."
+  },
+  {
+   "q": "Which statement about ALCOA+ is correct?",
+   "a": "It requires data to be attributable, legible, contemporaneous, original and accurate, among other things",
+   "wrong": [
+    "It only applies to paper records",
+    "It allows later reconstruction of notes from memory under normal operating conditions for most standard assay methods",
+    "It applies only to final reports, not raw data"
+   ],
+   "why": "ALCOA+ covers all records, electronic or paper, as they are made."
+  }
+ ],
+ "summary": [
+  "A run contains blanks, standards, controls and replicates; report them with the results.",
+  "CV% = 100 × SD / mean, SE = SD / sqrt(n), recovery% = 100 × measured / expected. Use the sample SD (n − 1).",
+  "Fit a calibration with least squares, check residuals as well as R², and back-calculate with (signal − intercept) / slope.",
+  "Report only inside the calibrated range; interpolate, never extrapolate.",
+  "LOD = 3.3σ/S and LOQ = 10σ/S from blank variability and slope.",
+  "Use a four-parameter logistic for S-shaped ELISA and dose-response data; c is the EC50 and the fit needs sensible starting values.",
+  "Control charts compare each control with a baseline; flag runs by the SOP's rules and investigate, never delete.",
+  "Report with honest significant figures and ALCOA+ records."
+ ],
+ "problems": [
+  {
+   "q": "Seven blank wells read 0.018, 0.022, 0.020, 0.019, 0.021, 0.020 and 0.022. The slope is 0.0108 per µg/mL. Compute the blank SD (use 0.0015), the LOD and the LOQ.",
+   "solution": [
+    "Using σ = 0.0015: LOD = 3.3 × 0.0015 / 0.0108 = 0.458, about 0.46 µg/mL.",
+    "LOQ = 10 × 0.0015 / 0.0108 = 1.39, about 1.4 µg/mL."
+   ],
+   "a": "LOD 0.46 µg/mL, LOQ 1.4 µg/mL"
+  },
+  {
+   "q": "A sample with absorbance 0.50 is read from the curve (slope 0.0108, intercept 0.016). Find the concentration and say whether it is reportable given standards from 0 to 80 µg/mL.",
+   "solution": [
+    "Concentration = (0.50 − 0.016) / 0.0108 = 44.8 µg/mL.",
+    "44.8 lies between 0 and 80 µg/mL, so it is inside the calibrated range and reportable, subject to controls and replicate criteria."
+   ],
+   "a": "44.8 µg/mL, reportable"
+  },
+  {
+   "q": "A control (baseline mean 50.0, SD 2.0) reads 49.1, 51.3, 50.4, 54.3, 54.6 over five runs. Compute z-scores for the last two runs and name the violated rule.",
+   "solution": [
+    "z = (54.3 − 50.0)/2.0 = 2.15 and (54.6 − 50.0)/2.0 = 2.30.",
+    "Two consecutive values beyond +2 SD violates 2-2s. Investigate before releasing results."
+   ],
+   "a": "z = 2.15 and 2.30; 2-2s violated"
+  },
+  {
+   "q": "Triplicate absorbances for a sample are 0.231, 0.226 and 0.240. Compute the mean, SD and CV%.",
+   "solution": [
+    "Mean = (0.231 + 0.226 + 0.240) / 3 = 0.2323.",
+    "Deviations: −0.0013, −0.0063, 0.0077. Squared sum ≈ 0.0001007, divided by 2 = 0.0000503, SD = 0.0071.",
+    "CV% = 100 × 0.0071 / 0.2323 = 3.1%."
+   ],
+   "a": "Mean 0.2323, SD 0.0071, CV 3.1%"
+  }
+ ]
+}

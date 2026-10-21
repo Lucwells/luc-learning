@@ -3,3 +3,6 @@ node_modules/
 Thumbs.db
 .claude/
 dist/
+
+# personal job search workspace (resumes, tracker, notes): local only
+jobsearch/

@@ -1,0 +1,22 @@
+{
+  "id": "biotech-data-ml",
+  "title": "Data and Machine Learning for Biotech",
+  "kicker": "Textbook",
+  "color": "#1a7f5a",
+  "subtitle": "Everything an entry-level data or assay role in biotech and medtech asks for: Python, lab data, statistics, QC, and machine learning on assay and instrument data.",
+  "preface": [
+    "This book is written for one purpose: to teach you what an entry-level data, assay or R&D role at a biotech or medical device company expects, without sending you to another book. It starts from zero. If you can run a Python script after the first chapter, you have what you need for the second.",
+    "Each chapter ends with a quiz and worked problems drawn from real lab situations: plate reader files, calibration curves, replicate statistics, control charts. The chapters are written so you can describe the work in an interview and do it on the job.",
+    "Planned later parts, to be added: statistics for lab decisions (confidence intervals, t-tests, ANOVA, method comparison), machine learning on assay and instrument data with scikit-learn, introductory bioinformatics (sequences, alignments, single-cell workflows), and data work in regulated settings (validation, traceability, audit trails)."
+  ],
+  "parts": [
+    {
+      "title": "Foundations of Lab Data",
+      "blurb": "Python for tables and plots, then the calculations behind every assay result.",
+      "chapters": [
+        "biotech-data-ml/foundations/python-pandas",
+        "biotech-data-ml/foundations/assay-data"
+      ]
+    }
+  ]
+}

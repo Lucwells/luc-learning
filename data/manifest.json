@@ -5,6 +5,7 @@
     "machine-learning/book.json",
     "mathematics/book.json",
     "computer-science/book.json",
-    "data-science/book.json"
+    "data-science/book.json",
+    "biotech-data-ml/book.json"
   ]
 }

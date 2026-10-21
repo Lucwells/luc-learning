@@ -1,0 +1,632 @@
+{
+ "id": "python-pandas",
+ "view": "chapter",
+ "title": "Python and pandas for Lab Data",
+ "description": "Python essentials, tables with pandas, cleaning instrument exports, summaries, plots and reproducible workflow.",
+ "overview": [
+  "Every instrument in a modern lab, from a plate reader to a chromatography system, ends its work by exporting a file. A person who can open that file, clean it, summarize it and plot it with code, instead of copying numbers by hand, saves hours and removes a whole class of transcription errors. That person is useful on day one in an assay, QC or R&D group.",
+  "This chapter teaches everything you need from scratch: the small part of Python that matters, the pandas library for tables, the cleaning steps that real exports always need, grouping and summaries, plotting, and a working style that makes your analysis repeatable and defensible. No other book is needed. Later chapters build on the code written here."
+ ],
+ "objectives": [
+  "Write short Python programs using variables, lists, dictionaries, loops and functions.",
+  "Load a CSV or Excel export into a pandas DataFrame and inspect it.",
+  "Select, filter and create columns, and clean headers, units, missing values and wrong data types.",
+  "Summarize replicates with groupby, merge sample information onto results, and reshape plate data.",
+  "Make a labeled plot with error bars and save it.",
+  "Organize an analysis so that raw data are never altered and every result can be regenerated."
+ ],
+ "sections": [
+  {
+   "id": "why-code",
+   "title": "Why lab data work uses code",
+   "terms": [
+    "reproducibility",
+    "raw data",
+    "script"
+   ],
+   "body": [
+    "A spreadsheet is fine for a quick look, but it hides what was done. A formula can be overwritten by accident, a sort can scramble a column, and nothing records the steps. A **script** is a text file of instructions that a computer runs from top to bottom. Run it again on the same **raw data** and you get the same answer. That property is called **reproducibility**, and regulated labs depend on it: a reviewer must be able to see exactly how a reported number was produced.",
+    "Python is the common choice because it reads almost like English, it has libraries built for tables and statistics, and it is free. The rest of this chapter uses Python 3 with three libraries: pandas for tables, NumPy for numerical arrays, and matplotlib for plots.",
+    {
+     "tip": "Never edit the raw export. Copy it, or better, read it with code and write results to new files. The raw file is the evidence."
+    }
+   ],
+   "check": [
+    {
+     "q": "What is the main advantage of a script over editing numbers in a spreadsheet?",
+     "a": "Running it again on the same raw data reproduces the same result and shows every step",
+     "wrong": [
+      "It makes the instrument produce more accurate raw data",
+      "It removes the need to keep the original export file",
+      "It guarantees that the final numbers are correct"
+     ],
+     "why": "A script records the steps and can be rerun. It does not improve the data or guarantee correctness, and the raw file must still be kept."
+    }
+   ]
+  },
+  {
+   "id": "python-basics",
+   "title": "Python essentials",
+   "terms": [
+    "variable",
+    "list",
+    "dictionary",
+    "loop",
+    "function",
+    "f-string"
+   ],
+   "body": [
+    "You need only a small part of the language. A **variable** is a name attached to a value. Numbers can be integers (5) or floats (0.12), text is a string ('Plate1'), and True or False is a boolean.",
+    {
+     "code": [
+      "conc = 20.0            # a float, in ug/mL",
+      "name = 'Standard 3'     # a string",
+      "passed = conc > 10      # a boolean: True",
+      "print(f'{name}: {conc} ug/mL')   # f-string: Standard 3: 20.0 ug/mL"
+     ],
+     "caption": "Variables and an f-string. Everything after # is a comment."
+    },
+    "A **list** holds an ordered collection and is written with square brackets. A **dictionary** stores pairs of a key and a value in curly braces. A **loop** repeats work, and a **function** packages work under a name so you can reuse it.",
+    {
+     "code": [
+      "od = [0.10, 0.12, 0.11]            # list of replicate readings",
+      "print(od[0], len(od))              # 0.1  3   (counting starts at 0)",
+      "",
+      "meta = {'plate': 'P1', 'analyst': 'LW'}   # dictionary",
+      "print(meta['plate'])                      # P1",
+      "",
+      "def mean(values):",
+      "    return sum(values) / len(values)",
+      "",
+      "for x in od:",
+      "    print(x * 2)",
+      "print(round(mean(od), 3))          # 0.11"
+     ],
+     "caption": "A list, a dictionary, a function and a loop. Indented lines belong to the line above them."
+    },
+    {
+     "warn": "Indentation is part of the syntax. Four spaces after a colon mark the body of a loop or function. A missing or inconsistent indent is the most common beginner error."
+    },
+    "When code fails, Python prints a traceback. Read it from the bottom: the last line names the error (for example KeyError means a dictionary key or column name does not exist) and the lines above show where it happened."
+   ],
+   "check": [
+    {
+     "q": "What does od[0] return if od = [0.10, 0.12, 0.11]?",
+     "a": "0.10, the first element, because counting starts at 0",
+     "wrong": [
+      "0.12, the first element, because counting starts at 1",
+      "The number of elements in the list",
+      "An error, because 0 is not a valid position"
+     ],
+     "why": "Python lists are zero-indexed, so position 0 is the first item."
+    }
+   ]
+  },
+  {
+   "id": "dataframes",
+   "title": "Tables with pandas",
+   "terms": [
+    "pandas",
+    "DataFrame",
+    "Series",
+    "CSV"
+   ],
+   "body": [
+    "The **pandas** library represents a table as a **DataFrame**: rows are observations, columns have names and each column is a **Series** of one type. Instrument exports are usually **CSV** files, plain text with values separated by commas.",
+    {
+     "code": [
+      "import pandas as pd",
+      "",
+      "df = pd.read_csv('plate1.csv')   # or pd.read_excel('plate1.xlsx')",
+      "print(df.head())                 # first 5 rows",
+      "print(df.shape)                  # (rows, columns)",
+      "df.info()                        # column names, types, non-null counts",
+      "print(df.describe())             # count, mean, std, min, max of numeric columns"
+     ],
+     "caption": "The first four commands to run on any new file."
+    },
+    "Suppose the file holds one row per well.",
+    {
+     "table": {
+      "head": [
+       "well",
+       "sample",
+       "group",
+       "od450"
+      ],
+      "rows": [
+       [
+        "A1",
+        "S1",
+        "ctrl",
+        "0.10"
+       ],
+       [
+        "A2",
+        "S1",
+        "ctrl",
+        "0.12"
+       ],
+       [
+        "A3",
+        "S1",
+        "ctrl",
+        "0.11"
+       ],
+       [
+        "B1",
+        "S2",
+        "drug",
+        "0.35"
+       ],
+       [
+        "B2",
+        "S2",
+        "drug",
+        "0.31"
+       ],
+       [
+        "B3",
+        "S2",
+        "drug",
+        "0.33"
+       ]
+      ],
+      "caption": "A tidy plate table: one row per well, one column per variable."
+     }
+    },
+    "Select columns with square brackets, filter rows with a condition, and add a column by assigning to a new name.",
+    {
+     "code": [
+      "df['od450']                       # one column (a Series)",
+      "df[['sample', 'od450']]           # several columns (a DataFrame)",
+      "ctrl = df[df['group'] == 'ctrl']  # keep rows where the condition is True",
+      "hi = df[(df['od450'] > 0.2) & (df['group'] == 'drug')]   # & means and, | means or",
+      "df['od_corrected'] = df['od450'] - 0.02   # new column: subtract a blank of 0.02"
+     ],
+     "caption": "Selecting, filtering and creating columns. Wrap each condition in parentheses when combining them."
+    },
+    {
+     "key": "Think in columns. A pandas operation on a column applies to every row at once, so you almost never need a loop over rows."
+    }
+   ],
+   "check": [
+    {
+     "q": "Which line keeps only the rows of df where group equals 'drug'?",
+     "a": "df[df['group'] == 'drug']",
+     "wrong": [
+      "df['group'] = 'drug'",
+      "df[['group', 'drug']]",
+      "df.filter('drug')"
+     ],
+     "why": "A boolean condition inside square brackets filters rows. The second option assigns a value, and the third selects columns by name."
+    }
+   ]
+  },
+  {
+   "id": "cleaning",
+   "title": "Cleaning instrument exports",
+   "terms": [
+    "missing value",
+    "NaN",
+    "data type",
+    "melt",
+    "skiprows"
+   ],
+   "body": [
+    "Real exports are never as tidy as the example above. Expect extra header lines, units mixed into numbers, blank cells, text where numbers belong, and duplicate rows. Clean them in code, in a fixed order, and leave the raw file untouched.",
+    {
+     "h": "Skip header lines and name columns"
+    },
+    "Many instruments write run information above the table. Use **skiprows** to start at the real header, and rename columns to short names without spaces.",
+    {
+     "code": [
+      "df = pd.read_csv('export.csv', skiprows=4)          # ignore 4 lines of run info",
+      "df = df.rename(columns={'Well Position': 'well', 'Result (mAU)': 'area'})",
+      "df.columns = df.columns.str.strip().str.lower()     # tidy names"
+     ],
+     "caption": "Starting at the real header and standardizing column names."
+    },
+    {
+     "h": "Fix data types and missing values"
+    },
+    "A column that should be numeric but contains text such as '<0.5' or 'OOR' (out of range) loads as text. Convert it and turn failures into a **missing value**, shown as **NaN**, then decide deliberately what to do about them.",
+    {
+     "code": [
+      "df['area'] = pd.to_numeric(df['area'], errors='coerce')   # bad entries become NaN",
+      "print(df['area'].isna().sum())            # how many are missing",
+      "df = df.drop_duplicates()                  # remove exact duplicate rows",
+      "df['sample'] = df['sample'].str.strip()    # remove stray spaces in text"
+     ],
+     "caption": "Converting types and counting missing values. Report how many values were affected."
+    },
+    {
+     "warn": "Do not silently fill or delete missing values. Record how many were missing and why, and follow the method's SOP. Filling a gap with a guess can create a result that never existed."
+    },
+    {
+     "h": "Reshape plate layouts"
+    },
+    "Plate readers often export a grid, with rows A to H and columns 1 to 12. Analysis tools want one row per well. The **melt** function turns the grid into a tidy table.",
+    {
+     "code": [
+      "grid = pd.read_csv('grid.csv', index_col=0)        # rows A-H, columns 1-12",
+      "tidy = grid.reset_index().melt(id_vars='index', var_name='col', value_name='od450')",
+      "tidy['well'] = tidy['index'] + tidy['col'].astype(str)   # A + 1 -> A1",
+      "tidy = tidy.drop(columns=['index', 'col'])"
+     ],
+     "caption": "Wide to long: one row per well."
+    }
+   ],
+   "check": [
+    {
+     "q": "A column of results contains the text 'OOR' in some cells. Which call converts it to numbers and marks the bad cells as missing?",
+     "a": "pd.to_numeric(df['area'], errors='coerce')",
+     "wrong": [
+      "df['area'].astype(int)",
+      "df['area'].dropna()",
+      "df['area'].replace('OOR', 0)"
+     ],
+     "why": "to_numeric with errors='coerce' turns unparsable text into NaN. astype(int) would raise an error, dropna removes rows, and replacing with 0 invents a value."
+    }
+   ]
+  },
+  {
+   "id": "summaries",
+   "title": "Summaries, groups and joins",
+   "terms": [
+    "groupby",
+    "aggregate",
+    "merge",
+    "coefficient of variation",
+    "pivot"
+   ],
+   "body": [
+    "Replicates exist so you can average them and measure their spread. **groupby** splits a table by a column, applies a calculation to each piece and combines the results. **aggregate** (agg) lets you request several statistics at once.",
+    {
+     "code": [
+      "summary = df.groupby('group')['od450'].agg(['count', 'mean', 'std'])",
+      "summary['cv_pct'] = 100 * summary['std'] / summary['mean']",
+      "print(summary.round(3))"
+     ],
+     "caption": "Mean, standard deviation and coefficient of variation per group."
+    },
+    {
+     "example": {
+      "title": "Replicate summary",
+      "problem": "Using the six-row plate table above, what are the mean, standard deviation and CV% of each group?",
+      "solution": [
+       "Control wells: 0.10, 0.12, 0.11 give mean 0.110 and sample standard deviation 0.0100, so CV% = 100 × 0.0100 / 0.110 = 9.1%.",
+       "Drug wells: 0.35, 0.31, 0.33 give mean 0.330 and standard deviation 0.0200, so CV% = 100 × 0.0200 / 0.330 = 6.1%.",
+       "pandas std uses the sample formula (divide by n − 1), which is the right choice for replicates."
+      ]
+     }
+    },
+    "The **coefficient of variation** (CV) is the standard deviation divided by the mean, usually written as a percentage. It lets you compare spread across measurements of different size, and many methods set a maximum acceptable CV for replicates.",
+    "Sample information such as dose, lot number or patient group usually lives in a separate table. **merge** joins two tables on a shared key column, like a lookup.",
+    {
+     "code": [
+      "meta = pd.read_csv('sample_info.csv')          # columns: sample, dose_uM, lot",
+      "full = df.merge(meta, on='sample', how='left')   # keep every row of df",
+      "table = full.pivot_table(index='dose_uM', columns='lot', values='od450', aggfunc='mean')"
+     ],
+     "caption": "Merge adds metadata to results. pivot_table builds a summary grid."
+    },
+    {
+     "note": "Always check the row count before and after a merge. A key that appears twice in the second table duplicates rows and quietly inflates counts."
+    }
+   ],
+   "check": [
+    {
+     "q": "Three replicate readings are 0.10, 0.12 and 0.11. Their mean is 0.110 and standard deviation is 0.0100. What is the CV%?",
+     "a": "9.1%",
+     "wrong": [
+      "0.9%",
+      "11.0%",
+      "90.9%"
+     ],
+     "why": "CV% = 100 × 0.0100 / 0.110 = 9.1%. The other values come from misplacing the decimal or dividing by the wrong quantity."
+    }
+   ]
+  },
+  {
+   "id": "plots",
+   "title": "Plotting with matplotlib",
+   "terms": [
+    "matplotlib",
+    "error bar",
+    "axis label"
+   ],
+   "body": [
+    "A plot is a result, so it must stand alone: labeled axes with units, a title or caption, error bars when you show means, and a saved file rather than a screenshot. **matplotlib** is the standard library.",
+    {
+     "code": [
+      "import matplotlib.pyplot as plt",
+      "",
+      "fig, ax = plt.subplots(figsize=(4, 3))",
+      "ax.bar(summary.index, summary['mean'], yerr=summary['std'], capsize=4)",
+      "ax.set_xlabel('Group')",
+      "ax.set_ylabel('OD450 (AU)')",
+      "ax.set_title('Mean absorbance by group (n = 3, bars = SD)')",
+      "fig.tight_layout()",
+      "fig.savefig('od_by_group.png', dpi=200)"
+     ],
+     "caption": "A bar chart of group means with standard deviation error bars."
+    },
+    "For a calibration curve use points for standards and a line for the fit (ax.scatter and ax.plot). Choose bars for categories and points or lines for measurements along a numeric axis. State in the caption what the error bars show: standard deviation, standard error or a confidence interval. Readers cannot guess.",
+    {
+     "tip": "Put the number of replicates in the title or caption. A mean without n is hard to judge."
+    }
+   ],
+   "check": [
+    {
+     "q": "What must a figure showing group means with error bars state?",
+     "a": "What the bars represent and how many replicates were used",
+     "wrong": [
+      "Only the group names on the horizontal axis",
+      "The color map used for the bars",
+      "The name of the Python library that drew it"
+     ],
+     "why": "Without the meaning of the error bars and n, readers cannot judge how reliable the means are."
+    }
+   ]
+  },
+  {
+   "id": "workflow",
+   "title": "A reproducible workflow",
+   "terms": [
+    "notebook",
+    "version control",
+    "audit trail"
+   ],
+   "body": [
+    "Good analysis is as much about habit as code. A simple layout keeps everything findable.",
+    {
+     "code": [
+      "project/",
+      "  raw/        original exports, never edited",
+      "  clean/      cleaned tables written by code",
+      "  figures/    saved plots",
+      "  analysis.py the script that does all of it, top to bottom",
+      "  README.txt  what the data are, who ran what, when"
+     ],
+     "caption": "A minimal project folder."
+    },
+    "A **notebook** (Jupyter) mixes code, results and notes in one document and is excellent for exploring. For a final analysis, a script that runs from raw to figures in one command is easier to review. **Version control** with Git records each saved state of your files with a message, so you can show what changed and when and recover earlier versions.",
+    {
+     "code": [
+      "git init",
+      "git add analysis.py README.txt",
+      "git commit -m 'Add replicate summary and plot'",
+      "git log --oneline            # the history of changes"
+     ],
+     "caption": "The four Git commands you need to start."
+    },
+    "Regulated laboratories require an **audit trail**: a record of who created or changed data, when and why. Raw files kept intact, scripts under version control and notes on every decision give you a lightweight version of the same discipline.",
+    {
+     "key": "If someone else cannot reproduce your number from the raw file and your script, the number is not finished."
+    }
+   ],
+   "check": [
+    {
+     "q": "Why keep original exports in a separate raw folder that code only reads?",
+     "a": "So any result can be traced back to untouched evidence",
+     "wrong": [
+      "So the files load faster in pandas",
+      "So the instrument can overwrite them later",
+      "So duplicates are removed automatically"
+     ],
+     "why": "Untouched raw data are the evidence behind every reported number. The other options describe effects that do not occur."
+    }
+   ]
+  }
+ ],
+ "quiz": [
+  {
+   "q": "A colleague pastes instrument numbers into a spreadsheet and edits them by hand. What is the main weakness compared with a script?",
+   "a": "The steps leave no record, so the result cannot be reproduced or reviewed",
+   "wrong": [
+    "The spreadsheet cannot display decimal numbers",
+    "The instrument refuses files from spreadsheets",
+    "The numbers are automatically rounded to integers in routine laboratory practice"
+   ],
+   "why": "Hand edits are invisible. A script shows every step and can be rerun on the raw data."
+  },
+  {
+   "q": "In Python, what is len([0.10, 0.12, 0.11])?",
+   "a": "3",
+   "wrong": [
+    "2",
+    "0.33",
+    "0.11"
+   ],
+   "why": "len counts the items in the list."
+  },
+  {
+   "q": "You see 'KeyError: well' when running code. What is the most likely cause?",
+   "a": "The table has no column named well, perhaps because the header was renamed or spelled differently",
+   "wrong": [
+    "The file contains too many rows to load",
+    "Python cannot read CSV files without Excel under normal operating conditions for most standard assay methods",
+    "The loop has too few iterations"
+   ],
+   "why": "KeyError means a key or column name was not found. Check df.columns."
+  },
+  {
+   "q": "Which command reports each column's type and number of non-missing values?",
+   "a": "df.info()",
+   "wrong": [
+    "df.shape",
+    "df.head()",
+    "df.sort_values()"
+   ],
+   "why": "info lists column names, dtypes and non-null counts. shape gives only dimensions and head shows the first rows."
+  },
+  {
+   "q": "How do you keep rows where od450 is above 0.2 and group is 'drug'?",
+   "a": "df[(df['od450'] > 0.2) & (df['group'] == 'drug')]",
+   "wrong": [
+    "df[df['od450'] > 0.2 and df['group'] == 'drug'] according to common bench habit",
+    "df['od450'] > 0.2 & 'drug'",
+    "df.keep(od450 > 0.2, 'drug')"
+   ],
+   "why": "Combine parenthesized conditions with & inside the brackets. The word and does not work on whole columns."
+  },
+  {
+   "q": "An export starts with four lines of run information before the table header. Which option reads it correctly?",
+   "a": "pd.read_csv('export.csv', skiprows=4)",
+   "wrong": [
+    "pd.read_csv('export.csv', header=False)",
+    "pd.read_csv('export.csv', index_col=4)",
+    "pd.read_csv('export.csv').drop(4)"
+   ],
+   "why": "skiprows starts reading at the real header line. The other options do not skip lines before parsing."
+  },
+  {
+   "q": "After pd.to_numeric(col, errors='coerce'), how are cells such as 'OOR' represented?",
+   "a": "As NaN, which marks them as missing",
+   "wrong": [
+    "As 0, so they do not affect sums",
+    "As the column mean, to keep averages stable",
+    "As an error that stops the program"
+   ],
+   "why": "coerce converts bad entries to NaN. You must then handle them deliberately and report them."
+  },
+  {
+   "q": "Why should you not fill missing values with the column mean without recording it?",
+   "a": "It can create results the instrument never measured and hide a problem",
+   "wrong": [
+    "pandas cannot compute a mean when values are missing",
+    "It makes the file too large to save",
+    "It changes the column header names"
+   ],
+   "why": "Silent imputation invents data and conceals the cause of the gaps. Methods and SOPs say how to treat missing results."
+  },
+  {
+   "q": "A plate export is a grid with rows A to H and columns 1 to 12. Which function reshapes it to one row per well?",
+   "a": "melt",
+   "wrong": [
+    "merge",
+    "describe",
+    "drop_duplicates"
+   ],
+   "why": "melt turns a wide grid into a long table. merge joins tables and describe summarizes numbers."
+  },
+  {
+   "q": "Replicates read 0.35, 0.31 and 0.33. The mean is 0.330 and the standard deviation is 0.0200. What is the CV%?",
+   "a": "6.1%",
+   "wrong": [
+    "0.6% in routine laboratory practice",
+    "9.1%",
+    "61%"
+   ],
+   "why": "100 × 0.0200 / 0.330 = 6.1%."
+  },
+  {
+   "q": "After df.merge(meta, on='sample'), the row count has grown unexpectedly. What is a likely cause?",
+   "a": "The sample key appears more than once in meta, so rows were duplicated",
+   "wrong": [
+    "merge always doubles the number of rows",
+    "The sample column was converted to numbers under normal operating conditions",
+    "pandas sorted the table and added rows"
+   ],
+   "why": "Duplicate keys in the second table multiply matching rows. Check counts before and after merging."
+  },
+  {
+   "q": "Which statement about a pandas std() on replicates is correct?",
+   "a": "It uses n − 1 in the denominator by default, the sample standard deviation",
+   "wrong": [
+    "It uses n in the denominator by default",
+    "It returns the standard error of the mean for most standard assay methods according to common bench habit",
+    "It returns the variance"
+   ],
+   "why": "pandas std defaults to ddof=1, the sample formula suited to replicates."
+  },
+  {
+   "q": "A bar chart shows group means with error bars. What else must the caption give?",
+   "a": "What the error bars are, and the number of replicates",
+   "wrong": [
+    "The names of the files that were opened",
+    "The hex colors of the bars",
+    "The version of Python in use"
+   ],
+   "why": "Readers need to know whether bars are SD, SEM or a confidence interval, and n."
+  },
+  {
+   "q": "Why save figures with fig.savefig instead of taking a screenshot?",
+   "a": "A saved file is reproducible at known resolution and can be regenerated by the script",
+   "wrong": [
+    "Screenshots cannot contain axis labels",
+    "savefig changes the underlying data values in routine laboratory practice under normal operating conditions",
+    "Screenshots are always lower in file size"
+   ],
+   "why": "Figures produced by code can be regenerated and checked. Screenshots cannot."
+  },
+  {
+   "q": "What does version control with Git give an analyst?",
+   "a": "A history of changes with messages, so work can be reviewed and earlier versions recovered",
+   "wrong": [
+    "Automatic correction of statistical mistakes for most standard assay methods according to common bench habit",
+    "Faster loading of large CSV files",
+    "Permission to edit raw instrument files"
+   ],
+   "why": "Git records each saved state with a message. It does not fix mistakes or speed up pandas."
+  },
+  {
+   "q": "Which folder layout best protects data integrity?",
+   "a": "Raw files in one folder that code only reads, cleaned tables and figures written to other folders",
+   "wrong": [
+    "All files in one folder, edited in place",
+    "Only the final plot saved, with raw files deleted in routine laboratory practice under normal operating conditions",
+    "Cleaned data saved over the original export"
+   ],
+   "why": "Keeping raw data untouched allows every result to be traced back to the original evidence."
+  }
+ ],
+ "summary": [
+  "Scripts make analysis reproducible; raw data are evidence and are never edited.",
+  "Core Python: variables, lists, dictionaries, loops and functions, with indentation as syntax.",
+  "pandas holds tables as DataFrames; select with brackets, filter with conditions, create columns by assignment.",
+  "Clean exports by skipping header lines, renaming columns, converting types with to_numeric, counting missing values and reshaping plate grids with melt.",
+  "groupby with agg gives mean, standard deviation and count; CV% = 100 × SD / mean; merge joins sample information and needs row-count checks.",
+  "Plots need labeled axes with units, a statement of what error bars mean, and n.",
+  "Keep a project layout, use scripts or notebooks, and commit work with Git as a lightweight audit trail."
+ ],
+ "problems": [
+  {
+   "q": "A CSV has three lines of instrument information, then a header row with columns 'Well', 'Peak Area (mAU)'. Write the code to load it with columns named well and area, and convert area to numbers with bad entries as NaN.",
+   "solution": [
+    "df = pd.read_csv('run.csv', skiprows=3)",
+    "df = df.rename(columns={'Well': 'well', 'Peak Area (mAU)': 'area'})",
+    "df['area'] = pd.to_numeric(df['area'], errors='coerce')",
+    "skiprows=3 starts at the header, rename standardizes names, and coerce marks unparsable cells as NaN."
+   ],
+   "a": "read_csv with skiprows=3, rename, then to_numeric(errors='coerce')"
+  },
+  {
+   "q": "Four replicate concentrations are 19.8, 20.6, 20.2 and 19.4 µg/mL. Compute the mean, sample standard deviation and CV%.",
+   "solution": [
+    "Mean = (19.8 + 20.6 + 20.2 + 19.4) / 4 = 20.0.",
+    "Deviations: −0.2, 0.6, 0.2, −0.6. Squares: 0.04, 0.36, 0.04, 0.36, sum 0.80.",
+    "Sample variance = 0.80 / 3 = 0.2667, so SD = 0.516.",
+    "CV% = 100 × 0.516 / 20.0 = 2.6%."
+   ],
+   "a": "Mean 20.0, SD 0.516, CV 2.6%"
+  },
+  {
+   "q": "A merge of 96 plate rows with a sample table returns 192 rows. Name two checks that find the cause.",
+   "solution": [
+    "Count duplicates in the key of the sample table, for example meta['sample'].duplicated().sum().",
+    "Compare len(df) before and after the merge and inspect which sample IDs produced extra rows. A key that appears twice doubles its matching rows."
+   ],
+   "a": "Check duplicate keys in the sample table and compare row counts before and after"
+  },
+  {
+   "q": "Write the code that gives the mean od450 per group from the plate table, sorted from highest to lowest.",
+   "solution": [
+    "df.groupby('group')['od450'].mean().sort_values(ascending=False)",
+    "groupby splits by group, mean summarizes each piece, and sort_values with ascending=False orders the result."
+   ],
+   "a": "df.groupby('group')['od450'].mean().sort_values(ascending=False)"
+  }
+ ]
+}
