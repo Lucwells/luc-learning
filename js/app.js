@@ -8,6 +8,7 @@ import { viewShelf, viewBook, viewChapter, viewQuiz, notFound } from './reader.j
 import { viewPeriodicTable } from './periodic.js';
 import { viewWorldMap } from './worldmap.js';
 import { viewJobSearch } from './jobs.js';
+import { viewFlashcards } from './flashcards.js';
 import { initSearch } from './search.js';
 
 let shownHash = null;
@@ -26,6 +27,7 @@ function route(restoreY) {
   if (!seg.length) { scrollTop(); return viewShelf(); }
   if (seg[0] === 'quiz') { scrollTop(); return viewQuiz(seg[1], seg[2]); }
   if (seg[0] === 'jobs') { scrollTop(); return viewJobSearch(); }
+  if (seg[0] === 'flashcards') { scrollTop(); return viewFlashcards(seg[1]); }
 
   const book = lib.bookById.get(seg[0]);
   if (!book) { scrollTop(); return notFound(); }

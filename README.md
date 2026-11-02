@@ -143,3 +143,23 @@ serve.mjs            local static server
 ## Notes
 
 - Always double-check facts you add. Some entries (for example the superheavy elements) are predictions, not measurements.
+
+## Flashcards
+
+Separate from the textbooks. `#/flashcards` (top bar) lists categories; each category is a deck you can flip through, shuffle, switch to definition-first, filter by group, or view as a list. Nothing is saved between visits.
+
+Cards live in `data/flashcards.json`:
+
+```json
+{ "categories": [ { "id": "python", "title": "Python", "color": "#3776ab", "blurb": "One line.",
+  "groups": [ { "id": "lists", "title": "Lists and indexing",
+    "cards": [ { "term": "len(x)", "def": "Returns how many items…", "code": "len([4, 5, 6])   # 3" } ] } ] } ] }
+```
+
+Rules for adding cards:
+
+1. Add a card only for a concept that came up in real work or a lesson, not an idealized syllabus.
+2. Write it generally: no mention of the current project, so it applies to any problem. Examples use neutral data.
+3. `term` and `def` are required; `code` is optional. Use `` `backticks` `` for inline code in `def`.
+
+Run `npm run validate` after editing. It checks fields and duplicate terms.

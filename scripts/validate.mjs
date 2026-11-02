@@ -149,5 +149,32 @@ if (notes.length) {
   console.log('\nTerms claimed by more than one section (the first one is linked):');
   notes.forEach((n) => console.log(`  - ${n}`));
 }
+// Flashcards: data/flashcards.json
+{
+  const fc = await readJSON('flashcards.json');
+  const catIds = new Set();
+  for (const cat of fc.categories ?? []) {
+    if (!cat.id || !cat.title || !cat.color) fail(`flashcards: category needs id, title and color`);
+    if (catIds.has(cat.id)) fail(`flashcards: duplicate category "${cat.id}"`);
+    catIds.add(cat.id);
+    const groupIds = new Set();
+    const terms = new Set();
+    let total = 0;
+    for (const g of cat.groups ?? []) {
+      if (!g.id || !g.title) fail(`flashcards/${cat.id}: group needs id and title`);
+      if (groupIds.has(g.id)) fail(`flashcards/${cat.id}: duplicate group "${g.id}"`);
+      groupIds.add(g.id);
+      if (!g.cards?.length) fail(`flashcards/${cat.id}/${g.id}: group has no cards`);
+      for (const c of g.cards ?? []) {
+        total++;
+        if (!c.term || !c.def) { fail(`flashcards/${cat.id}/${g.id}: card needs term and def`); continue; }
+        if (terms.has(c.term.toLowerCase())) fail(`flashcards/${cat.id}: duplicate term "${c.term}"`);
+        terms.add(c.term.toLowerCase());
+      }
+    }
+    console.log(`flashcards/${cat.id}: ${total} cards in ${groupIds.size} groups`);
+  }
+}
+
 if (errors) { console.error(`\n${errors} problem(s).`); process.exit(1); }
 console.log('\nAll books OK.');
