@@ -1,0 +1,143 @@
+{
+  "title": "Flashcards",
+  "dek": "Short definitions of concepts used in real work. Cards are added only after a concept comes up in practice.",
+  "categories": [
+    {
+      "id": "python",
+      "title": "Python",
+      "color": "#3776ab",
+      "blurb": "Core syntax, data structures, errors, files, packages and the web.",
+      "groups": [
+        {
+          "id": "lists",
+          "title": "Lists and indexing",
+          "cards": [
+            { "term": "list", "def": "An ordered collection of items in square brackets. Items can be changed after creation.", "code": "letters = [\"a\", \"b\", \"c\"]" },
+            { "term": "indexing", "def": "Reading one item by its position. Positions start at 0. A negative index counts from the end.", "code": "letters = [\"a\", \"b\", \"c\"]\nletters[0]    # \"a\"\nletters[-1]   # \"c\"" },
+            { "term": "assign to an index", "def": "Replace the item at a position with `list[i] = value`.", "code": "letters = [\"a\", \"b\", \"c\"]\nletters[1] = \"Z\"   # [\"a\", \"Z\", \"c\"]" },
+            { "term": "len(x)", "def": "Returns how many items a list holds, or how many characters a string holds.", "code": "len([4, 5, 6])   # 3\nlen(\"hello\")     # 5" },
+            { "term": "2D list (list of lists)", "def": "A list whose items are lists. The first index picks the inner list, the second picks the item inside it.", "code": "t = [[1, 2, 3], [4, 5, 6]]\nt[1][2]    # 6  (list 1, item 2)\nlen(t)     # 2  (number of inner lists)\nlen(t[0])  # 3  (items in the first inner list)" },
+            { "term": "slicing", "def": "`seq[start:stop]` returns a new sequence from start up to, but not including, stop. A missing start means the beginning; a missing stop means the end.", "code": "[10, 20, 30, 40][1:3]   # [20, 30]\n\"hello\"[:2]              # \"he\"" },
+            { "term": "reverse with a slice", "def": "`seq[::-1]` returns a reversed copy. The original is unchanged.", "code": "[1, 2, 3][::-1]   # [3, 2, 1]" },
+            { "term": "reversed(seq)", "def": "Gives the items from last to first so a loop can walk backwards. It does not change the original.", "code": "for n in reversed([1, 2, 3]):\n    print(n)   # 3, 2, 1" },
+            { "term": "list repetition", "def": "`[x] * n` builds a list holding x n times. For a mutable item such as a list, every slot holds the SAME object.", "code": "[0] * 4   # [0, 0, 0, 0]" },
+            { "term": "aliasing", "def": "Two names (or two slots) referring to the same object, so a change through one shows up through the other. Build independent inner lists with a comprehension, not with repetition.", "code": "bad  = [[0] * 3] * 2                 # one row, shown twice\ngood = [[0] * 3 for _ in range(2)]   # two separate rows\nbad[0][0] = 9    # bad is now [[9,0,0],[9,0,0]]" },
+            { "term": "list comprehension", "def": "A loop written inside brackets that builds a new list: `[expression for name in sequence]`. Add `if condition` at the end to keep only some items.", "code": "[n * 2 for n in [1, 2, 3]]            # [2, 4, 6]\n[n for n in [1, 2, 3, 4] if n > 2]    # [3, 4]" },
+            { "term": "range(n)", "def": "Produces the integers 0 up to n-1. `range(a, b)` runs from a up to b-1. Used to repeat something a set number of times.", "code": "list(range(4))      # [0, 1, 2, 3]\nlist(range(2, 5))   # [2, 3, 4]" },
+            { "term": "max(seq) and min(seq)", "def": "Return the largest and smallest item. Both raise ValueError on an empty sequence.", "code": "max([4, 9, 2])   # 9\nmin([4, 9, 2])   # 2\nmax([])          # ValueError" },
+            { "term": "sum(iterable)", "def": "Adds the items. True counts as 1 and False as 0, so summing comparisons counts how many are true.", "code": "sum([1, 2, 3])                      # 6\nsum(n == 5 for n in [5, 8, 5])      # 2" },
+            { "term": "empty sequence is false", "def": "An empty list, string or tuple counts as False in a condition. Use `if not items:` to guard against empty input.", "code": "items = []\nif not items:\n    print(\"nothing here\")" },
+            { "term": "in operator", "def": "`x in seq` is True when x is one of the items of a list, or a substring of a string.", "code": "3 in [1, 2, 3]       # True\n\"ell\" in \"hello\"      # True" },
+            { "term": "size from the largest index", "def": "Indexes start at 0, so the count of positions is the largest index plus one.", "code": "max_index = 4\ncount = max_index + 1   # 5" }
+          ]
+        },
+        {
+          "id": "tuples",
+          "title": "Tuples and unpacking",
+          "cards": [
+            { "term": "tuple", "def": "A fixed group of values in parentheses. Index it like a list, but it cannot be changed after creation.", "code": "p = (3, 1, \"#\")\np[0]   # 3" },
+            { "term": "unpacking", "def": "Naming every piece of a tuple (or list) in one statement. The number of names must match the number of items.", "code": "x, y, label = (3, 1, \"#\")" },
+            { "term": "unpack in a for loop", "def": "Put several names in the loop header to unpack each item as you go.", "code": "for name, age in [(\"Rex\", 3), (\"Tom\", 5)]:\n    print(name, age)" }
+          ]
+        },
+        {
+          "id": "control",
+          "title": "Loops and conditions",
+          "cards": [
+            { "term": "for loop", "def": "Runs the indented block once for each item of a sequence, one item at a time.", "code": "for fruit in [\"apple\", \"pear\"]:\n    print(fruit)" },
+            { "term": "nested loop", "def": "A loop inside a loop. The inner loop finishes completely for every turn of the outer loop. Use it to visit every cell of a 2D list.", "code": "for row in [[1, 2], [3, 4]]:\n    for cell in row:\n        print(cell)" },
+            { "term": "counter (accumulator) pattern", "def": "Start a variable at 0, then add to it inside a loop whenever a condition holds.", "code": "total = 0\nfor n in [5, 8, 5]:\n    if n == 5:\n        total += 1\n# total is 2" },
+            { "term": "+=", "def": "Adds to a variable in place. `x += 1` means `x = x + 1`.", "code": "x = 10\nx += 3   # 13" },
+            { "term": "= versus ==", "def": "`=` assigns a value to a name. `==` compares two values and gives True or False.", "code": "x = 5        # assign\nx == 5       # True (compare)" },
+            { "term": "early return", "def": "A `return` inside an `if` lets a function exit before the rest of its body, which handles special cases first.", "code": "def first(items):\n    if not items:\n        return None\n    return items[0]" }
+          ]
+        },
+        {
+          "id": "functions",
+          "title": "Functions",
+          "cards": [
+            { "term": "def", "def": "Defines a function: a name, parameters in parentheses, and an indented body. The body runs only when the function is called.", "code": "def add(a, b):\n    return a + b\n\nadd(2, 3)   # 5" },
+            { "term": "return", "def": "Sends a value back to whoever called the function, then ends the function. A return does not pass through a second function on its own.", "code": "def double(n):\n    return n * 2" },
+            { "term": "return None by default", "def": "A function with no `return` statement gives back None. Calling a function without using or returning its result throws the value away.", "code": "def wrapper(n):\n    double(n)           # result lost, wrapper returns None\n\ndef wrapper_ok(n):\n    return double(n)    # result passed on" },
+            { "term": "None", "def": "Python's value for \"nothing\". Often returned to signal that there is no result.", "code": "result = None" },
+            { "term": "pass", "def": "A statement that does nothing. It holds an empty function or block in place until you fill it in.", "code": "def todo():\n    pass" },
+            { "term": "decomposition", "def": "Splitting a job into small functions, each with one input type and one output type, so each can be tested alone.", "code": "def read(path): ...\ndef parse(text): ...\ndef report(rows): ..." },
+            { "term": "docstring", "def": "A string placed first in a function that states what it takes, returns and does. Shown by help().", "code": "def area(w, h):\n    \"\"\"Return the area of a w by h rectangle.\"\"\"\n    return w * h" },
+            { "term": "if __name__ == \"__main__\"", "def": "Code under this line runs only when the file is run directly, not when it is imported by another file.", "code": "if __name__ == \"__main__\":\n    main()" }
+          ]
+        },
+        {
+          "id": "strings",
+          "title": "Strings and printing",
+          "cards": [
+            { "term": "print(value)", "def": "Shows text in the terminal and ends the line. It returns None; it does not hand back a value.", "code": "print(\"hello\")" },
+            { "term": "str.join", "def": "`sep.join(list_of_strings)` returns one string with sep placed between the items. Every item must already be a string.", "code": "\"\".join([\"h\", \"i\"])      # \"hi\"\n\"-\".join([\"h\", \"i\"])     # \"h-i\"" },
+            { "term": "str(x)", "def": "Converts a value to a string. Needed before joining or gluing numbers into text.", "code": "str(42)   # \"42\"" },
+            { "term": "f-string", "def": "A string starting with `f` where `{name}` is replaced by the value of an expression.", "code": "tag = \"tr\"\nf\"<{tag}\"   # \"<tr\"" },
+            { "term": "str.count(sub)", "def": "Returns how many times sub appears in the string.", "code": "\"banana\".count(\"an\")   # 2" },
+            { "term": "str.find(sub)", "def": "Returns the index of the first match, or -1 if sub is not found.", "code": "\"hello\".find(\"l\")    # 2\n\"hello\".find(\"z\")    # -1" },
+            { "term": "str.replace(old, new)", "def": "Returns a new string with every old replaced by new. The original is unchanged.", "code": "\"a-b-c\".replace(\"-\", \" \")   # \"a b c\"" },
+            { "term": "str.strip()", "def": "Returns the string without whitespace (spaces, tabs, newlines) at both ends.", "code": "\"  hi\\n\".strip()   # \"hi\"" },
+            { "term": "isinstance(x, type)", "def": "True when x is a value of the given type.", "code": "isinstance(\"hi\", str)   # True" }
+          ]
+        },
+        {
+          "id": "errors",
+          "title": "Errors and debugging",
+          "cards": [
+            { "term": "try / except", "def": "Runs the try block line by line. If a line raises a matching error, Python skips the rest of try and jumps to except. With no error, except is skipped.", "code": "try:\n    y = 10 / x\n    print(\"ok\")\nexcept ZeroDivisionError:\n    print(\"caught\")" },
+            { "term": "return inside try", "def": "A `return` in a try block runs only if Python reaches it. If an earlier line raises, control jumps to except and that return never happens.", "code": "def safe(x):\n    try:\n        return 10 / x\n    except ZeroDivisionError:\n        return None" },
+            { "term": "catch specific errors", "def": "Name the error type in `except`. A bare `except:` hides unrelated mistakes such as typos.", "code": "except ValueError:    # good\nexcept:               # avoid" },
+            { "term": "exception hierarchy", "def": "Errors form families. Catching a parent class also catches all its children.", "code": "except OSError:   # also catches FileNotFoundError" },
+            { "term": "let an error propagate", "def": "A function that does no try/except passes its error up to its caller. Use this when the caller should decide what to do.", "code": "def load(path):\n    with open(path) as f:\n        return f.read()   # FileNotFoundError reaches the caller" },
+            { "term": "raise", "def": "Signals an error on purpose and stops the current function.", "code": "if n < 0:\n    raise ValueError(\"n must be >= 0\")" },
+            { "term": "read a traceback", "def": "Read the last line first: it names the error type and message. The lines above show the file and line number where it happened.", "code": "Traceback (most recent call last):\n  File \"app.py\", line 3, in <module>\nZeroDivisionError: division by zero" },
+            { "term": "TypeError", "def": "An operation got a value of the wrong type, such as indexing a list with a string or joining numbers.", "code": "[1, 2][\"a\"]   # TypeError" },
+            { "term": "ValueError", "def": "The type is right but the value is not acceptable, such as max of an empty list.", "code": "max([])   # ValueError" },
+            { "term": "ModuleNotFoundError", "def": "The import names a package that is not installed in the Python that is running the file.", "code": "import requests   # No module named 'requests'" },
+            { "term": "print debugging", "def": "Print a value after each step and compare it to what you expect. The first step where they differ points to the bug.", "code": "print(len(rows), rows[0])" }
+          ]
+        },
+        {
+          "id": "files",
+          "title": "Files",
+          "cards": [
+            { "term": "open(path, mode)", "def": "Opens a file. Mode \"r\" reads, \"w\" writes and replaces the contents, \"a\" appends.", "code": "f = open(\"notes.txt\", \"w\")" },
+            { "term": "with open(...) as f", "def": "Opens a file and closes it automatically when the indented block ends, even after an error.", "code": "with open(\"notes.txt\") as f:\n    text = f.read()" },
+            { "term": "f.read() and f.write(text)", "def": "read returns the whole file as one string. write puts text into a file opened for writing.", "code": "with open(\"a.txt\", \"w\", encoding=\"utf-8\") as f:\n    f.write(\"hello\\n\")" },
+            { "term": "encoding=\"utf-8\"", "def": "Tells open how text is stored. Set it explicitly so symbols and non-English characters survive, especially on Windows.", "code": "open(\"a.txt\", \"w\", encoding=\"utf-8\")" }
+          ]
+        },
+        {
+          "id": "packages",
+          "title": "Packages and environments",
+          "cards": [
+            { "term": "import", "def": "Loads a module or package so its names can be used in your file.", "code": "import math\nmath.sqrt(9)   # 3.0" },
+            { "term": "pip install", "def": "Downloads a third-party package into a specific Python. Use `python -m pip install name` so pip belongs to the same Python as `python`.", "code": "python -m pip install requests" },
+            { "term": "multiple Pythons", "def": "A computer can have several Python installs, each with its own packages. A package installed into one is invisible to the others.", "code": "py -0p   # lists installs on Windows" },
+            { "term": "sys.executable", "def": "The path of the Python that is running your code. Print it to see which install you are using.", "code": "import sys\nprint(sys.executable)" },
+            { "term": "run a script", "def": "From a terminal, `python file.py` runs a file with the Python found first on PATH. An editor's run button may use a different interpreter.", "code": "python file.py" },
+            { "term": "select an interpreter (VS Code)", "def": "Ctrl+Shift+P, then \"Python: Select Interpreter\", sets which Python the editor uses for the run button.", "code": "" }
+          ]
+        },
+        {
+          "id": "web",
+          "title": "The web and requests",
+          "cards": [
+            { "term": "client and server", "def": "The client sends a request; the server sends back a response. A script that downloads a page is a client.", "code": "" },
+            { "term": "URL", "def": "The address of a resource. Parts: scheme (https), host (example.com), path (/a/b), optional query (?q=1).", "code": "https://example.com/a/b?q=1" },
+            { "term": "HTTP GET", "def": "The request method that means \"give me this resource\". It should not change anything on the server.", "code": "" },
+            { "term": "status code", "def": "A number in the response that says what happened. 2xx succeeded, 3xx redirected, 4xx a problem with the request, 5xx a server problem.", "code": "200 OK\n404 Not Found\n500 Server Error" },
+            { "term": "HTML", "def": "The text a web page is written in. Content sits inside tags such as table, tr, td, p and a.", "code": "<table><tr><td>cell</td></tr></table>" },
+            { "term": "requests.get(url, timeout=10)", "def": "Sends a GET request and returns a Response. It does not raise for 404 or 500. Always set timeout in seconds, or a stuck server freezes the program.", "code": "r = requests.get(\"https://example.com\", timeout=10)" },
+            { "term": "Response attributes", "def": "`.status_code` is the integer code, `.text` is the body as a string, `.headers` holds extra information such as Content-Type.", "code": "r.status_code   # 200\nr.text          # the page body\nr.headers[\"Content-Type\"]" },
+            { "term": "raise_for_status()", "def": "Does nothing for 2xx responses. Raises requests.HTTPError for 4xx and 5xx. Call it right after the request.", "code": "r = requests.get(url, timeout=10)\nr.raise_for_status()" },
+            { "term": "requests.RequestException", "def": "The parent of every error requests raises (HTTPError, ConnectionError, Timeout, bad URL). Catch it to handle all network failures in one place.", "code": "try:\n    r = requests.get(url, timeout=10)\nexcept requests.RequestException:\n    r = None" },
+            { "term": "pages behind a login", "def": "A script is logged out. A page that needs sign-in returns a login page, not the data. Check the status code and look for expected content.", "code": "\"Sign in\" in r.text" },
+            { "term": "inspect before you parse", "def": "Save fetched HTML to a file or print a slice of it, so you can see its structure before writing code to read it.", "code": "print(r.text[:300])" }
+          ]
+        }
+      ]
+    }
+  ]
+}
