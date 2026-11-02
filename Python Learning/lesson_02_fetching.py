@@ -252,68 +252,10 @@ def status_of(url):
 
 
 # =============================================================================
-# TESTS (do not edit below this line)
+# CHECK YOUR WORK
 # =============================================================================
-_results = []
-
-
-def _check(name, func):
-    try:
-        ok = func()
-    except Exception as e:
-        ok = False
-        name = f"{name}  [{type(e).__name__}: {e}]"
-    _results.append((name, bool(ok)))
-
-
-def _t1():
-    page = fetch_html("https://example.com")
-    if not isinstance(page, str) or "Example Domain" not in page:
-        return False
-    try:
-        fetch_html("https://example.com/this-page-does-not-exist")
-    except requests.HTTPError:
-        return True
-    return False
-
-
-def _t2():
-    return (safe_fetch("not a url") is None
-            and safe_fetch("http://localhost:9/") is None
-            and "Example Domain" in (safe_fetch("https://example.com") or ""))
-
-
-def _t3():
-    import os
-    path = "_test_out.txt"
-    save_text("block █ ok\n", path)
-    with open(path, "r", encoding="utf-8") as f:
-        got = f.read()
-    os.remove(path)
-    return got == "block █ ok\n"
-
-
-def _t4():
-    html = '<table><tr><td>a</td></tr><tr class="x"><td>b</td></tr></table>'
-    return (count_tag(html, "tr") == 2
-            and count_tag(html, "td") == 2
-            and count_tag(html, "p") == 0)
-
-
-def _t5():
-    return (status_of("https://example.com") == 200
-            and status_of("https://example.com/this-page-does-not-exist") == 404
-            and status_of("not a url") is None)
-
-
-if __name__ == "__main__":
-    _check("Exercise 1  fetch_html", _t1)
-    _check("Exercise 2  safe_fetch", _t2)
-    _check("Exercise 3  save_text", _t3)
-    _check("Exercise 4  count_tag", _t4)
-    _check("Exercise 5  status_of", _t5)
-
-    print("\n--- TEST REPORT ---")
-    for name, ok in _results:
-        print(("PASS  " if ok else "FAIL  ") + name)
-    print(f"{sum(ok for _, ok in _results)}/{len(_results)} passed")
+# Tests live in check_lesson_02.py. Run one exercise at a time to see the exact
+# input, the expected result and what your function returned:
+#
+#   python check_lesson_02.py 2        (full detail for exercise 2)
+#   python check_lesson_02.py          (summary of all exercises)

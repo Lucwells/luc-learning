@@ -6,3 +6,7 @@ dist/
 
 # personal job search workspace (resumes, tracker, notes): local only
 jobsearch/
+
+# python lesson byproducts
+__pycache__/
+Python Learning/_scratch.txt
