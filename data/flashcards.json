@@ -15,6 +15,8 @@
             { "term": "list", "def": "An ordered collection of items in square brackets. Items can be changed after creation.", "code": "letters = [\"a\", \"b\", \"c\"]" },
             { "term": "indexing", "def": "Reading one item by its position. Positions start at 0. A negative index counts from the end.", "code": "letters = [\"a\", \"b\", \"c\"]\nletters[0]    # \"a\"\nletters[-1]   # \"c\"" },
             { "term": "assign to an index", "def": "Replace the item at a position with `list[i] = value`.", "code": "letters = [\"a\", \"b\", \"c\"]\nletters[1] = \"Z\"   # [\"a\", \"Z\", \"c\"]" },
+            { "term": "list.append(x)", "def": "Adds one item to the end of a list, in place. Returns None. Use it to collect results inside a loop.", "code": "result = []\nfor n in [1, 2, 3]:\n    result.append(n * 2)\n# result is [2, 4, 6]" },
+            { "term": "collecting results in a loop", "def": "Create the empty list BEFORE the loop and append inside it. Assigning with `=` inside the loop replaces the variable each turn, so only the last value survives.", "code": "# bug: keeps only the last\nfor n in [1, 2, 3]:\n    out = [n]          # out is [3]\n\n# fix: keeps all\nout = []\nfor n in [1, 2, 3]:\n    out.append(n)      # out is [1, 2, 3]" },
             { "term": "len(x)", "def": "Returns how many items a list holds, or how many characters a string holds.", "code": "len([4, 5, 6])   # 3\nlen(\"hello\")     # 5" },
             { "term": "2D list (list of lists)", "def": "A list whose items are lists. The first index picks the inner list, the second picks the item inside it.", "code": "t = [[1, 2, 3], [4, 5, 6]]\nt[1][2]    # 6  (list 1, item 2)\nlen(t)     # 2  (number of inner lists)\nlen(t[0])  # 3  (items in the first inner list)" },
             { "term": "slicing", "def": "`seq[start:stop]` returns a new sequence from start up to, but not including, stop. A missing start means the beginning; a missing stop means the end.", "code": "[10, 20, 30, 40][1:3]   # [20, 30]\n\"hello\"[:2]              # \"he\"" },
@@ -36,7 +38,8 @@
           "title": "Tuples and unpacking",
           "cards": [
             { "term": "tuple", "def": "A fixed group of values in parentheses. Index it like a list, but it cannot be changed after creation.", "code": "p = (3, 1, \"#\")\np[0]   # 3" },
-            { "term": "unpacking", "def": "Naming every piece of a tuple (or list) in one statement. The number of names must match the number of items.", "code": "x, y, label = (3, 1, \"#\")" },
+            { "term": "tuple(x)", "def": "Converts a list to a tuple. To mix converted values, build the tuple directly in parentheses instead. `list(t)` goes the other way.", "code": "tuple([1, 2, 3])        # (1, 2, 3)\nrow = [\"Ana\", \"31\"]\n(row[0], int(row[1]))   # (\"Ana\", 31)" },
+            { "term": "unpacking","def": "Naming every piece of a tuple (or list) in one statement. The number of names must match the number of items.", "code": "x, y, label = (3, 1, \"#\")" },
             { "term": "unpack in a for loop", "def": "Put several names in the loop header to unpack each item as you go.", "code": "for name, age in [(\"Rex\", 3), (\"Tom\", 5)]:\n    print(name, age)" }
           ]
         },
@@ -49,6 +52,10 @@
             { "term": "counter (accumulator) pattern", "def": "Start a variable at 0, then add to it inside a loop whenever a condition holds.", "code": "total = 0\nfor n in [5, 8, 5]:\n    if n == 5:\n        total += 1\n# total is 2" },
             { "term": "+=", "def": "Adds to a variable in place. `x += 1` means `x = x + 1`.", "code": "x = 10\nx += 3   # 13" },
             { "term": "= versus ==", "def": "`=` assigns a value to a name. `==` compares two values and gives True or False.", "code": "x = 5        # assign\nx == 5       # True (compare)" },
+            { "term": "continue", "def": "Skips the rest of the loop body and jumps to the next item. Use it to ignore items that fail a check.", "code": "for row in rows:\n    if len(row) != 3:\n        continue\n    use(row)" },
+            { "term": "is None", "def": "Test for None with `is None`. Do not write `if not x` for this: 0, an empty string and an empty list are also false, so valid values would be rejected.", "code": "n = to_number(\"0\")   # 0\nif n is None:        # correct: 0 is not None\n    skip()" },
+            { "term": "dict", "def": "A collection of key: value pairs in braces. Read with `d[key]`, set or add with `d[key] = value`. Reading a missing key raises KeyError.", "code": "ages = {\"Ana\": 31}\nages[\"Bo\"] = 27\nages[\"Ana\"]   # 31" },
+            { "term": "validate before use", "def": "Check the shape and type of data before relying on it (length, convertible to a number, not None), and skip bad items instead of crashing.", "code": "if len(row) == 3 and to_number(row[1]) is not None:\n    keep(row)" },
             { "term": "early return", "def": "A `return` inside an `if` lets a function exit before the rest of its body, which handles special cases first.", "code": "def first(items):\n    if not items:\n        return None\n    return items[0]" }
           ]
         },
@@ -92,6 +99,8 @@
             { "term": "let an error propagate", "def": "A function that does no try/except passes its error up to its caller. Use this when the caller should decide what to do.", "code": "def load(path):\n    with open(path) as f:\n        return f.read()   # FileNotFoundError reaches the caller" },
             { "term": "raise", "def": "Signals an error on purpose and stops the current function.", "code": "if n < 0:\n    raise ValueError(\"n must be >= 0\")" },
             { "term": "read a traceback", "def": "Read the last line first: it names the error type and message. The lines above show the file and line number where it happened.", "code": "Traceback (most recent call last):\n  File \"app.py\", line 3, in <module>\nZeroDivisionError: division by zero" },
+            { "term": "int(text)", "def": "Converts a string to an integer. Surrounding spaces are allowed. Raises ValueError for \"3.5\", \"abc\" and \"\". To convert safely, catch ValueError and return None.", "code": "def to_number(text):\n    try:\n        return int(text)\n    except ValueError:\n        return None" },
+            { "term": "AttributeError", "def": "You used a method or attribute the object does not have. Common causes: the value is a list instead of one item, or it is None.", "code": "[1, 2].upper()        # AttributeError: a list has no upper\nNone.find_all(\"td\")   # AttributeError: None has no find_all" },
             { "term": "TypeError", "def": "An operation got a value of the wrong type, such as indexing a list with a string or joining numbers.", "code": "[1, 2][\"a\"]   # TypeError" },
             { "term": "ValueError", "def": "The type is right but the value is not acceptable, such as max of an empty list.", "code": "max([])   # ValueError" },
             { "term": "ModuleNotFoundError", "def": "The import names a package that is not installed in the Python that is running the file.", "code": "import requests   # No module named 'requests'" },
@@ -118,6 +127,22 @@
             { "term": "sys.executable", "def": "The path of the Python that is running your code. Print it to see which install you are using.", "code": "import sys\nprint(sys.executable)" },
             { "term": "run a script", "def": "From a terminal, `python file.py` runs a file with the Python found first on PATH. An editor's run button may use a different interpreter.", "code": "python file.py" },
             { "term": "select an interpreter (VS Code)", "def": "Ctrl+Shift+P, then \"Python: Select Interpreter\", sets which Python the editor uses for the run button.", "code": "" }
+          ]
+        },
+        {
+          "id": "html",
+          "title": "Parsing HTML (BeautifulSoup)",
+          "cards": [
+            { "term": "HTML table tags", "def": "`table` is the whole table, `tr` is a row, `th` is a header cell, `td` is a data cell. Cells sit inside rows, rows inside the table.", "code": "<table>\n  <tr><th>Name</th></tr>\n  <tr><td>Ana</td></tr>\n</table>" },
+            { "term": "BeautifulSoup(html, \"html.parser\")", "def": "Parses an HTML string into a tree you can search. Install the package beautifulsoup4 and import it from bs4.", "code": "from bs4 import BeautifulSoup\nsoup = BeautifulSoup(html, \"html.parser\")" },
+            { "term": "find(name)", "def": "Returns the FIRST matching tag, or None if there is no match. Calling a method on the None result raises AttributeError.", "code": "table = soup.find(\"table\")" },
+            { "term": "find_all(name)", "def": "Returns a list-like of ALL matching tags, empty if none. Pass a list of names to match any of them. Can be called on the soup or on any tag, and searches inside it at any depth.", "code": "soup.find_all(\"td\")\nrow.find_all([\"td\", \"th\"])" },
+            { "term": "one tag versus a list of tags", "def": "`find` gives one tag. `find_all` gives a list. Methods such as `get_text` and `find_all` work on one tag, so loop over the list first.", "code": "rows = soup.find_all(\"tr\")   # list\nfor tr in rows:               # tr is ONE tag\n    tr.find_all(\"td\")" },
+            { "term": "tag.get_text(strip=True)", "def": "Returns the text inside one tag, including text in nested tags, with spaces trimmed from the ends. The result is always a string, even if it looks like a number.", "code": "tag.get_text(strip=True)   # \"31\", a str" },
+            { "term": "convert tags to text", "def": "A list comprehension over find_all turns tags into strings.", "code": "[td.get_text(strip=True) for td in soup.find_all(\"td\")]" },
+            { "term": "tag.get(attribute)", "def": "Returns the value of an attribute such as href or class, or None if the tag does not have it.", "code": "link.get(\"href\")" },
+            { "term": "non-breaking space", "def": "Web pages can contain a space character (\\xa0) that looks normal but is different. Python's `strip()` removes it, so strip cell text before comparing or converting.", "code": "\"\\xa0 hi \\xa0\".strip()   # \"hi\"" },
+            { "term": "skip a header row", "def": "The first table row is usually labels. Slice it off with `rows[1:]`.", "code": "data_rows = rows[1:]" }
           ]
         },
         {

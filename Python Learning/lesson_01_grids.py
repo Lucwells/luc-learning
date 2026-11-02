@@ -309,60 +309,10 @@ def count_chars(grid, char):
 
 
 # =============================================================================
-# TESTS (do not edit below this line)
+# CHECK YOUR WORK
 # =============================================================================
-_results = []
-
-
-def _check(name, func):
-    try:
-        ok = func()
-    except Exception as e:           # unfinished stubs often raise errors
-        ok = False
-        name = f"{name}  [{type(e).__name__}: {e}]"
-    _results.append((name, bool(ok)))
-
-
-def _t1():
-    g = make_grid(3, 2)
-    if g != [[" ", " ", " "], [" ", " ", " "]]:
-        return False
-    g[0][0] = "X"
-    return g[1][0] == " "              # rows must be independent
-
-
-def _t2():
-    import io
-    import contextlib
-    buf = io.StringIO()
-    with contextlib.redirect_stdout(buf):
-        print_grid([["a", "b"], ["c", "d"]])
-    return buf.getvalue() == "ab\ncd\n"
-
-
-def _t3():
-    pts = [(0, 0, "#"), (2, 1, "#"), (1, 1, "@")]
-    return build_grid(pts) == [["#", " ", " "], [" ", "@", "#"]]
-
-
-def _t5():
-    return (get_size([(0, 0, "a"), (4, 2, "b")]) == (5, 3)
-            and get_size([]) == (0, 0))
-
-
-def _t6():
-    g = [["#", " "], ["#", "#"]]
-    return count_chars(g, "#") == 3 and count_chars(g, "z") == 0
-
-
-if __name__ == "__main__":
-    _check("Exercise 1  make_grid", _t1)
-    _check("Exercise 2  print_grid", _t2)
-    _check("Exercise 3  build_grid", _t3)
-    _check("Exercise 5  get_size", _t5)
-    _check("Exercise 6  count_chars", _t6)
-
-    print("\n--- TEST REPORT ---")
-    for name, ok in _results:
-        print(("PASS  " if ok else "FAIL  ") + name)
-    print(f"{sum(ok for _, ok in _results)}/{len(_results)} passed")
+# Tests live in check_lesson_01.py. Run one exercise at a time to see the exact
+# input, the expected result and what your function returned:
+#
+#   python check_lesson_01.py 2        (full detail for exercise 2)
+#   python check_lesson_01.py          (summary of all exercises)
